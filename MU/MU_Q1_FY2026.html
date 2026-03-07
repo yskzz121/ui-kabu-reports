@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MU（マイクロン・テクノロジー）Q1 FY2026 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #0d1117;
+  color: #c9d1d9;
+  line-height: 1.6;
+  padding: 20px;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+  border: 1px solid #30363d;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+.header .ticker {
+  font-size: 14px;
+  color: #8b949e;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.header h1 {
+  font-size: 32px;
+  font-weight: 900;
+  color: #f0f6fc;
+  margin: 8px 0;
+}
+.header .subtitle {
+  font-size: 16px;
+  color: #8b949e;
+}
+.header .date {
+  font-size: 13px;
+  color: #6e7681;
+  margin-top: 8px;
+}
+
+/* Score Card */
+.score-section {
+  background: linear-gradient(135deg, #1a2332 0%, #0d1117 100%);
+  border: 2px solid #2ea043;
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.score-icon { font-size: 64px; margin-bottom: 8px; }
+.score-label {
+  font-size: 28px;
+  font-weight: 900;
+  color: #2ea043;
+}
+.score-number {
+  font-size: 80px;
+  font-weight: 900;
+  color: #f0f6fc;
+  line-height: 1;
+  margin: 8px 0;
+}
+.score-desc {
+  font-size: 16px;
+  color: #8b949e;
+  max-width: 600px;
+  margin: 12px auto 0;
+}
+
+/* Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 24px;
+}
+.card-title {
+  font-size: 12px;
+  color: #8b949e;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #f0f6fc;
+}
+.card-sub {
+  font-size: 13px;
+  margin-top: 4px;
+}
+.positive { color: #2ea043; }
+.negative { color: #f85149; }
+.neutral { color: #8b949e; }
+
+/* Section */
+.section {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f0f6fc;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #30363d;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th, .data-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #21262d;
+  font-size: 14px;
+}
+.data-table th {
+  color: #8b949e;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.data-table td { color: #c9d1d9; }
+
+/* Chart Container */
+.chart-container {
+  position: relative;
+  height: 320px;
+  margin: 16px 0;
+}
+
+/* Two Column */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+/* Valuation Cards */
+.val-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .val-grid { grid-template-columns: 1fr; }
+}
+.val-card {
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+.val-low {
+  background: linear-gradient(135deg, #0d2818 0%, #161b22 100%);
+  border: 1px solid #2ea043;
+}
+.val-mid {
+  background: linear-gradient(135deg, #0d1b2e 0%, #161b22 100%);
+  border: 1px solid #388bfd;
+}
+.val-high {
+  background: linear-gradient(135deg, #2d1226 0%, #161b22 100%);
+  border: 1px solid #bc4c9c;
+}
+.val-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.val-price {
+  font-size: 36px;
+  font-weight: 900;
+  color: #f0f6fc;
+}
+.val-detail {
+  font-size: 13px;
+  color: #8b949e;
+  margin-top: 8px;
+}
+
+/* Highlight Box */
+.highlight-box {
+  background: #1c2128;
+  border-left: 3px solid #388bfd;
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+/* Tag */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 2px 4px 2px 0;
+}
+.tag-green { background: #0d2818; color: #2ea043; border: 1px solid #2ea043; }
+.tag-red { background: #2d1216; color: #f85149; border: 1px solid #f85149; }
+.tag-blue { background: #0d1b2e; color: #388bfd; border: 1px solid #388bfd; }
+
+/* List */
+.insight-list { list-style: none; padding: 0; }
+.insight-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #21262d;
+  font-size: 14px;
+}
+.insight-list li:last-child { border-bottom: none; }
+.insight-list li::before {
+  content: "▸ ";
+  color: #388bfd;
+}
+
+/* Comparison */
+.compare-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #21262d;
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-label { color: #8b949e; font-size: 14px; flex: 1; }
+.compare-val { font-weight: 700; font-size: 16px; text-align: right; min-width: 100px; }
+.compare-arrow { font-size: 20px; margin: 0 16px; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px;
+  color: #6e7681;
+  font-size: 12px;
+  margin-top: 24px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="ticker">NASDAQ: MU</div>
+  <h1>Micron Technology, Inc.</h1>
+  <div class="subtitle">Q1 FY2026 決算分析レポート（2025年9月〜11月期）</div>
+  <div class="date">分析日: 2026年3月7日 ｜ 発表日: 2025年12月17日</div>
+</div>
+
+<!-- Score -->
+<div class="score-section">
+  <div class="score-icon">🚀</div>
+  <div class="score-number">5<span style="font-size:32px; color:#8b949e;"> / 5</span></div>
+  <div class="score-label">素晴らしい決算</div>
+  <div class="score-desc">
+    売上・EPSともに大幅ビート。Q2ガイダンスはコンセンサスを大きく上回る記録的水準。
+    AI/HBM需要の爆発的拡大により、売上+57% YoY・粗利率56.8%と成長加速が鮮明。
+  </div>
+</div>
+
+<!-- Key Metrics -->
+<div class="card-grid">
+  <div class="card">
+    <div class="card-title">売上高</div>
+    <div class="card-value">$13.64B</div>
+    <div class="card-sub positive">+56.6% YoY ｜ +20.5% QoQ</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Non-GAAP EPS</div>
+    <div class="card-value">$4.78</div>
+    <div class="card-sub positive">+167% YoY ｜ +57.8% QoQ</div>
+  </div>
+  <div class="card">
+    <div class="card-title">売上ビート</div>
+    <div class="card-value positive">+$440M</div>
+    <div class="card-sub positive">コンセンサス$13.2B → 実績$13.64B（+3.3%）</div>
+  </div>
+  <div class="card">
+    <div class="card-title">EPSビート</div>
+    <div class="card-value positive">+$0.87</div>
+    <div class="card-sub positive">コンセンサス$3.91 → 実績$4.78（+22.3%）</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Non-GAAP 粗利益率</div>
+    <div class="card-value">56.8%</div>
+    <div class="card-sub positive">前四半期 ~46% → +11pp QoQ</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Non-GAAP 営業利益率</div>
+    <div class="card-value">47.0%</div>
+    <div class="card-sub positive">+12pp QoQ ｜ +20pp YoY</div>
+  </div>
+  <div class="card">
+    <div class="card-title">フリーキャッシュフロー</div>
+    <div class="card-value">$3.9B</div>
+    <div class="card-sub positive">四半期過去最高（OCF $8.4B - CapEx $4.5B）</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Q2 FY2026 ガイダンス</div>
+    <div class="card-value positive">$18.7B</div>
+    <div class="card-sub positive">EPS $8.42 ｜ 粗利率 68% ← 記録的水準</div>
+  </div>
+</div>
+
+<!-- Revenue Chart -->
+<div class="section">
+  <div class="section-title">売上高推移（直近7四半期）</div>
+  <div class="chart-container">
+    <canvas id="revenueChart"></canvas>
+  </div>
+</div>
+
+<!-- EPS Chart -->
+<div class="section">
+  <div class="section-title">Non-GAAP EPS推移（直近7四半期）</div>
+  <div class="chart-container">
+    <canvas id="epsChart"></canvas>
+  </div>
+</div>
+
+<!-- Margin Trends -->
+<div class="section">
+  <div class="section-title">利益率トレンド</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>指標</th>
+        <th>Q1 FY2026</th>
+        <th>Q4 FY2025</th>
+        <th>Q1 FY2025</th>
+        <th>YoY変化</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Non-GAAP 粗利益率</td>
+        <td style="color:#f0f6fc; font-weight:700;">56.8%</td>
+        <td>~50%</td>
+        <td>~36%</td>
+        <td class="positive">+20.8pp</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP 営業利益率</td>
+        <td style="color:#f0f6fc; font-weight:700;">47.0%</td>
+        <td>~35%</td>
+        <td>~27%</td>
+        <td class="positive">+20pp</td>
+      </tr>
+      <tr>
+        <td>GAAP EPS</td>
+        <td style="color:#f0f6fc; font-weight:700;">$4.60</td>
+        <td>$2.83</td>
+        <td>$1.67</td>
+        <td class="positive">+175%</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP EPS</td>
+        <td style="color:#f0f6fc; font-weight:700;">$4.78</td>
+        <td>$3.03</td>
+        <td>$1.79</td>
+        <td class="positive">+167%</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="highlight-box" style="margin-top: 16px;">
+    Q2 FY2026ガイダンスでは粗利率68%（±100bps）を見込む。HBMミックス改善と価格上昇が主因。
+    Non-GAAP営業利益率もさらに拡大する見通し。
+  </div>
+</div>
+
+<!-- Cash Flow -->
+<div class="section">
+  <div class="section-title">キャッシュフロー（Q1 FY2026）</div>
+  <div class="card-grid" style="margin-bottom:0;">
+    <div class="card" style="border-color:#2ea043;">
+      <div class="card-title">営業キャッシュフロー</div>
+      <div class="card-value positive">$8.4B</div>
+    </div>
+    <div class="card" style="border-color:#f85149;">
+      <div class="card-title">投資キャッシュフロー（CapEx）</div>
+      <div class="card-value negative">-$4.5B</div>
+    </div>
+    <div class="card" style="border-color:#388bfd;">
+      <div class="card-title">フリーキャッシュフロー</div>
+      <div class="card-value" style="color:#388bfd;">$3.9B</div>
+      <div class="card-sub positive">四半期過去最高（FQ4 2018の記録を20%超上回る）</div>
+    </div>
+  </div>
+</div>
+
+<!-- Segment Analysis -->
+<div class="section">
+  <div class="section-title">部門別売上構成（Q1 FY2026）</div>
+  <div class="two-col">
+    <div>
+      <h3 style="color:#f0f6fc; font-size:15px; margin-bottom:12px;">ビジネスユニット別</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>セグメント</th><th>売上</th><th>YoY</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cloud Memory</td>
+            <td style="font-weight:700;">$5.3B</td>
+            <td class="positive">+100%</td>
+          </tr>
+          <tr>
+            <td>Mobile & Client</td>
+            <td style="font-weight:700;">$4.3B</td>
+            <td class="positive">+63%</td>
+          </tr>
+          <tr>
+            <td>Core Data Center</td>
+            <td style="font-weight:700;">$2.4B</td>
+            <td class="positive">+4%</td>
+          </tr>
+          <tr>
+            <td>Automotive & Embedded</td>
+            <td style="font-weight:700;">$1.7B</td>
+            <td class="positive">+49%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="color:#f0f6fc; font-size:15px; margin-bottom:12px;">製品カテゴリ別</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>製品</th><th>売上</th><th>構成比</th><th>YoY</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DRAM</td>
+            <td style="font-weight:700;">$10.8B</td>
+            <td>79%</td>
+            <td class="positive">+69%</td>
+          </tr>
+          <tr>
+            <td>NAND</td>
+            <td style="font-weight:700;">$2.7B</td>
+            <td>20%</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>その他</td>
+            <td style="font-weight:700;">~$0.14B</td>
+            <td>1%</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="chart-container" style="height:220px; margin-top:16px;">
+        <canvas id="segmentChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Consensus Comparison -->
+<div class="section">
+  <div class="section-title">コンセンサス比較</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>ビート率</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>売上高</td>
+        <td>$13.20B</td>
+        <td style="font-weight:700; color:#f0f6fc;">$13.64B</td>
+        <td class="positive">+$440M</td>
+        <td class="positive">+3.3%</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP EPS</td>
+        <td>$3.91</td>
+        <td style="font-weight:700; color:#f0f6fc;">$4.78</td>
+        <td class="positive">+$0.87</td>
+        <td class="positive">+22.3%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="color:#f0f6fc; font-size:15px; margin: 20px 0 12px;">ガイダンス vs コンセンサス（Q2 FY2026）</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>指標</th><th>ガイダンス</th><th>備考</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>売上高</td>
+        <td style="font-weight:700; color:#2ea043;">$18.7B ±$400M</td>
+        <td class="positive">前四半期比 +37%、コンセンサス大幅上回る</td>
+      </tr>
+      <tr>
+        <td>粗利益率</td>
+        <td style="font-weight:700; color:#2ea043;">68% ±100bps</td>
+        <td class="positive">+11pp QoQ、記録的水準</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP EPS</td>
+        <td style="font-weight:700; color:#2ea043;">$8.42 ±$0.20</td>
+        <td class="positive">+76% QoQ、驚異的な利益成長</td>
+      </tr>
+      <tr>
+        <td>OpEx</td>
+        <td style="font-weight:700;">~$1.38B ±$20M</td>
+        <td>費用コントロール良好</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Management Comments -->
+<div class="section">
+  <div class="section-title">経営陣コメントハイライト</div>
+
+  <div class="highlight-box" style="border-left-color:#2ea043;">
+    <strong style="color:#2ea043;">CEO サンジェイ・メヘロトラ</strong><br>
+    「FY2026は売上高・粗利益率・EPS・FCFのすべてで記録を更新する見通し。
+    HBMのTAMは2025年の約$35Bから2028年には約$100Bへ成長すると予測しており、
+    この$100Bマイルストーンは当初予想より2年前倒し。」
+  </div>
+
+  <div class="highlight-box" style="border-left-color:#388bfd; margin-top:12px;">
+    <strong style="color:#388bfd;">HBM戦略</strong><br>
+    「2026年暦年のHBM供給は完売済み。価格・数量の合意も完了。
+    唯一のアメリカ系HBMサプライヤーとして、NVIDIAとの新たなAIインフラ製品で協業拡大。
+    HBM4のサンプル出荷を開始し、ファウンドリパートナーとHBM4E開発を推進中。」
+  </div>
+
+  <div class="highlight-box" style="border-left-color:#bc4c9c; margin-top:12px;">
+    <strong style="color:#bc4c9c;">市場環境</strong><br>
+    「2026年はDRAM・NANDともに需要が供給を上回る状況。サーバー需要の強さは2026年も継続見通し。
+    価格上昇・コスト低減・有利なミックスがQ2の粗利率68%への押し上げ要因。」
+  </div>
+</div>
+
+<!-- Risk & Catalysts -->
+<div class="section">
+  <div class="section-title">リスク・注目ポイント / カタリスト</div>
+  <div class="two-col">
+    <div>
+      <h3 style="color:#f85149; font-size:14px; margin-bottom:12px;">リスク要因</h3>
+      <ul class="insight-list">
+        <li>メモリ市場の循環性 — 過去にも急激な価格下落サイクルを経験。2027年に価格軟化の可能性</li>
+        <li>HBM市場でSK hynix（57%シェア）に大差。Samsung巻き返しのリスク</li>
+        <li>AI設備投資の減速リスク — ハイパースケーラーの投資計画変更の可能性</li>
+        <li>地政学リスク — 米中対立、対中輸出規制の影響</li>
+        <li>巨額CapEx（$4.5B/四半期）の投資回収リスク</li>
+        <li>株価の急騰（52週安値$61.54 → 現在$397）— バリュエーション調整リスク</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:#2ea043; font-size:14px; margin-bottom:12px;">ポジティブカタリスト</h3>
+      <ul class="insight-list">
+        <li>HBM TAM CAGR ~40%（2028年まで）。唯一の米国系HBMサプライヤーの地位</li>
+        <li>Q2ガイダンスが驚異的（売上$18.7B、EPS $8.42）— さらなる上方修正の可能性</li>
+        <li>メモリ供給不足の継続（DRAM供給成長率16%、NAND 17%と歴史的低水準）</li>
+        <li>DRAM価格がQoQ +90-95%上昇。ピーク価格は2026年中後半の見通し</li>
+        <li>AI向けメモリ需要拡大 — 2026年にはNANDビットの5分の1がAI用途に</li>
+        <li>取締役によるインサイダー購入（$7.8M）が経営への自信を示唆</li>
+        <li>HBM4サンプル出荷開始 — 次世代製品での競争力強化</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Previous Quarter Comparison -->
+<div class="section">
+  <div class="section-title">前回決算との比較サマリー</div>
+  <div style="display:flex; align-items:center; justify-content:center; gap:40px; margin:20px 0;">
+    <div style="text-align:center;">
+      <div style="color:#8b949e; font-size:13px;">Q4 FY2025</div>
+      <div style="font-size:48px; font-weight:900; color:#f0f6fc;">4</div>
+      <div style="color:#2ea043; font-size:14px;">📈 良い決算</div>
+    </div>
+    <div style="font-size:40px; color:#2ea043;">→</div>
+    <div style="text-align:center;">
+      <div style="color:#8b949e; font-size:13px;">Q1 FY2026</div>
+      <div style="font-size:48px; font-weight:900; color:#2ea043;">5</div>
+      <div style="color:#2ea043; font-size:14px;">🚀 素晴らしい決算</div>
+    </div>
+  </div>
+  <div style="text-align:center; margin-bottom:16px;">
+    <span class="tag tag-green">トレンド: 改善 ↑</span>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>指標</th><th>Q4 FY2025</th><th>Q1 FY2026</th><th>変化</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>売上高</td>
+        <td>$11.32B</td>
+        <td style="font-weight:700; color:#f0f6fc;">$13.64B</td>
+        <td class="positive">+20.5%</td>
+      </tr>
+      <tr>
+        <td>Non-GAAP EPS</td>
+        <td>$3.03</td>
+        <td style="font-weight:700; color:#f0f6fc;">$4.78</td>
+        <td class="positive">+57.8%</td>
+      </tr>
+      <tr>
+        <td>粗利益率</td>
+        <td>~50%</td>
+        <td style="font-weight:700; color:#f0f6fc;">56.8%</td>
+        <td class="positive">+~7pp</td>
+      </tr>
+      <tr>
+        <td>営業利益率</td>
+        <td>~35%</td>
+        <td style="font-weight:700; color:#f0f6fc;">47.0%</td>
+        <td class="positive">+~12pp</td>
+      </tr>
+      <tr>
+        <td>FCF</td>
+        <td>$0.8B</td>
+        <td style="font-weight:700; color:#f0f6fc;">$3.9B</td>
+        <td class="positive">+387%</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>主要変化要因:</strong> HBM需要の急拡大によるDRAM価格高騰、AI向けミックス改善、
+    供給制約による強い価格環境。Q4 FY2025から全指標で大幅改善し、スコアを4→5に引き上げ。
+  </div>
+</div>
+
+<!-- Valuation -->
+<div class="section">
+  <div class="section-title">バリュエーション（想定株価 3シナリオ）</div>
+
+  <div style="text-align:center; margin-bottom:20px;">
+    <span style="color:#8b949e; font-size:14px;">現在株価:</span>
+    <span style="font-size:28px; font-weight:700; color:#f0f6fc; margin:0 8px;">$397</span>
+    <span style="color:#8b949e; font-size:14px;">（2026年3月6日終値）</span>
+  </div>
+
+  <div class="val-grid">
+    <div class="val-card val-low">
+      <div class="val-label" style="color:#2ea043;">LOW（保守的）</div>
+      <div class="val-price">$297</div>
+      <div class="val-detail">
+        Forward EPS: $33<br>
+        予想PER: 9.0x<br>
+        <span class="negative">現在株価比 -25.2%</span>
+      </div>
+    </div>
+    <div class="val-card val-mid">
+      <div class="val-label" style="color:#388bfd;">MID（基本）</div>
+      <div class="val-price">$429</div>
+      <div class="val-detail">
+        Forward EPS: $39<br>
+        予想PER: 11.0x<br>
+        <span class="positive">現在株価比 +8.1%</span>
+      </div>
+    </div>
+    <div class="val-card val-high">
+      <div class="val-label" style="color:#bc4c9c;">HIGH（楽観的）</div>
+      <div class="val-price">$644</div>
+      <div class="val-detail">
+        Forward EPS: $46<br>
+        予想PER: 14.0x<br>
+        <span class="positive">現在株価比 +62.2%</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <span class="tag tag-blue" style="font-size:14px; padding:6px 16px;">
+      MID乖離率 +8.1% → 判定: 適正
+    </span>
+  </div>
+  <div class="highlight-box" style="margin-top:16px;">
+    <strong>算出根拠:</strong> Forward EPSはFY2026通期のアナリストコンセンサスを基準に使用。
+    Trailing PER 39.12x / Forward PER 10.24xの乖離が示す通り、急速な利益拡大局面。
+    メモリ産業の循環性を考慮し、PERは半導体サイクルの過去レンジ（8x〜15x）で設定。
+    HIGHシナリオはAIスーパーサイクルのプレミアムを反映。
+  </div>
+</div>
+
+<!-- Stock & Sentiment -->
+<div class="section">
+  <div class="section-title">株価・センチメント</div>
+  <div class="card-grid" style="margin-bottom:16px;">
+    <div class="card">
+      <div class="card-title">現在株価</div>
+      <div class="card-value">$397.05</div>
+      <div class="card-sub neutral">時価総額: $451B</div>
+    </div>
+    <div class="card">
+      <div class="card-title">52週レンジ</div>
+      <div class="card-value" style="font-size:20px;">$61.54 - $455.48</div>
+      <div class="card-sub neutral">現在は52週高値の87%水準</div>
+    </div>
+    <div class="card">
+      <div class="card-title">アナリスト評価</div>
+      <div class="card-value positive" style="font-size:20px;">Strong Buy</div>
+      <div class="card-sub neutral">Buy 35 / Hold 4 / Sell 2</div>
+    </div>
+    <div class="card">
+      <div class="card-title">目標株価（平均）</div>
+      <div class="card-value">$349 - $426</div>
+      <div class="card-sub neutral">Low $84 / High $550（Stifel）</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="color:#f0f6fc; font-size:14px; margin-bottom:12px;">テクニカル指標</h3>
+      <table class="data-table">
+        <tbody>
+          <tr><td>RSI (14)</td><td style="font-weight:700;">57.31（中立）</td></tr>
+          <tr><td>50日移動平均線</td><td class="positive">$313.73（上方）</td></tr>
+          <tr><td>100日移動平均線</td><td class="positive">$258.16（上方）</td></tr>
+          <tr><td>200日移動平均線</td><td class="positive">$184.53（上方）</td></tr>
+          <tr><td>レジスタンス</td><td>$436 / $455.50</td></tr>
+          <tr><td>総合シグナル</td><td class="positive">Strong Buy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="color:#f0f6fc; font-size:14px; margin-bottom:12px;">インサイダー動向</h3>
+      <table class="data-table">
+        <tbody>
+          <tr><td>取締役 Teyin M. Liu</td><td class="positive">23,200株購入（$7.82M）1月15日</td></tr>
+          <tr><td>幹部売却（1月末〜2月初）</td><td class="negative">16件 計$15.77M</td></tr>
+          <tr><td>直近30日 買い</td><td class="positive">23.2K株（$7.82M）</td></tr>
+          <tr><td>直近30日 売り</td><td class="negative">63.9K株（$26.18M）</td></tr>
+          <tr><td>ネット</td><td class="negative">売り越し $18.36M</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Competitive Landscape -->
+<div class="section">
+  <div class="section-title">競合環境・業界動向</div>
+
+  <h3 style="color:#f0f6fc; font-size:14px; margin-bottom:12px;">HBM市場シェア（2025年Q3時点）</h3>
+  <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom:16px;">
+    <div class="card" style="text-align:center;">
+      <div class="card-title">SK hynix</div>
+      <div class="card-value">57%</div>
+      <div class="card-sub neutral">HBM4で70%シェア目標（UBS予測）</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Samsung</div>
+      <div class="card-value">22%</div>
+      <div class="card-sub neutral">2026年に30%超へ回復見通し</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Micron</div>
+      <div class="card-value">21%</div>
+      <div class="card-sub positive">唯一の米国系サプライヤー</div>
+    </div>
+  </div>
+
+  <ul class="insight-list">
+    <li><strong>メモリ供給不足:</strong> IDCは2026年のDRAM供給成長率16%、NAND 17%と歴史的低水準を予測。需要超過状態が継続</li>
+    <li><strong>DRAM価格急騰:</strong> Q1 2026のコンベンショナルDRAM契約価格はQoQ +90-95%上昇。ピーク価格は2026年中後半の見通し</li>
+    <li><strong>HBM市場拡大:</strong> BofAは2026年のHBM市場を$54.6B（+58% YoY）と予測。マイクロンのHBM年間売上ランレートは~$8B</li>
+    <li><strong>AI需要:</strong> 2026年にはNANDビットの20%がAI用途に使用され、市場価値の34%を占める見通し</li>
+    <li><strong>価格見通し:</strong> DRAM価格は2026年通年で高水準を維持。本格的な下落は2027年以降の可能性</li>
+  </ul>
+</div>
+
+<!-- PER -->
+<div class="section">
+  <div class="section-title">PER（株価収益率）</div>
+  <div class="card-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:0;">
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Trailing PER（過去12ヶ月）</div>
+      <div class="card-value">39.12x</div>
+      <div class="card-sub neutral">TTM EPS: $10.52</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-title">Forward PER（予想）</div>
+      <div class="card-value positive">10.24x</div>
+      <div class="card-sub positive">Forward EPS: ~$38.8（NTMコンセンサス）</div>
+    </div>
+  </div>
+</div>
+
+<!-- Disclaimer -->
+<div class="footer">
+  <p>本レポートは情報提供目的のみであり、投資助言ではありません。</p>
+  <p>データソース: Micron IR、SEC Filing、各種金融データプロバイダー</p>
+  <p>分析対象: Q1 FY2026（2025年9月〜11月期）｜ 次回決算: Q2 FY2026 3月18日発表予定</p>
+  <p style="margin-top:8px;">Generated by Claude Code ｜ 2026年3月7日</p>
+</div>
+
+</div>
+
+<script>
+// Revenue Chart
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revenueCtx, {
+  type: 'bar',
+  data: {
+    labels: ['FQ3 2024', 'FQ4 2024', 'FQ1 2025', 'FQ2 2025', 'FQ3 2025', 'FQ4 2025', 'FQ1 2026'],
+    datasets: [{
+      label: '売上高 ($B)',
+      data: [6.81, 7.75, 8.71, 8.05, 9.30, 11.32, 13.64],
+      backgroundColor: [
+        'rgba(56, 139, 253, 0.6)',
+        'rgba(56, 139, 253, 0.6)',
+        'rgba(56, 139, 253, 0.6)',
+        'rgba(56, 139, 253, 0.6)',
+        'rgba(56, 139, 253, 0.6)',
+        'rgba(56, 139, 253, 0.6)',
+        'rgba(46, 160, 67, 0.8)'
+      ],
+      borderColor: [
+        'rgba(56, 139, 253, 1)',
+        'rgba(56, 139, 253, 1)',
+        'rgba(56, 139, 253, 1)',
+        'rgba(56, 139, 253, 1)',
+        'rgba(56, 139, 253, 1)',
+        'rgba(56, 139, 253, 1)',
+        'rgba(46, 160, 67, 1)'
+      ],
+      borderWidth: 2,
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return '$' + context.parsed.y.toFixed(2) + 'B';
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { color: 'rgba(48, 54, 61, 0.5)' },
+        ticks: {
+          color: '#8b949e',
+          callback: function(value) { return '$' + value + 'B'; }
+        }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { color: '#8b949e' }
+      }
+    }
+  }
+});
+
+// EPS Chart
+const epsCtx = document.getElementById('epsChart').getContext('2d');
+new Chart(epsCtx, {
+  type: 'line',
+  data: {
+    labels: ['FQ3 2024', 'FQ4 2024', 'FQ1 2025', 'FQ2 2025', 'FQ3 2025', 'FQ4 2025', 'FQ1 2026'],
+    datasets: [{
+      label: 'Non-GAAP EPS ($)',
+      data: [0.62, 1.18, 1.79, 1.56, 1.91, 3.03, 4.78],
+      borderColor: '#2ea043',
+      backgroundColor: 'rgba(46, 160, 67, 0.1)',
+      borderWidth: 3,
+      pointBackgroundColor: '#2ea043',
+      pointBorderColor: '#2ea043',
+      pointRadius: 6,
+      pointHoverRadius: 8,
+      fill: true,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return '$' + context.parsed.y.toFixed(2);
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { color: 'rgba(48, 54, 61, 0.5)' },
+        ticks: {
+          color: '#8b949e',
+          callback: function(value) { return '$' + value.toFixed(2); }
+        }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { color: '#8b949e' }
+      }
+    }
+  }
+});
+
+// Segment Donut Chart
+const segCtx = document.getElementById('segmentChart').getContext('2d');
+new Chart(segCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['DRAM', 'NAND', 'Other'],
+    datasets: [{
+      data: [79, 20, 1],
+      backgroundColor: ['#388bfd', '#bc4c9c', '#6e7681'],
+      borderColor: '#161b22',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#8b949e', font: { size: 12 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
