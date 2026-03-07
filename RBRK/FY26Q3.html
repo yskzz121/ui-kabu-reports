@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rubrik (RBRK) Q3 FY2026 決算分析レポート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0d1117;--card:#161b22;--card2:#1c2333;--border:#30363d;
+--text:#e6edf3;--text-sub:#8b949e;--text-dim:#484f58;
+--green:#3fb950;--green-bg:rgba(63,185,80,.12);--green-soft:#238636;
+--red:#f85149;--red-bg:rgba(248,81,73,.12);--red-soft:#da3633;
+--blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);
+--yellow:#d29922;--yellow-bg:rgba(210,153,34,.12);
+--purple:#bc8cff;--accent:#58a6ff;
+}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding-bottom:60px}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+/* Header */
+.header{background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#1a2332 100%);border-bottom:1px solid var(--border);padding:40px 0 30px;text-align:center}
+.header h1{font-size:1.8rem;font-weight:700;margin-bottom:4px;letter-spacing:.5px}
+.header .sub{color:var(--text-sub);font-size:.95rem;margin-bottom:16px}
+.score-badge{display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 32px;margin-top:8px}
+.score-num{font-size:2.8rem;font-weight:700;color:var(--green)}
+.score-label{text-align:left;font-size:.85rem;color:var(--text-sub)}
+.score-label strong{display:block;font-size:1.1rem;color:var(--green)}
+/* Section */
+.section{margin-top:48px}
+.section-title{font-size:1.25rem;font-weight:700;margin-bottom:20px;padding-left:14px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:8px}
+/* Cards */
+.card-grid{display:grid;gap:16px}
+.card-grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card-grid.cols-2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card-grid.cols-6{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 24px;transition:border-color .2s}
+.card:hover{border-color:var(--accent)}
+.card .label{font-size:.78rem;color:var(--text-sub);margin-bottom:4px;font-weight:500}
+.card .value{font-size:1.6rem;font-weight:700}
+.card .detail{font-size:.8rem;color:var(--text-sub);margin-top:4px}
+.card .tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:6px;font-weight:500;margin-top:6px}
+.tag.green{background:var(--green-bg);color:var(--green)}
+.tag.red{background:var(--red-bg);color:var(--red)}
+.tag.blue{background:var(--blue-bg);color:var(--blue)}
+.tag.yellow{background:var(--yellow-bg);color:var(--yellow)}
+.green-text{color:var(--green)}.red-text{color:var(--red)}.blue-text{color:var(--blue)}.yellow-text{color:var(--yellow)}
+/* Chart containers */
+.chart-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;position:relative}
+.chart-wrap canvas{max-height:360px}
+/* Table */
+.data-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.data-table th,.data-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border)}
+.data-table th{color:var(--text-sub);font-weight:500;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(88,166,255,.04)}
+/* Comment box */
+.comment-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:12px}
+.comment-box .speaker{font-size:.8rem;color:var(--accent);font-weight:700;margin-bottom:6px}
+.comment-box .quote{font-size:.92rem;color:var(--text);line-height:1.8;font-style:italic;position:relative;padding-left:16px;border-left:3px solid var(--border)}
+/* Risk / Catalyst */
+.rc-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(48,54,61,.5)}
+.rc-item:last-child{border-bottom:none}
+.rc-num{min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+.rc-num.cat{background:var(--green-bg);color:var(--green)}
+.rc-num.risk{background:var(--red-bg);color:var(--red)}
+.rc-content{flex:1}
+.rc-content .rc-title{font-weight:700;font-size:.9rem;margin-bottom:2px}
+.rc-content .rc-desc{font-size:.8rem;color:var(--text-sub)}
+.rc-importance{font-size:.7rem;padding:2px 8px;border-radius:6px;font-weight:500;white-space:nowrap;align-self:center}
+.imp-high{background:var(--red-bg);color:var(--red)}
+.imp-mid{background:var(--yellow-bg);color:var(--yellow)}
+/* Valuation cards */
+.val-card{border-radius:12px;padding:24px;text-align:center}
+.val-card.low{background:linear-gradient(135deg,rgba(63,185,80,.08),rgba(63,185,80,.02));border:1px solid rgba(63,185,80,.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.02));border:1px solid rgba(88,166,255,.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(248,81,73,.08),rgba(248,81,73,.02));border:1px solid rgba(248,81,73,.3)}
+.val-card .scenario{font-size:.8rem;font-weight:700;margin-bottom:12px}
+.val-card .price{font-size:2.2rem;font-weight:700;margin:8px 0}
+.val-card .val-detail{font-size:.8rem;color:var(--text-sub);margin:4px 0}
+/* Donut legend */
+.donut-legend{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:16px}
+.donut-legend span{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--text-sub)}
+.donut-legend span::before{content:'';width:12px;height:12px;border-radius:3px}
+/* Pill */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;padding:3px 10px;border-radius:20px;font-weight:500}
+/* Footer */
+.footer{text-align:center;color:var(--text-dim);font-size:.75rem;margin-top:60px;padding:20px;border-top:1px solid var(--border)}
+/* Reason box */
+.reason-box{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-top:16px;font-size:.88rem;color:var(--text-sub);line-height:1.8}
+/* Progress bar */
+.progress-wrap{margin:8px 0}
+.progress-bar{height:8px;border-radius:4px;background:var(--border);overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width .6s}
+@media(max-width:640px){
+.card-grid.cols-6{grid-template-columns:repeat(2,1fr)}
+.card-grid.cols-3{grid-template-columns:1fr}
+.card .value{font-size:1.3rem}
+.header h1{font-size:1.3rem}
+.score-badge{padding:12px 20px}
+.score-num{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+<div class="container">
+<h1>Rubrik, Inc. (RBRK) 決算分析レポート</h1>
+<p class="sub">Q3 FY2026（2025年10月31日終了四半期）</p>
+<div class="score-badge">
+<span class="score-num">4<span style="font-size:1.2rem;color:var(--text-dim)">/5</span></span>
+<span class="score-label">総合評価<strong>良い決算</strong></span>
+</div>
+<div class="reason-box" style="max-width:720px;margin:20px auto 0;text-align:left">
+売上・EPSともにコンセンサスをビート、ガイダンスも上方修正、Non-GAAP EPSは初の黒字転換を達成。ただし正規化後の成長率は鈍化傾向にあり、「成長から収益性へのシフト」フェーズに入りつつある。
+</div>
+</div>
+</header>
+
+<div class="container">
+
+<!-- ========== 2. KEY METRICS ========== -->
+<div class="section">
+<h2 class="section-title">Key Metrics</h2>
+<div class="card-grid cols-6">
+<div class="card">
+<div class="label">売上高</div>
+<div class="value green-text">$350.2M</div>
+<div class="detail">YoY +48%（正規化後 +36%）</div>
+<span class="tag green">Beat</span>
+</div>
+<div class="card">
+<div class="label">Non-GAAP EPS</div>
+<div class="value green-text">$0.10</div>
+<div class="detail">予想 -$0.17 / ビート $0.27</div>
+<span class="tag green">初の黒字転換</span>
+</div>
+<div class="card">
+<div class="label">ARR</div>
+<div class="value blue-text">$1.35B</div>
+<div class="detail">YoY +34%</div>
+<span class="tag blue">成長継続</span>
+</div>
+<div class="card">
+<div class="label">FCF</div>
+<div class="value green-text">$76.9M</div>
+<div class="detail">前年 $15.6M → 約5倍</div>
+<span class="tag green">大幅改善</span>
+</div>
+<div class="card">
+<div class="label">NRR</div>
+<div class="value blue-text">120%超</div>
+<div class="detail">セキュリティ関連 40%貢献</div>
+<span class="tag blue">高水準維持</span>
+</div>
+<div class="card">
+<div class="label">Net New Sub ARR</div>
+<div class="value green-text">$94M</div>
+<div class="detail">過去最高を更新</div>
+<span class="tag green">過去最高</span>
+</div>
+</div>
+</div>
+
+<!-- ========== 3. 7四半期推移チャート ========== -->
+<div class="section">
+<h2 class="section-title">売上高・EPS 7四半期推移</h2>
+<div class="card-grid cols-2">
+<div class="chart-wrap">
+<canvas id="revenueChart"></canvas>
+</div>
+<div class="chart-wrap">
+<canvas id="epsChart"></canvas>
+</div>
+</div>
+</div>
+
+<!-- ========== 4. 利益率トレンド ========== -->
+<div class="section">
+<h2 class="section-title">利益率トレンド</h2>
+<div class="card-grid cols-3">
+<div class="card">
+<div class="label">サブスクリプション粗利益率</div>
+<div class="value green-text">81%</div>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:81%;background:var(--green)"></div></div></div>
+</div>
+<div class="card">
+<div class="label">全体粗利益率</div>
+<div class="value green-text">79.05%</div>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:79%;background:var(--green)"></div></div></div>
+</div>
+<div class="card">
+<div class="label">GAAP営業利益率</div>
+<div class="value red-text">-31.69%</div>
+<div class="detail">SBC（株式報酬）が重い</div>
+<span class="tag red">赤字継続</span>
+</div>
+<div class="card">
+<div class="label">Non-GAAP営業利益率</div>
+<div class="value green-text">約 +1%</div>
+<div class="detail">初のプラス転換</div>
+<span class="tag green">黒字転換</span>
+</div>
+<div class="card">
+<div class="label">Rule of 40</div>
+<div class="value green-text">約 49%</div>
+<div class="detail">成長率 48% + 営業利益率 1%</div>
+<span class="tag green">40%超 — 健全</span>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:49%;background:linear-gradient(90deg,var(--green),var(--blue))"></div></div></div>
+</div>
+</div>
+</div>
+
+<!-- ========== 5. キャッシュフロー ========== -->
+<div class="section">
+<h2 class="section-title">キャッシュフロー</h2>
+<div class="card-grid cols-3" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+<div class="card">
+<div class="label">FCF</div>
+<div class="value green-text">$76.9M</div>
+<div class="detail">YoY +394%</div>
+<span class="tag green">大幅増</span>
+</div>
+<div class="card">
+<div class="label">FCFマージン</div>
+<div class="value green-text">約 22%</div>
+</div>
+<div class="card">
+<div class="label">現金等</div>
+<div class="value blue-text">$1.6B</div>
+</div>
+<div class="card">
+<div class="label">転換社債</div>
+<div class="value yellow-text">$1.1B</div>
+<div class="detail">将来の希薄化リスク</div>
+<span class="tag yellow">注意</span>
+</div>
+</div>
+</div>
+
+<!-- ========== 6. 部門別・地域別売上 ========== -->
+<div class="section">
+<h2 class="section-title">部門別・地域別売上</h2>
+<div class="card-grid cols-2">
+<div class="chart-wrap">
+<canvas id="segmentChart" style="max-height:280px"></canvas>
+<div class="donut-legend" id="segLegend"></div>
+</div>
+<div class="chart-wrap">
+<canvas id="geoChart" style="max-height:280px"></canvas>
+<div class="donut-legend" id="geoLegend"></div>
+</div>
+</div>
+</div>
+
+<!-- ========== 7. SaaS KPI ========== -->
+<div class="section">
+<h2 class="section-title">SaaS KPI</h2>
+<div class="card-grid cols-3">
+<div class="card">
+<div class="label">ARR</div>
+<div class="value blue-text">$1.35B</div>
+<div class="detail">YoY +34%</div>
+</div>
+<div class="card">
+<div class="label">Cloud ARR</div>
+<div class="value green-text">$1.17B</div>
+<div class="detail">YoY +53% — 全ARRの87%</div>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:87%;background:var(--green)"></div></div></div>
+</div>
+<div class="card">
+<div class="label">NRR</div>
+<div class="value blue-text">120%超</div>
+<div class="detail">セキュリティ関連 40%貢献</div>
+</div>
+<div class="card">
+<div class="label">Rule of 40</div>
+<div class="value green-text">約 49%</div>
+<span class="tag green">健全</span>
+</div>
+<div class="card">
+<div class="label">$100K+顧客数</div>
+<div class="value blue-text">2,638社</div>
+<div class="detail">YoY +27%</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 8. 経営陣コメント ========== -->
+<div class="section">
+<h2 class="section-title">経営陣コメントハイライト</h2>
+<div class="comment-box">
+<div class="speaker">CEO Bipul Sinha</div>
+<div class="quote">「Rubrikはまたしても卓越した四半期を達成。Net New Subscription ARRとFCFともに過去最高を記録」</div>
+</div>
+<div class="comment-box">
+<div class="speaker">CEO Bipul Sinha</div>
+<div class="quote">「AI変革が進む中、世界中の組織がビジネスのセキュリティとAI対応のためにRubrikに注目している」</div>
+</div>
+<div class="card-grid cols-3" style="margin-top:16px">
+<div class="card">
+<div class="label">AI戦略</div>
+<div class="detail" style="font-size:.9rem;color:var(--text)">Rubrik Agent Cloudは「完全に独立した製品スイート」として展開予定</div>
+</div>
+<div class="card">
+<div class="label">新製品</div>
+<div class="detail" style="font-size:.9rem;color:var(--text)">Okta Recovery（IDプロバイダーバックアップ）、CrowdStrike連携（IDセキュリティ）</div>
+</div>
+<div class="card">
+<div class="label">セキュリティ浸透</div>
+<div class="detail" style="font-size:.9rem;color:var(--text)">CISO組織への浸透が進み、わずか3四半期で顕著な初期トラクション</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 9. リスク・カタリスト ========== -->
+<div class="section">
+<h2 class="section-title">カタリスト（成長ドライバー）</h2>
+<div class="card" style="padding:16px 24px">
+<div class="rc-item"><div class="rc-num cat">1</div><div class="rc-content"><div class="rc-title">GAAP黒字化への接近</div><div class="rc-desc">Non-GAAP EPSが初の黒字転換</div></div><span class="rc-importance imp-high">重要度:高</span></div>
+<div class="rc-item"><div class="rc-num cat">2</div><div class="rc-content"><div class="rc-title">AI/サイバーレジリエンス需要</div><div class="rc-desc">規制強化（SEC、DORA）が構造的追い風</div></div><span class="rc-importance imp-high">重要度:高</span></div>
+<div class="rc-item"><div class="rc-num cat">3</div><div class="rc-content"><div class="rc-title">新製品の牽引</div><div class="rc-desc">Agent Cloud、Okta Recovery、CrowdStrike連携</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+<div class="rc-item"><div class="rc-num cat">4</div><div class="rc-content"><div class="rc-title">NRR改善余地</div><div class="rc-desc">セキュリティ製品のNRR貢献40%に上昇</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+<div class="rc-item"><div class="rc-num cat">5</div><div class="rc-content"><div class="rc-title">アナリスト目標株価との乖離</div><div class="rc-desc">現在$54 vs 平均$105-112</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+</div>
+</div>
+
+<div class="section" style="margin-top:24px">
+<h2 class="section-title" style="border-left-color:var(--red)">リスク</h2>
+<div class="card" style="padding:16px 24px">
+<div class="rc-item"><div class="rc-num risk">1</div><div class="rc-content"><div class="rc-title">成長率の鈍化</div><div class="rc-desc">正規化後+36%、Q4ガイダンス+30%</div></div><span class="rc-importance imp-high">重要度:高</span></div>
+<div class="rc-item"><div class="rc-num risk">2</div><div class="rc-content"><div class="rc-title">競合の激化</div><div class="rc-desc">Cohesity+Veritas統合($7B)、Veeam AI買収</div></div><span class="rc-importance imp-high">重要度:高</span></div>
+<div class="rc-item"><div class="rc-num risk">3</div><div class="rc-content"><div class="rc-title">転換社債$1.1B</div><div class="rc-desc">将来の希薄化リスク</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+<div class="rc-item"><div class="rc-num risk">4</div><div class="rc-content"><div class="rc-title">株価下落トレンド</div><div class="rc-desc">52週高値$103から48%下落</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+<div class="rc-item"><div class="rc-num risk">5</div><div class="rc-content"><div class="rc-title">空売り増加</div><div class="rc-desc">フロートの9.51%</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+<div class="rc-item"><div class="rc-num risk">6</div><div class="rc-content"><div class="rc-title">GAAP営業利益率 -31.69%</div><div class="rc-desc">SBC（株式報酬）が重い</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
+</div>
+</div>
+
+<!-- ========== 10. 前回決算との比較 ========== -->
+<div class="section">
+<h2 class="section-title">前回決算との比較サマリー</h2>
+<div class="card" style="overflow-x:auto">
+<table class="data-table">
+<thead><tr><th>指標</th><th>Q2 FY2026</th><th>Q3 FY2026</th><th>トレンド</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$309.9M (+51%)</td><td>$350.2M (+48%/正規化+36%)</td><td class="red-text" style="font-size:1.1rem">&#11015;</td></tr>
+<tr><td>Non-GAAP EPS</td><td>-$0.03</td><td class="green-text">+$0.10</td><td class="green-text" style="font-size:1.1rem">&#11014;</td></tr>
+<tr><td>ARR</td><td>$1.25B</td><td>$1.35B</td><td class="green-text" style="font-size:1.1rem">&#11014;</td></tr>
+<tr><td>FCF</td><td>—</td><td class="green-text">$76.9M</td><td class="green-text" style="font-size:1.1rem">&#11014;</td></tr>
+<tr><td>粗利率</td><td>81.6%</td><td>81%</td><td style="font-size:1.1rem;color:var(--text-sub)">&#10145;</td></tr>
+<tr><td>PSR</td><td>16.97x</td><td class="green-text">8.4x</td><td class="green-text" style="font-size:1.1rem">&#11015;</td></tr>
+<tr><td>NRR</td><td>120%超</td><td>120%超</td><td style="font-size:1.1rem;color:var(--text-sub)">&#10145;</td></tr>
+</tbody>
+</table>
+</div>
+<div class="reason-box" style="margin-top:12px">
+<strong>総合トレンド:</strong> 収益性が大幅改善 <span class="green-text">&#11014;</span>、トップライン成長率は鈍化 <span class="red-text">&#11015;</span>。「成長 → 収益性シフト」フェーズ。
+</div>
+</div>
+
+<!-- ========== 11. バリュエーション ========== -->
+<div class="section">
+<h2 class="section-title">バリュエーション（PSRベース）</h2>
+<p style="color:var(--text-sub);font-size:.82rem;margin-bottom:16px">現在株価: $53.67（2026年3月3日時点）｜RBRKは赤字のためPSR（Price-to-Sales Ratio）で算出</p>
+<div class="card-grid cols-3">
+<div class="val-card low">
+<div class="scenario green-text">LOW（保守的）</div>
+<div class="val-detail">想定PSR: 6.0x</div>
+<div class="val-detail">FY2027E売上: $1.60B</div>
+<div class="price green-text">$48</div>
+<div class="val-detail">現在株価との乖離: <strong class="red-text">-10.6%</strong></div>
+<span class="tag yellow" style="margin-top:8px">やや割高</span>
+</div>
+<div class="val-card mid">
+<div class="scenario blue-text">MID（基本）</div>
+<div class="val-detail">想定PSR: 8.5x</div>
+<div class="val-detail">FY2027E売上: $1.665B</div>
+<div class="price blue-text">$71</div>
+<div class="val-detail">現在株価との乖離: <strong class="green-text">+32.3%</strong></div>
+<span class="tag green" style="margin-top:8px">やや割安</span>
+</div>
+<div class="val-card high">
+<div class="scenario red-text">HIGH（楽観的）</div>
+<div class="val-detail">想定PSR: 12.0x</div>
+<div class="val-detail">FY2027E売上: $1.72B</div>
+<div class="price" style="color:var(--purple)">$103</div>
+<div class="val-detail">現在株価との乖離: <strong class="green-text">+91.9%</strong></div>
+<span class="tag green" style="margin-top:8px">大幅割安</span>
+</div>
+</div>
+<div class="card" style="margin-top:16px;overflow-x:auto">
+<table class="data-table" style="font-size:.82rem">
+<thead><tr><th>乖離率</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>+30%超</td><td class="green-text">割安</td></tr>
+<tr><td>+10%〜+30%</td><td class="green-text">やや割安</td></tr>
+<tr><td>-10%〜+10%</td><td class="blue-text">適正</td></tr>
+<tr><td>-25%〜-10%</td><td class="yellow-text">やや割高</td></tr>
+<tr><td>-25%未満</td><td class="red-text">割高</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+<div class="container">
+Rubrik (RBRK) Q3 FY2026 決算分析レポート ｜ データは公開情報に基づく ｜ 投資助言ではありません
+</div>
+</div>
+
+<script>
+Chart.defaults.color='#8b949e';
+Chart.defaults.borderColor='rgba(48,54,61,.5)';
+Chart.defaults.font.family="'Noto Sans JP',sans-serif";
+
+// === Revenue Chart ===
+const revCtx=document.getElementById('revenueChart').getContext('2d');
+const revLabels=['Q1\nFY25','Q2\nFY25','Q3\nFY25','Q4\nFY25','Q1\nFY26','Q2\nFY26','Q3\nFY26'];
+const revData=[167,190,236.2,258.1,278.5,309.9,350.2];
+const revColors=revData.map((_,i)=>i<2?'rgba(88,166,255,.3)':'rgba(63,185,80,.7)');
+const revBorders=revData.map((_,i)=>i<2?'rgba(88,166,255,.5)':'rgba(63,185,80,1)');
+new Chart(revCtx,{
+type:'bar',
+data:{labels:revLabels,datasets:[{label:'売上高 ($M)',data:revData,backgroundColor:revColors,borderColor:revBorders,borderWidth:1,borderRadius:6}]},
+options:{responsive:true,plugins:{title:{display:true,text:'売上高推移 ($M)',font:{size:14,weight:'bold'},color:'#e6edf3'},legend:{display:false},
+tooltip:{callbacks:{label:ctx=>{const i=ctx.dataIndex;return(i<2?'推定 ':'')+'$'+ctx.parsed.y+'M'}}}},
+scales:{y:{beginAtZero:true,grid:{color:'rgba(48,54,61,.3)'},ticks:{callback:v=>'$'+v+'M'}},x:{grid:{display:false},ticks:{font:{size:11}}}}}
+});
+
+// === EPS Chart ===
+const epsCtx=document.getElementById('epsChart').getContext('2d');
+const epsLabels=['Q1\nFY25','Q2\nFY25','Q3\nFY25','Q4\nFY25','Q1\nFY26','Q2\nFY26','Q3\nFY26'];
+const epsData=[null,null,null,null,null,-0.03,0.10];
+const epsBg=epsData.map(v=>v===null?'transparent':v>=0?'rgba(63,185,80,.7)':'rgba(248,81,73,.7)');
+const epsBd=epsData.map(v=>v===null?'transparent':v>=0?'rgba(63,185,80,1)':'rgba(248,81,73,1)');
+new Chart(epsCtx,{
+type:'bar',
+data:{labels:epsLabels,datasets:[{label:'Non-GAAP EPS ($)',data:epsData,backgroundColor:epsBg,borderColor:epsBd,borderWidth:1,borderRadius:6}]},
+options:{responsive:true,plugins:{title:{display:true,text:'Non-GAAP EPS推移 ($)',font:{size:14,weight:'bold'},color:'#e6edf3'},legend:{display:false},
+tooltip:{callbacks:{label:ctx=>ctx.parsed.y!==null?'$'+ctx.parsed.y.toFixed(2):'N/A'}}},
+scales:{y:{grid:{color:'rgba(48,54,61,.3)'},ticks:{callback:v=>'$'+v.toFixed(2)},suggestedMin:-0.1,suggestedMax:0.15},x:{grid:{display:false},ticks:{font:{size:11}}}}}
+});
+
+// === Segment Donut ===
+const segCtx=document.getElementById('segmentChart').getContext('2d');
+new Chart(segCtx,{
+type:'doughnut',
+data:{labels:['サブスクリプション','その他'],datasets:[{data:[336.4,13.8],backgroundColor:['rgba(63,185,80,.75)','rgba(88,166,255,.4)'],borderColor:['rgba(63,185,80,1)','rgba(88,166,255,.7)'],borderWidth:2,hoverOffset:8}]},
+options:{responsive:true,cutout:'65%',plugins:{title:{display:true,text:'部門別売上',font:{size:14,weight:'bold'},color:'#e6edf3'},legend:{display:false},
+tooltip:{callbacks:{label:ctx=>{const t=336.4+13.8;return ctx.label+': $'+ctx.parsed+'M ('+Math.round(ctx.parsed/t*100)+'%)';}}}}}
+});
+document.getElementById('segLegend').innerHTML='<span style="color:var(--green)"><span style="display:inline-block;width:12px;height:12px;background:rgba(63,185,80,.75);border-radius:3px;margin-right:4px"></span>サブスクリプション $336.4M (96%) YoY+52%</span><span style="color:var(--blue)"><span style="display:inline-block;width:12px;height:12px;background:rgba(88,166,255,.4);border-radius:3px;margin-right:4px"></span>その他 $13.8M (4%)</span>';
+
+// === Geo Donut ===
+const geoCtx=document.getElementById('geoChart').getContext('2d');
+new Chart(geoCtx,{
+type:'doughnut',
+data:{labels:['Americas','Outside Americas'],datasets:[{data:[256,94],backgroundColor:['rgba(88,166,255,.7)','rgba(188,140,255,.6)'],borderColor:['rgba(88,166,255,1)','rgba(188,140,255,1)'],borderWidth:2,hoverOffset:8}]},
+options:{responsive:true,cutout:'65%',plugins:{title:{display:true,text:'地域別売上',font:{size:14,weight:'bold'},color:'#e6edf3'},legend:{display:false},
+tooltip:{callbacks:{label:ctx=>{const t=256+94;return ctx.label+': $'+ctx.parsed+'M ('+Math.round(ctx.parsed/t*100)+'%)';}}}}}
+});
+document.getElementById('geoLegend').innerHTML='<span style="color:var(--blue)"><span style="display:inline-block;width:12px;height:12px;background:rgba(88,166,255,.7);border-radius:3px;margin-right:4px"></span>Americas $256M (73%) YoY+51%</span><span style="color:var(--purple)"><span style="display:inline-block;width:12px;height:12px;background:rgba(188,140,255,.6);border-radius:3px;margin-right:4px"></span>Outside Americas $94M (27%) YoY+51%</span>';
+</script>
+</body>
+</html>
