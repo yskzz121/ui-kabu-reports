@@ -1,17 +1,79 @@
 #!/usr/bin/env python3
-import sys, os, shutil, subprocess
+"""
+deploy_report.py
+================
+決算レポートHTMLをGitHub Pagesに自動デプロイし、
+LINE U&I株倶楽部グループに自動通知するスクリプト。
+
+使い方:
+  python3 deploy_report.py <HTMLファイルパス> <ティッカー> <四半期> [評価スコア] [コメント]
+
+例:
+  python3 deploy_report.py ~/投資分析/銘柄分析/NVDA/NVDA_FY26Q4.html NVDA FY26Q4
+  python3 deploy_report.py ~/投資分析/銘柄分析/NVDA/NVDA_FY26Q4.html NVDA FY26Q4 5 "売上・EPSともにビート！ガイダンスも上方修正"
+"""
+
+import sys, os, shutil, subprocess, json
 from datetime import datetime
+try:
+    import urllib.request as urlreq
+except ImportError:
+    pass
 
 GITHUB_USERNAME = "yskzz121"
 REPO_NAME       = "ui-kabu-reports"
-REPO_DIR        = os.path.expanduser(f"~/ui-kabu-reports")
+REPO_DIR        = os.path.expanduser("~/ui-kabu-reports")
 PAGES_BASE_URL  = f"https://{GITHUB_USERNAME}.github.io/{REPO_NAME}"
+LINE_CONFIG     = os.path.expanduser("~/.line_config")
 
+SCORE_LABELS = {
+    "5": "5🚀 素晴らしい決算",
+    "4": "4📈 良い決算",
+    "3": "3⏸️ 悪くない決算",
+    "2": "2📉 悪い決算",
+    "1": "1👎 壊滅的な決算",
+}
+
+# ─────────────────────────────────────────
 def run(cmd, cwd=None):
-    result = subprocess.run(cmd, shell=True, cwd=cwd or REPO_DIR, capture_output=True, text=True)
+    result = subprocess.run(cmd, shell=True, cwd=cwd or REPO_DIR,
+                            capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(f"コマンド失敗: {cmd}\n{result.stderr}")
     return result.stdout.strip()
+
+def load_line_config():
+    config = {}
+    if not os.path.exists(LINE_CONFIG):
+        return config
+    with open(LINE_CONFIG) as f:
+        for line in f:
+            line = line.strip()
+            if "=" in line and not line.startswith("#"):
+                k, v = line.split("=", 1)
+                config[k.strip()] = v.strip()
+    return config
+
+def send_line(token, group_id, message):
+    data = json.dumps({
+        "to": group_id,
+        "messages": [{"type": "text", "text": message}]
+    }).encode("utf-8")
+    req = urlreq.Request(
+        "https://api.line.me/v2/bot/message/push",
+        data=data,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json"
+        },
+        method="POST"
+    )
+    try:
+        with urlreq.urlopen(req, timeout=10) as res:
+            return res.status == 200
+    except Exception as e:
+        print(f"⚠️  LINE送信エラー: {e}")
+        return False
 
 def make_ticker_index(ticker, reports):
     latest_file, latest_quarter = reports[0][1], reports[0][0]
@@ -52,7 +114,8 @@ def scan_existing_reports(ticker):
     ticker_dir = os.path.join(REPO_DIR, ticker)
     if not os.path.exists(ticker_dir):
         return []
-    files = sorted([f for f in os.listdir(ticker_dir) if f.endswith(".html") and f != "index.html"], reverse=True)
+    files = sorted([f for f in os.listdir(ticker_dir)
+                    if f.endswith(".html") and f != "index.html"], reverse=True)
     return [(os.path.splitext(f)[0], f) for f in files]
 
 def scan_all_tickers():
@@ -65,32 +128,88 @@ def scan_all_tickers():
                 result[item] = reports
     return result
 
-def deploy(html_path, ticker, quarter):
-    ticker = ticker.upper()
+def deploy(html_path, ticker, quarter, score=None, comment=None):
+    ticker    = ticker.upper()
     html_path = os.path.expanduser(html_path)
+
     if not os.path.exists(html_path):
         raise FileNotFoundError(f"HTMLファイルが見つかりません: {html_path}")
-    filename  = f"{quarter}.html"
+
+    filename   = f"{quarter}.html"
     ticker_dir = os.path.join(REPO_DIR, ticker)
     dest_path  = os.path.join(ticker_dir, filename)
+
     print(f"\n🚀 デプロイ開始: {ticker} {quarter}")
+
+    # ── 1. 最新化
     print("📥 リポジトリを最新化中...")
     run("git pull origin main")
+
+    # ── 2. HTMLコピー
     os.makedirs(ticker_dir, exist_ok=True)
     shutil.copy2(html_path, dest_path)
-    print(f"✅ HTMLコピー完了: {ticker}/{filename}")
+    print(f"✅ HTMLコピー: {ticker}/{filename}")
+
+    # ── 3. 銘柄index更新
     reports = scan_existing_reports(ticker)
     with open(os.path.join(ticker_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(make_ticker_index(ticker, reports))
     print(f"✅ {ticker}/index.html 更新")
+
+    # ── 4. ルートindex更新
     with open(os.path.join(REPO_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(make_root_index(scan_all_tickers()))
     print("✅ 全銘柄ポータル更新")
+
+    # ── 5. push
     print("📤 GitHubにプッシュ中...")
     run("git add -A")
     run(f'git commit -m "Add {ticker} {quarter} report"')
     run("git push origin main")
+    print("✅ プッシュ完了")
+
     report_url = f"{PAGES_BASE_URL}/{ticker}/{filename}"
+    portal_url = f"{PAGES_BASE_URL}/"
+
+    # ── 6. LINE送信
+    line_cfg = load_line_config()
+    line_token    = line_cfg.get("LINE_TOKEN", "")
+    line_group_id = line_cfg.get("LINE_GROUP_ID", "")
+
+    line_sent = False
+    if line_token and line_group_id and not line_token.startswith("ここに"):
+        score_label = SCORE_LABELS.get(str(score), "") if score else ""
+        now_str     = datetime.now().strftime("%Y/%m/%d %H:%M")
+
+        msg_lines = [
+            f"📊 【{ticker} {quarter} 決算レポート】",
+        ]
+        if score_label:
+            msg_lines.append(f"総合評価: {score_label}")
+        if comment:
+            msg_lines.append(f"💬 {comment}")
+        msg_lines += [
+            f"",
+            f"🔗 レポートはこちら:",
+            f"{report_url}",
+            f"",
+            f"🏠 全銘柄ポータル:",
+            f"{portal_url}",
+            f"",
+            f"({now_str} 自動配信)",
+        ]
+        message = "\n".join(msg_lines)
+
+        print("\n📱 LINEグループに送信中...")
+        line_sent = send_line(line_token, line_group_id, message)
+        if line_sent:
+            print("✅ LINE送信完了！")
+        else:
+            print("⚠️  LINE送信失敗（デプロイは完了しています）")
+    else:
+        print("⚠️  LINE設定が未完了のためスキップ")
+
+    # ── 7. 完了表示
     print(f"""
 {'='*55}
 🎉 デプロイ完了！
@@ -99,18 +218,27 @@ def deploy(html_path, ticker, quarter):
    {report_url}
 
 🏠 全銘柄ポータル:
-   {PAGES_BASE_URL}/
+   {portal_url}
+
+📱 LINE自動送信: {"✅ 送信済み" if line_sent else "⚠️ 未送信"}
 {'='*55}
 """)
     return report_url
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("使い方: python3 deploy_report.py <HTMLパス> <ティッカー> <四半期>")
-        print("例    : python3 deploy_report.py ~/Downloads/NVDA.html NVDA FY26Q4")
+    if len(sys.argv) < 4:
+        print("使い方: python3 deploy_report.py <HTMLパス> <TICKER> <QUARTER> [スコア1-5] [コメント]")
+        print("例    : python3 deploy_report.py ~/投資分析/銘柄分析/NVDA/NVDA_FY26Q4.html NVDA FY26Q4 5 '売上・EPSともにビート'")
         sys.exit(1)
+
+    html_path = sys.argv[1]
+    ticker    = sys.argv[2]
+    quarter   = sys.argv[3]
+    score     = sys.argv[4] if len(sys.argv) > 4 else None
+    comment   = sys.argv[5] if len(sys.argv) > 5 else None
+
     try:
-        deploy(sys.argv[1], sys.argv[2], sys.argv[3])
+        deploy(html_path, ticker, quarter, score, comment)
     except Exception as e:
         print(f"\n❌ エラー: {e}")
         sys.exit(1)
