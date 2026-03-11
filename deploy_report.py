@@ -17,6 +17,7 @@ import sys, os, shutil, subprocess, json
 from datetime import datetime
 try:
     import urllib.request as urlreq
+    import urllib.error
 except ImportError:
     pass
 
@@ -54,26 +55,37 @@ def load_line_config():
                 config[k.strip()] = v.strip()
     return config
 
-def send_line(token, group_id, message):
+def send_line(token, group_id, message, max_retries=3):
+    import time
     data = json.dumps({
         "to": group_id,
         "messages": [{"type": "text", "text": message}]
     }).encode("utf-8")
-    req = urlreq.Request(
-        "https://api.line.me/v2/bot/message/push",
-        data=data,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json"
-        },
-        method="POST"
-    )
-    try:
-        with urlreq.urlopen(req, timeout=10) as res:
-            return res.status == 200
-    except Exception as e:
-        print(f"⚠️  LINE送信エラー: {e}")
-        return False
+    for attempt in range(1, max_retries + 1):
+        req = urlreq.Request(
+            "https://api.line.me/v2/bot/message/push",
+            data=data,
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json"
+            },
+            method="POST"
+        )
+        try:
+            with urlreq.urlopen(req, timeout=10) as res:
+                return res.status == 200
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < max_retries:
+                wait = int(e.headers.get("Retry-After", 5 * attempt))
+                print(f"  ⏳ レート制限（429）。{wait}秒後にリトライ ({attempt}/{max_retries})...")
+                time.sleep(wait)
+            else:
+                print(f"⚠️  LINE送信エラー: {e}")
+                return False
+        except Exception as e:
+            print(f"⚠️  LINE送信エラー: {e}")
+            return False
+    return False
 
 def make_ticker_index(ticker, reports):
     latest_file, latest_quarter = reports[0][1], reports[0][0]
