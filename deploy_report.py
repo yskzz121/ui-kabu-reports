@@ -165,24 +165,61 @@ def make_ticker_index(ticker, reports):
 {"<div class='archive'><h3>過去のレポート</h3><ul>" + archive_rows + "</ul></div>" if archive_rows else ""}
 </div></body></html>"""
 
+def _normalize_fy(fy_str):
+    """FY26 → FY2026, FY2025 → FY2025（4桁に統一）"""
+    import re
+    m = re.match(r'FY(\d+)', fy_str)
+    if m:
+        y = m.group(1)
+        if len(y) == 2:
+            return f"FY20{y}"
+    return fy_str
+
 def _parse_fy_quarter(name):
-    """ファイル名からFY年度とクォーターを抽出。例: FY26Q1 → ('FY26','Q1'), FY2025Q4 → ('FY2025','Q4')"""
+    """ファイル名からFY年度とクォーターを抽出し、FY表記を4桁に統一"""
     import re
     m = re.match(r'(FY\d+)(Q\d)', name)
     if m:
-        return m.group(1), m.group(2)
+        return _normalize_fy(m.group(1)), m.group(2)
     # MU_Q1_FY2026 のような特殊パターン
     m = re.match(r'.*_(Q\d)_(FY\d+)', name)
     if m:
-        return m.group(2), m.group(1)
+        return _normalize_fy(m.group(2)), m.group(1)
     return None, None
 
+def _get_report_date(ticker, fname):
+    """レポートファイルのgitコミット日を取得（YYYY-MM-DD文字列）。取得不可時はファイル更新日"""
+    import re
+    fpath = os.path.join(REPO_DIR, ticker, fname)
+    try:
+        result = subprocess.run(
+            f'git log -1 --format="%ai" -- "{ticker}/{fname}"',
+            shell=True, cwd=REPO_DIR, capture_output=True, text=True
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            return result.stdout.strip()[:10]
+    except Exception:
+        pass
+    try:
+        mtime = os.path.getmtime(fpath)
+        return datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
+    except Exception:
+        return None
+
 def make_root_index(ticker_data):
+    from datetime import timedelta
+    import re as _re
+    three_weeks_ago = (datetime.now() - timedelta(weeks=3)).strftime("%Y-%m-%d")
+
     cards = ""
     for ticker in sorted(ticker_data.keys()):
         reports = ticker_data[ticker]
         sector = SECTOR_MAP.get(ticker, "")
         latest_q, latest_f = reports[0]
+
+        # 最新レポートの日付を取得してNEW判定
+        latest_date = _get_report_date(ticker, latest_f)
+        is_new = latest_date and latest_date >= three_weeks_ago
 
         # FY年度ごとにクォーターをグループ化
         fy_groups = {}
@@ -197,7 +234,6 @@ def make_root_index(ticker_data):
         fy_html = ""
         for fy in sorted(fy_groups.keys(), reverse=True):
             quarters = fy_groups[fy]
-            # クォーターを昇順ソート
             quarters.sort(key=lambda x: x[0])
             pills = ""
             for q, fname in quarters:
@@ -206,6 +242,7 @@ def make_root_index(ticker_data):
             fy_html += f'<div class="fy-row"><span class="fy-label">{fy}</span><div class="q-pills">{pills}</div></div>'
 
         sector_html = f'<div class="sector">{sector}</div>' if sector else ''
+        new_html = '<span class="new-badge">NEW</span>' if is_new else ''
         logo_file = None
         for ext in ("svg", "png"):
             candidate = f"logos/{ticker}.{ext}"
@@ -229,12 +266,22 @@ def make_root_index(ticker_data):
                 bg, fg, bd = "#f8514922", "#f85149", "#f8514944"
             score_html = f'<span class="score-badge" style="background:{bg};color:{fg};border:1px solid {bd}">{icon} {score}/5</span>'
 
-        cards += f'<div class="card" data-ticker="{ticker}"{score_attr} data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}{score_html}{logo_html}</div>{fy_html}</div>'
+        cards += f'<div class="card" data-ticker="{ticker}"{score_attr} data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}{score_html}{new_html}{logo_html}</div>{fy_html}</div>'
 
     now = datetime.now().strftime("%Y/%m/%d %H:%M")
     return f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>U&I株倶楽部 決算レポート</title>
+<meta name="description" content="U&I株倶楽部の米国株決算分析レポートポータル。四半期決算をインフォグラフィックで分かりやすく解説。">
+<meta property="og:title" content="U&I株倶楽部 決算レポート">
+<meta property="og:description" content="米国株の四半期決算をインフォグラフィックで分かりやすく分析。セクター別・スコア別に閲覧可能。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{PAGES_BASE_URL}/">
+<meta property="og:image" content="{PAGES_BASE_URL}/apple-touch-icon.png">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
@@ -246,21 +293,22 @@ header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}}
 .card{{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s}}
 .card:hover{{border-color:#58a6ff}}
-.card-header{{display:flex;align-items:baseline;gap:12px}}
+.card-header{{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}}
 .ticker{{font-size:1.5rem;font-weight:700;color:#e6edf3}}
 .sector{{font-size:.75rem;color:#8b949e;background:rgba(88,166,255,.1);padding:2px 10px;border-radius:12px;white-space:nowrap}}
 .fy-row{{display:flex;align-items:center;gap:10px;margin-bottom:6px}}
-.fy-label{{font-size:.8rem;font-weight:700;color:#8b949e;min-width:52px}}
+.fy-label{{font-size:.8rem;font-weight:700;color:#8b949e;min-width:60px}}
 .q-pills{{display:flex;gap:6px;flex-wrap:wrap}}
 .q-pill{{font-size:.78rem;font-weight:500;padding:4px 14px;border-radius:8px;background:#21262d;color:#58a6ff;text-decoration:none;border:1px solid #30363d;transition:all .15s}}
 .q-pill:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
-footer{{text-align:center;margin-top:48px;color:#30363d;font-size:.75rem}}
 .sort-bar{{text-align:center;margin-bottom:24px}}
 .sort-btn{{font-family:'Noto Sans JP',sans-serif;font-size:.82rem;font-weight:500;padding:6px 18px;margin:0 4px;border-radius:8px;border:1px solid #30363d;background:#161b22;color:#8b949e;cursor:pointer;transition:all .15s}}
 .sort-btn.active{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 .sort-btn:hover:not(.active){{border-color:#58a6ff;color:#58a6ff}}
 .sector-heading{{color:#58a6ff;font-size:1rem;font-weight:700;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid #21262d;grid-column:1/-1}}
 .score-badge{{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}}
+.new-badge{{font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:10px;background:#da3633;color:#fff;white-space:nowrap;animation:pulse 2s ease-in-out infinite}}
+@keyframes pulse{{0%,100%{{opacity:1}}50%{{opacity:.6}}}}
 .search-bar{{max-width:400px;margin:0 auto 20px;position:relative}}
 .search-bar input{{width:100%;padding:10px 16px 10px 40px;border-radius:10px;border:1px solid #30363d;background:#161b22;color:#e6edf3;font-family:'Noto Sans JP',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s}}
 .search-bar input:focus{{border-color:#58a6ff}}
@@ -268,20 +316,29 @@ footer{{text-align:center;margin-top:48px;color:#30363d;font-size:.75rem}}
 .card.hidden{{display:none}}
 .no-results{{grid-column:1/-1;text-align:center;color:#6e7681;font-size:.9rem;padding:40px 0}}
 .card-logo{{height:28px;width:auto;object-fit:contain;opacity:.85;margin-left:auto}}
+footer{{text-align:center;margin-top:60px;padding:24px 20px;border-top:1px solid #21262d;color:#484f58;font-size:.75rem;line-height:1.8}}
+footer a{{color:#58a6ff;text-decoration:none}}
+footer a:hover{{text-decoration:underline}}
+.scroll-top{{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:#161b22;border:1px solid #30363d;color:#58a6ff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .25s;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}}
+.scroll-top.visible{{opacity:1;visibility:visible}}
+.scroll-top:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 </style>
 </head><body>
 <header><h1><img src="logos/ui-kabu-logo.png" alt="U&I">株倶楽部 決算レポート</h1><p>最終更新: {now}</p></header>
 <div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button><button class="sort-btn" onclick="sortBy('score')">スコア順</button></div>
 <div class="search-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search" placeholder="ティッカーで検索..." oninput="filterCards()"></div>
 <div class="grid" id="grid">{cards}</div>
-<footer>U&I株倶楽部 · Powered by Claude</footer>
+<footer>
+<p>U&I株倶楽部 · Powered by <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></p>
+<p style="margin-top:6px;font-size:.7rem;color:#30363d">本レポートは情報提供を目的としたものであり、特定の銘柄の売買を推奨するものではありません。投資判断はご自身の責任でお願いいたします。</p>
+</footer>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({{top:0,behavior:'smooth'}})">&#9650;</button>
 <script>
 function sortBy(mode){{
   var grid=document.getElementById('grid');
   var btns=document.querySelectorAll('.sort-btn');
   btns.forEach(function(b){{b.classList.remove('active')}});
   event.target.classList.add('active');
-  // Remove sector headings
   grid.querySelectorAll('.sector-heading').forEach(function(h){{h.remove()}});
   var cards=Array.from(grid.querySelectorAll('.card'));
   if(mode==='ticker'){{
@@ -327,6 +384,10 @@ function filterCards(){{
     nr.textContent='該当する銘柄が見つかりません';
   }}else if(nr){{nr.remove();}}
 }}
+window.addEventListener('scroll',function(){{
+  var btn=document.getElementById('scrollTop');
+  if(window.scrollY>300){{btn.classList.add('visible')}}else{{btn.classList.remove('visible')}}
+}});
 </script>
 </body></html>"""
 

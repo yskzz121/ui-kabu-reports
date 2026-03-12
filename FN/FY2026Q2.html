@@ -4,66 +4,372 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FN Fabrinet FY2026 Q2 決算分析</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root { --bg-primary:#0d1117;--bg-card:#161b22;--bg-card-alt:#1c2333;--border:#30363d;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-muted:#6e7681;--green:#2ea043;--green-light:#3fb950;--green-bg:rgba(46,160,67,0.15);--red:#f85149;--red-light:#ff7b72;--red-bg:rgba(248,81,73,0.15);--blue:#58a6ff;--blue-bg:rgba(88,166,255,0.15);--purple:#bc8cff;--yellow:#d29922; }
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;padding:20px;max-width:1200px;margin:0 auto}
-.header{text-align:center;padding:40px 20px;border-bottom:1px solid var(--border);margin-bottom:30px}
-.header .ticker{font-size:14px;font-weight:500;color:var(--blue);letter-spacing:2px;margin-bottom:8px}
-.header h1{font-size:32px;font-weight:900;margin-bottom:8px}
-.header .quarter{font-size:18px;color:var(--text-secondary)}
-.header .date{font-size:13px;color:var(--text-muted);margin-top:4px}
-.company-overview{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:30px}
-.company-overview h2{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.company-overview .info{font-size:14px;color:var(--text-secondary);line-height:1.8}
-.score-section{text-align:center;padding:36px 20px;margin-bottom:30px;background:linear-gradient(135deg,rgba(46,160,67,0.08),rgba(88,166,255,0.08));border-radius:16px;border:1px solid var(--border)}
-.score-badge{display:inline-flex;align-items:center;gap:12px;background:var(--bg-card);border:2px solid #3fb950;border-radius:16px;padding:14px 28px;margin-bottom:12px}
-.score-number{font-size:42px;font-weight:900;color:#3fb950}
-.score-icon{font-size:36px}
-.score-label{font-size:20px;font-weight:700;color:#3fb950}
-.score-desc{color:var(--text-secondary);font-size:14px;margin-top:6px;max-width:700px;margin-left:auto;margin-right:auto}
-.section{margin-bottom:30px}
-.section-title{font-size:18px;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.section-icon{font-size:20px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
-.card-title{font-size:12px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.card-value{font-size:26px;font-weight:700}
-.card-sub{font-size:13px;color:var(--text-secondary);margin-top:4px}
-.positive{color:var(--green-light)}.negative{color:var(--red-light)}.neutral{color:var(--text-primary)}
-.insight-box{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--text-secondary)}
-.footer{text-align:center;padding:30px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text-muted);font-size:12px}
-@media(max-width:768px){.header h1{font-size:24px}.card-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.card-grid{grid-template-columns:1fr}}
-
-/* Report Logo */
-.report-header-logo{height:48px;width:auto;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9}
-.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+.header{text-align:center;padding:48px 20px 36px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.ticker-badge{display:inline-block;font-size:13px;font-weight:500;color:var(--blue);letter-spacing:2px;background:var(--bbg);padding:4px 16px;border-radius:20px;margin-bottom:12px}
+.header h1{font-size:2rem;font-weight:900;margin-bottom:6px}
+.header .quarter{font-size:1.1rem;color:var(--t2)}.header .date{font-size:.8rem;color:var(--t3);margin-top:6px}
+.overview{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:32px}
+.overview h2{font-size:1rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--blue)}
+.overview p{font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:.75rem;padding:3px 12px;border-radius:20px;background:var(--bbg);color:var(--blue);border:1px solid rgba(88,166,255,.2)}
+.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(63,185,80,.06),rgba(88,166,255,.06));border-radius:16px;border:1px solid var(--border)}
+.score-badge{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--gl);border-radius:16px;padding:16px 32px;margin-bottom:14px}
+.score-num{font-size:3rem;font-weight:900;color:var(--gl)}.score-icon{font-size:2.5rem}
+.score-label{font-size:1.3rem;font-weight:700;color:var(--gl)}
+.score-desc{color:var(--t2);font-size:.88rem;margin-top:8px;max-width:750px;margin-left:auto;margin-right:auto;line-height:1.8}
+.section{margin-bottom:36px}
+.section-title{font-size:1.1rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-label{font-size:.72rem;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.card-val{font-size:1.6rem;font-weight:700}.card-sub{font-size:.8rem;color:var(--t2);margin-top:4px}
+.pos{color:var(--gl)}.neg{color:var(--rl)}.neu{color:var(--t1)}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.chart-wrap{position:relative;height:300px}
+.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:18px 22px;font-size:.88rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
+.insight strong{color:var(--t1)}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h3{font-size:.9rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.84rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(48,54,61,.5);line-height:1.7}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'•';margin-right:8px;font-weight:700}
+.risk-card.bull li::before{color:var(--gl)}.risk-card.bear li::before{color:var(--rl)}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,.08),rgba(46,160,67,.03));border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.03));border-color:rgba(88,166,255,.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(188,140,255,.08),rgba(188,140,255,.03));border-color:rgba(188,140,255,.3)}
+.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-card.low .scenario{color:var(--gl)}.val-card.mid .scenario{color:var(--blue)}.val-card.high .scenario{color:var(--purple)}
+.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px}
+.val-card.low .price{color:var(--gl)}.val-card.mid .price{color:var(--blue)}.val-card.high .price{color:var(--purple)}
+.val-card .detail{font-size:.78rem;color:var(--t2);line-height:1.6}
+.val-card .gap{font-size:.85rem;font-weight:700;margin-top:8px}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.tbl td{color:var(--t2)}.tbl tr:hover td{background:rgba(88,166,255,.04)}
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--t3);font-size:.75rem;line-height:1.8}
+@media(max-width:768px){.header h1{font-size:1.5rem}.grid{grid-template-columns:1fr 1fr}.val-grid,.risk-grid{grid-template-columns:1fr}.chart-wrap{height:250px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+
 <div class="header">
-  <div class="header-logo-row"><img class="report-header-logo" src="../logos/FN.svg" alt="FN"><div class="ticker">NYSE: FN</div></div>
+  <div class="ticker-badge">NYSE: FN</div>
+  <img src="https://yskzz121.github.io/ui-kabu-reports/logos/FN.svg" alt="FN" style="width:64px;height:64px;border-radius:12px;margin:12px auto 8px">
   <h1>Fabrinet</h1>
-  <div class="quarter">FY2026 Q2 決算分析</div>
-  <div class="date">決算発表日: 2026/2/2</div>
+  <div class="quarter">FY2026 Q2（2025年10月〜12月）決算分析</div>
+  <div class="date">決算発表日: 2026年2月2日 ｜ 会計年度末: 6月末</div>
 </div>
-<div class="company-overview">
-  <h2><span class="section-icon">🏢</span> 企業概要</h2>
-  <div class="info"><strong>Fabrinet</strong>（FN）| セクター: 精密光学・電子機器製造</div>
+
+<div class="overview">
+  <h2>🏢 企業概要</h2>
+  <p><strong>Fabrinet</strong>はケイマン諸島に本社を置き、タイに主要製造拠点を持つ精密光学・電子機器の受託製造（EMS）企業。光トランシーバー、光モジュール、レーザー部品、電子機械アセンブリの高精度受託製造を行い、800G/1.6Tトランシーバー、Co-Packaged Optics（CPO）、光回路スイッチ（OCS）などAI/データセンター向け次世代技術にも対応。</p>
+  <p>主要顧客はCisco、Lumentum、Coherent（旧II-VI）、NVIDIA/AWS等。従業員約16,500名。CEO: Seamus Grady。光通信向けEMSで世界トップクラスのポジション。Building 10（200万sqft）建設中で、年間$2.5B超の追加売上キャパシティを確保予定。</p>
+  <div class="tags">
+    <span class="tag">精密光学製造</span>
+    <span class="tag">光トランシーバー</span>
+    <span class="tag">800G / 1.6T</span>
+    <span class="tag">Co-Packaged Optics</span>
+    <span class="tag">HPC / AIインフラ</span>
+    <span class="tag">タイ製造拠点</span>
+    <span class="tag">受託製造（EMS）</span>
+  </div>
 </div>
+
+<!-- 総合評価 -->
 <div class="score-section">
-  <div class="score-badge"><span class="score-number">4</span><span class="score-icon">📈</span></div>
+  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
   <div class="score-label">良い決算</div>
-  <div class="score-desc">IPO以来最高成長率+36% YoY（$1.13B）。テレコム（DCI）+59%、HPC新カテゴリー急拡大$86M。FCFはBuilding 10建設CapEx$52Mでマイナス転落(-$5.3M)。Q3ガイダンス$1.15-1.20B / Non-GAAP EPS $3.45-3.60（コンセンサ</div>
+  <div class="score-desc">IPO以来最高の成長率+36% YoY、売上$1.13B（初の$1B超え）を達成。Non-GAAP EPS $3.36も過去最高。テレコム+59% YoY、HPC売上が$15M→$86Mに急拡大。Q3ガイダンス$1.15-1.20Bも堅調。ただし一部コンセンサス予想を下回り、決算後に株価-10.2%。</div>
 </div>
+
+<!-- Key Metrics -->
 <div class="section">
-  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
-  <div class="card-grid"><div class="card"><div class="card-title">売上高</div><div class="card-value">$1,132.9M</div><div class="card-sub">YoY <span class="positive">+36.0%</span> | QoQ +15.8%</div></div><div class="card"><div class="card-title">EPS（Non-GAAP）</div><div class="card-value">$3.4</div><div class="card-sub">YoY <span class="positive">28.7%</span></div></div><div class="card"><div class="card-title">売上ビート率</div><div class="card-value"><span class="positive">+4.9%</span></div><div class="card-sub">コンセンサス $1,080.0M</div></div><div class="card"><div class="card-title">EPSビート率</div><div class="card-value"><span class="positive">+3.4%</span></div><div class="card-sub">コンセンサス $3.2</div></div><div class="card"><div class="card-title">粗利益率</div><div class="card-value">12.4%</div><div class="card-sub">Non-GAAP</div></div><div class="card"><div class="card-title">営業利益率</div><div class="card-value">10.9%</div><div class="card-sub">Non-GAAP</div></div><div class="card"><div class="card-title">EBITDAマージン</div><div class="card-value">11.8%</div></div><div class="card"><div class="card-title">次Qガイダンス（売上）</div><div class="card-value">$1,175.0M</div></div></div>
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="grid">
+    <div class="card"><div class="card-label">売上高</div><div class="card-val">$1,133M</div><div class="card-sub">YoY <span class="pos">+35.9%</span> ｜ QoQ <span class="pos">+15.8%</span></div></div>
+    <div class="card"><div class="card-label">Non-GAAP EPS</div><div class="card-val pos">$3.36</div><div class="card-sub">YoY <span class="pos">+28.7%</span>（GAAP: $3.11）</div></div>
+    <div class="card"><div class="card-label">売上ビート</div><div class="card-val pos">+$53M</div><div class="card-sub">コンセンサス $1,080M（<span class="pos">+4.9%</span>）</div></div>
+    <div class="card"><div class="card-label">EPSビート</div><div class="card-val pos">+$0.11</div><div class="card-sub">コンセンサス $3.25（<span class="pos">+3.4%</span>）</div></div>
+    <div class="card"><div class="card-label">粗利益率（Non-GAAP）</div><div class="card-val">12.4%</div><div class="card-sub">GAAP: 12.2% ｜ YoY <span class="pos">+0.1pp</span></div></div>
+    <div class="card"><div class="card-label">営業利益率（Non-GAAP）</div><div class="card-val">10.9%</div><div class="card-sub">GAAP: 10.1% ｜ YoY <span class="pos">+0.3pp</span></div></div>
+    <div class="card"><div class="card-label">EBITDAマージン</div><div class="card-val">11.8%</div><div class="card-sub">営業レバレッジが効き始め</div></div>
+    <div class="card"><div class="card-label">Q3ガイダンス（売上）</div><div class="card-val pos">$1,175M</div><div class="card-sub">レンジ: $1,150M - $1,200M</div></div>
+  </div>
 </div>
-<div class="section"><div class="section-title"><span class="section-icon">🏦</span> キャッシュフロー</div><div class="card-grid"><div class="card"><div class="card-title">営業CF</div><div class="card-value">$46.3M</div></div><div class="card"><div class="card-title">FCF</div><div class="card-value">$-5.3M</div><div class="card-sub">マージン -0.5%</div></div><div class="card"><div class="card-title">投資CF</div><div class="card-value">$-52.0M</div></div></div></div><div class="section"><div class="section-title"><span class="section-icon">🌐</span> セグメント・地域別</div><div class="card"><div style="margin-bottom:12px"><strong>部門別:</strong> テレコム $554.4M (+59% YoY) / データコム $278.1M (-7% YoY) / 非光通信 $300.3M (+61%) うちHPC $86M</div><div><strong>地域別:</strong> 北米 ~50%E / アジア太平洋 ~35%E（タイ製造拠点中心）/ 欧州・その他 ~15%E</div></div></div><div class="section"><div class="section-title"><span class="section-icon">🎯</span> バリュエーション</div><div class="card-grid"><div class="card"><div class="card-title">PER（Trailing）</div><div class="card-value">52.3x</div></div><div class="card"><div class="card-title">PER（Forward）</div><div class="card-value">42.7x</div></div></div></div><div class="section"><div class="section-title"><span class="section-icon">📝</span> ハイライト・備考</div><div class="insight-box">IPO以来最高成長率+36% YoY（$1.13B）。テレコム（DCI）+59%、HPC新カテゴリー急拡大$86M。FCFはBuilding 10建設CapEx$52Mでマイナス転落(-$5.3M)。Q3ガイダンス$1.15-1.20B / Non-GAAP EPS $3.45-3.60（コンセンサス大幅超え+5-7%）。無借金・現金$961M。自己資本$2,185M。決算翌日株価▲13%急落後回復。</div></div>
+
+<!-- 売上高チャート -->
+<div class="section">
+  <div class="section-title">📈 売上高推移（直近8四半期）</div>
+  <div class="chart-box"><div class="chart-wrap"><canvas id="revChart"></canvas></div></div>
+</div>
+
+<!-- EPSチャート -->
+<div class="section">
+  <div class="section-title">💰 EPS推移（直近8四半期）</div>
+  <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
+</div>
+
+<!-- 利益率トレンド -->
+<div class="section">
+  <div class="section-title">📉 利益率トレンド</div>
+  <div class="chart-box"><div class="chart-wrap"><canvas id="marginChart"></canvas></div></div>
+</div>
+
+<!-- キャッシュフロー -->
+<div class="section">
+  <div class="section-title">🏦 キャッシュフロー・バランスシート</div>
+  <div class="grid">
+    <div class="card"><div class="card-label">営業CF（Q2）</div><div class="card-val">$46.3M</div><div class="card-sub">H1累計: $148.8M</div></div>
+    <div class="card"><div class="card-label">FCF（Q2）</div><div class="card-val neg">-$5.3M</div><div class="card-sub">Building 10建設CapEx影響</div></div>
+    <div class="card"><div class="card-label">手元流動性</div><div class="card-val">$961M</div><div class="card-sub">現金$320M + 短期投資$641M</div></div>
+    <div class="card"><div class="card-label">無借金経営</div><div class="card-val pos">$0</div><div class="card-sub">株主資本: $2,185M</div></div>
+  </div>
+</div>
+
+<!-- セグメント -->
+<div class="section">
+  <div class="section-title">🏭 エンドマーケット別売上</div>
+  <div class="grid-2">
+    <div class="chart-box"><div class="chart-wrap"><canvas id="segPie"></canvas></div></div>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>セグメント</th><th>売上</th><th>構成比</th><th>YoY</th></tr></thead>
+        <tbody>
+          <tr><td>📡 テレコム（DCI含む）</td><td>$554M</td><td>49%</td><td class="pos">+59%</td></tr>
+          <tr><td>🌐 データコム</td><td>$278M</td><td>25%</td><td class="neg">-7%</td></tr>
+          <tr><td>🏭 非光通信</td><td>$300M</td><td>26%</td><td class="pos">+61%</td></tr>
+          <tr><td style="color:var(--purple)">🤖 うちHPC</td><td>$86M</td><td>8%</td><td class="pos">新規急拡大</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px;font-size:.82rem;color:var(--t2);line-height:1.7">
+        <strong>テレコム</strong>がDCI（データセンター相互接続）モジュール需要に牽引され+59% YoY、過去最高の$554M。<strong>HPC</strong>は前四半期の$15Mから$86Mに急拡大（+473% QoQ）、フルランプ時$150M+/四半期を目標。データコムはYoY-7%だが供給制約緩和で回復見通し。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 地域別 -->
+<div class="section">
+  <div class="section-title">🌐 地域別売上構成（推定）</div>
+  <div class="grid-2">
+    <div class="chart-box"><div class="chart-wrap"><canvas id="geoPie"></canvas></div></div>
+    <div class="card">
+      <table class="tbl">
+        <thead><tr><th>地域</th><th>構成比</th><th>主要ドライバー</th></tr></thead>
+        <tbody>
+          <tr><td>🇺🇸 北米</td><td>~50%</td><td>Cisco/Lumentum/Coherent等の米企業</td></tr>
+          <tr><td>🌏 アジア太平洋</td><td>~35%</td><td>タイ製造拠点・域内供給</td></tr>
+          <tr><td>🇪🇺 欧州・その他</td><td>~15%</td><td>通信事業者向け</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル分析 -->
+<div class="section">
+  <div class="section-title">📐 株価・テクニカル分析</div>
+  <div style="margin-bottom:20px;text-align:center">
+    <div class="tradingview-widget-container" style="display:inline-block">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NYSE:FN",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": ["MASimple@tv-basicstudies","MAExp@tv-basicstudies"],
+        "studies_overrides": {"moving average.length": 50,"moving average exponential.length": 200}
+      }
+      </script>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="card-label">現在株価</div><div class="card-val">$524.33</div><div class="card-sub">決算後 <span class="neg">-10.2%</span> → 回復基調</div></div>
+    <div class="card"><div class="card-label">時価総額</div><div class="card-val">$18.8B</div><div class="card-sub">発行済: 35.8M株</div></div>
+    <div class="card"><div class="card-label">52週レンジ</div><div class="card-val">$148.55 - $632.99</div><div class="card-sub">52週 <span class="pos">+165%</span></div></div>
+    <div class="card"><div class="card-label">IV Percentile</div><div class="card-val">81%</div><div class="card-sub">IV: 72.7%（高ボラティリティ）</div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <table class="tbl">
+      <thead><tr><th>指標</th><th>値</th><th>シグナル</th></tr></thead>
+      <tbody>
+        <tr><td>移動平均線（総合）</td><td>MA群が買いシグナル</td><td class="pos">Strong Buy</td></tr>
+        <tr><td>RSI（14日）</td><td>~50</td><td class="neu">中立ゾーン</td></tr>
+        <tr><td>サポートライン</td><td>$512 / $499 / $485</td><td>S1 / S2 / S3</td></tr>
+        <tr><td>レジスタンスライン</td><td>$538 / $551 / $564</td><td>R1 / R2 / R3</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid" style="margin-top:16px">
+    <div class="card"><div class="card-label">PER（Trailing）</div><div class="card-val">50.3x</div><div class="card-sub">TTM GAAP EPS: $10.44</div></div>
+    <div class="card"><div class="card-label">PER（Forward FY26）</div><div class="card-val">34.4x</div><div class="card-sub">FY26E EPS: $12.71</div></div>
+    <div class="card"><div class="card-label">PEG Ratio</div><div class="card-val">~1.3</div><div class="card-sub">EPS成長率37%ベース</div></div>
+    <div class="card"><div class="card-label">アナリスト評価</div><div class="card-val pos">Buy</div><div class="card-sub">8名中: Strong Buy 2 / Buy 3 / Hold 3</div></div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section">
+  <div class="section-title">🎤 経営陣コメントハイライト</div>
+  <div class="insight">
+    <strong>Seamus Grady CEO — HPC/AI需要:</strong><br>
+    「HPC売上はフルランプ時に$150M/四半期以上になると見込んでいる。Q2の$86Mはまだ半分程度（halfway）だ。」「データコムでは需要が供給を上回る状態が続いている。EMLレーザーのセカンドソース承認で供給制約が緩和される。」
+  </div>
+  <div class="insight">
+    <strong>Seamus Grady CEO — CPO/次世代技術:</strong><br>
+    「Co-Packaged Opticsは長年ホライゾンにあったが、今はよりリアルになっている。CPO顧客3社がアクティブで、初期売上を既に計上している。光回路スイッチ（OCS）も複数プロジェクトで進行中。」
+  </div>
+  <div class="insight">
+    <strong>カンファレンスコール重要ポイント:</strong><br>
+    • トランシーバー事業（マーチャント＋ハイパースケーラー向け）：「意味のある売上まで数四半期」<br>
+    • 800Gと1.6Tは同じ生産ラインで対応可能、ミックスは「重要ではない」<br>
+    • Building 10（200万sqft）のうち25万sqftを2026年半ばに前倒し完成<br>
+    • 追加キャパシティで年間$2.5B超の売上ポテンシャルを確保<br>
+    • 為替で$0.09/EPSの逆風があったにも関わらずビート達成
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section">
+  <div class="section-title">⚡ リスク・注目ポイント / カタリスト</div>
+  <div class="risk-grid">
+    <div class="risk-card bull">
+      <h3><span class="pos">📈</span> ポジティブ・カタリスト</h3>
+      <ul>
+        <li>AI/DC需要の爆発的成長：800G/1.6Tトランシーバー需要が供給を上回る</li>
+        <li>HPC売上が$86M→$150M+/四半期へフルランプの余地</li>
+        <li>CPO/OCS：次世代技術で先行ポジション、3社顧客確保済み</li>
+        <li>トランシーバー内製化：「数四半期以内に意味のある売上」</li>
+        <li>Building 10で$2.5B+の追加売上キャパシティを確保中</li>
+        <li>テレコム+59% YoY、DCI需要の急回復</li>
+        <li>無借金・手元流動性$961Mの健全なバランスシート</li>
+      </ul>
+    </div>
+    <div class="risk-card bear">
+      <h3><span class="neg">📉</span> リスク要因</h3>
+      <ul>
+        <li>Forward PER 34xは製造業としては割高水準</li>
+        <li>Q3ガイダンスが一部コンセンサスを下回り、決算後-10.2%下落</li>
+        <li>FCFがCapEx増でマイナス転落（-$5.3M）、Building 10建設負担</li>
+        <li>為替リスク：タイバーツ建てコスト vs 米ドル売上</li>
+        <li>顧客集中リスク：上位顧客への依存度が高い</li>
+        <li>在庫$799Mと高水準、在庫回転に注視</li>
+        <li>光通信市場のサイクリカルリスク・地政学リスク</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算比較 -->
+<div class="section">
+  <div class="section-title">🔄 前回決算（FY2026 Q1）との比較</div>
+  <div class="card">
+    <table class="tbl">
+      <thead><tr><th>指標</th><th>FY2026 Q1</th><th>FY2026 Q2</th><th>変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$978M</td><td>$1,133M</td><td class="pos">+$155M (+15.8%)</td></tr>
+        <tr><td>Non-GAAP EPS</td><td>$2.92</td><td>$3.36</td><td class="pos">+$0.44 (+15.1%)</td></tr>
+        <tr><td>Non-GAAP粗利益率</td><td>12.3%</td><td>12.4%</td><td class="pos">+0.1pp</td></tr>
+        <tr><td>Non-GAAP営業利益率</td><td>10.6%</td><td>10.9%</td><td class="pos">+0.3pp</td></tr>
+        <tr><td>HPC売上</td><td>$15M</td><td>$86M</td><td class="pos">+473% QoQ</td></tr>
+        <tr><td>テレコム売上</td><td>—</td><td>$554M</td><td>過去最高</td></tr>
+        <tr><td>総合評価スコア</td><td>—</td><td>4 📈</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;font-size:.85rem;color:var(--t2);line-height:1.8">
+      <strong>トレンド: 大幅改善↑</strong> — 売上が+15.8% QoQと大幅加速し初の$1B超え。利益率も改善。最大の変化はHPC売上の$15M→$86Mへの急拡大で、AI/HPC向け受託製造の本格立ち上がりを示す。テレコムも過去最高を記録。
+    </div>
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section">
+  <div class="section-title">🎯 バリュエーション（想定株価 3シナリオ）</div>
+  <div style="text-align:center;font-size:.82rem;color:var(--t3);margin-bottom:16px">
+    算出方法: 想定株価 = Forward EPS × 予想PER ｜ 現在株価: <strong style="color:var(--t1)">$580.97</strong>
+  </div>
+  <div class="val-grid">
+    <div class="val-card low">
+      <div class="scenario">LOW（保守的）</div>
+      <div class="price">$325</div>
+      <div class="detail">EPS $13.00（ガイダンス下限）<br>× PER 25.0x（過去5Y下限）</div>
+      <div class="gap neg">乖離: -44.0%</div>
+    </div>
+    <div class="val-card mid">
+      <div class="scenario">MID（基本）</div>
+      <div class="price">$585</div>
+      <div class="detail">EPS $13.29（コンセンサス）<br>× PER 44.0x（過去5Y中央値）</div>
+      <div class="gap" style="color:var(--t2)">乖離: +0.7%</div>
+    </div>
+    <div class="val-card high">
+      <div class="scenario">HIGH（楽観的）</div>
+      <div class="price">$1,050</div>
+      <div class="detail">EPS $15.00（楽観予想）<br>× PER 70.0x（過去5Y上限）</div>
+      <div class="gap pos">乖離: +80.7%</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;text-align:center">
+    <div style="font-size:.9rem;color:var(--t2)">MID想定株価 vs 現在株価の乖離率: <strong style="color:var(--t1);font-size:1.1rem">+0.7%</strong></div>
+    <div style="font-size:1rem;font-weight:700;color:var(--blue);margin-top:8px">📊 判定: 適正水準</div>
+    <div style="font-size:.8rem;color:var(--t3);margin-top:4px">アナリスト平均目標株価: $489.14（-15.8%） ｜ 中央値: $540</div>
+  </div>
+</div>
+
 <div class="footer">
-  U&I株倶楽部 | FN FY2026 Q2 決算分析 | 生成日: 2026年03月12日<br>
-  ※ 本レポートは投資助言ではありません。<br>Powered by Claude
+  U&I株倶楽部 ｜ FN FY2026 Q2 決算分析 ｜ 生成日: 2026年3月12日<br>
+  ※ 本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。<br>
+  Powered by Claude
 </div>
-</body></html>
+
+<script>
+const Q=['Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26'];
+const REV=[732,753,804,834,872,910,978,1133];
+const GAAP_EPS=[2.21,2.22,2.13,2.38,2.25,2.42,2.66,3.11];
+const NG_EPS=[2.39,2.41,2.39,2.61,2.52,2.65,2.92,3.36];
+const GM=[12.0,12.1,12.0,12.4,12.0,12.5,12.3,12.4];
+const OM=[9.8,9.9,9.5,10.6,9.8,10.7,10.6,10.9];
+const C={blue:'#58a6ff',green:'#3fb950',red:'#ff7b72',purple:'#bc8cff',yellow:'#d29922',orange:'#f0883e'};
+Chart.defaults.color='#8b949e';Chart.defaults.borderColor='rgba(48,54,61,.5)';Chart.defaults.font.family="'Noto Sans JP',sans-serif";
+
+new Chart(document.getElementById('revChart'),{type:'bar',data:{labels:Q,datasets:[{label:'売上高 ($M)',data:REV,backgroundColor:REV.map((_,i)=>i===7?C.blue:'rgba(88,166,255,.4)'),borderColor:C.blue,borderWidth:1,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw+'M'}}},scales:{y:{beginAtZero:false,min:600,ticks:{callback:v=>'$'+v+'M'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('epsChart'),{type:'bar',data:{labels:Q,datasets:[{label:'GAAP EPS',data:GAAP_EPS,backgroundColor:'rgba(88,166,255,.35)',borderColor:C.blue,borderWidth:1,borderRadius:4},{label:'Non-GAAP EPS',data:NG_EPS,backgroundColor:'rgba(63,185,80,.35)',borderColor:C.green,borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': $'+c.raw.toFixed(2)}}},scales:{y:{beginAtZero:false,min:1.5,ticks:{callback:v=>'$'+v.toFixed(2)}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('marginChart'),{type:'line',data:{labels:Q,datasets:[{label:'粗利益率 (NG)',data:GM,borderColor:C.green,backgroundColor:'rgba(63,185,80,.1)',fill:true,tension:.3,pointRadius:4},{label:'営業利益率 (NG)',data:OM,borderColor:C.blue,backgroundColor:'rgba(88,166,255,.1)',fill:true,tension:.3,pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toFixed(1)+'%'}}},scales:{y:{min:8,max:14,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+
+new Chart(document.getElementById('segPie'),{type:'doughnut',data:{labels:['テレコム/DCI (49%)','データコム (25%)','非光通信 (26%)'],datasets:[{data:[49,25,26],backgroundColor:[C.blue,C.green,C.purple],borderColor:'#161b22',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{padding:16,font:{size:12}}}}}});
+
+new Chart(document.getElementById('geoPie'),{type:'doughnut',data:{labels:['北米 (50%)','アジア太平洋 (35%)','欧州・他 (15%)'],datasets:[{data:[50,35,15],backgroundColor:[C.blue,C.green,C.yellow],borderColor:'#161b22',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{padding:16,font:{size:12}}}}}});
+</script>
+</body>
+</html>
