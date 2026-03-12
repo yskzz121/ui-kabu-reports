@@ -38,7 +38,7 @@ SCORE_LABELS = {
 SCORE_ICONS = {5: "🚀", 4: "📈", 3: "⏸️", 2: "📉", 1: "👎"}
 
 def extract_score_from_report(ticker):
-    """レポートHTMLからスコアを抽出（最新レポートの score-number クラスを探す）"""
+    """レポートHTMLからスコアを抽出（最新レポートの複数パターンを探す）"""
     import re
     ticker_dir = os.path.join(REPO_DIR, ticker)
     if not os.path.isdir(ticker_dir):
@@ -49,10 +49,22 @@ def extract_score_from_report(ticker):
     path = os.path.join(ticker_dir, htmls[0])
     try:
         with open(path, encoding="utf-8") as f:
-            content = f.read(20000)  # ヘッダー部分だけ読む
-        m = re.search(r'class="score-number"[^>]*>\s*(\d)', content)
-        if m:
-            return int(m.group(1))
+            content = f.read(30000)
+        patterns = [
+            r'class="score-number[^"]*"[^>]*>\s*(\d)',
+            r'class="score-num"[^>]*>\s*(\d)',
+            r'class="score-label"[^>]*>\s*(\d)\s*[／/]\s*5',
+            r'スコア\s*(\d)\s*[／/]\s*5',
+            r'score-badge[^>]*>\s*<span[^>]*>\s*(\d)',
+        ]
+        for pat in patterns:
+            m = re.search(pat, content)
+            if m:
+                return int(m.group(1))
+        # Fallback: count score-dot active elements
+        dots = len(re.findall(r'class="score-dot active"', content))
+        if 1 <= dots <= 5:
+            return dots
     except Exception:
         pass
     return None
