@@ -333,6 +333,29 @@ footer a:hover{{text-decoration:underline}}
 .scroll-top{{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:#161b22;border:1px solid #30363d;color:#58a6ff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .25s;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}}
 .scroll-top.visible{{opacity:1;visibility:visible}}
 .scroll-top:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
+@media(max-width:768px){{
+  body{{padding:24px 12px}}
+  header{{margin-bottom:28px}}
+  header h1{{font-size:1.4rem}}
+  .site-logo{{margin:0 0 20px 8px}}
+  .site-logo img{{height:36px}}
+  .grid{{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}}
+  .card{{padding:16px}}
+  .ticker{{font-size:1.1rem}}
+  .sort-bar{{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:20px}}
+  .sort-btn{{margin:0;padding:6px 14px;font-size:.78rem}}
+  .search-bar{{max-width:100%;margin:0 12px 16px}}
+  footer{{margin-top:40px;padding:20px 12px}}
+  .scroll-top{{bottom:16px;right:16px;width:40px;height:40px}}
+}}
+@media(max-width:480px){{
+  body{{padding:16px 8px}}
+  .grid{{grid-template-columns:1fr}}
+  .ticker{{font-size:1rem}}
+  .q-pill{{padding:3px 10px;font-size:.72rem}}
+  .fy-label{{font-size:.72rem;min-width:48px}}
+  .card-top{{flex-wrap:wrap;gap:6px}}
+}}
 </style>
 </head><body>
 <div class="site-logo"><img src="logos/ui-kabu-logo.png" alt="U&I株倶楽部"></div>
