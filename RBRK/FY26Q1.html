@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBRK FY2026 Q1 決算分析レポート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:'Noto Sans JP',sans-serif;line-height:1.7;padding:0 0 60px}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+header{background:linear-gradient(135deg,#161b22 0%,#1a2332 100%);border-bottom:1px solid #30363d;padding:36px 0 28px;text-align:center}
+header h1{font-size:1.6rem;font-weight:700;letter-spacing:.02em}
+header .subtitle{color:#8b949e;font-size:.9rem;margin-top:6px}
+.ticker-badge{display:inline-block;background:#388bfd22;color:#58a6ff;border:1px solid #388bfd44;border-radius:6px;padding:2px 10px;font-weight:700;font-size:.85rem;margin-right:8px}
+.section{margin-top:36px}
+.section-title{font-size:1.15rem;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #21262d;display:flex;align-items:center;gap:8px}
+.section-title .icon{font-size:1.2rem}
+
+/* Cards */
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.card-grid{display:grid;gap:14px}
+.card-grid.c2{grid-template-columns:repeat(2,1fr)}
+.card-grid.c3{grid-template-columns:repeat(3,1fr)}
+.card-grid.c4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:768px){.card-grid.c2,.card-grid.c3,.card-grid.c4{grid-template-columns:1fr}}
+.metric-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:18px 20px;text-align:center}
+.metric-card .label{color:#8b949e;font-size:.75rem;font-weight:500;margin-bottom:4px}
+.metric-card .value{font-size:1.5rem;font-weight:700}
+.metric-card .sub{font-size:.75rem;margin-top:4px}
+.green{color:#3fb950}.red{color:#f85149}.blue{color:#58a6ff}.gray{color:#8b949e}.yellow{color:#d29922}.white{color:#e6edf3}
+
+/* Score */
+.score-box{text-align:center;padding:32px 20px}
+.score-number{font-size:4rem;font-weight:900;line-height:1}
+.score-icon{font-size:3rem}
+.score-label{font-size:1.3rem;font-weight:700;margin-top:8px}
+.score-reason{color:#8b949e;font-size:.88rem;margin-top:10px;max-width:600px;display:inline-block}
+
+/* Company */
+.company-info{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;font-size:.88rem}
+.company-info dt{color:#8b949e;font-weight:500}
+.company-info dd{margin-bottom:4px}
+@media(max-width:600px){.company-info{grid-template-columns:1fr}}
+
+/* Chart */
+.chart-wrap{position:relative;height:320px;margin:10px 0}
+@media(max-width:600px){.chart-wrap{height:260px}}
+
+/* Table */
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #21262d}
+th{color:#8b949e;font-weight:500;font-size:.78rem;text-transform:uppercase}
+tr:hover{background:#1c2129}
+
+/* Valuation cards */
+.val-card{border-radius:12px;padding:22px;text-align:center}
+.val-low{background:#0d2818;border:1px solid #238636}
+.val-mid{background:#0d1f3c;border:1px solid #1f6feb}
+.val-high{background:#2a1520;border:1px solid #da3633}
+.val-card .scenario{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.val-card .price{font-size:2rem;font-weight:900}
+.val-card .detail{font-size:.78rem;color:#8b949e;margin-top:6px}
+
+/* Tags */
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:500;margin:3px 4px 3px 0}
+.tag-green{background:#23863622;color:#3fb950;border:1px solid #23863644}
+.tag-red{background:#da363322;color:#f85149;border:1px solid #da363344}
+.tag-blue{background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44}
+
+/* List */
+.item-list{list-style:none;padding:0}
+.item-list li{padding:10px 0;border-bottom:1px solid #21262d;font-size:.88rem;display:flex;gap:8px}
+.item-list li:last-child{border-bottom:none}
+.item-list .num{color:#8b949e;font-weight:700;min-width:22px}
+
+/* Comparison */
+.compare-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #21262d;font-size:.88rem;flex-wrap:wrap}
+.compare-label{color:#8b949e;min-width:140px;font-weight:500}
+.compare-arrow{font-size:1.1rem}
+
+footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:48px;padding:20px}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container">
+<h1><span class="ticker-badge">RBRK</span> Rubrik, Inc. FY2026 Q1 決算分析</h1>
+<div class="subtitle">2025年2月〜4月期 | 発表日: 2025年6月5日</div>
+</div>
+</header>
+
+<div class="container">
+
+<!-- 1. 企業概要 -->
+<div class="section">
+<div class="section-title"><span class="icon">🏢</span> 企業概要</div>
+<div class="card">
+<dl class="company-info">
+<dt>会社名</dt><dd>Rubrik, Inc.</dd>
+<dt>ティッカー</dt><dd>RBRK（NYSE）</dd>
+<dt>設立</dt><dd>2014年1月</dd>
+<dt>本社</dt><dd>カリフォルニア州パロアルト</dd>
+<dt>CEO</dt><dd>Bipul Sinha（共同創業者兼会長兼CEO）</dd>
+<dt>CFO</dt><dd>Kiran Choudary</dd>
+<dt>上場</dt><dd>2024年4月 NYSE（IPO価格 $32）</dd>
+<dt>時価総額</dt><dd>~$19.9B（Q1発表時、株価~$100）</dd>
+<dt>事業内容</dt><dd>クラウドデータマネジメント・サイバーレジリエンスプラットフォーム。エンタープライズ向けデータバックアップ/リカバリ、ランサムウェア対策、クラウドデータ保護を提供するSaaS企業。</dd>
+<dt>主要製品</dt><dd>Rubrik Security Cloud、Identity Recovery、Cloud Vault、Rubrik AI Agent Cloud (RAC)</dd>
+<dt>競合</dt><dd>Cohesity、Veeam、Commvault、Acronis</dd>
+<dt>収益モデル</dt><dd>サブスクリプション中心（ARRベース）。サブスクリプション売上が全体の95%超。</dd>
+</dl>
+</div>
+</div>
+
+<!-- 2. 総合評価スコア -->
+<div class="section">
+<div class="card score-box">
+<div class="score-icon">📈</div>
+<div class="score-number blue">4<span style="font-size:1.5rem;color:#8b949e"> / 5</span></div>
+<div class="score-label">良い決算</div>
+<div class="score-reason">売上・EPSともに大幅ビート、FY2026通期ガイダンス上方修正、FCF黒字転換を達成。成長加速とマージン改善が明確。</div>
+</div>
+</div>
+
+<!-- 3. Key Metrics -->
+<div class="section">
+<div class="section-title"><span class="icon">📊</span> Key Metrics</div>
+<div class="card-grid c4">
+<div class="metric-card">
+<div class="label">売上高</div>
+<div class="value green">$278.5M</div>
+<div class="sub green">YoY +49% / QoQ +7.9%</div>
+</div>
+<div class="metric-card">
+<div class="label">サブスクリプション売上</div>
+<div class="value green">$265.7M</div>
+<div class="sub green">YoY +54%</div>
+</div>
+<div class="metric-card">
+<div class="label">Non-GAAP EPS</div>
+<div class="value red">-$0.15</div>
+<div class="sub green">予想-$0.33 を+$0.18ビート</div>
+</div>
+<div class="metric-card">
+<div class="label">売上ビート</div>
+<div class="value green">+$18M超</div>
+<div class="sub green">vs コンセンサス~$260M</div>
+</div>
+</div>
+<div class="card-grid c4" style="margin-top:14px">
+<div class="metric-card">
+<div class="label">Subscription ARR</div>
+<div class="value blue">$1.18B</div>
+<div class="sub green">YoY +38%</div>
+</div>
+<div class="metric-card">
+<div class="label">FCF</div>
+<div class="value green">+$33.3M</div>
+<div class="sub green">前年-$37.1M → 黒字転換</div>
+</div>
+<div class="metric-card">
+<div class="label">Non-GAAP粗利益率</div>
+<div class="value green">80.5%</div>
+<div class="sub green">YoY +5.1pp</div>
+</div>
+<div class="metric-card">
+<div class="label">$100K+顧客</div>
+<div class="value blue">2,381社</div>
+<div class="sub green">YoY +28%</div>
+</div>
+</div>
+</div>
+
+<!-- 4. 売上高・EPS 7四半期推移 -->
+<div class="section">
+<div class="section-title"><span class="icon">📈</span> 売上高・EPS 7四半期推移</div>
+<div class="card">
+<div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+</div>
+<div class="card" style="margin-top:14px">
+<div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+</div>
+</div>
+
+<!-- 5. 利益率トレンド -->
+<div class="section">
+<div class="section-title"><span class="icon">💹</span> 利益率トレンド</div>
+<div class="card-grid c3">
+<div class="metric-card">
+<div class="label">GAAP粗利益率</div>
+<div class="value green">78.3%</div>
+<div class="sub green">前年48.8% → +29.5pp<br><span class="gray" style="font-size:.7rem">※IPO関連SBC影響除くと+5pp程度</span></div>
+</div>
+<div class="metric-card">
+<div class="label">Non-GAAP粗利益率</div>
+<div class="value green">80.5%</div>
+<div class="sub green">前年75.4% → +5.1pp</div>
+</div>
+<div class="metric-card">
+<div class="label">Sub ARR Contribution Margin</div>
+<div class="value green">+8.0%</div>
+<div class="sub green">前年-10.6% → +18.6pp改善</div>
+</div>
+</div>
+<div class="card" style="margin-top:14px">
+<table>
+<thead><tr><th>指標</th><th>FY2026 Q1</th><th>FY2025 Q1</th><th>変化</th></tr></thead>
+<tbody>
+<tr><td>GAAP粗利益率</td><td>78.3%</td><td>48.8%</td><td class="green">+29.5pp</td></tr>
+<tr><td>Non-GAAP粗利益率</td><td>80.5%</td><td>75.4%</td><td class="green">+5.1pp</td></tr>
+<tr><td>GAAP営業利益率</td><td colspan="3" class="gray">赤字継続（SBC $73.5M含む）</td></tr>
+<tr><td>Sub ARR Contribution Margin</td><td>+8.0%</td><td>-10.6%</td><td class="green">+18.6pp</td></tr>
+<tr><td>GAAP EPS</td><td>-$0.53</td><td>-$11.48</td><td class="green">大幅改善（IPO SBC影響）</td></tr>
+<tr><td>Non-GAAP EPS</td><td>-$0.15</td><td>-$1.58</td><td class="green">+$1.43改善</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 6. キャッシュフロー -->
+<div class="section">
+<div class="section-title"><span class="icon">💰</span> キャッシュフロー</div>
+<div class="card-grid c3">
+<div class="metric-card">
+<div class="label">営業CF</div>
+<div class="value green">+$39.7M</div>
+<div class="sub green">前年-$31.4M → 黒字転換</div>
+</div>
+<div class="metric-card">
+<div class="label">FCF</div>
+<div class="value green">+$33.3M</div>
+<div class="sub green">前年-$37.1M → $70M改善</div>
+</div>
+<div class="metric-card">
+<div class="label">現金残高</div>
+<div class="value blue">$762.1M</div>
+<div class="sub gray">潤沢な手元資金</div>
+</div>
+</div>
+</div>
+
+<!-- 7. 部門別・地域別売上 -->
+<div class="section">
+<div class="section-title"><span class="icon">🌍</span> セグメント分析</div>
+<div class="card-grid c2">
+<div class="card">
+<h3 style="font-size:.9rem;font-weight:700;margin-bottom:14px;color:#8b949e">地域別売上</h3>
+<div class="chart-wrap" style="height:240px"><canvas id="geoChart"></canvas></div>
+<table style="margin-top:12px">
+<thead><tr><th>地域</th><th>売上</th><th>構成比</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>Americas</td><td>$203M</td><td>73%</td><td class="green">+51%</td></tr>
+<tr><td>その他</td><td>$75M</td><td>27%</td><td class="green">+43%</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<h3 style="font-size:.9rem;font-weight:700;margin-bottom:14px;color:#8b949e">売上構成</h3>
+<div class="chart-wrap" style="height:240px"><canvas id="segChart"></canvas></div>
+<table style="margin-top:12px">
+<thead><tr><th>種別</th><th>売上</th><th>構成比</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>サブスクリプション</td><td>$265.7M</td><td>95.4%</td><td class="green">+54%</td></tr>
+<tr><td>その他</td><td>$12.8M</td><td>4.6%</td><td class="gray">-</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 8. SaaS KPI -->
+<div class="section">
+<div class="section-title"><span class="icon">☁️</span> SaaS KPI</div>
+<div class="card-grid c3">
+<div class="metric-card">
+<div class="label">Subscription ARR</div>
+<div class="value blue">$1.18B</div>
+<div class="sub green">YoY +38%</div>
+</div>
+<div class="metric-card">
+<div class="label">Net New ARR</div>
+<div class="value green">$89M</div>
+<div class="sub gray">堅調な新規獲得</div>
+</div>
+<div class="metric-card">
+<div class="label">Cloud ARR</div>
+<div class="value green">$972M</div>
+<div class="sub green">YoY +60% / 全ARRの82%</div>
+</div>
+</div>
+<div class="card-grid c3" style="margin-top:14px">
+<div class="metric-card">
+<div class="label">NRR（ネットリテンション率）</div>
+<div class="value green">120%超</div>
+<div class="sub green">優良水準</div>
+</div>
+<div class="metric-card">
+<div class="label">$100K+顧客数</div>
+<div class="value blue">2,381社</div>
+<div class="sub green">YoY +28%（+520社超）</div>
+</div>
+<div class="metric-card">
+<div class="label">Rule of 40</div>
+<div class="value green">57</div>
+<div class="sub gray">売上成長率49% + Sub ARR Margin 8%</div>
+</div>
+</div>
+</div>
+
+<!-- 9. 経営陣コメント -->
+<div class="section">
+<div class="section-title"><span class="icon">🎤</span> 経営陣コメントハイライト</div>
+<div class="card">
+<ul class="item-list">
+<li><span class="num">1</span><div><strong>CEO Bipul Sinha:</strong> Identity Recovery製品がハイブリッドクラウド環境のリカバリを<strong class="green">数週間から1時間未満に短縮</strong>。大手病院ネットワークが採用し、ヘルスケア業界での導入が加速。</div></li>
+<li><span class="num">2</span><div><strong>プリエンプティブ・リカバリ:</strong> 独自のプリエンプティブ・リカバリエンジンにより、<strong class="green">競合との直接比較で選ばれるケースが増加</strong>。技術的差別化が営業面でも効果を発揮。</div></li>
+<li><span class="num">3</span><div><strong>CFO Kiran Choudary:</strong> FY2026通期ガイダンスを上方修正。売上$1.179-1.189B（+33-34%）、ARR $1.380-1.388B（+26-27%）。FCF黒字転換を達成し、<strong class="green">収益性改善のトレンドが明確</strong>。</div></li>
+</ul>
+</div>
+</div>
+
+<!-- 10. リスク・カタリスト -->
+<div class="section">
+<div class="section-title"><span class="icon">⚖️</span> リスク・カタリスト</div>
+<div class="card-grid c2">
+<div class="card">
+<h3 style="font-size:.9rem;font-weight:700;margin-bottom:12px;color:#f85149">⚠️ リスク要因</h3>
+<ul class="item-list">
+<li><span class="num">1</span><div>継続的な赤字（Non-GAAP EPSでも-$0.15）。黒字定着にはまだ時間が必要</div></li>
+<li><span class="num">2</span><div>高バリュエーション（PSR 13-16x、業界平均3.3xの4-5倍）。株価に高成長が織込み済み</div></li>
+<li><span class="num">3</span><div>競合激化（Cohesity、Veeam、Commvault）。データ保護市場は大手参入が続く</div></li>
+<li><span class="num">4</span><div>IPOロックアップ解除後の売り圧力。インサイダー売却リスク</div></li>
+<li><span class="num">5</span><div>マクロ経済不確実性。IT支出削減のリスク</div></li>
+</ul>
+</div>
+<div class="card">
+<h3 style="font-size:.9rem;font-weight:700;margin-bottom:12px;color:#3fb950">🚀 カタリスト</h3>
+<ul class="item-list">
+<li><span class="num">1</span><div>Identity Recovery新製品がTAM拡大。サイバーセキュリティ市場への領域拡張</div></li>
+<li><span class="num">2</span><div>Cloud ARR +60%成長。クラウドシフト加速でマージン改善が継続</div></li>
+<li><span class="num">3</span><div>NRR 120%超。既存顧客の拡張が堅調で、ランドアンドエクスパンド戦略が機能</div></li>
+<li><span class="num">4</span><div>FCF黒字転換。収益性改善が市場の信頼を強化</div></li>
+<li><span class="num">5</span><div>全19名のアナリストがBuy以上。圧倒的なセルサイド支持</div></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- 11. 前回決算との比較 -->
+<div class="section">
+<div class="section-title"><span class="icon">🔄</span> 前回決算（FY2025 Q4）との比較</div>
+<div class="card">
+<div style="text-align:center;margin-bottom:18px">
+<span class="tag tag-blue">FY2025 Q4: スコア4 📈</span>
+<span style="font-size:1.2rem;margin:0 8px">→</span>
+<span class="tag tag-blue">FY2026 Q1: スコア4 📈</span>
+<span style="font-size:1.2rem;margin:0 8px">|</span>
+<span class="tag tag-green">トレンド: 横ばい →</span>
+</div>
+<table>
+<thead><tr><th>指標</th><th>FY2025 Q4</th><th>FY2026 Q1</th><th>変化</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$258.1M</td><td>$278.5M</td><td class="green">+7.9% QoQ</td></tr>
+<tr><td>Subscription ARR</td><td>$1,092.6M</td><td>$1,180M</td><td class="green">+8.0% QoQ</td></tr>
+<tr><td>Non-GAAP EPS</td><td>+$0.10（初黒字）</td><td>-$0.15</td><td class="red">季節性で赤字に戻る</td></tr>
+<tr><td>FCF</td><td>$77M</td><td>$33.3M</td><td class="yellow">Q4が突出（季節性）</td></tr>
+<tr><td>$100K+顧客</td><td>2,246社</td><td>2,381社</td><td class="green">+135社</td></tr>
+</tbody>
+</table>
+<div style="margin-top:14px;padding:12px 16px;background:#21262d;border-radius:8px;font-size:.85rem;color:#8b949e">
+<strong class="white">変化の主要因:</strong> 売上・ARRは順調に拡大し成長継続。EPSとFCFはQ4からの季節性要因で一時的に低下したが、YoYでは大幅改善。全体的にFY2025 Q4と同水準の良好な決算。
+</div>
+</div>
+</div>
+
+<!-- 12. バリュエーション -->
+<div class="section">
+<div class="section-title"><span class="icon">🎯</span> バリュエーション（PSRベース）</div>
+<div class="card" style="text-align:center;margin-bottom:14px">
+<div style="font-size:.85rem;color:#8b949e;margin-bottom:6px">Q1発表時の株価</div>
+<div style="font-size:2rem;font-weight:900">$100</div>
+<div style="margin-top:8px"><span class="tag tag-red">やや割高（MID $81 vs 現在$100、乖離-19%）</span></div>
+<div style="font-size:.78rem;color:#8b949e;margin-top:8px">TTM売上: $1.07B / 発行済株式: 199M株 / 赤字企業のためPSR（株価売上高倍率）ベース</div>
+</div>
+<div class="card-grid c3">
+<div class="val-card val-low">
+<div class="scenario green">LOW（保守的）</div>
+<div class="price green">$54</div>
+<div class="detail">PSR 10x<br>想定時価総額 $10.7B<br>現在比 <strong class="red">-46%</strong></div>
+</div>
+<div class="val-card val-mid">
+<div class="scenario blue">MID（基本）</div>
+<div class="price blue">$81</div>
+<div class="detail">PSR 15x<br>想定時価総額 $16.1B<br>現在比 <strong class="red">-19%</strong></div>
+</div>
+<div class="val-card val-high">
+<div class="scenario red">HIGH（楽観的）</div>
+<div class="price" style="color:#f85149">$108</div>
+<div class="detail">PSR 20x<br>想定時価総額 $21.4B<br>現在比 <strong class="green">+8%</strong></div>
+</div>
+</div>
+</div>
+
+<!-- アナリスト評価 -->
+<div class="section">
+<div class="section-title"><span class="icon">🏦</span> アナリスト評価</div>
+<div class="card-grid c3">
+<div class="metric-card">
+<div class="label">レーティング</div>
+<div class="value green">100% Buy以上</div>
+<div class="sub gray">19名中19名がBuy/Strong Buy</div>
+</div>
+<div class="metric-card">
+<div class="label">目標株価中央値</div>
+<div class="value blue">$111.50</div>
+<div class="sub gray">レンジ $97 - $130</div>
+</div>
+<div class="metric-card">
+<div class="label">決算後株価反応</div>
+<div class="value green">52週高値$103記録</div>
+<div class="sub gray">IPO安値$28.34から約3.6倍</div>
+</div>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<footer>
+<div class="container">
+RBRK FY2026 Q1 決算分析レポート | 作成日: 2026-03-12<br>
+本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。
+</div>
+</footer>
+
+<script>
+const labelQ = ['FY24Q3','FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1'];
+const revData = [153.8,175.0,187.3,205.0,236.2,258.1,278.5];
+const epsData = [null,null,-1.58,null,null,0.10,-0.15];
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:labelQ,
+    datasets:[{
+      label:'売上高 ($M)',
+      data:revData,
+      backgroundColor:revData.map((_,i)=>i===revData.length-1?'#3fb950':'#238636aa'),
+      borderColor:revData.map((_,i)=>i===revData.length-1?'#3fb950':'#238636'),
+      borderWidth:1,
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'売上高 7四半期推移 ($M)',color:'#8b949e',font:{size:14,family:'Noto Sans JP'}}
+    },
+    scales:{
+      y:{beginAtZero:false,min:100,grid:{color:'#21262d'},ticks:{color:'#8b949e',callback:v=>'$'+v+'M'}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:labelQ,
+    datasets:[{
+      label:'Non-GAAP EPS ($)',
+      data:epsData,
+      backgroundColor:epsData.map(v=>v===null?'transparent':v>=0?'#3fb950':'#f85149aa'),
+      borderColor:epsData.map(v=>v===null?'transparent':v>=0?'#3fb950':'#f85149'),
+      borderWidth:1,
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'Non-GAAP EPS 7四半期推移 ($)',color:'#8b949e',font:{size:14,family:'Noto Sans JP'}},
+      tooltip:{callbacks:{label:ctx=>ctx.raw===null?'N/A':'$'+ctx.raw.toFixed(2)}}
+    },
+    scales:{
+      y:{grid:{color:'#21262d'},ticks:{color:'#8b949e',callback:v=>'$'+v.toFixed(2)}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+
+// Geo Chart
+new Chart(document.getElementById('geoChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Americas','その他'],
+    datasets:[{data:[203,75],backgroundColor:['#388bfd','#8b949e'],borderWidth:0}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{color:'#8b949e',font:{family:'Noto Sans JP'}}}}
+  }
+});
+
+// Segment Chart
+new Chart(document.getElementById('segChart'),{
+  type:'doughnut',
+  data:{
+    labels:['サブスクリプション','その他'],
+    datasets:[{data:[265.7,12.8],backgroundColor:['#3fb950','#484f58'],borderWidth:0}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{color:'#8b949e',font:{family:'Noto Sans JP'}}}}
+  }
+});
+</script>
+</body>
+</html>
