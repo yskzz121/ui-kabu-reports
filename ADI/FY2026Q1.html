@@ -69,13 +69,17 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text3);font-size:.75rem;line-height:1.8}
 @media(max-width:768px){.header h1{font-size:1.5rem}.grid{grid-template-columns:1fr 1fr}.val-grid{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr}.chart-wrap{height:250px}}
 @media(max-width:480px){.grid{grid-template-columns:1fr}}
+
+/* Report Logo */
+.report-header-logo{height:48px;width:auto;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 </style>
 </head>
 <body>
 
 <!-- ===== HEADER ===== -->
 <div class="header">
-  <div class="ticker-badge">NASDAQ: ADI</div>
+  <div class="header-logo-row"><img class="report-header-logo" src="../logos/ADI.svg" alt="ADI"><div class="ticker-badge">NASDAQ: ADI</div></div>
   <h1>Analog Devices, Inc.</h1>
   <div class="quarter">FY2026 Q1（2025年11月〜2026年1月）決算分析</div>
   <div class="date">決算発表日: 2026年2月18日 ｜ 会計年度末: 11月第1土曜日</div>

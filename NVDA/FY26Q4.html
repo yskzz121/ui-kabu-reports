@@ -93,6 +93,10 @@ canvas{max-height:320px}
   .compare-row{grid-template-columns:1fr}
   .compare-arrow{transform:rotate(90deg)}
 }
+
+/* Report Logo */
+.report-header-logo{height:48px;width:auto;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -100,7 +104,7 @@ canvas{max-height:320px}
 
 <!-- Header -->
 <div class="header">
-  <div class="ticker">NVDA</div>
+  <div class="header-logo-row"><img class="report-header-logo" src="../logos/NVDA.svg" alt="NVDA"><div class="ticker">NVDA</div></div>
   <div class="subtitle">NVIDIA Corporation｜FY2026 Q4 決算分析レポート</div>
   <div class="date">決算発表日: 2026年2月25日｜対象期間: 2025年10月27日〜2026年1月25日</div>
 </div>
