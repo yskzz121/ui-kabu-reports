@@ -1274,11 +1274,32 @@ new Chart(document.getElementById('geoChart'), {
 <button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
 
 <script>
-// Accordion
+// Accordion — tap vs swipe detection
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
 document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
-  title.addEventListener('click', function(){
-    var sec = this.closest('[data-accordion]');
-    sec.classList.toggle('collapsed');
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    // Only toggle if finger moved less than 10px and tap was under 300ms
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      this.closest('[data-accordion]').classList.toggle('collapsed');
+    }
+  });
+  // Desktop: normal click
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      this.closest('[data-accordion]').classList.toggle('collapsed');
+    }
   });
 });
 
