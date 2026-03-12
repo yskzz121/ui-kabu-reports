@@ -249,8 +249,7 @@ def make_root_index(ticker_data):
             if os.path.exists(os.path.join(REPO_DIR, candidate)):
                 logo_file = candidate
                 break
-        extra_style = ' style="border-radius:6px"' if logo_file and logo_file.endswith(".png") else ""
-        logo_html = f'<img class="card-logo" src="{logo_file}" alt="{ticker}"{extra_style}>' if logo_file else ''
+        logo_html = f'<img class="card-logo" src="{logo_file}" alt="{ticker}">' if logo_file else ''
 
         # スコアバッジ
         score = extract_score_from_report(ticker)
@@ -266,7 +265,14 @@ def make_root_index(ticker_data):
                 bg, fg, bd = "#f8514922", "#f85149", "#f8514944"
             score_html = f'<span class="score-badge" style="background:{bg};color:{fg};border:1px solid {bd}">{icon} {score}/5</span>'
 
-        cards += f'<div class="card" data-ticker="{ticker}"{score_attr} data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}{score_html}{new_html}{logo_html}</div>{fy_html}</div>'
+        cards += (
+            f'<div class="card" data-ticker="{ticker}"{score_attr} data-sector="{sector}">'
+            f'<div class="card-top"><div class="card-id">{logo_html}<span class="ticker">{ticker}</span></div>'
+            f'<div class="card-badges">{new_html}{score_html}</div></div>'
+            f'{sector_html}'
+            f'{fy_html}'
+            f'</div>'
+        )
 
     now = datetime.now().strftime("%Y/%m/%d %H:%M")
     return f"""<!DOCTYPE html>
@@ -291,23 +297,27 @@ header h1{{color:#58a6ff;font-size:1.8rem;font-weight:700;display:flex;align-ite
 header h1 img{{height:44px;width:auto}}
 header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}}
-.card{{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s}}
+.card{{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s}}
 .card:hover{{border-color:#58a6ff}}
-.card-header{{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}}
-.ticker{{font-size:1.5rem;font-weight:700;color:#e6edf3}}
-.sector{{font-size:.75rem;color:#8b949e;background:rgba(88,166,255,.1);padding:2px 10px;border-radius:12px;white-space:nowrap}}
-.fy-row{{display:flex;align-items:center;gap:10px;margin-bottom:6px}}
-.fy-label{{font-size:.8rem;font-weight:700;color:#8b949e;min-width:60px}}
+.card-top{{display:flex;align-items:center;justify-content:space-between;gap:10px}}
+.card-id{{display:flex;align-items:center;gap:10px;min-width:0}}
+.card-badges{{display:flex;align-items:center;gap:6px;flex-shrink:0}}
+.card-logo{{height:26px;width:auto;max-width:40px;object-fit:contain;opacity:.85;flex-shrink:0}}
+.card-logo[src$=".png"]{{border-radius:4px}}
+.ticker{{font-size:1.4rem;font-weight:700;color:#e6edf3;white-space:nowrap}}
+.sector{{font-size:.7rem;color:#8b949e;background:rgba(88,166,255,.08);padding:3px 10px;border-radius:10px;white-space:nowrap;display:inline-block;align-self:flex-start}}
+.fy-row{{display:flex;align-items:center;gap:10px}}
+.fy-label{{font-size:.78rem;font-weight:700;color:#6e7681;min-width:56px;flex-shrink:0}}
 .q-pills{{display:flex;gap:6px;flex-wrap:wrap}}
-.q-pill{{font-size:.78rem;font-weight:500;padding:4px 14px;border-radius:8px;background:#21262d;color:#58a6ff;text-decoration:none;border:1px solid #30363d;transition:all .15s}}
+.q-pill{{font-size:.76rem;font-weight:500;padding:4px 14px;border-radius:8px;background:#21262d;color:#58a6ff;text-decoration:none;border:1px solid #30363d;transition:all .15s}}
 .q-pill:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 .sort-bar{{text-align:center;margin-bottom:24px}}
 .sort-btn{{font-family:'Noto Sans JP',sans-serif;font-size:.82rem;font-weight:500;padding:6px 18px;margin:0 4px;border-radius:8px;border:1px solid #30363d;background:#161b22;color:#8b949e;cursor:pointer;transition:all .15s}}
 .sort-btn.active{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 .sort-btn:hover:not(.active){{border-color:#58a6ff;color:#58a6ff}}
 .sector-heading{{color:#58a6ff;font-size:1rem;font-weight:700;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid #21262d;grid-column:1/-1}}
-.score-badge{{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}}
-.new-badge{{font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:10px;background:#da3633;color:#fff;white-space:nowrap;animation:pulse 2s ease-in-out infinite}}
+.score-badge{{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;line-height:1.4}}
+.new-badge{{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:10px;background:#da3633;color:#fff;white-space:nowrap;letter-spacing:.5px;animation:pulse 2s ease-in-out infinite}}
 @keyframes pulse{{0%,100%{{opacity:1}}50%{{opacity:.6}}}}
 .search-bar{{max-width:400px;margin:0 auto 20px;position:relative}}
 .search-bar input{{width:100%;padding:10px 16px 10px 40px;border-radius:10px;border:1px solid #30363d;background:#161b22;color:#e6edf3;font-family:'Noto Sans JP',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s}}
@@ -315,7 +325,6 @@ header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
 .search-bar svg{{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#6e7681}}
 .card.hidden{{display:none}}
 .no-results{{grid-column:1/-1;text-align:center;color:#6e7681;font-size:.9rem;padding:40px 0}}
-.card-logo{{height:28px;width:auto;object-fit:contain;opacity:.85;margin-left:auto}}
 footer{{text-align:center;margin-top:60px;padding:24px 20px;border-top:1px solid #21262d;color:#484f58;font-size:.75rem;line-height:1.8}}
 footer a{{color:#58a6ff;text-decoration:none}}
 footer a:hover{{text-decoration:underline}}
