@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>META Meta Platforms FY2025 Q4 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e;--text-sub:#8b949e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(63,185,80,.06),rgba(88,166,255,.06));border-radius:16px;border:1px solid var(--border)}
+.score-badge{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--gl);border-radius:16px;padding:16px 32px;margin-bottom:14px}
+.score-num,.score-big{font-size:3rem;font-weight:900;color:var(--gl)}.score-icon{font-size:2.5rem}
+.score-label{font-size:1.3rem;font-weight:700;color:var(--gl)}
+.score-desc{color:var(--t2);font-size:.88rem;margin-top:8px;max-width:750px;margin-left:auto;margin-right:auto;line-height:1.8}
+.section{margin-bottom:36px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;position:relative}
+.section-title,.section-header{font-size:1.1rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.1em}
+.grid,.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:rgba(22,27,34,.6);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-label{font-size:.72rem;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.card-val{font-size:1.6rem;font-weight:700}.card-sub{font-size:.8rem;color:var(--t2);margin-top:4px}
+.pos{color:var(--gl)}.neg{color:var(--rl)}.neu{color:var(--t1)}
+.chart-box{background:rgba(22,27,34,.6);border:1px solid var(--border);border-radius:12px;padding:24px}
+.chart-wrap,.chart-container{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:.75rem;padding:3px 12px;border-radius:20px;background:var(--bbg);color:var(--blue);border:1px solid rgba(88,166,255,.2)}
+.insight{background:rgba(22,27,34,.6);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:18px 22px;font-size:.88rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
+.insight strong{color:var(--t1)}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:rgba(22,27,34,.6);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h3{font-size:.9rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.84rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(48,54,61,.5);line-height:1.7}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'•';margin-right:8px;font-weight:700}
+.risk-card.bull li::before{color:var(--gl)}.risk-card.bear li::before{color:var(--rl)}
+.val-grid,.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,.08),rgba(46,160,67,.03));border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.03));border-color:rgba(88,166,255,.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(188,140,255,.08),rgba(188,140,255,.03));border-color:rgba(188,140,255,.3)}
+.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-card.low .scenario{color:var(--gl)}.val-card.mid .scenario{color:var(--blue)}.val-card.high .scenario{color:var(--purple)}
+.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px}
+.val-card.low .price{color:var(--gl)}.val-card.mid .price{color:var(--blue)}.val-card.high .price{color:var(--purple)}
+.val-card .detail{font-size:.78rem;color:var(--t2);line-height:1.6}
+.val-card .gap{font-size:.85rem;font-weight:700;margin-top:8px}
+.tbl,.compare-table,.tech-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.tbl td{color:var(--t2)}.tbl tr:hover td{background:rgba(88,166,255,.04)}
+.sub-title{font-size:.95rem;font-weight:700;margin:20px 0 14px;display:flex;align-items:center;gap:8px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.saas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--t3);font-size:.75rem;line-height:1.8}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  .grid-2{grid-template-columns:1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/META.svg" alt="META" width="64" height="64">
+      <div class="ticker-badge">NASDAQ: META</div>
+    </div>
+    <h1>Meta Platforms, Inc. 決算分析</h1>
+    <div class="subtitle">FY2025 Q4（2025年10月〜12月）</div>
+    <div class="date">発表日: 2026年1月28日 ｜ レポート作成: 2026年3月13日</div>
+  </div>
+</div>
+
+<!-- 企業概要 -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 企業概要</div>
+  <div class="section-body">
+    <p style="font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px"><strong style="color:var(--t1)">Meta Platforms</strong>は2004年設立（旧Facebook）の世界最大級のソーシャルメディア・デジタル広告企業。Facebook、Instagram、WhatsApp、Messengerの「Family of Apps（FoA）」を中核に、Reality Labs（Quest VR/AR、Horizon Worlds）を展開。DAP（Daily Active People）は35.8億人に到達。</p>
+    <p style="font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px">AI戦略を全面的に加速中。Meta AI（Llamaベース）は10億ユーザー突破。2026年のCapExを$115-135Bに倍増し、Meta Superintelligence Labs（MSL）を設立。WhatsApp有料メッセージングは年間ランレート$2B超。CEO: Mark Zuckerberg（創業者）。競合: Alphabet/Google、TikTok/ByteDance、Snap、Pinterest。</p>
+    <div class="tags">
+      <span class="tag">ソーシャルメディア</span>
+      <span class="tag">デジタル広告</span>
+      <span class="tag">AI / Llama</span>
+      <span class="tag">Meta AI</span>
+      <span class="tag">Reality Labs / VR・AR</span>
+      <span class="tag">WhatsApp</span>
+    </div>
+  </div>
+</div>
+
+<!-- 総合評価 -->
+<div class="score-section">
+  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
+  <div class="score-label">良い決算</div>
+  <div class="score-desc">売上$59.9B（+24% YoY）・EPS $8.88で共にコンセンサスビート（売上+2.6%、EPS+8.8%）。Q1'26ガイダンス$55B（コンセンサス$51.4Bを+7%上回る）が市場にサプライズ。広告インプレッション+18%・単価+6%のダブル成長。決算後株価+10%超。FoA営業利益$30.8Bと過去最高。一方、RL損失は-$6.0Bに拡大し、FY26 CapEx $115-135B（前年比ほぼ倍増）の巨額投資が中長期のリスク要因。</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">売上高</div>
+      <div class="card-val pos">$59,893M</div>
+      <div class="card-sub"><span class="pos">+24% YoY</span> / <span class="pos">+17% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">GAAP EPS</div>
+      <div class="card-val pos">$8.88</div>
+      <div class="card-sub"><span class="pos">+11% YoY</span> / コンセンサス$8.16を<span class="pos">+8.8%ビート</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">売上ビート</div>
+      <div class="card-val pos">+$1,493M</div>
+      <div class="card-sub">コンセンサス$58,400M → 実績$59,893M（<span class="pos">+2.6%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">粗利益率（GAAP）</div>
+      <div class="card-val pos">81.8%</div>
+      <div class="card-sub"><span class="pos">+0.1pp YoY</span> / 安定的な高水準</div>
+    </div>
+    <div class="card">
+      <div class="card-label">営業利益率（GAAP）</div>
+      <div class="card-val neg">41.3%</div>
+      <div class="card-sub"><span class="neg">-7.0pp YoY</span>（費用+40%増）/ <span class="pos">+1.2pp QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">EBITDAマージン</div>
+      <div class="card-val pos">52.1%</div>
+      <div class="card-sub">EBITDA $31,221M</div>
+    </div>
+    <div class="card">
+      <div class="card-label">DAP（Daily Active People）</div>
+      <div class="card-val pos">3.58B</div>
+      <div class="card-sub"><span class="pos">+7% YoY</span> / Facebook MAU 3.07B</div>
+    </div>
+    <div class="card">
+      <div class="card-label">決算後株価反応</div>
+      <div class="card-val pos">+10%超</div>
+      <div class="card-sub">ガイダンス大幅上振れを好感</div>
+    </div>
+  </div>
+</div>
+
+<!-- コンセンサス比較 -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🔮</span> ガイダンス vs コンセンサス</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Q1 2026 売上ガイダンス</div>
+        <div class="card-val pos">$53.5B〜$56.5B</div>
+        <div class="card-sub">中央値$55.0B / コンセンサス$51.4Bを<span class="pos">+7%上回る</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">FY2026 CapEx</div>
+        <div class="card-val neu">$115B〜$135B</div>
+        <div class="card-sub">前年$72.2Bから<span class="neg">ほぼ倍増</span> / AI・スーパーインテリジェンスに重点投資</div>
+      </div>
+      <div class="card">
+        <div class="card-label">FY2026 総経費</div>
+        <div class="card-val neu">$162B〜$169B</div>
+        <div class="card-sub">前年$117.7Bから+38〜44%増</div>
+      </div>
+      <div class="card">
+        <div class="card-label">FY2026 EPS コンセンサス</div>
+        <div class="card-val pos">$23.50</div>
+        <div class="card-sub">Forward PER 22.0x / アナリスト目標株価 $835〜$852</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 売上高 / EPS 7四半期推移 -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-box">
+        <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">売上高推移（$M）</div>
+        <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">GAAP EPS推移（$）※Q3'25は税務費用影響あり</div>
+        <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 利益率トレンド -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> 利益率トレンド</div>
+  <div class="section-body">
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">粗利益率（GAAP）</div>
+        <div class="card-val pos">81.8%</div>
+        <div class="card-sub">Q3: ~82% → Q4: 81.8%（安定）/ 前年同期 81.7%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">営業利益率（GAAP）</div>
+        <div class="card-val neg">41.3%</div>
+        <div class="card-sub">Q3: 40.1% → Q4: 41.3%（<span class="pos">+1.2pp QoQ</span>）/ 前年同期 48.3%（<span class="neg">-7.0pp YoY</span>）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">EBITDAマージン</div>
+        <div class="card-val pos">52.1%</div>
+        <div class="card-sub">EBITDA $31.2B / 通期$105.7B</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Non-GAAP営業利益率（推定）</div>
+        <div class="card-val pos">~51.2%</div>
+        <div class="card-sub">SBC $5.89B加算ベース / 調整営業利益 ~$30.6B</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <strong>粗利益率は82%の高水準を維持。</strong>営業利益率はYoYで-7.0pp低下したが、これはR&D +41%（AI・インフラ投資）、G&A +386%（法的和解費用含む）の影響。QoQでは+1.2pp改善しており、費用増加を売上成長が吸収。通期営業利益率は41.4%で、大規模投資にもかかわらず40%超を維持。
+    </div>
+  </div>
+</div>
+
+<!-- キャッシュフロー -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+  <div class="section-body">
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">営業CF（Q4）</div>
+        <div class="card-val pos">$36,214M</div>
+        <div class="card-sub">通期: $115,800M</div>
+      </div>
+      <div class="card">
+        <div class="card-label">投資CF（Q4）</div>
+        <div class="card-val neg">-$34,187M</div>
+        <div class="card-sub">CapEx $21,383M（AI・DC投資）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">FCF（Q4）</div>
+        <div class="card-val pos">$14,077M</div>
+        <div class="card-sub">通期FCF: $43,585M / 通期CapEx: $69,691M</div>
+      </div>
+      <div class="card">
+        <div class="card-label">財務CF（Q4）</div>
+        <div class="card-val pos">$25,149M</div>
+        <div class="card-sub">自社株買い・配当を含む</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- セグメント別売上 -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏗️</span> セグメント別売上</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Family of Apps（FoA）</div>
+        <div class="card-val pos">$58,938M</div>
+        <div class="card-sub"><span class="pos">+25% YoY</span> / 構成比 98.4% / 営業利益 $30,766M</div>
+        <div style="margin-top:10px;font-size:.82rem;color:var(--t2);line-height:1.7">
+          広告売上: $58,137M（+24% YoY）<br>
+          その他売上: $801M（+54% YoY）— WhatsApp有料メッセージング等<br>
+          広告インプレッション: <span class="pos">+18% YoY</span> / 平均単価: <span class="pos">+6% YoY</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Reality Labs（RL）</div>
+        <div class="card-val neg">$955M</div>
+        <div class="card-sub"><span class="neg">-12% YoY</span> / <span class="pos">+103% QoQ</span> / 構成比 1.6%</div>
+        <div style="margin-top:10px;font-size:.82rem;color:var(--t2);line-height:1.7">
+          営業損失: <span class="neg">-$6,021M</span>（Q3: -$4,430M）<br>
+          通期RL損失: <span class="neg">-$19,193M</span><br>
+          Zuckerberg: 「2026年がRL損失のピーク。今後は徐々に削減」
+        </div>
+      </div>
+    </div>
+    <div class="chart-box" style="margin-top:14px">
+      <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">セグメント売上構成</div>
+      <div class="chart-wrap"><canvas id="segChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- 地域別売上 -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+  <div class="section-body">
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">US & Canada</div>
+        <div class="card-val neu">$26,472M</div>
+        <div class="card-sub"><span class="pos">+21.5% YoY</span> / 構成比 44.2%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Europe</div>
+        <div class="card-val neu">$14,480M</div>
+        <div class="card-sub"><span class="pos">+25.9% YoY</span> / 構成比 24.2%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Asia-Pacific</div>
+        <div class="card-val pos">$7,759M</div>
+        <div class="card-sub"><span class="pos">+32.5% YoY</span> / 構成比 13.0% / 最高成長率</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Rest of World</div>
+        <div class="card-val neu">$11,182M</div>
+        <div class="card-sub"><span class="pos">+20.9% YoY</span> / 構成比 18.7%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル分析 -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">現在株価</div>
+        <div class="card-val neu">$653.51</div>
+        <div class="card-sub">2026年3月12日時点</div>
+      </div>
+      <div class="card">
+        <div class="card-label">52週レンジ</div>
+        <div class="card-val neu">$479.80 — $796.25</div>
+        <div class="card-sub">52週高値から-17.9%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">時価総額</div>
+        <div class="card-val neu">$1.65T</div>
+        <div class="card-sub">配当利回り: 0.32% / Beta: 1.27</div>
+      </div>
+      <div class="card">
+        <div class="card-label">決算後反応（1/29）</div>
+        <div class="card-val pos">+10%超</div>
+        <div class="card-sub">ガイダンス大幅上振れ・広告モメンタム評価</div>
+      </div>
+    </div>
+
+    <div class="sub-title">📏 移動平均線・トレンド</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">SMA 20日</div>
+        <div class="card-val pos">$651.98</div>
+        <div class="card-sub">株価は上回っている（<span class="pos">強気</span>）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SMA 50日</div>
+        <div class="card-val pos">$647.89</div>
+        <div class="card-sub">株価は上回っている（<span class="pos">強気</span>）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SMA 200日</div>
+        <div class="card-val neg">$681.41</div>
+        <div class="card-sub">株価は下回っている（<span class="neg">弱気</span>）</div>
+      </div>
+    </div>
+
+    <div class="sub-title">📊 オシレーター</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">RSI（14日）</div>
+        <div class="card-val neu">64.5〜65.6</div>
+        <div class="card-sub">中立〜やや買われすぎに近い</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MACD</div>
+        <div class="card-val pos">プラス転換</div>
+        <div class="card-sub">3/10にプラス転換（<span class="pos">強気シグナル</span>）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ボリンジャーバンド（25日）</div>
+        <div class="card-val pos">$625〜$683</div>
+        <div class="card-sub">買いシグナル / 3/4に上部バンド突破</div>
+      </div>
+    </div>
+
+    <div class="sub-title">📐 サポート/レジスタンス・パターン</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">サポート</div>
+        <div class="card-val pos">$648 / $625</div>
+        <div class="card-sub">$648=SMA50、$625=ボリンジャー下限</div>
+      </div>
+      <div class="card">
+        <div class="card-label">レジスタンス</div>
+        <div class="card-val neg">$681 / $730</div>
+        <div class="card-sub">$681=SMA200、$730=ボリンジャー上限(100日)</div>
+      </div>
+      <div class="card">
+        <div class="card-label">チャートパターン</div>
+        <div class="card-val neu">回復途上</div>
+        <div class="card-sub">$796高値からの調整後、SMA20/50を回復。SMA200上抜けが転換の鍵</div>
+      </div>
+      <div class="card">
+        <div class="card-label">フィボナッチピボット</div>
+        <div class="card-val neu">$656.75</div>
+        <div class="card-sub">現在株価は50%〜61.8%戻し圏に位置</div>
+      </div>
+    </div>
+
+    <div class="sub-title">🔢 フィボナッチ・リトレースメント</div>
+    <div class="insight">
+      52週高値$796.25 → 52週安値$479.80のフィボナッチ: <strong>23.6%戻し=$554</strong>、<strong>38.2%戻し=$601</strong>、<strong>50%戻し=$638</strong>、<strong>61.8%戻し=$675</strong>、<strong>78.6%戻し=$729</strong>。現在株価$654は50%〜61.8%戻しの間に位置。$675（61.8%≒SMA200）突破で上昇トレンド加速の可能性。$638（50%）がサポートとして機能。
+    </div>
+
+    <div class="insight" style="border-left-color:var(--yellow)">
+      <strong>総合テクニカル判定: やや強気</strong> — SMA20/SMA50を上回り短期的なモメンタムは強気。MACDが直近プラス転換。RSI 65付近でまだ過熱感は薄い。ただしSMA200（$681）を下回っており、中長期トレンドの回復にはこのレベルの上抜けが必要。ボリンジャーバンドは買いシグナル。$681を明確に上抜ければ$730→$796への上値追い再開の可能性。
+    </div>
+
+    <div class="chart-box" style="padding:16px;margin-top:14px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NASDAQ:META",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": [
+            "MASimple@tv-basicstudies",
+            "MAExp@tv-basicstudies"
+          ],
+          "studies_overrides": {
+            "moving average.length": 50,
+            "moving average exponential.length": 200
+          }
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメント・Earnings Callハイライト</div>
+  <div class="section-body">
+    <div class="insight">
+      <strong>【AI・スーパーインテリジェンス】</strong>Zuckerberg: 「AIの大幅な加速が起きている。2026年はこの波がさらに加速する年になる」「AIの個人向けスーパーインテリジェンスを世界中の人々に届けることを楽しみにしている」。Meta Superintelligence Labs（MSL）を設立。FY2026 CapExを$115-135Bに設定し、AI/インフラに過去最大規模の投資を実行。
+    </div>
+    <div class="insight">
+      <strong>【Llama・AIモデル】</strong>最新AIモデルを「今後数ヶ月で」リリース予定。「最初のモデルは良いものになるが、重要なのは我々がいる急速な軌道を示すことだ」。Llamaの継続的リリースを計画し、年間を通じてフロンティアを押し進める方針。
+    </div>
+    <div class="insight">
+      <strong>【Reality Labs】</strong>2026年のRL営業損失は前年と同水準を見込むが、「今年がRL損失のピークになる。今後は徐々に損失を削減していく」。Q4は$955M売上（Quest年末需要）。
+    </div>
+    <div class="insight">
+      <strong>【WhatsApp・Threads】</strong>WhatsApp有料メッセージングが年間ランレート$2B超を達成。Threadsは今月からUK・EU・ブラジル含む全残存国に広告展開を拡大。ステータス広告も年内ロールアウト完了予定。
+    </div>
+    <div class="insight">
+      <strong>【AI活用・広告最適化】</strong>「AIが2026年にMetaの従業員の仕事の仕方を劇的に変える」。AI広告ランキング改善、動画ツール、エンジニアリング生産性向上でROIが測定可能レベルに。広告インプレッション+18%・平均単価+6%のダブル成長が続く。
+    </div>
+  </div>
+</div>
+
+<!-- インサイダー動向 -->
+<div class="section" data-accordion>
+  <div class="section-title"><span class="section-icon">👤</span> インサイダー動向 / アナリスト評価</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">インサイダー取引</div>
+        <table class="tbl" style="margin-top:8px">
+          <tr><th>期間</th><th>買い</th><th>売り</th></tr>
+          <tr><td>直近3ヶ月</td><td>0件</td><td><span class="neg">161,319株</span></td></tr>
+          <tr><td>直近18ヶ月</td><td>0件</td><td><span class="neg">92件 / 1,971,171株</span></td></tr>
+        </table>
+        <div style="font-size:.8rem;color:var(--t2);margin-top:8px">Zuckerberg: Rule 10b5-1事前計画に基づく定期売却。ネガティブシグナルではない</div>
+      </div>
+      <div class="card">
+        <div class="card-label">アナリスト評価</div>
+        <table class="tbl" style="margin-top:8px">
+          <tr><th>項目</th><th>値</th></tr>
+          <tr><td>コンセンサス</td><td><span class="pos">Strong Buy</span>（約40名）</td></tr>
+          <tr><td>内訳</td><td>Strong Buy 53% / Buy 43% / Hold 5%</td></tr>
+          <tr><td>平均目標株価</td><td>$835〜$852（<span class="pos">+28〜30%</span>）</td></tr>
+          <tr><td>目標レンジ</td><td>$645 〜 $1,144</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> リスク・注目ポイント / カタリスト</div>
+  <div class="section-body">
+    <div class="risk-grid">
+      <div class="risk-card bear">
+        <h3><span class="neg">⚠️</span> リスク要因</h3>
+        <ul>
+          <li>FY2026 CapEx $115-135B（前年比ほぼ倍増）。AI投資のROI不透明性</li>
+          <li>Reality Labs通期損失-$19.2B。「ピーク宣言」の信頼性はまだ未検証</li>
+          <li>営業利益率がYoYで-7.0pp低下。費用増加ペースが売上成長を上回るリスク</li>
+          <li>FY2026総経費$162-169B（+38〜44%増）のコスト圧力</li>
+          <li>EU規制（DMA・DSA）やプライバシー規制の広告ターゲティングへの影響</li>
+          <li>TikTok規制緩和の場合、競争環境が再び厳しくなる可能性</li>
+          <li>売上成長率はQ3 +26%→Q4 +24%とやや減速傾向</li>
+        </ul>
+      </div>
+      <div class="risk-card bull">
+        <h3><span class="pos">🚀</span> カタリスト</h3>
+        <ul>
+          <li>AI広告最適化が引き続き奏功。インプレッション+18% × 単価+6%のダブル成長</li>
+          <li>WhatsApp収益化（年間ランレート$2B超）＋ステータス広告で新収益源</li>
+          <li>Threads広告のグローバル展開が本格化（新規広告インベントリ）</li>
+          <li>Meta AI 10億ユーザー突破。AIスーパーインテリジェンスで差別化</li>
+          <li>Asia-Pacific広告成長+32.5%。新興市場での拡大余地</li>
+          <li>Q1'26ガイダンスがコンセンサスを+7%上回る強気な見通し</li>
+          <li>アナリスト96%がBuy以上。平均目標$835（+28%アップサイド）</li>
+          <li>TikTok規制長期化はMetaにとって構造的追い風</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算との比較 -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前四半期（Q3 2025）との比較サマリー</div>
+  <div class="section-body">
+    <table class="tbl">
+      <tr><th>指標</th><th>Q3 2025</th><th>Q4 2025</th><th>変化</th></tr>
+      <tr><td>売上高</td><td>$51,242M</td><td>$59,893M</td><td><span class="pos">+17% QoQ</span></td></tr>
+      <tr><td>売上YoY成長率</td><td>+26%</td><td>+24%</td><td><span class="neg">減速 ↓</span></td></tr>
+      <tr><td>営業利益率</td><td>40.1%</td><td>41.3%</td><td><span class="pos">+1.2pp ↑</span></td></tr>
+      <tr><td>粗利益率</td><td>~82%</td><td>81.8%</td><td>横ばい →</td></tr>
+      <tr><td>GAAP EPS</td><td>$1.05*</td><td>$8.88</td><td>回復（*税務費用影響）</td></tr>
+      <tr><td>FoA営業利益</td><td>$25,000M</td><td>$30,766M</td><td><span class="pos">+23% ↑</span></td></tr>
+      <tr><td>RL営業損失</td><td>-$4,430M</td><td>-$6,021M</td><td><span class="neg">損失拡大 ↓</span></td></tr>
+      <tr><td>RL売上高</td><td>$470M</td><td>$955M</td><td><span class="pos">+103% ↑</span></td></tr>
+      <tr><td>DAP</td><td>—</td><td>3.58B</td><td>—</td></tr>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <strong>トレンド方向: 改善 ↑</strong> — 売上は季節性もあり$59.9Bの過去最高を記録。FoA営業利益もQ3比+23%と好調。営業利益率もQoQで改善。一方、売上YoY成長率は+26%→+24%とやや減速。RL損失はQ3比$1.6B拡大したが、Zuckerbergの「2026年がピーク」発言はポジティブ。全体としてはAI投資を加速しつつ収益性を維持する健全な成長トレンド。
+    </div>
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div>
+  <div class="section-body">
+    <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px">計算式: Forward EPS × 予想PER ｜ 現在株価: $655 ｜ Trailing PER: 22.4 ｜ Forward PER: 22.0</div>
+    <div class="val-grid">
+      <div class="val-card low">
+        <div class="scenario">LOW（保守的）</div>
+        <div class="price">$396</div>
+        <div class="detail">FY2026 EPS $22.00（ガイダンスLow端）<br>× PER 18（過去5年下限）</div>
+        <div class="gap neg">乖離率: -39.5%（割高）</div>
+      </div>
+      <div class="val-card mid">
+        <div class="scenario">MID（基本）</div>
+        <div class="price">$564</div>
+        <div class="detail">FY2026 EPS $23.50（コンセンサス）<br>× PER 24（過去5年中央値）</div>
+        <div class="gap neg">乖離率: -13.9%（やや割高）</div>
+      </div>
+      <div class="val-card high">
+        <div class="scenario">HIGH（楽観的）</div>
+        <div class="price">$832</div>
+        <div class="detail">FY2026 EPS $26.00（楽観予想）<br>× PER 32（過去5年上限）</div>
+        <div class="gap pos">乖離率: +27.0%（やや割安）</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      <strong>バリュエーション判定: やや割高</strong> — MID想定株価$564は現在株価$655に対して-13.9%の乖離。ただしアナリスト平均目標株価は$835〜$852（+28〜30%アップサイド）で市場はより楽観的。HIGHシナリオ$832が実現するにはFY2026のAI収益化・広告成長の持続が必要。PER 22倍はメガテック群の中では妥当な水準だが、$125BのCapEx投資のリターンが鍵。
+    </div>
+  </div>
+</div>
+
+<!-- 競合比較 -->
+<div class="section" data-accordion>
+  <div class="section-title"><span class="section-icon">🏁</span> 競合比較</div>
+  <div class="section-body">
+    <table class="tbl">
+      <tr><th>企業</th><th>Q4広告売上</th><th>YoY</th><th>時価総額</th><th>特記事項</th></tr>
+      <tr><td><strong>Meta (META)</strong></td><td>$58.1B</td><td><span class="pos">+24%</span></td><td>$1.65T</td><td>AI広告最適化でシェア拡大</td></tr>
+      <tr><td>Alphabet (GOOGL)</td><td>$82.3B</td><td>+13.5%</td><td>$2.0T</td><td>YouTube予想下回り / Metaより低成長</td></tr>
+      <tr><td>Snap (SNAP)</td><td>$1.51B*</td><td>—</td><td>$22B</td><td>*Q3データ / Perplexity提携$400M</td></tr>
+      <tr><td>Pinterest (PINS)</td><td>—</td><td>—</td><td>$22B</td><td>ARPU予想ミス / Meta/Googleとの競争に苦戦</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  Meta Platforms, Inc. (META) FY2025 Q4 決算分析レポート<br>
+  データソース: Meta IR, CNBC, Yahoo Finance, StockAnalysis, MarketBeat, TipRanks ｜ 分析日: 2026年3月13日<br>
+  本レポートは情報提供目的であり、投資助言ではありません。投資判断はご自身の責任で行ってください。
+</div>
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏢</span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🔮</span><span class="toc-label">ガイダンス vs コンセンサス</span></a></li>
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📈</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📉</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏗️</span><span class="toc-label">セグメント別売上</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎙️</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+const cFont='Noto Sans JP';Chart.defaults.font.family=cFont;Chart.defaults.color='#8b949e';
+const quarters=['Q2\'24','Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25'];
+
+// 売上高チャート
+new Chart(document.getElementById('revChart'),{type:'bar',data:{labels:quarters,datasets:[{label:'売上高 ($M)',data:[39071,40589,48385,42314,47516,51242,59893],backgroundColor:quarters.map((_,i)=>i===6?'rgba(88,166,255,0.8)':'rgba(88,166,255,0.4)'),borderColor:'rgba(88,166,255,1)',borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString()+'M'}}},scales:{y:{beginAtZero:false,min:30000,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'B'}},x:{grid:{display:false}}}}});
+
+// EPSチャート（GAAP）
+new Chart(document.getElementById('epsChart'),{type:'line',data:{labels:quarters,datasets:[{label:'GAAP EPS ($)',data:[5.16,6.03,8.02,6.43,7.14,1.05,8.88],borderColor:'#3fb950',backgroundColor:'rgba(63,185,80,0.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:quarters.map((_,i)=>i===5?'#ff7b72':i===6?'#3fb950':'rgba(63,185,80,0.6)'),pointBorderColor:quarters.map((_,i)=>i===5?'#ff7b72':'#3fb950'),borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{let s='$'+c.raw.toFixed(2);if(c.dataIndex===5)s+=' (税務費用影響)';return s;}}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:v=>'$'+v.toFixed(2)}},x:{grid:{display:false}}}}});
+
+// セグメントチャート
+new Chart(document.getElementById('segChart'),{type:'doughnut',data:{labels:['Family of Apps (FoA)','Reality Labs (RL)'],datasets:[{data:[58938,955],backgroundColor:['rgba(88,166,255,0.7)','rgba(188,140,255,0.7)'],borderColor:['rgba(88,166,255,1)','rgba(188,140,255,1)'],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:12,font:{size:11}}},tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return c.label+': $'+(c.raw/1000).toFixed(1)+'B ('+Math.round(c.raw/t*100)+'%)';}}}}}});
+</script>
+
+<script>
+// Accordion — tap vs swipe detection
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+// Auto-collapse on mobile — only on initial load
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// TOC
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+
+</body>
+</html>
