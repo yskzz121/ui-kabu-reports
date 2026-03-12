@@ -1303,20 +1303,15 @@ document.querySelectorAll('[data-accordion] .section-title').forEach(function(ti
   });
 });
 
-// Auto-collapse on mobile (768px以下)
-function initAccordion(){
+// Auto-collapse on mobile — only on initial load
+// (resize listener removed: mobile browsers fire resize on scroll due to address bar)
+(function(){
   if(window.innerWidth <= 768){
     document.querySelectorAll('[data-accordion]').forEach(function(sec){
       sec.classList.add('collapsed');
     });
-  } else {
-    document.querySelectorAll('[data-accordion]').forEach(function(sec){
-      sec.classList.remove('collapsed');
-    });
   }
-}
-initAccordion();
-window.addEventListener('resize', initAccordion);
+})();
 
 // TOC
 function toggleToc(){

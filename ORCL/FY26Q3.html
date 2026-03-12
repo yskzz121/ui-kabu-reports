@@ -50,7 +50,7 @@ tr:hover{background:#1c2128}
 .chart-container{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
 .chart-wrap{position:relative;height:320px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:768px){.two-col{grid-template-columns:1fr}.card .value{font-size:22px}}
+
 .highlight-box{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
 .highlight-box h3{font-size:16px;margin-bottom:12px;color:#e6edf3}
 .highlight-box ul{padding-left:20px}
@@ -73,7 +73,7 @@ tr:hover{background:#1c2128}
 .tag-yellow{background:rgba(210,153,34,0.15);color:#d29922}
 .tag-blue{background:rgba(56,139,253,0.15);color:#79c0ff}
 .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:768px){.risk-grid{grid-template-columns:1fr}}
+
 .footer{text-align:center;padding:40px 20px;color:#484f58;font-size:12px;border-top:1px solid #21262d;margin-top:40px}
 .segment-bar{height:28px;border-radius:6px;overflow:hidden;display:flex;margin:8px 0}
 .segment-bar div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff}
@@ -98,6 +98,37 @@ tr:hover{background:#1c2128}
 }
 .header .subtitle { color: var(--text-sub); font-size: 1.1em; }
 in-bottom:8px}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
 </style>
 <link rel="icon" type="image/png" href="../favicon.png">
 </head>

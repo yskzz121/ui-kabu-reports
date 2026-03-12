@@ -721,21 +721,8 @@ body {
   font-size: 13px;
 }
 
-@media (max-width: 768px) {
-  .container { padding: 16px 12px; }
-  .header h1 { font-size: 24px; }
-  .score-badge { padding: 16px 24px; flex-direction: column; text-align: center; }
-  .score-number { font-size: 48px; }
-  .cards-grid { grid-template-columns: 1fr 1fr; }
-  .beat-grid, .guidance-grid, .rc-grid, .val-grid, .segment-grid { grid-template-columns: 1fr; }
-  .chart-wrapper { height: 260px; }
-  .compare-row { flex-direction: column; gap: 12px; }
-  .compare-arrow { transform: rotate(90deg); }
-}
-@media (max-width: 480px) {
-  .cards-grid { grid-template-columns: 1fr; }
-  .cf-grid { grid-template-columns: 1fr 1fr; }
-}
+
+
 
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
@@ -751,6 +738,37 @@ body {
   color: var(--blue);
   margin-bottom: 12px;
   letter-spacing: 1px;
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
 }
 </style>
 <link rel="icon" type="image/png" href="../favicon.png">

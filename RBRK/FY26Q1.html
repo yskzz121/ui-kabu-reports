@@ -26,7 +26,7 @@ header .subtitle{color:#8b949e;font-size:.9rem;margin-top:6px}
 .card-grid.c2{grid-template-columns:repeat(2,1fr)}
 .card-grid.c3{grid-template-columns:repeat(3,1fr)}
 .card-grid.c4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:768px){.card-grid.c2,.card-grid.c3,.card-grid.c4{grid-template-columns:1fr}}
+
 .metric-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:18px 20px;text-align:center}
 .metric-card .label{color:#8b949e;font-size:.75rem;font-weight:500;margin-bottom:4px}
 .metric-card .value{font-size:1.5rem;font-weight:700}
@@ -44,11 +44,11 @@ header .subtitle{color:#8b949e;font-size:.9rem;margin-top:6px}
 .company-info{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;font-size:.88rem}
 .company-info dt{color:#8b949e;font-weight:500}
 .company-info dd{margin-bottom:4px}
-@media(max-width:600px){.company-info{grid-template-columns:1fr}}
+
 
 /* Chart */
 .chart-wrap{position:relative;height:320px;margin:10px 0}
-@media(max-width:600px){.chart-wrap{height:260px}}
+
 
 /* Table */
 table{width:100%;border-collapse:collapse;font-size:.85rem}
@@ -98,6 +98,37 @@ footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:48px;padding:
   top: 0; left: 0; right: 0; bottom: 0;
   background: radial-gradient(ellipse at 30% 50%, rgba(88,166,255,0.08) 0%, transparent 60%),
               radial-gradient(ellipse at 70% 50%, rgba(46,160,67,0.06) 0%, transparent 60%);
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
 }
 </style>
 <link rel="icon" type="image/png" href="../favicon.png">

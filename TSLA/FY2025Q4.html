@@ -4,92 +4,642 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TSLA Tesla, Inc. FY2025 Q4 決算分析</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root { --bg-primary:#0d1117;--bg-card:#161b22;--bg-card-alt:#1c2333;--border:#30363d;--text-primary:#e6edf3;--text-secondary:#8b949e;--text-muted:#6e7681;--green:#2ea043;--green-light:#3fb950;--green-bg:rgba(46,160,67,0.15);--red:#f85149;--red-light:#ff7b72;--red-bg:rgba(248,81,73,0.15);--blue:#58a6ff;--blue-bg:rgba(88,166,255,0.15);--purple:#bc8cff;--yellow:#d29922; }
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;padding:20px;max-width:1200px;margin:0 auto}
-.header {background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);
-  border-bottom: 1px solid var(--card-border);
-  padding: 40px 20px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
-.header .ticker{font-size:14px;font-weight:500;color:var(--blue);letter-spacing:2px;margin-bottom:8px}
-.header h1{font-size:32px;font-weight:900;margin-bottom:8px}
-.header .quarter{font-size:18px;color:var(--text-secondary)}
-.header .date{font-size:13px;color:var(--text-muted);margin-top:4px}
-.company-overview{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:30px}
-.company-overview h2{font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.company-overview .info{font-size:14px;color:var(--text-secondary);line-height:1.8}
-.score-section{text-align:center;padding:36px 20px;margin-bottom:30px;background:linear-gradient(135deg,rgba(46,160,67,0.08),rgba(88,166,255,0.08));border-radius:16px;border:1px solid var(--border)}
-.score-badge{display:inline-flex;align-items:center;gap:12px;background:var(--bg-card);border:2px solid #3fb950;border-radius:16px;padding:14px 28px;margin-bottom:12px}
-.score-number{font-size:42px;font-weight:900;color:#3fb950}
-.score-icon{font-size:36px}
-.score-label{font-size:20px;font-weight:700;color:#3fb950}
-.score-desc{color:var(--text-secondary);font-size:14px;margin-top:6px;max-width:700px;margin-left:auto;margin-right:auto}
-.section{margin-bottom:30px}
-.section-title{font-size:18px;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.section-icon{font-size:20px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px}
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px}
-.card-title{font-size:12px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.card-value{font-size:26px;font-weight:700}
-.card-sub{font-size:13px;color:var(--text-secondary);margin-top:4px}
-.positive{color:var(--green-light)}.negative{color:var(--red-light)}.neutral{color:var(--text-primary)}
-.insight-box{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--text-secondary)}
-.footer{text-align:center;padding:30px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text-muted);font-size:12px}
-@media(max-width:768px){.header h1{font-size:24px}.card-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.card-grid{grid-template-columns:1fr}}
-
-/* Report Logo */
-.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
-.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bot
-.header-content { position: relative; z-index: 1; }
-.ticker-badge {
-  display: inline-block;
-  background: rgba(88,166,255,0.15);
-  border: 1px solid rgba(88,166,255,0.3);
-  border-radius: 8px;
-  padding: 6px 16px;
-  font-size: 14px;
-  color: var(--blue);
-  margin-bottom: 12px;
-  letter-spacing: 1px;
-}
-.header .subtitle { color: var(--text-sub); font-size: 1.1em; }
-tom:8px}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+.header{text-align:center;padding:40px 20px;border-bottom:1px solid var(--border);margin-bottom:32px;background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header>*{position:relative;z-index:1}
+.header-logo-row{margin-bottom:12px}
+.report-header-logo{width:64px;height:64px;border-radius:12px}
+.ticker-badge{display:inline-block;font-size:13px;font-weight:500;color:var(--blue);letter-spacing:2px;background:var(--bbg);padding:4px 16px;border-radius:20px;margin-bottom:12px}
+.header h1{font-size:2rem;font-weight:900;margin-bottom:6px}
+.header .quarter{font-size:1.1rem;color:var(--t2)}.header .date{font-size:.8rem;color:var(--t3);margin-top:6px}
+.overview{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:32px}
+.overview h2{font-size:1rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--blue)}
+.overview p{font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:.75rem;padding:3px 12px;border-radius:20px;background:var(--bbg);color:var(--blue);border:1px solid rgba(88,166,255,.2)}
+.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(63,185,80,.06),rgba(88,166,255,.06));border-radius:16px;border:1px solid var(--border)}
+.score-badge{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--gl);border-radius:16px;padding:16px 32px;margin-bottom:14px}
+.score-num{font-size:3rem;font-weight:900;color:var(--gl)}.score-icon{font-size:2.5rem}
+.score-label{font-size:1.3rem;font-weight:700;color:var(--gl)}
+.score-desc{color:var(--t2);font-size:.88rem;margin-top:8px;max-width:750px;margin-left:auto;margin-right:auto;line-height:1.8}
+.section{margin-bottom:36px}
+.section-title{font-size:1.1rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-label{font-size:.72rem;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.card-val{font-size:1.6rem;font-weight:700}.card-sub{font-size:.8rem;color:var(--t2);margin-top:4px}
+.pos{color:var(--gl)}.neg{color:var(--rl)}.neu{color:var(--t1)}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.chart-wrap{position:relative;height:300px}
+.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:10px;padding:18px 22px;font-size:.88rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
+.insight strong{color:var(--t1)}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h3{font-size:.9rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.84rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(48,54,61,.5);line-height:1.7}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'•';margin-right:8px;font-weight:700}
+.risk-card.bull li::before{color:var(--gl)}.risk-card.bear li::before{color:var(--rl)}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,.08),rgba(46,160,67,.03));border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.03));border-color:rgba(88,166,255,.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(188,140,255,.08),rgba(188,140,255,.03));border-color:rgba(188,140,255,.3)}
+.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-card.low .scenario{color:var(--gl)}.val-card.mid .scenario{color:var(--blue)}.val-card.high .scenario{color:var(--purple)}
+.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px}
+.val-card.low .price{color:var(--gl)}.val-card.mid .price{color:var(--blue)}.val-card.high .price{color:var(--purple)}
+.val-card .detail{font-size:.78rem;color:var(--t2);line-height:1.6}
+.val-card .gap{font-size:.85rem;font-weight:700;margin-top:8px}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+.tbl td{color:var(--t2)}.tbl tr:hover td{background:rgba(88,166,255,.04)}
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--t3);font-size:.75rem;line-height:1.8}
+@media(max-width:768px){.header h1{font-size:1.5rem}.grid{grid-template-columns:1fr 1fr}.val-grid,.risk-grid{grid-template-columns:1fr}.chart-wrap{height:250px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr}}
 </style>
-<link rel="icon" type="image/png" href="../favicon.png">
 </head>
 <body>
-<!-- Header -->
+
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/TSLA.svg" alt="TSLA"><div class="ticker-badge">NASDAQ: TSLA</div></div>
-    <h1>Tesla, Inc.</h1>
-    <div class="date">決算発表日: 2026-01-28 00:00:00</div>
+  <div class="header-logo-row">
+    <img class="report-header-logo" src="https://yskzz121.github.io/ui-kabu-reports/logos/TSLA.svg" alt="TSLA">
+  </div>
+  <span class="ticker-badge">NASDAQ: TSLA</span>
+  <h1>Tesla, Inc.</h1>
+  <p class="quarter">FY2025 Q4（2025年10月〜12月）決算分析</p>
+  <p class="date">決算発表日: 2026年1月29日 ｜ 会計年度: 1月〜12月（暦年）</p>
+</div>
+
+<div class="overview">
+  <h2>🏢 企業概要</h2>
+  <p><strong>Tesla</strong>は2003年設立のEV・クリーンエネルギー企業。電気自動車（Model 3/Y/S/X/Cybertruck）の設計・製造・販売に加え、エネルギー貯蔵（Megapack/Powerwall）、太陽光発電、FSD（Full Self-Driving）自動運転ソフトウェア、Optimusヒューマノイドロボットを展開。世界6拠点（フリーモント、テキサス、上海、ベルリン、ネバダ、ニューヨーク）で生産。</p>
+  <p>FY2025通期納車台数 約169万台。エネルギー貯蔵展開量46.7GWh（前年比+49%）。CEO: Elon Musk。競合: BYD、Rivian、Lucid、GM/Ford/VW等の伝統メーカーEV部門。BYDは売上高でTeslaを上回る$118.2B。</p>
+  <div class="tags">
+    <span class="tag">EV / 電気自動車</span>
+    <span class="tag">エネルギー貯蔵</span>
+    <span class="tag">FSD / 自動運転</span>
+    <span class="tag">Robotaxi</span>
+    <span class="tag">Optimus ロボット</span>
+    <span class="tag">Megapack</span>
   </div>
 </div>
-<div class="company-overview">
-  <h2><span class="section-icon">🏢</span> 企業概要</h2>
-  <div class="info"><strong>Tesla, Inc.</strong>（TSLA）| セクター: EV・エネルギー</div>
-</div>
+
+<!-- 総合評価 -->
 <div class="score-section">
-  <div class="score-badge"><span class="score-number">4</span><span class="score-icon">📈</span></div>
+  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
   <div class="score-label">良い決算</div>
-  <div class="score-desc">FY2025Q4: 粗利20.1%（2年ぶり高水準）。納車▲16%YoY。2026年CapEx$20B超計画。Model S/X生産終了（Q2-26）。FSD完全サブスク移行2/14~。Optimus量産2026年末予定。</div>
+  <div class="score-desc">Non-GAAP EPS $0.50がコンセンサス$0.45を11.1%ビート。粗利益率20.12%は2年ぶりの高水準（+3.86pp YoY）で、コスト管理の成果が顕著。エネルギー事業は$3.84B（YoY+25.5%）と高成長継続。ただし売上高はYoY-3.1%で前年割れ、納車台数も4Q連続YoYマイナス（-8.8%）。FY2025通期では減収減益。将来のカタリスト（Robotaxi・FSD・Optimus・新モデル）への期待でPER 370倍のプレミアムが維持されている。</div>
 </div>
+
+<!-- Key Metrics -->
 <div class="section">
-  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
-  <div class="card-grid"><div class="card"><div class="card-title">売上高</div><div class="card-value">$24.9B</div><div class="card-sub">YoY <span class="negative">+-3.0%</span> | QoQ +-11.4%</div></div><div class="card"><div class="card-title">EPS（Non-GAAP）</div><div class="card-value">$0.5</div><div class="card-sub">YoY <span class="negative">-31.5%</span></div></div><div class="card"><div class="card-title">売上ビート率</div><div class="card-value"><span class="positive">+0.5%</span></div><div class="card-sub">コンセンサス $24.8BM</div></div><div class="card"><div class="card-title">EPSビート率</div><div class="card-value"><span class="positive">+11.1%</span></div><div class="card-sub">コンセンサス $0.5</div></div><div class="card"><div class="card-title">粗利益率</div><div class="card-value">20.1%</div><div class="card-sub">GAAP</div></div><div class="card"><div class="card-title">営業利益率</div><div class="card-value">5.7%</div><div class="card-sub">GAAP</div></div><div class="card"><div class="card-title">EBITDAマージン</div><div class="card-value">16.7%</div></div></div>
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">売上高</div>
+      <div class="card-val neu">$24,901M</div>
+      <div class="card-sub"><span class="neg">-3.1% YoY</span> / <span class="neg">-11.4% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Non-GAAP EPS</div>
+      <div class="card-val pos">$0.50</div>
+      <div class="card-sub">コンセンサス$0.45を<span class="pos">+11.1%ビート</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">売上ビート</div>
+      <div class="card-val pos">+$135M</div>
+      <div class="card-sub">コンセンサス$24,766M → 実績$24,901M（<span class="pos">+0.5%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">GAAP EPS</div>
+      <div class="card-val neg">$0.24</div>
+      <div class="card-sub">前年同期$0.60から<span class="neg">-60.0%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">粗利益率（GAAP）</div>
+      <div class="card-val pos">20.12%</div>
+      <div class="card-sub"><span class="pos">+3.86pp YoY</span> / 2年ぶり高水準</div>
+    </div>
+    <div class="card">
+      <div class="card-label">営業利益率（GAAP）</div>
+      <div class="card-val neg">5.66%</div>
+      <div class="card-sub"><span class="neg">-0.50pp YoY</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">納車台数</div>
+      <div class="card-val neg">408,065台</div>
+      <div class="card-sub"><span class="neg">-8.8% YoY</span> / <span class="neg">-4.7% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF</div>
+      <div class="card-val pos">$1,420M</div>
+      <div class="card-sub">FCFマージン 5.7%</div>
+    </div>
+  </div>
 </div>
-<div class="section"><div class="section-title"><span class="section-icon">🏦</span> キャッシュフロー</div><div class="card-grid"><div class="card"><div class="card-title">営業CF</div><div class="card-value">$3,813.0M</div></div><div class="card"><div class="card-title">FCF</div><div class="card-value">$1,420.0M</div><div class="card-sub">マージン 5.7%</div></div><div class="card"><div class="card-title">投資CF</div><div class="card-value">$-2,393.0M</div></div></div></div><div class="section"><div class="section-title"><span class="section-icon">🌐</span> セグメント・地域別</div><div class="card"><div style="margin-bottom:12px"><strong>部門別:</strong> 自動車$17.69B(-11%YoY) / エネルギー$3.84B(+25%) / サービス$3.37B(+18%)</div><div><strong>地域別:</strong> APAC記録更新 / 欧州▲27.8% / 中国競争激化</div></div></div><div class="section"><div class="section-title"><span class="section-icon">🎯</span> バリュエーション</div><div class="card-grid"><div class="card"><div class="card-title">PER（Trailing）</div><div class="card-value">344.0x</div></div><div class="card"><div class="card-title">PER（Forward）</div><div class="card-value">190.0x</div></div></div></div><div class="section"><div class="section-title"><span class="section-icon">📝</span> ハイライト・備考</div><div class="insight-box">FY2025Q4: 粗利20.1%（2年ぶり高水準）。納車▲16%YoY。2026年CapEx$20B超計画。Model S/X生産終了（Q2-26）。FSD完全サブスク移行2/14~。Optimus量産2026年末予定。</div></div>
+
+<!-- ガイダンス -->
+<div class="section">
+  <div class="section-title">🔮 ガイダンス vs コンセンサス</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">FY2026 売上高コンセンサス</div>
+      <div class="card-val neu">$105.27B</div>
+      <div class="card-sub">前年比 +11.0% / レンジ: $91.1B〜$117.2B（アナリスト56名）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FY2026 EPSコンセンサス</div>
+      <div class="card-val pos">$2.08</div>
+      <div class="card-sub">前年比 <span class="pos">+92.9%</span> / レンジ: $0.78〜$3.31</div>
+    </div>
+    <div class="card">
+      <div class="card-label">次四半期（Q1 2026）売上</div>
+      <div class="card-val neu">$22.86B</div>
+      <div class="card-sub">発表予定: 2026年4月下旬</div>
+    </div>
+    <div class="card">
+      <div class="card-label">設備投資計画（FY2026）</div>
+      <div class="card-val neu">$20B超</div>
+      <div class="card-sub">AI・自動運転・製造能力への大規模投資</div>
+    </div>
+  </div>
+</div>
+
+<!-- 売上高チャート -->
+<div class="section">
+  <div class="section-title">📈 売上高 / EPS 7四半期推移</div>
+  <div class="grid-2">
+    <div class="chart-box">
+      <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">売上高推移（$M）</div>
+      <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">Non-GAAP EPS推移（$）</div>
+      <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- 利益率トレンド -->
+<div class="section">
+  <div class="section-title">📉 利益率トレンド</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">粗利益率（GAAP）</div>
+      <div class="card-val pos">20.12%</div>
+      <div class="card-sub">Q3: 17.99% → Q4: 20.12%（<span class="pos">+2.13pp</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">自動車粗利益率</div>
+      <div class="card-val pos">20.4%</div>
+      <div class="card-sub">Q3: 17.0% → Q4: 20.4%（<span class="pos">+3.4pp</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">営業利益率</div>
+      <div class="card-val neg">5.66%</div>
+      <div class="card-sub">Q3: 5.78% → Q4: 5.66%（<span class="neg">-0.12pp</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">EBITDAマージン</div>
+      <div class="card-val pos">12.26%</div>
+      <div class="card-sub">Q3: 11.56% → Q4: 12.26%（<span class="pos">+0.70pp</span>）</div>
+    </div>
+  </div>
+  <div class="insight" style="margin-top:14px">
+    <strong>粗利益率が2年ぶりの20%台回復。</strong>自動車粗利益率20.4%はQ3の17.0%から大幅改善。コスト効率化（4680バッテリー歩留り改善、生産最適化）が奏功。一方、営業利益率は研究開発費（FSD・Optimus）の増加により横ばい。エネルギー事業の粗利益率は29.8%と高水準で、ポートフォリオ多様化の恩恵。
+  </div>
+</div>
+
+<!-- キャッシュフロー -->
+<div class="section">
+  <div class="section-title">💰 キャッシュフロー</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">営業CF</div>
+      <div class="card-val pos">$3,813M</div>
+      <div class="card-sub">Q3: $6,238M → Q4: $3,813M</div>
+    </div>
+    <div class="card">
+      <div class="card-label">設備投資</div>
+      <div class="card-val neg">-$2,393M</div>
+      <div class="card-sub">AI・製造能力拡大への継続投資</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF</div>
+      <div class="card-val pos">$1,420M</div>
+      <div class="card-sub">FCFマージン 5.7%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">現金残高</div>
+      <div class="card-val pos">$16.5B</div>
+      <div class="card-sub">有利子負債: $8.4B / 自己資本: $82.9B</div>
+    </div>
+  </div>
+  <div class="chart-box" style="margin-top:14px">
+    <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">四半期キャッシュフロー推移（$M）</div>
+    <div class="chart-wrap"><canvas id="cfChart"></canvas></div>
+  </div>
+</div>
+
+<!-- セグメント別売上 -->
+<div class="section">
+  <div class="section-title">🏗️ セグメント別売上</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">Automotive（自動車）</div>
+      <div class="card-val neg">$17,690M</div>
+      <div class="card-sub"><span class="neg">-10.7% YoY</span> / <span class="neg">-16.6% QoQ</span> / 構成比 71.0%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Energy Gen. & Storage</div>
+      <div class="card-val pos">$3,840M</div>
+      <div class="card-sub"><span class="pos">+25.5% YoY</span> / <span class="pos">+12.3% QoQ</span> / 構成比 15.4%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Services & Other</div>
+      <div class="card-val pos">$3,370M</div>
+      <div class="card-sub"><span class="pos">+18.0% YoY</span> / <span class="pos">+4.3% QoQ</span> / 構成比 13.5%</div>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:14px">
+    <div class="chart-box">
+      <div style="font-size:.85rem;font-weight:700;margin-bottom:12px;color:var(--t2)">セグメント別売上構成</div>
+      <div class="chart-wrap"><canvas id="segChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-label">セグメント粗利益率（Q4 2025）</div>
+      <table class="tbl" style="margin-top:10px">
+        <tr><th>セグメント</th><th>粗利益率</th></tr>
+        <tr><td>Automotive</td><td><span class="pos">20.4%</span></td></tr>
+        <tr><td>Energy & Storage</td><td><span class="pos">29.8%</span></td></tr>
+        <tr><td>Services & Other</td><td>7.4%</td></tr>
+      </table>
+      <div style="margin-top:14px;font-size:.84rem;color:var(--t2);line-height:1.7">
+        <strong style="color:var(--t1)">納車台数推移:</strong><br>
+        Q2'24: 466,140 → Q3'24: 443,056 → Q4'24: 447,550<br>
+        Q1'25: 434,808 → Q2'25: 418,688 → Q3'25: 428,076<br>
+        <strong>Q4'25: 408,065</strong>（<span class="neg">-8.8% YoY</span>）<br>
+        FY2025通期: 約169万台（<span class="neg">-8.6% YoY</span>）
+      </div>
+    </div>
+  </div>
+  <div class="insight" style="margin-top:14px">
+    <strong>自動車部門の構造変化が進行中。</strong>自動車売上は71%まで低下（ピーク時80%超）し、エネルギー事業（15.4%）とサービス（13.5%）が成長。エネルギー貯蔵展開量46.7GWh（+49% YoY）はMegapack需要の急増を反映。Model S/X生産は2026年Q2で終了予定。Cybertruck量産拡大とエネルギー事業が今後の成長ドライバー。
+  </div>
+</div>
+
+<!-- 地域別売上 -->
+<div class="section">
+  <div class="section-title">🌍 地域別売上構成（推定）</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">米国</div>
+      <div class="card-val neu">~45-50%</div>
+      <div class="card-sub">最大市場 / APAC記録更新</div>
+    </div>
+    <div class="card">
+      <div class="card-label">中国</div>
+      <div class="card-val neu">~20-25%</div>
+      <div class="card-sub">BYD等との競争激化</div>
+    </div>
+    <div class="card">
+      <div class="card-label">欧州</div>
+      <div class="card-val neg">~15-20%</div>
+      <div class="card-sub"><span class="neg">▲27.8%</span> / ブランドイメージ問題</div>
+    </div>
+    <div class="card">
+      <div class="card-label">その他</div>
+      <div class="card-val neu">~10%</div>
+      <div class="card-sub">アジアパシフィックで記録更新</div>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル分析 -->
+<div class="section">
+  <div class="section-title">📉 テクニカル分析</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">現在株価</div>
+      <div class="card-val neu">$402</div>
+      <div class="card-sub">2026年3月12日時点</div>
+    </div>
+    <div class="card">
+      <div class="card-label">52週レンジ</div>
+      <div class="card-val neu">$214.25 — $498.83</div>
+      <div class="card-sub">52週高値から-19.4%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">時価総額</div>
+      <div class="card-val neu">$1.53T</div>
+      <div class="card-sub">発行済株式数: 37.52億株</div>
+    </div>
+    <div class="card">
+      <div class="card-label">決算後反応</div>
+      <div class="card-val neu">横ばい</div>
+      <div class="card-sub">$380〜$400レンジで推移 / 大きなサプライズなし</div>
+    </div>
+  </div>
+
+  <!-- 移動平均線・トレンド -->
+  <div class="section" style="margin-top:20px;margin-bottom:0">
+    <div class="section-title" style="font-size:.95rem">📏 移動平均線・トレンド</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">SMA 20日</div>
+        <div class="card-val neg">$406.45</div>
+        <div class="card-sub">株価は下回っている（<span class="neg">弱気</span>）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SMA 50日</div>
+        <div class="card-val neg">$422.04</div>
+        <div class="card-sub">株価は下回っている（<span class="neg">弱気</span>）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SMA 200日</div>
+        <div class="card-val pos">$393.34</div>
+        <div class="card-sub">株価は上回っている（<span class="pos">強気</span>）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- オシレーター -->
+  <div class="section" style="margin-top:20px;margin-bottom:0">
+    <div class="section-title" style="font-size:.95rem">📊 オシレーター</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">RSI（14日）</div>
+        <div class="card-val neu">44.77</div>
+        <div class="card-sub">中立〜やや売られすぎ寄り</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MACD</div>
+        <div class="card-val neg">弱気</div>
+        <div class="card-sub">-DI（27.74）> +DI（20.19）弱気バイアス</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ストキャスティクス %K</div>
+        <div class="card-val neu">55.17%</div>
+        <div class="card-sub">中立圏（50%付近）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- サポレジ・チャートパターン -->
+  <div class="section" style="margin-top:20px;margin-bottom:0">
+    <div class="section-title" style="font-size:.95rem">📐 サポート/レジスタンス・パターン</div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">サポート</div>
+        <div class="card-val pos">$393 / $380</div>
+        <div class="card-sub">$393=200日SMA、$380=直近サポート</div>
+      </div>
+      <div class="card">
+        <div class="card-label">レジスタンス</div>
+        <div class="card-val neg">$406 / $422</div>
+        <div class="card-sub">$406=20日SMA、$422=50日SMA</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ボリンジャーバンド</div>
+        <div class="card-val neg">中間〜下限</div>
+        <div class="card-sub">20日SMAを下回り、下方バンドに接近中</div>
+      </div>
+      <div class="card">
+        <div class="card-label">チャートパターン</div>
+        <div class="card-val neu">調整局面</div>
+        <div class="card-sub">$498高値からの調整。$393（200日SMA）が重要サポート</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- フィボナッチ -->
+  <div class="section" style="margin-top:20px;margin-bottom:0">
+    <div class="section-title" style="font-size:.95rem">🔢 フィボナッチ・リトレースメント</div>
+    <div class="insight">
+      52週高値$498.83 → 52週安値$214.25のフィボナッチ: <strong>23.6%戻し=$281</strong>、<strong>38.2%戻し=$323</strong>、<strong>50%戻し=$357</strong>、<strong>61.8%戻し=$390</strong>、<strong>78.6%戻し=$438</strong>。現在株価$402は61.8%〜78.6%戻しの間に位置。$390（61.8%=200日SMA付近）が強力なサポート。$438を超えれば上昇トレンド再開の可能性。
+    </div>
+  </div>
+
+  <!-- 総合テクニカル判定 -->
+  <div class="insight" style="margin-top:14px;border-left-color:var(--yellow)">
+    <strong>総合テクニカル判定: 中立（HOLD / 慎重）</strong> — 短期的にはSMA20・SMA50を下回り弱気バイアスだが、SMA200（$393）を上回っており中長期的なサポートは健在。RSI 45は中立。ADX 24.5でトレンド弱く、方向感に乏しい。$393-$380のサポートゾーンを割り込まない限りは底堅いが、$422（50日SMA）上抜けが必要。ボラティリティ高め（ATR 3.4%）で、ニュースドリブンの値動きに注意。
+  </div>
+</div>
+
+<!-- TradingViewチャート -->
+<div class="section">
+  <div class="section-title">📊 株価チャート（TradingView）</div>
+  <div class="chart-box" style="padding:16px">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NASDAQ:TSLA",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section">
+  <div class="section-title">🎙️ 経営陣コメント・Earnings Callハイライト</div>
+  <div class="insight">
+    <strong>【FSD / Robotaxi】</strong>FSD（Full Self-Driving）の進展が重要テーマ。テキサス州オースティンでのRobotaxiサービス限定運行を計画中。FSDは2026年2月14日よりサブスクリプションモデルに完全移行（一括購入オプション廃止）。規制承認の進捗と収益化タイミングが注目。
+  </div>
+  <div class="insight">
+    <strong>【Optimus ヒューマノイドロボット】</strong>工場内での試験運用を継続。2026年末までに小規模量産を開始する見通し。長期的には自動車を超える事業規模になるとのビジョンを維持。
+  </div>
+  <div class="insight">
+    <strong>【新モデル・製品戦略】</strong>低価格モデル（いわゆる「Model 2」/ 新型コンパクトEV）の開発が進行中。Model S/Xは2026年Q2で生産終了予定。Cybertruckの生産台数拡大を継続。
+  </div>
+  <div class="insight">
+    <strong>【エネルギー事業】</strong>Megapack需要が急増し、エネルギー貯蔵展開量46.7GWh（前年比+49%）を達成。売上$3.84B（+25.5% YoY）で粗利益率29.8%の高収益事業に成長。
+  </div>
+  <div class="insight">
+    <strong>【設備投資】</strong>FY2026のCapExは$20B超を計画。AI/FSD計算インフラ、Robotaxi向け車両、Optimus生産ライン、エネルギー事業拡大に重点配分。過去最大規模の投資計画。
+  </div>
+</div>
+
+<!-- インサイダー動向 -->
+<div class="section">
+  <div class="section-title">👤 インサイダー動向 / アナリスト評価</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">インサイダー取引</div>
+      <table class="tbl" style="margin-top:8px">
+        <tr><th>期間</th><th>買い</th><th>売り</th></tr>
+        <tr><td>直近3ヶ月</td><td>0件</td><td><span class="neg">2件（85,731株）</span></td></tr>
+        <tr><td>直近6ヶ月</td><td>0件</td><td><span class="neg">4件（202,551株）</span></td></tr>
+        <tr><td>直近12ヶ月</td><td>2件（2,572,732株）</td><td><span class="neg">18件（1,182,102株）</span></td></tr>
+      </table>
+      <div style="font-size:.8rem;color:var(--t2);margin-top:8px">傾向: <span class="neg">売却優勢</span>（直近は買いゼロ）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">アナリスト評価</div>
+      <table class="tbl" style="margin-top:8px">
+        <tr><th>項目</th><th>値</th></tr>
+        <tr><td>コンセンサス</td><td>Hold（3.33 / 5.00）</td></tr>
+        <tr><td>アナリスト数</td><td>33〜43名</td></tr>
+        <tr><td>平均目標株価</td><td>$396（現在株価から<span class="neg">-1.5%</span>）</td></tr>
+        <tr><td>レーティング推移</td><td>3ヶ月前3.26 → 現在3.33（微改善）</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section">
+  <div class="section-title">⚡ リスク・注目ポイント / カタリスト</div>
+  <div class="risk-grid">
+    <div class="risk-card bear">
+      <h3><span class="neg">⚠️</span> リスク要因</h3>
+      <ul>
+        <li>納車台数が4四半期連続YoYマイナス。FY2025通期で-8.6%の減少トレンド</li>
+        <li>BYDが売上高でTesla超え（$118.2B vs $94.8B）。中国市場での競争激化</li>
+        <li>欧州市場でのブランドイメージ問題（▲27.8%のEV登録減少）</li>
+        <li>Trailing PER 370倍は極めて高い水準。期待に対するリスクも大</li>
+        <li>FSD/Robotaxiの規制承認遅延リスク</li>
+        <li>FY2026 CapEx $20B超の大規模投資がFCFを圧迫する可能性</li>
+        <li>インサイダーの売却が優勢。直近3ヶ月で買いゼロ</li>
+        <li>GAAP EPS $0.24は前年比-60%と大幅減。SBC等の非現金費用が拡大</li>
+      </ul>
+    </div>
+    <div class="risk-card bull">
+      <h3><span class="pos">🚀</span> カタリスト</h3>
+      <ul>
+        <li>粗利益率20.12%は2年ぶり高水準。コスト効率化の成果が顕著</li>
+        <li>エネルギー事業がYoY+25.5%で高成長継続。粗利29.8%の高収益</li>
+        <li>Robotaxi商用化（オースティン）の進展。巨大TAM市場への参入</li>
+        <li>FSD完全サブスクリプション移行による安定収益モデル確立</li>
+        <li>Optimusヒューマノイドロボットの量産（2026年末予定）</li>
+        <li>低価格モデル投入によるアドレッサブル市場の拡大</li>
+        <li>強固なバランスシート（現金$16.5B、純有利子負債なし）</li>
+        <li>FY2026 EPSコンセンサス+92.9%成長で利益回復期待</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算との比較 -->
+<div class="section">
+  <div class="section-title">🔄 前四半期（Q3 2025）との比較サマリー</div>
+  <table class="tbl">
+    <tr><th>指標</th><th>Q3 2025</th><th>Q4 2025</th><th>変化</th></tr>
+    <tr><td>売上高</td><td>$28,095M</td><td>$24,901M</td><td><span class="neg">-11.4%</span></td></tr>
+    <tr><td>粗利益率</td><td>17.99%</td><td>20.12%</td><td><span class="pos">+2.13pp ↑</span></td></tr>
+    <tr><td>自動車粗利益率</td><td>17.0%</td><td>20.4%</td><td><span class="pos">+3.4pp ↑</span></td></tr>
+    <tr><td>営業利益率</td><td>5.78%</td><td>5.66%</td><td><span class="neg">-0.12pp ↓</span></td></tr>
+    <tr><td>EBITDAマージン</td><td>11.56%</td><td>12.26%</td><td><span class="pos">+0.70pp ↑</span></td></tr>
+    <tr><td>GAAP EPS</td><td>$0.39</td><td>$0.24</td><td><span class="neg">-38.5% ↓</span></td></tr>
+    <tr><td>納車台数</td><td>428,076台</td><td>408,065台</td><td><span class="neg">-4.7% ↓</span></td></tr>
+    <tr><td>FCF</td><td>$3,990M</td><td>$1,420M</td><td><span class="neg">-64.4% ↓</span></td></tr>
+    <tr><td>エネルギー売上</td><td>$3,420M</td><td>$3,840M</td><td><span class="pos">+12.3% ↑</span></td></tr>
+  </table>
+  <div class="insight" style="margin-top:14px">
+    <strong>トレンド方向: 横ばい →（混在）</strong> — 売上高・納車台数・FCFは悪化したが、粗利益率は大幅改善（2年ぶり20%台）。エネルギー事業は着実に成長。収益性改善 vs ボリューム減少のトレードオフが継続中。FY2026は低価格モデル投入とFSD収益化が回復の鍵。
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section">
+  <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
+  <div style="font-size:.82rem;color:var(--t2);margin-bottom:16px">計算式: Forward EPS × 予想PER ｜ 現在株価: $402 ｜ Trailing PER: 370 ｜ Forward PER: 193</div>
+  <div class="val-grid">
+    <div class="val-card low">
+      <div class="scenario">LOW（保守的）</div>
+      <div class="price">$124.50</div>
+      <div class="detail">FY2026 EPS $1.66（ガイダンスLow端）<br>× PER 75（過去5年下限）</div>
+      <div class="gap neg">乖離率: -69.0%（割高）</div>
+    </div>
+    <div class="val-card mid">
+      <div class="scenario">MID（基本）</div>
+      <div class="price">$418.00</div>
+      <div class="detail">FY2026 EPS $2.09（コンセンサス）<br>× PER 200（過去5年中央値）</div>
+      <div class="gap pos">乖離率: +4.0%（適正）</div>
+    </div>
+    <div class="val-card high">
+      <div class="scenario">HIGH（楽観的）</div>
+      <div class="price">$630.00</div>
+      <div class="detail">FY2026 EPS $2.10（楽観予想）<br>× PER 300（過去5年上限）</div>
+      <div class="gap pos">乖離率: +56.7%（割安）</div>
+    </div>
+  </div>
+  <div class="insight" style="margin-top:16px">
+    <strong>バリュエーション判定: 適正</strong> — MID想定株価$418は現在株価$402に対して+4.0%の乖離。Teslaの株価は「自動車メーカー」としてのファンダメンタルズではなく、FSD/Robotaxi/Optimus/エネルギーという「プラットフォーム企業」としての将来価値を大幅に織り込んでいる。LOWシナリオの$124.50との乖離が大きく、カタリスト不発時のダウンサイドリスクには注意が必要。アナリスト平均目標株価$396は現在株価をわずかに下回る。
+  </div>
+</div>
+
+<!-- 競合比較 -->
+<div class="section">
+  <div class="section-title">🏁 競合比較</div>
+  <table class="tbl">
+    <tr><th>企業</th><th>株価</th><th>時価総額</th><th>PER</th><th>TTM売上</th><th>特記事項</th></tr>
+    <tr><td><strong>Tesla (TSLA)</strong></td><td>$402</td><td>$1.53T</td><td>372</td><td>$94.8B</td><td>納車減少、高PER、FSD/エネルギーに期待</td></tr>
+    <tr><td>BYD (BYDDY)</td><td>$12.41</td><td>$124.5B</td><td>23.1</td><td>$118.2B</td><td>売上Tesla超え、YoY+23.3%</td></tr>
+    <tr><td>Rivian (RIVN)</td><td>$16.21</td><td>$20.1B</td><td>N/A</td><td>$5.39B</td><td>赤字縮小中、R2 SUV発売に期待</td></tr>
+    <tr><td>Lucid (LCID)</td><td>$9.74</td><td>$3.19B</td><td>N/A</td><td>$1.35B</td><td>納車+55% YoY、大幅赤字継続</td></tr>
+  </table>
+</div>
+
 <div class="footer">
-  U&I株倶楽部 | TSLA FY2025 Q4 決算分析 | 生成日: 2026年03月12日<br>
-  ※ 本レポートは投資助言ではありません。<br>Powered by Claude
+  Tesla, Inc. (TSLA) FY2025 Q4 決算分析レポート<br>
+  データソース: Tesla IR, StockAnalysis, Benzinga, Barchart ｜ 分析日: 2026年3月12日<br>
+  本レポートは情報提供目的であり、投資助言ではありません。投資判断はご自身の責任で行ってください。
 </div>
-<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body></html>
+
+<script>
+const cFont='Noto Sans JP';Chart.defaults.font.family=cFont;Chart.defaults.color='#8b949e';
+const quarters=['Q2\'24','Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25'];
+
+// 売上高チャート
+new Chart(document.getElementById('revChart'),{type:'bar',data:{labels:quarters,datasets:[{label:'売上高 ($M)',data:[25500,25182,25707,19335,22496,28095,24901],backgroundColor:quarters.map((_,i)=>i===6?'rgba(88,166,255,0.8)':'rgba(88,166,255,0.4)'),borderColor:'rgba(88,166,255,1)',borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toLocaleString()+'M'}}},scales:{y:{beginAtZero:false,min:15000,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:v=>'$'+v/1000+'B'}},x:{grid:{display:false}}}}});
+
+// EPSチャート
+new Chart(document.getElementById('epsChart'),{type:'line',data:{labels:quarters,datasets:[{label:'Non-GAAP EPS ($)',data:[0.52,0.72,0.73,0.27,0.40,0.50,0.50],borderColor:'#3fb950',backgroundColor:'rgba(63,185,80,0.1)',fill:true,tension:.3,pointRadius:5,pointBackgroundColor:quarters.map((_,i)=>i===6?'#3fb950':'rgba(63,185,80,0.6)'),pointBorderColor:'#3fb950',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toFixed(2)}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:v=>'$'+v.toFixed(2)}},x:{grid:{display:false}}}}});
+
+// キャッシュフローチャート
+new Chart(document.getElementById('cfChart'),{type:'bar',data:{labels:quarters,datasets:[{label:'営業CF ($M)',data:[3612,6255,4814,2156,2540,6238,3813],backgroundColor:'rgba(63,185,80,0.5)',borderColor:'rgba(63,185,80,1)',borderWidth:1,borderRadius:3},{label:'FCF ($M)',data:[1340,2742,2034,664,146,3990,1420],backgroundColor:'rgba(88,166,255,0.5)',borderColor:'rgba(88,166,255,1)',borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:12,padding:16}},tooltip:{callbacks:{label:c=>c.dataset.label+': $'+c.raw.toLocaleString()+'M'}}},scales:{y:{grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:v=>'$'+(v/1000).toFixed(1)+'B'}},x:{grid:{display:false}}}}});
+
+// セグメントチャート
+new Chart(document.getElementById('segChart'),{type:'doughnut',data:{labels:['Automotive','Energy Gen. & Storage','Services & Other'],datasets:[{data:[17690,3840,3370],backgroundColor:['rgba(88,166,255,0.7)','rgba(63,185,80,0.7)','rgba(188,140,255,0.7)'],borderColor:['rgba(88,166,255,1)','rgba(63,185,80,1)','rgba(188,140,255,1)'],borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:12,font:{size:11}}},tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return c.label+': $'+(c.raw/1000).toFixed(1)+'B ('+Math.round(c.raw/t*100)+'%)';}}}}}});
+</script>
+
+</body>
+</html>
