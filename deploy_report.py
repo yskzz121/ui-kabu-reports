@@ -191,7 +191,8 @@ def make_root_index(ticker_data):
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;padding:40px 20px}}
 header{{text-align:center;margin-bottom:48px}}
-header h1{{color:#58a6ff;font-size:1.8rem;font-weight:700}}
+header h1{{color:#58a6ff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:14px}}
+header h1 img{{height:44px;width:auto}}
 header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}}
 .card{{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s}}
@@ -213,7 +214,7 @@ footer{{text-align:center;margin-top:48px;color:#30363d;font-size:.75rem}}
 .card-logo{{height:28px;width:auto;object-fit:contain;opacity:.85;margin-left:auto}}
 </style>
 </head><body>
-<header><h1>📊 U&I株倶楽部 決算レポート</h1><p>最終更新: {now}</p></header>
+<header><h1><img src="logos/ui-kabu-logo.png" alt="U&I">株倶楽部 決算レポート</h1><p>最終更新: {now}</p></header>
 <div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button></div>
 <div class="grid" id="grid">{cards}</div>
 <footer>U&I株倶楽部 · Powered by Claude</footer>
