@@ -172,7 +172,7 @@ def make_root_index(ticker_data):
             fy_html += f'<div class="fy-row"><span class="fy-label">{fy}</span><div class="q-pills">{pills}</div></div>'
 
         sector_html = f'<div class="sector">{sector}</div>' if sector else ''
-        cards += f'<div class="card"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}</div>{fy_html}</div>'
+        cards += f'<div class="card" data-ticker="{ticker}" data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}</div>{fy_html}</div>'
 
     now = datetime.now().strftime("%Y/%m/%d %H:%M")
     return f"""<!DOCTYPE html>
@@ -197,11 +197,48 @@ header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
 .q-pill{{font-size:.78rem;font-weight:500;padding:4px 14px;border-radius:8px;background:#21262d;color:#58a6ff;text-decoration:none;border:1px solid #30363d;transition:all .15s}}
 .q-pill:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 footer{{text-align:center;margin-top:48px;color:#30363d;font-size:.75rem}}
+.sort-bar{{text-align:center;margin-bottom:24px}}
+.sort-btn{{font-family:'Noto Sans JP',sans-serif;font-size:.82rem;font-weight:500;padding:6px 18px;margin:0 4px;border-radius:8px;border:1px solid #30363d;background:#161b22;color:#8b949e;cursor:pointer;transition:all .15s}}
+.sort-btn.active{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
+.sort-btn:hover:not(.active){{border-color:#58a6ff;color:#58a6ff}}
+.sector-heading{{color:#58a6ff;font-size:1rem;font-weight:700;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid #21262d;grid-column:1/-1}}
 </style>
 </head><body>
 <header><h1>📊 U&I株倶楽部 決算レポート</h1><p>最終更新: {now}</p></header>
-<div class="grid">{cards}</div>
+<div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button></div>
+<div class="grid" id="grid">{cards}</div>
 <footer>U&I株倶楽部 · Powered by Claude</footer>
+<script>
+function sortBy(mode){{
+  var grid=document.getElementById('grid');
+  var btns=document.querySelectorAll('.sort-btn');
+  btns.forEach(function(b){{b.classList.remove('active')}});
+  event.target.classList.add('active');
+  // Remove sector headings
+  grid.querySelectorAll('.sector-heading').forEach(function(h){{h.remove()}});
+  var cards=Array.from(grid.querySelectorAll('.card'));
+  if(mode==='ticker'){{
+    cards.sort(function(a,b){{return a.dataset.ticker.localeCompare(b.dataset.ticker)}});
+    cards.forEach(function(c){{grid.appendChild(c)}});
+  }}else{{
+    cards.sort(function(a,b){{
+      var s=a.dataset.sector.localeCompare(b.dataset.sector);
+      return s!==0?s:a.dataset.ticker.localeCompare(b.dataset.ticker);
+    }});
+    var last='';
+    cards.forEach(function(c){{
+      if(c.dataset.sector!==last){{
+        last=c.dataset.sector;
+        var h=document.createElement('div');
+        h.className='sector-heading';
+        h.textContent=last||'その他';
+        grid.appendChild(h);
+      }}
+      grid.appendChild(c);
+    }});
+  }}
+}}
+</script>
 </body></html>"""
 
 def scan_existing_reports(ticker):
