@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMZN Amazon.com FY2025 Q4 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0d1117;--bg-card:#161b22;--bg-card-alt:#1c2333;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--text3:#6e7681;--green:#2ea043;--green-l:#3fb950;--green-bg:rgba(46,160,67,.15);--red:#f85149;--red-l:#ff7b72;--red-bg:rgba(248,81,73,.15);--blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -67,40 +74,476 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .tech-table th,.tech-table td{padding:8px 14px;text-align:left;border-bottom:1px solid var(--border)}
 .tech-table th{color:var(--text3);font-weight:500;font-size:.75rem}
 .footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text3);font-size:.75rem;line-height:1.8}
-
+@media(max-width:768px){.header h1{font-size:1.5rem}.grid{grid-template-columns:1fr 1fr}.val-grid{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr}.chart-wrap{height:250px}}
+@media(max-width:480px){.grid{grid-template-columns:1f
 .header-content { position: relative; z-index: 1; }
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 .header .subtitle { color: var(--text-sub); font-size: 1.1em; }
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
+r}}
 </style>
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/AMZN.svg" alt="AMZN"><div class="ticker-badge">NASDAQ: AMZN</div></div>
+    <h1>Amazon.com, Inc.</h1>
+    <div class="date">決算発表日: 2026年2月5日 ｜ 会計年度末: 12月末</div>
+  </div>
+</div>
+
+<!-- ===== 企業概要 ===== -->
+<div class="overview">
+  <h2>🏢 企業概要</h2>
+  <p><strong>Amazon.com（AMZN）</strong>は1994年ジェフ・ベゾスにより創業、ワシントン州シアトルに本社を置く世界最大級のテクノロジー・Eコマース企業。オンライン小売（北米・国際）、AWS（クラウドコンピューティング）、デジタル広告、Prime会員サービス、デバイス（Alexa/Echo/Ring）、Prime Video、Whole Foods（食品小売）、Project Kuiper（衛星通信）を展開。</p>
+  <p>CEO: Andy Jassy（2021年就任）。従業員数約150万人。米国Eコマース市場シェア約35.7%、クラウド市場シェア約32%で首位。2025年通期売上$716.9B。</p>
+  <div class="tags">
+    <span class="tag">Eコマース</span>
+    <span class="tag">AWS クラウド</span>
+    <span class="tag">デジタル広告</span>
+    <span class="tag">Prime会員</span>
+    <span class="tag">AI / カスタムチップ</span>
+    <span class="tag">物流ネットワーク</span>
+    <span class="tag">Prime Video</span>
+  </div>
+</div>
+
+<!-- ===== 総合評価 ===== -->
+<div class="score-section">
+  <div class="score-badge"><span class="score-num">3</span><span class="score-icon">⏸️</span></div>
+  <div class="score-label">悪くない決算</div>
+  <div class="score-desc">売上$213.4B（初の$200B超、+13.6% YoY）でコンセンサスをビートしたが、EPS $1.95は予想$1.97を僅差でミス。AWS +24%と好調だが、2026年CapEx $200B計画（予想$147Bの1.4倍）が市場を動揺させ決算後-10%下落。Q1ガイダンスは概ねインライン。FCFが前年比-70%と大幅悪化。</div>
+</div>
+
+<!-- ===== Key Metrics ===== -->
+<div class="section">
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">売上高</div>
+      <div class="card-val">$213.4B</div>
+      <div class="card-sub">YoY <span class="pos">+13.6%</span> ｜ QoQ <span class="pos">+18.4%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">GAAP EPS</div>
+      <div class="card-val warn">$1.95</div>
+      <div class="card-sub">YoY <span class="pos">+4.8%</span>（コンセンサス$1.97を<span class="neg">僅差ミス</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">売上ビート</div>
+      <div class="card-val pos">+$2.1B</div>
+      <div class="card-sub">コンセンサス $211.3B（<span class="pos">+1.0%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">EPSビート</div>
+      <div class="card-val neg">-$0.02</div>
+      <div class="card-sub">コンセンサス $1.97（<span class="neg">-1.0%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">粗利益率（GAAP）</div>
+      <div class="card-val">50.3%</div>
+      <div class="card-sub">初の50%突破｜YoY <span class="pos">+1.8pp</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">営業利益率（GAAP）</div>
+      <div class="card-val">11.7%</div>
+      <div class="card-sub">営業利益 $25.0B（YoY <span class="pos">+17.9%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Q1 FY26ガイダンス（売上）</div>
+      <div class="card-val">$176.0B</div>
+      <div class="card-sub">$173.5B〜$178.5B｜概ねインライン</div>
+    </div>
+    <div class="card">
+      <div class="card-label">2026年 CapEx計画</div>
+      <div class="card-val neg">$200B</div>
+      <div class="card-sub">予想$147Bの1.4倍｜AI投資に集中</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 売上高チャート ===== -->
+<div class="section">
+  <div class="section-title">📈 売上高推移（直近8四半期）</div>
+  <div class="chart-box">
+    <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+  </div>
+</div>
+
+<!-- ===== EPSチャート ===== -->
+<div class="section">
+  <div class="section-title">💰 EPS推移（直近8四半期）</div>
+  <div class="chart-box">
+    <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+  </div>
+</div>
+
+<!-- ===== 利益率トレンド ===== -->
+<div class="section">
+  <div class="section-title">📉 利益率トレンド</div>
+  <div class="chart-box">
+    <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+  </div>
+</div>
+
+<!-- ===== キャッシュフロー ===== -->
+<div class="section">
+  <div class="section-title">🏦 キャッシュフロー</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">営業CF（Q4）</div>
+      <div class="card-val pos">$54.5B</div>
+      <div class="card-sub">通年: $139.5B（YoY <span class="pos">+20%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF（通年）</div>
+      <div class="card-val neg">$11.2B</div>
+      <div class="card-sub">前年$37.2Bから<span class="neg">-69.9%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">設備投資（通年）</div>
+      <div class="card-val neg">$131.8B</div>
+      <div class="card-sub">前年$83.2Bから+58.4%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">財務CF（通年）</div>
+      <div class="card-val">$9.7B</div>
+      <div class="card-sub">投資CF: -$142.5B</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div style="font-size:.85rem;color:var(--text2);line-height:1.8">
+      <strong>注意:</strong> FCFの大幅減少はAIインフラへの積極投資（CapEx +58%）が主因。営業CF自体は$139.5B（+20% YoY）と堅調に成長。2026年はCapEx $200B計画により、FCFがさらに圧縮される見込み。Jassy CEOは「キャパシティを設置する速さで収益化している」と投資の正当性を強調。
+    </div>
+  </div>
+</div>
+
+<!-- ===== セグメント分析 ===== -->
+<div class="section">
+  <div class="section-title">🏭 セグメント別売上・営業利益</div>
+  <div class="grid-2">
+    <div class="chart-box">
+      <div class="chart-wrap"><canvas id="segmentPie"></canvas></div>
+    </div>
+    <div class="card">
+      <table class="tech-table">
+        <thead><tr><th>セグメント</th><th>売上</th><th>構成比</th><th>YoY</th><th>営業利益</th><th>OP率</th></tr></thead>
+        <tbody>
+          <tr><td>🇺🇸 North America</td><td>$127.1B</td><td>59.6%</td><td class="pos">+10%</td><td>$11.5B</td><td>9.0%</td></tr>
+          <tr><td>🌐 International</td><td>$50.7B</td><td>23.8%</td><td class="pos">+17%</td><td>$1.0B</td><td>2.1%</td></tr>
+          <tr><td>☁️ AWS</td><td>$35.6B</td><td>16.7%</td><td class="pos">+24%</td><td>$12.5B</td><td>35.0%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px;font-size:.82rem;color:var(--text2);line-height:1.7">
+        <strong>AWS</strong>が+24%成長（過去13四半期で最速）で営業利益の50%を稼ぐ。受注残$244B（+40% YoY）。<strong>広告事業</strong>は$21.3B（+22% YoY）で急成長中。Internationalは為替除くベースで+11%。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 地域別 ===== -->
+<div class="section">
+  <div class="section-title">🌐 地域別売上構成</div>
+  <div class="grid-2">
+    <div class="chart-box">
+      <div class="chart-wrap"><canvas id="geoPie"></canvas></div>
+    </div>
+    <div class="card">
+      <table class="tech-table">
+        <thead><tr><th>地域</th><th>売上</th><th>構成比</th><th>YoY</th></tr></thead>
+        <tbody>
+          <tr><td>🇺🇸 北米</td><td>$127.1B</td><td>59.6%</td><td class="pos">+10.0%</td></tr>
+          <tr><td>🌍 欧州・中東</td><td>~$28B</td><td>~13%</td><td class="pos">+15%</td></tr>
+          <tr><td>🇯🇵🇦🇺 日本・豪州</td><td>~$11B</td><td>~5%</td><td class="pos">+10%</td></tr>
+          <tr><td>🌏 その他海外</td><td>~$12B</td><td>~6%</td><td class="pos">+20%</td></tr>
+          <tr><td>☁️ AWS（グローバル）</td><td>$35.6B</td><td>16.7%</td><td class="pos">+24%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px;font-size:.82rem;color:var(--text2);line-height:1.7">
+        北米が引き続き最大市場。International全体の成長率+17%（為替影響除くと+11%）で、Eコマース浸透率の低い新興市場が成長を牽引。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== テクニカル分析 ===== -->
+<div class="section">
+  <div class="section-title">📐 株価・テクニカル分析</div>
+  <div style="margin-bottom:20px;text-align:center">
+    <div class="tradingview-widget-container" style="display:inline-block">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NASDAQ:AMZN",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">現在株価</div>
+      <div class="card-val">$212.65</div>
+      <div class="card-sub">2026年3月11日終値</div>
+    </div>
+    <div class="card">
+      <div class="card-label">時価総額</div>
+      <div class="card-val">$2.28T</div>
+      <div class="card-sub">発行済株式: ~10.7B</div>
+    </div>
+    <div class="card">
+      <div class="card-label">52週レンジ</div>
+      <div class="card-val">$161.38 - $258.60</div>
+      <div class="card-sub">現在位置: レンジの53%（高値から-18%）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">決算後株価反応</div>
+      <div class="card-val neg">-10%</div>
+      <div class="card-sub">CapEx $200B計画で市場が動揺</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <table class="tech-table">
+      <thead><tr><th>指標</th><th>値</th><th>シグナル</th></tr></thead>
+      <tbody>
+        <tr><td>50日移動平均線（SMA）</td><td>~$220</td><td class="neg">株価が下回り ▼ 中期弱気</td></tr>
+        <tr><td>200日移動平均線（SMA）</td><td>~$221</td><td class="neg">株価が下回り ▼ 200日線がレジスタンスに</td></tr>
+        <tr><td>RSI（14日）</td><td>~60</td><td>中立（売られ過ぎから回復中）</td></tr>
+        <tr><td>MACD</td><td>強気クロス発生</td><td class="pos">短期的に買いシグナル</td></tr>
+        <tr><td>フィボナッチ50%</td><td>$210.00</td><td>現在株価付近で攻防中</td></tr>
+        <tr><td>サポートライン</td><td>$205 / $198</td><td>直近安値 / フィボ61.8%</td></tr>
+        <tr><td>レジスタンスライン</td><td>$221 / $227</td><td>200日SMA / 100日SMA</td></tr>
+        <tr><td>空売り比率</td><td>0.76%</td><td class="pos">極めて低水準</td></tr>
+        <tr><td>総合テクニカル判定</td><td colspan="2" class="warn" style="font-weight:700">中立〜やや弱気 — 全主要MAを下回るも、短期リバウンド進行中。200日SMA回復が分水嶺</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid" style="margin-top:16px">
+    <div class="card">
+      <div class="card-label">PER（Trailing）</div>
+      <div class="card-val">29.1x</div>
+      <div class="card-sub">TTM GAAP EPS: $7.17</div>
+    </div>
+    <div class="card">
+      <div class="card-label">PER（Forward FY26）</div>
+      <div class="card-val">28.6x</div>
+      <div class="card-sub">FY26E EPS: ~$7.40</div>
+    </div>
+    <div class="card">
+      <div class="card-label">過去12M平均PER</div>
+      <div class="card-val">32.9x</div>
+      <div class="card-sub">現在のPERは平均以下</div>
+    </div>
+    <div class="card">
+      <div class="card-label">アナリスト評価</div>
+      <div class="card-val pos">Strong Buy</div>
+      <div class="card-sub">43名中: Buy 40 / Hold 3 ｜ 目標$290</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 経営陣コメント ===== -->
+<div class="section">
+  <div class="section-title">🎤 経営陣コメントハイライト</div>
+  <div class="insight">
+    <strong>Andy Jassy CEO:</strong><br>
+    「私たちが今日知っているすべての顧客体験は、AIによって再発明されるだろう。我々はここでリーダーになるために積極的に投資していく。キャパシティを設置するのと同じ速さで収益化している。AWSビジネスの需要シグナルを理解し、そのキャパシティを強力なROIに変える深い経験がある。」
+  </div>
+  <div class="insight">
+    <strong>AWS / AI投資:</strong><br>
+    • AWS +24%成長は過去13四半期で最速。受注残$244B（+40% YoY）で需要が供給を上回る状況が継続<br>
+    • Trainium2チップを140万個以上展開済み。Trainium3は2026年半ばまでに供給完売見込み<br>
+    • TrainiumはGPU比で30〜40%優れた価格性能比を実現。Gravitonと合計で年率$10B以上の収益<br>
+    • AmazonがOpenAIに$50B出資、AWSがFrontierプラットフォームの独占クラウドパートナーに
+  </div>
+  <div class="insight">
+    <strong>カンファレンスコール重要ポイント:</strong><br>
+    • 2026年CapEx $200B（主にAWSのAIインフラ）— アナリスト予想$147Bを大幅超過<br>
+    • 広告事業は$21.3B（+22% YoY）で急成長、Prime Video広告も寄与<br>
+    • 食品配送を2026年にさらに多くのコミュニティに拡大、Whole Foodsを100店舗以上新規出店計画<br>
+    • Project Kuiper: 2026年に20回以上、2027年に30回以上の打ち上げを計画
+  </div>
+</div>
+
+<!-- ===== リスク・カタリスト ===== -->
+<div class="section">
+  <div class="section-title">⚡ リスク・注目ポイント / カタリスト</div>
+  <div class="risk-grid">
+    <div class="risk-card bull">
+      <h3><span class="pos">📈</span> ポジティブ・カタリスト</h3>
+      <ul>
+        <li>AWS +24%成長、受注残$244B（+40% YoY）で成長加速</li>
+        <li>Trainium3/4のカスタムチップ戦略でAIインフラの内製化・コスト優位性</li>
+        <li>広告事業が年間$85B+ペースに急成長（第3の柱）</li>
+        <li>粗利益率が初の50%突破、利益構造の質的改善</li>
+        <li>営業CF $139.5B（+20% YoY）と本業の稼ぐ力は堅調</li>
+        <li>アナリスト93%がBuy/Strong Buy、目標株価$290（+36%上方）</li>
+        <li>OpenAIへの$50B出資でAI競争力を補強</li>
+        <li>Prime会員2.4億人超のエコシステム</li>
+      </ul>
+    </div>
+    <div class="risk-card bear">
+      <h3><span class="neg">📉</span> リスク要因</h3>
+      <ul>
+        <li>2026年CapEx $200B計画がFCFを大幅に圧迫。投資回収の不透明感</li>
+        <li>FY25 FCFが$11.2B（前年比-70%）と急激に悪化</li>
+        <li>EPSがコンセンサスを僅差でミス（$1.95 vs $1.97）</li>
+        <li>Azure（+39%）がAWS（+24%）の約2倍の成長率で追い上げ中</li>
+        <li>FTC独禁法訴訟・EU DMA規制の継続的リスク</li>
+        <li>TikTok Shop等の新興Eコマースプレーヤーの台頭</li>
+        <li>International営業利益率がYoYで低下（3.0%→2.1%）</li>
+        <li>Bezosの大型売却（2025年に$6.8B）が継続</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 前回決算比較 ===== -->
+<div class="section">
+  <div class="section-title">🔄 前回決算（FY2025 Q3）との比較</div>
+  <div class="card">
+    <table class="compare-table">
+      <thead>
+        <tr><th>指標</th><th>FY2025 Q3</th><th>FY2025 Q4</th><th>変化</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>売上高</td><td>$180.2B</td><td>$213.4B</td><td class="pos">+$33.2B (+18.4%)</td></tr>
+        <tr><td>粗利益率（GAAP）</td><td>49.9%</td><td>50.3%</td><td class="pos">+0.4pp</td></tr>
+        <tr><td>営業利益率（GAAP）</td><td>9.7%</td><td>11.7%</td><td class="pos">+2.0pp</td></tr>
+        <tr><td>GAAP EPS</td><td>$1.95</td><td>$1.95</td><td>→ 横ばい</td></tr>
+        <tr><td>AWS売上</td><td>$33.0B</td><td>$35.6B</td><td class="pos">+$2.6B (+7.9%)</td></tr>
+        <tr><td>AWS営業利益率</td><td>35.5%</td><td>35.0%</td><td class="neg">-0.5pp</td></tr>
+        <tr><td>広告収入</td><td>$19.5B</td><td>$21.3B</td><td class="pos">+$1.8B (+9.2%)</td></tr>
+        <tr><td>総合評価スコア</td><td>—</td><td>3 ⏸️</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;font-size:.85rem;color:var(--text2);line-height:1.8">
+      <strong>トレンド: 横ばい→</strong> — 売上はQ4の季節性もあり大幅増だが、EPSは横ばい（CapEx増が圧迫）。粗利益率は改善傾向を維持し50%突破を達成。AWS営業利益率は微減。全体としてトップラインは堅調だが、利益面は投資コストとの綱引き。
+    </div>
+  </div>
+</div>
+
+<!-- ===== バリュエーション ===== -->
+<div class="section">
+  <div class="section-title">🎯 バリュエーション（想定株価 3シナリオ）</div>
+  <div style="text-align:center;font-size:.82rem;color:var(--text3);margin-bottom:16px">
+    算出方法: 想定株価 = Forward EPS × 予想PER ｜ 現在株価: <strong style="color:var(--text)">$212.65</strong>
+  </div>
+  <div class="val-grid">
+    <div class="val-card low">
+      <div class="scenario">LOW（保守的）</div>
+      <div class="price">$168</div>
+      <div class="detail">EPS $7.00（CapEx圧迫シナリオ）<br>× PER 24x（過去PER下限）</div>
+      <div class="gap neg">乖離: -21.0%</div>
+    </div>
+    <div class="val-card mid">
+      <div class="scenario">MID（基本）</div>
+      <div class="price">$222</div>
+      <div class="detail">EPS $7.40（コンセンサス）<br>× PER 30x（過去PER中央値）</div>
+      <div class="gap pos">乖離: +4.4%</div>
+    </div>
+    <div class="val-card high">
+      <div class="scenario">HIGH（楽観的）</div>
+      <div class="price">$296</div>
+      <div class="detail">EPS $8.00（AI収益化加速）<br>× PER 37x（プレミアム）</div>
+      <div class="gap pos">乖離: +39.2%</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;text-align:center">
+    <div style="font-size:.9rem;color:var(--text2)">MID想定株価 vs 現在株価の乖離率: <strong style="color:var(--blue);font-size:1.1rem">+4.4%</strong></div>
+    <div style="font-size:1rem;font-weight:700;color:var(--blue);margin-top:8px">📊 判定: 適正水準</div>
+    <div style="font-size:.8rem;color:var(--text3);margin-top:4px">アナリスト平均目標株価: $290（+36.3%アップサイド）</div>
+  </div>
+</div>
+
+<!-- ===== フッター ===== -->
+<div class="footer">
+  U&I株倶楽部 ｜ AMZN FY2025 Q4 決算分析 ｜ 生成日: 2026年3月12日<br>
+  ※ 本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。<br>
+  Powered by Claude
+</div>
+
+<script>
+const Q_LABELS = ['Q1 FY24','Q2 FY24','Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25'];
+const REVENUE = [143.3,148.0,158.9,187.8,155.7,167.7,180.2,213.4];
+const EPS = [0.98,1.26,1.43,1.86,1.59,1.68,1.95,1.95];
+const GROSS_M = [48.0,49.0,49.3,48.5,49.2,49.7,49.9,50.3];
+const OP_M = [10.7,9.9,11.0,11.3,11.8,11.5,9.7,11.7];
+const AWS_OP_M = [37.6,35.5,38.1,34.6,39.5,38.7,35.5,35.0];
+
+const COLORS = {blue:'#58a6ff',green:'#3fb950',red:'#ff7b72',purple:'#bc8cff',yellow:'#d29922',orange:'#f0883e',gray:'#8b949e'};
+Chart.defaults.color='#8b949e';Chart.defaults.borderColor='rgba(48,54,61,.5)';Chart.defaults.font.family="'Noto Sans JP',sans-serif";
+
+// 売上高チャート
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{labels:Q_LABELS,datasets:[{label:'売上高 ($B)',data:REVENUE,backgroundColor:REVENUE.map((v,i)=>i===7?COLORS.blue:'rgba(88,166,255,.4)'),borderColor:COLORS.blue,borderWidth:1,borderRadius:6}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toFixed(1)+'B'}}},scales:{y:{beginAtZero:false,min:130,ticks:{callback:v=>'$'+v+'B'}},x:{grid:{display:false}}}}
+});
+
+// EPSチャート
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{labels:Q_LABELS,datasets:[{label:'GAAP EPS',data:EPS,backgroundColor:EPS.map((v,i)=>i===7?COLORS.blue:'rgba(88,166,255,.4)'),borderColor:COLORS.blue,borderWidth:1,borderRadius:6}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw.toFixed(2)}}},scales:{y:{beginAtZero:false,min:0.5,ticks:{callback:v=>'$'+v.toFixed(2)}},x:{grid:{display:false}}}}
+});
+
+// 利益率チャート
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{labels:Q_LABELS,datasets:[
+    {label:'粗利益率 (GAAP)',data:GROSS_M,borderColor:COLORS.green,backgroundColor:'rgba(63,185,80,.1)',fill:false,tension:.3,pointRadius:4},
+    {label:'営業利益率 (GAAP)',data:OP_M,borderColor:COLORS.blue,backgroundColor:'rgba(88,166,255,.1)',fill:true,tension:.3,pointRadius:4},
+    {label:'AWS営業利益率',data:AWS_OP_M,borderColor:COLORS.purple,backgroundColor:'rgba(188,140,255,.05)',fill:false,tension:.3,pointRadius:4,borderDash:[5,3]}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toFixed(1)+'%'}}},scales:{y:{min:5,max:55,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
+});
+
+// セグメント円グラフ
+new Chart(document.getElementById('segmentPie'),{
+  type:'doughnut',
+  data:{labels:['North America (59.6%)','International (23.8%)','AWS (16.7%)'],datasets:[{data:[59.6,23.8,16.7],backgroundColor:[COLORS.blue,COLORS.green,COLORS.purple],borderColor:'#161b22',borderWidth:3}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{padding:16,font:{size:12}}}}}
+});
+
+// 地域別円グラフ
+new Chart(document.getElementById('geoPie'),{
+  type:'doughnut',
+  data:{labels:['北米 (59.6%)','欧州・中東 (13%)','日本・豪州 (5%)','その他海外 (6%)','AWS Global (16.7%)'],datasets:[{data:[59.6,13,5,6,16.7],backgroundColor:[COLORS.blue,COLORS.green,COLORS.yellow,COLORS.orange,COLORS.purple],borderColor:'#161b22',borderWidth:3}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:11}}}}}
+});
+</script>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

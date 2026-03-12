@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRVL Marvell Technology FY2026 Q4 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -59,40 +66,514 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);
 .tbl th{color:var(--t3);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
 .tbl td{color:var(--t2)}.tbl tr:hover td{background:rgba(88,166,255,.04)}
 .footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--t3);font-size:.75rem;line-height:1.8}
-
+@media(max-width:768px){.header h1{font-size:1.5rem}.grid{grid-template-columns:1fr 1fr}.val-grid,.risk-grid{grid-template-columns:1fr}.chart-wrap{height:250px}}
+@media(max-width:480px){.grid{grid-template-columns:1f
 .header-content { position: relative; z-index: 1; }
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 .header .subtitle { color: var(--text-sub); font-size: 1.1em; }
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
+r}}
 </style>
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/MRVL.svg" alt="MRVL"><div class="ticker-badge">NASDAQ: MRVL</div></div>
+    <h1>Marvell Technology, Inc.</h1>
+    <div class="date">決算発表日: 2026年3月5日 ｜ 会計年度: 2月〜1月</div>
+  </div>
+</div>
+
+<div class="overview">
+  <h2>🏢 企業概要</h2>
+  <p><strong>Marvell Technology</strong>は半導体設計大手。データセンター向けカスタムシリコン（XPU）、光接続（DSP・PAM4・CPO）、ネットワーキングスイッチ、ストレージコントローラ等を提供。AI/MLインフラの急成長を背景に、ハイパースケーラー向けカスタムAIチップとインターコネクト技術で急成長中。</p>
+  <p>主要顧客はAmazon、Microsoft、Google、Metaの米国ハイパースケーラー4社。FY2026にカスタムシリコン事業が$1.5Bに成長。Celestial AI（CPO）・XConn買収でAIスケールアップネットワーキングを強化。CEO: Matt Murphy。競合: Broadcom、AMD、Intel。</p>
+  <div class="tags">
+    <span class="tag">半導体</span>
+    <span class="tag">カスタムシリコン (XPU)</span>
+    <span class="tag">光接続 / CPO</span>
+    <span class="tag">AIインフラ</span>
+    <span class="tag">データセンター</span>
+    <span class="tag">ネットワーキング</span>
+  </div>
+</div>
+
+<!-- 総合評価 -->
+<div class="score-section">
+  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
+  <div class="score-label">良い決算</div>
+  <div class="score-desc">売上$2.22B（+22% YoY）・Non-GAAP EPS $0.80で共にコンセンサスビート。Q1 FY2027ガイダンス$2.40Bはコンセンサス$2.28Bを大幅に上回る。FY2027売上$11B（+30%超）、FY2028売上$15B（+40%）の強力な長期見通しを提示。カスタムシリコンFY2028倍増見通し。Celestial AI CPOは2028年$500Mランレート。決算後株価+20%。</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">売上高</div>
+      <div class="card-val neu">$2.219B</div>
+      <div class="card-sub"><span class="pos">+22% YoY</span> / <span class="pos">+7% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Non-GAAP EPS</div>
+      <div class="card-val pos">$0.80</div>
+      <div class="card-sub"><span class="pos">+33% YoY</span> / コンセンサス$0.79を<span class="pos">1.3%ビート</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">売上ビート</div>
+      <div class="card-val pos">+$9M</div>
+      <div class="card-sub">コンセンサス$2.21B → 実績$2.219B（<span class="pos">+0.4%</span>）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">GAAP EPS</div>
+      <div class="card-val pos">$0.46</div>
+      <div class="card-sub">GAAP黒字維持</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Non-GAAP粗利益率</div>
+      <div class="card-val neu">59.0%</div>
+      <div class="card-sub"><span class="neg">-1.1pp YoY</span>（GAAP 51.7%）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Non-GAAP営業利益率</div>
+      <div class="card-val pos">35.7%</div>
+      <div class="card-sub"><span class="pos">+2pp YoY</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Adj. EBITDA</div>
+      <div class="card-val pos">$885.2M</div>
+      <div class="card-sub">EBITDAマージン 39.9%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF（Q4）</div>
+      <div class="card-val pos">$259M</div>
+      <div class="card-sub">営業CF $374M / Capex $114M</div>
+    </div>
+  </div>
+</div>
+
+<!-- ガイダンス -->
+<div class="section">
+  <div class="section-title">🔮 ガイダンス vs コンセンサス</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">Q1 FY2027 売上ガイダンス</div>
+      <div class="card-val pos">$2.40B ±5%</div>
+      <div class="card-sub">コンセンサス$2.28Bを<span class="pos">+5.3%上回る</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Q1 FY2027 Non-GAAP EPS</div>
+      <div class="card-val pos">$0.74 〜 $0.84</div>
+      <div class="card-sub">中値 $0.79</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FY2027 売上見通し</div>
+      <div class="card-val pos">~$11B</div>
+      <div class="card-sub"><span class="pos">+30%超 YoY</span>（従来$10Bから$1B上方修正）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FY2028 売上見通し</div>
+      <div class="card-val pos">~$15B</div>
+      <div class="card-sub"><span class="pos">+~40% YoY</span> / Non-GAAP EPS $5超</div>
+    </div>
+  </div>
+  <div class="insight" style="margin-top:14px">
+    <strong>決算後株価: +20%</strong>（$75.68 → ~$90）— 売上・EPSビートに加え、Q1ガイダンスのコンセンサス超え、FY2027/FY2028の長期見通し上方修正が市場に高く評価された。
+  </div>
+</div>
+
+<!-- 売上高チャート -->
+<div class="section">
+  <div class="section-title">📈 売上高 7四半期推移</div>
+  <div class="chart-box">
+    <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+  </div>
+</div>
+
+<!-- EPSチャート -->
+<div class="section">
+  <div class="section-title">📈 EPS 7四半期推移</div>
+  <div class="chart-box">
+    <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+  </div>
+</div>
+
+<!-- 利益率トレンド -->
+<div class="section">
+  <div class="section-title">📊 利益率トレンド</div>
+  <div class="chart-box">
+    <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+  </div>
+</div>
+
+<!-- キャッシュフロー -->
+<div class="section">
+  <div class="section-title">💰 キャッシュフロー</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">営業CF（Q4）</div>
+      <div class="card-val pos">$373.7M</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF（Q4）</div>
+      <div class="card-val pos">$259.4M</div>
+      <div class="card-sub">Capex $114.3M</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF（FY2026通期）</div>
+      <div class="card-val pos">$1.40B</div>
+      <div class="card-sub">営業CF $1.75B / Capex $354M</div>
+    </div>
+    <div class="card">
+      <div class="card-label">株主還元（FY2026）</div>
+      <div class="card-val pos">$2.25B</div>
+      <div class="card-sub">自社株買い + 配当</div>
+    </div>
+    <div class="card">
+      <div class="card-label">現金残高</div>
+      <div class="card-val neu">$2.64B</div>
+      <div class="card-sub">Net Debt/EBITDA 0.57x</div>
+    </div>
+    <div class="card">
+      <div class="card-label">在庫</div>
+      <div class="card-val neg">$1.39B</div>
+      <div class="card-sub"><span class="neg">+$374M増加</span>（需要増への備え）</div>
+    </div>
+  </div>
+</div>
+
+<!-- セグメント分析 -->
+<div class="section">
+  <div class="section-title">🏢 セグメント別売上</div>
+  <div class="insight">
+    Q4 FY2026よりセグメント統合。旧Enterprise Networking、Carrier Infrastructure、Consumer、Auto/Industrialが「通信・その他」に統合。自動車Ethernet事業はInfineonに売却済み。
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">データセンター</div>
+      <div class="card-val pos">$1.651B</div>
+      <div class="card-sub">構成比 74% / <span class="pos">+21% YoY</span> / <span class="pos">+10% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">通信・その他</div>
+      <div class="card-val pos">$567.4M</div>
+      <div class="card-sub">構成比 26% / <span class="pos">+26% YoY</span></div>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card">
+      <div class="card-label">カスタムシリコン（FY2026通期）</div>
+      <div class="card-val pos">$1.5B</div>
+      <div class="card-sub">ゼロから成長。FY2028に倍増見通し</div>
+    </div>
+    <div class="card">
+      <div class="card-label">DC売上（FY2026通期）</div>
+      <div class="card-val pos">$6B+</div>
+      <div class="card-sub"><span class="pos">+46% YoY</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">アクティブプロジェクト</div>
+      <div class="card-val pos">18件</div>
+      <div class="card-sub">XPU 3 + アタッチ9 + 新興AI顧客6</div>
+    </div>
+  </div>
+</div>
+
+<!-- 地域別 -->
+<div class="section">
+  <div class="section-title">🌍 地域別売上構成</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">中国</div>
+      <div class="card-val neu">~40%</div>
+      <div class="card-sub">Q3時点 $838.7M（40.4%）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">台湾</div>
+      <div class="card-val neu">~15%</div>
+      <div class="card-sub">Q3時点 $318.9M</div>
+    </div>
+    <div class="card">
+      <div class="card-label">米国・その他</div>
+      <div class="card-val neu">~45%</div>
+      <div class="card-sub">ハイパースケーラー中心</div>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section">
+  <div class="section-title">🎙️ 経営陣コメント・ハイライト</div>
+  <div class="insight">
+    <strong>CEO Matt Murphy（カスタムシリコン）:</strong>「カスタムシリコン事業はゼロからFY2026で$1.5Bの売上に成長した。FY2027は前年比20%超成長を見込む。FY2028には少なくとも倍増すると予想。ハイパースケーラー4社向けに12デバイス＋新興AI顧客向け6デバイスの合計18のアクティブプロジェクトが進行中」
+  </div>
+  <div class="insight">
+    <strong>CEO（光接続/CPO）:</strong>「Celestial AIとXconnの買収を完了し、AIスケールアップネットワーキング市場での地位を大幅強化。Celestial AIのCPO売上は2028年に$500Mの年率ランレート、2029年に$1Bに達する見込み。200ギガビット/レーン技術を業界初で製品化し、1.6Tトランジションを実現」
+  </div>
+  <div class="insight">
+    <strong>CEO（データセンター成長）:</strong>「データセンター売上はFY2026で$6B超（+46% YoY）。インターコネクト事業は前年比50%超成長を見込む（従来の30%から上方修正）。FY2028のDC売上は前年比約50%成長。3年連続で40%超の複利成長を達成する見通し」
+  </div>
+  <div class="insight">
+    <strong>CEO（長期ビジョン）:</strong>「FY2027は四半期ごとに売上成長を加速。FY2028の全社売上は約$15B、Non-GAAP EPSは$5超を見込む。FY2026のデザインウィン数は過去最高記録。主要米国ハイパースケーラー5社全てにDCIモジュールを供給」
+  </div>
+</div>
+
+<!-- テクニカル分析 -->
+<div class="section">
+  <div class="section-title">📉 株価・テクニカル</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">現在株価</div>
+      <div class="card-val neu">$89.55</div>
+      <div class="card-sub">2026年3月12日時点</div>
+    </div>
+    <div class="card">
+      <div class="card-label">52週レンジ</div>
+      <div class="card-val neu">$47.09 — $102.77</div>
+      <div class="card-sub">52週高値から-13%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">時価総額</div>
+      <div class="card-val neu">$78.8B</div>
+    </div>
+    <div class="card">
+      <div class="card-label">RSI</div>
+      <div class="card-val neu">~55</div>
+      <div class="card-sub">中立ゾーン（決算後急騰からの調整）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">50日移動平均</div>
+      <div class="card-val pos">$73.00</div>
+      <div class="card-sub">株価は大幅に上回っている</div>
+    </div>
+    <div class="card">
+      <div class="card-label">200日移動平均</div>
+      <div class="card-val pos">$75.46</div>
+      <div class="card-sub">株価は上回っている</div>
+    </div>
+  </div>
+</div>
+
+<!-- TradingViewチャート -->
+<div class="section">
+  <div class="section-title">📊 株価チャート（TradingView）</div>
+  <div class="chart-box" style="padding:16px">
+    <div class="tradingview-widget-container">
+      <div id="tradingview_chart"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NASDAQ:MRVL",
+        "interval": "D",
+        "timezone": "America/New_York",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "#161b22",
+        "gridColor": "rgba(48,54,61,0.3)",
+        "allow_symbol_change": true,
+        "calendar": false,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "STD;SMA%1%1%1%1%1",
+          "STD;EMA%1%1%1%1%1"
+        ],
+        "overrides": {
+          "mainSeriesProperties.candleStyle.upColor": "#3fb950",
+          "mainSeriesProperties.candleStyle.downColor": "#ff7b72",
+          "mainSeriesProperties.candleStyle.borderUpColor": "#3fb950",
+          "mainSeriesProperties.candleStyle.borderDownColor": "#ff7b72",
+          "mainSeriesProperties.candleStyle.wickUpColor": "#3fb950",
+          "mainSeriesProperties.candleStyle.wickDownColor": "#ff7b72"
+        },
+        "range": "6M"
+      }
+      </script>
+    </div>
+  </div>
+</div>
+
+<!-- インサイダー動向 -->
+<div class="section">
+  <div class="section-title">👤 インサイダー動向</div>
+  <table class="tbl">
+    <thead><tr><th>日付</th><th>人物</th><th>取引</th><th>株数</th><th>価格</th></tr></thead>
+    <tbody>
+      <tr><td>2025/9/25</td><td>Matt Murphy（CEO/会長）</td><td class="pos">買い</td><td>13,600株</td><td>$77.09</td></tr>
+      <tr><td>2025/9/25</td><td>Chris Koopmans（社長/COO）</td><td class="pos">買い</td><td>6,800株</td><td>$78.03</td></tr>
+      <tr><td>2025/9/25</td><td>Willem Meintjes（CFO）</td><td class="pos">買い</td><td>3,400株</td><td>$78.03</td></tr>
+    </tbody>
+  </table>
+  <div class="insight" style="margin-top:14px">
+    <strong>注目:</strong> 2025年9月に経営陣トップ3名が協調的に合計$2.1Mの自社株買い。CEOの$100万超の買いはポジティブシグナル。過去6ヶ月は買い4件・売り11件。機関投資家保有率80.96%、空売り比率3.72%。
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section">
+  <div class="section-title">⚖️ リスク・注目ポイント / カタリスト</div>
+  <div class="risk-grid">
+    <div class="risk-card bull">
+      <h3>🟢 ポジティブ・カタリスト</h3>
+      <ul>
+        <li>カスタムシリコンFY2028倍増見通し — 18のアクティブプロジェクト、TAM $40.8B（CAGR 47%）</li>
+        <li>Celestial AI CPO: 2028年$500Mランレート、2029年$1B — 光接続の成長ドライバー</li>
+        <li>FY2027 $11B / FY2028 $15B の長期成長見通し（3年連続DC売上40%超CAGR）</li>
+        <li>インターコネクト事業 FY2027 +50%超成長（従来30%から大幅上方修正）</li>
+        <li>米国ハイパースケーラー5社全てにDCIモジュール供給 — 顧客基盤の厚さ</li>
+        <li>FY2026デザインウィン数が過去最高記録 — FY2028-29の売上パイプライン構築</li>
+        <li>経営陣トップ3名が$2.1Mの協調的自社株買い（強い自信のシグナル）</li>
+        <li>200Gb/レーン技術で業界初の1.6Tトランジション実現</li>
+      </ul>
+    </div>
+    <div class="risk-card bear">
+      <h3>🔴 リスク・注目ポイント</h3>
+      <ul>
+        <li>売上ビート率が小幅（+0.4%）— 爆発的な需要はQ1以降に本格化か</li>
+        <li>Non-GAAP粗利益率が-1.1pp YoYで若干低下（カスタムシリコンのミックス影響）</li>
+        <li>在庫が$1.39Bに急増（+$374M）— 需要増への備えだが在庫リスクも</li>
+        <li>中国売上比率~40% — 地政学リスク・輸出規制強化の影響</li>
+        <li>Broadcomとの激しいカスタムシリコン競争（AVGO $162Bバックログ）</li>
+        <li>ベータ1.99 — 市場下落時の振れ幅が大きい高ボラティリティ銘柄</li>
+        <li>FY2028見通しは2年先 — 実行リスク・マクロ環境変化の不確実性</li>
+        <li>AI Capex投資サイクルの鈍化リスク</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算との比較 -->
+<div class="section">
+  <div class="section-title">🔄 前回決算（FY2026 Q3）との比較</div>
+  <table class="tbl">
+    <thead><tr><th>指標</th><th>Q3 FY2026</th><th>Q4 FY2026</th><th>変化</th></tr></thead>
+    <tbody>
+      <tr><td>売上高</td><td>$2.075B</td><td>$2.219B</td><td class="pos">+7% QoQ</td></tr>
+      <tr><td>データセンター売上</td><td>$1.500B</td><td>$1.651B</td><td class="pos">+10% QoQ</td></tr>
+      <tr><td>Non-GAAP EPS</td><td>$0.76</td><td>$0.80</td><td class="pos">+5.3% QoQ</td></tr>
+      <tr><td>Non-GAAP粗利益率</td><td>~59.5%</td><td>59.0%</td><td class="neg">やや低下</td></tr>
+      <tr><td>Non-GAAP営業利益率</td><td>~36%</td><td>35.7%</td><td class="neu">ほぼ横ばい</td></tr>
+      <tr><td>FY2027売上見通し</td><td>~$10B</td><td>~$11B</td><td class="pos">$1B上方修正</td></tr>
+      <tr><td>FY2028見通し</td><td>未公表</td><td>~$15B</td><td class="pos">初公表</td></tr>
+      <tr><td>カスタムシリコンFY2028</td><td>—</td><td>倍増見通し</td><td class="pos">上方修正</td></tr>
+    </tbody>
+  </table>
+  <div class="insight" style="margin-top:14px">
+    <strong>トレンド方向: 改善 ↑</strong> — Q3からQ4にかけて売上・EPSともに成長を継続。粗利益率はやや低下したが、FY2027見通しの$1B上方修正とFY2028 $15Bの初公表が最大のポジティブサプライズ。カスタムシリコンとCPOの長期成長ストーリーが一段と強化された。
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section">
+  <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
+  <div class="val-grid">
+    <div class="val-card low">
+      <div class="scenario">LOW（保守的）</div>
+      <div class="price">$85.00</div>
+      <div class="detail">FY27 EPS $3.40（ガイダンスLow端）<br>× PER 25x（下限）</div>
+      <div class="gap neg">現在株価比 -5.1%</div>
+    </div>
+    <div class="val-card mid">
+      <div class="scenario">MID（基本）</div>
+      <div class="price">$140.60</div>
+      <div class="detail">FY27 EPS $3.70（コンセンサス）<br>× PER 38x（中央値）</div>
+      <div class="gap pos">現在株価比 +57.0%</div>
+    </div>
+    <div class="val-card high">
+      <div class="scenario">HIGH（楽観的）</div>
+      <div class="price">$252.00</div>
+      <div class="detail">FY27 EPS $4.20（楽観）<br>× PER 60x（上限）</div>
+      <div class="gap pos">現在株価比 +181.3%</div>
+    </div>
+  </div>
+  <div class="insight" style="margin-top:16px">
+    <strong>判定: 割安</strong> — MID想定株価$140.60 vs 現在株価$89.55（乖離率<span class="pos">+57.0%</span>）。FY2027 EPS $3.70・PER 38xベースで大幅な上昇余地。アナリスト平均目標株価$111〜$131（+24%〜+46%）も現在株価を大きく上回る。FY2028 $15B見通しまで織り込めばさらなるアップサイド。ただし半導体セクターのボラティリティ（β=1.99）と中国リスクに留意。
+  </div>
+</div>
+
+<!-- アナリスト評価 -->
+<div class="section">
+  <div class="section-title">🏦 アナリスト評価</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">コンセンサス</div>
+      <div class="card-val pos">Strong Buy</div>
+      <div class="card-sub">Buy 48 / Hold 11 / Sell 0</div>
+    </div>
+    <div class="card">
+      <div class="card-label">平均目標株価</div>
+      <div class="card-val pos">$111 〜 $131</div>
+      <div class="card-sub">現在株価から<span class="pos">+24%〜+46%</span>の上昇余地</div>
+    </div>
+    <div class="card">
+      <div class="card-label">目標株価レンジ</div>
+      <div class="card-val neu">$67 — $164</div>
+      <div class="card-sub">最高$164はFY2028見通し織り込み</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。<br>
+  投資判断はご自身の責任で行ってください。<br>
+  Marvell Technology, Inc. (MRVL) FY2026 Q4 決算分析 ｜ 生成日: 2026年3月12日
+</div>
+
+<script>
+const chartFont={family:'Noto Sans JP',size:12};
+Chart.defaults.color='#8b949e';Chart.defaults.font=chartFont;
+const gridOpt={color:'rgba(48,54,61,0.5)'};
+
+// 売上高チャート
+new Chart(document.getElementById('revChart'),{
+  type:'bar',
+  data:{
+    labels:['Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26','Q4 FY26'],
+    datasets:[{
+      label:'売上高 ($B)',
+      data:[1.273,1.516,1.817,1.895,2.006,2.075,2.219],
+      backgroundColor:['rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.6)','rgba(88,166,255,0.6)','rgba(88,166,255,0.7)','rgba(63,185,80,0.7)'],
+      borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#3fb950'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(3)+'B'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)+'B'},min:0.8},x:{grid:{display:false}}}}
+});
+
+// EPSチャート
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:['Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26','Q4 FY26'],
+    datasets:[
+      {label:'GAAP EPS',data:[-0.22,-0.78,null,0.20,null,null,0.46],backgroundColor:'rgba(255,123,114,0.5)',borderColor:'#ff7b72',borderWidth:1,borderRadius:4},
+      {label:'Non-GAAP EPS',data:[0.30,0.43,0.60,0.62,0.67,0.76,0.80],backgroundColor:'rgba(63,185,80,0.5)',borderColor:'#3fb950',borderWidth:1,borderRadius:4}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toFixed(2)}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(2)}},x:{grid:{display:false}}}}
+});
+
+// 利益率トレンドチャート
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26','Q4 FY26'],
+    datasets:[
+      {label:'粗利益率 (Non-GAAP)',data:[58,60,60.1,59.5,59.6,59.5,59.0],borderColor:'#58a6ff',fill:false,tension:.3,pointRadius:4},
+      {label:'営業利益率 (Non-GAAP)',data:[28,33,33.7,34.5,35.2,36.0,35.7],borderColor:'#3fb950',fill:false,tension:.3,pointRadius:4},
+      {label:'EBITDAマージン',data:[32,36,37,37.5,38,39,39.9],borderColor:'#bc8cff',fill:false,tension:.3,pointRadius:4,borderDash:[5,3]}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:20},x:{grid:{display:false}}}}
+});
+</script>
+
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TXN (Texas Instruments) FY2025 Q4 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#c9d1d9;line-height:1.7}
@@ -70,8 +78,15 @@ tr:hover{background:rgba(31,111,235,.05)}
 .compare-item{flex:1;min-width:200px;background:#161b22;border:1px solid #21262d;border-radius:8px;padding:12px 16px}
 .footer{text-align:center;padding:32px;color:#484f58;font-size:.85em;border-top:1px solid #21262d;margin-top:40px}
 /* Responsive */
-
-
+@media(max-width:768px){
+  .cards{grid-template-columns:1fr 1fr}
+  .val-cards{grid-template-columns:1fr}
+  .header h1{font-size:1.6em}
+  .score-number{font-size:3.5em}
+}
+@media(max-width:480px){
+  .cards{grid-template-columns:1fr}
+}
 
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
@@ -79,35 +94,547 @@ tr:hover{background:rgba(31,111,235,.05)}
 .header-content { position: relative; z-index: 1; }
 .header .date { color: var(--text-sub); font-size: 0.85em; margin-top: 8px; }
 enter;gap:16px;margin-bottom:8px}
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
 </style>
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/TXN.svg" alt="TXN"><div class="ticker-badge">NASDAQ: TXN</div></div>
+    <h1>Texas Instruments 決算分析</h1>
+    <div class="subtitle">FY2025 Q4（2025年10月-12月期）| 2026年1月27日発表</div>
+  </div>
+</div>
+
+<!-- 1. 総合評価スコア -->
+<div class="section">
+  <div class="score-card">
+    <div class="score-icon">📈</div>
+    <div class="score-number">4</div>
+    <div class="score-label">良い決算</div>
+    <div class="score-desc">売上・EPSは小幅ミスも、ガイダンスがコンセンサスを大幅に上回り市場は+10%で反応。<br>FCFは前年比96%増。データセンター売上は前年比64%成長。「アナログ冬の時代」の終焉を示唆。</div>
+  </div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="cards">
+    <div class="card miss">
+      <div class="label">売上高</div>
+      <div class="value white">$4,423M</div>
+      <div class="sub green">YoY +10.3%</div>
+      <div class="sub red">QoQ -6.7%</div>
+    </div>
+    <div class="card miss">
+      <div class="label">EPS (GAAP)</div>
+      <div class="value white">$1.27</div>
+      <div class="sub red">YoY -2.3%</div>
+      <div class="sub" style="color:#8b949e">※$0.06のれん減損含む</div>
+    </div>
+    <div class="card">
+      <div class="label">粗利益率 (GAAP)</div>
+      <div class="value white">55.9%</div>
+      <div class="sub red">前年同期 56.1%</div>
+    </div>
+    <div class="card">
+      <div class="label">営業利益率 (GAAP)</div>
+      <div class="value white">33.3%</div>
+      <div class="sub red">前年同期 36.6%</div>
+    </div>
+    <div class="card beat">
+      <div class="label">フリーキャッシュフロー (TTM)</div>
+      <div class="value green">$2,938M</div>
+      <div class="sub green">YoY +96%</div>
+    </div>
+    <div class="card beat">
+      <div class="label">ガイダンス中央値 (Q1 FY26)</div>
+      <div class="value green">$4,500M</div>
+      <div class="sub green">コンセンサス$4,420Mを上回る</div>
+    </div>
+  </div>
+</div>
+
+<!-- コンセンサス比較 -->
+<div class="section">
+  <div class="section-title">🎯 コンセンサス比較</div>
+  <div class="cards">
+    <div class="card miss">
+      <div class="label">売上 vs コンセンサス</div>
+      <div class="value red">ミス</div>
+      <div class="sub">実績 $4,423M vs 予想 $4,440M</div>
+      <div class="sub red">差分 -$17M（-0.4%）</div>
+    </div>
+    <div class="card miss">
+      <div class="label">EPS vs コンセンサス</div>
+      <div class="value red">ミス</div>
+      <div class="sub">実績 $1.27 vs 予想 $1.30</div>
+      <div class="sub red">差分 -$0.03（-2.3%）</div>
+    </div>
+    <div class="card beat">
+      <div class="label">Q1 FY26 ガイダンス vs コンセンサス</div>
+      <div class="value green">ビート</div>
+      <div class="sub">ガイダンス中央値 $4,500M vs 予想 $4,420M</div>
+      <div class="sub green">差分 +$80M（+1.8%）</div>
+    </div>
+  </div>
+  <div class="highlight positive">
+    <strong>注目:</strong> Q4実績はのれん減損（$0.06/株）を含む。減損除外ベースのEPSは$1.33でコンセンサスをビート。Q1ガイダンスは約15年ぶりとなるQ1での前四半期比増収を示唆し、市場は非常にポジティブに反応（+10%）。
+  </div>
+</div>
+
+<!-- 3. 売上高・EPS 7四半期推移チャート -->
+<div class="section">
+  <div class="section-title">📈 売上高・EPS 7四半期推移</div>
+  <div class="chart-container">
+    <div class="chart-wrapper">
+      <canvas id="revenueChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-container">
+    <div class="chart-wrapper">
+      <canvas id="epsChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 利益率トレンド -->
+<div class="section">
+  <div class="section-title">📉 利益率トレンド</div>
+  <table>
+    <thead>
+      <tr><th>指標</th><th>Q4 FY25</th><th>Q3 FY25</th><th>Q2 FY25</th><th>Q1 FY25</th><th>Q4 FY24</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>粗利益率</td><td>55.9%</td><td>58.6%</td><td>58.1%</td><td>56.5%</td><td>55.4%</td></tr>
+      <tr><td>営業利益率</td><td>33.3%</td><td>37.1%</td><td>35.2%</td><td>30.4%</td><td>29.2%</td></tr>
+      <tr><td>EBITDAマージン</td><td>~45%</td><td>~48%</td><td>~47%</td><td>~43%</td><td>~42%</td></tr>
+    </tbody>
+  </table>
+  <div class="chart-container">
+    <div class="chart-wrapper">
+      <canvas id="marginChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 5. キャッシュフロー -->
+<div class="section">
+  <div class="section-title">💰 キャッシュフロー</div>
+  <div class="cards">
+    <div class="card">
+      <div class="label">営業CF (Q4)</div>
+      <div class="value green">$2,254M</div>
+    </div>
+    <div class="card">
+      <div class="label">投資CF (CapEx Q4)</div>
+      <div class="value red">-$925M</div>
+    </div>
+    <div class="card">
+      <div class="label">FCF (Q4)</div>
+      <div class="value green">$1,329M</div>
+    </div>
+    <div class="card beat">
+      <div class="label">FCF (TTM)</div>
+      <div class="value green">$2,938M</div>
+      <div class="sub green">FCFマージン 16.6%</div>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>項目</th><th>FY2025</th><th>FY2024</th><th>YoY</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>営業CF</td><td>$7,153M</td><td>$6,339M</td><td class="green">+12.8%</td></tr>
+      <tr><td>設備投資</td><td>$4,550M</td><td>$4,842M</td><td class="green">-6.0%</td></tr>
+      <tr><td>FCF</td><td>$2,938M</td><td>$1,497M</td><td class="green">+96.3%</td></tr>
+      <tr><td>配当</td><td>$4,999M</td><td>$4,771M</td><td>+4.8%</td></tr>
+      <tr><td>自社株買い</td><td>$1,477M</td><td>$83M</td><td class="green">大幅増</td></tr>
+      <tr><td>株主還元合計</td><td>$6,476M</td><td>$4,854M</td><td class="green">+33.4%</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight">
+    <strong>CapEx見通し:</strong> FY2026は$2B〜$3Bに縮小予定（FY2025: $4.55B）。300mm新工場投資サイクルがピークアウト。CHIPS Act ITC（投資税額控除）は2026年1月から35%に引き上げ。
+  </div>
+</div>
+
+<!-- 6. 部門別・地域別売上 -->
+<div class="section">
+  <div class="section-title">🏢 セグメント別売上構成</div>
+
+  <h3 style="margin:16px 0 8px;font-size:1.1em">部門別（Q4 FY2025）</h3>
+  <table>
+    <thead>
+      <tr><th>セグメント</th><th>売上高</th><th>構成比</th><th>YoY</th><th>営業利益</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Analog（アナログ）</td><td>$3,615M</td><td>81.7%</td><td class="green">+14%</td><td>$1,395M</td></tr>
+      <tr><td>Embedded Processing（組込み）</td><td>$662M</td><td>15.0%</td><td class="green">+8%</td><td>$71M</td></tr>
+      <tr><td>Other（その他）</td><td>$146M</td><td>3.3%</td><td class="red">-34%</td><td>$7M</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin:24px 0 8px;font-size:1.1em">エンドマーケット別（FY2025通期）</h3>
+  <table>
+    <thead>
+      <tr><th>市場</th><th>売上高</th><th>構成比</th><th>YoY</th><th>Q4トレンド</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>産業機器 (Industrial)</td><td>$5,800M</td><td>33%</td><td class="green">+12%</td><td class="green">Q4 YoY +10%台後半</td></tr>
+      <tr><td>自動車 (Automotive)</td><td>$5,800M</td><td>33%</td><td class="green">+6%</td><td class="red">Q4 低一桁台マイナス</td></tr>
+      <tr><td>パーソナルエレクトロニクス</td><td>$3,700M</td><td>21%</td><td class="green">+7%</td><td class="red">Q4 YoY -10%台後半</td></tr>
+      <tr><td>データセンター</td><td>$1,500M</td><td>9%</td><td class="green">+64%</td><td class="green">Q4 YoY +約70%、7四半期連続成長</td></tr>
+      <tr><td>通信機器</td><td>~$500M</td><td>3%</td><td class="green">+20%</td><td class="red">Q4 低一桁台マイナス</td></tr>
+    </tbody>
+  </table>
+  <div class="chart-container">
+    <div class="chart-wrapper">
+      <canvas id="segmentChart"></canvas>
+    </div>
+  </div>
+
+  <div class="highlight positive">
+    <strong>注目:</strong> 産業・自動車・データセンターの3領域で売上の約75%を占有（2013年の43%から大幅拡大）。データセンターは四半期あたり約$450Mに達し、AI需要がパワーマネジメント・シグナルチェーン全般に波及。
+  </div>
+</div>
+
+<!-- 8. 経営陣コメントハイライト -->
+<div class="section">
+  <div class="section-title">🎙️ 経営陣コメントハイライト</div>
+
+  <div class="highlight">
+    <strong>Haviv Ilan CEO（ビジネス見通し）:</strong><br>
+    「受注とバックログはQ4を通じて改善し続けている。ターンズビジネス（即納需要）も高水準で推移している。」Q1ガイダンスの上振れは価格要因ではなく、実需の回復によるもの。
+  </div>
+
+  <div class="highlight">
+    <strong>Rafael Lizardi CFO（資本配分）:</strong><br>
+    「長期的に価値を創出する分野に注力し続ける。」FY2025のFCFは$2.9B（前年比96%増）、FCFマージン16.6%。FY2026のCapExは$2-3Bに縮小。CHIPS Act直接補助金として最大$1.6Bの追加受領見込み。
+  </div>
+
+  <div class="highlight">
+    <strong>データセンター事業:</strong><br>
+    データセンター売上は年間$1.5B規模（四半期$450M）に成長。パワーマネジメント、シグナルチェーン、VRM等の多様なアナログ・組込み製品がAIインフラ投資の恩恵を受ける。BCD製造プロセスが高電力レール対応の競争優位に。
+  </div>
+
+  <div class="highlight">
+    <strong>製造戦略:</strong><br>
+    Shermanファブは予定より前倒しで立ち上がっており、歩留まり・スループットともに想定以上。300mmウェーハへの移行により、競合の200mm技術に対して大幅なコスト優位を確保。2026年は「収穫の年（Harvest Year）」になるとアナリストが評価。
+  </div>
+
+  <div class="highlight warning">
+    <strong>価格動向:</strong><br>
+    「2025年は同一製品ベースで価格が若干下落した。2026年も同様のトレンド（2-3%の下落）を見込んでいる。」Q1の成長は価格ではなく需要回復によるもの。
+  </div>
+
+  <div class="highlight">
+    <strong>Silicon Labs買収（2026年2月4日発表）:</strong><br>
+    $7.5B（全額現金）でSilicon Labsを買収（1株$231、約69%のプレミアム）。1,200以上のワイヤレス接続製品を獲得し、Edge AI・IoT市場での支配的地位を確立へ。年間約$450Mのシナジー見込み。2027年前半クローズ予定。
+  </div>
+</div>
+
+<!-- 9. リスク・カタリスト -->
+<div class="section">
+  <div class="section-title">⚖️ リスク・注目ポイント / カタリスト</div>
+  <div class="compare-row">
+    <div class="compare-item" style="border-left:3px solid #f85149">
+      <h3 style="color:#f85149;margin-bottom:8px">リスク要因</h3>
+      <ul class="insight-list">
+        <li>🔸 自動車セグメントの減速（Q4低一桁台マイナス）。EV需要の鈍化リスク</li>
+        <li>🔸 Silicon Labs買収に伴う$7.5Bの負債増加（統合リスク）</li>
+        <li>🔸 価格下落圧力（年2-3%の低下トレンド継続）</li>
+        <li>🔸 産業機器需要の回復持続性に不確実性（CEO「受注の持続性を注視」）</li>
+        <li>🔸 パーソナルエレクトロニクス需要の軟化（Q4 YoY -10%台後半）</li>
+        <li>🔸 中国市場リスク・地政学的リスク</li>
+        <li>🔸 PER 35-42xと高バリュエーション水準</li>
+      </ul>
+    </div>
+    <div class="compare-item" style="border-left:3px solid #2ea043">
+      <h3 style="color:#2ea043;margin-bottom:8px">ポジティブ・カタリスト</h3>
+      <ul class="insight-list">
+        <li>🟢 データセンター売上YoY +64%。AI需要がアナログ半導体に波及</li>
+        <li>🟢 300mmファブの本格稼働 →「収穫の年」でマージン拡大期待</li>
+        <li>🟢 CapEx $4.5B→$2-3Bに大幅縮小 → FCF大幅改善が継続</li>
+        <li>🟢 CHIPS Act恩恵：ITC 35%+直接補助金最大$1.6B追加</li>
+        <li>🟢 Q1ガイダンスが約15年ぶりのQ1前四半期比増収を示唆</li>
+        <li>🟢 配当22年連続増配、FY2025株主還元$6.5B</li>
+        <li>🟢 Silicon Labs買収でIoT・Edge AI市場拡大</li>
+        <li>🟢 産業機器セグメントの本格回復サイン</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 10. 前回決算との比較サマリー -->
+<div class="section">
+  <div class="section-title">🔄 前回決算との比較サマリー</div>
+  <div class="highlight">
+    <strong>初回分析のため前回比較なし</strong><br>
+    TXNは今回が初めての決算分析対象です。次回決算（Q1 FY2026、2026年4月28日予定）以降、前回比較が可能になります。
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="label">今回スコア</div>
+      <div class="value blue">4 📈</div>
+      <div class="sub">良い決算</div>
+    </div>
+    <div class="card">
+      <div class="label">前回スコア</div>
+      <div class="value" style="color:#484f58">N/A</div>
+      <div class="sub">初回分析</div>
+    </div>
+    <div class="card">
+      <div class="label">トレンド</div>
+      <div class="value" style="color:#484f58">—</div>
+      <div class="sub">次回以降追跡開始</div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. バリュエーション -->
+<div class="section">
+  <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
+  <div class="val-cards">
+    <div class="val-card val-low">
+      <div class="val-label">LOW（保守的）</div>
+      <div class="val-price green">$168</div>
+      <div class="val-detail">
+        Forward EPS: $6.00<br>
+        予想PER: 28.0x<br>
+        <span class="tag tag-red">現在株価比 -20%</span>
+      </div>
+    </div>
+    <div class="val-card val-mid">
+      <div class="val-label">MID（基本）</div>
+      <div class="val-price blue">$214</div>
+      <div class="val-detail">
+        Forward EPS: $6.47（コンセンサス）<br>
+        予想PER: 33.0x<br>
+        <span class="tag tag-blue">現在株価比 +2%</span>
+      </div>
+    </div>
+    <div class="val-card val-high">
+      <div class="val-label">HIGH（楽観的）</div>
+      <div class="val-price" style="color:#da3633">$266</div>
+      <div class="val-detail">
+        Forward EPS: $7.00<br>
+        予想PER: 38.0x<br>
+        <span class="tag tag-green">現在株価比 +27%</span>
+      </div>
+    </div>
+  </div>
+  <div class="highlight">
+    <strong>判定: 適正</strong>（MID想定株価$214 vs 現在株価~$210 → 乖離率 +1.9%）<br>
+    FY2026コンセンサスEPS $6.47（YoY +18.7%）ベース。300mmファブのフル稼働によるマージン改善とCapEx縮小によるFCF拡大が株価上昇の鍵。ただし、現在のPER 35x超は成長プレミアムを相当程度織り込み済み。
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>指標</th><th>値</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>現在株価</td><td>~$210</td></tr>
+      <tr><td>時価総額</td><td>~$192.5B</td></tr>
+      <tr><td>PER (Trailing)</td><td>~38.5x</td></tr>
+      <tr><td>PER (Forward)</td><td>~33.0x</td></tr>
+      <tr><td>52週高値</td><td>$231.32</td></tr>
+      <tr><td>52週安値</td><td>$139.95</td></tr>
+      <tr><td>配当利回り</td><td>~2.7%</td></tr>
+      <tr><td>アナリスト目標株価（平均）</td><td>~$217</td></tr>
+      <tr><td>アナリスト評価</td><td>Buy 15 / Hold 19 / Sell 4（41名）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 株価・テクニカル -->
+<div class="section">
+  <div class="section-title">📉 株価・テクニカル概要</div>
+  <div class="cards">
+    <div class="card">
+      <div class="label">決算後株価反応</div>
+      <div class="value green">+9.96%</div>
+      <div class="sub">時間外で急騰</div>
+    </div>
+    <div class="card">
+      <div class="label">RSI (14)</div>
+      <div class="value yellow">~46</div>
+      <div class="sub">中立圏</div>
+    </div>
+    <div class="card">
+      <div class="label">50日移動平均</div>
+      <div class="value white">~$183</div>
+      <div class="sub">株価は上方</div>
+    </div>
+    <div class="card">
+      <div class="label">空売り比率</div>
+      <div class="value white">低水準</div>
+      <div class="sub">大きなショートスクイーズリスクなし</div>
+    </div>
+  </div>
+  <div class="highlight warning">
+    <strong>インサイダー動向:</strong> 2026年1月30日に経営陣11名が納税関連で計$7.6M相当を売却。加えて、直近で約$25.6Mのインサイダー売却あり。大規模な買いは確認されていない。
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>本レポートは公開情報に基づく分析であり、投資助言ではありません。</p>
+  <p>データソース: TI IR、SEC Filing、Yahoo Finance、各種アナリストレポート</p>
+  <p>作成日: 2026年3月7日 | U&I株倶楽部</p>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// 共通設定
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#21262d';
+Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+
+const quarters = ['Q2 FY24','Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25'];
+
+// 売上高チャート
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: quarters,
+    datasets: [{
+      label: '売上高 ($M)',
+      data: [3820, 4150, 4010, 4070, 4400, 4740, 4423],
+      backgroundColor: [
+        '#1f6feb','#1f6feb','#1f6feb','#1f6feb','#1f6feb','#1f6feb','#58a6ff'
+      ],
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: '売上高推移（直近7四半期）', font: { size: 16, weight: 'bold' }, color: '#e6edf3' }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 3400,
+        ticks: { callback: v => '$' + v.toLocaleString() + 'M' },
+        grid: { color: 'rgba(33,38,45,.5)' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// EPSチャート
+new Chart(document.getElementById('epsChart'), {
+  type: 'line',
+  data: {
+    labels: quarters,
+    datasets: [{
+      label: 'EPS ($)',
+      data: [1.22, 1.47, 1.30, 1.28, 1.41, 1.48, 1.27],
+      borderColor: '#58a6ff',
+      backgroundColor: 'rgba(88,166,255,.1)',
+      fill: true,
+      tension: .3,
+      pointBackgroundColor: '#58a6ff',
+      pointRadius: 6,
+      pointHoverRadius: 8,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: 'EPS推移（直近7四半期）', font: { size: 16, weight: 'bold' }, color: '#e6edf3' }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 1.0,
+        ticks: { callback: v => '$' + v.toFixed(2) },
+        grid: { color: 'rgba(33,38,45,.5)' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// 利益率チャート
+new Chart(document.getElementById('marginChart'), {
+  type: 'line',
+  data: {
+    labels: ['Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25'],
+    datasets: [
+      {
+        label: '粗利益率',
+        data: [55.4, 56.5, 58.1, 58.6, 55.9],
+        borderColor: '#2ea043',
+        backgroundColor: 'transparent',
+        tension: .3,
+        pointRadius: 5,
+        borderWidth: 2
+      },
+      {
+        label: '営業利益率',
+        data: [29.2, 30.4, 35.2, 37.1, 33.3],
+        borderColor: '#1f6feb',
+        backgroundColor: 'transparent',
+        tension: .3,
+        pointRadius: 5,
+        borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 20 } },
+      title: { display: true, text: '利益率推移', font: { size: 16, weight: 'bold' }, color: '#e6edf3' }
+    },
+    scales: {
+      y: {
+        min: 25,
+        max: 65,
+        ticks: { callback: v => v + '%' },
+        grid: { color: 'rgba(33,38,45,.5)' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// エンドマーケット別チャート
+new Chart(document.getElementById('segmentChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['産業機器 (33%)', '自動車 (33%)', 'パーソナルエレクトロニクス (21%)', 'データセンター (9%)', '通信機器 (3%)'],
+    datasets: [{
+      data: [33, 33, 21, 9, 3],
+      backgroundColor: ['#1f6feb','#2ea043','#d29922','#f85149','#8b949e'],
+      borderColor: '#0d1117',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { usePointStyle: true, padding: 12, font: { size: 13 } } },
+      title: { display: true, text: 'エンドマーケット別売上構成（FY2025通期）', font: { size: 16, weight: 'bold' }, color: '#e6edf3' }
+    }
+  }
+});
+</script>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

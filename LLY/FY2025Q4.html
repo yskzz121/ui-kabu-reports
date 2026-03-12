@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLY イーライリリー FY2025 Q4 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 :root {
   --bg-primary: #0d1117;
@@ -206,7 +214,9 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
-
+@media (max-width: 768px) {
+  .val-grid { grid-template-columns: 1fr; }
+}
 .val-card {
   border-radius: 12px;
   padding: 24px;
@@ -288,8 +298,13 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-
-
+@media (max-width: 768px) {
+  .risk-grid { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
 .risk-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -346,35 +361,714 @@ body {
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
 </style>
+<
+.header-content { position: relative; z-index: 1; }
+.ticker-badge {
+  display: inline-block;
+  background: rgba(88,166,255,0.15);
+  border: 1px solid rgba(88,166,255,0.3);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 14px;
+  color: var(--blue);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.header .subtitle { color: var(--text-sub); font-size: 1.1em; }
+link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/LLY.svg" alt="LLY"><div class="ticker-badge">NYSE: LLY</div></div>
+    <h1>イーライリリー 決算分析</h1>
+    <div class="date">発表日: 2026年2月4日 ｜ 分析日: 2026年3月11日</div>
+  </div>
+</div>
+
+<!-- 1. Score -->
+<div class="score-section">
+  <div class="score-badge">
+    <span class="score-number">4</span>
+    <span class="score-icon">📈</span>
+  </div>
+  <div class="score-label">良い決算</div>
+  <div class="score-desc">売上・EPSともにビート ＋ ガイダンスがコンセンサスを大幅に上回る ＋ GLP-1ポートフォリオが牽引</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">売上高</div>
+      <div class="card-value neutral">$19,292M</div>
+      <div class="card-sub">YoY <span class="positive">+43%</span> ｜ QoQ <span class="positive">+9.6%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Non-GAAP EPS</div>
+      <div class="card-value neutral">$7.54</div>
+      <div class="card-sub">YoY <span class="positive">+42%</span>（vs Q4'24 $5.32）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">売上 vs コンセンサス</div>
+      <div class="card-value positive">+$1,332M</div>
+      <div class="card-sub">予想 $17,960M <span class="tag tag-green">+7.4% ビート</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">EPS vs コンセンサス</div>
+      <div class="card-value positive">+$0.58</div>
+      <div class="card-sub">予想 $6.96 <span class="tag tag-green">+8.3% ビート</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">GAAP EPS</div>
+      <div class="card-value neutral">$7.39</div>
+      <div class="card-sub">YoY <span class="positive">+51%</span>（vs Q4'24 $4.88）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">2026年 売上ガイダンス</div>
+      <div class="card-value positive">$80-83B</div>
+      <div class="card-sub">Mid $81.5B vs コンセンサス $77.6B <span class="tag tag-green">+5%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">2026年 Non-GAAP EPSガイダンス</div>
+      <div class="card-value positive">$33.50-$35.00</div>
+      <div class="card-sub">Mid $34.25 vs コンセンサス $33.09 <span class="tag tag-green">+3.5%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">決算後 株価反応</div>
+      <div class="card-value positive">+10%</div>
+      <div class="card-sub">時価総額 $1兆超突破（$1,106へ急騰）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Revenue & EPS Charts -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📈</span> 売上高・EPS 7四半期推移</div>
+  <div class="chart-container">
+    <h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">売上高推移（$M）</h3>
+    <div class="chart-wrapper">
+      <canvas id="revenueChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-container">
+    <h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">Non-GAAP EPS推移（$）</h3>
+    <div class="chart-wrapper">
+      <canvas id="epsChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Margin Trends -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">💹</span> 利益率トレンド</div>
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>指標</th>
+          <th class="right">Q4 2025</th>
+          <th class="right">Q4 2024</th>
+          <th class="right">YoY変化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>粗利益率（GAAP）</td>
+          <td class="right">82.5%</td>
+          <td class="right">82.2%</td>
+          <td class="right positive">+0.3pp</td>
+        </tr>
+        <tr>
+          <td>粗利益率（Non-GAAP）</td>
+          <td class="right">83.2%</td>
+          <td class="right">83.2%</td>
+          <td class="right neutral">±0pp</td>
+        </tr>
+        <tr>
+          <td>営業利益率（GAAP）</td>
+          <td class="right">43.4%</td>
+          <td class="right">38.0%</td>
+          <td class="right positive">+5.4pp</td>
+        </tr>
+        <tr>
+          <td>Non-GAAPパフォーマンスマージン</td>
+          <td class="right">47.2%</td>
+          <td class="right">43.0%</td>
+          <td class="right positive">+4.2pp</td>
+        </tr>
+        <tr>
+          <td>FY2025 粗利益率（GAAP）</td>
+          <td class="right" colspan="1">83.0%</td>
+          <td class="right">81.3%</td>
+          <td class="right positive">+1.7pp</td>
+        </tr>
+        <tr>
+          <td>FY2025 粗利益率（Non-GAAP）</td>
+          <td class="right">83.8%</td>
+          <td class="right">82.5%</td>
+          <td class="right positive">+1.3pp</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="chart-container" style="margin-top:16px;">
+    <h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">利益率推移（%）</h3>
+    <div class="chart-wrapper">
+      <canvas id="marginChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Operating Expenses -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">💰</span> 営業費用内訳（Q4 2025）</div>
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th class="right">Q4 2025 ($M)</th>
+          <th class="right">Q4 2024 ($M)</th>
+          <th class="right">YoY変化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>売上原価</td>
+          <td class="right">$3,372</td>
+          <td class="right">$2,410</td>
+          <td class="right negative">+40%</td>
+        </tr>
+        <tr>
+          <td>研究開発費</td>
+          <td class="right">$3,802</td>
+          <td class="right">$3,013</td>
+          <td class="right negative">+26%</td>
+        </tr>
+        <tr>
+          <td>販管費</td>
+          <td class="right">$3,132</td>
+          <td class="right">$2,434</td>
+          <td class="right negative">+29%</td>
+        </tr>
+        <tr>
+          <td>取得済みIPR&D</td>
+          <td class="right">$529</td>
+          <td class="right">$189</td>
+          <td class="right negative">+180%</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">営業利益（GAAP）</td>
+          <td class="right" style="font-weight:600;">$8,373</td>
+          <td class="right">$5,134</td>
+          <td class="right positive" style="font-weight:600;">+63%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 6. Segment Revenue -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">🏥</span> 製品別売上（Q4 2025）</div>
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>製品</th>
+          <th class="right">売上 ($M)</th>
+          <th class="right">YoY</th>
+          <th class="right">米国 ($M)</th>
+          <th class="right">海外 ($M)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Mounjaro</strong>（2型糖尿病）</td>
+          <td class="right" style="font-weight:600;">$7,409</td>
+          <td class="right positive">+110%</td>
+          <td class="right">$4,100</td>
+          <td class="right">$3,300</td>
+        </tr>
+        <tr>
+          <td><strong>Zepbound</strong>（肥満）</td>
+          <td class="right" style="font-weight:600;">$4,261</td>
+          <td class="right positive">+123%</td>
+          <td class="right">$4,261</td>
+          <td class="right" style="color:var(--text-muted);">—</td>
+        </tr>
+        <tr>
+          <td><strong>Verzenio</strong>（腫瘍）</td>
+          <td class="right">$1,604</td>
+          <td class="right positive">+3%</td>
+          <td class="right">$997</td>
+          <td class="right">$608</td>
+        </tr>
+        <tr>
+          <td>その他</td>
+          <td class="right">$6,018</td>
+          <td class="right">—</td>
+          <td class="right">—</td>
+          <td class="right">—</td>
+        </tr>
+        <tr style="background:var(--bg-card-alt);">
+          <td style="font-weight:700;">合計</td>
+          <td class="right" style="font-weight:700;">$19,292</td>
+          <td class="right positive" style="font-weight:700;">+43%</td>
+          <td class="right" style="font-weight:700;">$12,900</td>
+          <td class="right" style="font-weight:700;">$6,400</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:16px;">
+    <div class="section-title" style="border:none; margin-bottom:12px;"><span class="section-icon">🌍</span> 地域別売上</div>
+    <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="card">
+        <div class="card-title">米国</div>
+        <div class="card-value neutral">$12,900M</div>
+        <div class="card-sub">構成比 66.9% ｜ YoY <span class="positive">+43%</span></div>
+        <div class="card-sub">ボリューム +50%、価格 -7%</div>
+      </div>
+      <div class="card">
+        <div class="card-title">海外</div>
+        <div class="card-value neutral">$6,400M</div>
+        <div class="card-sub">構成比 33.1% ｜ YoY <span class="positive">+43%</span></div>
+        <div class="card-sub">ボリューム +38%、為替 +4%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container" style="margin-top:16px;">
+    <h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">製品別売上構成（Q4 2025）</h3>
+    <div class="chart-wrapper" style="height:280px; max-width:400px; margin:0 auto;">
+      <canvas id="segmentChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Full Year 2025 Summary -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📅</span> FY2025 通期サマリー</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">通期売上高</div>
+      <div class="card-value neutral">$65,179M</div>
+      <div class="card-sub">YoY <span class="positive">+45%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">通期 GAAP EPS</div>
+      <div class="card-value neutral">$22.95</div>
+      <div class="card-sub">YoY <span class="positive">+96%</span>（vs FY24 $11.71）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">通期 Non-GAAP EPS</div>
+      <div class="card-value neutral">$24.21</div>
+      <div class="card-sub">YoY <span class="positive">+86%</span>（vs FY24 $12.99）</div>
+    </div>
+    <div class="card">
+      <div class="card-title">通期営業利益</div>
+      <div class="card-value neutral">$26,302M</div>
+      <div class="card-sub">YoY <span class="positive">+104%</span>（vs FY24 $12,899M）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. Management Comments -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
+
+  <div class="comment-box">
+    <h4>業績・成長ドライバー</h4>
+    <ul>
+      <li>Q4売上は前年同期比43%増の$19.3Bを達成。ボリューム成長+46%が牽引、価格は-5%の逆風</li>
+      <li>Mounjaro海外売上が急拡大（$899M → $3,300M）、国際市場での処方拡大が加速</li>
+      <li>Zepbound米国売上が$4.2Bに成長し、肥満治療市場でのリーダーシップを強化</li>
+    </ul>
+  </div>
+
+  <div class="comment-box">
+    <h4>パイプライン・新薬</h4>
+    <ul>
+      <li><strong>Orforglipron（経口GLP-1）：</strong>肥満治療薬として2026年Q2に米国発売予定（FDA承認待ち）。40カ国以上で申請済み</li>
+      <li>ATTAIN-2試験で36mg用量は10.5%の体重減少を達成。注射GLP-1モノセラピーと同等の効果を経口で実現</li>
+      <li>セマグルチドからorforglipronへの切り替え試験で、体重減少の維持を確認（差わずか0.9kg）</li>
+      <li><strong>Retatrutide：</strong>TRIUMPH-4試験で大幅な体重減少と痛み軽減を確認</li>
+    </ul>
+  </div>
+
+  <div class="comment-box">
+    <h4>2026年見通し</h4>
+    <ul>
+      <li>売上ガイダンス$80-83B（中間値で前年比+25%）、コンセンサス$77.6Bを上回る</li>
+      <li>Medicare肥満治療薬カバレッジが2026年7月1日までに開始見込み — 需要拡大の追い風</li>
+      <li>価格は10%台前半〜半ばのマイナス要因を予想。ボリューム成長でカバーする方針</li>
+      <li>パフォーマンスマージン目標46.0-47.5%、研究開発投資は引き続き積極的</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 9. Risk & Catalyst -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">⚡</span> リスク・注目ポイント / カタリスト</div>
+  <div class="risk-grid">
+    <div class="risk-card negative-card">
+      <h4>⚠️ リスク要因</h4>
+      <ul>
+        <li><strong>価格圧力:</strong> 米国GLP-1薬価が低下傾向。2026年は10%台前半〜半ばの価格逆風を予想</li>
+        <li><strong>競争激化:</strong> Novo Nordisk経口Wegovy承認（2026年1月発売開始）。24.6万人がすでに処方中</li>
+        <li><strong>コンパウンド薬リスク:</strong> セマグルチドの安価なコンパウンド版が市場を侵食する可能性</li>
+        <li><strong>規制リスク:</strong> メディケア価格交渉、IRA（インフレ抑制法）による薬価引き下げ圧力</li>
+        <li><strong>成長減速:</strong> YoY成長率が54%（Q3）→43%（Q4）に減速。2026年ガイダンスは+25%</li>
+        <li><strong>バリュエーション:</strong> Forward PER 33倍は製薬セクターとして高水準</li>
+      </ul>
+    </div>
+    <div class="risk-card positive-card">
+      <h4>🚀 カタリスト</h4>
+      <ul>
+        <li><strong>Orforglipron発売:</strong> 2026年Q2に経口肥満薬として米国発売予定 — 新たな患者層の開拓</li>
+        <li><strong>Medicareカバレッジ:</strong> 2026年7月までに肥満治療薬がMedicare適用開始 — TAM大幅拡大</li>
+        <li><strong>Mounjaro海外展開:</strong> 国際売上が急成長中（Q4 $3.3B）、さらなる拡大余地大</li>
+        <li><strong>Retatrutide:</strong> 次世代トリプルアゴニスト — 20%超の体重減少を目指す</li>
+        <li><strong>GLP-1市場成長:</strong> 2030年までに$100B超、2034年に$180Bの市場予測</li>
+        <li><strong>パイプライン多角化:</strong> 腫瘍（Verzenio）、免疫（Omvoh）、神経科学など</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 10. Previous Quarter Comparison -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">🔄</span> 前四半期（Q3 2025）との比較</div>
+  <div class="card" style="padding:0; overflow:hidden;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>指標</th>
+          <th class="right">Q3 2025</th>
+          <th class="right">Q4 2025</th>
+          <th class="right">変化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>売上高</td>
+          <td class="right">$17,600M</td>
+          <td class="right">$19,292M</td>
+          <td class="right positive">+9.6% QoQ</td>
+        </tr>
+        <tr>
+          <td>売上YoY成長率</td>
+          <td class="right">+54%</td>
+          <td class="right">+43%</td>
+          <td class="right negative">減速 ↓</td>
+        </tr>
+        <tr>
+          <td>Non-GAAP EPS</td>
+          <td class="right">$7.02</td>
+          <td class="right">$7.54</td>
+          <td class="right positive">+7.4% QoQ</td>
+        </tr>
+        <tr>
+          <td>粗利益率（GAAP）</td>
+          <td class="right">—</td>
+          <td class="right">82.5%</td>
+          <td class="right neutral">—</td>
+        </tr>
+        <tr>
+          <td>営業利益率（GAAP）</td>
+          <td class="right">—</td>
+          <td class="right">43.4%</td>
+          <td class="right neutral">—</td>
+        </tr>
+        <tr>
+          <td>Mounjaro売上</td>
+          <td class="right">—</td>
+          <td class="right">$7,409M</td>
+          <td class="right positive">+110% YoY</td>
+        </tr>
+        <tr>
+          <td>Zepbound売上</td>
+          <td class="right">—</td>
+          <td class="right">$4,261M</td>
+          <td class="right positive">+123% YoY</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:12px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px;">
+    <p style="font-size:14px; color:var(--text-secondary);">
+      <strong style="color:var(--yellow);">トレンド: やや減速 →↓</strong><br>
+      売上絶対額はQoQで+9.6%と堅調だが、YoY成長率は54%→43%に減速。これは比較対象（Q4 2024）が強かったことと、価格低下の影響。
+      ただし、2026年ガイダンスがコンセンサスを上回ったこと、orforglipron発売やMedicareカバレッジなど成長ドライバーが豊富であり、
+      構造的な成長ストーリーは健在。
+    </p>
+  </div>
+</div>
+
+<!-- 11. Valuation -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">🎯</span> バリュエーション（想定株価 3パターン）</div>
+
+  <div style="margin-bottom:16px; padding:12px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:8px;">
+    <span style="font-size:13px; color:var(--text-secondary);">
+      現在株価: <strong style="color:var(--text-primary);">$1,030</strong>（2026年3月時点）
+      ｜ 時価総額: <strong style="color:var(--text-primary);">約$940B</strong>
+      ｜ Trailing PER: <strong style="color:var(--text-primary);">51.4x</strong>
+      ｜ Forward PER: <strong style="color:var(--text-primary);">33.0x</strong>
+      ｜ アナリスト平均目標: <strong style="color:var(--text-primary);">$1,261</strong>
+    </span>
+  </div>
+
+  <div class="val-grid">
+    <!-- LOW -->
+    <div class="val-card low">
+      <div class="val-scenario">LOW（保守的）</div>
+      <div class="val-price">$938</div>
+      <div class="val-detail">Forward EPS: $33.50（ガイダンス下限）</div>
+      <div class="val-detail">× PER: 28.0x（過去下限）</div>
+      <div class="val-deviation" style="background:var(--red-bg); color:var(--red-light);">乖離率 -8.9%</div>
+    </div>
+    <!-- MID -->
+    <div class="val-card mid">
+      <div class="val-scenario">MID（基本）</div>
+      <div class="val-price">$1,130</div>
+      <div class="val-detail">Forward EPS: $34.25（コンセンサス）</div>
+      <div class="val-detail">× PER: 33.0x（過去中央値）</div>
+      <div class="val-deviation" style="background:var(--green-bg); color:var(--green-light);">乖離率 +9.7%　やや割安寄りの適正</div>
+    </div>
+    <!-- HIGH -->
+    <div class="val-card high">
+      <div class="val-scenario">HIGH（楽観的）</div>
+      <div class="val-price">$1,440</div>
+      <div class="val-detail">Forward EPS: $36.00（楽観予想）</div>
+      <div class="val-detail">× PER: 40.0x（過去上限）</div>
+      <div class="val-deviation" style="background:var(--green-bg); color:var(--green-light);">乖離率 +39.8%　割安</div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px;">
+    <p style="font-size:14px; color:var(--text-secondary);">
+      <strong style="color:var(--blue);">判定: 適正〜やや割安</strong>（MID乖離率 +9.7%）<br>
+      MIDシナリオでは現在株価から約10%のアップサイド。アナリスト平均目標$1,261と比較しても約22%の上昇余地。
+      GLP-1市場の成長性を考慮すると、長期的な投資妙味は依然として高い。ただし、Forward PER 33倍は製薬セクター平均を大きく上回るプレミアム水準であり、
+      期待通りの成長が実現しなかった場合のダウンサイドリスクには留意が必要。
+    </p>
+  </div>
+</div>
+
+<!-- Stock Info -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📉</span> 株価・マーケット情報</div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">現在株価</div>
+      <div class="card-value neutral">~$1,030</div>
+      <div class="card-sub">2026年3月時点</div>
+    </div>
+    <div class="card">
+      <div class="card-title">52週レンジ</div>
+      <div class="card-value neutral" style="font-size:20px;">$623.78 - $1,133.95</div>
+      <div class="card-sub">現在値は52週レンジの65%位置</div>
+    </div>
+    <div class="card">
+      <div class="card-title">時価総額</div>
+      <div class="card-value neutral">~$940B</div>
+      <div class="card-sub">決算後一時$1T超</div>
+    </div>
+    <div class="card">
+      <div class="card-title">アナリスト評価</div>
+      <div class="card-value positive">Strong Buy</div>
+      <div class="card-sub">19名中 Buy/Strong Buy 84% ｜ 目標株価 $870〜$1,500</div>
+    </div>
+    <div class="card">
+      <div class="card-title">空売り比率</div>
+      <div class="card-value neutral">0.87%</div>
+      <div class="card-sub">6.97M株 ｜ 低水準</div>
+    </div>
+    <div class="card">
+      <div class="card-title">実効税率（2026年想定）</div>
+      <div class="card-value neutral">18-19%</div>
+      <div class="card-sub">ガイダンスベース</div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。</p>
+  <p>投資判断はご自身の責任でお願いいたします。</p>
+  <p style="margin-top:8px;">Generated by AI ｜ Data as of 2026-03-11</p>
+</div>
+
+<script>
+// Chart.js defaults
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#30363d';
+Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+
+const quarters = ['Q2\'24', 'Q3\'24', 'Q4\'24', 'Q1\'25', 'Q2\'25', 'Q3\'25', 'Q4\'25'];
+const revenues = [11303, 11439, 13530, 12730, 15558, 17600, 19292];
+const eps = [3.92, 1.18, 5.32, 3.34, 6.31, 7.02, 7.54];
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: quarters,
+    datasets: [{
+      label: '売上高 ($M)',
+      data: revenues,
+      backgroundColor: revenues.map((v, i) => i === revenues.length - 1 ? '#58a6ff' : 'rgba(88,166,255,0.5)'),
+      borderColor: '#58a6ff',
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => `$${ctx.raw.toLocaleString()}M`
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 8000,
+        ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'B' },
+        grid: { color: '#21262d' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'), {
+  type: 'line',
+  data: {
+    labels: quarters,
+    datasets: [{
+      label: 'Non-GAAP EPS ($)',
+      data: eps,
+      borderColor: '#2ea043',
+      backgroundColor: 'rgba(46,160,67,0.1)',
+      fill: true,
+      tension: 0.3,
+      pointBackgroundColor: eps.map((v, i) => i === eps.length - 1 ? '#3fb950' : '#2ea043'),
+      pointRadius: eps.map((v, i) => i === eps.length - 1 ? 6 : 4),
+      pointBorderWidth: 2,
+      pointBorderColor: '#0d1117'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => `$${ctx.raw.toFixed(2)}`
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        ticks: { callback: v => '$' + v.toFixed(1) },
+        grid: { color: '#21262d' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Margin Chart (simplified - using available Q4 data points)
+new Chart(document.getElementById('marginChart'), {
+  type: 'bar',
+  data: {
+    labels: ['粗利益率\n(GAAP)', '粗利益率\n(Non-GAAP)', '営業利益率\n(GAAP)', 'パフォーマンス\nマージン'],
+    datasets: [
+      {
+        label: 'Q4 2024',
+        data: [82.2, 83.2, 38.0, 43.0],
+        backgroundColor: 'rgba(88,166,255,0.3)',
+        borderColor: '#58a6ff',
+        borderWidth: 1,
+        borderRadius: 4
+      },
+      {
+        label: 'Q4 2025',
+        data: [82.5, 83.2, 43.4, 47.2],
+        backgroundColor: 'rgba(46,160,67,0.5)',
+        borderColor: '#2ea043',
+        borderWidth: 1,
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top' },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw + '%' } }
+    },
+    scales: {
+      y: {
+        min: 30,
+        max: 90,
+        ticks: { callback: v => v + '%' },
+        grid: { color: '#21262d' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Segment Pie Chart
+new Chart(document.getElementById('segmentChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Mounjaro', 'Zepbound', 'Verzenio', 'その他'],
+    datasets: [{
+      data: [7409, 4261, 1604, 6018],
+      backgroundColor: ['#58a6ff', '#bc8cff', '#2ea043', '#484f58'],
+      borderColor: '#161b22',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16 } },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+            const pct = ((ctx.raw / total) * 100).toFixed(1);
+            return `${ctx.label}: $${ctx.raw.toLocaleString()}M (${pct}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

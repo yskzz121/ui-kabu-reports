@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA (NVDA) FY26Q4 決算分析レポート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6}
@@ -80,7 +88,12 @@ canvas{max-height:320px}
 /* Footer */
 .footer{text-align:center;padding:30px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;margin-top:40px}
 
-
+@media(max-width:768px){
+  .chart-row,.val-cards{grid-template-columns:1fr}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .compare-row{grid-template-columns:1fr}
+  .compare-arrow{transform:rotate(90deg)}
+}
 
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
@@ -98,35 +111,421 @@ canvas{max-height:320px}
   letter-spacing: 1px;
 }
 .header h1 { font-size: 2.2em; font-weight: 900; margin-bottom: 4px; }
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
 </style>
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/NVDA.svg" alt="NVDA"><div class="ticker-badge">NASDAQ: NVDA</div></div>
+    <h1>NVIDIA Corporation 決算分析</h1>
+    <div class="subtitle">FY2026 Q4（2025年10月-2026年1月期）</div>
+    <div class="date">決算発表日: 2026年2月25日｜対象期間: 2025年10月27日〜2026年1月25日</div>
+  </div>
+</div>
+
+<!-- 1. Score Banner -->
+<div class="score-banner">
+  <div class="score-icon">🚀</div>
+  <div class="score-label">スコア 5／5　素晴らしい決算</div>
+  <div class="score-desc">売上・EPSともにビート ＋ ガイダンス大幅上方修正 ＋ 成長加速</div>
+  <div class="score-comment">売上$68.1B（+73% YoY）でコンセンサスを+$2.5Bビート。FY27Q1ガイダンス$78Bはコンセンサス$72.6Bを+7.4%上回る。Blackwell本格化で粗利益率も改善。</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+  <h2 class="section-title">Key Metrics</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="label">売上高</div>
+      <div class="value blue">$68.1B</div>
+      <div class="sub green">YoY +73%　QoQ +20%</div>
+    </div>
+    <div class="card">
+      <div class="label">Non-GAAP EPS</div>
+      <div class="value blue">$1.62</div>
+      <div class="sub green">YoY +82%　Beat +6.6%</div>
+    </div>
+    <div class="card">
+      <div class="label">売上ビート</div>
+      <div class="value green">+$2.5B</div>
+      <div class="sub gray">$68.1B vs 予想$65.6B</div>
+    </div>
+    <div class="card">
+      <div class="label">EPSビート</div>
+      <div class="value green">+$0.10</div>
+      <div class="sub gray">$1.62 vs 予想$1.52</div>
+    </div>
+    <div class="card">
+      <div class="label">FY27Q1 ガイダンス</div>
+      <div class="value green">$78.0B</div>
+      <div class="sub green">予想$72.6Bを+7.4%超過</div>
+    </div>
+    <div class="card">
+      <div class="label">Non-GAAP 粗利益率</div>
+      <div class="value blue">75.2%</div>
+      <div class="sub green">前年同期73.5%から改善</div>
+    </div>
+    <div class="card">
+      <div class="label">GAAP EPS</div>
+      <div class="value blue">$1.76</div>
+      <div class="sub green">YoY +98%</div>
+    </div>
+    <div class="card">
+      <div class="label">フリーキャッシュフロー</div>
+      <div class="value blue">$34.9B</div>
+      <div class="sub gray">FY26通期 $96.6B</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Revenue & EPS Chart (7Q) -->
+<div class="section">
+  <h2 class="section-title">売上高・EPS 7四半期推移</h2>
+  <div class="chart-row">
+    <div class="chart-container">
+      <canvas id="revenueChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="epsChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Margin Trend -->
+<div class="section">
+  <h2 class="section-title">利益率トレンド</h2>
+  <div class="chart-container">
+    <canvas id="marginChart"></canvas>
+  </div>
+  <div class="cards" style="margin-top:16px">
+    <div class="card">
+      <div class="label">GAAP 粗利益率</div>
+      <div class="value blue">75.0%</div>
+      <div class="sub green">前年同期 73.0%</div>
+    </div>
+    <div class="card">
+      <div class="label">Non-GAAP 粗利益率</div>
+      <div class="value blue">75.2%</div>
+      <div class="sub green">前年同期 73.5%</div>
+    </div>
+    <div class="card">
+      <div class="label">GAAP 営業利益率</div>
+      <div class="value blue">65.0%</div>
+      <div class="sub gray">Non-GAAP 67.7%</div>
+    </div>
+    <div class="card">
+      <div class="label">EBITDAマージン（推定）</div>
+      <div class="value blue">~68%</div>
+      <div class="sub gray">D&A加算推定</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Cash Flow -->
+<div class="section">
+  <h2 class="section-title">キャッシュフロー</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="label">営業CF（Q4）</div>
+      <div class="value green">$36.2B</div>
+      <div class="sub gray">FY26通期 $102.7B</div>
+    </div>
+    <div class="card">
+      <div class="label">投資CF（Q4）</div>
+      <div class="value red">-$30.9B</div>
+      <div class="sub gray">FY26通期 -$52.2B</div>
+    </div>
+    <div class="card">
+      <div class="label">財務CF（Q4）</div>
+      <div class="value red">-$6.2B</div>
+      <div class="sub gray">FY26通期 -$48.5B</div>
+    </div>
+    <div class="card">
+      <div class="label">FCF（Q4）</div>
+      <div class="value green">$34.9B</div>
+      <div class="sub gray">FY26通期 $96.6B</div>
+    </div>
+  </div>
+  <div class="card-wide" style="margin-top:12px">
+    <div class="label">株主還元</div>
+    <div style="font-size:0.95rem;color:#c9d1d9;margin-top:4px">FY26通期で$41Bの株主還元（自社株買い＋配当）を実施。FY26通期FCF $96.6Bに対する還元率は約42%。</div>
+  </div>
+</div>
+
+<!-- 6. Segment -->
+<div class="section">
+  <h2 class="section-title">部門別・地域別売上</h2>
+
+  <!-- Segment Bar -->
+  <div class="card-wide">
+    <div class="label" style="margin-bottom:8px">部門別売上構成（Q4 FY26）</div>
+    <div class="seg-bar">
+      <div style="width:91.5%;background:#1f6feb">データセンター 91.5%</div>
+      <div style="width:5.4%;background:#238636">Gaming</div>
+      <div style="width:1.9%;background:#8957e5">ProViz</div>
+      <div style="width:1.2%;background:#d29922">他</div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>セグメント</th><th class="right">売上（$M）</th><th class="right">構成比</th><th class="right">YoY</th><th class="right">QoQ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>データセンター</td><td class="right">$62,300</td><td class="right">91.5%</td><td class="right green">+75%</td><td class="right green">+22%</td></tr>
+      <tr><td>　コンピュート</td><td class="right" style="color:#8b949e">—</td><td class="right gray">—</td><td class="right green">+58%</td><td class="right gray">—</td></tr>
+      <tr><td>　ネットワーキング</td><td class="right" style="color:#8b949e">—</td><td class="right gray">~20%</td><td class="right green">+263%</td><td class="right gray">—</td></tr>
+      <tr><td>ゲーミング</td><td class="right">$3,700</td><td class="right">5.4%</td><td class="right green">+47%</td><td class="right red">-13%</td></tr>
+      <tr><td>プロフェッショナルビジュアライゼーション</td><td class="right">$1,320</td><td class="right">1.9%</td><td class="right green">+159%</td><td class="right green">+74%</td></tr>
+      <tr><td>自動車＆ロボティクス</td><td class="right">$604</td><td class="right">0.9%</td><td class="right green">+6%</td><td class="right green">+2%</td></tr>
+      <tr><td>OEM＆その他</td><td class="right">$161</td><td class="right">0.2%</td><td class="right green">+28%</td><td class="right gray">—</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Region -->
+  <div class="card-wide" style="margin-top:16px">
+    <div class="label" style="margin-bottom:8px">地域別売上構成（FY26通期）</div>
+    <div class="seg-bar">
+      <div style="width:69.3%;background:#1f6feb">米国 69.3%</div>
+      <div style="width:19.6%;background:#238636">台湾 19.6%</div>
+      <div style="width:9.1%;background:#f85149">中国 9.1%</div>
+      <div style="width:2%;background:#8957e5">他</div>
+    </div>
+    <div style="font-size:0.8rem;color:#8b949e;margin-top:8px">※台湾経由売上の86%は最終顧客が米国・欧州。Q1 FY27ガイダンスでは中国DCコンピュート売上をゼロと想定。</div>
+  </div>
+</div>
+
+<!-- 7. (SaaS KPI - N/A for NVDA) -->
+
+<!-- 8. Management Comments -->
+<div class="section">
+  <h2 class="section-title">経営陣コメントハイライト</h2>
+
+  <div class="comment-box">
+    <div class="speaker">Jensen Huang CEO — AI需要・新パラダイム</div>
+    <div class="quote">「Computing demand is growing exponentially — the agentic AI inflection point has arrived.（コンピューティング需要は指数関数的に成長している。エージェンティックAIの変曲点が到来した）」<br><br>「In this new world of AI, compute equals revenues.（このAIの新世界では、コンピュート＝売上である）」— Earnings Call中に5回繰り返し強調。</div>
+  </div>
+
+  <div class="comment-box">
+    <div class="speaker">Jensen Huang CEO — Blackwell & Vera Rubin</div>
+    <div class="quote">「Grace Blackwell with NVLink is the king of inference today — delivering an order-of-magnitude lower cost per token — and Vera Rubin will extend that leadership even further.」<br><br>Rubinサンプルはリード顧客に出荷済み。量産は2026年後半に開始予定。推論トークンコストを前世代の1/10に削減。</div>
+  </div>
+
+  <div class="comment-box">
+    <div class="speaker">Jensen Huang CEO — 成長見通し</div>
+    <div class="quote">カレンダー2026年を通じて四半期ごとに順次増収を見込む。Blackwell・Rubinの売上機会は従来共有した$500Bを上回る見通し。</div>
+  </div>
+
+  <div class="comment-box">
+    <div class="speaker">Jensen Huang CEO — パートナーシップ</div>
+    <div class="quote">OpenAIのGPT-5.3 CodexはGrace BlackwellとNVLink 72システムで学習・推論を実行。MetaはBlackwell・Rubin GPUを数百万個単位で展開予定。AnthropicのClaude Coworkプラットフォームがエンタープライズ AI 採用の水門を開いた。</div>
+  </div>
+
+  <div class="comment-box">
+    <div class="speaker">Colette Kress CFO — 中国・ガイダンス</div>
+    <div class="quote">「少量のH200が承認されたが、中国への実際の輸入が許可されるかは不明。Q1 FY27ガイダンスでは中国DCコンピュート売上をゼロと想定している。」</div>
+  </div>
+</div>
+
+<!-- 9. Risks & Catalysts -->
+<div class="section">
+  <h2 class="section-title">リスク・注目ポイント / カタリスト</h2>
+  <div class="card-wide">
+    <h3 style="color:#f85149;font-size:0.95rem;margin-bottom:12px">リスク要因</h3>
+    <ul class="risk-list">
+      <li><span class="icon">⚠️</span><strong>中国市場喪失</strong>: 輸出規制により中国DCコンピュート売上が実質ゼロに。かつてDC売上の20%以上を占めていた市場を失う。Huawei Ascend 910Cが代替チップとして台頭。</li>
+      <li><span class="icon">⚠️</span><strong>カスタムチップの台頭</strong>: Google TPU、Amazon Trainium3、Microsoft Maia 200が15-25%のシェアを獲得する見込み。大手クラウド各社が自社チップ開発を加速。</li>
+      <li><span class="icon">⚠️</span><strong>売上集中リスク</strong>: DC売上が全体の91.5%。上位5社クラウドプロバイダーへの顧客集中が高い。</li>
+      <li><span class="icon">⚠️</span><strong>AI投資持続性への懸念</strong>: ハイパースケーラーCapEx $690Bに対しエンタープライズAI実売上は約$100B。AmazonのFCFがマイナスに転じる見通し。</li>
+      <li><span class="icon">⚠️</span><strong>好決算でも売られる</strong>: 決算後-5.46%。Goldman Sachsが「2026年の成長は織り込み済み、2027年のパスが不明確」と指摘。</li>
+      <li><span class="icon">⚠️</span><strong>AMD MI400</strong>: MI300Xの10倍性能を主張。2026年発売予定。ROCmエコシステムも急速に改善中。</li>
+    </ul>
+  </div>
+
+  <div class="card-wide">
+    <h3 style="color:#2ea043;font-size:0.95rem;margin-bottom:12px">ポジティブ・カタリスト</h3>
+    <ul class="risk-list">
+      <li><span class="icon">🟢</span><strong>Blackwell完売・バックログ360万台</strong>: 2026年半ばまで実質完売。粗利益率もBlackwell本格化で改善トレンド。</li>
+      <li><span class="icon">🟢</span><strong>Vera Rubin量産開始</strong>: 2026年後半に量産開始。推論コスト1/10、トレーニング3.5倍の性能。毎年の世代交代サイクルが確立。</li>
+      <li><span class="icon">🟢</span><strong>ハイパースケーラーCapEx倍増</strong>: 2026年CapEx計$660-690Bで前年ほぼ倍。うち75%（~$450B）がAIインフラ。</li>
+      <li><span class="icon">🟢</span><strong>推論需要の爆発</strong>: 推論がAIコンピュートの2/3に拡大。エージェンティックAIの台頭で推論ワークロード急増。</li>
+      <li><span class="icon">🟢</span><strong>ネットワーキング事業急成長</strong>: Q4でYoY +263%。構成比が約20%に拡大し、新たな成長ドライバーに。</li>
+      <li><span class="icon">🟢</span><strong>ジェヴォンズのパラドックス</strong>: DeepSeek等の効率化はトークン単価低下→利用量急増→総コンピュート需要増に寄与。</li>
+      <li><span class="icon">🟢</span><strong>FY27Q1ガイダンス$78B</strong>: コンセンサスを+7.4%上回り、中国DC売上ゼロでもこの水準。China込みならさらに上振れ余地。</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 10. 前回決算との比較 -->
+<div class="section">
+  <h2 class="section-title">前回決算との比較サマリー</h2>
+  <div class="compare-row">
+    <div class="compare-card">
+      <div class="label">前回（FY26Q3）</div>
+      <div class="value blue" style="font-size:1.3rem;margin-top:8px">売上 $57.0B</div>
+      <div class="sub gray">Non-GAAP EPS $1.30</div>
+      <div class="sub gray">Non-GAAP粗利益率 73.6%</div>
+    </div>
+    <div class="compare-arrow">→</div>
+    <div class="compare-card">
+      <div class="label">今回（FY26Q4）</div>
+      <div class="value green" style="font-size:1.3rem;margin-top:8px">売上 $68.1B</div>
+      <div class="sub green">Non-GAAP EPS $1.62（+24.6%）</div>
+      <div class="sub green">Non-GAAP粗利益率 75.2%（+1.6pt）</div>
+    </div>
+  </div>
+  <div class="card-wide">
+    <table class="data-table">
+      <tr><td>トレンド方向</td><td class="right green" style="font-weight:700">改善 ↑</td></tr>
+      <tr><td>変化の主要因</td><td class="right" style="color:#c9d1d9">Blackwell本格出荷による売上加速（QoQ+20%）。粗利益率もBlackwell量産安定化で+1.6pt改善。ネットワーキング売上がYoY 3.6倍に急伸し、DCエコシステム全体での収益化が加速。</td></tr>
+      <tr><td>ガイダンス変化</td><td class="right green">FY27Q1 $78B（Q4の$68.1Bから+14.5%のQoQ成長を示唆）</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 11. Valuation -->
+<div class="section">
+  <h2 class="section-title">バリュエーション（想定株価 3パターン）</h2>
+  <div class="card-wide" style="margin-bottom:16px">
+    <div style="font-size:0.9rem;color:#8b949e;margin-bottom:8px">
+      算出方式: 想定株価 = Forward EPS × 予想PER｜現在株価: <strong style="color:#58a6ff">$181.48</strong>（2026年3月6日）
+    </div>
+  </div>
+  <div class="val-cards">
+    <div class="val-card low">
+      <div class="val-label green">LOW（保守的）</div>
+      <div class="val-price green">$140.00</div>
+      <div class="val-detail">EPS $7.00 × PER 20x</div>
+      <div class="val-gap red">乖離率 -22.9%</div>
+      <div class="val-judge" style="background:rgba(248,81,73,0.15);color:#f85149">やや割高</div>
+    </div>
+    <div class="val-card mid">
+      <div class="val-label blue">MID（基本）</div>
+      <div class="val-price blue">$191.50</div>
+      <div class="val-detail">EPS $7.66 × PER 25x</div>
+      <div class="val-gap green">乖離率 +5.5%</div>
+      <div class="val-judge" style="background:rgba(88,166,255,0.15);color:#58a6ff">適正</div>
+    </div>
+    <div class="val-card high">
+      <div class="val-label red">HIGH（楽観的）</div>
+      <div class="val-price" style="color:#f778ba">$272.00</div>
+      <div class="val-detail">EPS $8.50 × PER 32x</div>
+      <div class="val-gap green">乖離率 +49.9%</div>
+      <div class="val-judge" style="background:rgba(46,160,67,0.15);color:#2ea043">割安</div>
+    </div>
+  </div>
+  <div class="card-wide" style="margin-top:16px">
+    <table class="data-table">
+      <tr><td>Trailing PER</td><td class="right">36〜37x</td></tr>
+      <tr><td>Forward PER</td><td class="right">21〜22x</td></tr>
+      <tr><td>アナリスト平均目標株価</td><td class="right blue">$268</td></tr>
+      <tr><td>アナリスト最高目標株価</td><td class="right">$360（Tigress Financial）</td></tr>
+      <tr><td>52週高値 / 安値</td><td class="right">$212.19 / $86.62</td></tr>
+      <tr><td>時価総額</td><td class="right">約$4.46兆</td></tr>
+      <tr><td>アナリストレーティング</td><td class="right green">39 Buy / 1 Hold / 1 Sell（Strong Buy）</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  U&I株倶楽部｜NVIDIA FY26Q4 決算分析レポート｜2026年3月7日作成｜Powered by Claude
+</div>
+
+</div>
+
+<!-- Charts -->
+<script>
+const quarters = ['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'];
+const revenues = [30040,35082,39331,44062,46743,57006,68100];
+const epsNonGAAP = [0.68,0.81,0.89,0.81,1.05,1.30,1.62];
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:quarters,
+    datasets:[{
+      label:'売上高（$M）',
+      data:revenues,
+      backgroundColor:revenues.map((_,i)=>i===6?'#1f6feb':'rgba(31,111,235,0.5)'),
+      borderColor:'#1f6feb',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      title:{display:true,text:'売上高推移（$M）',color:'#8b949e',font:{family:'Noto Sans JP'}},
+      legend:{display:false}
+    },
+    scales:{
+      y:{beginAtZero:true,grid:{color:'#21262d'},ticks:{color:'#8b949e',callback:v=>'$'+v.toLocaleString()}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+  type:'line',
+  data:{
+    labels:quarters,
+    datasets:[{
+      label:'Non-GAAP EPS（$）',
+      data:epsNonGAAP,
+      borderColor:'#2ea043',
+      backgroundColor:'rgba(46,160,67,0.1)',
+      fill:true,
+      tension:0.3,
+      pointBackgroundColor:epsNonGAAP.map((_,i)=>i===6?'#2ea043':'rgba(46,160,67,0.6)'),
+      pointRadius:epsNonGAAP.map((_,i)=>i===6?6:4),
+      pointBorderWidth:2
+    }]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      title:{display:true,text:'Non-GAAP EPS推移（$）',color:'#8b949e',font:{family:'Noto Sans JP'}},
+      legend:{display:false}
+    },
+    scales:{
+      y:{beginAtZero:true,grid:{color:'#21262d'},ticks:{color:'#8b949e',callback:v=>'$'+v.toFixed(2)}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+
+// Margin Chart
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:quarters,
+    datasets:[
+      {label:'Non-GAAP粗利益率',data:[75.7,74.6,73.5,72.8,75.1,73.6,75.2],borderColor:'#58a6ff',backgroundColor:'rgba(88,166,255,0.05)',fill:false,tension:0.3,pointRadius:4},
+      {label:'Non-GAAP営業利益率',data:[68.6,66.8,65.4,64.9,66.5,65.2,67.7],borderColor:'#2ea043',backgroundColor:'rgba(46,160,67,0.05)',fill:false,tension:0.3,pointRadius:4},
+      {label:'EBITDAマージン（推定）',data:[70.0,68.5,67.0,66.5,68.0,66.8,68.0],borderColor:'#d29922',backgroundColor:'rgba(210,153,34,0.05)',fill:false,tension:0.3,pointRadius:4,borderDash:[5,5]}
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{
+      title:{display:true,text:'利益率トレンド（%）',color:'#8b949e',font:{family:'Noto Sans JP'}},
+      legend:{labels:{color:'#8b949e',font:{family:'Noto Sans JP'}}}
+    },
+    scales:{
+      y:{min:55,max:80,grid:{color:'#21262d'},ticks:{color:'#8b949e',callback:v=>v+'%'}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+</script>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

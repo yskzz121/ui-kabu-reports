@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBRK FY2026 Q2 決算分析レポート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;padding:20px}
@@ -51,7 +59,11 @@ th{color:#8b949e;font-weight:500;font-size:.8rem;text-transform:uppercase}
 .compare-values{display:flex;gap:20px;align-items:center;font-size:.9rem}
 .compare-arrow{color:#58a6ff;font-weight:700;font-size:1.1rem}
 footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;border-top:1px solid #21262d;margin-top:40px}
-
+@media(max-width:768px){
+  h1{font-size:1.4rem}.metric-value{font-size:1.5rem}.score-number{font-size:3.5rem}
+  .header-bar{flex-direction:column;align-items:flex-start}
+  .val-price{font-size:1.8rem}
+}
 
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
@@ -68,35 +80,556 @@ footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;borde
   background: radial-gradient(ellipse at 30% 50%, rgba(88,166,255,0.08) 0%, transparent 60%),
               radial-gradient(ellipse at 70% 50%, rgba(46,160,67,0.06) 0%, transparent 60%);
 }
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
 </style>
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+<div class="container">
+
+<!-- ヘッダー -->
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/RBRK.svg" alt="RBRK"><div class="ticker-badge">NYSE: RBRK</div></div>
+    <h1>Rubrik, Inc. FY2026 Q2 決算分析</h1>
+  </div>
+</div>
+
+<!-- 1. 企業概要 -->
+<div class="section">
+  <h2>企業概要</h2>
+  <div class="card">
+    <p style="margin-bottom:16px;font-size:.95rem;color:#c9d1d9">
+      クラウドデータマネジメント・サイバーレジリエンスプラットフォーム企業。エンタープライズ向けにデータバックアップ/リカバリ、ランサムウェア対策、クラウドデータ保護をSaaSモデルで提供。サブスクリプション売上が全体の95%超を占める高成長SaaS企業。
+    </p>
+    <div class="company-info-grid">
+      <div class="company-info-item"><span class="label">設立</span><span class="value">2014年1月</span></div>
+      <div class="company-info-item"><span class="label">本社</span><span class="value">カリフォルニア州パロアルト</span></div>
+      <div class="company-info-item"><span class="label">CEO</span><span class="value">Bipul Sinha（共同創業者兼会長兼CEO）</span></div>
+      <div class="company-info-item"><span class="label">CFO</span><span class="value">Kiran Choudary</span></div>
+      <div class="company-info-item"><span class="label">上場</span><span class="value">2024年4月 NYSE（IPO価格 $32）</span></div>
+      <div class="company-info-item"><span class="label">時価総額</span><span class="value">約$11.5B</span></div>
+      <div class="company-info-item"><span class="label">主要製品</span><span class="value">Security Cloud / Identity Recovery / Cloud Vault / RAC</span></div>
+      <div class="company-info-item"><span class="label">競合</span><span class="value">Cohesity / Veeam / Commvault / Acronis</span></div>
+      <div class="company-info-item"><span class="label">収益モデル</span><span class="value">サブスクリプション中心（ARRベース、95%超）</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. 総合評価スコア -->
+<div class="section">
+  <h2>総合評価スコア</h2>
+  <div class="score-box">
+    <div class="score-number">4</div>
+    <div class="score-icon">📈</div>
+    <div class="score-label">良い決算</div>
+    <p style="margin-top:12px;color:#8b949e;font-size:.95rem;max-width:700px;margin-left:auto;margin-right:auto">
+      売上+51% YoYで成長加速、EPSコンセンサス大幅ビート（+27.4%）、粗利益率改善、FCF大幅黒字化
+    </p>
+  </div>
+</div>
+
+<!-- 3. Key Metrics -->
+<div class="section">
+  <h2>Key Metrics</h2>
+  <div class="grid-4">
+    <div class="card-sm">
+      <div class="metric-label">売上高</div>
+      <div class="metric-value green">$309.9M</div>
+      <div class="metric-sub green">YoY +51.2% / QoQ +11.3%</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">GAAP粗利益率</div>
+      <div class="metric-value green">79.5%</div>
+      <div class="metric-sub green">YoY +6.4pp改善</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">Non-GAAP EPS</div>
+      <div class="metric-value yellow">-$0.53</div>
+      <div class="metric-sub green">コンセンサス+27.4%ビート</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">FCF</div>
+      <div class="metric-value green">+$61.2M</div>
+      <div class="metric-sub green">前年赤字から黒字転換</div>
+    </div>
+  </div>
+
+  <div class="grid-4" style="margin-top:16px">
+    <div class="card-sm">
+      <div class="metric-label">GAAP営業利益率</div>
+      <div class="metric-value yellow">-30.5%</div>
+      <div class="metric-sub green">YoY +51.6pp改善</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">売上ビート</div>
+      <div class="metric-value green">Beat</div>
+      <div class="metric-sub">$309.9M vs ~$295M</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">EPSビート</div>
+      <div class="metric-value green">+$0.20</div>
+      <div class="metric-sub">-$0.53 vs -$0.73</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">営業CF</div>
+      <div class="metric-value green">+$64.7M</div>
+      <div class="metric-sub green">前年-$35.4Mから黒字転換</div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 売上高 / EPS チャート -->
+<div class="section">
+  <h2>売上高 / EPS 7四半期推移</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>売上高推移（$M）</h3>
+      <div class="chart-container">
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Non-GAAP EPS推移</h3>
+      <div class="chart-container">
+        <canvas id="epsChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. 利益率トレンド -->
+<div class="section">
+  <h2>利益率トレンド</h2>
+  <div class="card">
+    <div class="grid-3">
+      <div class="card-sm">
+        <div class="metric-label">GAAP粗利益率</div>
+        <div class="metric-value green">79.5%</div>
+        <div class="metric-sub">前年 73.1% → 今期 79.5%</div>
+        <div class="metric-sub green">+6.4pp YoY改善</div>
+      </div>
+      <div class="card-sm">
+        <div class="metric-label">Non-GAAP粗利益率</div>
+        <div class="metric-value green">~81-82%</div>
+        <div class="metric-sub gray">推定値</div>
+      </div>
+      <div class="card-sm">
+        <div class="metric-label">GAAP営業利益率</div>
+        <div class="metric-value yellow">-30.5%</div>
+        <div class="metric-sub">前年 -82.1% → 今期 -30.5%</div>
+        <div class="metric-sub green">+51.6pp YoY改善</div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <div class="chart-container" style="height:300px">
+        <canvas id="marginChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. キャッシュフロー -->
+<div class="section">
+  <h2>キャッシュフロー</h2>
+  <div class="grid-4">
+    <div class="card-sm">
+      <div class="metric-label">営業CF</div>
+      <div class="metric-value green">+$64.7M</div>
+      <div class="metric-sub green">前年 -$35.4M</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">FCF</div>
+      <div class="metric-value green">+$61.2M</div>
+      <div class="metric-sub green">大幅黒字転換</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">投資CF</div>
+      <div class="metric-value red">-$735.9M</div>
+      <div class="metric-sub gray">大型投資活動</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">財務CF</div>
+      <div class="metric-value blue">+$711.8M</div>
+      <div class="metric-sub gray">債務$1.13B発行</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="chart-container" style="height:280px">
+      <canvas id="cfChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 部門別・地域別売上 -->
+<div class="section">
+  <h2>部門別・地域別売上</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>売上構成（推定）</h3>
+      <div class="chart-container" style="height:280px">
+        <canvas id="segmentChart"></canvas>
+      </div>
+      <p class="gray" style="font-size:.8rem;margin-top:8px;text-align:center">サブスクリプション売上が全体の95%超</p>
+    </div>
+    <div class="card">
+      <h3>地域別</h3>
+      <div style="padding:30px 0;text-align:center">
+        <p style="font-size:1rem;color:#8b949e;margin-bottom:16px">具体的な地域別比率は非開示</p>
+        <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap">
+          <div class="card-sm" style="min-width:140px">
+            <div class="metric-label">米国</div>
+            <div style="font-size:1.3rem;font-weight:700;color:#58a6ff">主要市場</div>
+          </div>
+          <div class="card-sm" style="min-width:140px">
+            <div class="metric-label">国際</div>
+            <div style="font-size:1.3rem;font-weight:700;color:#d29922">展開進行中</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. SaaS KPI -->
+<div class="section">
+  <h2>SaaS KPI</h2>
+  <div class="grid-3">
+    <div class="card-sm">
+      <div class="metric-label">Subscription ARR（推定）</div>
+      <div class="metric-value blue">~$1.20-1.25B</div>
+      <div class="metric-sub gray">Q1 $1.18B → Q3 $1.35B の間</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">Cloud ARR（推定）</div>
+      <div class="metric-value blue">~$1.05-1.10B</div>
+      <div class="metric-sub green">YoY +55%程度</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">NRR</div>
+      <div class="metric-value green">120%超</div>
+      <div class="metric-sub green">高水準維持</div>
+    </div>
+  </div>
+  <div class="grid-3" style="margin-top:16px">
+    <div class="card-sm">
+      <div class="metric-label">$100K+顧客数（推定）</div>
+      <div class="metric-value blue">~2,500社超</div>
+      <div class="metric-sub gray">Q1 2,381 → Q3 2,638 の間</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">Identity Recovery ARR</div>
+      <div class="metric-value green">成長中</div>
+      <div class="metric-sub">Q3時点で~$20M ARR達成</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">セキュリティ製品NRR貢献</div>
+      <div class="metric-value green">40%</div>
+      <div class="metric-sub">前年32%から拡大</div>
+    </div>
+  </div>
+</div>
+
+<!-- 9. 経営陣コメント -->
+<div class="section">
+  <h2>経営陣コメントハイライト</h2>
+  <div class="card">
+    <div class="comment-box">
+      <strong>サブスクリプションARR成長が加速。</strong>クラウドARRがARR全体の87%を占めるまで拡大（Q3時点）。クラウドファーストの事業転換が着実に進行。
+    </div>
+    <div class="comment-box">
+      <strong>Identity Recovery</strong>が発売わずか3四半期で$20M ARRを達成。新規顧客の40%がRubrikにとって全くの新規顧客であり、TAM拡大に貢献。
+    </div>
+    <div class="comment-box">
+      <strong>AI Agent Cloud (RAC)</strong>をベータ版として発表。エンタープライズAI運用の監視・ガバナンス機能を提供し、次世代の成長ドライバーとして期待。
+    </div>
+    <div class="comment-box">
+      レガシーシステム（旧世代バックアップソリューション）からの<strong>置き換え需要が加速</strong>。セキュリティ関連製品がNRRの40%に貢献（前年32%から拡大）。
+    </div>
+  </div>
+</div>
+
+<!-- 10. リスク・カタリスト -->
+<div class="section">
+  <h2>リスク・注目ポイント / カタリスト</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:#f85149">リスク</h3>
+      <div class="risk-item">継続的なGAAP赤字（営業損失 -$94.5M）。黒字化までの道筋は改善中も未達</div>
+      <div class="risk-item">高バリュエーション（PSR 9-10x、業界平均3.3xの約3倍）</div>
+      <div class="risk-item">競合激化: Cohesity-Veritas統合、Veeam、Commvaultの攻勢</div>
+      <div class="risk-item">大型資金調達（債務$1.13B発行）による財務リスク</div>
+      <div class="risk-item">インサイダー売却多数（直近6ヶ月で77件、$74.7M相当）</div>
+      <div class="risk-item">マクロ経済不確実性によるIT支出への影響</div>
+    </div>
+    <div class="card">
+      <h3 style="color:#3fb950">カタリスト</h3>
+      <div class="catalyst-item">売上成長加速（+51% YoY、前Qの+49%からさらに改善）</div>
+      <div class="catalyst-item">Identity Recovery急成長によるTAM拡大</div>
+      <div class="catalyst-item">AI Agent Cloud (RAC) 新製品パイプラインの拡充</div>
+      <div class="catalyst-item">NRR 120%超維持、セキュリティ製品のクロスセル効果</div>
+      <div class="catalyst-item">FCF大幅黒字化（前年赤字 → $61.2M黒字）</div>
+      <div class="catalyst-item">FY2027にEPS黒字転換予想</div>
+      <div class="catalyst-item">全アナリストがBuy/Strong Buy（コンセンサス 4.84/5.0）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. 前回決算との比較 -->
+<div class="section">
+  <h2>前回決算との比較サマリー</h2>
+  <div class="card">
+    <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:24px">
+      <div style="text-align:center">
+        <div class="gray" style="font-size:.85rem">FY2026 Q1</div>
+        <div style="font-size:2.5rem;font-weight:900;color:#58a6ff">4</div>
+        <div class="gray">📈 良い決算</div>
+      </div>
+      <div style="display:flex;align-items:center;font-size:2rem;color:#3fb950">→</div>
+      <div style="text-align:center">
+        <div class="gray" style="font-size:.85rem">FY2026 Q2</div>
+        <div style="font-size:2.5rem;font-weight:900;color:#58a6ff">4</div>
+        <div class="gray">📈 良い決算</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <span class="badge badge-blue">トレンド: 横ばい → （スコア維持、ファンダメンタル改善）</span>
+    </div>
+    <table>
+      <thead>
+        <tr><th>指標</th><th>FY2026 Q1</th><th>FY2026 Q2</th><th>変化</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>売上高</td><td>$278.5M</td><td>$309.9M</td>
+          <td class="green">+11.3% QoQ（成長加速）</td>
+        </tr>
+        <tr>
+          <td>GAAP粗利益率</td><td>78.3%</td><td>79.5%</td>
+          <td class="green">+1.2pp改善</td>
+        </tr>
+        <tr>
+          <td>GAAP営業損失</td><td>-$93.1M</td><td>-$94.5M</td>
+          <td class="yellow">微増（売上比では改善）</td>
+        </tr>
+        <tr>
+          <td>Non-GAAP EPS</td><td>-$0.15</td><td>-$0.53</td>
+          <td class="yellow">SBC計上タイミング差による</td>
+        </tr>
+        <tr>
+          <td>FCF</td><td>$33.3M</td><td>$61.2M</td>
+          <td class="green">+83.8%（大幅改善）</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="gray" style="font-size:.85rem;margin-top:12px">※ Non-GAAP EPSのQ1→Q2悪化はSBC（株式報酬費用）計上タイミングの違いによるもの。ファンダメンタルは改善トレンド継続。</p>
+  </div>
+</div>
+
+<!-- 12. バリュエーション -->
+<div class="section">
+  <h2>バリュエーション（PSRベース・赤字企業）</h2>
+  <p class="gray" style="margin-bottom:16px;font-size:.9rem">Q2発表時の株価を~$85と仮定 | Forward売上 $1.28B / 発行済株式 200M株</p>
+  <div class="grid-3">
+    <div class="val-card val-low">
+      <h3 style="color:#2ea043">LOW（保守的）</h3>
+      <div style="color:#8b949e;font-size:.85rem">PSR 8x</div>
+      <div class="val-price" style="color:#2ea043">$51</div>
+      <div style="font-size:.9rem;color:#8b949e">現在比 <span class="red">-40%</span></div>
+      <div class="badge badge-red" style="margin-top:8px">割高</div>
+    </div>
+    <div class="val-card val-mid">
+      <h3 style="color:#58a6ff">MID（基本）</h3>
+      <div style="color:#8b949e;font-size:.85rem">PSR 12x</div>
+      <div class="val-price" style="color:#58a6ff">$77</div>
+      <div style="font-size:.9rem;color:#8b949e">現在比 <span class="red">-9%</span></div>
+      <div class="badge badge-yellow" style="margin-top:8px">やや割高</div>
+    </div>
+    <div class="val-card val-high">
+      <h3 style="color:#da3633">HIGH（楽観的）</h3>
+      <div style="color:#8b949e;font-size:.85rem">PSR 17x</div>
+      <div class="val-price" style="color:#da3633">$109</div>
+      <div style="font-size:.9rem;color:#8b949e">現在比 <span class="green">+28%</span></div>
+      <div class="badge badge-green" style="margin-top:8px">やや割安</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;text-align:center">
+    <p style="font-size:1rem">MID想定株価 <strong class="blue">$77</strong> vs 当時株価 <strong>~$85</strong></p>
+    <p style="margin-top:8px"><span class="badge badge-yellow">判定: やや割高（乖離率 -9%）</span></p>
+    <p class="gray" style="font-size:.85rem;margin-top:8px">※2026年3月現在の株価は$57.52。アナリスト平均目標株価 $99.15（現在比+72%）</p>
+  </div>
+</div>
+
+<!-- アナリスト評価サマリー -->
+<div class="section">
+  <h2>アナリスト評価・株価</h2>
+  <div class="grid-3">
+    <div class="card-sm">
+      <div class="metric-label">コンセンサス</div>
+      <div class="metric-value green" style="font-size:1.5rem">Strong Buy</div>
+      <div class="metric-sub">4.84 / 5.0（22-25社）</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">現在株価</div>
+      <div class="metric-value">$57.52</div>
+      <div class="metric-sub gray">52週: $46.36 - $103.00</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">平均目標株価</div>
+      <div class="metric-value green">$99.15</div>
+      <div class="metric-sub green">現在比 +72% / $65-$130</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+      <span class="badge badge-green">Buy/Strong Buy: 21社</span>
+      <span class="badge badge-yellow">Hold: 1社</span>
+      <span class="badge badge-red">Sell: 0社</span>
+    </div>
+  </div>
+</div>
+
+<!-- ガイダンス -->
+<div class="section">
+  <h2>ガイダンス（FY2026通期）</h2>
+  <div class="grid-2">
+    <div class="card-sm">
+      <div class="metric-label">売上ガイダンス</div>
+      <div class="metric-value blue">$1.280-1.282B</div>
+      <div class="metric-sub green">YoY +44%</div>
+    </div>
+    <div class="card-sm">
+      <div class="metric-label">ARRガイダンス</div>
+      <div class="metric-value blue">$1.439-1.453B</div>
+      <div class="metric-sub green">YoY +32%</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  RBRK FY2026 Q2 決算分析レポート | 作成日: 2026年3月12日 | データソース: 決算プレスリリース、SEC Filing、アナリストレポート<br>
+  ※推定値を含みます。投資判断はご自身の責任でお願いいたします。
+</footer>
+
+</div>
+
+<script>
+const darkGrid = 'rgba(48,54,61,0.5)';
+const defaultFont = {family:"'Noto Sans JP',sans-serif"};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.font = defaultFont;
+
+// 売上高チャート
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:['FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2'],
+    datasets:[{
+      label:'売上高($M)',
+      data:[175.0,187.3,205.0,236.2,258.1,278.5,309.9],
+      backgroundColor:['#1f6feb','#1f6feb','#1f6feb','#1f6feb','#1f6feb','#1f6feb','#3fb950'],
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{grid:{color:darkGrid},ticks:{callback:v=>'$'+v+'M'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// EPSチャート
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:['FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2'],
+    datasets:[{
+      label:'Non-GAAP EPS',
+      data:[null,-1.58,null,null,0.10,-0.15,-0.53],
+      backgroundColor: function(ctx){
+        const v = ctx.dataset.data[ctx.dataIndex];
+        if(v === null) return 'rgba(139,148,158,0.3)';
+        return v >= 0 ? '#3fb950' : '#f85149';
+      },
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(ctx){return ctx.raw===null?'N/A':'$'+ctx.raw}}}
+    },
+    scales:{
+      y:{grid:{color:darkGrid},ticks:{callback:v=>'$'+v}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// 利益率チャート
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['FY25Q2（前年同期）','FY26Q2（今期）'],
+    datasets:[
+      {label:'GAAP粗利益率',data:[73.1,79.5],borderColor:'#3fb950',backgroundColor:'rgba(63,185,80,0.1)',tension:0.3,fill:false,pointRadius:6},
+      {label:'GAAP営業利益率',data:[-82.1,-30.5],borderColor:'#f85149',backgroundColor:'rgba(248,81,73,0.1)',tension:0.3,fill:false,pointRadius:6}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom'}},
+    scales:{
+      y:{grid:{color:darkGrid},ticks:{callback:v=>v+'%'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// キャッシュフローチャート
+new Chart(document.getElementById('cfChart'),{
+  type:'bar',
+  data:{
+    labels:['営業CF','FCF','投資CF','財務CF'],
+    datasets:[{
+      label:'$M',
+      data:[64.7,61.2,-735.9,711.8],
+      backgroundColor:['#3fb950','#3fb950','#f85149','#58a6ff'],
+      borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{grid:{color:darkGrid},ticks:{callback:v=>'$'+v+'M'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// セグメントチャート
+new Chart(document.getElementById('segmentChart'),{
+  type:'doughnut',
+  data:{
+    labels:['サブスクリプション（~95%）','その他（~5%）'],
+    datasets:[{
+      data:[95,5],
+      backgroundColor:['#58a6ff','#30363d'],
+      borderWidth:0
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom'}}
+  }
+});
+</script>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

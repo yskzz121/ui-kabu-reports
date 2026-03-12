@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle (ORCL) FY2026 Q3 決算分析レポート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#c9d1d9;line-height:1.7;padding:20px}
@@ -41,7 +50,7 @@ tr:hover{background:#1c2128}
 .chart-container{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
 .chart-wrap{position:relative;height:320px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-
+@media(max-width:768px){.two-col{grid-template-columns:1fr}.card .value{font-size:22px}}
 .highlight-box{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
 .highlight-box h3{font-size:16px;margin-bottom:12px;color:#e6edf3}
 .highlight-box ul{padding-left:20px}
@@ -64,7 +73,7 @@ tr:hover{background:#1c2128}
 .tag-yellow{background:rgba(210,153,34,0.15);color:#d29922}
 .tag-blue{background:rgba(56,139,253,0.15);color:#79c0ff}
 .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-
+@media(max-width:768px){.risk-grid{grid-template-columns:1fr}}
 .footer{text-align:center;padding:40px 20px;color:#484f58;font-size:12px;border-top:1px solid #21262d;margin-top:40px}
 .segment-bar{height:28px;border-radius:6px;overflow:hidden;display:flex;margin:8px 0}
 .segment-bar div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff}
@@ -89,35 +98,537 @@ tr:hover{background:#1c2128}
 }
 .header .subtitle { color: var(--text-sub); font-size: 1.1em; }
 in-bottom:8px}
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-
 </style>
+<link rel="icon" type="image/png" href="../favicon.png">
+</head>
+<body>
+<div class="container">
+
+<!-- ========== HEADER ========== -->
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/ORCL.svg" alt="ORCL"><div class="ticker-badge">NYSE: ORCL</div></div>
+    <h1>Oracle Corporation 決算分析レポート</h1>
+    <div class="date">発表日: 2026年3月10日 ｜ 分析日: 2026年3月11日</div>
+  </div>
+</div>
+
+<!-- ========== 1. 総合評価スコア ========== -->
+<section class="score-section">
+<div class="score-badge">
+<div class="icon">📈</div>
+<div class="score-text">
+<div class="score-num">4 / 5</div>
+<div class="score-label">良い決算</div>
+</div>
+</div>
+<div class="score-detail">
+売上・EPSともにコンセンサスをビート。FY2027売上ガイダンスを$90Bに上方修正（コンセンサス$86.6B超）。OCI売上は+84% YoYと爆発的成長。15年以上ぶりにオーガニック売上・EPSが共に+20%超成長。ただし、CapEx $50Bに伴う負のFCF・総債務$124Bが構造的懸念として残る。
+</div>
+</section>
+
+<!-- ========== 2. Key Metrics ========== -->
+<section>
+<h2>📊 Key Metrics</h2>
+<div class="card-grid">
+<div class="card beat">
+<div class="label">売上高</div>
+<div class="value">$17.19B</div>
+<div class="sub positive">+22% YoY ｜ +6.8% QoQ</div>
+<div class="sub"><span class="tag tag-green">ビート +$280M (+1.6%)</span></div>
+</div>
+<div class="card beat">
+<div class="label">Non-GAAP EPS</div>
+<div class="value">$1.79</div>
+<div class="sub positive">+21% YoY</div>
+<div class="sub"><span class="tag tag-green">ビート +$0.09 (+5.3%)</span></div>
+</div>
+<div class="card beat">
+<div class="label">GAAP EPS</div>
+<div class="value">$1.27</div>
+<div class="sub positive">+24% YoY</div>
+</div>
+<div class="card beat">
+<div class="label">クラウド売上</div>
+<div class="value">$8.9B</div>
+<div class="sub positive">+44% YoY ｜ +11.3% QoQ</div>
+</div>
+<div class="card beat">
+<div class="label">OCI（IaaS）</div>
+<div class="value">$4.9B</div>
+<div class="sub positive">+84% YoY ｜ +20% QoQ</div>
+</div>
+<div class="card">
+<div class="label">RPO（受注残）</div>
+<div class="value">$553B</div>
+<div class="sub positive">+325% YoY ｜ Q3新規 $48B+</div>
+</div>
+<div class="card">
+<div class="label">Non-GAAP 営業利益率</div>
+<div class="value">43%</div>
+<div class="sub negative">-1pp YoY（前年44%）</div>
+</div>
+<div class="card">
+<div class="label">GAAP 営業利益率</div>
+<div class="value">32%</div>
+<div class="sub positive">+1pp YoY（前年31%）</div>
+</div>
+</div>
+</section>
+
+<!-- ========== 3. 売上・EPS 7四半期推移 ========== -->
+<section>
+<h2>📈 売上高・EPS 7四半期推移</h2>
+<div class="two-col">
+<div class="chart-container">
+<h3 style="font-size:15px;margin-bottom:12px;color:#8b949e">売上高推移（$B）</h3>
+<div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+</div>
+<div class="chart-container">
+<h3 style="font-size:15px;margin-bottom:12px;color:#8b949e">Non-GAAP EPS推移（$）</h3>
+<div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+</div>
+</div>
+</section>
+
+<!-- ========== 4. コンセンサス比較 ========== -->
+<section>
+<h2>🎯 コンセンサス比較</h2>
+<table>
+<thead><tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$16.91B</td><td>$17.19B</td><td class="positive">+$280M (+1.6%)</td><td><span class="tag tag-green">ビート</span></td></tr>
+<tr><td>Non-GAAP EPS</td><td>$1.70</td><td>$1.79</td><td class="positive">+$0.09 (+5.3%)</td><td><span class="tag tag-green">ビート</span></td></tr>
+<tr><td>クラウド売上</td><td>$8.85B</td><td>$8.9B</td><td class="positive">+$50M (+0.6%)</td><td><span class="tag tag-green">ビート</span></td></tr>
+</tbody>
+</table>
+
+<h3 style="font-size:16px;margin:20px 0 12px;color:#e6edf3">ガイダンス</h3>
+<table>
+<thead><tr><th>項目</th><th>ガイダンス</th><th>コンセンサス</th><th>評価</th></tr></thead>
+<tbody>
+<tr><td>Q4 FY26 売上成長率</td><td>+19%〜+21% (USD)</td><td>+20%</td><td><span class="tag tag-green">インライン〜上方</span></td></tr>
+<tr><td>Q4 FY26 クラウド成長率</td><td>+46%〜+50% (USD)</td><td>—</td><td><span class="tag tag-green">加速継続</span></td></tr>
+<tr><td>Q4 FY26 Non-GAAP EPS</td><td>$1.92〜$1.96</td><td>$1.70</td><td><span class="tag tag-green">大幅上方 +13〜15%</span></td></tr>
+<tr><td>FY2026 通期売上</td><td>$67B</td><td>—</td><td><span class="tag tag-blue">維持</span></td></tr>
+<tr><td>FY2027 通期売上</td><td style="color:#7ee787;font-weight:700">$90B（$1B上方修正）</td><td>$86.6B</td><td><span class="tag tag-green">+3.9%上方</span></td></tr>
+<tr><td>FY2026 CapEx</td><td>$50B</td><td>—</td><td><span class="tag tag-yellow">維持（巨額投資継続）</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ========== 5. 利益率トレンド ========== -->
+<section>
+<h2>💰 利益率・マージン</h2>
+<table>
+<thead><tr><th>指標</th><th>FY26 Q3</th><th>FY25 Q3</th><th>YoY変化</th></tr></thead>
+<tbody>
+<tr><td>GAAP 営業利益</td><td>$5.5B</td><td>$4.4B</td><td class="positive">+25%</td></tr>
+<tr><td>Non-GAAP 営業利益</td><td>$7.4B</td><td>$6.2B</td><td class="positive">+19%</td></tr>
+<tr><td>GAAP 営業利益率</td><td>32%</td><td>31%</td><td class="positive">+1pp</td></tr>
+<tr><td>Non-GAAP 営業利益率</td><td>43%</td><td>44%</td><td class="negative">-1pp</td></tr>
+</tbody>
+</table>
+<div class="highlight-box">
+<h3>マージン動向の解説</h3>
+<ul>
+<li>GAAP営業利益率は+1ppの改善。SBC等のGAAP調整項目が相対的に縮小</li>
+<li>Non-GAAP営業利益率は-1ppの小幅縮小。OCI急拡大に伴うインフラコスト増が要因だが、規模拡大によるレバレッジが効き始めている</li>
+<li>売上成長率（+22%）がコスト増ペースを上回り、利益の絶対額は大幅増加</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== 6. キャッシュフロー ========== -->
+<section>
+<h2>💵 キャッシュフロー</h2>
+<div class="card-grid">
+<div class="card">
+<div class="label">営業CF（TTM）</div>
+<div class="value positive">$23.5B</div>
+<div class="sub positive">+13% YoY</div>
+</div>
+<div class="card">
+<div class="label">CapEx（FY26見通し）</div>
+<div class="value negative">$50.0B</div>
+<div class="sub">AI/クラウドインフラ大型投資</div>
+</div>
+<div class="card">
+<div class="label">FCF</div>
+<div class="value negative">大幅マイナス</div>
+<div class="sub negative">CapEx $50B vs 営業CF $23.5B</div>
+</div>
+<div class="card">
+<div class="label">総債務</div>
+<div class="value neutral">$124B</div>
+<div class="sub">2026年2月に$50B資金調達実施</div>
+</div>
+</div>
+<div class="highlight-box" style="margin-top:16px">
+<h3>キャッシュフロー戦略</h3>
+<ul>
+<li>$50Bの資金調達を発表、うち$30Bを投資適格社債＋強制転換優先株で調達（大幅オーバーサブスクライブ）</li>
+<li>BYOH（Bring Your Own Hardware）モデル：顧客がGPU等を前払い・自社調達し、Oracle本体のCF負担を軽減</li>
+<li>Safra Catz：「新しいビジネスモデルにより、Oracle本体のキャッシュフローへの悪影響は限定的」</li>
+<li>Moody's格付け: Baa2（投資適格だがジャンク級まで2段階）</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== 7. セグメント別売上 ========== -->
+<section>
+<h2>🏢 セグメント別売上</h2>
+<table>
+<thead><tr><th>セグメント</th><th>FY26 Q3</th><th>FY25 Q3</th><th>YoY</th><th>QoQ</th></tr></thead>
+<tbody>
+<tr style="background:rgba(46,160,67,0.05)"><td><strong>クラウドインフラ（OCI/IaaS）</strong></td><td><strong>$4.9B</strong></td><td>$2.7B</td><td class="positive"><strong>+84%</strong></td><td class="positive">+20%</td></tr>
+<tr><td>クラウドアプリ（SaaS）</td><td>$4.0B</td><td>$3.6B</td><td class="positive">+11%</td><td class="positive">+3%</td></tr>
+<tr style="border-top:2px solid #388bfd"><td><strong>クラウド合計</strong></td><td><strong>$8.9B</strong></td><td><strong>$6.2B</strong></td><td class="positive"><strong>+44%</strong></td><td class="positive"><strong>+11%</strong></td></tr>
+<tr><td>ソフトウェア（License Support等）</td><td>$6.1B</td><td>—</td><td class="positive">+3%</td><td class="positive">+3%</td></tr>
+<tr><td>ハードウェア</td><td>~$0.8B</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>サービス</td><td>~$1.4B</td><td>—</td><td>—</td><td>—</td></tr>
+<tr style="border-top:2px solid #e6edf3"><td><strong>総売上</strong></td><td><strong>$17.19B</strong></td><td><strong>$14.1B</strong></td><td class="positive"><strong>+22%</strong></td><td class="positive"><strong>+6.8%</strong></td></tr>
+</tbody>
+</table>
+
+<h3 style="font-size:15px;margin:16px 0 8px;color:#8b949e">売上構成比</h3>
+<div class="segment-bar">
+<div style="width:28.5%;background:#388bfd" title="OCI">OCI 28.5%</div>
+<div style="width:23.3%;background:#2ea043" title="SaaS">SaaS 23.3%</div>
+<div style="width:35.5%;background:#8b949e" title="Software">SW 35.5%</div>
+<div style="width:12.7%;background:#484f58" title="HW/Svc">他 12.7%</div>
+</div>
+
+<div class="card-grid" style="margin-top:16px">
+<div class="card beat">
+<div class="label">AIインフラ売上</div>
+<div class="value positive">+243% YoY</div>
+</div>
+<div class="card beat">
+<div class="label">マルチクラウド売上</div>
+<div class="value positive">+200%（3M）</div>
+<div class="sub">AWS/Azure/GCP上のOCI</div>
+</div>
+</div>
+</section>
+
+<!-- ========== 8. 地域別売上 ========== -->
+<section>
+<h2>🌍 地域別売上構成比（推定）</h2>
+<p style="font-size:13px;color:#8b949e;margin-bottom:12px">※ Q3プレスリリースでは地域別詳細未開示。過去実績に基づく推定値</p>
+<div class="segment-bar">
+<div style="width:58%;background:#388bfd">Americas ~58%</div>
+<div style="width:28%;background:#8957e5">EMEA ~28%</div>
+<div style="width:14%;background:#f0883e">APAC ~14%</div>
+</div>
+</section>
+
+<!-- ========== 9. 経営陣コメント ========== -->
+<section>
+<h2>🎙️ 経営陣コメントハイライト</h2>
+
+<div class="highlight-box">
+<h3>Larry Ellison（会長兼CTO）</h3>
+<ul>
+<li><strong>AIエージェント戦略:</strong>「我々はコーディングツールを使って、ヘルスケアや金融サービスのような完全なエコシステムを自動化するエージェントベースのソフトウェアを構築している。SaaSアポカリプスは我々には当てはまらない」</li>
+<li><strong>AIインフラ:</strong> Q3で400MW以上のデータセンター容量を顧客に提供。10GW規模の電力インフラ構築を計画</li>
+<li><strong>Fusionアプリ:</strong> 1,000以上の埋め込みAIエージェントが既にライブ稼働中</li>
+<li><strong>大型契約:</strong>「Temuから前例のないほど巨大な契約を獲得した」</li>
+<li><strong>データセンター:</strong>「Oracleは競合他社全てを合わせたよりも多くのクラウドインフラデータセンターを建設する」</li>
+<li><strong>プライベートデータAI:</strong>「公開データでのAIモデル訓練は史上最大・最速成長のビジネス。プライベートデータでのAI推論はさらに巨大で価値のあるビジネスになる」</li>
+</ul>
+</div>
+
+<div class="highlight-box">
+<h3>Safra Catz（CEO）</h3>
+<ul>
+<li><strong>歴史的四半期:</strong>「15年以上ぶりにオーガニック売上高とNon-GAAP EPSの両方がUSDベースで20%以上成長した」</li>
+<li><strong>クラウド加速:</strong> FY26のクラウド全体成長率はFY25の24%から40%超に加速。クラウドインフラはFY25の50%から70%超に加速</li>
+<li><strong>FY2027:</strong> 売上目標を$90Bに$1B上方修正</li>
+<li><strong>新ビジネスモデル:</strong> 顧客前払い+BYOHモデルにより、Oracle本体のCapEx負担を実質的に軽減</li>
+</ul>
+</div>
+
+<div class="highlight-box">
+<h3>その他の重要トピック</h3>
+<ul>
+<li><strong>TikTok:</strong> TikTok USがByteDanceから分離・独立化。Oracleは15%の株式持分＋取締役会1議席を取得。FY26 Q4からエクイティメソッドで損益計上予定</li>
+<li><strong>AMD提携:</strong> OCI Zettascale10スーパークラスター（最大80万NVIDIA GPU）に加え、AMD MI450 GPU 5万基搭載AIクラスターを2026年Q3から提供予定</li>
+<li><strong>人員整理:</strong> 2〜3万人のレイオフを検討中（リストラ費用最大$1.6B）</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== 10. リスク・カタリスト ========== -->
+<section>
+<h2>⚠️ リスク・カタリスト</h2>
+<div class="risk-grid">
+<div class="highlight-box">
+<h3 style="color:#f85149">リスク要因</h3>
+<ul>
+<li><strong>巨額債務:</strong> 総債務$124B、Moody's Baa2（ジャンク級まで2段階）。2026年にさらに$45-50B調達予定</li>
+<li><strong>負のFCF:</strong> CapEx $50B vs 営業CF $23.5Bで大幅マイナス。数年間継続の見通し</li>
+<li><strong>RPOの質:</strong> RPO $553Bのうち大型AI契約の実質的な収益転換率への疑問</li>
+<li><strong>OCIシェアの小ささ:</strong> マインドシェア5.6%（AWS 17.2%）。エコシステム・サードパーティ統合が不足</li>
+<li><strong>Cerner統合の遅れ:</strong> 57病院が離脱、市場シェア25%→22.9%に低下（Epic 42.3%）</li>
+<li><strong>高金利環境:</strong> 巨額債務の利払い負担。FFレート3.5-3.75%、利下げペースは緩慢</li>
+<li><strong>大量レイオフ:</strong> 2-3万人削減を検討中。組織・文化への影響</li>
+</ul>
+</div>
+<div class="highlight-box">
+<h3 style="color:#7ee787">ポジティブ・カタリスト</h3>
+<ul>
+<li><strong>OCI爆発的成長:</strong> +84% YoY、AIインフラ売上+243% YoY。需要がサプライを上回り続ける</li>
+<li><strong>マルチクラウド戦略:</strong> AWS/Azure/GCP全てにOracle DB提供。マルチクラウド売上+1,529% YoY</li>
+<li><strong>FY27ガイダンス引き上げ:</strong> $90B（+34% YoY）でコンセンサス$86.6Bを上回る</li>
+<li><strong>TikTok株式取得:</strong> 15%持分のオプショナリティ（IPO時の価値実現余地）</li>
+<li><strong>AIデータプラットフォーム:</strong> Oracle AI Database 26ai＋プライベートデータAI推論で差別化</li>
+<li><strong>ソブリンクラウド:</strong> +35.6%成長のソブリンクラウド市場でOCIの分散リージョン戦略が追い風</li>
+<li><strong>パートナー拡大:</strong> データベース事業で5年以内に$20B売上を目標</li>
+<li><strong>株価の大幅調整:</strong> 52週高値から-56%。RSI 26.72で売られすぎ水準</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- ========== 11. 前回決算との比較 ========== -->
+<section>
+<h2>🔄 前回決算との比較</h2>
+<div class="highlight-box">
+<h3>初回分析のため前回比較なし</h3>
+<ul>
+<li>本レポートはORCLの初回分析。次回以降、スコアの推移・トレンド方向を追跡します。</li>
+<li><strong>参考:</strong> FY26 Q2はAmpere社売却益で一時的にEPS膨張（Non-GAAP $2.26）。Q3はそれを除くとQoQ改善基調</li>
+<li><strong>成長加速トレンド:</strong> 売上成長率 FY25 Q3: +6% → FY26 Q1: +7% → FY26 Q2: +9% → FY26 Q3: +22%（CC: +23%）と急加速</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== 12. バリュエーション ========== -->
+<section>
+<h2>💎 バリュエーション（想定株価 3パターン）</h2>
+<p style="font-size:13px;color:#8b949e;margin-bottom:16px">現在株価: $151.56（2026/3/10終値）｜ アフターマーケット: ~$166（+10%）｜ 計算式: Forward EPS × 予想PER</p>
+
+<div class="valuation-grid">
+<div class="val-card low">
+<div class="val-label">LOW（保守的）</div>
+<div class="val-price">$144</div>
+<div class="val-detail">FY27 EPS $8.00 × PER 18x</div>
+<div class="val-detail">ガイダンスLow端 × 過去PER下限</div>
+<div class="val-gap negative">-5.0%（現在値付近）</div>
+</div>
+<div class="val-card mid">
+<div class="val-label">MID（基本）</div>
+<div class="val-price">$225</div>
+<div class="val-detail">FY27 EPS $9.00 × PER 25x</div>
+<div class="val-detail">コンセンサス × 過去PER中央値</div>
+<div class="val-gap positive">+48.5%（割安）</div>
+</div>
+<div class="val-card high">
+<div class="val-label">HIGH（楽観的）</div>
+<div class="val-price">$368</div>
+<div class="val-detail">FY27 EPS $10.50 × PER 35x</div>
+<div class="val-detail">楽観予想 × 過去PER上限（AI成長プレミアム）</div>
+<div class="val-gap positive">+142.8%（大幅割安）</div>
+</div>
+</div>
+
+<table style="margin-top:20px">
+<thead><tr><th>判定基準</th><th>MID乖離率</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>MID想定株価 $225 vs 現在株価 $151.56</td><td class="positive"><strong>+48.5%</strong></td><td><span class="tag tag-green" style="font-size:14px;padding:6px 16px"><strong>割安</strong></span></td></tr>
+</tbody>
+</table>
+
+<table style="margin-top:12px">
+<thead><tr><th>参考指標</th><th>数値</th></tr></thead>
+<tbody>
+<tr><td>アナリスト平均目標株価</td><td>$285〜$293（現在値から+88〜93%）</td></tr>
+<tr><td>Trailing PER</td><td>~27-29x</td></tr>
+<tr><td>Forward PER</td><td>~19-21x</td></tr>
+<tr><td>52週高値/安値</td><td>$345.72 / $118.86</td></tr>
+<tr><td>時価総額</td><td>~$430B</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ========== 株価・テクニカル ========== -->
+<section>
+<h2>📉 株価・テクニカル分析</h2>
+<div class="card-grid">
+<div class="card">
+<div class="label">現在株価</div>
+<div class="value">$151.56</div>
+<div class="sub negative">年初来 -23% ｜ 52週高値比 -56%</div>
+</div>
+<div class="card">
+<div class="label">RSI（14日）</div>
+<div class="value negative">26.72</div>
+<div class="sub">売られすぎ水準（30未満）</div>
+</div>
+<div class="card">
+<div class="label">50日移動平均線</div>
+<div class="value">$168.78</div>
+<div class="sub negative">現在株価を上回る → 弱気</div>
+</div>
+<div class="card">
+<div class="label">空売り比率</div>
+<div class="value">1.58%</div>
+<div class="sub">2,705万株（低水準）</div>
+</div>
+</div>
+<div class="highlight-box" style="margin-top:16px">
+<h3>テクニカル所見</h3>
+<ul>
+<li><strong>短期:</strong> 明確な下降トレンド。移動平均線12本中12本が売りシグナル</li>
+<li><strong>反転兆候:</strong> RSI 26.72の売られすぎ水準 + 好決算でアフターマーケット+8〜10%反発</li>
+<li><strong>サポート:</strong> $148.45（直近安値）、$142.18（ボリンジャーバンド下限）、$118.86（52週安値）</li>
+<li><strong>レジスタンス:</strong> $152-155、$168.78（50日SMA）</li>
+<li><strong>オプション:</strong> IV 71（高水準）、ストラドル±13%想定 → 実際+8-10%（IVクラッシュ局面）</li>
+</ul>
+</div>
+</section>
+
+<!-- ========== 外部環境 ========== -->
+<section>
+<h2>🌐 外部環境・競合分析</h2>
+<div class="highlight-box">
+<h3>クラウドインフラ市場（2026年）</h3>
+<ul>
+<li>世界IT支出: $6.15T（+10.8% YoY）、ソフトウェア: $1.43T（+14.7%）</li>
+<li>データセンター支出: $650B超（+31.7%）、サーバー: +36.9%</li>
+<li>ソブリンクラウドIaaS: $80B（+35.6%）— OCIの分散リージョン戦略に追い風</li>
+</ul>
+</div>
+<table>
+<thead><tr><th>ハイパースケーラー</th><th>Q4'25 クラウド売上</th><th>YoY成長率</th><th>2026 CapEx</th><th>シェア</th></tr></thead>
+<tbody>
+<tr><td>AWS</td><td>$35.6B</td><td class="positive">+24%</td><td>~$200B</td><td>30%</td></tr>
+<tr><td>Azure</td><td>非公開</td><td class="positive">+39%</td><td>大幅増額中</td><td>20%</td></tr>
+<tr><td>Google Cloud</td><td>$17.7B</td><td class="positive">+48%</td><td>$175-185B</td><td>13%</td></tr>
+<tr style="background:rgba(56,139,253,0.1)"><td><strong>Oracle OCI</strong></td><td><strong>$4.9B（Q3）</strong></td><td class="positive"><strong>+84%</strong></td><td><strong>$50B</strong></td><td><strong>~5.6%</strong></td></tr>
+</tbody>
+</table>
+
+<div class="two-col" style="margin-top:16px">
+<div class="highlight-box">
+<h3>Oracleの競争優位性</h3>
+<ul>
+<li>OCIはAWS/Azureと比較して2.3倍安い価格設定</li>
+<li>マルチクラウド戦略: AWS/Azure/GCP全てにOracle DB提供（37リージョン）</li>
+<li>BYOL 1:1コアファクターでライセンスコスト50%削減</li>
+<li>OCI Zettascale10（最大80万GPU）で超大規模AI対応</li>
+</ul>
+</div>
+<div class="highlight-box">
+<h3>マルチクラウド・パートナーシップ</h3>
+<ul>
+<li><strong>Azure:</strong> Oracle Database@Azure — 28リージョン稼働中</li>
+<li><strong>AWS:</strong> Oracle Database@AWS — 2025年7月GA、20リージョン追加予定</li>
+<li><strong>GCP:</strong> Oracle Database@Google Cloud — 11リージョン追加予定</li>
+<li>マルチクラウド売上: <span class="positive">+1,529% YoY</span></li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<div class="footer">
+<p>Oracle (ORCL) FY2026 Q3 決算分析レポート ｜ U&I株倶楽部</p>
+<p>本レポートは情報提供のみを目的としており、投資助言ではありません。投資判断はご自身の責任で行ってください。</p>
+<p>Generated: 2026-03-11</p>
+</div>
+
+</div>
+
+<!-- ========== Chart.js ========== -->
+<script>
+const chartDefaults = {
+  color: '#8b949e',
+  font: { family: "'Noto Sans JP', sans-serif" }
+};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+
+const quarters = ['FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3'];
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: quarters,
+    datasets: [{
+      label: '売上高 ($B)',
+      data: [13.3, 14.1, 14.1, 15.9, 14.9, 16.1, 17.19],
+      backgroundColor: quarters.map((q,i) => i === 6 ? '#388bfd' : '#21262d'),
+      borderColor: quarters.map((q,i) => i === 6 ? '#388bfd' : '#30363d'),
+      borderWidth: 1,
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => '$' + ctx.parsed.y.toFixed(1) + 'B' }}
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 12,
+        grid: { color: '#21262d' },
+        ticks: { callback: v => '$' + v + 'B' }
+      },
+      x: { grid: { display: false }}
+    }
+  }
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'), {
+  type: 'bar',
+  data: {
+    labels: quarters,
+    datasets: [{
+      label: 'Non-GAAP EPS ($)',
+      data: [1.39, 1.47, 1.47, 1.70, 1.47, 2.26, 1.79],
+      backgroundColor: quarters.map((q,i) => {
+        if (i === 5) return '#d29922'; // Q2 with one-time gain
+        if (i === 6) return '#2ea043';
+        return '#21262d';
+      }),
+      borderColor: quarters.map((q,i) => {
+        if (i === 5) return '#d29922';
+        if (i === 6) return '#2ea043';
+        return '#30363d';
+      }),
+      borderWidth: 1,
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => '$' + ctx.parsed.y.toFixed(2) }},
+      annotation: {}
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 1.0,
+        grid: { color: '#21262d' },
+        ticks: { callback: v => '$' + v.toFixed(2) }
+      },
+      x: { grid: { display: false }}
+    }
+  }
+});
+</script>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+</body>
+</html>

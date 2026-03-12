@@ -407,20 +407,71 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .container { padding: 12px; }
-  .header h1 { font-size: 1.6em; }
-  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-  .chart-row { grid-template-columns: 1fr; }
-  .val-grid { grid-template-columns: 1fr; }
-  .overview-grid { grid-template-columns: 1fr; }
-  .score-big { font-size: 3.5em; }
-  .tech-grid { grid-template-columns: 1fr; }
-}
+
 
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:hidden;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsed .section-body{max-height:0;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
 </style>
 <link rel="icon" type="image/png" href="../favicon.png">
 </head>
@@ -501,8 +552,9 @@ body {
 </div>
 
 <!-- 3. Revenue & EPS Chart -->
-<div class="section">
+<div class="section" id="sec-revenue" data-accordion>
   <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
   <div class="chart-row">
     <div class="chart-container">
       <canvas id="revenueChart"></canvas>
@@ -512,10 +564,12 @@ body {
     </div>
   </div>
 </div>
+</div>
 
 <!-- 4. Margins -->
-<div class="section">
+<div class="section" id="sec-margin" data-accordion>
   <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
   <div class="chart-container" style="height:280px;">
     <canvas id="marginChart"></canvas>
   </div>
@@ -539,10 +593,12 @@ body {
     </table>
   </div>
 </div>
+</div>
 
 <!-- Consensus Beat -->
-<div class="section">
+<div class="section" id="sec-consensus" data-accordion>
   <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
   <div class="beat-card">
     <div class="beat-icon">✅</div>
     <div class="beat-details">
@@ -599,10 +655,12 @@ body {
     </table>
   </div>
 </div>
+</div>
 
 <!-- 5. Cash Flow -->
-<div class="section">
+<div class="section" id="sec-cashflow" data-accordion>
   <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+  <div class="section-body">
   <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr);">
     <div class="metric-card">
       <div class="metric-label">営業CF</div>
@@ -635,10 +693,12 @@ body {
     <tr><td>長期債務</td><td class="right" colspan="2">$46.5B</td></tr>
   </table>
 </div>
+</div>
 
 <!-- 6. Segment -->
-<div class="section">
+<div class="section" id="sec-segment" data-accordion>
   <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成</div>
+  <div class="section-body">
   <table class="data-table">
     <tr>
       <th>セグメント</th><th class="right">Q4 2025</th><th class="right">Q4 2024</th><th class="right">YoY</th><th class="right">構成比</th>
@@ -687,10 +747,12 @@ body {
     </table>
   </div>
 </div>
+</div>
 
 <!-- Geography -->
-<div class="section">
+<div class="section" id="sec-geo" data-accordion>
   <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+  <div class="section-body">
   <div class="chart-row">
     <div>
       <table class="data-table">
@@ -706,10 +768,12 @@ body {
     </div>
   </div>
 </div>
+</div>
 
 <!-- Company Overview -->
-<div class="section">
+<div class="section" id="sec-overview" data-accordion>
   <div class="section-title"><span class="section-icon">🏛️</span> 企業概要・ビジネスモデル</div>
+  <div class="section-body">
   <div class="overview-grid">
     <div>
       <div class="overview-item">
@@ -769,10 +833,12 @@ body {
     </div>
   </div>
 </div>
+</div>
 
 <!-- 8. Technical Analysis -->
-<div class="section">
+<div class="section" id="sec-technical" data-accordion>
   <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
 
   <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:20px;">
     <div class="metric-card">
@@ -890,10 +956,12 @@ body {
     </p>
   </div>
 </div>
+</div>
 
 <!-- 9. Management Comments -->
-<div class="section">
+<div class="section" id="sec-mgmt" data-accordion>
   <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
+  <div class="section-body">
   <div class="quote-card">
     Gemini 3の発売は大きなマイルストーンであり、会社全体で実際のモメンタムとビジネス成果をもたらしている。
     Geminiアプリの月間アクティブユーザーは7.5億人に達し、前四半期の6.5億人から増加。
@@ -911,10 +979,12 @@ body {
     <div class="quote-speaker">— Sundar Pichai, CEO（カンファレンスコール）</div>
   </div>
 </div>
+</div>
 
 <!-- 10. Risk & Catalyst -->
-<div class="section">
+<div class="section" id="sec-risk" data-accordion>
   <div class="section-title"><span class="section-icon">⚡</span> リスク・注目ポイント / カタリスト</div>
+  <div class="section-body">
   <div class="chart-row">
     <div>
       <h4 style="color:var(--red-light); margin-bottom:12px;">⚠️ リスク要因</h4>
@@ -941,10 +1011,12 @@ body {
     </div>
   </div>
 </div>
+</div>
 
 <!-- 11. Previous Quarter Comparison -->
-<div class="section">
+<div class="section" id="sec-compare" data-accordion>
   <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+  <div class="section-body">
   <div style="text-align:center; padding:20px;">
     <p style="color:var(--text-sub);">前回決算（FY2025 Q3）のレポートが本システムに記録されていないため、主要指標の推移を記載します。</p>
   </div>
@@ -970,10 +1042,12 @@ body {
     EPSはQ3の$2.87からQ4の$2.82へ微減だが、Waymo SBC一時費用$2.1Bの影響を考慮すれば実質的には堅調。
   </div>
 </div>
+</div>
 
 <!-- 12. Valuation -->
-<div class="section">
+<div class="section" id="sec-valuation" data-accordion>
   <div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div>
+  <div class="section-body">
   <div style="margin-bottom:16px; font-size:0.9em; color:var(--text-sub);">
     計算式: 想定株価 = Forward EPS × 予想PER ｜ FY2026 Forward EPS コンセンサス: $11.24 ｜ 現在株価: $308.70
   </div>
@@ -1018,6 +1092,7 @@ body {
       <tr><td>アナリスト評価</td><td class="right">Strong Buy（44名中 Buy以上 90%）</td></tr>
     </table>
   </div>
+</div>
 </div>
 
 </div><!-- /container -->
@@ -1172,5 +1247,83 @@ new Chart(document.getElementById('geoChart'), {
 
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
 <a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+    <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+    <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+    <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+    <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+    <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+    <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+    <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏛️</span><span class="toc-label">企業概要・ビジネスモデル</span></a></li>
+    <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+    <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎙️</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+    <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+    <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較サマリー</span></a></li>
+    <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Accordion
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('click', function(){
+    var sec = this.closest('[data-accordion]');
+    sec.classList.toggle('collapsed');
+  });
+});
+
+// Auto-collapse on mobile (768px以下)
+function initAccordion(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  } else {
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.remove('collapsed');
+    });
+  }
+}
+initAccordion();
+window.addEventListener('resize', initAccordion);
+
+// TOC
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+
 </body>
 </html>
