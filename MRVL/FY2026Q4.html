@@ -9,7 +9,8 @@
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
-.header{text-align:center;padding:48px 20px 36px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);text-align:center;padding:48px 20px 36px;border-bottom:1px solid var(--border);margin-bottom:32pxposition:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 .ticker-badge{display:inline-block;font-size:13px;font-weight:500;color:var(--blue);letter-spacing:2px;background:var(--bbg);padding:4px 16px;border-radius:20px;margin-bottom:12px}
 .header h1{font-size:2rem;font-weight:900;margin-bottom:6px}
 .header .quarter{font-size:1.1rem;color:var(--t2)}.header .date{font-size:.8rem;color:var(--t3);margin-top:6px}

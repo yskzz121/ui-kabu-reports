@@ -14,7 +14,8 @@ h1,h2,h3{color:#e6edf3}
 a{color:#58a6ff}
 
 /* Header */
-.header{background:linear-gradient(135deg,#161b22 0%,#0d1117 50%,#161b22 100%);border-bottom:1px solid #30363d;padding:40px 0;text-align:center}
+.header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);border-bottom:1px solid #30363d;padding:40px 0;text-align:centerposition:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 .header h1{font-size:1.8rem;font-weight:700;margin-bottom:8px}
 .header .subtitle{font-size:1rem;color:#8b949e;margin-bottom:16px}
 .header .period{font-size:0.9rem;color:#8b949e}

@@ -20,7 +20,8 @@
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding-bottom:60px}
 .container{max-width:1200px;margin:0 auto;padding:0 20px}
 /* Header */
-.header{background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#1a2332 100%);border-bottom:1px solid var(--border);padding:40px 0 30px;text-align:center}
+.header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);border-bottom:1px solid var(--border);padding:40px 0 30px;text-align:centerposition:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 .header h1{font-size:1.8rem;font-weight:700;margin-bottom:4px;letter-spacing:.5px}
 .header .sub{color:var(--text-sub);font-size:.95rem;margin-bottom:16px}
 .score-badge{display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 32px;margin-top:8px}

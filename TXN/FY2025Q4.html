@@ -11,7 +11,8 @@
 body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#c9d1d9;line-height:1.7}
 .container{max-width:1200px;margin:0 auto;padding:20px}
 h1,h2,h3{color:#e6edf3}
-.header{text-align:center;padding:40px 20px;border-bottom:1px solid #21262d}
+.header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);text-align:center;padding:40px 20px;border-bottom:1px solid #21262dposition:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 .header h1{font-size:2.2em;font-weight:900;margin-bottom:8px}
 .header .subtitle{color:#8b949e;font-size:1.1em}
 .ticker-badge{display:inline-block;background:#1f6feb;color:#fff;padding:4px 16px;border-radius:20px;font-weight:700;font-size:1.3em;margin-bottom:12px}

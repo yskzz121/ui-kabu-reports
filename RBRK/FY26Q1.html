@@ -11,7 +11,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0d1117;color:#e6edf3;font-family:'Noto Sans JP',sans-serif;line-height:1.7;padding:0 0 60px}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
-header{background:linear-gradient(135deg,#161b22 0%,#1a2332 100%);border-bottom:1px solid #30363d;padding:36px 0 28px;text-align:center}
+header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);border-bottom:1px solid #30363d;padding:36px 0 28px;text-align:centerposition:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 header h1{font-size:1.6rem;font-weight:700;letter-spacing:.02em}
 header .subtitle{color:#8b949e;font-size:.9rem;margin-top:6px}
 .ticker-badge{display:inline-block;background:#388bfd22;color:#58a6ff;border:1px solid #388bfd44;border-radius:6px;padding:2px 10px;font-weight:700;font-size:.85rem;margin-right:8px}

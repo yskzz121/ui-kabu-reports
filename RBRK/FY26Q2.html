@@ -45,7 +45,8 @@ th{color:#8b949e;font-weight:500;font-size:.8rem;text-transform:uppercase}
 .val-mid{background:linear-gradient(135deg,#0d1b2e,#162844);border:1px solid #58a6ff}
 .val-high{background:linear-gradient(135deg,#2d1320,#3d1a2e);border:1px solid #da3633}
 .val-price{font-size:2.5rem;font-weight:900;margin:8px 0}
-.header-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid #30363d}
+.header-bar{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid #30363dposition:relative;overflow:hidden;}
+.header-bar::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 .ticker-badge{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;padding:6px 16px;border-radius:8px;font-weight:900;font-size:1.1rem}
 .company-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
 .company-info-item{display:flex;gap:8px;font-size:.9rem;padding:8px 12px;background:#1c2431;border-radius:6px}
