@@ -454,8 +454,9 @@ body {
 .section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
 .section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
 .section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
-.section[data-accordion] .section-body{overflow:hidden;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
-.section[data-accordion].collapsed .section-body{max-height:0;opacity:0;margin:0;padding:0}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
 
 /* === TOC Nav (mobile only) === */
 .toc-nav{display:none}
@@ -1283,6 +1284,29 @@ new Chart(document.getElementById('geoChart'), {
 var touchStartY = 0;
 var touchStartX = 0;
 var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    // Expanding: remove collapsed, add collapsing for transition
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    // Fallback: remove collapsing after 400ms in case transitionend doesn't fire
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    // Collapsing: add collapsing first, then collapsed
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
 document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
   title.addEventListener('touchstart', function(e){
     touchStartY = e.touches[0].clientY;
@@ -1293,17 +1317,15 @@ document.querySelectorAll('[data-accordion] .section-title').forEach(function(ti
     var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
     var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
     var dt = Date.now() - touchStartTime;
-    // Only toggle if finger moved less than 10px and tap was under 300ms
     if(dy < 10 && dx < 10 && dt < 300){
       e.preventDefault();
-      this.closest('[data-accordion]').classList.toggle('collapsed');
+      toggleAccordion(this.closest('[data-accordion]'));
     }
   });
-  // Desktop: normal click
   title.addEventListener('click', function(e){
     if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
     if(window.matchMedia('(pointer:fine)').matches){
-      this.closest('[data-accordion]').classList.toggle('collapsed');
+      toggleAccordion(this.closest('[data-accordion]'));
     }
   });
 });
