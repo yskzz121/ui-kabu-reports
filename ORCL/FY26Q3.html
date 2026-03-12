@@ -12,7 +12,13 @@
 body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#c9d1d9;line-height:1.7;padding:20px}
 .container{max-width:1200px;margin:0 auto}
 h1,h2,h3{color:#e6edf3}
-.header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);text-align:center;padding:40px 20px;border-bottom:1px solid #21262d;margin-bottom:32pxposition:relative;overflow:hidden;}
+.header {background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);
+  border-bottom: 1px solid var(--card-border);
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
 .header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 .header .ticker{font-size:14px;color:#8b949e;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px}
 .header h1{font-size:32px;font-weight:900;margin-bottom:4px}
@@ -77,7 +83,21 @@ tr:hover{background:#1c2128}
 
 /* Report Logo */
 .report-header-logo{height:48px;width:auto;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9}
-.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;marg
+.header-content { position: relative; z-index: 1; }
+.ticker-badge {
+  display: inline-block;
+  background: rgba(88,166,255,0.15);
+  border: 1px solid rgba(88,166,255,0.3);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 14px;
+  color: var(--blue);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.header .subtitle { color: var(--text-sub); font-size: 1.1em; }
+in-bottom:8px}
 </style>
 <link rel="icon" type="image/png" href="../favicon.png">
 </head>
@@ -85,11 +105,13 @@ tr:hover{background:#1c2128}
 <div class="container">
 
 <!-- ========== HEADER ========== -->
+<!-- Header -->
 <div class="header">
-<div class="header-logo-row"><img class="report-header-logo" src="../logos/ORCL.svg" alt="ORCL"><div class="ticker">NYSE: ORCL</div></div>
-<h1>Oracle Corporation 決算分析レポート</h1>
-<div class="quarter">FY2026 Q3（2025年12月〜2026年2月期）</div>
-<div class="date">発表日: 2026年3月10日 ｜ 分析日: 2026年3月11日</div>
+  <div class="header-content">
+    <div class="header-logo-row"><img class="report-header-logo" src="../logos/ORCL.svg" alt="ORCL"><div class="ticker-badge">NYSE: ORCL</div></div>
+    <h1>Oracle Corporation 決算分析レポート</h1>
+    <div class="date">発表日: 2026年3月10日 ｜ 分析日: 2026年3月11日</div>
+  </div>
 </div>
 
 <!-- ========== 1. 総合評価スコア ========== -->
