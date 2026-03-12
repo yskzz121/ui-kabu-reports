@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ZS (Zscaler) Q2 FY2026 決算分析レポート</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -232,522 +233,518 @@ body {
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" ty
-.header-content { position: relative; z-index: 1; }
-.ticker-badge {
-  display: inline-block;
-  background: rgba(88,166,255,0.15);
-  border: 1px solid rgba(88,166,255,0.3);
-  border-radius: 8px;
-  padding: 6px 16px;
-  font-size: 14px;
-  color: var(--blue);
-  margin-bottom: 12px;
-  letter-spacing: 1px;
-}
-.header h1 { font-size: 2.2em; font-weight: 900; margin-bottom: 4px; }
-.header .subtitle { color: var(--text-sub); font-size: 1.1em; }
-pe="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link .header="" .header-content="" .subtitle="" .ticker-badge="" 1.1em;="" 12px;="" 14px;="" 16px;="" 1;="" 1px="" 1px;="" 2.2em;="" 4px;="" 6px="" 8px;="" 900;="" background:="" border-radius:="" border:="" color:="" display:="" font-size:="" font-weight:="" h1="" href="../favicon.png" inline-block;="" letter-spacing:="" margin-bottom:="" padding:="" pe="image/png" position:="" rel="icon" relative;="" rgba(88,166,255,0.15);="" rgba(88,166,255,0.3);="" solid="" ty="" var(--blue);="" var(--text-sub);="" z-index:="" {="" }=""/>
 </head>
 <body>
 <div class="container">
-
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/ZS.svg" alt="ZS"><div class="ticker-badge">NASDAQ: ZS</div></div>
-    <h1>Zscaler, Inc.</h1>
-    <div class="date">決算発表日: 2026年2月26日 | 四半期末: 2026年1月31日</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="ZS" class="report-header-logo" src="../logos/ZS.svg"/><div class="ticker-badge">NASDAQ: ZS</div></div>
+<h1>Zscaler, Inc.</h1>
+<div class="date">決算発表日: 2026年2月26日 | 四半期末: 2026年1月31日</div>
 </div>
-
+</div>
 <!-- 1. 総合評価スコア -->
 <div class="score-section">
-  <div class="score-icon">📈</div>
-  <div class="score-number">4<span style="font-size:32px;color:#8b949e"> / 5</span></div>
-  <div class="score-label" style="color:#2ea043;">良い決算</div>
-  <div class="score-sublabel">売上・EPSともにビート + ガイダンス堅調 + 成長加速</div>
-  <div class="score-detail">売上高は26%成長でコンセンサスを2.2%上回り、Non-GAAP EPSも$1.01と13.5%のサプライズ。ARRガイダンスを24%成長に引き上げ。ただし、オーガニックARR成長がやや期待に届かず、株価は決算後に15%下落。</div>
+<div class="score-icon">📈</div>
+<div class="score-number">4<span style="font-size:32px;color:#8b949e"> / 5</span></div>
+<div class="score-label" style="color:#2ea043;">良い決算</div>
+<div class="score-sublabel">売上・EPSともにビート + ガイダンス堅調 + 成長加速</div>
+<div class="score-detail">売上高は26%成長でコンセンサスを2.2%上回り、Non-GAAP EPSも$1.01と13.5%のサプライズ。ARRガイダンスを24%成長に引き上げ。ただし、オーガニックARR成長がやや期待に届かず、株価は決算後に15%下落。</div>
 </div>
-
 <!-- 2. Key Metrics Cards -->
 <div class="card-grid">
-  <div class="card">
-    <div class="card-title">売上高</div>
-    <div class="card-value blue">$815.8M</div>
-    <div class="card-sub green">YoY +26.0% | QoQ +3.5%</div>
-    <div class="card-sub">コンセンサス $798.3M <span class="badge badge-green">+2.2% Beat</span></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Non-GAAP EPS</div>
-    <div class="card-value blue">$1.01</div>
-    <div class="card-sub green">YoY +29.5% | QoQ +5.2%</div>
-    <div class="card-sub">コンセンサス $0.89 <span class="badge badge-green">+13.5% Beat</span></div>
-  </div>
-  <div class="card">
-    <div class="card-title">ARR (年間経常収益)</div>
-    <div class="card-value blue">$3,359M</div>
-    <div class="card-sub green">YoY +25% | Net New ARR $155.5M</div>
-    <div class="card-sub">$1M+ ARR顧客: 728社 (+18% YoY)</div>
-  </div>
-  <div class="card">
-    <div class="card-title">RPO (残存義務)</div>
-    <div class="card-value blue">$6.1B</div>
-    <div class="card-sub green">YoY +31%</div>
-    <div class="card-sub">将来収益の強固なパイプライン</div>
-  </div>
-  <div class="card">
-    <div class="card-title">Non-GAAP 営業利益</div>
-    <div class="card-value green">$181.0M</div>
-    <div class="card-sub green">営業利益率 22.2% (+50bps YoY)</div>
-    <div class="card-sub">過去最高の利益率水準</div>
-  </div>
-  <div class="card">
-    <div class="card-title">フリーキャッシュフロー</div>
-    <div class="card-value green">$169.1M</div>
-    <div class="card-sub">FCFマージン 20.7%</div>
-    <div class="card-sub">営業CF $204.1M</div>
-  </div>
-  <div class="card">
-    <div class="card-title">GAAP EPS</div>
-    <div class="card-value red">-$0.21</div>
-    <div class="card-sub">GAAP営業損失 -$51.8M</div>
-    <div class="card-sub">SBC等の影響で引き続きGAAP赤字</div>
-  </div>
-  <div class="card">
-    <div class="card-title">株価 (2026/3/5時点)</div>
-    <div class="card-value" style="color:#d29922;">~$155</div>
-    <div class="card-sub red">52週高値 $337 から -54%</div>
-    <div class="card-sub">52週安値 $141 | 時価総額 ~$25B</div>
-  </div>
+<div class="card">
+<div class="card-title">売上高</div>
+<div class="card-value blue">$815.8M</div>
+<div class="card-sub green">YoY +26.0% | QoQ +3.5%</div>
+<div class="card-sub">コンセンサス $798.3M <span class="badge badge-green">+2.2% Beat</span></div>
 </div>
-
+<div class="card">
+<div class="card-title">Non-GAAP EPS</div>
+<div class="card-value blue">$1.01</div>
+<div class="card-sub green">YoY +29.5% | QoQ +5.2%</div>
+<div class="card-sub">コンセンサス $0.89 <span class="badge badge-green">+13.5% Beat</span></div>
+</div>
+<div class="card">
+<div class="card-title">ARR (年間経常収益)</div>
+<div class="card-value blue">$3,359M</div>
+<div class="card-sub green">YoY +25% | Net New ARR $155.5M</div>
+<div class="card-sub">$1M+ ARR顧客: 728社 (+18% YoY)</div>
+</div>
+<div class="card">
+<div class="card-title">RPO (残存義務)</div>
+<div class="card-value blue">$6.1B</div>
+<div class="card-sub green">YoY +31%</div>
+<div class="card-sub">将来収益の強固なパイプライン</div>
+</div>
+<div class="card">
+<div class="card-title">Non-GAAP 営業利益</div>
+<div class="card-value green">$181.0M</div>
+<div class="card-sub green">営業利益率 22.2% (+50bps YoY)</div>
+<div class="card-sub">過去最高の利益率水準</div>
+</div>
+<div class="card">
+<div class="card-title">フリーキャッシュフロー</div>
+<div class="card-value green">$169.1M</div>
+<div class="card-sub">FCFマージン 20.7%</div>
+<div class="card-sub">営業CF $204.1M</div>
+</div>
+<div class="card">
+<div class="card-title">GAAP EPS</div>
+<div class="card-value red">-$0.21</div>
+<div class="card-sub">GAAP営業損失 -$51.8M</div>
+<div class="card-sub">SBC等の影響で引き続きGAAP赤字</div>
+</div>
+<div class="card">
+<div class="card-title">株価 (2026/3/5時点)</div>
+<div class="card-value" style="color:#d29922;">~$155</div>
+<div class="card-sub red">52週高値 $337 から -54%</div>
+<div class="card-sub">52週安値 $141 | 時価総額 ~$25B</div>
+</div>
+</div>
 <!-- 3. 売上高・EPS 7四半期チャート -->
-<div class="section">
-  <div class="section-title"><span class="icon">📊</span> 売上高・EPS 直近7四半期推移</div>
-  <div class="chart-row">
-    <div>
-      <div class="chart-container">
-        <canvas id="revenueChart"></canvas>
-      </div>
-    </div>
-    <div>
-      <div class="chart-container">
-        <canvas id="epsChart"></canvas>
-      </div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-revenue">
+<div class="section-title"><span class="icon">📊</span> 売上高・EPS 直近7四半期推移</div><div class="section-body">
+<div class="chart-row">
+<div>
+<div class="chart-container">
+<canvas id="revenueChart"></canvas>
 </div>
-
+</div>
+<div>
+<div class="chart-container">
+<canvas id="epsChart"></canvas>
+</div>
+</div>
+</div>
+</div></div>
 <!-- 4. 利益率トレンド -->
-<div class="section">
-  <div class="section-title"><span class="icon">📈</span> 利益率トレンド</div>
-  <table class="data-table">
-    <tr>
-      <th>指標</th>
-      <th>Q2 FY2026</th>
-      <th>Q2 FY2025</th>
-      <th>変化</th>
-    </tr>
-    <tr>
-      <td>Non-GAAP 粗利益率</td>
-      <td class="green">80.2%</td>
-      <td>80.4%</td>
-      <td class="red">-0.2pp</td>
-    </tr>
-    <tr>
-      <td>Non-GAAP 営業利益率</td>
-      <td class="green">22.2%</td>
-      <td>21.7%</td>
-      <td class="green">+0.5pp</td>
-    </tr>
-    <tr>
-      <td>GAAP 営業利益率</td>
-      <td class="red">-6.3%</td>
-      <td>-6.2%</td>
-      <td class="red">-0.1pp</td>
-    </tr>
-    <tr>
-      <td>FCFマージン</td>
-      <td class="green">20.7%</td>
-      <td>22.1%</td>
-      <td class="red">-1.4pp</td>
-    </tr>
-  </table>
-  <div style="margin-top:12px;">
-    <div class="chart-container" style="height:280px;">
-      <canvas id="marginChart"></canvas>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-margin">
+<div class="section-title"><span class="icon">📈</span> 利益率トレンド</div><div class="section-body">
+<table class="data-table">
+<tr>
+<th>指標</th>
+<th>Q2 FY2026</th>
+<th>Q2 FY2025</th>
+<th>変化</th>
+</tr>
+<tr>
+<td>Non-GAAP 粗利益率</td>
+<td class="green">80.2%</td>
+<td>80.4%</td>
+<td class="red">-0.2pp</td>
+</tr>
+<tr>
+<td>Non-GAAP 営業利益率</td>
+<td class="green">22.2%</td>
+<td>21.7%</td>
+<td class="green">+0.5pp</td>
+</tr>
+<tr>
+<td>GAAP 営業利益率</td>
+<td class="red">-6.3%</td>
+<td>-6.2%</td>
+<td class="red">-0.1pp</td>
+</tr>
+<tr>
+<td>FCFマージン</td>
+<td class="green">20.7%</td>
+<td>22.1%</td>
+<td class="red">-1.4pp</td>
+</tr>
+</table>
+<div style="margin-top:12px;">
+<div class="chart-container" style="height:280px;">
+<canvas id="marginChart"></canvas>
 </div>
-
+</div>
+</div></div>
 <!-- 5. キャッシュフロー -->
-<div class="section">
-  <div class="section-title"><span class="icon">💰</span> キャッシュフロー (Q2 FY2026)</div>
-  <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
-    <div class="card" style="text-align:center;">
-      <div class="card-title">営業CF</div>
-      <div class="card-value green">$204.1M</div>
-    </div>
-    <div class="card" style="text-align:center;">
-      <div class="card-title">CapEx</div>
-      <div class="card-value red">-$35.0M</div>
-    </div>
-    <div class="card" style="text-align:center;">
-      <div class="card-title">FCF</div>
-      <div class="card-value green">$169.1M</div>
-      <div class="card-sub">FCFマージン 20.7%</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-cashflow">
+<div class="section-title"><span class="icon">💰</span> キャッシュフロー (Q2 FY2026)</div><div class="section-body">
+<div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+<div class="card" style="text-align:center;">
+<div class="card-title">営業CF</div>
+<div class="card-value green">$204.1M</div>
 </div>
-
+<div class="card" style="text-align:center;">
+<div class="card-title">CapEx</div>
+<div class="card-value red">-$35.0M</div>
+</div>
+<div class="card" style="text-align:center;">
+<div class="card-title">FCF</div>
+<div class="card-value green">$169.1M</div>
+<div class="card-sub">FCFマージン 20.7%</div>
+</div>
+</div>
+</div></div>
 <!-- 6. セグメント・顧客分析 -->
-<div class="section">
-  <div class="section-title"><span class="icon">🏢</span> セグメント・顧客分析</div>
-  <p style="font-size:14px;color:#8b949e;margin-bottom:16px;">※Zscalerは製品別セグメント売上を開示していないため、主要成長ドライバーのARRベースで分析</p>
-  <table class="data-table">
-    <tr>
-      <th>成長ドライバー</th>
-      <th>ARR</th>
-      <th>成長率</th>
-      <th>備考</th>
-    </tr>
-    <tr>
-      <td>AI Security</td>
-      <td class="green">$400M+</td>
-      <td class="green">80%+ YoY</td>
-      <td>FY2026目標を3四半期前倒しで達成、年度末$500M超見込み</td>
-    </tr>
-    <tr>
-      <td>Data Security Everywhere</td>
-      <td class="green">~$450M</td>
-      <td class="green">加速中</td>
-      <td>DLP、CASB、BrowserIsolation統合</td>
-    </tr>
-    <tr>
-      <td>Zero Trust Exchange 全体</td>
-      <td class="blue">$3,359M</td>
-      <td class="green">+25% YoY</td>
-      <td>Red Canary買収除くオーガニック+21%</td>
-    </tr>
-  </table>
-  <div style="margin-top:16px;">
-    <table class="data-table">
-      <tr>
-        <th>顧客指標</th>
-        <th>Q2 FY2026</th>
-        <th>YoY成長</th>
-      </tr>
-      <tr>
-        <td>$1M+ ARR顧客数</td>
-        <td>728社</td>
-        <td class="green">+18%</td>
-      </tr>
-      <tr>
-        <td>$100K+ ARR顧客数</td>
-        <td>3,886社</td>
-        <td class="green">+18%</td>
-      </tr>
-      <tr>
-        <td>新規ビジネスの25%</td>
-        <td colspan="2">メーター制課金（AI Agent対応で拡大見込み）</td>
-      </tr>
-    </table>
-  </div>
+<div class="section" data-accordion="" id="sec-segment">
+<div class="section-title"><span class="icon">🏢</span> セグメント・顧客分析</div><div class="section-body">
+<p style="font-size:14px;color:#8b949e;margin-bottom:16px;">※Zscalerは製品別セグメント売上を開示していないため、主要成長ドライバーのARRベースで分析</p>
+<table class="data-table">
+<tr>
+<th>成長ドライバー</th>
+<th>ARR</th>
+<th>成長率</th>
+<th>備考</th>
+</tr>
+<tr>
+<td>AI Security</td>
+<td class="green">$400M+</td>
+<td class="green">80%+ YoY</td>
+<td>FY2026目標を3四半期前倒しで達成、年度末$500M超見込み</td>
+</tr>
+<tr>
+<td>Data Security Everywhere</td>
+<td class="green">~$450M</td>
+<td class="green">加速中</td>
+<td>DLP、CASB、BrowserIsolation統合</td>
+</tr>
+<tr>
+<td>Zero Trust Exchange 全体</td>
+<td class="blue">$3,359M</td>
+<td class="green">+25% YoY</td>
+<td>Red Canary買収除くオーガニック+21%</td>
+</tr>
+</table>
+<div style="margin-top:16px;">
+<table class="data-table">
+<tr>
+<th>顧客指標</th>
+<th>Q2 FY2026</th>
+<th>YoY成長</th>
+</tr>
+<tr>
+<td>$1M+ ARR顧客数</td>
+<td>728社</td>
+<td class="green">+18%</td>
+</tr>
+<tr>
+<td>$100K+ ARR顧客数</td>
+<td>3,886社</td>
+<td class="green">+18%</td>
+</tr>
+<tr>
+<td>新規ビジネスの25%</td>
+<td colspan="2">メーター制課金（AI Agent対応で拡大見込み）</td>
+</tr>
+</table>
 </div>
-
+</div></div>
 <!-- 7. SaaS KPI -->
-<div class="section">
-  <div class="section-title"><span class="icon">📐</span> SaaS KPI</div>
-  <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
-    <div class="card" style="text-align:center;">
-      <div class="card-title">Rule of 40</div>
-      <div class="card-value green">48.2%</div>
-      <div class="card-sub">売上成長率26% + Non-GAAP営業利益率22.2%</div>
-      <div class="card-sub"><span class="badge badge-green">合格</span></div>
-    </div>
-    <div class="card" style="text-align:center;">
-      <div class="card-title">ARR</div>
-      <div class="card-value blue">$3,359M</div>
-      <div class="card-sub green">+25% YoY</div>
-      <div class="card-sub">FY2026ガイダンス: $3.73B-$3.75B</div>
-    </div>
-    <div class="card" style="text-align:center;">
-      <div class="card-title">NRR</div>
-      <div class="card-value" style="color:#d29922;">非開示</div>
-      <div class="card-sub">直近開示値: ~120%超 (推定)</div>
-      <div class="card-sub">大型顧客拡大トレンドから堅調と推定</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-saas">
+<div class="section-title"><span class="icon">📐</span> SaaS KPI</div><div class="section-body">
+<div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+<div class="card" style="text-align:center;">
+<div class="card-title">Rule of 40</div>
+<div class="card-value green">48.2%</div>
+<div class="card-sub">売上成長率26% + Non-GAAP営業利益率22.2%</div>
+<div class="card-sub"><span class="badge badge-green">合格</span></div>
 </div>
-
+<div class="card" style="text-align:center;">
+<div class="card-title">ARR</div>
+<div class="card-value blue">$3,359M</div>
+<div class="card-sub green">+25% YoY</div>
+<div class="card-sub">FY2026ガイダンス: $3.73B-$3.75B</div>
+</div>
+<div class="card" style="text-align:center;">
+<div class="card-title">NRR</div>
+<div class="card-value" style="color:#d29922;">非開示</div>
+<div class="card-sub">直近開示値: ~120%超 (推定)</div>
+<div class="card-sub">大型顧客拡大トレンドから堅調と推定</div>
+</div>
+</div>
+</div></div>
 <!-- 8. 経営陣コメントハイライト -->
-<div class="section">
-  <div class="section-title"><span class="icon">🎙️</span> 経営陣コメントハイライト</div>
-
-  <div class="highlight-box">
-    <strong>Jay Chaudhry CEO（AI・ゼロトラスト戦略）</strong><br>
+<div class="section" data-accordion="" id="sec-mgmt">
+<div class="section-title"><span class="icon">🎙️</span> 経営陣コメントハイライト</div><div class="section-body">
+<div class="highlight-box">
+<strong>Jay Chaudhry CEO（AI・ゼロトラスト戦略）</strong><br/>
     「AIエージェントの時代が到来しており、数十億のAIエージェントが登場する。当社のZero Trust Exchangeは、ユーザー、アプリケーション、AIエージェント間のダイレクトな1対1通信を実現し、ラテラルムーブメントを制限して攻撃面を縮小する設計になっている。」
   </div>
-
-  <div class="highlight-box">
-    <strong>AI Security の急成長</strong><br>
+<div class="highlight-box">
+<strong>AI Security の急成長</strong><br/>
     「2025年暦年で約1兆のAIトランザクションを処理。AI Protectを新たに導入し、AIアセットの発見・管理、アクセスポリシーの適用、プロンプトインジェクション攻撃の防御を実現。AI Security ARRは年度目標$400Mを3四半期前倒しで達成し、年度末$500M超を見込む。」
   </div>
-
-  <div class="highlight-box">
-    <strong>Zero Trust Everywhere のアップセル効果</strong><br>
+<div class="highlight-box">
+<strong>Zero Trust Everywhere のアップセル効果</strong><br/>
     「顧客がZero Trust Everywhereに移行すると、ARRは2〜3倍に拡大する。新規ビジネスの25%がメーター制課金で、AIエージェント対応により今後さらに成長が期待される。」
   </div>
-
-  <div class="highlight-box">
-    <strong>Remo Canessa CFO（財務見通し）</strong><br>
+<div class="highlight-box">
+<strong>Remo Canessa CFO（財務見通し）</strong><br/>
     「FY2026通期ガイダンスを引き上げ。ARR $3.73B-$3.75B（24%成長）、Non-GAAP EPS $3.99-$4.02。RPOは前年比31%増の$6.1Bで、将来の収益パイプラインは極めて強固。」
   </div>
-</div>
-
+</div></div>
 <!-- 9. リスク・カタリスト -->
-<div class="section">
-  <div class="section-title"><span class="icon">⚠️</span> リスク・注目ポイント / カタリスト</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-    <div>
-      <h4 style="color:#f85149;margin-bottom:12px;">リスク要因</h4>
-      <ul class="rc-list">
-        <li><span class="icon">🔴</span> オーガニックNet New ARRが市場期待をやや下回り、Red Canary買収による底上げ懸念</li>
-        <li><span class="icon">🔴</span> 株価が52週高値から54%下落、市場のセンチメント悪化</li>
-        <li><span class="icon">🔴</span> GAAP赤字が継続（SBC負担が大きい）、GAAP EPS -$0.21</li>
-        <li><span class="icon">🔴</span> Palo Alto Networks・CrowdStrikeとのプラットフォーム競争が激化</li>
-        <li><span class="icon">🔴</span> マクロ経済の不確実性とIT支出の選別化</li>
-        <li><span class="icon">🔴</span> インサイダーによる株式売却が継続（過去90日で$4.5M相当売却）</li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="color:#2ea043;margin-bottom:12px;">カタリスト</h4>
-      <ul class="rc-list">
-        <li><span class="icon">🟢</span> AI Security ARRが80%超成長、FY2026目標を3Q前倒し達成</li>
-        <li><span class="icon">🟢</span> RPO +31%で将来収益の可視性が非常に高い</li>
-        <li><span class="icon">🟢</span> Zero Trust Everywhereへの移行でARR 2-3x拡大の潜在力</li>
-        <li><span class="icon">🟢</span> メーター制課金導入でAIエージェント時代の収益多角化</li>
-        <li><span class="icon">🟢</span> サイバーセキュリティ市場は$270B規模、年12%成長（ソフトウェア最速）</li>
-        <li><span class="icon">🟢</span> Rule of 40が48.2%と良好、成長と利益のバランスが取れている</li>
-      </ul>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-risk">
+<div class="section-title"><span class="icon">⚠️</span> リスク・注目ポイント / カタリスト</div><div class="section-body">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+<div>
+<h4 style="color:#f85149;margin-bottom:12px;">リスク要因</h4>
+<ul class="rc-list">
+<li><span class="icon">🔴</span> オーガニックNet New ARRが市場期待をやや下回り、Red Canary買収による底上げ懸念</li>
+<li><span class="icon">🔴</span> 株価が52週高値から54%下落、市場のセンチメント悪化</li>
+<li><span class="icon">🔴</span> GAAP赤字が継続（SBC負担が大きい）、GAAP EPS -$0.21</li>
+<li><span class="icon">🔴</span> Palo Alto Networks・CrowdStrikeとのプラットフォーム競争が激化</li>
+<li><span class="icon">🔴</span> マクロ経済の不確実性とIT支出の選別化</li>
+<li><span class="icon">🔴</span> インサイダーによる株式売却が継続（過去90日で$4.5M相当売却）</li>
+</ul>
 </div>
-
+<div>
+<h4 style="color:#2ea043;margin-bottom:12px;">カタリスト</h4>
+<ul class="rc-list">
+<li><span class="icon">🟢</span> AI Security ARRが80%超成長、FY2026目標を3Q前倒し達成</li>
+<li><span class="icon">🟢</span> RPO +31%で将来収益の可視性が非常に高い</li>
+<li><span class="icon">🟢</span> Zero Trust Everywhereへの移行でARR 2-3x拡大の潜在力</li>
+<li><span class="icon">🟢</span> メーター制課金導入でAIエージェント時代の収益多角化</li>
+<li><span class="icon">🟢</span> サイバーセキュリティ市場は$270B規模、年12%成長（ソフトウェア最速）</li>
+<li><span class="icon">🟢</span> Rule of 40が48.2%と良好、成長と利益のバランスが取れている</li>
+</ul>
+</div>
+</div>
+</div></div>
 <!-- 10. 前回決算との比較 -->
-<div class="section">
-  <div class="section-title"><span class="icon">🔄</span> 前回決算との比較サマリー</div>
-  <div class="comparison-grid">
-    <div>
-      <div style="font-size:14px;color:#8b949e;">Q1 FY2026</div>
-      <div style="font-size:24px;font-weight:700;">$788.0M</div>
-      <div style="font-size:14px;color:#8b949e;">売上高 | EPS $0.96</div>
-      <div style="font-size:14px;color:#8b949e;">売上YoY +26%</div>
-    </div>
-    <div class="comparison-arrow">→</div>
-    <div>
-      <div style="font-size:14px;color:#8b949e;">Q2 FY2026</div>
-      <div style="font-size:24px;font-weight:700;color:#58a6ff;">$815.8M</div>
-      <div style="font-size:14px;color:#8b949e;">売上高 | EPS $1.01</div>
-      <div style="font-size:14px;color:#2ea043;">売上YoY +26%</div>
-    </div>
-  </div>
-  <div style="margin-top:16px;">
-    <table class="data-table">
-      <tr>
-        <th>指標</th>
-        <th>Q1 FY2026</th>
-        <th>Q2 FY2026</th>
-        <th>トレンド</th>
-      </tr>
-      <tr>
-        <td>売上高</td>
-        <td>$788.0M</td>
-        <td>$815.8M</td>
-        <td class="green">↑ QoQ +3.5%</td>
-      </tr>
-      <tr>
-        <td>Non-GAAP EPS</td>
-        <td>$0.96</td>
-        <td>$1.01</td>
-        <td class="green">↑ QoQ +5.2%</td>
-      </tr>
-      <tr>
-        <td>Non-GAAP 営業利益率</td>
-        <td>~21.5%</td>
-        <td>22.2%</td>
-        <td class="green">↑ 改善</td>
-      </tr>
-      <tr>
-        <td>ARR</td>
-        <td>$3,203M</td>
-        <td>$3,359M</td>
-        <td class="green">↑ +$156M</td>
-      </tr>
-      <tr>
-        <td>売上コンセンサスビート率</td>
-        <td>+1.6%</td>
-        <td>+2.2%</td>
-        <td class="green">↑ 改善</td>
-      </tr>
-      <tr>
-        <td>EPSコンセンサスビート率</td>
-        <td>+11.6%</td>
-        <td>+13.5%</td>
-        <td class="green">↑ 改善</td>
-      </tr>
-    </table>
-    <div style="margin-top:12px;padding:12px;background:#1c2333;border-radius:8px;font-size:14px;">
-      <strong>トレンド方向: 改善↑</strong><br>
+<div class="section" data-accordion="" id="sec-compare">
+<div class="section-title"><span class="icon">🔄</span> 前回決算との比較サマリー</div><div class="section-body">
+<div class="comparison-grid">
+<div>
+<div style="font-size:14px;color:#8b949e;">Q1 FY2026</div>
+<div style="font-size:24px;font-weight:700;">$788.0M</div>
+<div style="font-size:14px;color:#8b949e;">売上高 | EPS $0.96</div>
+<div style="font-size:14px;color:#8b949e;">売上YoY +26%</div>
+</div>
+<div class="comparison-arrow">→</div>
+<div>
+<div style="font-size:14px;color:#8b949e;">Q2 FY2026</div>
+<div style="font-size:24px;font-weight:700;color:#58a6ff;">$815.8M</div>
+<div style="font-size:14px;color:#8b949e;">売上高 | EPS $1.01</div>
+<div style="font-size:14px;color:#2ea043;">売上YoY +26%</div>
+</div>
+</div>
+<div style="margin-top:16px;">
+<table class="data-table">
+<tr>
+<th>指標</th>
+<th>Q1 FY2026</th>
+<th>Q2 FY2026</th>
+<th>トレンド</th>
+</tr>
+<tr>
+<td>売上高</td>
+<td>$788.0M</td>
+<td>$815.8M</td>
+<td class="green">↑ QoQ +3.5%</td>
+</tr>
+<tr>
+<td>Non-GAAP EPS</td>
+<td>$0.96</td>
+<td>$1.01</td>
+<td class="green">↑ QoQ +5.2%</td>
+</tr>
+<tr>
+<td>Non-GAAP 営業利益率</td>
+<td>~21.5%</td>
+<td>22.2%</td>
+<td class="green">↑ 改善</td>
+</tr>
+<tr>
+<td>ARR</td>
+<td>$3,203M</td>
+<td>$3,359M</td>
+<td class="green">↑ +$156M</td>
+</tr>
+<tr>
+<td>売上コンセンサスビート率</td>
+<td>+1.6%</td>
+<td>+2.2%</td>
+<td class="green">↑ 改善</td>
+</tr>
+<tr>
+<td>EPSコンセンサスビート率</td>
+<td>+11.6%</td>
+<td>+13.5%</td>
+<td class="green">↑ 改善</td>
+</tr>
+</table>
+<div style="margin-top:12px;padding:12px;background:#1c2333;border-radius:8px;font-size:14px;">
+<strong>トレンド方向: 改善↑</strong><br/>
       売上成長率が26%を維持し、EPS・営業利益率ともに改善。コンセンサスビート率も拡大。ARRガイダンスの引き上げ（24%成長へ）も前向き材料。ただし、株価は市場全体のSaaSセクター売りの中で大幅下落。
     </div>
-  </div>
 </div>
-
+</div></div>
 <!-- 11. バリュエーション -->
-<div class="section">
-  <div class="section-title"><span class="icon">🎯</span> バリュエーション（想定株価 3パターン）</div>
-  <p style="font-size:13px;color:#8b949e;margin-bottom:16px;">※GAAP赤字のためNon-GAAP Forward EPSベースで算出。FY2027予想EPSを基準に使用。</p>
-  <div class="val-grid">
-    <div class="val-card low">
-      <div class="val-scenario" style="color:#2ea043;">LOW（保守的）</div>
-      <div class="val-price" style="color:#2ea043;">$140</div>
-      <div class="val-detail">
-        Forward EPS: $4.00 (FY2026ガイダンスLow端)<br>
-        予想PER: 35x（過去PER下限帯）<br>
+<div class="section" data-accordion="" id="sec-valuation">
+<div class="section-title"><span class="icon">🎯</span> バリュエーション（想定株価 3パターン）</div><div class="section-body">
+<p style="font-size:13px;color:#8b949e;margin-bottom:16px;">※GAAP赤字のためNon-GAAP Forward EPSベースで算出。FY2027予想EPSを基準に使用。</p>
+<div class="val-grid">
+<div class="val-card low">
+<div class="val-scenario" style="color:#2ea043;">LOW（保守的）</div>
+<div class="val-price" style="color:#2ea043;">$140</div>
+<div class="val-detail">
+        Forward EPS: $4.00 (FY2026ガイダンスLow端)<br/>
+        予想PER: 35x（過去PER下限帯）<br/>
         現在株価比: <span class="red">-9.7%</span>
-      </div>
-    </div>
-    <div class="val-card mid">
-      <div class="val-scenario" style="color:#58a6ff;">MID（基本）</div>
-      <div class="val-price" style="color:#58a6ff;">$203</div>
-      <div class="val-detail">
-        Forward EPS: $4.50 (FY2027コンセンサス推定)<br>
-        予想PER: 45x（過去PER中央値帯）<br>
+</div>
+</div>
+<div class="val-card mid">
+<div class="val-scenario" style="color:#58a6ff;">MID（基本）</div>
+<div class="val-price" style="color:#58a6ff;">$203</div>
+<div class="val-detail">
+        Forward EPS: $4.50 (FY2027コンセンサス推定)<br/>
+        予想PER: 45x（過去PER中央値帯）<br/>
         現在株価比: <span class="green">+31.0%</span>
-      </div>
-    </div>
-    <div class="val-card high">
-      <div class="val-scenario" style="color:#f85149;">HIGH（楽観的）</div>
-      <div class="val-price" style="color:#f85149;">$275</div>
-      <div class="val-detail">
-        Forward EPS: $5.00 (楽観予想)<br>
-        予想PER: 55x（成長プレミアム上乗せ）<br>
+</div>
+</div>
+<div class="val-card high">
+<div class="val-scenario" style="color:#f85149;">HIGH（楽観的）</div>
+<div class="val-price" style="color:#f85149;">$275</div>
+<div class="val-detail">
+        Forward EPS: $5.00 (楽観予想)<br/>
+        予想PER: 55x（成長プレミアム上乗せ）<br/>
         現在株価比: <span class="green">+77.4%</span>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:16px;text-align:center;">
-    <div style="display:inline-block;background:#112240;border:1px solid #1f6feb;border-radius:8px;padding:12px 24px;">
-      <span style="font-size:14px;color:#8b949e;">MID想定株価 vs 現在株価 乖離率:</span>
-      <span style="font-size:20px;font-weight:700;color:#2ea043;margin-left:8px;">+31.0%</span>
-      <span style="font-size:16px;font-weight:500;color:#2ea043;margin-left:8px;">→ 割安</span>
-    </div>
-  </div>
 </div>
-
+</div>
+</div>
+<div style="margin-top:16px;text-align:center;">
+<div style="display:inline-block;background:#112240;border:1px solid #1f6feb;border-radius:8px;padding:12px 24px;">
+<span style="font-size:14px;color:#8b949e;">MID想定株価 vs 現在株価 乖離率:</span>
+<span style="font-size:20px;font-weight:700;color:#2ea043;margin-left:8px;">+31.0%</span>
+<span style="font-size:16px;font-weight:500;color:#2ea043;margin-left:8px;">→ 割安</span>
+</div>
+</div>
+</div></div>
 <!-- コンセンサス比較 -->
-<div class="section">
-  <div class="section-title"><span class="icon">📋</span> ガイダンス vs コンセンサス</div>
-  <table class="data-table">
-    <tr>
-      <th>指標</th>
-      <th>会社ガイダンス</th>
-      <th>コンセンサス</th>
-      <th>判定</th>
-    </tr>
-    <tr>
-      <td>FY2026 売上高</td>
-      <td>$3.309B - $3.322B</td>
-      <td>~$3.30B</td>
-      <td><span class="badge badge-green">インライン〜やや上</span></td>
-    </tr>
-    <tr>
-      <td>FY2026 Non-GAAP EPS</td>
-      <td>$3.99 - $4.02</td>
-      <td>~$3.81</td>
-      <td><span class="badge badge-green">上回る (+5%)</span></td>
-    </tr>
-    <tr>
-      <td>FY2026 ARR</td>
-      <td>$3.730B - $3.745B</td>
-      <td>-</td>
-      <td><span class="badge badge-green">引き上げ (24%成長)</span></td>
-    </tr>
-    <tr>
-      <td>Q3 FY2026 売上高</td>
-      <td>~$831.5M</td>
-      <td>-</td>
-      <td><span class="badge badge-green">+26%YoY見込み</span></td>
-    </tr>
-    <tr>
-      <td>Q3 FY2026 EPS</td>
-      <td>~$1.02</td>
-      <td>-</td>
-      <td><span class="badge badge-green">堅調</span></td>
-    </tr>
-  </table>
-</div>
-
+<div class="section" data-accordion="" id="sec-consensus">
+<div class="section-title"><span class="icon">📋</span> ガイダンス vs コンセンサス</div><div class="section-body">
+<table class="data-table">
+<tr>
+<th>指標</th>
+<th>会社ガイダンス</th>
+<th>コンセンサス</th>
+<th>判定</th>
+</tr>
+<tr>
+<td>FY2026 売上高</td>
+<td>$3.309B - $3.322B</td>
+<td>~$3.30B</td>
+<td><span class="badge badge-green">インライン〜やや上</span></td>
+</tr>
+<tr>
+<td>FY2026 Non-GAAP EPS</td>
+<td>$3.99 - $4.02</td>
+<td>~$3.81</td>
+<td><span class="badge badge-green">上回る (+5%)</span></td>
+</tr>
+<tr>
+<td>FY2026 ARR</td>
+<td>$3.730B - $3.745B</td>
+<td>-</td>
+<td><span class="badge badge-green">引き上げ (24%成長)</span></td>
+</tr>
+<tr>
+<td>Q3 FY2026 売上高</td>
+<td>~$831.5M</td>
+<td>-</td>
+<td><span class="badge badge-green">+26%YoY見込み</span></td>
+</tr>
+<tr>
+<td>Q3 FY2026 EPS</td>
+<td>~$1.02</td>
+<td>-</td>
+<td><span class="badge badge-green">堅調</span></td>
+</tr>
+</table>
+</div></div>
 <!-- アナリスト評価 -->
 <div class="section">
-  <div class="section-title"><span class="icon">🏦</span> アナリスト評価・株価動向</div>
-  <div class="card-grid" style="grid-template-columns: repeat(2, 1fr);">
-    <div>
-      <table class="data-table">
-        <tr><th colspan="2">アナリストレーティング（36名）</th></tr>
-        <tr><td>Strong Buy</td><td class="green">31%</td></tr>
-        <tr><td>Buy</td><td class="green">53%</td></tr>
-        <tr><td>Hold</td><td style="color:#d29922;">17%</td></tr>
-        <tr><td>Sell</td><td>0%</td></tr>
-        <tr><td><strong>コンセンサス</strong></td><td class="green"><strong>Buy</strong></td></tr>
-      </table>
-    </div>
-    <div>
-      <table class="data-table">
-        <tr><th colspan="2">目標株価</th></tr>
-        <tr><td>平均目標株価</td><td class="green">$304 - $330</td></tr>
-        <tr><td>最高目標</td><td>$385</td></tr>
-        <tr><td>最低目標</td><td>$195</td></tr>
-        <tr><td>現在株価</td><td style="color:#d29922;">~$155</td></tr>
-        <tr><td>アップサイド</td><td class="green">+96%〜+113%</td></tr>
-      </table>
-    </div>
-  </div>
-  <div style="margin-top:16px;">
-    <table class="data-table">
-      <tr><th colspan="2">株価・テクニカル</th></tr>
-      <tr><td>52週高値 / 安値</td><td>$337 / $141</td></tr>
-      <tr><td>時価総額</td><td>~$25B</td></tr>
-      <tr><td>年初来パフォーマンス</td><td class="red">-30.3%</td></tr>
-      <tr><td>決算後の反応</td><td class="red">AH +7.5% → 翌日 -15%（目標株価引き下げ相次ぐ）</td></tr>
-      <tr><td>空売り比率</td><td style="color:#d29922;">7.46%（業界平均6.93%をやや上回る）</td></tr>
-      <tr><td>インサイダー持株比率</td><td>~17%（Tudor Investment Corp 35.4%）</td></tr>
-    </table>
-  </div>
+<div class="section-title"><span class="icon">🏦</span> アナリスト評価・株価動向</div>
+<div class="card-grid" style="grid-template-columns: repeat(2, 1fr);">
+<div>
+<table class="data-table">
+<tr><th colspan="2">アナリストレーティング（36名）</th></tr>
+<tr><td>Strong Buy</td><td class="green">31%</td></tr>
+<tr><td>Buy</td><td class="green">53%</td></tr>
+<tr><td>Hold</td><td style="color:#d29922;">17%</td></tr>
+<tr><td>Sell</td><td>0%</td></tr>
+<tr><td><strong>コンセンサス</strong></td><td class="green"><strong>Buy</strong></td></tr>
+</table>
 </div>
-
+<div>
+<table class="data-table">
+<tr><th colspan="2">目標株価</th></tr>
+<tr><td>平均目標株価</td><td class="green">$304 - $330</td></tr>
+<tr><td>最高目標</td><td>$385</td></tr>
+<tr><td>最低目標</td><td>$195</td></tr>
+<tr><td>現在株価</td><td style="color:#d29922;">~$155</td></tr>
+<tr><td>アップサイド</td><td class="green">+96%〜+113%</td></tr>
+</table>
+</div>
+</div>
+<div style="margin-top:16px;">
+<table class="data-table">
+<tr><th colspan="2">株価・テクニカル</th></tr>
+<tr><td>52週高値 / 安値</td><td>$337 / $141</td></tr>
+<tr><td>時価総額</td><td>~$25B</td></tr>
+<tr><td>年初来パフォーマンス</td><td class="red">-30.3%</td></tr>
+<tr><td>決算後の反応</td><td class="red">AH +7.5% → 翌日 -15%（目標株価引き下げ相次ぐ）</td></tr>
+<tr><td>空売り比率</td><td style="color:#d29922;">7.46%（業界平均6.93%をやや上回る）</td></tr>
+<tr><td>インサイダー持株比率</td><td>~17%（Tudor Investment Corp 35.4%）</td></tr>
+</table>
+</div>
+</div>
 <!-- Footer -->
 <div class="footer">
-  <p>本レポートは公開情報に基づく分析であり、投資助言ではありません。</p>
-  <p>生成日: 2026年3月7日 | U&I株倶楽部</p>
+<p>本レポートは公開情報に基づく分析であり、投資助言ではありません。</p>
+<p>生成日: 2026年3月7日 | U&amp;I株倶楽部</p>
 </div>
-
 </div>
-
 <script>
 // Revenue Chart
 const revenueCtx = document.getElementById('revenueChart').getContext('2d');
@@ -868,6 +865,77 @@ new Chart(marginCtx, {
 });
 </script>
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高・EPS 直近7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー (Q2 FY2026)</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント・顧客分析</span></a></li>
+<li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">☁️</span><span class="toc-label">SaaS KPI</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較サマリー</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3パターン）</span></a></li>
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">ガイダンス vs コンセンサス</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>GOOGL (Alphabet) FY2025 Q4 決算分析レポート</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
@@ -432,624 +433,632 @@ body {
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="image/png"/>
 </head>
 <body>
-
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/GOOGL.svg" alt="GOOGL"><div class="ticker-badge">NASDAQ: GOOGL</div></div>
-    <h1>Alphabet Inc. 決算分析</h1>
-    <div class="subtitle">FY2025 Q4（2025年10月-12月期）</div>
-    <div class="date">発表日: 2026年2月4日 ｜ レポート作成: 2026年3月12日</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="GOOGL" class="report-header-logo" src="../logos/GOOGL.svg"/><div class="ticker-badge">NASDAQ: GOOGL</div></div>
+<h1>Alphabet Inc. 決算分析</h1>
+<div class="subtitle">FY2025 Q4（2025年10月-12月期）</div>
+<div class="date">発表日: 2026年2月4日 ｜ レポート作成: 2026年3月12日</div>
 </div>
-
+</div>
 <div class="container">
-
 <!-- 1. Score -->
 <div class="score-section">
-  <div class="score-big">📈</div>
-  <div class="score-label" style="color:var(--green-light);">4 / 5 — 良い決算</div>
-  <div class="score-bar">
-    <div class="score-dot active"></div>
-    <div class="score-dot active"></div>
-    <div class="score-dot active"></div>
-    <div class="score-dot active"></div>
-    <div class="score-dot"></div>
-  </div>
-  <div class="score-summary">
+<div class="score-big">📈</div>
+<div class="score-label" style="color:var(--green-light);">4 / 5 — 良い決算</div>
+<div class="score-bar">
+<div class="score-dot active"></div>
+<div class="score-dot active"></div>
+<div class="score-dot active"></div>
+<div class="score-dot active"></div>
+<div class="score-dot"></div>
+</div>
+<div class="score-summary">
     売上・EPSともにコンセンサスをビート。Google Cloud が前年同期比+48%と大幅加速し、年間ランレート$70B超に。
     Gemini MAU 7.5億人到達、2026年CapEx $175-185Bガイダンスで積極的AI投資姿勢を示した。
     YouTube広告のみコンセンサス未達だが、全体としては堅調な成長を維持。
   </div>
 </div>
-
 <!-- 2. Key Metrics -->
 <div class="metrics-grid">
-  <div class="metric-card">
-    <div class="metric-label">売上高</div>
-    <div class="metric-value">$113.8B</div>
-    <div class="metric-change positive">+18% YoY / +11.2% QoQ</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">GAAP EPS</div>
-    <div class="metric-value">$2.82</div>
-    <div class="metric-change positive">+31% YoY</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">売上ビート率</div>
-    <div class="metric-value positive">+2.1%</div>
-    <div class="metric-change neutral">実績 $113.8B vs 予想 $111.4B</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">EPSビート率</div>
-    <div class="metric-value positive">+7.2%</div>
-    <div class="metric-change neutral">実績 $2.82 vs 予想 $2.63</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">営業利益率 (GAAP)</div>
-    <div class="metric-value">31.6%</div>
-    <div class="metric-change negative">-0.4pp YoY（Waymo SBC影響）</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">粗利益率 (GAAP)</div>
-    <div class="metric-value">59.8%</div>
-    <div class="metric-change positive">+1.9pp YoY</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">純利益</div>
-    <div class="metric-value">$34.5B</div>
-    <div class="metric-change positive">+30% YoY</div>
-  </div>
-  <div class="metric-card">
-    <div class="metric-label">時価総額</div>
-    <div class="metric-value">$3.71T</div>
-    <div class="metric-change neutral">株価 $308.70（3/11時点）</div>
-  </div>
+<div class="metric-card">
+<div class="metric-label">売上高</div>
+<div class="metric-value">$113.8B</div>
+<div class="metric-change positive">+18% YoY / +11.2% QoQ</div>
 </div>
-
+<div class="metric-card">
+<div class="metric-label">GAAP EPS</div>
+<div class="metric-value">$2.82</div>
+<div class="metric-change positive">+31% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">売上ビート率</div>
+<div class="metric-value positive">+2.1%</div>
+<div class="metric-change neutral">実績 $113.8B vs 予想 $111.4B</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">EPSビート率</div>
+<div class="metric-value positive">+7.2%</div>
+<div class="metric-change neutral">実績 $2.82 vs 予想 $2.63</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">営業利益率 (GAAP)</div>
+<div class="metric-value">31.6%</div>
+<div class="metric-change negative">-0.4pp YoY（Waymo SBC影響）</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">粗利益率 (GAAP)</div>
+<div class="metric-value">59.8%</div>
+<div class="metric-change positive">+1.9pp YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">純利益</div>
+<div class="metric-value">$34.5B</div>
+<div class="metric-change positive">+30% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">時価総額</div>
+<div class="metric-value">$3.71T</div>
+<div class="metric-change neutral">株価 $308.70（3/11時点）</div>
+</div>
+</div>
 <!-- 3. Revenue & EPS Chart -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
-  <div class="chart-row">
-    <div class="chart-container">
-      <canvas id="revenueChart"></canvas>
-    </div>
-    <div class="chart-container">
-      <canvas id="epsChart"></canvas>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-revenue">
+<div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div><div class="section-body">
+<div class="chart-row">
+<div class="chart-container">
+<canvas id="revenueChart"></canvas>
 </div>
-
+<div class="chart-container">
+<canvas id="epsChart"></canvas>
+</div>
+</div>
+</div></div>
 <!-- 4. Margins -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
-  <div class="chart-container" style="height:280px;">
-    <canvas id="marginChart"></canvas>
-  </div>
-  <div class="data-table" style="margin-top:16px;">
-    <table class="data-table">
-      <tr>
-        <th>指標</th><th class="right">Q4 2025</th><th class="right">Q4 2024</th><th class="right">YoY変化</th>
-      </tr>
-      <tr>
-        <td>粗利益率 (GAAP)</td><td class="right">59.8%</td><td class="right">57.9%</td><td class="right positive">+1.9pp</td>
-      </tr>
-      <tr>
-        <td>営業利益率 (GAAP)</td><td class="right">31.6%</td><td class="right">32.0%</td><td class="right negative">-0.4pp</td>
-      </tr>
-      <tr>
-        <td>EBITDAマージン</td><td class="right">36.9%</td><td class="right">—</td><td class="right neutral">—</td>
-      </tr>
-      <tr>
-        <td>純利益率</td><td class="right">30.3%</td><td class="right">27.5%</td><td class="right positive">+2.8pp</td>
-      </tr>
-    </table>
-  </div>
+<div class="section" data-accordion="" id="sec-margin">
+<div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div><div class="section-body">
+<div class="chart-container" style="height:280px;">
+<canvas id="marginChart"></canvas>
 </div>
-
+<div class="data-table" style="margin-top:16px;">
+<table class="data-table">
+<tr>
+<th>指標</th><th class="right">Q4 2025</th><th class="right">Q4 2024</th><th class="right">YoY変化</th>
+</tr>
+<tr>
+<td>粗利益率 (GAAP)</td><td class="right">59.8%</td><td class="right">57.9%</td><td class="right positive">+1.9pp</td>
+</tr>
+<tr>
+<td>営業利益率 (GAAP)</td><td class="right">31.6%</td><td class="right">32.0%</td><td class="right negative">-0.4pp</td>
+</tr>
+<tr>
+<td>EBITDAマージン</td><td class="right">36.9%</td><td class="right">—</td><td class="right neutral">—</td>
+</tr>
+<tr>
+<td>純利益率</td><td class="right">30.3%</td><td class="right">27.5%</td><td class="right positive">+2.8pp</td>
+</tr>
+</table>
+</div>
+</div></div>
 <!-- Consensus Beat -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
-  <div class="beat-card">
-    <div class="beat-icon">✅</div>
-    <div class="beat-details">
-      <div class="beat-label">売上高</div>
-      <div class="beat-values">
-        <div class="beat-item">実績: <strong>$113.8B</strong></div>
-        <div class="beat-item">予想: $111.4B</div>
-        <div class="beat-item positive">+$2.4B (+2.1%)</div>
-      </div>
-    </div>
-  </div>
-  <div class="beat-card">
-    <div class="beat-icon">✅</div>
-    <div class="beat-details">
-      <div class="beat-label">EPS (GAAP)</div>
-      <div class="beat-values">
-        <div class="beat-item">実績: <strong>$2.82</strong></div>
-        <div class="beat-item">予想: $2.63</div>
-        <div class="beat-item positive">+$0.19 (+7.2%)</div>
-      </div>
-    </div>
-  </div>
-  <div class="beat-card">
-    <div class="beat-icon">✅</div>
-    <div class="beat-details">
-      <div class="beat-label">Google Cloud 売上</div>
-      <div class="beat-values">
-        <div class="beat-item">実績: <strong>$17.7B</strong></div>
-        <div class="beat-item">予想: $16.2B</div>
-        <div class="beat-item positive">+$1.5B (+9.1%)</div>
-      </div>
-    </div>
-  </div>
-  <div class="beat-card miss">
-    <div class="beat-icon">❌</div>
-    <div class="beat-details">
-      <div class="beat-label">YouTube 広告売上</div>
-      <div class="beat-values">
-        <div class="beat-item">実績: <strong>$11.4B</strong></div>
-        <div class="beat-item">予想: $11.8B</div>
-        <div class="beat-item negative">-$0.5B (-3.9%)</div>
-      </div>
-    </div>
-  </div>
-
-  <div style="margin-top:20px;">
-    <div class="metric-label">ガイダンス（2026年）</div>
-    <table class="data-table" style="margin-top:8px;">
-      <tr><th>項目</th><th class="right">ガイダンス/コンセンサス</th></tr>
-      <tr><td>CapEx 2026</td><td class="right"><strong>$175B - $185B</strong>（前年$91.4Bの約2倍）</td></tr>
-      <tr><td>FY2026 売上コンセンサス</td><td class="right">$455B（+14% YoY）</td></tr>
-      <tr><td>FY2026 EPSコンセンサス</td><td class="right">$11.24（+6% YoY）</td></tr>
-      <tr><td>Q1 2026 EPSコンセンサス</td><td class="right">$2.60</td></tr>
-    </table>
-  </div>
+<div class="section" data-accordion="" id="sec-consensus">
+<div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div><div class="section-body">
+<div class="beat-card">
+<div class="beat-icon">✅</div>
+<div class="beat-details">
+<div class="beat-label">売上高</div>
+<div class="beat-values">
+<div class="beat-item">実績: <strong>$113.8B</strong></div>
+<div class="beat-item">予想: $111.4B</div>
+<div class="beat-item positive">+$2.4B (+2.1%)</div>
 </div>
-
+</div>
+</div>
+<div class="beat-card">
+<div class="beat-icon">✅</div>
+<div class="beat-details">
+<div class="beat-label">EPS (GAAP)</div>
+<div class="beat-values">
+<div class="beat-item">実績: <strong>$2.82</strong></div>
+<div class="beat-item">予想: $2.63</div>
+<div class="beat-item positive">+$0.19 (+7.2%)</div>
+</div>
+</div>
+</div>
+<div class="beat-card">
+<div class="beat-icon">✅</div>
+<div class="beat-details">
+<div class="beat-label">Google Cloud 売上</div>
+<div class="beat-values">
+<div class="beat-item">実績: <strong>$17.7B</strong></div>
+<div class="beat-item">予想: $16.2B</div>
+<div class="beat-item positive">+$1.5B (+9.1%)</div>
+</div>
+</div>
+</div>
+<div class="beat-card miss">
+<div class="beat-icon">❌</div>
+<div class="beat-details">
+<div class="beat-label">YouTube 広告売上</div>
+<div class="beat-values">
+<div class="beat-item">実績: <strong>$11.4B</strong></div>
+<div class="beat-item">予想: $11.8B</div>
+<div class="beat-item negative">-$0.5B (-3.9%)</div>
+</div>
+</div>
+</div>
+<div style="margin-top:20px;">
+<div class="metric-label">ガイダンス（2026年）</div>
+<table class="data-table" style="margin-top:8px;">
+<tr><th>項目</th><th class="right">ガイダンス/コンセンサス</th></tr>
+<tr><td>CapEx 2026</td><td class="right"><strong>$175B - $185B</strong>（前年$91.4Bの約2倍）</td></tr>
+<tr><td>FY2026 売上コンセンサス</td><td class="right">$455B（+14% YoY）</td></tr>
+<tr><td>FY2026 EPSコンセンサス</td><td class="right">$11.24（+6% YoY）</td></tr>
+<tr><td>Q1 2026 EPSコンセンサス</td><td class="right">$2.60</td></tr>
+</table>
+</div>
+</div></div>
 <!-- 5. Cash Flow -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
-  <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr);">
-    <div class="metric-card">
-      <div class="metric-label">営業CF</div>
-      <div class="metric-value positive" style="font-size:1.5em;">$52.4B</div>
-      <div class="metric-change neutral">Q4 2025</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">投資CF</div>
-      <div class="metric-value negative" style="font-size:1.5em;">-$51.8B</div>
-      <div class="metric-change neutral">Q4 2025</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">財務CF</div>
-      <div class="metric-value" style="font-size:1.5em;">$7.0B</div>
-      <div class="metric-change neutral">Q4 2025</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">FCF</div>
-      <div class="metric-value positive" style="font-size:1.5em;">$24.6B</div>
-      <div class="metric-change neutral">マージン 21.6%</div>
-    </div>
-  </div>
-  <table class="data-table" style="margin-top:16px;">
-    <tr><th>項目</th><th class="right">FY2025 通期</th><th class="right">FY2024 通期</th></tr>
-    <tr><td>営業CF</td><td class="right">$164.7B</td><td class="right">$126.6B</td></tr>
-    <tr><td>CapEx</td><td class="right">$91.4B</td><td class="right">$52.5B</td></tr>
-    <tr><td>FCF</td><td class="right">$73.3B</td><td class="right">$74.1B</td></tr>
-    <tr><td>FCFマージン</td><td class="right">18.2%</td><td class="right">21.1%</td></tr>
-    <tr><td>現金・有価証券</td><td class="right" colspan="2">$126.8B</td></tr>
-    <tr><td>長期債務</td><td class="right" colspan="2">$46.5B</td></tr>
-  </table>
+<div class="section" data-accordion="" id="sec-cashflow">
+<div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div><div class="section-body">
+<div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr);">
+<div class="metric-card">
+<div class="metric-label">営業CF</div>
+<div class="metric-value positive" style="font-size:1.5em;">$52.4B</div>
+<div class="metric-change neutral">Q4 2025</div>
 </div>
-
+<div class="metric-card">
+<div class="metric-label">投資CF</div>
+<div class="metric-value negative" style="font-size:1.5em;">-$51.8B</div>
+<div class="metric-change neutral">Q4 2025</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">財務CF</div>
+<div class="metric-value" style="font-size:1.5em;">$7.0B</div>
+<div class="metric-change neutral">Q4 2025</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FCF</div>
+<div class="metric-value positive" style="font-size:1.5em;">$24.6B</div>
+<div class="metric-change neutral">マージン 21.6%</div>
+</div>
+</div>
+<table class="data-table" style="margin-top:16px;">
+<tr><th>項目</th><th class="right">FY2025 通期</th><th class="right">FY2024 通期</th></tr>
+<tr><td>営業CF</td><td class="right">$164.7B</td><td class="right">$126.6B</td></tr>
+<tr><td>CapEx</td><td class="right">$91.4B</td><td class="right">$52.5B</td></tr>
+<tr><td>FCF</td><td class="right">$73.3B</td><td class="right">$74.1B</td></tr>
+<tr><td>FCFマージン</td><td class="right">18.2%</td><td class="right">21.1%</td></tr>
+<tr><td>現金・有価証券</td><td class="right" colspan="2">$126.8B</td></tr>
+<tr><td>長期債務</td><td class="right" colspan="2">$46.5B</td></tr>
+</table>
+</div></div>
 <!-- 6. Segment -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成</div>
-  <table class="data-table">
-    <tr>
-      <th>セグメント</th><th class="right">Q4 2025</th><th class="right">Q4 2024</th><th class="right">YoY</th><th class="right">構成比</th>
-    </tr>
-    <tr>
-      <td><strong>Google Search & Other</strong></td><td class="right">$63.1B</td><td class="right">$54.0B</td><td class="right positive">+17%</td><td class="right">55.4%</td>
-    </tr>
-    <tr>
-      <td><strong>YouTube 広告</strong></td><td class="right">$11.4B</td><td class="right">$10.5B</td><td class="right positive">+9%</td><td class="right">10.0%</td>
-    </tr>
-    <tr>
-      <td><strong>Google Network</strong></td><td class="right">$7.8B</td><td class="right">$8.0B</td><td class="right negative">-2%</td><td class="right">6.9%</td>
-    </tr>
-    <tr>
-      <td><strong>サブスクリプション・プラットフォーム・デバイス</strong></td><td class="right">$13.6B</td><td class="right">$11.6B</td><td class="right positive">+17%</td><td class="right">11.9%</td>
-    </tr>
-    <tr style="border-top:2px solid var(--card-border);">
-      <td><strong>Google Services 計</strong></td><td class="right"><strong>$95.9B</strong></td><td class="right">$84.1B</td><td class="right positive">+14%</td><td class="right">84.2%</td>
-    </tr>
-    <tr>
-      <td><strong>Google Cloud</strong></td><td class="right">$17.7B</td><td class="right">$12.0B</td><td class="right positive" style="font-weight:700;">+48%</td><td class="right">15.5%</td>
-    </tr>
-    <tr>
-      <td><strong>Other Bets</strong></td><td class="right">$0.37B</td><td class="right">$0.40B</td><td class="right negative">-7.5%</td><td class="right">0.3%</td>
-    </tr>
-    <tr style="border-top:2px solid var(--blue);">
-      <td><strong>合計</strong></td><td class="right"><strong>$113.8B</strong></td><td class="right">$96.5B</td><td class="right positive" style="font-weight:700;">+18%</td><td class="right">100%</td>
-    </tr>
-  </table>
-
-  <div style="margin-top:20px;">
-    <div class="section-title" style="font-size:1.1em; border:none; padding:0; margin-bottom:12px;">セグメント営業利益</div>
-    <table class="data-table">
-      <tr>
-        <th>セグメント</th><th class="right">Q4 2025 OI</th><th class="right">営業利益率</th><th class="right">YoY</th>
-      </tr>
-      <tr>
-        <td>Google Services</td><td class="right">$40.1B</td><td class="right">41.9%</td><td class="right positive">+22%</td>
-      </tr>
-      <tr>
-        <td>Google Cloud</td><td class="right">$5.3B</td><td class="right">30.1%</td><td class="right positive">>2倍（前年$2.1B）</td>
-      </tr>
-      <tr>
-        <td>Other Bets</td><td class="right negative">-$3.6B</td><td class="right">—</td><td class="right negative">損失拡大（前年-$1.2B）</td>
-      </tr>
-    </table>
-  </div>
+<div class="section" data-accordion="" id="sec-segment">
+<div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成</div><div class="section-body">
+<table class="data-table">
+<tr>
+<th>セグメント</th><th class="right">Q4 2025</th><th class="right">Q4 2024</th><th class="right">YoY</th><th class="right">構成比</th>
+</tr>
+<tr>
+<td><strong>Google Search &amp; Other</strong></td><td class="right">$63.1B</td><td class="right">$54.0B</td><td class="right positive">+17%</td><td class="right">55.4%</td>
+</tr>
+<tr>
+<td><strong>YouTube 広告</strong></td><td class="right">$11.4B</td><td class="right">$10.5B</td><td class="right positive">+9%</td><td class="right">10.0%</td>
+</tr>
+<tr>
+<td><strong>Google Network</strong></td><td class="right">$7.8B</td><td class="right">$8.0B</td><td class="right negative">-2%</td><td class="right">6.9%</td>
+</tr>
+<tr>
+<td><strong>サブスクリプション・プラットフォーム・デバイス</strong></td><td class="right">$13.6B</td><td class="right">$11.6B</td><td class="right positive">+17%</td><td class="right">11.9%</td>
+</tr>
+<tr style="border-top:2px solid var(--card-border);">
+<td><strong>Google Services 計</strong></td><td class="right"><strong>$95.9B</strong></td><td class="right">$84.1B</td><td class="right positive">+14%</td><td class="right">84.2%</td>
+</tr>
+<tr>
+<td><strong>Google Cloud</strong></td><td class="right">$17.7B</td><td class="right">$12.0B</td><td class="right positive" style="font-weight:700;">+48%</td><td class="right">15.5%</td>
+</tr>
+<tr>
+<td><strong>Other Bets</strong></td><td class="right">$0.37B</td><td class="right">$0.40B</td><td class="right negative">-7.5%</td><td class="right">0.3%</td>
+</tr>
+<tr style="border-top:2px solid var(--blue);">
+<td><strong>合計</strong></td><td class="right"><strong>$113.8B</strong></td><td class="right">$96.5B</td><td class="right positive" style="font-weight:700;">+18%</td><td class="right">100%</td>
+</tr>
+</table>
+<div style="margin-top:20px;">
+<div class="section-title" style="font-size:1.1em; border:none; padding:0; margin-bottom:12px;">セグメント営業利益</div>
+<table class="data-table">
+<tr>
+<th>セグメント</th><th class="right">Q4 2025 OI</th><th class="right">営業利益率</th><th class="right">YoY</th>
+</tr>
+<tr>
+<td>Google Services</td><td class="right">$40.1B</td><td class="right">41.9%</td><td class="right positive">+22%</td>
+</tr>
+<tr>
+<td>Google Cloud</td><td class="right">$5.3B</td><td class="right">30.1%</td><td class="right positive">&gt;2倍（前年$2.1B）</td>
+</tr>
+<tr>
+<td>Other Bets</td><td class="right negative">-$3.6B</td><td class="right">—</td><td class="right negative">損失拡大（前年-$1.2B）</td>
+</tr>
+</table>
 </div>
-
+</div></div>
 <!-- Geography -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
-  <div class="chart-row">
-    <div>
-      <table class="data-table">
-        <tr><th>地域</th><th class="right">Q4 2025</th><th class="right">YoY</th><th class="right">構成比</th></tr>
-        <tr><td>米国</td><td class="right">$55.4B</td><td class="right positive">+17%</td><td class="right">48.7%</td></tr>
-        <tr><td>EMEA</td><td class="right">$33.1B</td><td class="right positive">+17%</td><td class="right">29.1%</td></tr>
-        <tr><td>APAC</td><td class="right">$18.5B</td><td class="right positive">+22%</td><td class="right">16.2%</td></tr>
-        <tr><td>その他南北米</td><td class="right">$6.9B</td><td class="right positive">+20%</td><td class="right">6.0%</td></tr>
-      </table>
-    </div>
-    <div class="chart-container" style="height:250px;">
-      <canvas id="geoChart"></canvas>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-geo">
+<div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div><div class="section-body">
+<div class="chart-row">
+<div>
+<table class="data-table">
+<tr><th>地域</th><th class="right">Q4 2025</th><th class="right">YoY</th><th class="right">構成比</th></tr>
+<tr><td>米国</td><td class="right">$55.4B</td><td class="right positive">+17%</td><td class="right">48.7%</td></tr>
+<tr><td>EMEA</td><td class="right">$33.1B</td><td class="right positive">+17%</td><td class="right">29.1%</td></tr>
+<tr><td>APAC</td><td class="right">$18.5B</td><td class="right positive">+22%</td><td class="right">16.2%</td></tr>
+<tr><td>その他南北米</td><td class="right">$6.9B</td><td class="right positive">+20%</td><td class="right">6.0%</td></tr>
+</table>
 </div>
-
+<div class="chart-container" style="height:250px;">
+<canvas id="geoChart"></canvas>
+</div>
+</div>
+</div></div>
 <!-- Company Overview -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">🏛️</span> 企業概要・ビジネスモデル</div>
-  <div class="overview-grid">
-    <div>
-      <div class="overview-item">
-        <span class="overview-label">設立</span>
-        <span class="overview-value">2015年（Google: 1998年）</span>
-      </div>
-      <div class="overview-item">
-        <span class="overview-label">本社</span>
-        <span class="overview-value">Mountain View, California</span>
-      </div>
-      <div class="overview-item">
-        <span class="overview-label">CEO</span>
-        <span class="overview-value">Sundar Pichai</span>
-      </div>
-      <div class="overview-item">
-        <span class="overview-label">従業員数</span>
-        <span class="overview-value">約187,000人</span>
-      </div>
-    </div>
-    <div>
-      <div class="overview-item">
-        <span class="overview-label">収益構造</span>
-        <span class="overview-value">デジタル広告（55%）、クラウド（16%）、サブスク・デバイス（12%）、ネットワーク（7%）、その他</span>
-      </div>
-      <div class="overview-item">
-        <span class="overview-label">主要プロダクト</span>
-        <span class="overview-value">Google Search, YouTube, Google Cloud, Android, Chrome, Pixel, Gemini AI, Waymo</span>
-      </div>
-      <div class="overview-item">
-        <span class="overview-label">競合</span>
-        <span class="overview-value">Microsoft（Azure/Bing）, Amazon（AWS）, Meta（広告）, Apple（デバイス/サービス）</span>
-      </div>
-      <div class="overview-item">
-        <span class="overview-label">クラウド市場シェア</span>
-        <span class="overview-value">約13%（AWS 30% / Azure 23% / GCP 13%）</span>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:16px;">
-    <div class="metric-label">主要KPI</div>
-    <div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:8px;">
-      <div class="metric-card">
-        <div class="metric-label">Gemini MAU</div>
-        <div class="metric-value" style="font-size:1.4em;">7.5億人</div>
-        <div class="metric-change positive">前Q: 6.5億人</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Cloud バックログ</div>
-        <div class="metric-value" style="font-size:1.4em;">$240B</div>
-        <div class="metric-change positive">+55% QoQ</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">有料サブスク数</div>
-        <div class="metric-value" style="font-size:1.4em;">3.25億+</div>
-        <div class="metric-change neutral">YouTube Premium/Music等</div>
-      </div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-overview">
+<div class="section-title"><span class="section-icon">🏛️</span> 企業概要・ビジネスモデル</div><div class="section-body">
+<div class="overview-grid">
+<div>
+<div class="overview-item">
+<span class="overview-label">設立</span>
+<span class="overview-value">2015年（Google: 1998年）</span>
 </div>
-
+<div class="overview-item">
+<span class="overview-label">本社</span>
+<span class="overview-value">Mountain View, California</span>
+</div>
+<div class="overview-item">
+<span class="overview-label">CEO</span>
+<span class="overview-value">Sundar Pichai</span>
+</div>
+<div class="overview-item">
+<span class="overview-label">従業員数</span>
+<span class="overview-value">約187,000人</span>
+</div>
+</div>
+<div>
+<div class="overview-item">
+<span class="overview-label">収益構造</span>
+<span class="overview-value">デジタル広告（55%）、クラウド（16%）、サブスク・デバイス（12%）、ネットワーク（7%）、その他</span>
+</div>
+<div class="overview-item">
+<span class="overview-label">主要プロダクト</span>
+<span class="overview-value">Google Search, YouTube, Google Cloud, Android, Chrome, Pixel, Gemini AI, Waymo</span>
+</div>
+<div class="overview-item">
+<span class="overview-label">競合</span>
+<span class="overview-value">Microsoft（Azure/Bing）, Amazon（AWS）, Meta（広告）, Apple（デバイス/サービス）</span>
+</div>
+<div class="overview-item">
+<span class="overview-label">クラウド市場シェア</span>
+<span class="overview-value">約13%（AWS 30% / Azure 23% / GCP 13%）</span>
+</div>
+</div>
+</div>
+<div style="margin-top:16px;">
+<div class="metric-label">主要KPI</div>
+<div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:8px;">
+<div class="metric-card">
+<div class="metric-label">Gemini MAU</div>
+<div class="metric-value" style="font-size:1.4em;">7.5億人</div>
+<div class="metric-change positive">前Q: 6.5億人</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Cloud バックログ</div>
+<div class="metric-value" style="font-size:1.4em;">$240B</div>
+<div class="metric-change positive">+55% QoQ</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">有料サブスク数</div>
+<div class="metric-value" style="font-size:1.4em;">3.25億+</div>
+<div class="metric-change neutral">YouTube Premium/Music等</div>
+</div>
+</div>
+</div>
+</div></div>
 <!-- 8. Technical Analysis -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
-
-  <div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:20px;">
-    <div class="metric-card">
-      <div class="metric-label">現在株価</div>
-      <div class="metric-value" style="font-size:1.4em;">$308.70</div>
-      <div class="metric-change neutral">2026/3/11終値</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">52週高値</div>
-      <div class="metric-value" style="font-size:1.4em;">$349.00</div>
-      <div class="metric-change neutral">2026/2/3</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">52週安値</div>
-      <div class="metric-value" style="font-size:1.4em;">$140.53</div>
-      <div class="metric-change neutral">2025/4/7</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">総合判定</div>
-      <div class="metric-value" style="font-size:1.1em; color:var(--yellow);">中立（やや弱気）</div>
-      <div class="metric-change neutral">短期弱気 / 中期上昇トレンド</div>
-    </div>
-  </div>
-
-  <div class="tech-grid">
-    <div class="tech-card">
-      <div class="tech-card-title">移動平均線</div>
-      <div class="tech-indicator">
-        <span>50日 SMA</span>
-        <span>$303.68</span>
-        <span class="signal-badge signal-buy">上方</span>
-      </div>
-      <div class="tech-indicator">
-        <span>100日 SMA</span>
-        <span>—</span>
-        <span class="signal-badge signal-neutral">—</span>
-      </div>
-      <div class="tech-indicator">
-        <span>200日 SMA</span>
-        <span>$316.77</span>
-        <span class="signal-badge signal-sell">下方</span>
-      </div>
-      <div class="tech-indicator">
-        <span>クロス状態</span>
-        <span colspan="2">株価は50日線上・200日線下</span>
-      </div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-card-title">オシレーター</div>
-      <div class="tech-indicator">
-        <span>RSI (14日)</span>
-        <span>39.76</span>
-        <span class="signal-badge signal-sell">売り寄り</span>
-      </div>
-      <div class="tech-indicator">
-        <span>MACD</span>
-        <span>-1.49</span>
-        <span class="signal-badge signal-sell">弱気</span>
-      </div>
-      <div class="tech-indicator">
-        <span>MACDシグナル</span>
-        <span>-4.36上方</span>
-        <span class="signal-badge signal-neutral">接近中</span>
-      </div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-card-title">ボリンジャーバンド</div>
-      <div class="tech-indicator">
-        <span>上限バンド</span>
-        <span>$350.80</span>
-      </div>
-      <div class="tech-indicator">
-        <span>中央バンド</span>
-        <span>$323.46</span>
-      </div>
-      <div class="tech-indicator">
-        <span>下限バンド</span>
-        <span>$296.12</span>
-      </div>
-      <div class="tech-indicator">
-        <span>位置</span>
-        <span style="color:var(--yellow);">下限〜中央間</span>
-      </div>
-    </div>
-    <div class="tech-card">
-      <div class="tech-card-title">サポート/レジスタンス</div>
-      <div class="tech-indicator">
-        <span>R2（レジスタンス）</span>
-        <span style="color:var(--red-light);">$320</span>
-      </div>
-      <div class="tech-indicator">
-        <span>R1</span>
-        <span style="color:var(--red-light);">$312</span>
-      </div>
-      <div class="tech-indicator">
-        <span>ピボット</span>
-        <span>$310</span>
-      </div>
-      <div class="tech-indicator">
-        <span>S1（サポート）</span>
-        <span style="color:var(--green-light);">$305</span>
-      </div>
-      <div class="tech-indicator">
-        <span>S2</span>
-        <span style="color:var(--green-light);">$296</span>
-      </div>
-    </div>
-  </div>
-
-  <div style="margin-top:16px; padding:16px; background:rgba(210,153,34,0.08); border:1px solid rgba(210,153,34,0.2); border-radius:10px;">
-    <strong style="color:var(--yellow);">テクニカル総合判定: 中立（やや弱気）</strong>
-    <p style="font-size:0.85em; color:var(--text-sub); margin-top:6px;">
+<div class="section" data-accordion="" id="sec-technical">
+<div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div><div class="section-body">
+<div class="metrics-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom:20px;">
+<div class="metric-card">
+<div class="metric-label">現在株価</div>
+<div class="metric-value" style="font-size:1.4em;">$308.70</div>
+<div class="metric-change neutral">2026/3/11終値</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">52週高値</div>
+<div class="metric-value" style="font-size:1.4em;">$349.00</div>
+<div class="metric-change neutral">2026/2/3</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">52週安値</div>
+<div class="metric-value" style="font-size:1.4em;">$140.53</div>
+<div class="metric-change neutral">2025/4/7</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">総合判定</div>
+<div class="metric-value" style="font-size:1.1em; color:var(--yellow);">中立（やや弱気）</div>
+<div class="metric-change neutral">短期弱気 / 中期上昇トレンド</div>
+</div>
+</div>
+<div class="tech-grid">
+<div class="tech-card">
+<div class="tech-card-title">移動平均線</div>
+<div class="tech-indicator">
+<span>50日 SMA</span>
+<span>$303.68</span>
+<span class="signal-badge signal-buy">上方</span>
+</div>
+<div class="tech-indicator">
+<span>100日 SMA</span>
+<span>—</span>
+<span class="signal-badge signal-neutral">—</span>
+</div>
+<div class="tech-indicator">
+<span>200日 SMA</span>
+<span>$316.77</span>
+<span class="signal-badge signal-sell">下方</span>
+</div>
+<div class="tech-indicator">
+<span>クロス状態</span>
+<span colspan="2">株価は50日線上・200日線下</span>
+</div>
+</div>
+<div class="tech-card">
+<div class="tech-card-title">オシレーター</div>
+<div class="tech-indicator">
+<span>RSI (14日)</span>
+<span>39.76</span>
+<span class="signal-badge signal-sell">売り寄り</span>
+</div>
+<div class="tech-indicator">
+<span>MACD</span>
+<span>-1.49</span>
+<span class="signal-badge signal-sell">弱気</span>
+</div>
+<div class="tech-indicator">
+<span>MACDシグナル</span>
+<span>-4.36上方</span>
+<span class="signal-badge signal-neutral">接近中</span>
+</div>
+</div>
+<div class="tech-card">
+<div class="tech-card-title">ボリンジャーバンド</div>
+<div class="tech-indicator">
+<span>上限バンド</span>
+<span>$350.80</span>
+</div>
+<div class="tech-indicator">
+<span>中央バンド</span>
+<span>$323.46</span>
+</div>
+<div class="tech-indicator">
+<span>下限バンド</span>
+<span>$296.12</span>
+</div>
+<div class="tech-indicator">
+<span>位置</span>
+<span style="color:var(--yellow);">下限〜中央間</span>
+</div>
+</div>
+<div class="tech-card">
+<div class="tech-card-title">サポート/レジスタンス</div>
+<div class="tech-indicator">
+<span>R2（レジスタンス）</span>
+<span style="color:var(--red-light);">$320</span>
+</div>
+<div class="tech-indicator">
+<span>R1</span>
+<span style="color:var(--red-light);">$312</span>
+</div>
+<div class="tech-indicator">
+<span>ピボット</span>
+<span>$310</span>
+</div>
+<div class="tech-indicator">
+<span>S1（サポート）</span>
+<span style="color:var(--green-light);">$305</span>
+</div>
+<div class="tech-indicator">
+<span>S2</span>
+<span style="color:var(--green-light);">$296</span>
+</div>
+</div>
+</div>
+<div style="margin-top:16px; padding:16px; background:rgba(210,153,34,0.08); border:1px solid rgba(210,153,34,0.2); border-radius:10px;">
+<strong style="color:var(--yellow);">テクニカル総合判定: 中立（やや弱気）</strong>
+<p style="font-size:0.85em; color:var(--text-sub); margin-top:6px;">
       短期的にはRSI 39.76（売られ過ぎ圏に接近）、MACDマイナス圏で弱気シグナル。株価はボリンジャーバンド下限〜中央間で推移し、200日SMA($316.77)を下回る。
       ただし中長期では上昇トレンドチャネル内に位置し、50日SMA($303.68)がサポートとして機能。決算後の高値$349からの調整局面にあるが、$305付近がサポートとして意識される。関税リスクによる外部要因の不確実性あり。
     </p>
-  </div>
 </div>
-
+</div></div>
 <!-- 9. Management Comments -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
-  <div class="quote-card">
+<div class="section" data-accordion="" id="sec-mgmt">
+<div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div><div class="section-body">
+<div class="quote-card">
     Gemini 3の発売は大きなマイルストーンであり、会社全体で実際のモメンタムとビジネス成果をもたらしている。
     Geminiアプリの月間アクティブユーザーは7.5億人に達し、前四半期の6.5億人から増加。
     2025年を通じてGeminiのサービングユニットコストを78%削減することに成功した。
     <div class="quote-speaker">— Sundar Pichai, CEO</div>
-  </div>
-  <div class="quote-card">
+</div>
+<div class="quote-card">
     Cloudバックログは前四半期比55%増の$240Bに成長。AI InfrastructureとAI Solutionsへの需要が引き続き強い成長を牽引している。
     2026年のCapExは$175B-$185Bの範囲を見込んでおり、AI計算能力への投資とCloud顧客需要への対応が主因。
     <div class="quote-speaker">— Anat Ashkenazi, CFO</div>
-  </div>
-  <div class="quote-card">
+</div>
+<div class="quote-card">
     コマース領域ではUniversal Commerce Protocolを1月のNRFで立ち上げ、多くのパートナーから好評を得ている。
     エージェント型AIの世界に向けたエコシステム構築を進めている。
     <div class="quote-speaker">— Sundar Pichai, CEO（カンファレンスコール）</div>
-  </div>
 </div>
-
+</div></div>
 <!-- 10. Risk & Catalyst -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">⚡</span> リスク・注目ポイント / カタリスト</div>
-  <div class="chart-row">
-    <div>
-      <h4 style="color:var(--red-light); margin-bottom:12px;">⚠️ リスク要因</h4>
-      <ul class="risk-list">
-        <li>2026年CapEx $175-185B（前年比約2倍）による短期的なFCFマージン圧迫</li>
-        <li>YouTube広告がコンセンサス未達 — 広告市場の競争激化（TikTok、Meta Reels）</li>
-        <li>Other Bets損失拡大（Waymo SBC $2.1B一時費用含む）</li>
-        <li>テック企業への関税リスク・規制圧力（反トラスト訴訟進行中）</li>
-        <li>AI投資のROI回収に対する市場の懸念</li>
-        <li>Google Networkの継続的な減収トレンド（-2% YoY）</li>
-      </ul>
-    </div>
-    <div>
-      <h4 style="color:var(--green-light); margin-bottom:12px;">✦ ポジティブカタリスト</h4>
-      <ul class="catalyst-list">
-        <li>Google Cloud +48%の大幅成長持続、バックログ$240B（+55% QoQ）</li>
-        <li>Gemini 3 Pro がText/Vision/Video LMArenaリーダーボードで首位</li>
-        <li>Gemini MAU 7.5億人到達、エコシステム急拡大</li>
-        <li>サービングコスト78%削減 — AIの収益化効率向上</li>
-        <li>有料サブスク3.25億人超、サブスク/デバイスセグメント+17%成長</li>
-        <li>Universal Commerce Protocol — エージェント型AIコマースの基盤構築</li>
-        <li>粗利益率改善トレンド（+1.9pp YoY）</li>
-      </ul>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-risk">
+<div class="section-title"><span class="section-icon">⚡</span> リスク・注目ポイント / カタリスト</div><div class="section-body">
+<div class="chart-row">
+<div>
+<h4 style="color:var(--red-light); margin-bottom:12px;">⚠️ リスク要因</h4>
+<ul class="risk-list">
+<li>2026年CapEx $175-185B（前年比約2倍）による短期的なFCFマージン圧迫</li>
+<li>YouTube広告がコンセンサス未達 — 広告市場の競争激化（TikTok、Meta Reels）</li>
+<li>Other Bets損失拡大（Waymo SBC $2.1B一時費用含む）</li>
+<li>テック企業への関税リスク・規制圧力（反トラスト訴訟進行中）</li>
+<li>AI投資のROI回収に対する市場の懸念</li>
+<li>Google Networkの継続的な減収トレンド（-2% YoY）</li>
+</ul>
 </div>
-
+<div>
+<h4 style="color:var(--green-light); margin-bottom:12px;">✦ ポジティブカタリスト</h4>
+<ul class="catalyst-list">
+<li>Google Cloud +48%の大幅成長持続、バックログ$240B（+55% QoQ）</li>
+<li>Gemini 3 Pro がText/Vision/Video LMArenaリーダーボードで首位</li>
+<li>Gemini MAU 7.5億人到達、エコシステム急拡大</li>
+<li>サービングコスト78%削減 — AIの収益化効率向上</li>
+<li>有料サブスク3.25億人超、サブスク/デバイスセグメント+17%成長</li>
+<li>Universal Commerce Protocol — エージェント型AIコマースの基盤構築</li>
+<li>粗利益率改善トレンド（+1.9pp YoY）</li>
+</ul>
+</div>
+</div>
+</div></div>
 <!-- 11. Previous Quarter Comparison -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
-  <div style="text-align:center; padding:20px;">
-    <p style="color:var(--text-sub);">前回決算（FY2025 Q3）のレポートが本システムに記録されていないため、主要指標の推移を記載します。</p>
-  </div>
-  <table class="data-table">
-    <tr>
-      <th>指標</th><th class="right">Q3 2025</th><th class="right">Q4 2025</th><th class="right">変化</th>
-    </tr>
-    <tr>
-      <td>売上高</td><td class="right">$102.3B</td><td class="right">$113.8B</td><td class="right positive">+11.2% QoQ ↑</td>
-    </tr>
-    <tr>
-      <td>売上YoY成長率</td><td class="right">+16%</td><td class="right">+18%</td><td class="right positive">加速 ↑</td>
-    </tr>
-    <tr>
-      <td>EPS</td><td class="right">$2.87</td><td class="right">$2.82</td><td class="right negative">-1.7% QoQ ↓</td>
-    </tr>
-    <tr>
-      <td>Gemini MAU</td><td class="right">6.5億人</td><td class="right">7.5億人</td><td class="right positive">+15.4% ↑</td>
-    </tr>
-  </table>
-  <div style="margin-top:12px; padding:12px; background:rgba(88,166,255,0.05); border-radius:8px; font-size:0.9em;">
-    <strong>トレンド:</strong> 売上成長は加速傾向（Q3 +16% → Q4 +18%）。Cloud成長率も前Q比で加速。
+<div class="section" data-accordion="" id="sec-compare">
+<div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div><div class="section-body">
+<div style="text-align:center; padding:20px;">
+<p style="color:var(--text-sub);">前回決算（FY2025 Q3）のレポートが本システムに記録されていないため、主要指標の推移を記載します。</p>
+</div>
+<table class="data-table">
+<tr>
+<th>指標</th><th class="right">Q3 2025</th><th class="right">Q4 2025</th><th class="right">変化</th>
+</tr>
+<tr>
+<td>売上高</td><td class="right">$102.3B</td><td class="right">$113.8B</td><td class="right positive">+11.2% QoQ ↑</td>
+</tr>
+<tr>
+<td>売上YoY成長率</td><td class="right">+16%</td><td class="right">+18%</td><td class="right positive">加速 ↑</td>
+</tr>
+<tr>
+<td>EPS</td><td class="right">$2.87</td><td class="right">$2.82</td><td class="right negative">-1.7% QoQ ↓</td>
+</tr>
+<tr>
+<td>Gemini MAU</td><td class="right">6.5億人</td><td class="right">7.5億人</td><td class="right positive">+15.4% ↑</td>
+</tr>
+</table>
+<div style="margin-top:12px; padding:12px; background:rgba(88,166,255,0.05); border-radius:8px; font-size:0.9em;">
+<strong>トレンド:</strong> 売上成長は加速傾向（Q3 +16% → Q4 +18%）。Cloud成長率も前Q比で加速。
     EPSはQ3の$2.87からQ4の$2.82へ微減だが、Waymo SBC一時費用$2.1Bの影響を考慮すれば実質的には堅調。
   </div>
-</div>
-
+</div></div>
 <!-- 12. Valuation -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div>
-  <div style="margin-bottom:16px; font-size:0.9em; color:var(--text-sub);">
+<div class="section" data-accordion="" id="sec-valuation">
+<div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div><div class="section-body">
+<div style="margin-bottom:16px; font-size:0.9em; color:var(--text-sub);">
     計算式: 想定株価 = Forward EPS × 予想PER ｜ FY2026 Forward EPS コンセンサス: $11.24 ｜ 現在株価: $308.70
   </div>
-  <div class="val-grid">
-    <div class="val-card low">
-      <div class="val-scenario" style="color:var(--green-light);">LOW（保守的）</div>
-      <div class="val-price">$247</div>
-      <div class="val-detail">EPS $11.24 × PER 22x</div>
-      <div class="val-detail">過去PER下限ベース</div>
-      <div class="val-gap negative">現在株価比 -20.0%</div>
-    </div>
-    <div class="val-card mid">
-      <div class="val-scenario" style="color:var(--blue);">MID（基本）</div>
-      <div class="val-price">$303</div>
-      <div class="val-detail">EPS $11.24 × PER 27x</div>
-      <div class="val-detail">過去PER中央値ベース</div>
-      <div class="val-gap neutral">現在株価比 -1.8%</div>
-    </div>
-    <div class="val-card high">
-      <div class="val-scenario" style="color:var(--purple);">HIGH（楽観的）</div>
-      <div class="val-price">$360</div>
-      <div class="val-detail">EPS $11.24 × PER 32x</div>
-      <div class="val-detail">過去PER上限ベース</div>
-      <div class="val-gap positive">現在株価比 +16.6%</div>
-    </div>
-  </div>
-  <div style="margin-top:20px; text-align:center;">
-    <div style="display:inline-block; padding:12px 28px; border-radius:10px; background:rgba(88,166,255,0.1); border:1px solid rgba(88,166,255,0.3);">
-      <span style="font-size:0.85em; color:var(--text-sub);">MID乖離率判定:</span>
-      <span style="font-size:1.2em; font-weight:700; color:var(--blue); margin-left:8px;">適正</span>
-      <span style="font-size:0.85em; color:var(--text-sub); margin-left:4px;">（-1.8%）</span>
-    </div>
-  </div>
-  <div style="margin-top:16px;">
-    <table class="data-table">
-      <tr><th>バリュエーション指標</th><th class="right">値</th></tr>
-      <tr><td>Trailing PER</td><td class="right">28.1x</td></tr>
-      <tr><td>Forward PER</td><td class="right">27.3x</td></tr>
-      <tr><td>PEG Ratio</td><td class="right">1.72x</td></tr>
-      <tr><td>P/S（TTM）</td><td class="right">9.32x</td></tr>
-      <tr><td>アナリスト平均目標株価</td><td class="right">$352 - $377</td></tr>
-      <tr><td>アナリスト評価</td><td class="right">Strong Buy（44名中 Buy以上 90%）</td></tr>
-    </table>
-  </div>
+<div class="val-grid">
+<div class="val-card low">
+<div class="val-scenario" style="color:var(--green-light);">LOW（保守的）</div>
+<div class="val-price">$247</div>
+<div class="val-detail">EPS $11.24 × PER 22x</div>
+<div class="val-detail">過去PER下限ベース</div>
+<div class="val-gap negative">現在株価比 -20.0%</div>
 </div>
-
+<div class="val-card mid">
+<div class="val-scenario" style="color:var(--blue);">MID（基本）</div>
+<div class="val-price">$303</div>
+<div class="val-detail">EPS $11.24 × PER 27x</div>
+<div class="val-detail">過去PER中央値ベース</div>
+<div class="val-gap neutral">現在株価比 -1.8%</div>
+</div>
+<div class="val-card high">
+<div class="val-scenario" style="color:var(--purple);">HIGH（楽観的）</div>
+<div class="val-price">$360</div>
+<div class="val-detail">EPS $11.24 × PER 32x</div>
+<div class="val-detail">過去PER上限ベース</div>
+<div class="val-gap positive">現在株価比 +16.6%</div>
+</div>
+</div>
+<div style="margin-top:20px; text-align:center;">
+<div style="display:inline-block; padding:12px 28px; border-radius:10px; background:rgba(88,166,255,0.1); border:1px solid rgba(88,166,255,0.3);">
+<span style="font-size:0.85em; color:var(--text-sub);">MID乖離率判定:</span>
+<span style="font-size:1.2em; font-weight:700; color:var(--blue); margin-left:8px;">適正</span>
+<span style="font-size:0.85em; color:var(--text-sub); margin-left:4px;">（-1.8%）</span>
+</div>
+</div>
+<div style="margin-top:16px;">
+<table class="data-table">
+<tr><th>バリュエーション指標</th><th class="right">値</th></tr>
+<tr><td>Trailing PER</td><td class="right">28.1x</td></tr>
+<tr><td>Forward PER</td><td class="right">27.3x</td></tr>
+<tr><td>PEG Ratio</td><td class="right">1.72x</td></tr>
+<tr><td>P/S（TTM）</td><td class="right">9.32x</td></tr>
+<tr><td>アナリスト平均目標株価</td><td class="right">$352 - $377</td></tr>
+<tr><td>アナリスト評価</td><td class="right">Strong Buy（44名中 Buy以上 90%）</td></tr>
+</table>
+</div>
+</div></div>
 </div><!-- /container -->
-
 <!-- Footer -->
 <div class="footer">
-  <p>本レポートは公開情報に基づく分析であり、投資助言ではありません。投資判断は自己責任でお願いします。</p>
-  <p style="margin-top:8px;">Generated by AI Earnings Analysis System ｜ 2026年3月12日</p>
+<p>本レポートは公開情報に基づく分析であり、投資助言ではありません。投資判断は自己責任でお願いします。</p>
+<p style="margin-top:8px;">Generated by AI Earnings Analysis System ｜ 2026年3月12日</p>
 </div>
-
 <!-- Charts -->
 <script>
 Chart.defaults.color = '#8b949e';
@@ -1191,8 +1200,80 @@ new Chart(document.getElementById('geoChart'), {
   }
 });
 </script>
-
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成</span></a></li>
+<li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏛️</span><span class="toc-label">企業概要・ビジネスモデル</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較サマリー</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3パターン）</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

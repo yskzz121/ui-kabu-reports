@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>IOT Samsara FY2026 Q4 決算分析</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
@@ -92,321 +93,338 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="image/png"/>
 </head>
 <body>
-
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/IOT.svg" alt="IOT"><div class="ticker-badge">NYSE: IOT</div></div>
-    <h1>Samsara Inc.</h1>
-    <div class="date">決算発表日: 2026年3月5日 ｜ 会計年度: 2月〜1月</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="IOT" class="report-header-logo" src="../logos/IOT.svg"/><div class="ticker-badge">NYSE: IOT</div></div>
+<h1>Samsara Inc.</h1>
+<div class="date">決算発表日: 2026年3月5日 ｜ 会計年度: 2月〜1月</div>
 </div>
-
+</div>
 <div class="overview">
-  <h2>🏢 企業概要</h2>
-  <p><strong>Samsara</strong>は2015年設立のIoT（Internet of Things）プラットフォーム企業。車両テレマティクス、ビデオベース安全管理、ルート最適化、機器モニタリング、コンプライアンス管理などを統合したConnected Operations Cloudを提供。運送、物流、建設、公共セクター、食品・飲料等の物理オペレーションを持つ企業のDXを支援。</p>
-  <p>G2フリートマネジメント部門で5四半期連続1位（顧客満足度スコア99/100）。$100K+ACV顧客3,194社、$1M+ACV顧客177社。CEO: Sanjit Biswas（共同創業者）。競合: Geotab、Verizon Connect、Trimble、Motive、Lytx。</p>
-  <div class="tags">
-    <span class="tag">SaaS / IoT</span>
-    <span class="tag">フリート管理</span>
-    <span class="tag">ビデオ安全</span>
-    <span class="tag">テレマティクス</span>
-    <span class="tag">AIエージェント</span>
-    <span class="tag">Connected Operations</span>
-  </div>
+<h2>🏢 企業概要</h2>
+<p><strong>Samsara</strong>は2015年設立のIoT（Internet of Things）プラットフォーム企業。車両テレマティクス、ビデオベース安全管理、ルート最適化、機器モニタリング、コンプライアンス管理などを統合したConnected Operations Cloudを提供。運送、物流、建設、公共セクター、食品・飲料等の物理オペレーションを持つ企業のDXを支援。</p>
+<p>G2フリートマネジメント部門で5四半期連続1位（顧客満足度スコア99/100）。$100K+ACV顧客3,194社、$1M+ACV顧客177社。CEO: Sanjit Biswas（共同創業者）。競合: Geotab、Verizon Connect、Trimble、Motive、Lytx。</p>
+<div class="tags">
+<span class="tag">SaaS / IoT</span>
+<span class="tag">フリート管理</span>
+<span class="tag">ビデオ安全</span>
+<span class="tag">テレマティクス</span>
+<span class="tag">AIエージェント</span>
+<span class="tag">Connected Operations</span>
 </div>
-
+</div>
 <!-- 総合評価 -->
 <div class="score-section">
-  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
-  <div class="score-label">良い決算</div>
-  <div class="score-desc">売上$444.3M（+28% YoY）・Non-GAAP EPS $0.18で共にコンセンサスを大幅ビート。トリプルビート（売上・EPS・ガイダンス全超）達成。Net New ARR $144.8M（+33% YoY）で3四半期連続加速。FY27ガイダンスEPS $0.65-0.69はコンセンサス$0.33を大幅超過。決算翌日に株価+19.8%（IPO以来最大）。Rule of 40 = 49と成長性・収益性を高水準で両立。</div>
+<div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
+<div class="score-label">良い決算</div>
+<div class="score-desc">売上$444.3M（+28% YoY）・Non-GAAP EPS $0.18で共にコンセンサスを大幅ビート。トリプルビート（売上・EPS・ガイダンス全超）達成。Net New ARR $144.8M（+33% YoY）で3四半期連続加速。FY27ガイダンスEPS $0.65-0.69はコンセンサス$0.33を大幅超過。決算翌日に株価+19.8%（IPO以来最大）。Rule of 40 = 49と成長性・収益性を高水準で両立。</div>
 </div>
-
 <!-- Key Metrics -->
 <div class="section">
-  <div class="section-title">📊 Key Metrics</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">売上高</div>
-      <div class="card-val neu">$444.3M</div>
-      <div class="card-sub"><span class="pos">+28.3% YoY</span> / <span class="pos">+6.8% QoQ</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Non-GAAP EPS</div>
-      <div class="card-val pos">$0.18</div>
-      <div class="card-sub"><span class="pos">+64% YoY</span> / コンセンサス$0.13を<span class="pos">38.5%ビート</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">売上ビート</div>
-      <div class="card-val pos">+$22.0M</div>
-      <div class="card-sub">コンセンサス$422.3M → 実績$444.3M（<span class="pos">+4.2%</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">GAAP EPS</div>
-      <div class="card-val pos">$0.04</div>
-      <div class="card-sub">2Q連続GAAP黒字達成</div>
-    </div>
-    <div class="card">
-      <div class="card-label">ARR</div>
-      <div class="card-val pos">$1.89B</div>
-      <div class="card-sub"><span class="pos">+30% YoY</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Net New ARR</div>
-      <div class="card-val pos">$144.8M</div>
-      <div class="card-sub"><span class="pos">+33% YoY</span>（3Q連続加速）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">Non-GAAP営業利益率</div>
-      <div class="card-val pos">21.0%</div>
-      <div class="card-sub"><span class="pos">+5pp YoY</span> / <span class="pos">+3pp QoQ</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">FCF</div>
-      <div class="card-val pos">$62.9M</div>
-      <div class="card-sub">FCFマージン 14%</div>
-    </div>
-  </div>
+<div class="section-title">📊 Key Metrics</div>
+<div class="grid">
+<div class="card">
+<div class="card-label">売上高</div>
+<div class="card-val neu">$444.3M</div>
+<div class="card-sub"><span class="pos">+28.3% YoY</span> / <span class="pos">+6.8% QoQ</span></div>
 </div>
-
+<div class="card">
+<div class="card-label">Non-GAAP EPS</div>
+<div class="card-val pos">$0.18</div>
+<div class="card-sub"><span class="pos">+64% YoY</span> / コンセンサス$0.13を<span class="pos">38.5%ビート</span></div>
+</div>
+<div class="card">
+<div class="card-label">売上ビート</div>
+<div class="card-val pos">+$22.0M</div>
+<div class="card-sub">コンセンサス$422.3M → 実績$444.3M（<span class="pos">+4.2%</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">GAAP EPS</div>
+<div class="card-val pos">$0.04</div>
+<div class="card-sub">2Q連続GAAP黒字達成</div>
+</div>
+<div class="card">
+<div class="card-label">ARR</div>
+<div class="card-val pos">$1.89B</div>
+<div class="card-sub"><span class="pos">+30% YoY</span></div>
+</div>
+<div class="card">
+<div class="card-label">Net New ARR</div>
+<div class="card-val pos">$144.8M</div>
+<div class="card-sub"><span class="pos">+33% YoY</span>（3Q連続加速）</div>
+</div>
+<div class="card">
+<div class="card-label">Non-GAAP営業利益率</div>
+<div class="card-val pos">21.0%</div>
+<div class="card-sub"><span class="pos">+5pp YoY</span> / <span class="pos">+3pp QoQ</span></div>
+</div>
+<div class="card">
+<div class="card-label">FCF</div>
+<div class="card-val pos">$62.9M</div>
+<div class="card-sub">FCFマージン 14%</div>
+</div>
+</div>
+</div>
 <!-- ガイダンス -->
-<div class="section">
-  <div class="section-title">🔮 ガイダンス vs コンセンサス</div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-label">FY2027 売上ガイダンス</div>
-      <div class="card-val pos">$1.97B</div>
-      <div class="card-sub">+22% YoY成長見通し</div>
-    </div>
-    <div class="card">
-      <div class="card-label">FY2027 Non-GAAP EPS ガイダンス</div>
-      <div class="card-val pos">$0.65 〜 $0.69</div>
-      <div class="card-sub">コンセンサス$0.33を<span class="pos">約2倍で大幅超過</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">次Q（FY2027 Q1）売上ガイダンス</div>
-      <div class="card-val neu">$455M</div>
-      <div class="card-sub">+24% YoY見通し</div>
-    </div>
-    <div class="card">
-      <div class="card-label">決算後株価反応</div>
-      <div class="card-val pos">+19.8%</div>
-      <div class="card-sub">IPO以来最大の上昇幅（3/6）</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-consensus">
+<div class="section-title">🔮 ガイダンス vs コンセンサス</div><div class="section-body">
+<div class="grid-2">
+<div class="card">
+<div class="card-label">FY2027 売上ガイダンス</div>
+<div class="card-val pos">$1.97B</div>
+<div class="card-sub">+22% YoY成長見通し</div>
 </div>
-
+<div class="card">
+<div class="card-label">FY2027 Non-GAAP EPS ガイダンス</div>
+<div class="card-val pos">$0.65 〜 $0.69</div>
+<div class="card-sub">コンセンサス$0.33を<span class="pos">約2倍で大幅超過</span></div>
+</div>
+<div class="card">
+<div class="card-label">次Q（FY2027 Q1）売上ガイダンス</div>
+<div class="card-val neu">$455M</div>
+<div class="card-sub">+24% YoY見通し</div>
+</div>
+<div class="card">
+<div class="card-label">決算後株価反応</div>
+<div class="card-val pos">+19.8%</div>
+<div class="card-sub">IPO以来最大の上昇幅（3/6）</div>
+</div>
+</div>
+</div></div>
 <!-- 売上高チャート -->
-<div class="section">
-  <div class="section-title">📈 売上高 7四半期推移</div>
-  <div class="chart-box">
-    <div class="chart-wrap"><canvas id="revChart"></canvas></div>
-  </div>
+<div class="section" data-accordion="" id="sec-revenue">
+<div class="section-title">📈 売上高 7四半期推移</div><div class="section-body">
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="revChart"></canvas></div>
 </div>
-
+</div></div>
 <!-- EPSチャート -->
 <div class="section">
-  <div class="section-title">📈 EPS 7四半期推移</div>
-  <div class="chart-box">
-    <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
-  </div>
+<div class="section-title">📈 EPS 7四半期推移</div>
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="epsChart"></canvas></div>
 </div>
-
+</div>
 <!-- 利益率トレンド -->
-<div class="section">
-  <div class="section-title">📊 利益率トレンド</div>
-  <div class="chart-box">
-    <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
-  </div>
+<div class="section" data-accordion="" id="sec-margin">
+<div class="section-title">📊 利益率トレンド</div><div class="section-body">
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="marginChart"></canvas></div>
 </div>
-
+</div></div>
 <!-- キャッシュフロー -->
-<div class="section">
-  <div class="section-title">💰 キャッシュフロー</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">FCF（Q4）</div>
-      <div class="card-val pos">$62.9M</div>
-      <div class="card-sub">FCFマージン 14%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">FCF（FY2026通期）</div>
-      <div class="card-val pos">$208.7M</div>
-      <div class="card-sub">FCFマージン 13%（<span class="pos">+4pp YoY</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">FCF YoY成長</div>
-      <div class="card-val pos">+87%</div>
-      <div class="card-sub">FY2025 $111.6M → FY2026 $208.7M</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-cashflow">
+<div class="section-title">💰 キャッシュフロー</div><div class="section-body">
+<div class="grid">
+<div class="card">
+<div class="card-label">FCF（Q4）</div>
+<div class="card-val pos">$62.9M</div>
+<div class="card-sub">FCFマージン 14%</div>
 </div>
-
+<div class="card">
+<div class="card-label">FCF（FY2026通期）</div>
+<div class="card-val pos">$208.7M</div>
+<div class="card-sub">FCFマージン 13%（<span class="pos">+4pp YoY</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">FCF YoY成長</div>
+<div class="card-val pos">+87%</div>
+<div class="card-sub">FY2025 $111.6M → FY2026 $208.7M</div>
+</div>
+</div>
+</div></div>
 <!-- セグメント分析 -->
-<div class="section">
-  <div class="section-title">🏢 事業セグメント</div>
-  <div class="insight">
-    <strong>統合プラットフォーム型:</strong> Samsaraは単一のConnected Operations Cloudとして全製品を提供。部門別売上ではなく、製品浸透度で事業拡大を測定。$100K+顧客の<strong>96%が2製品以上</strong>、<strong>69%が3製品以上</strong>を利用。マルチプロダクト浸透率95%。
+<div class="section" data-accordion="" id="sec-segment">
+<div class="section-title">🏢 事業セグメント</div><div class="section-body">
+<div class="insight">
+<strong>統合プラットフォーム型:</strong> Samsaraは単一のConnected Operations Cloudとして全製品を提供。部門別売上ではなく、製品浸透度で事業拡大を測定。$100K+顧客の<strong>96%が2製品以上</strong>、<strong>69%が3製品以上</strong>を利用。マルチプロダクト浸透率95%。
   </div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">$100K+ ACV顧客</div>
-      <div class="card-val pos">3,194社</div>
-      <div class="card-sub"><span class="pos">+37% YoY</span> / Q4純増+204社</div>
-    </div>
-    <div class="card">
-      <div class="card-label">$1M+ ACV顧客</div>
-      <div class="card-val pos">177社</div>
-      <div class="card-sub">ARR <span class="pos">+56% YoY</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">エマージングプロダクト比率</div>
-      <div class="card-val pos">23%</div>
-      <div class="card-sub">Q2の8% → Q3の20% → Q4の23%に急拡大</div>
-    </div>
-    <div class="card">
-      <div class="card-label">エマージングプロダクト ARR</div>
-      <div class="card-val pos">$100M+</div>
-      <div class="card-sub">Asset Tags ARR <span class="pos">+400% YoY</span></div>
-    </div>
-  </div>
+<div class="grid">
+<div class="card">
+<div class="card-label">$100K+ ACV顧客</div>
+<div class="card-val pos">3,194社</div>
+<div class="card-sub"><span class="pos">+37% YoY</span> / Q4純増+204社</div>
 </div>
-
+<div class="card">
+<div class="card-label">$1M+ ACV顧客</div>
+<div class="card-val pos">177社</div>
+<div class="card-sub">ARR <span class="pos">+56% YoY</span></div>
+</div>
+<div class="card">
+<div class="card-label">エマージングプロダクト比率</div>
+<div class="card-val pos">23%</div>
+<div class="card-sub">Q2の8% → Q3の20% → Q4の23%に急拡大</div>
+</div>
+<div class="card">
+<div class="card-label">エマージングプロダクト ARR</div>
+<div class="card-val pos">$100M+</div>
+<div class="card-sub">Asset Tags ARR <span class="pos">+400% YoY</span></div>
+</div>
+</div>
+</div></div>
 <!-- 地域別 -->
-<div class="section">
-  <div class="section-title">🌍 地域別売上構成</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">米国</div>
-      <div class="card-val neu">~84%</div>
-      <div class="card-sub">主力市場。大企業・公共セクター中心</div>
-    </div>
-    <div class="card">
-      <div class="card-label">欧州・国際</div>
-      <div class="card-val neu">~16%</div>
-      <div class="card-sub">拡大中。国際展開は成長ドライバー</div>
-    </div>
-    <div class="card">
-      <div class="card-label">公共セクター ARR</div>
-      <div class="card-val pos">$100M+</div>
-      <div class="card-sub">マイルストーン突破</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-geo">
+<div class="section-title">🌍 地域別売上構成</div><div class="section-body">
+<div class="grid">
+<div class="card">
+<div class="card-label">米国</div>
+<div class="card-val neu">~84%</div>
+<div class="card-sub">主力市場。大企業・公共セクター中心</div>
 </div>
-
+<div class="card">
+<div class="card-label">欧州・国際</div>
+<div class="card-val neu">~16%</div>
+<div class="card-sub">拡大中。国際展開は成長ドライバー</div>
+</div>
+<div class="card">
+<div class="card-label">公共セクター ARR</div>
+<div class="card-val pos">$100M+</div>
+<div class="card-sub">マイルストーン突破</div>
+</div>
+</div>
+</div></div>
 <!-- SaaS KPI -->
-<div class="section">
-  <div class="section-title">📐 SaaS KPI</div>
-  <div class="saas-grid">
-    <div class="card">
-      <div class="card-label">Rule of 40</div>
-      <div class="card-val pos">49%</div>
-      <div class="card-sub">売上成長28% + Non-GAAP OP 21%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">NRR（ドルベース）</div>
-      <div class="card-val pos">~115%</div>
-      <div class="card-sub">$10K+/$25K+顧客ベース</div>
-    </div>
-    <div class="card">
-      <div class="card-label">ARR</div>
-      <div class="card-val pos">$1.89B</div>
-      <div class="card-sub"><span class="pos">+30% YoY</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Net New ARR</div>
-      <div class="card-val pos">$144.8M</div>
-      <div class="card-sub"><span class="pos">+33% YoY</span>（3Q連続加速）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">マルチプロダクト率</div>
-      <div class="card-val pos">95%</div>
-      <div class="card-sub">2製品以上利用（$100K+顧客は96%）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">従業員あたりARR</div>
-      <div class="card-val pos">+30%</div>
-      <div class="card-sub">3年間で30%向上（効率性改善）</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-saas">
+<div class="section-title">📐 SaaS KPI</div><div class="section-body">
+<div class="saas-grid">
+<div class="card">
+<div class="card-label">Rule of 40</div>
+<div class="card-val pos">49%</div>
+<div class="card-sub">売上成長28% + Non-GAAP OP 21%</div>
 </div>
-
+<div class="card">
+<div class="card-label">NRR（ドルベース）</div>
+<div class="card-val pos">~115%</div>
+<div class="card-sub">$10K+/$25K+顧客ベース</div>
+</div>
+<div class="card">
+<div class="card-label">ARR</div>
+<div class="card-val pos">$1.89B</div>
+<div class="card-sub"><span class="pos">+30% YoY</span></div>
+</div>
+<div class="card">
+<div class="card-label">Net New ARR</div>
+<div class="card-val pos">$144.8M</div>
+<div class="card-sub"><span class="pos">+33% YoY</span>（3Q連続加速）</div>
+</div>
+<div class="card">
+<div class="card-label">マルチプロダクト率</div>
+<div class="card-val pos">95%</div>
+<div class="card-sub">2製品以上利用（$100K+顧客は96%）</div>
+</div>
+<div class="card">
+<div class="card-label">従業員あたりARR</div>
+<div class="card-val pos">+30%</div>
+<div class="card-sub">3年間で30%向上（効率性改善）</div>
+</div>
+</div>
+</div></div>
 <!-- 経営陣コメント -->
-<div class="section">
-  <div class="section-title">🎙️ 経営陣コメント・ハイライト</div>
-  <div class="insight">
-    <strong>CEO Sanjit Biswas:</strong>「FY2026は大規模でありながら持続的かつ効率的な成長を実現した傑出した年。インサイトに基づいて人間が行動するモデルから、AIエージェントによる自動化されたアウトカムへの転換を進めている」
+<div class="section" data-accordion="" id="sec-mgmt">
+<div class="section-title">🎙️ 経営陣コメント・ハイライト</div><div class="section-body">
+<div class="insight">
+<strong>CEO Sanjit Biswas:</strong>「FY2026は大規模でありながら持続的かつ効率的な成長を実現した傑出した年。インサイトに基づいて人間が行動するモデルから、AIエージェントによる自動化されたアウトカムへの転換を進めている」
   </div>
-  <div class="insight">
-    <strong>CEO（AIエージェント戦略）:</strong>「Safety Coach AIエージェントを2026年夏にローンチ予定。メンテナンス、コンプライアンス、ディスパッチ関連のAIエージェントも順次展開する。蓄積データが時間とともに価値を増す — 例えば2020年型Freightlinerの故障パターンを数万台分析することで予測精度が向上する」
+<div class="insight">
+<strong>CEO（AIエージェント戦略）:</strong>「Safety Coach AIエージェントを2026年夏にローンチ予定。メンテナンス、コンプライアンス、ディスパッチ関連のAIエージェントも順次展開する。蓄積データが時間とともに価値を増す — 例えば2020年型Freightlinerの故障パターンを数万台分析することで予測精度が向上する」
   </div>
-  <div class="insight">
-    <strong>CEO（大企業顧客）:</strong>「大規模顧客は最も複雑なオペレーションを持ち、新技術の吸収力が高い。数千〜数万人の現場作業員を抱える企業で特に強いモメンタムがある。Q4にNet New ACV取引で過去最高の131件（$1M+）を記録」
+<div class="insight">
+<strong>CEO（大企業顧客）:</strong>「大規模顧客は最も複雑なオペレーションを持ち、新技術の吸収力が高い。数千〜数万人の現場作業員を抱える企業で特に強いモメンタムがある。Q4にNet New ACV取引で過去最高の131件（$1M+）を記録」
   </div>
-  <div class="insight">
-    <strong>CFO Dominic Phillips:</strong>「3四半期連続でNet New ARR成長が加速。従業員あたりARRは3年間で30%向上。SBCは売上比20%で、FY27には20%以下へ低下見込み。NANDメモリ価格上昇はガイダンスに織り込み済み」
+<div class="insight">
+<strong>CFO Dominic Phillips:</strong>「3四半期連続でNet New ARR成長が加速。従業員あたりARRは3年間で30%向上。SBCは売上比20%で、FY27には20%以下へ低下見込み。NANDメモリ価格上昇はガイダンスに織り込み済み」
   </div>
-</div>
-
+</div></div>
 <!-- テクニカル分析 -->
-<div class="section">
-  <div class="section-title">📉 株価・テクニカル</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">現在株価</div>
-      <div class="card-val neu">$31.75</div>
-      <div class="card-sub">2026年3月11日時点</div>
-    </div>
-    <div class="card">
-      <div class="card-label">52週レンジ</div>
-      <div class="card-val neu">$23.38 — $48.41</div>
-      <div class="card-sub">52週高値から-34%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">時価総額</div>
-      <div class="card-val neu">$18.3B</div>
-    </div>
-    <div class="card">
-      <div class="card-label">RSI</div>
-      <div class="card-val neu">55.7</div>
-      <div class="card-sub">中立ゾーン</div>
-    </div>
-    <div class="card">
-      <div class="card-label">50日移動平均</div>
-      <div class="card-val neg">$34.45</div>
-      <div class="card-sub">株価は下回っている</div>
-    </div>
-    <div class="card">
-      <div class="card-label">200日移動平均</div>
-      <div class="card-val neu">~$29.29</div>
-      <div class="card-sub">株価は上回っている</div>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-technical">
+<div class="section-title">📉 株価・テクニカル</div><div class="section-body">
+<div class="grid">
+<div class="card">
+<div class="card-label">現在株価</div>
+<div class="card-val neu">$31.75</div>
+<div class="card-sub">2026年3月11日時点</div>
 </div>
-
+<div class="card">
+<div class="card-label">52週レンジ</div>
+<div class="card-val neu">$23.38 — $48.41</div>
+<div class="card-sub">52週高値から-34%</div>
+</div>
+<div class="card">
+<div class="card-label">時価総額</div>
+<div class="card-val neu">$18.3B</div>
+</div>
+<div class="card">
+<div class="card-label">RSI</div>
+<div class="card-val neu">55.7</div>
+<div class="card-sub">中立ゾーン</div>
+</div>
+<div class="card">
+<div class="card-label">50日移動平均</div>
+<div class="card-val neg">$34.45</div>
+<div class="card-sub">株価は下回っている</div>
+</div>
+<div class="card">
+<div class="card-label">200日移動平均</div>
+<div class="card-val neu">~$29.29</div>
+<div class="card-sub">株価は上回っている</div>
+</div>
+</div>
+</div></div>
 <!-- TradingViewチャート -->
 <div class="section">
-  <div class="section-title">📊 株価チャート（TradingView）</div>
-  <div class="chart-box" style="padding:16px">
-    <div class="tradingview-widget-container">
-      <div id="tradingview_chart"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+<div class="section-title">📊 株価チャート（TradingView）</div>
+<div class="chart-box" style="padding:16px">
+<div class="tradingview-widget-container">
+<div id="tradingview_chart"></div>
+<script async="" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" type="text/javascript">
       {
         "autosize": false,
         "width": 1100,
@@ -437,135 +455,128 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);
         "range": "6M"
       }
       </script>
-    </div>
-  </div>
 </div>
-
+</div>
+</div>
 <!-- インサイダー動向 -->
 <div class="section">
-  <div class="section-title">👤 インサイダー動向</div>
-  <table class="tbl">
-    <thead><tr><th>日付</th><th>人物</th><th>取引</th><th>金額</th></tr></thead>
-    <tbody>
-      <tr><td>2026/3/5</td><td>Dominic Phillips（CFO）</td><td>17,808株 売却</td><td>~$53.4万</td></tr>
-      <tr><td>2026/2/20</td><td>Adam Eltoukhy（CLO）</td><td>4,688株 売却</td><td>~$12.6万</td></tr>
-      <tr><td>2026/2/17</td><td>John Bicket（取締役）</td><td>268,200株 売却</td><td>~$680万</td></tr>
-    </tbody>
-  </table>
-  <div class="insight" style="margin-top:14px">
+<div class="section-title">👤 インサイダー動向</div>
+<table class="tbl">
+<thead><tr><th>日付</th><th>人物</th><th>取引</th><th>金額</th></tr></thead>
+<tbody>
+<tr><td>2026/3/5</td><td>Dominic Phillips（CFO）</td><td>17,808株 売却</td><td>~$53.4万</td></tr>
+<tr><td>2026/2/20</td><td>Adam Eltoukhy（CLO）</td><td>4,688株 売却</td><td>~$12.6万</td></tr>
+<tr><td>2026/2/17</td><td>John Bicket（取締役）</td><td>268,200株 売却</td><td>~$680万</td></tr>
+</tbody>
+</table>
+<div class="insight" style="margin-top:14px">
     内部者は売却が中心だが、ストックオプション行使に伴う定期的な売却（10b5-1プラン）の可能性が高い。自社株買いプログラムの発表はなし。
   </div>
 </div>
-
 <!-- リスク・カタリスト -->
-<div class="section">
-  <div class="section-title">⚖️ リスク・注目ポイント / カタリスト</div>
-  <div class="risk-grid">
-    <div class="risk-card bull">
-      <h3>🟢 ポジティブ・カタリスト</h3>
-      <ul>
-        <li>AIエージェント戦略（Safety Coach 2026年夏ローンチ、メンテナンス・コンプライアンス等の追加エージェント計画）</li>
-        <li>Net New ARR成長が3四半期連続加速（+33% YoY）、大企業セグメント堅調</li>
-        <li>エマージングプロダクト比率がQ2の8%→Q4の23%に急拡大、ARR $100M超</li>
-        <li>Asset Tags ARR +400% YoY — 新しい成長ドライバーの確立</li>
-        <li>$1M+ ACV顧客のARR +56% YoYで大型案件のモメンタム加速</li>
-        <li>公共セクターARR $100M突破 — 官公庁市場の拡大</li>
-        <li>商用車テレマティクス市場 CAGR 13.4%（2026年$79B → 2033年$191B）</li>
-        <li>FCFマージン改善トレンド（+4pp YoY）、GAAP黒字化定着の兆し</li>
-      </ul>
-    </div>
-    <div class="risk-card bear">
-      <h3>🔴 リスク・注目ポイント</h3>
-      <ul>
-        <li>売上成長率は順次鈍化トレンド（37% → 33% → 31% → 30% → 29% → 28%）</li>
-        <li>NANDメモリ価格上昇がハードウェアコストに影響（ガイダンスには織り込み済み）</li>
-        <li>インサイダーの売却が継続（取締役$680万の大口売却あり）</li>
-        <li>米国依存度が高い（~84%）、国際展開の成否がカギ</li>
-        <li>SBC/売上比率が20%とまだ高水準（希薄化リスク）</li>
-        <li>競合Motiveの追い上げ（G2スコア95で2位）</li>
-        <li>マクロ環境の不透明さ（景気後退時のIT投資削減リスク）</li>
-        <li>52週高値$48.41から-34%の水準 — 市場全体の調整の影響</li>
-      </ul>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-risk">
+<div class="section-title">⚖️ リスク・注目ポイント / カタリスト</div><div class="section-body">
+<div class="risk-grid">
+<div class="risk-card bull">
+<h3>🟢 ポジティブ・カタリスト</h3>
+<ul>
+<li>AIエージェント戦略（Safety Coach 2026年夏ローンチ、メンテナンス・コンプライアンス等の追加エージェント計画）</li>
+<li>Net New ARR成長が3四半期連続加速（+33% YoY）、大企業セグメント堅調</li>
+<li>エマージングプロダクト比率がQ2の8%→Q4の23%に急拡大、ARR $100M超</li>
+<li>Asset Tags ARR +400% YoY — 新しい成長ドライバーの確立</li>
+<li>$1M+ ACV顧客のARR +56% YoYで大型案件のモメンタム加速</li>
+<li>公共セクターARR $100M突破 — 官公庁市場の拡大</li>
+<li>商用車テレマティクス市場 CAGR 13.4%（2026年$79B → 2033年$191B）</li>
+<li>FCFマージン改善トレンド（+4pp YoY）、GAAP黒字化定着の兆し</li>
+</ul>
 </div>
-
+<div class="risk-card bear">
+<h3>🔴 リスク・注目ポイント</h3>
+<ul>
+<li>売上成長率は順次鈍化トレンド（37% → 33% → 31% → 30% → 29% → 28%）</li>
+<li>NANDメモリ価格上昇がハードウェアコストに影響（ガイダンスには織り込み済み）</li>
+<li>インサイダーの売却が継続（取締役$680万の大口売却あり）</li>
+<li>米国依存度が高い（~84%）、国際展開の成否がカギ</li>
+<li>SBC/売上比率が20%とまだ高水準（希薄化リスク）</li>
+<li>競合Motiveの追い上げ（G2スコア95で2位）</li>
+<li>マクロ環境の不透明さ（景気後退時のIT投資削減リスク）</li>
+<li>52週高値$48.41から-34%の水準 — 市場全体の調整の影響</li>
+</ul>
+</div>
+</div>
+</div></div>
 <!-- 前回決算との比較 -->
-<div class="section">
-  <div class="section-title">🔄 前回決算（FY2026 Q3）との比較</div>
-  <table class="tbl">
-    <thead><tr><th>指標</th><th>Q3 FY2026</th><th>Q4 FY2026</th><th>変化</th></tr></thead>
-    <tbody>
-      <tr><td>売上高</td><td>$416.0M</td><td>$444.3M</td><td class="pos">+6.8% QoQ</td></tr>
-      <tr><td>GAAP営業利益</td><td>-$1.72M</td><td>$9.02M</td><td class="pos">黒字転換強化</td></tr>
-      <tr><td>Non-GAAP営業利益率</td><td>18%</td><td>21%</td><td class="pos">+3pp</td></tr>
-      <tr><td>GAAP EPS</td><td>$0.01</td><td>$0.04</td><td class="pos">+$0.03</td></tr>
-      <tr><td>Non-GAAP EPS</td><td>$0.15~0.16</td><td>$0.18</td><td class="pos">+$0.02~0.03</td></tr>
-      <tr><td>Net New ARR</td><td>—</td><td>$144.8M (+33% YoY)</td><td class="pos">3Q連続加速</td></tr>
-      <tr><td>エマージングプロダクト比率</td><td>20%</td><td>23%</td><td class="pos">+3pp</td></tr>
-    </tbody>
-  </table>
-  <div class="insight" style="margin-top:14px">
-    <strong>トレンド方向: 改善 ↑</strong> — Q3からQ4にかけて全指標が改善。特にGAAP営業利益が赤字→黒字に転換し、Non-GAAP営業利益率は21%まで拡大。Net New ARR成長の加速とエマージングプロダクトの拡大が印象的。FY27ガイダンスでは通期EPSがコンセンサスの約2倍を提示し、収益性の急速な改善を示唆。
+<div class="section" data-accordion="" id="sec-compare">
+<div class="section-title">🔄 前回決算（FY2026 Q3）との比較</div><div class="section-body">
+<table class="tbl">
+<thead><tr><th>指標</th><th>Q3 FY2026</th><th>Q4 FY2026</th><th>変化</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$416.0M</td><td>$444.3M</td><td class="pos">+6.8% QoQ</td></tr>
+<tr><td>GAAP営業利益</td><td>-$1.72M</td><td>$9.02M</td><td class="pos">黒字転換強化</td></tr>
+<tr><td>Non-GAAP営業利益率</td><td>18%</td><td>21%</td><td class="pos">+3pp</td></tr>
+<tr><td>GAAP EPS</td><td>$0.01</td><td>$0.04</td><td class="pos">+$0.03</td></tr>
+<tr><td>Non-GAAP EPS</td><td>$0.15~0.16</td><td>$0.18</td><td class="pos">+$0.02~0.03</td></tr>
+<tr><td>Net New ARR</td><td>—</td><td>$144.8M (+33% YoY)</td><td class="pos">3Q連続加速</td></tr>
+<tr><td>エマージングプロダクト比率</td><td>20%</td><td>23%</td><td class="pos">+3pp</td></tr>
+</tbody>
+</table>
+<div class="insight" style="margin-top:14px">
+<strong>トレンド方向: 改善 ↑</strong> — Q3からQ4にかけて全指標が改善。特にGAAP営業利益が赤字→黒字に転換し、Non-GAAP営業利益率は21%まで拡大。Net New ARR成長の加速とエマージングプロダクトの拡大が印象的。FY27ガイダンスでは通期EPSがコンセンサスの約2倍を提示し、収益性の急速な改善を示唆。
   </div>
-</div>
-
+</div></div>
 <!-- バリュエーション -->
-<div class="section">
-  <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
-  <div class="val-grid">
-    <div class="val-card low">
-      <div class="scenario">LOW（保守的）</div>
-      <div class="price">$32.50</div>
-      <div class="detail">FY27 EPS $0.65（ガイダンスLow端）<br>× PER 50x（下限）</div>
-      <div class="gap pos">現在株価比 +2.4%</div>
-    </div>
-    <div class="val-card mid">
-      <div class="scenario">MID（基本）</div>
-      <div class="price">$46.90</div>
-      <div class="detail">FY27 EPS $0.67（コンセンサス）<br>× PER 70x（中央値）</div>
-      <div class="gap pos">現在株価比 +47.7%</div>
-    </div>
-    <div class="val-card high">
-      <div class="scenario">HIGH（楽観的）</div>
-      <div class="price">$69.00</div>
-      <div class="detail">FY27 EPS $0.69（ガイダンスHigh端）<br>× PER 100x（上限）</div>
-      <div class="gap pos">現在株価比 +117.3%</div>
-    </div>
-  </div>
-  <div class="insight" style="margin-top:16px">
-    <strong>判定: 割安</strong> — MID想定株価$46.90 vs 現在株価$31.75（乖離率<span class="pos">+47.7%</span>）。FY27ガイダンスEPSがコンセンサスを大幅に上回ったことで、従来の市場予想対比で大きな上振れ余地。アナリスト平均目標株価$41〜$49も現在株価を30〜50%上回る水準。ただし高PER銘柄のため金利・マクロ環境の変動には注意。
-  </div>
+<div class="section" data-accordion="" id="sec-valuation">
+<div class="section-title">💎 バリュエーション（想定株価 3パターン）</div><div class="section-body">
+<div class="val-grid">
+<div class="val-card low">
+<div class="scenario">LOW（保守的）</div>
+<div class="price">$32.50</div>
+<div class="detail">FY27 EPS $0.65（ガイダンスLow端）<br/>× PER 50x（下限）</div>
+<div class="gap pos">現在株価比 +2.4%</div>
 </div>
-
+<div class="val-card mid">
+<div class="scenario">MID（基本）</div>
+<div class="price">$46.90</div>
+<div class="detail">FY27 EPS $0.67（コンセンサス）<br/>× PER 70x（中央値）</div>
+<div class="gap pos">現在株価比 +47.7%</div>
+</div>
+<div class="val-card high">
+<div class="scenario">HIGH（楽観的）</div>
+<div class="price">$69.00</div>
+<div class="detail">FY27 EPS $0.69（ガイダンスHigh端）<br/>× PER 100x（上限）</div>
+<div class="gap pos">現在株価比 +117.3%</div>
+</div>
+</div>
+<div class="insight" style="margin-top:16px">
+<strong>判定: 割安</strong> — MID想定株価$46.90 vs 現在株価$31.75（乖離率<span class="pos">+47.7%</span>）。FY27ガイダンスEPSがコンセンサスを大幅に上回ったことで、従来の市場予想対比で大きな上振れ余地。アナリスト平均目標株価$41〜$49も現在株価を30〜50%上回る水準。ただし高PER銘柄のため金利・マクロ環境の変動には注意。
+  </div>
+</div></div>
 <!-- アナリスト評価 -->
 <div class="section">
-  <div class="section-title">🏦 アナリスト評価</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">コンセンサス</div>
-      <div class="card-val pos">Strong Buy</div>
-      <div class="card-sub">Buy 13〜18 / Hold 3〜5 / Sell 0</div>
-    </div>
-    <div class="card">
-      <div class="card-label">平均目標株価</div>
-      <div class="card-val pos">$41 〜 $49</div>
-      <div class="card-sub">現在株価から<span class="pos">+30%〜+53%</span>の上昇余地</div>
-    </div>
-    <div class="card">
-      <div class="card-label">目標株価レンジ</div>
-      <div class="card-val neu">$30 — $60</div>
-      <div class="card-sub">最安$30〜$37 / 最高$55〜$60</div>
-    </div>
-  </div>
+<div class="section-title">🏦 アナリスト評価</div>
+<div class="grid">
+<div class="card">
+<div class="card-label">コンセンサス</div>
+<div class="card-val pos">Strong Buy</div>
+<div class="card-sub">Buy 13〜18 / Hold 3〜5 / Sell 0</div>
 </div>
-
+<div class="card">
+<div class="card-label">平均目標株価</div>
+<div class="card-val pos">$41 〜 $49</div>
+<div class="card-sub">現在株価から<span class="pos">+30%〜+53%</span>の上昇余地</div>
+</div>
+<div class="card">
+<div class="card-label">目標株価レンジ</div>
+<div class="card-val neu">$30 — $60</div>
+<div class="card-sub">最安$30〜$37 / 最高$55〜$60</div>
+</div>
+</div>
+</div>
 <div class="footer">
-  本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。<br>
-  投資判断はご自身の責任で行ってください。<br>
+  本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。<br/>
+  投資判断はご自身の責任で行ってください。<br/>
   Samsara Inc. (IOT) FY2026 Q4 決算分析 ｜ 生成日: 2026年3月12日
 </div>
-
 <script>
 const chartFont={family:'Noto Sans JP',size:12};
 Chart.defaults.color='#8b949e';Chart.defaults.font=chartFont;
@@ -614,8 +625,80 @@ new Chart(document.getElementById('marginChart'),{
   options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y+'%'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}
 });
 </script>
-
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">ガイダンス vs コンセンサス</span></a></li>
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">事業セグメント</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成</span></a></li>
+<li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">☁️</span><span class="toc-label">SaaS KPI</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメント・ハイライト</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">株価・テクニカル</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算（FY2026 Q3）との比較</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3パターン）</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

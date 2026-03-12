@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>ALAB Astera Labs FY2025 Q4 決算分析</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0d1117;--bg-card:#161b22;--bg-card-alt:#1c2333;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--text3:#6e7681;--green:#2ea043;--green-l:#3fb950;--green-bg:rgba(46,160,67,.15);--red:#f85149;--red-l:#ff7b72;--red-bg:rgba(248,81,73,.15);--blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
@@ -103,218 +104,239 @@ px}
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="image/png"/>
 </head>
 <body>
-
 <!-- ===== HEADER ===== -->
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/ALAB.svg" alt="ALAB"><div class="ticker-badge">NASDAQ: ALAB</div></div>
-    <h1>Astera Labs, Inc.</h1>
-    <div class="date">決算発表日: 2026年2月10日 ｜ 会計年度末: 1月末</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="ALAB" class="report-header-logo" src="../logos/ALAB.svg"/><div class="ticker-badge">NASDAQ: ALAB</div></div>
+<h1>Astera Labs, Inc.</h1>
+<div class="date">決算発表日: 2026年2月10日 ｜ 会計年度末: 1月末</div>
 </div>
-
+</div>
 <!-- ===== 企業概要 ===== -->
 <div class="overview">
-  <h2>🏢 企業概要</h2>
-  <p><strong>Astera Labs（ALAB）</strong>は2017年設立、カリフォルニア州サンノゼに本社を置くファブレス半導体企業。AIデータセンター・クラウドインフラ向けのインテリジェント・コネクティビティ半導体を設計・販売する。PCIe/CXLスマートリタイマー、イーサネットスマートケーブルモジュール、スマートファブリックスイッチなど、GPU/AIアクセラレータ間の高速接続ソリューションを提供。</p>
-  <p>2024年3月にNASDAQ上場。主要顧客はGoogle、AWS、Microsoft、Meta等のハイパースケーラー。CEO: Jitendra Mohan（共同創業者）、従業員数約756名。COSMOSソフトウェアプラットフォームによるリアルタイム接続管理も提供。</p>
-  <div class="tags">
-    <span class="tag">ファブレス半導体</span>
-    <span class="tag">AIインフラ</span>
-    <span class="tag">PCIe / CXL</span>
-    <span class="tag">スマートファブリックスイッチ</span>
-    <span class="tag">データセンター接続</span>
-    <span class="tag">NVLink Fusion</span>
-    <span class="tag">UALink</span>
-  </div>
+<h2>🏢 企業概要</h2>
+<p><strong>Astera Labs（ALAB）</strong>は2017年設立、カリフォルニア州サンノゼに本社を置くファブレス半導体企業。AIデータセンター・クラウドインフラ向けのインテリジェント・コネクティビティ半導体を設計・販売する。PCIe/CXLスマートリタイマー、イーサネットスマートケーブルモジュール、スマートファブリックスイッチなど、GPU/AIアクセラレータ間の高速接続ソリューションを提供。</p>
+<p>2024年3月にNASDAQ上場。主要顧客はGoogle、AWS、Microsoft、Meta等のハイパースケーラー。CEO: Jitendra Mohan（共同創業者）、従業員数約756名。COSMOSソフトウェアプラットフォームによるリアルタイム接続管理も提供。</p>
+<div class="tags">
+<span class="tag">ファブレス半導体</span>
+<span class="tag">AIインフラ</span>
+<span class="tag">PCIe / CXL</span>
+<span class="tag">スマートファブリックスイッチ</span>
+<span class="tag">データセンター接続</span>
+<span class="tag">NVLink Fusion</span>
+<span class="tag">UALink</span>
 </div>
-
+</div>
 <!-- ===== 総合評価 ===== -->
 <div class="score-section">
-  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
-  <div class="score-label">良い決算</div>
-  <div class="score-desc">売上高$270.6M（+92% YoY）・Non-GAAP EPS $0.58（コンセンサス+35%ビート）と大幅な上振れ。Q1 FY26ガイダンスもNon-GAAP EPS $0.53〜$0.54とコンセンサス$0.43を大幅に上回る。8四半期連続ビート継続。一方、粗利益率がQoQで若干圧縮（76.25%→75.57%）、CFO Mike Tate退任発表が株価の重しに。</div>
+<div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
+<div class="score-label">良い決算</div>
+<div class="score-desc">売上高$270.6M（+92% YoY）・Non-GAAP EPS $0.58（コンセンサス+35%ビート）と大幅な上振れ。Q1 FY26ガイダンスもNon-GAAP EPS $0.53〜$0.54とコンセンサス$0.43を大幅に上回る。8四半期連続ビート継続。一方、粗利益率がQoQで若干圧縮（76.25%→75.57%）、CFO Mike Tate退任発表が株価の重しに。</div>
 </div>
-
 <!-- ===== Key Metrics ===== -->
 <div class="section">
-  <div class="section-title">📊 Key Metrics</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">売上高</div>
-      <div class="card-val">$270.6M</div>
-      <div class="card-sub">YoY <span class="pos">+92.0%</span> ｜ QoQ <span class="pos">+17.4%</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Non-GAAP EPS</div>
-      <div class="card-val pos">$0.58</div>
-      <div class="card-sub">YoY <span class="pos">+56.8%</span>（GAAP: $0.25）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">売上ビート</div>
-      <div class="card-val pos">+$20.9M</div>
-      <div class="card-sub">コンセンサス $249.6M（<span class="pos">+8.4%</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">EPSビート</div>
-      <div class="card-val pos">+$0.15</div>
-      <div class="card-sub">コンセンサス $0.43（<span class="pos">+34.9%</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">粗利益率（GAAP）</div>
-      <div class="card-val">75.6%</div>
-      <div class="card-sub">Non-GAAP: 75.7%｜QoQ <span class="neg">-0.7pp</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">営業利益率（Non-GAAP）</div>
-      <div class="card-val">40.2%</div>
-      <div class="card-sub">GAAP: 24.8%｜QoQ <span class="pos">+0.7pp</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">EBITDAマージン</div>
-      <div class="card-val">25.8%</div>
-      <div class="card-sub">EBITDA: $69.8M</div>
-    </div>
-    <div class="card">
-      <div class="card-label">Q1 FY26ガイダンス（売上）</div>
-      <div class="card-val pos">$291.5M</div>
-      <div class="card-sub">$286M〜$297M｜Non-GAAP EPS $0.53〜$0.54</div>
-    </div>
-  </div>
+<div class="section-title">📊 Key Metrics</div>
+<div class="grid">
+<div class="card">
+<div class="card-label">売上高</div>
+<div class="card-val">$270.6M</div>
+<div class="card-sub">YoY <span class="pos">+92.0%</span> ｜ QoQ <span class="pos">+17.4%</span></div>
 </div>
-
+<div class="card">
+<div class="card-label">Non-GAAP EPS</div>
+<div class="card-val pos">$0.58</div>
+<div class="card-sub">YoY <span class="pos">+56.8%</span>（GAAP: $0.25）</div>
+</div>
+<div class="card">
+<div class="card-label">売上ビート</div>
+<div class="card-val pos">+$20.9M</div>
+<div class="card-sub">コンセンサス $249.6M（<span class="pos">+8.4%</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">EPSビート</div>
+<div class="card-val pos">+$0.15</div>
+<div class="card-sub">コンセンサス $0.43（<span class="pos">+34.9%</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">粗利益率（GAAP）</div>
+<div class="card-val">75.6%</div>
+<div class="card-sub">Non-GAAP: 75.7%｜QoQ <span class="neg">-0.7pp</span></div>
+</div>
+<div class="card">
+<div class="card-label">営業利益率（Non-GAAP）</div>
+<div class="card-val">40.2%</div>
+<div class="card-sub">GAAP: 24.8%｜QoQ <span class="pos">+0.7pp</span></div>
+</div>
+<div class="card">
+<div class="card-label">EBITDAマージン</div>
+<div class="card-val">25.8%</div>
+<div class="card-sub">EBITDA: $69.8M</div>
+</div>
+<div class="card">
+<div class="card-label">Q1 FY26ガイダンス（売上）</div>
+<div class="card-val pos">$291.5M</div>
+<div class="card-sub">$286M〜$297M｜Non-GAAP EPS $0.53〜$0.54</div>
+</div>
+</div>
+</div>
 <!-- ===== 売上高チャート ===== -->
-<div class="section">
-  <div class="section-title">📈 売上高推移（直近7四半期）</div>
-  <div class="chart-box">
-    <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
-  </div>
+<div class="section" data-accordion="" id="sec-revenue">
+<div class="section-title">📈 売上高推移（直近7四半期）</div><div class="section-body">
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
 </div>
-
+</div></div>
 <!-- ===== EPSチャート ===== -->
 <div class="section">
-  <div class="section-title">💰 EPS推移（直近7四半期）</div>
-  <div class="chart-box">
-    <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
-  </div>
+<div class="section-title">💰 EPS推移（直近7四半期）</div>
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="epsChart"></canvas></div>
 </div>
-
+</div>
 <!-- ===== 利益率トレンド ===== -->
-<div class="section">
-  <div class="section-title">📉 利益率トレンド</div>
-  <div class="chart-box">
-    <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
-  </div>
+<div class="section" data-accordion="" id="sec-margin">
+<div class="section-title">📉 利益率トレンド</div><div class="section-body">
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="marginChart"></canvas></div>
 </div>
-
+</div></div>
 <!-- ===== キャッシュフロー ===== -->
-<div class="section">
-  <div class="section-title">🏦 キャッシュフロー（Q4 FY2025）</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">営業CF</div>
-      <div class="card-val pos">$95.3M</div>
-      <div class="card-sub">通年: $319.3M</div>
-    </div>
-    <div class="card">
-      <div class="card-label">FCF</div>
-      <div class="card-val pos">$76.6M</div>
-      <div class="card-sub">通年: $281.8M｜FCFマージン 33.1%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">投資CF</div>
-      <div class="card-val">-$72.8M</div>
-      <div class="card-sub">通年: -$241.5M</div>
-    </div>
-    <div class="card">
-      <div class="card-label">財務CF</div>
-      <div class="card-val">$3.7M</div>
-      <div class="card-sub">通年: $9.8M</div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:16px">
-    <div style="font-size:.85rem;color:var(--text2);line-height:1.8">
-      <strong>バランスシート:</strong> 現金＋有価証券 $1,188.8M、無借金に近い財務体質（負債$168.2M vs 株主資本$1,363.6M）。R&D費用はQ4単体で$93.8M、通年$304.0M（前年比+51.5%増）と積極投資。SBC（株式報酬）はQ4で$41.4M。
-    </div>
-  </div>
-  <div class="chart-box" style="margin-top:16px">
-    <div class="chart-wrap"><canvas id="cfChart"></canvas></div>
-  </div>
+<div class="section" data-accordion="" id="sec-cashflow">
+<div class="section-title">🏦 キャッシュフロー（Q4 FY2025）</div><div class="section-body">
+<div class="grid">
+<div class="card">
+<div class="card-label">営業CF</div>
+<div class="card-val pos">$95.3M</div>
+<div class="card-sub">通年: $319.3M</div>
 </div>
-
+<div class="card">
+<div class="card-label">FCF</div>
+<div class="card-val pos">$76.6M</div>
+<div class="card-sub">通年: $281.8M｜FCFマージン 33.1%</div>
+</div>
+<div class="card">
+<div class="card-label">投資CF</div>
+<div class="card-val">-$72.8M</div>
+<div class="card-sub">通年: -$241.5M</div>
+</div>
+<div class="card">
+<div class="card-label">財務CF</div>
+<div class="card-val">$3.7M</div>
+<div class="card-sub">通年: $9.8M</div>
+</div>
+</div>
+<div class="card" style="margin-top:16px">
+<div style="font-size:.85rem;color:var(--text2);line-height:1.8">
+<strong>バランスシート:</strong> 現金＋有価証券 $1,188.8M、無借金に近い財務体質（負債$168.2M vs 株主資本$1,363.6M）。R&amp;D費用はQ4単体で$93.8M、通年$304.0M（前年比+51.5%増）と積極投資。SBC（株式報酬）はQ4で$41.4M。
+    </div>
+</div>
+<div class="chart-box" style="margin-top:16px">
+<div class="chart-wrap"><canvas id="cfChart"></canvas></div>
+</div>
+</div></div>
 <!-- ===== セグメント分析 ===== -->
 <div class="section">
-  <div class="section-title">🏭 製品別売上構成</div>
-  <div class="grid-2">
-    <div class="chart-box">
-      <div class="chart-wrap"><canvas id="segmentPie"></canvas></div>
-    </div>
-    <div class="card">
-      <table class="tech-table">
-        <thead><tr><th>製品ライン</th><th>構成比</th><th>ステータス</th></tr></thead>
-        <tbody>
-          <tr><td>🔌 Aries（PCIe/CXLリタイマー）</td><td>~55%</td><td class="pos">主力製品・Gen6量産開始</td></tr>
-          <tr><td>🔗 Taurus（Ethernetケーブルモジュール）</td><td>~15%</td><td>安定成長</td></tr>
-          <tr><td>⚡ Scorpio（ファブリックスイッチ）</td><td>~15%</td><td class="pos">急成長（前年0%→15%）</td></tr>
-          <tr><td>🧠 Leo（CXLメモリコントローラ）</td><td>~10%</td><td>量産初期</td></tr>
-          <tr><td>🆕 NVLink Fusion / その他</td><td>~5%</td><td>開発・初期出荷</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:16px;font-size:.82rem;color:var(--text2);line-height:1.7">
-        <strong>Scorpio</strong>が前年の売上構成0%から~15%へ急拡大。X-Seriesは2026年に量産ランプアップ予定で、同社最大の製品ラインになる見込み。スイッチング市場のTAMは2030年までに年間$20B規模。<strong>Aries</strong>はPCIe 6対応製品で引き続き主力。
-      </div>
-    </div>
-  </div>
+<div class="section-title">🏭 製品別売上構成</div>
+<div class="grid-2">
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="segmentPie"></canvas></div>
 </div>
-
+<div class="card">
+<table class="tech-table">
+<thead><tr><th>製品ライン</th><th>構成比</th><th>ステータス</th></tr></thead>
+<tbody>
+<tr><td>🔌 Aries（PCIe/CXLリタイマー）</td><td>~55%</td><td class="pos">主力製品・Gen6量産開始</td></tr>
+<tr><td>🔗 Taurus（Ethernetケーブルモジュール）</td><td>~15%</td><td>安定成長</td></tr>
+<tr><td>⚡ Scorpio（ファブリックスイッチ）</td><td>~15%</td><td class="pos">急成長（前年0%→15%）</td></tr>
+<tr><td>🧠 Leo（CXLメモリコントローラ）</td><td>~10%</td><td>量産初期</td></tr>
+<tr><td>🆕 NVLink Fusion / その他</td><td>~5%</td><td>開発・初期出荷</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;font-size:.82rem;color:var(--text2);line-height:1.7">
+<strong>Scorpio</strong>が前年の売上構成0%から~15%へ急拡大。X-Seriesは2026年に量産ランプアップ予定で、同社最大の製品ラインになる見込み。スイッチング市場のTAMは2030年までに年間$20B規模。<strong>Aries</strong>はPCIe 6対応製品で引き続き主力。
+      </div>
+</div>
+</div>
+</div>
 <!-- ===== 地域別 ===== -->
-<div class="section">
-  <div class="section-title">🌐 地域別売上構成（推定）</div>
-  <div class="grid-2">
-    <div class="chart-box">
-      <div class="chart-wrap"><canvas id="geoPie"></canvas></div>
-    </div>
-    <div class="card">
-      <table class="tech-table">
-        <thead><tr><th>地域</th><th>構成比</th><th>主要ドライバー</th></tr></thead>
-        <tbody>
-          <tr><td>🇹🇼 台湾</td><td>~40%</td><td>半導体製造拠点（TSMC等）</td></tr>
-          <tr><td>🇸🇬 シンガポール</td><td>~25%</td><td>ハイパースケーラー調達拠点</td></tr>
-          <tr><td>🇨🇳 中国</td><td>~15%</td><td>データセンター需要</td></tr>
-          <tr><td>🇺🇸 米国・その他</td><td>~20%</td><td>直接販売・OEM</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:16px;font-size:.82rem;color:var(--text2);line-height:1.7">
+<div class="section" data-accordion="" id="sec-geo">
+<div class="section-title">🌐 地域別売上構成（推定）</div><div class="section-body">
+<div class="grid-2">
+<div class="chart-box">
+<div class="chart-wrap"><canvas id="geoPie"></canvas></div>
+</div>
+<div class="card">
+<table class="tech-table">
+<thead><tr><th>地域</th><th>構成比</th><th>主要ドライバー</th></tr></thead>
+<tbody>
+<tr><td>🇹🇼 台湾</td><td>~40%</td><td>半導体製造拠点（TSMC等）</td></tr>
+<tr><td>🇸🇬 シンガポール</td><td>~25%</td><td>ハイパースケーラー調達拠点</td></tr>
+<tr><td>🇨🇳 中国</td><td>~15%</td><td>データセンター需要</td></tr>
+<tr><td>🇺🇸 米国・その他</td><td>~20%</td><td>直接販売・OEM</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;font-size:.82rem;color:var(--text2);line-height:1.7">
         公式には地域別売上を開示していないが、10-Kベースでは台湾が最大市場（半導体製造拠点としての集約効果）。上位3顧客で売上の86%超を占める高い顧客集中度。
       </div>
-    </div>
-  </div>
 </div>
-
+</div>
+</div></div>
 <!-- ===== テクニカル分析 ===== -->
-<div class="section">
-  <div class="section-title">📐 株価・テクニカル分析</div>
-  <!-- TradingView ローソク足チャート -->
-  <div style="margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch">
-    <div class="tradingview-widget-container" style="display:inline-block;max-width:100%">
-      <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+<div class="section" data-accordion="" id="sec-technical">
+<div class="section-title">📐 株価・テクニカル分析</div><div class="section-body">
+<!-- TradingView ローソク足チャート -->
+<div style="margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch">
+<div class="tradingview-widget-container" style="display:inline-block;max-width:100%">
+<div class="tradingview-widget-container__widget"></div>
+<script async="" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" type="text/javascript">
       {
         "autosize": false,
         "width": 1100,
@@ -346,192 +368,186 @@ px}
         }
       }
       </script>
-    </div>
-  </div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">現在株価</div>
-      <div class="card-val">$124.71</div>
-      <div class="card-sub">2026年3月11日終値（+7.07%）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">時価総額</div>
-      <div class="card-val">$21.2B</div>
-      <div class="card-sub">発行済株式: ~170M</div>
-    </div>
-    <div class="card">
-      <div class="card-label">52週レンジ</div>
-      <div class="card-val">$47.13 - $262.90</div>
-      <div class="card-sub">現在位置: レンジの36%（高値から-53%）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">ベータ</div>
-      <div class="card-val neg">2.09</div>
-      <div class="card-sub">ハイベータ（市場の2倍の変動率）</div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:16px">
-    <table class="tech-table">
-      <thead><tr><th>指標</th><th>値</th><th>シグナル</th></tr></thead>
-      <tbody>
-        <tr><td>50日移動平均線（SMA）</td><td>$150.60</td><td class="neg">株価が大幅下回り ▼ 中期下降トレンド</td></tr>
-        <tr><td>200日移動平均線（SMA）</td><td>$152.90</td><td class="neg">株価が大幅下回り ▼ 長期調整局面</td></tr>
-        <tr><td>RSI（14日）</td><td>45.11</td><td>やや弱気寄りの中立（50以下）</td></tr>
-        <tr><td>ストキャスティクス（9日）</td><td>%K:66.6 / %D:59.7</td><td class="pos">短期買いシグナル（%K＞%D）</td></tr>
-        <tr><td>MACD</td><td>弱気圏</td><td class="neg">シグナルライン下方（ヒストグラム縮小中）</td></tr>
-        <tr><td>サポートライン</td><td>$111.76 / $100.00</td><td>直近安値 / 心理的節目</td></tr>
-        <tr><td>レジスタンスライン</td><td>$129.55 / $150.60</td><td>フィボナッチ61.8% / 50日SMA</td></tr>
-        <tr><td>ボリンジャーバンド</td><td>HV 109.8%</td><td class="neg">エクスパンション（極めて高ボラ）</td></tr>
-        <tr><td>空売り比率</td><td>8.53%</td><td>やや高水準（減少傾向）</td></tr>
-        <tr><td>フィボナッチ61.8%</td><td>$129.55</td><td class="neg">現在株価が下回り（攻防ライン）</td></tr>
-        <tr><td>総合テクニカル判定</td><td colspan="2" class="neg" style="font-weight:700">弱気 — 全主要MAを下回り、デッドクロス目前。短期リバウンド中だが持続性は不透明</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="grid" style="margin-top:16px">
-    <div class="card">
-      <div class="card-label">PER（Trailing）</div>
-      <div class="card-val">102.2x</div>
-      <div class="card-sub">TTM GAAP EPS: $1.22</div>
-    </div>
-    <div class="card">
-      <div class="card-label">PER（Forward FY26）</div>
-      <div class="card-val">50.6x</div>
-      <div class="card-sub">FY26E EPS: $2.48</div>
-    </div>
-    <div class="card">
-      <div class="card-label">決算後株価反応</div>
-      <div class="card-val neg">-24%</div>
-      <div class="card-sub">CFO退任・粗利率圧縮を嫌気</div>
-    </div>
-    <div class="card">
-      <div class="card-label">アナリスト評価</div>
-      <div class="card-val pos">Buy</div>
-      <div class="card-sub">23名中: Buy 18 / Hold 5 ｜ 目標$205</div>
-    </div>
-  </div>
 </div>
-
+</div>
+<div class="grid">
+<div class="card">
+<div class="card-label">現在株価</div>
+<div class="card-val">$124.71</div>
+<div class="card-sub">2026年3月11日終値（+7.07%）</div>
+</div>
+<div class="card">
+<div class="card-label">時価総額</div>
+<div class="card-val">$21.2B</div>
+<div class="card-sub">発行済株式: ~170M</div>
+</div>
+<div class="card">
+<div class="card-label">52週レンジ</div>
+<div class="card-val">$47.13 - $262.90</div>
+<div class="card-sub">現在位置: レンジの36%（高値から-53%）</div>
+</div>
+<div class="card">
+<div class="card-label">ベータ</div>
+<div class="card-val neg">2.09</div>
+<div class="card-sub">ハイベータ（市場の2倍の変動率）</div>
+</div>
+</div>
+<div class="card" style="margin-top:16px">
+<table class="tech-table">
+<thead><tr><th>指標</th><th>値</th><th>シグナル</th></tr></thead>
+<tbody>
+<tr><td>50日移動平均線（SMA）</td><td>$150.60</td><td class="neg">株価が大幅下回り ▼ 中期下降トレンド</td></tr>
+<tr><td>200日移動平均線（SMA）</td><td>$152.90</td><td class="neg">株価が大幅下回り ▼ 長期調整局面</td></tr>
+<tr><td>RSI（14日）</td><td>45.11</td><td>やや弱気寄りの中立（50以下）</td></tr>
+<tr><td>ストキャスティクス（9日）</td><td>%K:66.6 / %D:59.7</td><td class="pos">短期買いシグナル（%K＞%D）</td></tr>
+<tr><td>MACD</td><td>弱気圏</td><td class="neg">シグナルライン下方（ヒストグラム縮小中）</td></tr>
+<tr><td>サポートライン</td><td>$111.76 / $100.00</td><td>直近安値 / 心理的節目</td></tr>
+<tr><td>レジスタンスライン</td><td>$129.55 / $150.60</td><td>フィボナッチ61.8% / 50日SMA</td></tr>
+<tr><td>ボリンジャーバンド</td><td>HV 109.8%</td><td class="neg">エクスパンション（極めて高ボラ）</td></tr>
+<tr><td>空売り比率</td><td>8.53%</td><td>やや高水準（減少傾向）</td></tr>
+<tr><td>フィボナッチ61.8%</td><td>$129.55</td><td class="neg">現在株価が下回り（攻防ライン）</td></tr>
+<tr><td>総合テクニカル判定</td><td class="neg" colspan="2" style="font-weight:700">弱気 — 全主要MAを下回り、デッドクロス目前。短期リバウンド中だが持続性は不透明</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid" style="margin-top:16px">
+<div class="card">
+<div class="card-label">PER（Trailing）</div>
+<div class="card-val">102.2x</div>
+<div class="card-sub">TTM GAAP EPS: $1.22</div>
+</div>
+<div class="card">
+<div class="card-label">PER（Forward FY26）</div>
+<div class="card-val">50.6x</div>
+<div class="card-sub">FY26E EPS: $2.48</div>
+</div>
+<div class="card">
+<div class="card-label">決算後株価反応</div>
+<div class="card-val neg">-24%</div>
+<div class="card-sub">CFO退任・粗利率圧縮を嫌気</div>
+</div>
+<div class="card">
+<div class="card-label">アナリスト評価</div>
+<div class="card-val pos">Buy</div>
+<div class="card-sub">23名中: Buy 18 / Hold 5 ｜ 目標$205</div>
+</div>
+</div>
+</div></div>
 <!-- ===== 経営陣コメント ===== -->
-<div class="section">
-  <div class="section-title">🎤 経営陣コメントハイライト</div>
-  <div class="insight">
-    <strong>Jitendra Mohan CEO（共同創業者）:</strong><br>
+<div class="section" data-accordion="" id="sec-mgmt">
+<div class="section-title">🎤 経営陣コメントハイライト</div><div class="section-body">
+<div class="insight">
+<strong>Jitendra Mohan CEO（共同創業者）:</strong><br/>
     「AIはまだ初期段階（early innings）にある。ボトルネックはますますコンピュートからコネクティビティにシフトしている — コネクティビティこそが我々のプレイグラウンドだ。自社アドレス可能市場は今後5年間で10倍以上に拡大し、250億ドルに到達する。」
   </div>
-  <div class="insight">
-    <strong>Desmond Lynch 新CFO:</strong><br>
+<div class="insight">
+<strong>Desmond Lynch 新CFO:</strong><br/>
     「Astera LabsはAI接続性の確立されたリーダーであり、広範なAIおよびクラウドインフラプロバイダーとのパートナーシップ実績がある。Q1 FY2026は売上$286M〜$297M、Non-GAAP EPS $0.53〜$0.54を見込む。」
   </div>
-  <div class="insight">
-    <strong>カンファレンスコール重要ポイント:</strong><br>
-    • Scorpio X-Seriesが製造段階に入り、2026年を通じて量産ランプアップ — 同社最大の製品ラインに成長見込み<br>
-    • NVLink Fusion向けカスタム接続ソリューションの開発を推進中<br>
-    • aiXscale Photonics買収で光接続能力を大幅強化、PCIe 6 over Opticsを実現<br>
-    • イスラエルに新設計センター開設を加速（R&D投資積極化）<br>
+<div class="insight">
+<strong>カンファレンスコール重要ポイント:</strong><br/>
+    • Scorpio X-Seriesが製造段階に入り、2026年を通じて量産ランプアップ — 同社最大の製品ラインに成長見込み<br/>
+    • NVLink Fusion向けカスタム接続ソリューションの開発を推進中<br/>
+    • aiXscale Photonics買収で光接続能力を大幅強化、PCIe 6 over Opticsを実現<br/>
+    • イスラエルに新設計センター開設を加速（R&amp;D投資積極化）<br/>
     • スイッチング事業が売上の約15%に急成長（前年は0%）、Taurusと合わせて約30%
   </div>
-</div>
-
+</div></div>
 <!-- ===== リスク・カタリスト ===== -->
-<div class="section">
-  <div class="section-title">⚡ リスク・注目ポイント / カタリスト</div>
-  <div class="risk-grid">
-    <div class="risk-card bull">
-      <h3><span class="pos">📈</span> ポジティブ・カタリスト</h3>
-      <ul>
-        <li>8四半期連続で売上・EPSともにコンセンサスビート</li>
-        <li>AI CapEx急拡大：2026年ハイパースケーラー合計$600B+（YoY+36%）</li>
-        <li>TAMが5年で10倍（$25B）に拡大見込み。コネクティビティのボトルネック化が追い風</li>
-        <li>Scorpio X-Series量産開始（2026年）— 最大のスイッチング製品ライン</li>
-        <li>UALink対応ソリューション2026年商用化計画</li>
-        <li>PCIe 6.0 / CXL 3.0でファーストムーバーアドバンテージ</li>
-        <li>無借金に近い健全なバランスシート（現金$1.19B）</li>
-        <li>アナリスト23名中18名がBuy以上、目標株価中央値$205（+64%上方）</li>
-      </ul>
-    </div>
-    <div class="risk-card bear">
-      <h3><span class="neg">📉</span> リスク要因</h3>
-      <ul>
-        <li>CFO Mike Tate退任 — 経営体制の不透明感</li>
-        <li>粗利益率のQoQ圧縮（76.25%→75.57%）、ハードウェアミックス悪化</li>
-        <li>Broadcom・Marvellとの激しい競合（スイッチング＋DSPで80%超シェア）</li>
-        <li>MarvellのXConn買収でCXL/PCIeスイッチング市場に直接参入</li>
-        <li>上位3顧客で売上86%超の高い顧客集中リスク</li>
-        <li>52週高値から-53%の大幅調整、Forward PER 50xと高バリュエーション</li>
-        <li>IPOから2年未満の新興企業、実績の蓄積が限定的</li>
-        <li>半導体輸出規制・関税リスク（間接的影響の可能性）</li>
-      </ul>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-risk">
+<div class="section-title">⚡ リスク・注目ポイント / カタリスト</div><div class="section-body">
+<div class="risk-grid">
+<div class="risk-card bull">
+<h3><span class="pos">📈</span> ポジティブ・カタリスト</h3>
+<ul>
+<li>8四半期連続で売上・EPSともにコンセンサスビート</li>
+<li>AI CapEx急拡大：2026年ハイパースケーラー合計$600B+（YoY+36%）</li>
+<li>TAMが5年で10倍（$25B）に拡大見込み。コネクティビティのボトルネック化が追い風</li>
+<li>Scorpio X-Series量産開始（2026年）— 最大のスイッチング製品ライン</li>
+<li>UALink対応ソリューション2026年商用化計画</li>
+<li>PCIe 6.0 / CXL 3.0でファーストムーバーアドバンテージ</li>
+<li>無借金に近い健全なバランスシート（現金$1.19B）</li>
+<li>アナリスト23名中18名がBuy以上、目標株価中央値$205（+64%上方）</li>
+</ul>
 </div>
-
+<div class="risk-card bear">
+<h3><span class="neg">📉</span> リスク要因</h3>
+<ul>
+<li>CFO Mike Tate退任 — 経営体制の不透明感</li>
+<li>粗利益率のQoQ圧縮（76.25%→75.57%）、ハードウェアミックス悪化</li>
+<li>Broadcom・Marvellとの激しい競合（スイッチング＋DSPで80%超シェア）</li>
+<li>MarvellのXConn買収でCXL/PCIeスイッチング市場に直接参入</li>
+<li>上位3顧客で売上86%超の高い顧客集中リスク</li>
+<li>52週高値から-53%の大幅調整、Forward PER 50xと高バリュエーション</li>
+<li>IPOから2年未満の新興企業、実績の蓄積が限定的</li>
+<li>半導体輸出規制・関税リスク（間接的影響の可能性）</li>
+</ul>
+</div>
+</div>
+</div></div>
 <!-- ===== 前回決算比較 ===== -->
-<div class="section">
-  <div class="section-title">🔄 前回決算（FY2025 Q3）との比較</div>
-  <div class="card">
-    <table class="compare-table">
-      <thead>
-        <tr><th>指標</th><th>FY2025 Q3</th><th>FY2025 Q4</th><th>変化</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>売上高</td><td>$230.6M</td><td>$270.6M</td><td class="pos">+$40.0M (+17.4%)</td></tr>
-        <tr><td>粗利益率（GAAP）</td><td>76.25%</td><td>75.57%</td><td class="neg">-0.68pp</td></tr>
-        <tr><td>営業利益率（Non-GAAP）</td><td>39.5%</td><td>40.2%</td><td class="pos">+0.7pp</td></tr>
-        <tr><td>Non-GAAP EPS</td><td>$0.49</td><td>$0.58</td><td class="pos">+$0.09 (+18.4%)</td></tr>
-        <tr><td>営業CF</td><td>~$69M</td><td>$95.3M</td><td class="pos">+$26M</td></tr>
-        <tr><td>FCF</td><td>$65.9M</td><td>$76.6M</td><td class="pos">+$10.7M</td></tr>
-        <tr><td>売上ビート率</td><td>+11.6%</td><td>+8.4%</td><td>ビート幅やや縮小</td></tr>
-        <tr><td>EPSビート率</td><td>+53.1%</td><td>+34.9%</td><td>ビート幅やや縮小</td></tr>
-        <tr><td>総合評価スコア</td><td>—</td><td>4 📈</td><td>—</td></tr>
-      </tbody>
-    </table>
-    <div style="margin-top:16px;font-size:.85rem;color:var(--text2);line-height:1.8">
-      <strong>トレンド: 改善↑（利益率・CF改善）/ 注意→（ビート幅縮小）</strong> — 売上は+17.4% QoQの力強い成長を維持。Non-GAAP営業利益率は改善、FCFも増加。一方でビート率のサプライズ幅は縮小傾向にあり、市場期待値の上昇が見られる。粗利益率の若干の圧縮はハードウェアミックスの変化による。
+<div class="section" data-accordion="" id="sec-compare">
+<div class="section-title">🔄 前回決算（FY2025 Q3）との比較</div><div class="section-body">
+<div class="card">
+<table class="compare-table">
+<thead>
+<tr><th>指標</th><th>FY2025 Q3</th><th>FY2025 Q4</th><th>変化</th></tr>
+</thead>
+<tbody>
+<tr><td>売上高</td><td>$230.6M</td><td>$270.6M</td><td class="pos">+$40.0M (+17.4%)</td></tr>
+<tr><td>粗利益率（GAAP）</td><td>76.25%</td><td>75.57%</td><td class="neg">-0.68pp</td></tr>
+<tr><td>営業利益率（Non-GAAP）</td><td>39.5%</td><td>40.2%</td><td class="pos">+0.7pp</td></tr>
+<tr><td>Non-GAAP EPS</td><td>$0.49</td><td>$0.58</td><td class="pos">+$0.09 (+18.4%)</td></tr>
+<tr><td>営業CF</td><td>~$69M</td><td>$95.3M</td><td class="pos">+$26M</td></tr>
+<tr><td>FCF</td><td>$65.9M</td><td>$76.6M</td><td class="pos">+$10.7M</td></tr>
+<tr><td>売上ビート率</td><td>+11.6%</td><td>+8.4%</td><td>ビート幅やや縮小</td></tr>
+<tr><td>EPSビート率</td><td>+53.1%</td><td>+34.9%</td><td>ビート幅やや縮小</td></tr>
+<tr><td>総合評価スコア</td><td>—</td><td>4 📈</td><td>—</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;font-size:.85rem;color:var(--text2);line-height:1.8">
+<strong>トレンド: 改善↑（利益率・CF改善）/ 注意→（ビート幅縮小）</strong> — 売上は+17.4% QoQの力強い成長を維持。Non-GAAP営業利益率は改善、FCFも増加。一方でビート率のサプライズ幅は縮小傾向にあり、市場期待値の上昇が見られる。粗利益率の若干の圧縮はハードウェアミックスの変化による。
     </div>
-  </div>
 </div>
-
+</div></div>
 <!-- ===== バリュエーション ===== -->
-<div class="section">
-  <div class="section-title">🎯 バリュエーション（想定株価 3シナリオ）</div>
-  <div style="text-align:center;font-size:.82rem;color:var(--text3);margin-bottom:16px">
+<div class="section" data-accordion="" id="sec-valuation">
+<div class="section-title">🎯 バリュエーション（想定株価 3シナリオ）</div><div class="section-body">
+<div style="text-align:center;font-size:.82rem;color:var(--text3);margin-bottom:16px">
     算出方法: 想定株価 = Forward EPS × 予想PER ｜ 現在株価: <strong style="color:var(--text)">$124.71</strong>
-  </div>
-  <div class="val-grid">
-    <div class="val-card low">
-      <div class="scenario">LOW（保守的）</div>
-      <div class="price">$88</div>
-      <div class="detail">EPS $2.20（ガイダンス下限ベース）<br>× PER 40x（過去下限）</div>
-      <div class="gap neg">乖離: -29.4%</div>
-    </div>
-    <div class="val-card mid">
-      <div class="scenario">MID（基本）</div>
-      <div class="price">$136</div>
-      <div class="detail">EPS $2.48（コンセンサス）<br>× PER 55x（過去中央値）</div>
-      <div class="gap pos">乖離: +9.1%</div>
-    </div>
-    <div class="val-card high">
-      <div class="scenario">HIGH（楽観的）</div>
-      <div class="price">$210</div>
-      <div class="detail">EPS $2.80（楽観予想）<br>× PER 75x（プレミアム）</div>
-      <div class="gap pos">乖離: +68.3%</div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:16px;text-align:center">
-    <div style="font-size:.9rem;color:var(--text2)">MID想定株価 vs 現在株価の乖離率: <strong style="color:var(--blue);font-size:1.1rem">+9.1%</strong></div>
-    <div style="font-size:1rem;font-weight:700;color:var(--blue);margin-top:8px">📊 判定: 適正水準</div>
-    <div style="font-size:.8rem;color:var(--text3);margin-top:4px">アナリスト平均目標株価: $205.00（+64.4%アップサイド）</div>
-  </div>
 </div>
-
+<div class="val-grid">
+<div class="val-card low">
+<div class="scenario">LOW（保守的）</div>
+<div class="price">$88</div>
+<div class="detail">EPS $2.20（ガイダンス下限ベース）<br/>× PER 40x（過去下限）</div>
+<div class="gap neg">乖離: -29.4%</div>
+</div>
+<div class="val-card mid">
+<div class="scenario">MID（基本）</div>
+<div class="price">$136</div>
+<div class="detail">EPS $2.48（コンセンサス）<br/>× PER 55x（過去中央値）</div>
+<div class="gap pos">乖離: +9.1%</div>
+</div>
+<div class="val-card high">
+<div class="scenario">HIGH（楽観的）</div>
+<div class="price">$210</div>
+<div class="detail">EPS $2.80（楽観予想）<br/>× PER 75x（プレミアム）</div>
+<div class="gap pos">乖離: +68.3%</div>
+</div>
+</div>
+<div class="card" style="margin-top:16px;text-align:center">
+<div style="font-size:.9rem;color:var(--text2)">MID想定株価 vs 現在株価の乖離率: <strong style="color:var(--blue);font-size:1.1rem">+9.1%</strong></div>
+<div style="font-size:1rem;font-weight:700;color:var(--blue);margin-top:8px">📊 判定: 適正水準</div>
+<div style="font-size:.8rem;color:var(--text3);margin-top:4px">アナリスト平均目標株価: $205.00（+64.4%アップサイド）</div>
+</div>
+</div></div>
 <!-- ===== フッター ===== -->
 <div class="footer">
-  U&I株倶楽部 ｜ ALAB FY2025 Q4 決算分析 ｜ 生成日: 2026年3月12日<br>
-  ※ 本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。<br>
+  U&amp;I株倶楽部 ｜ ALAB FY2025 Q4 決算分析 ｜ 生成日: 2026年3月12日<br/>
+  ※ 本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。<br/>
   Powered by Claude
 </div>
-
 <script>
 const Q_LABELS = ['Q2 FY24','Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25'];
 const REVENUE = [76.85,113.09,141.10,159.44,191.93,230.58,270.58];
@@ -597,6 +613,76 @@ new Chart(document.getElementById('geoPie'),{
 });
 </script>
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高推移（直近7四半期）</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー（Q4 FY2025）</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成（推定）</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">株価・テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算（FY2025 Q3）との比較</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3シナリオ）</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

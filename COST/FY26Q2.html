@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Costco (COST) Q2 FY2026 決算分析レポート</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
@@ -407,19 +408,51 @@ body {
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="im
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="im
 .header-content { position: relative; z-index: 1; }
 .ticker-badge {
   display: inline-block;
@@ -432,489 +465,472 @@ body {
   margin-bottom: 12px;
   letter-spacing: 1px;
 }
-age/png" href="../favicon.png">
+age/png"/>
 </head>
 <body>
-
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/COST.svg" alt="COST"><div class="ticker-badge">NASDAQ: COST</div></div>
-    <h1>Costco Wholesale Corporation</h1>
-    <div class="subtitle">Q2 FY2026 決算分析レポート（2026年2月15日期末）</div>
-    <div class="date">発表日: 2026年3月5日 ｜ 分析日: 2026年3月6日</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="COST" class="report-header-logo" src="../logos/COST.svg"/><div class="ticker-badge">NASDAQ: COST</div></div>
+<h1>Costco Wholesale Corporation</h1>
+<div class="subtitle">Q2 FY2026 決算分析レポート（2026年2月15日期末）</div>
+<div class="date">発表日: 2026年3月5日 ｜ 分析日: 2026年3月6日</div>
 </div>
-
+</div>
 <!-- Score -->
 <div class="score-section">
-  <div class="score-badge">📈</div>
-  <div class="score-text">
-    <h2>スコア: 4 / 5 — 良い決算</h2>
-    <div class="score-label">売上・EPSともにコンセンサスをビート。会員収入+13.6%、デジタル売上+22.6%と成長ドライバーが堅調</div>
-    <div class="score-detail">売上高は9.1%増の$68.24B、EPS $4.58でコンセンサス$4.55を上回った。既存店売上は+7.4%と力強く、特にカナダ+10.1%、海外+13.0%が牽引。Costcoは伝統的にガイダンスを出さないが、成長軌道は安定。ただしバリュエーションは依然としてPER 55倍と歴史的高水準。</div>
-    <div class="score-bar">
-      <div class="score-dot active"></div>
-      <div class="score-dot active"></div>
-      <div class="score-dot active"></div>
-      <div class="score-dot active"></div>
-      <div class="score-dot"></div>
-    </div>
-  </div>
+<div class="score-badge">📈</div>
+<div class="score-text">
+<h2>スコア: 4 / 5 — 良い決算</h2>
+<div class="score-label">売上・EPSともにコンセンサスをビート。会員収入+13.6%、デジタル売上+22.6%と成長ドライバーが堅調</div>
+<div class="score-detail">売上高は9.1%増の$68.24B、EPS $4.58でコンセンサス$4.55を上回った。既存店売上は+7.4%と力強く、特にカナダ+10.1%、海外+13.0%が牽引。Costcoは伝統的にガイダンスを出さないが、成長軌道は安定。ただしバリュエーションは依然としてPER 55倍と歴史的高水準。</div>
+<div class="score-bar">
+<div class="score-dot active"></div>
+<div class="score-dot active"></div>
+<div class="score-dot active"></div>
+<div class="score-dot active"></div>
+<div class="score-dot"></div>
 </div>
-
+</div>
+</div>
 <!-- Key Metrics -->
 <div class="cards-grid">
-  <div class="card">
-    <div class="card-label">売上高（Net Sales）</div>
-    <div class="card-value">$68.24B</div>
-    <div class="card-sub"><span class="positive">+9.1% YoY</span>（前年$62.53B）</div>
-  </div>
-  <div class="card">
-    <div class="card-label">総収入（Total Revenue）</div>
-    <div class="card-value">$69.60B</div>
-    <div class="card-sub">会員収入含む（<span class="positive">+9.3% YoY</span>）</div>
-  </div>
-  <div class="card">
-    <div class="card-label">EPS（GAAP）</div>
-    <div class="card-value positive">$4.58</div>
-    <div class="card-sub"><span class="positive">+13.9% YoY</span>（前年$4.02）</div>
-  </div>
-  <div class="card">
-    <div class="card-label">純利益</div>
-    <div class="card-value">$2.04B</div>
-    <div class="card-sub"><span class="positive">+13.8% YoY</span>（前年$1.79B）</div>
-  </div>
-  <div class="card">
-    <div class="card-label">売上コンセンサスビート</div>
-    <div class="card-value positive">+$0.28B</div>
-    <div class="card-sub">$69.60B vs 予想$69.32B <span class="badge badge-green">+0.4%</span></div>
-  </div>
-  <div class="card">
-    <div class="card-label">EPSコンセンサスビート</div>
-    <div class="card-value positive">+$0.03</div>
-    <div class="card-sub">$4.58 vs 予想$4.55 <span class="badge badge-green">+0.7%</span></div>
-  </div>
-  <div class="card">
-    <div class="card-label">既存店売上（Comps）</div>
-    <div class="card-value positive">+7.4%</div>
-    <div class="card-sub">US +5.9% / CA +10.1% / 海外 +13.0%</div>
-  </div>
-  <div class="card">
-    <div class="card-label">会員収入</div>
-    <div class="card-value">$1.36B</div>
-    <div class="card-sub"><span class="positive">+13.6% YoY</span> 更新率 89.7%</div>
-  </div>
+<div class="card">
+<div class="card-label">売上高（Net Sales）</div>
+<div class="card-value">$68.24B</div>
+<div class="card-sub"><span class="positive">+9.1% YoY</span>（前年$62.53B）</div>
 </div>
-
+<div class="card">
+<div class="card-label">総収入（Total Revenue）</div>
+<div class="card-value">$69.60B</div>
+<div class="card-sub">会員収入含む（<span class="positive">+9.3% YoY</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">EPS（GAAP）</div>
+<div class="card-value positive">$4.58</div>
+<div class="card-sub"><span class="positive">+13.9% YoY</span>（前年$4.02）</div>
+</div>
+<div class="card">
+<div class="card-label">純利益</div>
+<div class="card-value">$2.04B</div>
+<div class="card-sub"><span class="positive">+13.8% YoY</span>（前年$1.79B）</div>
+</div>
+<div class="card">
+<div class="card-label">売上コンセンサスビート</div>
+<div class="card-value positive">+$0.28B</div>
+<div class="card-sub">$69.60B vs 予想$69.32B <span class="badge badge-green">+0.4%</span></div>
+</div>
+<div class="card">
+<div class="card-label">EPSコンセンサスビート</div>
+<div class="card-value positive">+$0.03</div>
+<div class="card-sub">$4.58 vs 予想$4.55 <span class="badge badge-green">+0.7%</span></div>
+</div>
+<div class="card">
+<div class="card-label">既存店売上（Comps）</div>
+<div class="card-value positive">+7.4%</div>
+<div class="card-sub">US +5.9% / CA +10.1% / 海外 +13.0%</div>
+</div>
+<div class="card">
+<div class="card-label">会員収入</div>
+<div class="card-value">$1.36B</div>
+<div class="card-sub"><span class="positive">+13.6% YoY</span> 更新率 89.7%</div>
+</div>
+</div>
 <!-- Revenue & EPS Charts -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">📊</div>
+<div class="section" data-accordion="" id="sec-revenue">
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">📊</div>
     売上高・EPS 7四半期推移
-  </div>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-    <div>
-      <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px; text-align:center;">売上高（Net Sales, $B）※Q4は16週間</div>
-      <div class="chart-container">
-        <canvas id="revenueChart"></canvas>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px; text-align:center;">EPS（GAAP, $）</div>
-      <div class="chart-container">
-        <canvas id="epsChart"></canvas>
-      </div>
-    </div>
-  </div>
+  </div><div class="section-body">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+<div>
+<div style="font-size:13px; color:var(--text-muted); margin-bottom:8px; text-align:center;">売上高（Net Sales, $B）※Q4は16週間</div>
+<div class="chart-container">
+<canvas id="revenueChart"></canvas>
 </div>
-
+</div>
+<div>
+<div style="font-size:13px; color:var(--text-muted); margin-bottom:8px; text-align:center;">EPS（GAAP, $）</div>
+<div class="chart-container">
+<canvas id="epsChart"></canvas>
+</div>
+</div>
+</div>
+</div></div>
 <!-- Margin Trends -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--green-bg);">📐</div>
+<div class="section" data-accordion="" id="sec-margin">
+<div class="section-title">
+<div class="section-icon" style="background:var(--green-bg);">📐</div>
     利益率トレンド（Q2 FY2026）
-  </div>
-  <div style="margin-top: 8px;">
-    <div class="margin-row">
-      <div class="margin-label">粗利益率（GAAP）</div>
-      <div class="margin-bar-bg">
-        <div class="margin-bar" style="width: 55%; background: linear-gradient(90deg, #2ea043, #3fb950);">11.02%</div>
-      </div>
-      <div class="margin-val positive">+17bp</div>
-    </div>
-    <div class="margin-row">
-      <div class="margin-label">営業利益率</div>
-      <div class="margin-bar-bg">
-        <div class="margin-bar" style="width: 38%; background: linear-gradient(90deg, #58a6ff, #79c0ff);">3.83%</div>
-      </div>
-      <div class="margin-val positive">+20bp</div>
-    </div>
-    <div class="margin-row">
-      <div class="margin-label">純利益率</div>
-      <div class="margin-bar-bg">
-        <div class="margin-bar" style="width: 30%; background: linear-gradient(90deg, #bc8cff, #d2a8ff);">2.98%</div>
-      </div>
-      <div class="margin-val positive">+12bp</div>
-    </div>
-  </div>
-  <div style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
+  </div><div class="section-body">
+<div style="margin-top: 8px;">
+<div class="margin-row">
+<div class="margin-label">粗利益率（GAAP）</div>
+<div class="margin-bar-bg">
+<div class="margin-bar" style="width: 55%; background: linear-gradient(90deg, #2ea043, #3fb950);">11.02%</div>
+</div>
+<div class="margin-val positive">+17bp</div>
+</div>
+<div class="margin-row">
+<div class="margin-label">営業利益率</div>
+<div class="margin-bar-bg">
+<div class="margin-bar" style="width: 38%; background: linear-gradient(90deg, #58a6ff, #79c0ff);">3.83%</div>
+</div>
+<div class="margin-val positive">+20bp</div>
+</div>
+<div class="margin-row">
+<div class="margin-label">純利益率</div>
+<div class="margin-bar-bg">
+<div class="margin-bar" style="width: 30%; background: linear-gradient(90deg, #bc8cff, #d2a8ff);">2.98%</div>
+</div>
+<div class="margin-val positive">+12bp</div>
+</div>
+</div>
+<div style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
     ※ Costcoは意図的に低マージン戦略を採用。粗利率11%前後は業界標準を大きく下回るが、会員モデルにより安定した収益を確保。
   </div>
-</div>
-
+</div></div>
 <!-- Cash Flow -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--green-bg);">💰</div>
+<div class="section" data-accordion="" id="sec-cashflow">
+<div class="section-title">
+<div class="section-icon" style="background:var(--green-bg);">💰</div>
     キャッシュフロー（24週間 YTD: Q1+Q2 FY2026）
-  </div>
-  <div class="cards-grid" style="margin-top: 8px;">
-    <div class="card" style="border-color: rgba(46,160,67,0.3);">
-      <div class="card-label">営業キャッシュフロー</div>
-      <div class="card-value positive">$7.68B</div>
-      <div class="card-sub">堅調なキャッシュ創出力</div>
-    </div>
-    <div class="card" style="border-color: rgba(88,166,255,0.3);">
-      <div class="card-label">設備投資（CAPEX）</div>
-      <div class="card-value neutral">~$3.25B</div>
-      <div class="card-sub">通期見通し ~$6.5B</div>
-    </div>
-    <div class="card" style="border-color: rgba(46,160,67,0.3);">
-      <div class="card-label">現金及び現金同等物</div>
-      <div class="card-value">$17.38B</div>
-      <div class="card-sub">2026年2月15日時点</div>
-    </div>
-  </div>
+  </div><div class="section-body">
+<div class="cards-grid" style="margin-top: 8px;">
+<div class="card" style="border-color: rgba(46,160,67,0.3);">
+<div class="card-label">営業キャッシュフロー</div>
+<div class="card-value positive">$7.68B</div>
+<div class="card-sub">堅調なキャッシュ創出力</div>
 </div>
-
+<div class="card" style="border-color: rgba(88,166,255,0.3);">
+<div class="card-label">設備投資（CAPEX）</div>
+<div class="card-value neutral">~$3.25B</div>
+<div class="card-sub">通期見通し ~$6.5B</div>
+</div>
+<div class="card" style="border-color: rgba(46,160,67,0.3);">
+<div class="card-label">現金及び現金同等物</div>
+<div class="card-value">$17.38B</div>
+<div class="card-sub">2026年2月15日時点</div>
+</div>
+</div>
+</div></div>
 <!-- Segment -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">🏪</div>
+<div class="section" data-accordion="" id="sec-segment">
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">🏪</div>
     部門別・地域別売上構成
-  </div>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-    <div>
-      <div style="font-size:14px; font-weight:700; margin-bottom:12px;">商品カテゴリ別構成</div>
-      <table class="data-table">
-        <thead>
-          <tr><th>カテゴリ</th><th>構成比</th><th>トレンド</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>食品・日用品（Food & Sundries）</td><td>~40%</td><td><span class="positive">安定成長</span></td></tr>
-          <tr><td>非食品（Non-Foods）</td><td>~25%</td><td><span class="positive">堅調</span></td></tr>
-          <tr><td>その他（ガソリン等）</td><td>~19%</td><td><span class="neutral">横ばい</span></td></tr>
-          <tr><td>生鮮食品（Fresh Foods）</td><td>~14%</td><td><span class="positive">堅調</span></td></tr>
-          <tr><td>会員収入</td><td>~2%</td><td><span class="positive">+13.6% YoY</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div>
-      <div style="font-size:14px; font-weight:700; margin-bottom:12px;">地域別売上・既存店売上</div>
-      <table class="data-table">
-        <thead>
-          <tr><th>地域</th><th>推定売上</th><th>Comps</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>🇺🇸 米国</td><td>~$49.95B</td><td><span class="positive">+5.9%</span></td></tr>
-          <tr><td>🇨🇦 カナダ</td><td>~$9.15B</td><td><span class="positive">+10.1%</span></td></tr>
-          <tr><td>🌏 その他海外</td><td>~$10.06B</td><td><span class="positive">+13.0%</span></td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
-        <strong>倉庫数:</strong> 924店舗（米国634 / カナダ・海外290）<br>
-        <strong>FY2026 新規出店計画:</strong> 28店舗（今後30+/年を目標）
-      </div>
-    </div>
-  </div>
+  </div><div class="section-body">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+<div>
+<div style="font-size:14px; font-weight:700; margin-bottom:12px;">商品カテゴリ別構成</div>
+<table class="data-table">
+<thead>
+<tr><th>カテゴリ</th><th>構成比</th><th>トレンド</th></tr>
+</thead>
+<tbody>
+<tr><td>食品・日用品（Food &amp; Sundries）</td><td>~40%</td><td><span class="positive">安定成長</span></td></tr>
+<tr><td>非食品（Non-Foods）</td><td>~25%</td><td><span class="positive">堅調</span></td></tr>
+<tr><td>その他（ガソリン等）</td><td>~19%</td><td><span class="neutral">横ばい</span></td></tr>
+<tr><td>生鮮食品（Fresh Foods）</td><td>~14%</td><td><span class="positive">堅調</span></td></tr>
+<tr><td>会員収入</td><td>~2%</td><td><span class="positive">+13.6% YoY</span></td></tr>
+</tbody>
+</table>
 </div>
-
+<div>
+<div style="font-size:14px; font-weight:700; margin-bottom:12px;">地域別売上・既存店売上</div>
+<table class="data-table">
+<thead>
+<tr><th>地域</th><th>推定売上</th><th>Comps</th></tr>
+</thead>
+<tbody>
+<tr><td>🇺🇸 米国</td><td>~$49.95B</td><td><span class="positive">+5.9%</span></td></tr>
+<tr><td>🇨🇦 カナダ</td><td>~$9.15B</td><td><span class="positive">+10.1%</span></td></tr>
+<tr><td>🌏 その他海外</td><td>~$10.06B</td><td><span class="positive">+13.0%</span></td></tr>
+</tbody>
+</table>
+<div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
+<strong>倉庫数:</strong> 924店舗（米国634 / カナダ・海外290）<br/>
+<strong>FY2026 新規出店計画:</strong> 28店舗（今後30+/年を目標）
+      </div>
+</div>
+</div>
+</div></div>
 <!-- Digital -->
 <div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:rgba(57,210,192,0.15);">🌐</div>
+<div class="section-title">
+<div class="section-icon" style="background:rgba(57,210,192,0.15);">🌐</div>
     デジタル・Eコマース
   </div>
-  <div class="cards-grid">
-    <div class="card" style="border-color: rgba(57,210,192,0.3);">
-      <div class="card-label">デジタル既存店売上成長</div>
-      <div class="card-value" style="color: var(--cyan);">+22.6%</div>
-      <div class="card-sub">前四半期 +20.5% → 加速トレンド</div>
-    </div>
-    <div class="card" style="border-color: rgba(57,210,192,0.3);">
-      <div class="card-label">Webトラフィック</div>
-      <div class="card-value" style="color: var(--cyan);">+24%</div>
-      <div class="card-sub">YoY ウェブサイト訪問数増加</div>
-    </div>
-    <div class="card" style="border-color: rgba(57,210,192,0.3);">
-      <div class="card-label">アプリトラフィック</div>
-      <div class="card-value" style="color: var(--cyan);">+48%</div>
-      <div class="card-sub">YoY モバイルアプリ利用急増</div>
-    </div>
-  </div>
+<div class="cards-grid">
+<div class="card" style="border-color: rgba(57,210,192,0.3);">
+<div class="card-label">デジタル既存店売上成長</div>
+<div class="card-value" style="color: var(--cyan);">+22.6%</div>
+<div class="card-sub">前四半期 +20.5% → 加速トレンド</div>
 </div>
-
+<div class="card" style="border-color: rgba(57,210,192,0.3);">
+<div class="card-label">Webトラフィック</div>
+<div class="card-value" style="color: var(--cyan);">+24%</div>
+<div class="card-sub">YoY ウェブサイト訪問数増加</div>
+</div>
+<div class="card" style="border-color: rgba(57,210,192,0.3);">
+<div class="card-label">アプリトラフィック</div>
+<div class="card-value" style="color: var(--cyan);">+48%</div>
+<div class="card-sub">YoY モバイルアプリ利用急増</div>
+</div>
+</div>
+</div>
 <!-- Membership -->
 <div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">🎫</div>
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">🎫</div>
     会員メトリクス
   </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label">有料会員数</div>
-      <div class="card-value">82.1M</div>
-      <div class="card-sub">着実に増加中</div>
-    </div>
-    <div class="card">
-      <div class="card-label">総カード保有者数</div>
-      <div class="card-value">147.2M</div>
-      <div class="card-sub">世界全体</div>
-    </div>
-    <div class="card">
-      <div class="card-label">更新率（全世界）</div>
-      <div class="card-value positive">89.7%</div>
-      <div class="card-sub">米国&カナダ: 92.1%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">会員収入成長率</div>
-      <div class="card-value positive">+13.6%</div>
-      <div class="card-sub">$1.36B（値上げ効果 + 会員増）</div>
-    </div>
-  </div>
+<div class="cards-grid">
+<div class="card">
+<div class="card-label">有料会員数</div>
+<div class="card-value">82.1M</div>
+<div class="card-sub">着実に増加中</div>
 </div>
-
+<div class="card">
+<div class="card-label">総カード保有者数</div>
+<div class="card-value">147.2M</div>
+<div class="card-sub">世界全体</div>
+</div>
+<div class="card">
+<div class="card-label">更新率（全世界）</div>
+<div class="card-value positive">89.7%</div>
+<div class="card-sub">米国&amp;カナダ: 92.1%</div>
+</div>
+<div class="card">
+<div class="card-label">会員収入成長率</div>
+<div class="card-value positive">+13.6%</div>
+<div class="card-sub">$1.36B（値上げ効果 + 会員増）</div>
+</div>
+</div>
+</div>
 <!-- Management Commentary -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">🎙️</div>
+<div class="section" data-accordion="" id="sec-mgmt">
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">🎙️</div>
     経営陣コメントハイライト
-  </div>
-  <div class="comment-block">
-    <div class="comment-speaker">デジタル戦略</div>
+  </div><div class="section-body">
+<div class="comment-block">
+<div class="comment-speaker">デジタル戦略</div>
     デジタル対応の既存店売上が22.6%増加。ウェブトラフィック+24%、アプリトラフィック+48%と、オンラインとモバイルでの会員エンゲージメントが急速に深化している。平均オンライン注文額も上昇。
   </div>
-  <div class="comment-block">
-    <div class="comment-speaker">AI・テクノロジー戦略</div>
+<div class="comment-block">
+<div class="comment-speaker">AI・テクノロジー戦略</div>
     AI戦略について「どこでAIが我々をより良くできるか」に焦点を当てている。トレンドを追うのではなく、従業員と会員への価値向上に集中。効率化や需要予測にAIを活用する方針。
   </div>
-  <div class="comment-block">
-    <div class="comment-speaker">設備投資・出店</div>
+<div class="comment-block">
+<div class="comment-speaker">設備投資・出店</div>
     通期CAPEXは約$6.5Bを見込む。新規倉庫のパイプライン拡大、既存倉庫のリモデル、デポネットワーク拡充、都市部への進出（高密度市場向け不動産イノベーション）に積極投資。
   </div>
-  <div class="comment-block">
-    <div class="comment-speaker">広告事業</div>
+<div class="comment-block">
+<div class="comment-speaker">広告事業</div>
     プレースメント・フィーを通じた広告収入が二桁成長を達成。新たな収益源として成長中。
   </div>
-  <div class="comment-block">
-    <div class="comment-speaker">外部環境リスク</div>
+<div class="comment-block">
+<div class="comment-speaker">外部環境リスク</div>
     関税の影響は流動的で、少なくとも150日間は不確実性が続くと認識。中東リスクも注視しているが、サプライチェーンは安定しており、在庫状況は健全、キャッシュ創出力は堅調。卵価格のデフレは「当面続く」見込み。
   </div>
-</div>
-
+</div></div>
 <!-- Risk / Catalyst -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--red-bg);">⚠️</div>
+<div class="section" data-accordion="" id="sec-risk">
+<div class="section-title">
+<div class="section-icon" style="background:var(--red-bg);">⚠️</div>
     リスク・注目ポイント / カタリスト
-  </div>
-  <div class="risk-grid">
-    <div>
-      <div style="font-size:14px; font-weight:700; color:var(--red); margin-bottom:12px;">リスク要因</div>
-      <div class="risk-item">関税リスク: 複数の関税が重層的に課され、個別商品への影響把握が困難。150日間の不確実性が継続</div>
-      <div class="risk-item" style="margin-top:8px;">バリュエーション: Trailing PER 55倍は過去10年平均を40%上回る水準。成長鈍化時のマルチプル収縮リスク</div>
-      <div class="risk-item" style="margin-top:8px;">食品デフレ: 卵価格のデフレが「当面継続」と明言。食品セグメント（売上の40%）への逆風</div>
-      <div class="risk-item" style="margin-top:8px;">競争激化: Sam's Club（年15店出店計画・会員倍増目標）、BJ's（25-30店新規出店）が攻勢</div>
-      <div class="risk-item" style="margin-top:8px;">地政学リスク: 中東情勢の不安定化によるサプライチェーン・エネルギーコストへの波及</div>
-    </div>
-    <div>
-      <div style="font-size:14px; font-weight:700; color:var(--green-light); margin-bottom:12px;">ポジティブ・カタリスト</div>
-      <div class="catalyst-item">デジタル加速: Eコマース+22.6%が更に加速中。アプリ利用+48%は将来の購買転換率向上に寄与</div>
-      <div class="catalyst-item" style="margin-top:8px;">会員値上げ効果: 2024年後半の$5-$10値上げがフル寄与中。会員収入+13.6%は利益率押し上げに直結</div>
-      <div class="catalyst-item" style="margin-top:8px;">海外成長: カナダ+10.1%、国際+13.0%のCompsは米国を大幅に上回り、グローバル展開が加速</div>
-      <div class="catalyst-item" style="margin-top:8px;">広告収入: 新収益源としてのプレースメント・フィーが二桁成長。高マージン収益の拡大余地</div>
-      <div class="catalyst-item" style="margin-top:8px;">関税訴訟: Costcoは関税に対して訴訟を提起。最高裁の関税違憲判決（2026年2月）により、関税還付の可能性</div>
-      <div class="catalyst-item" style="margin-top:8px;">積極出店: FY2026で28店、今後年30+店の出店加速計画。都市部への新フォーマット展開</div>
-    </div>
-  </div>
+  </div><div class="section-body">
+<div class="risk-grid">
+<div>
+<div style="font-size:14px; font-weight:700; color:var(--red); margin-bottom:12px;">リスク要因</div>
+<div class="risk-item">関税リスク: 複数の関税が重層的に課され、個別商品への影響把握が困難。150日間の不確実性が継続</div>
+<div class="risk-item" style="margin-top:8px;">バリュエーション: Trailing PER 55倍は過去10年平均を40%上回る水準。成長鈍化時のマルチプル収縮リスク</div>
+<div class="risk-item" style="margin-top:8px;">食品デフレ: 卵価格のデフレが「当面継続」と明言。食品セグメント（売上の40%）への逆風</div>
+<div class="risk-item" style="margin-top:8px;">競争激化: Sam's Club（年15店出店計画・会員倍増目標）、BJ's（25-30店新規出店）が攻勢</div>
+<div class="risk-item" style="margin-top:8px;">地政学リスク: 中東情勢の不安定化によるサプライチェーン・エネルギーコストへの波及</div>
 </div>
-
+<div>
+<div style="font-size:14px; font-weight:700; color:var(--green-light); margin-bottom:12px;">ポジティブ・カタリスト</div>
+<div class="catalyst-item">デジタル加速: Eコマース+22.6%が更に加速中。アプリ利用+48%は将来の購買転換率向上に寄与</div>
+<div class="catalyst-item" style="margin-top:8px;">会員値上げ効果: 2024年後半の$5-$10値上げがフル寄与中。会員収入+13.6%は利益率押し上げに直結</div>
+<div class="catalyst-item" style="margin-top:8px;">海外成長: カナダ+10.1%、国際+13.0%のCompsは米国を大幅に上回り、グローバル展開が加速</div>
+<div class="catalyst-item" style="margin-top:8px;">広告収入: 新収益源としてのプレースメント・フィーが二桁成長。高マージン収益の拡大余地</div>
+<div class="catalyst-item" style="margin-top:8px;">関税訴訟: Costcoは関税に対して訴訟を提起。最高裁の関税違憲判決（2026年2月）により、関税還付の可能性</div>
+<div class="catalyst-item" style="margin-top:8px;">積極出店: FY2026で28店、今後年30+店の出店加速計画。都市部への新フォーマット展開</div>
+</div>
+</div>
+</div></div>
 <!-- Previous Quarter Comparison -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">🔄</div>
+<div class="section" data-accordion="" id="sec-compare">
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">🔄</div>
     前回決算との比較サマリー（Q1 FY2026 → Q2 FY2026）
-  </div>
-  <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 16px; padding: 16px; background: var(--bg-card-alt); border-radius: 8px;">
-    <div style="flex:1; text-align:center;">
-      <div style="font-size:12px; color:var(--text-muted);">前回スコア（Q1 FY2026）</div>
-      <div style="font-size:28px; font-weight:900; color:var(--green-light);">4 / 5</div>
-    </div>
-    <div style="font-size:28px; color:var(--yellow);">→</div>
-    <div style="flex:1; text-align:center;">
-      <div style="font-size:12px; color:var(--text-muted);">今回スコア（Q2 FY2026）</div>
-      <div style="font-size:28px; font-weight:900; color:var(--green-light);">4 / 5</div>
-    </div>
-    <div style="flex:1; text-align:center;">
-      <div style="font-size:12px; color:var(--text-muted);">トレンド方向</div>
-      <div style="font-size:28px; font-weight:900; color:var(--yellow);">横ばい →</div>
-    </div>
-  </div>
-  <table class="data-table">
-    <thead>
-      <tr><th>指標</th><th>Q1 FY2026</th><th>Q2 FY2026</th><th>変化</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Net Sales</td><td>$65.98B</td><td>$68.24B</td>
-        <td><span class="positive">+3.4% QoQ</span></td>
-      </tr>
-      <tr>
-        <td>EPS</td><td>$4.50</td><td>$4.58</td>
-        <td><span class="positive">+1.8% QoQ</span></td>
-      </tr>
-      <tr>
-        <td>Comps（全社）</td><td>+6.4%</td><td>+7.4%</td>
-        <td><span class="positive">加速 ↑</span></td>
-      </tr>
-      <tr>
-        <td>デジタル売上</td><td>+20.5%</td><td>+22.6%</td>
-        <td><span class="positive">加速 ↑</span></td>
-      </tr>
-      <tr>
-        <td>会員収入成長</td><td>+14%</td><td>+13.6%</td>
-        <td><span class="neutral" style="color:var(--yellow);">微減 →</span></td>
-      </tr>
-      <tr>
-        <td>更新率</td><td>~90%</td><td>89.7%</td>
-        <td><span class="neutral" style="color:var(--yellow);">横ばい →</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
-    <strong>変化の主要因:</strong> 既存店売上が6.4%→7.4%に加速、特にカナダ（+6.5%→+10.1%）と海外（+8.8%→+13.0%）が顕著に改善。デジタル売上成長も加速トレンドを維持。全体として安定した成長軌道を継続し、Q1と同等の評価を維持。
-  </div>
+  </div><div class="section-body">
+<div style="display: flex; align-items: center; gap: 24px; margin-bottom: 16px; padding: 16px; background: var(--bg-card-alt); border-radius: 8px;">
+<div style="flex:1; text-align:center;">
+<div style="font-size:12px; color:var(--text-muted);">前回スコア（Q1 FY2026）</div>
+<div style="font-size:28px; font-weight:900; color:var(--green-light);">4 / 5</div>
 </div>
-
+<div style="font-size:28px; color:var(--yellow);">→</div>
+<div style="flex:1; text-align:center;">
+<div style="font-size:12px; color:var(--text-muted);">今回スコア（Q2 FY2026）</div>
+<div style="font-size:28px; font-weight:900; color:var(--green-light);">4 / 5</div>
+</div>
+<div style="flex:1; text-align:center;">
+<div style="font-size:12px; color:var(--text-muted);">トレンド方向</div>
+<div style="font-size:28px; font-weight:900; color:var(--yellow);">横ばい →</div>
+</div>
+</div>
+<table class="data-table">
+<thead>
+<tr><th>指標</th><th>Q1 FY2026</th><th>Q2 FY2026</th><th>変化</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Net Sales</td><td>$65.98B</td><td>$68.24B</td>
+<td><span class="positive">+3.4% QoQ</span></td>
+</tr>
+<tr>
+<td>EPS</td><td>$4.50</td><td>$4.58</td>
+<td><span class="positive">+1.8% QoQ</span></td>
+</tr>
+<tr>
+<td>Comps（全社）</td><td>+6.4%</td><td>+7.4%</td>
+<td><span class="positive">加速 ↑</span></td>
+</tr>
+<tr>
+<td>デジタル売上</td><td>+20.5%</td><td>+22.6%</td>
+<td><span class="positive">加速 ↑</span></td>
+</tr>
+<tr>
+<td>会員収入成長</td><td>+14%</td><td>+13.6%</td>
+<td><span class="neutral" style="color:var(--yellow);">微減 →</span></td>
+</tr>
+<tr>
+<td>更新率</td><td>~90%</td><td>89.7%</td>
+<td><span class="neutral" style="color:var(--yellow);">横ばい →</span></td>
+</tr>
+</tbody>
+</table>
+<div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
+<strong>変化の主要因:</strong> 既存店売上が6.4%→7.4%に加速、特にカナダ（+6.5%→+10.1%）と海外（+8.8%→+13.0%）が顕著に改善。デジタル売上成長も加速トレンドを維持。全体として安定した成長軌道を継続し、Q1と同等の評価を維持。
+  </div>
+</div></div>
 <!-- Stock & Valuation Info -->
-<div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">📈</div>
+<div class="section" data-accordion="" id="sec-valuation">
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">📈</div>
     株価・バリュエーション情報
-  </div>
-  <div class="cards-grid">
-    <div class="card">
-      <div class="card-label">現在株価</div>
-      <div class="card-value">~$1,007</div>
-      <div class="card-sub">決算後：ほぼ変わらず</div>
-    </div>
-    <div class="card">
-      <div class="card-label">時価総額</div>
-      <div class="card-value">$446.9B</div>
-      <div class="card-sub">発行済株式数: 443.9M</div>
-    </div>
-    <div class="card">
-      <div class="card-label">52週レンジ</div>
-      <div class="card-value" style="font-size:20px;">$844 - $1,067</div>
-      <div class="card-sub">現在値は高値から-5.6%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">Trailing PER</div>
-      <div class="card-value" style="color:var(--orange);">55.0x</div>
-      <div class="card-sub">過去10年平均比 +40%</div>
-    </div>
-    <div class="card">
-      <div class="card-label">Forward PER</div>
-      <div class="card-value neutral">46-49x</div>
-      <div class="card-sub">業界内では相対的に割安</div>
-    </div>
-    <div class="card">
-      <div class="card-label">空売り比率</div>
-      <div class="card-value">1.6%</div>
-      <div class="card-sub">7.12M株 — 低水準</div>
-    </div>
-  </div>
-  <div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
-    <strong>アナリスト:</strong> 42名中 — Buy 23 / Hold 12 / Sell 2 ｜ 平均目標株価: $1,050-$1,084（上値余地 +4-8%）<br>
-    <strong>インサイダー:</strong> 直近30日間の売買なし。10-12月に3件の売却（計$5.92M）と2件の寄付（6,947株）<br>
-    <strong>テクニカル:</strong> RSI 39.8（やや売られ過ぎ）/ 50日MA $910.66 / 200日MA $925.70（いずれも上方に位置）
-  </div>
+  </div><div class="section-body">
+<div class="cards-grid">
+<div class="card">
+<div class="card-label">現在株価</div>
+<div class="card-value">~$1,007</div>
+<div class="card-sub">決算後：ほぼ変わらず</div>
 </div>
-
+<div class="card">
+<div class="card-label">時価総額</div>
+<div class="card-value">$446.9B</div>
+<div class="card-sub">発行済株式数: 443.9M</div>
+</div>
+<div class="card">
+<div class="card-label">52週レンジ</div>
+<div class="card-value" style="font-size:20px;">$844 - $1,067</div>
+<div class="card-sub">現在値は高値から-5.6%</div>
+</div>
+<div class="card">
+<div class="card-label">Trailing PER</div>
+<div class="card-value" style="color:var(--orange);">55.0x</div>
+<div class="card-sub">過去10年平均比 +40%</div>
+</div>
+<div class="card">
+<div class="card-label">Forward PER</div>
+<div class="card-value neutral">46-49x</div>
+<div class="card-sub">業界内では相対的に割安</div>
+</div>
+<div class="card">
+<div class="card-label">空売り比率</div>
+<div class="card-value">1.6%</div>
+<div class="card-sub">7.12M株 — 低水準</div>
+</div>
+</div>
+<div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
+<strong>アナリスト:</strong> 42名中 — Buy 23 / Hold 12 / Sell 2 ｜ 平均目標株価: $1,050-$1,084（上値余地 +4-8%）<br/>
+<strong>インサイダー:</strong> 直近30日間の売買なし。10-12月に3件の売却（計$5.92M）と2件の寄付（6,947株）<br/>
+<strong>テクニカル:</strong> RSI 39.8（やや売られ過ぎ）/ 50日MA $910.66 / 200日MA $925.70（いずれも上方に位置）
+  </div>
+</div></div>
 <!-- Valuation -->
 <div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--purple); color: #fff;">💎</div>
+<div class="section-title">
+<div class="section-icon" style="background:var(--purple); color: #fff;">💎</div>
     バリュエーション — 想定株価 3シナリオ
   </div>
-  <div style="text-align:center; margin-bottom:16px; font-size:13px; color:var(--text-muted);">
+<div style="text-align:center; margin-bottom:16px; font-size:13px; color:var(--text-muted);">
     計算式: Forward EPS × 予想PER ｜ 現在株価: ~$1,007
   </div>
-  <div class="val-grid">
-    <div class="val-card low">
-      <div class="val-label">LOW（保守的）</div>
-      <div class="val-price" style="color:var(--green-light);">$800</div>
-      <div class="val-detail">Forward EPS $20.0 × PER 40x</div>
-      <div class="val-detail">ガイダンスLow端 × 過去PER下限</div>
-      <div class="val-gap negative">-20.6%（やや割高）</div>
-    </div>
-    <div class="val-card mid">
-      <div class="val-label">MID（基本）</div>
-      <div class="val-price" style="color:var(--blue);">$1,018</div>
-      <div class="val-detail">Forward EPS $21.2 × PER 48x</div>
-      <div class="val-detail">コンセンサス × 過去PER中央値</div>
-      <div class="val-gap" style="color:var(--yellow);">+1.1%（適正）</div>
-    </div>
-    <div class="val-card high">
-      <div class="val-label">HIGH（楽観的）</div>
-      <div class="val-price" style="color:var(--purple);">$1,238</div>
-      <div class="val-detail">Forward EPS $22.5 × PER 55x</div>
-      <div class="val-detail">楽観予想 × 過去PER上限</div>
-      <div class="val-gap positive">+22.9%（やや割安）</div>
-    </div>
-  </div>
-  <div style="text-align:center; margin-top:16px; padding:12px; background:var(--bg-card-alt); border-radius:8px;">
-    <span style="font-size:14px; color:var(--text-secondary);">MID想定株価 vs 現在株価の乖離率:</span>
-    <span style="font-size:18px; font-weight:700; color:var(--yellow); margin-left:8px;">+1.1% → 適正</span>
-  </div>
+<div class="val-grid">
+<div class="val-card low">
+<div class="val-label">LOW（保守的）</div>
+<div class="val-price" style="color:var(--green-light);">$800</div>
+<div class="val-detail">Forward EPS $20.0 × PER 40x</div>
+<div class="val-detail">ガイダンスLow端 × 過去PER下限</div>
+<div class="val-gap negative">-20.6%（やや割高）</div>
 </div>
-
+<div class="val-card mid">
+<div class="val-label">MID（基本）</div>
+<div class="val-price" style="color:var(--blue);">$1,018</div>
+<div class="val-detail">Forward EPS $21.2 × PER 48x</div>
+<div class="val-detail">コンセンサス × 過去PER中央値</div>
+<div class="val-gap" style="color:var(--yellow);">+1.1%（適正）</div>
+</div>
+<div class="val-card high">
+<div class="val-label">HIGH（楽観的）</div>
+<div class="val-price" style="color:var(--purple);">$1,238</div>
+<div class="val-detail">Forward EPS $22.5 × PER 55x</div>
+<div class="val-detail">楽観予想 × 過去PER上限</div>
+<div class="val-gap positive">+22.9%（やや割安）</div>
+</div>
+</div>
+<div style="text-align:center; margin-top:16px; padding:12px; background:var(--bg-card-alt); border-radius:8px;">
+<span style="font-size:14px; color:var(--text-secondary);">MID想定株価 vs 現在株価の乖離率:</span>
+<span style="font-size:18px; font-weight:700; color:var(--yellow); margin-left:8px;">+1.1% → 適正</span>
+</div>
+</div>
 <!-- Competitive Landscape -->
 <div class="section">
-  <div class="section-title">
-    <div class="section-icon" style="background:var(--blue-bg);">🏢</div>
+<div class="section-title">
+<div class="section-icon" style="background:var(--blue-bg);">🏢</div>
     競合・業界環境
   </div>
-  <table class="data-table">
-    <thead>
-      <tr><th>企業</th><th>年間売上</th><th>店舗数</th><th>出店計画</th><th>特記事項</th></tr>
-    </thead>
-    <tbody>
-      <tr class="highlight">
-        <td><strong>Costco</strong></td><td>~$280B (TTM)</td><td>924</td><td>28店/年（→30+目標）</td><td>会員モデル最強、デジタル+22.6%</td>
-      </tr>
-      <tr>
-        <td>Sam's Club</td><td>$90.2B</td><td>~600</td><td>15店/年</td><td>会員倍増目標（8-10年）、全店リモデル</td>
-      </tr>
-      <tr>
-        <td>BJ's Wholesale</td><td>~$20B</td><td>~250</td><td>25-30店/2年</td><td>南部・テキサスへ拡大中</td>
-      </tr>
-    </tbody>
-  </table>
-  <div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
-    <strong>市場規模:</strong> グローバル倉庫型クラブ市場は2026年$65.65B → 2035年$98.47B（CAGR 4.6%）<br>
-    <strong>業界トレンド:</strong> 倉庫型クラブは訪問数が前年比約8%増と、Walmart・Targetの2倍の成長率。オムニチャネル戦略とバリュー志向が成長を牽引。
+<table class="data-table">
+<thead>
+<tr><th>企業</th><th>年間売上</th><th>店舗数</th><th>出店計画</th><th>特記事項</th></tr>
+</thead>
+<tbody>
+<tr class="highlight">
+<td><strong>Costco</strong></td><td>~$280B (TTM)</td><td>924</td><td>28店/年（→30+目標）</td><td>会員モデル最強、デジタル+22.6%</td>
+</tr>
+<tr>
+<td>Sam's Club</td><td>$90.2B</td><td>~600</td><td>15店/年</td><td>会員倍増目標（8-10年）、全店リモデル</td>
+</tr>
+<tr>
+<td>BJ's Wholesale</td><td>~$20B</td><td>~250</td><td>25-30店/2年</td><td>南部・テキサスへ拡大中</td>
+</tr>
+</tbody>
+</table>
+<div style="margin-top: 12px; font-size: 13px; color: var(--text-secondary);">
+<strong>市場規模:</strong> グローバル倉庫型クラブ市場は2026年$65.65B → 2035年$98.47B（CAGR 4.6%）<br/>
+<strong>業界トレンド:</strong> 倉庫型クラブは訪問数が前年比約8%増と、Walmart・Targetの2倍の成長率。オムニチャネル戦略とバリュー志向が成長を牽引。
   </div>
 </div>
-
 <!-- Footer -->
 <div class="footer">
-  <p>本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。</p>
-  <p>データソース: Costco IR、SEC Filing (8-K)、各種アナリストレポート、Yahoo Finance、TipRanks、MarketBeat</p>
-  <p style="margin-top:8px;">Generated by Claude Code — 2026年3月6日</p>
+<p>本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。</p>
+<p>データソース: Costco IR、SEC Filing (8-K)、各種アナリストレポート、Yahoo Finance、TipRanks、MarketBeat</p>
+<p style="margin-top:8px;">Generated by Claude Code — 2026年3月6日</p>
 </div>
-
 <script>
 // Chart.js Configuration
 Chart.defaults.color = '#8b949e';
@@ -1022,8 +1038,76 @@ new Chart(epsCtx, {
   }
 });
 </script>
-
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高・EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド（Q2 FY2026）</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー（24週間 YTD: Q1+Q2 FY2026）</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別・地域別売上構成</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較サマリー（Q1 FY2026 → Q2 FY2026）</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">株価・バリュエーション情報</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

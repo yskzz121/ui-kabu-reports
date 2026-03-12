@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Rubrik (RBRK) Q3 FY2026 決算分析レポート</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -140,33 +141,62 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="image/png"/>
 </head>
 <body>
-
 <!-- ========== HEADER ========== -->
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/RBRK.svg" alt="RBRK"><div class="ticker-badge">NYSE: RBRK</div></div>
-    <h1>Rubrik, Inc. (RBRK) 決算分析レポート</h1>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="RBRK" class="report-header-logo" src="../logos/RBRK.svg"/><div class="ticker-badge">NYSE: RBRK</div></div>
+<h1>Rubrik, Inc. (RBRK) 決算分析レポート</h1>
 </div>
-
+</div>
 <div class="container">
-
 <!-- ========== 2. KEY METRICS ========== -->
 <div class="section">
 <h2 class="section-title">Key Metrics</h2>
@@ -209,10 +239,9 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 </div>
 </div>
 </div>
-
 <!-- ========== 3. 7四半期推移チャート ========== -->
-<div class="section">
-<h2 class="section-title">売上高・EPS 7四半期推移</h2>
+<div class="section" data-accordion="" id="sec-revenue">
+<h2 class="section-title">売上高・EPS 7四半期推移</h2><div class="section-body">
 <div class="card-grid cols-2">
 <div class="chart-wrap">
 <canvas id="revenueChart"></canvas>
@@ -221,11 +250,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <canvas id="epsChart"></canvas>
 </div>
 </div>
-</div>
-
+</div></div>
 <!-- ========== 4. 利益率トレンド ========== -->
-<div class="section">
-<h2 class="section-title">利益率トレンド</h2>
+<div class="section" data-accordion="" id="sec-margin">
+<h2 class="section-title">利益率トレンド</h2><div class="section-body">
 <div class="card-grid cols-3">
 <div class="card">
 <div class="label">サブスクリプション粗利益率</div>
@@ -257,11 +285,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" style="width:49%;background:linear-gradient(90deg,var(--green),var(--blue))"></div></div></div>
 </div>
 </div>
-</div>
-
+</div></div>
 <!-- ========== 5. キャッシュフロー ========== -->
-<div class="section">
-<h2 class="section-title">キャッシュフロー</h2>
+<div class="section" data-accordion="" id="sec-cashflow">
+<h2 class="section-title">キャッシュフロー</h2><div class="section-body">
 <div class="card-grid cols-3" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
 <div class="card">
 <div class="label">FCF</div>
@@ -284,11 +311,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <span class="tag yellow">注意</span>
 </div>
 </div>
-</div>
-
+</div></div>
 <!-- ========== 6. 部門別・地域別売上 ========== -->
-<div class="section">
-<h2 class="section-title">部門別・地域別売上</h2>
+<div class="section" data-accordion="" id="sec-segment">
+<h2 class="section-title">部門別・地域別売上</h2><div class="section-body">
 <div class="card-grid cols-2">
 <div class="chart-wrap">
 <canvas id="segmentChart" style="max-height:280px"></canvas>
@@ -299,11 +325,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <div class="donut-legend" id="geoLegend"></div>
 </div>
 </div>
-</div>
-
+</div></div>
 <!-- ========== 7. SaaS KPI ========== -->
-<div class="section">
-<h2 class="section-title">SaaS KPI</h2>
+<div class="section" data-accordion="" id="sec-saas">
+<h2 class="section-title">SaaS KPI</h2><div class="section-body">
 <div class="card-grid cols-3">
 <div class="card">
 <div class="label">ARR</div>
@@ -332,11 +357,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <div class="detail">YoY +27%</div>
 </div>
 </div>
-</div>
-
+</div></div>
 <!-- ========== 8. 経営陣コメント ========== -->
-<div class="section">
-<h2 class="section-title">経営陣コメントハイライト</h2>
+<div class="section" data-accordion="" id="sec-mgmt">
+<h2 class="section-title">経営陣コメントハイライト</h2><div class="section-body">
 <div class="comment-box">
 <div class="speaker">CEO Bipul Sinha</div>
 <div class="quote">「Rubrikはまたしても卓越した四半期を達成。Net New Subscription ARRとFCFともに過去最高を記録」</div>
@@ -359,11 +383,10 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <div class="detail" style="font-size:.9rem;color:var(--text)">CISO組織への浸透が進み、わずか3四半期で顕著な初期トラクション</div>
 </div>
 </div>
-</div>
-
+</div></div>
 <!-- ========== 9. リスク・カタリスト ========== -->
-<div class="section">
-<h2 class="section-title">カタリスト（成長ドライバー）</h2>
+<div class="section" data-accordion="" id="sec-risk">
+<h2 class="section-title">カタリスト（成長ドライバー）</h2><div class="section-body">
 <div class="card" style="padding:16px 24px">
 <div class="rc-item"><div class="rc-num cat">1</div><div class="rc-content"><div class="rc-title">GAAP黒字化への接近</div><div class="rc-desc">Non-GAAP EPSが初の黒字転換</div></div><span class="rc-importance imp-high">重要度:高</span></div>
 <div class="rc-item"><div class="rc-num cat">2</div><div class="rc-content"><div class="rc-title">AI/サイバーレジリエンス需要</div><div class="rc-desc">規制強化（SEC、DORA）が構造的追い風</div></div><span class="rc-importance imp-high">重要度:高</span></div>
@@ -371,8 +394,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <div class="rc-item"><div class="rc-num cat">4</div><div class="rc-content"><div class="rc-title">NRR改善余地</div><div class="rc-desc">セキュリティ製品のNRR貢献40%に上昇</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
 <div class="rc-item"><div class="rc-num cat">5</div><div class="rc-content"><div class="rc-title">アナリスト目標株価との乖離</div><div class="rc-desc">現在$54 vs 平均$105-112</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
 </div>
-</div>
-
+</div></div>
 <div class="section" style="margin-top:24px">
 <h2 class="section-title" style="border-left-color:var(--red)">リスク</h2>
 <div class="card" style="padding:16px 24px">
@@ -384,32 +406,30 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 <div class="rc-item"><div class="rc-num risk">6</div><div class="rc-content"><div class="rc-title">GAAP営業利益率 -31.69%</div><div class="rc-desc">SBC（株式報酬）が重い</div></div><span class="rc-importance imp-mid">重要度:中</span></div>
 </div>
 </div>
-
 <!-- ========== 10. 前回決算との比較 ========== -->
-<div class="section">
-<h2 class="section-title">前回決算との比較サマリー</h2>
+<div class="section" data-accordion="" id="sec-compare">
+<h2 class="section-title">前回決算との比較サマリー</h2><div class="section-body">
 <div class="card" style="overflow-x:auto">
 <table class="data-table">
 <thead><tr><th>指標</th><th>Q2 FY2026</th><th>Q3 FY2026</th><th>トレンド</th></tr></thead>
 <tbody>
-<tr><td>売上高</td><td>$309.9M (+51%)</td><td>$350.2M (+48%/正規化+36%)</td><td class="red-text" style="font-size:1.1rem">&#11015;</td></tr>
-<tr><td>Non-GAAP EPS</td><td>-$0.03</td><td class="green-text">+$0.10</td><td class="green-text" style="font-size:1.1rem">&#11014;</td></tr>
-<tr><td>ARR</td><td>$1.25B</td><td>$1.35B</td><td class="green-text" style="font-size:1.1rem">&#11014;</td></tr>
-<tr><td>FCF</td><td>—</td><td class="green-text">$76.9M</td><td class="green-text" style="font-size:1.1rem">&#11014;</td></tr>
-<tr><td>粗利率</td><td>81.6%</td><td>81%</td><td style="font-size:1.1rem;color:var(--text-sub)">&#10145;</td></tr>
-<tr><td>PSR</td><td>16.97x</td><td class="green-text">8.4x</td><td class="green-text" style="font-size:1.1rem">&#11015;</td></tr>
-<tr><td>NRR</td><td>120%超</td><td>120%超</td><td style="font-size:1.1rem;color:var(--text-sub)">&#10145;</td></tr>
+<tr><td>売上高</td><td>$309.9M (+51%)</td><td>$350.2M (+48%/正規化+36%)</td><td class="red-text" style="font-size:1.1rem">⬇</td></tr>
+<tr><td>Non-GAAP EPS</td><td>-$0.03</td><td class="green-text">+$0.10</td><td class="green-text" style="font-size:1.1rem">⬆</td></tr>
+<tr><td>ARR</td><td>$1.25B</td><td>$1.35B</td><td class="green-text" style="font-size:1.1rem">⬆</td></tr>
+<tr><td>FCF</td><td>—</td><td class="green-text">$76.9M</td><td class="green-text" style="font-size:1.1rem">⬆</td></tr>
+<tr><td>粗利率</td><td>81.6%</td><td>81%</td><td style="font-size:1.1rem;color:var(--text-sub)">➡</td></tr>
+<tr><td>PSR</td><td>16.97x</td><td class="green-text">8.4x</td><td class="green-text" style="font-size:1.1rem">⬇</td></tr>
+<tr><td>NRR</td><td>120%超</td><td>120%超</td><td style="font-size:1.1rem;color:var(--text-sub)">➡</td></tr>
 </tbody>
 </table>
 </div>
 <div class="reason-box" style="margin-top:12px">
-<strong>総合トレンド:</strong> 収益性が大幅改善 <span class="green-text">&#11014;</span>、トップライン成長率は鈍化 <span class="red-text">&#11015;</span>。「成長 → 収益性シフト」フェーズ。
+<strong>総合トレンド:</strong> 収益性が大幅改善 <span class="green-text">⬆</span>、トップライン成長率は鈍化 <span class="red-text">⬇</span>。「成長 → 収益性シフト」フェーズ。
 </div>
-</div>
-
+</div></div>
 <!-- ========== 11. バリュエーション ========== -->
-<div class="section">
-<h2 class="section-title">バリュエーション（PSRベース）</h2>
+<div class="section" data-accordion="" id="sec-valuation">
+<h2 class="section-title">バリュエーション（PSRベース）</h2><div class="section-body">
 <p style="color:var(--text-sub);font-size:.82rem;margin-bottom:16px">現在株価: $53.67（2026年3月3日時点）｜RBRKは赤字のためPSR（Price-to-Sales Ratio）で算出</p>
 <div class="card-grid cols-3">
 <div class="val-card low">
@@ -449,16 +469,13 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 </tbody>
 </table>
 </div>
-</div>
-
+</div></div>
 </div><!-- /container -->
-
 <div class="footer">
 <div class="container">
 Rubrik (RBRK) Q3 FY2026 決算分析レポート ｜ データは公開情報に基づく ｜ 投資助言ではありません
 </div>
 </div>
-
 <script>
 Chart.defaults.color='#8b949e';
 Chart.defaults.borderColor='rgba(48,54,61,.5)';
@@ -513,6 +530,76 @@ tooltip:{callbacks:{label:ctx=>{const t=256+94;return ctx.label+': $'+ctx.parsed
 document.getElementById('geoLegend').innerHTML='<span style="color:var(--blue)"><span style="display:inline-block;width:12px;height:12px;background:rgba(88,166,255,.7);border-radius:3px;margin-right:4px"></span>Americas $256M (73%) YoY+51%</span><span style="color:var(--purple)"><span style="display:inline-block;width:12px;height:12px;background:rgba(188,140,255,.6);border-radius:3px;margin-right:4px"></span>Outside Americas $94M (27%) YoY+51%</span>';
 </script>
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高・EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別・地域別売上</span></a></li>
+<li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">☁️</span><span class="toc-label">SaaS KPI</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">カタリスト（成長ドライバー）</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較サマリー</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（PSRベース）</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

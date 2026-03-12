@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>CIEN Ciena FY2026 Q1 決算分析</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;--green:#2ea043;--gl:#3fb950;--red:#f85149;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--yellow:#d29922;--orange:#f0883e}
@@ -96,180 +97,201 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="image/png"/>
 </head>
 <body>
-
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/CIEN.png" alt="CIEN"><div class="ticker-badge">NYSE: CIEN</div></div>
-    <h1>Ciena Corporation</h1>
-    <div class="date">決算発表日: 2026年3月4日 ｜ 会計年度末: 10月末</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="CIEN" class="report-header-logo" src="../logos/CIEN.png"/><div class="ticker-badge">NYSE: CIEN</div></div>
+<h1>Ciena Corporation</h1>
+<div class="date">決算発表日: 2026年3月4日 ｜ 会計年度末: 10月末</div>
 </div>
-
+</div>
 <div class="overview">
-  <h2>🏢 企業概要</h2>
-  <p><strong>Ciena Corporation</strong>は、メリーランド州ハノーバーに本社を置く光ネットワーキング機器・ソフトウェアの世界的リーダー。独自の<strong>WaveLogic</strong>コヒーレント光DSP技術を核に、通信事業者・クラウドプロバイダー・ケーブルオペレーター・政府機関向けに高速光伝送システムを提供する。</p>
-  <p>主力製品はWaveserver（DCI向け）、Reconfigurable Line System（RLS）、次世代のVesta 206.4T CPO（Co-Packaged Optics）、HyperRail等。AIトレーニングクラスタのスケーリングに不可欠な光接続インフラとして、ハイパースケーラー3社がCienaソリューションを採用中。CEO: Gary Smith、CFO: Mark Graff。</p>
-  <div class="tags">
-    <span class="tag">光ネットワーキング</span>
-    <span class="tag">コヒーレント光DSP</span>
-    <span class="tag">WaveLogic</span>
-    <span class="tag">データセンター相互接続</span>
-    <span class="tag">AIインフラ接続</span>
-    <span class="tag">ハイパースケーラー向け</span>
-    <span class="tag">Blue Planet自動化</span>
-  </div>
+<h2>🏢 企業概要</h2>
+<p><strong>Ciena Corporation</strong>は、メリーランド州ハノーバーに本社を置く光ネットワーキング機器・ソフトウェアの世界的リーダー。独自の<strong>WaveLogic</strong>コヒーレント光DSP技術を核に、通信事業者・クラウドプロバイダー・ケーブルオペレーター・政府機関向けに高速光伝送システムを提供する。</p>
+<p>主力製品はWaveserver（DCI向け）、Reconfigurable Line System（RLS）、次世代のVesta 206.4T CPO（Co-Packaged Optics）、HyperRail等。AIトレーニングクラスタのスケーリングに不可欠な光接続インフラとして、ハイパースケーラー3社がCienaソリューションを採用中。CEO: Gary Smith、CFO: Mark Graff。</p>
+<div class="tags">
+<span class="tag">光ネットワーキング</span>
+<span class="tag">コヒーレント光DSP</span>
+<span class="tag">WaveLogic</span>
+<span class="tag">データセンター相互接続</span>
+<span class="tag">AIインフラ接続</span>
+<span class="tag">ハイパースケーラー向け</span>
+<span class="tag">Blue Planet自動化</span>
 </div>
-
+</div>
 <!-- 総合評価 -->
 <div class="score-section">
-  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
-  <div class="score-label">良い決算</div>
-  <div class="score-desc">過去最高の四半期売上$1,427M（+33.1% YoY）、Adjusted EPS $1.35（+111% YoY）で大幅コンセンサスビート。バックログは$7Bに急増、FY26通期ガイダンスを$5.9B-$6.3Bに上方修正。AI駆動のネットワーキング需要がマルチイヤーで継続する見通し。ただし決算後に株価-12.9%と市場の期待値はさらに高かった。</div>
+<div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
+<div class="score-label">良い決算</div>
+<div class="score-desc">過去最高の四半期売上$1,427M（+33.1% YoY）、Adjusted EPS $1.35（+111% YoY）で大幅コンセンサスビート。バックログは$7Bに急増、FY26通期ガイダンスを$5.9B-$6.3Bに上方修正。AI駆動のネットワーキング需要がマルチイヤーで継続する見通し。ただし決算後に株価-12.9%と市場の期待値はさらに高かった。</div>
 </div>
-
 <!-- Key Metrics -->
 <div class="section">
-  <div class="section-title">📊 Key Metrics</div>
-  <div class="grid">
-    <div class="card">
-      <div class="card-label">売上高</div>
-      <div class="card-val">$1,427M</div>
-      <div class="card-sub">YoY <span class="pos">+33.1%</span> ｜ QoQ <span class="pos">+5.5%</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Adjusted EPS</div>
-      <div class="card-val pos">$1.35</div>
-      <div class="card-sub">YoY <span class="pos">+111%</span>（GAAP: $1.03）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">売上ビート</div>
-      <div class="card-val pos">+$37M</div>
-      <div class="card-sub">コンセンサス $1,390M（<span class="pos">+2.7%</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">EPSビート</div>
-      <div class="card-val pos">+$0.21</div>
-      <div class="card-sub">コンセンサス $1.14（<span class="pos">+18.4%</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">粗利益率（Non-GAAP）</div>
-      <div class="card-val">44.7%</div>
-      <div class="card-sub">GAAP: 43.8% ｜ YoY横ばい</div>
-    </div>
-    <div class="card">
-      <div class="card-label">営業利益率（Non-GAAP）</div>
-      <div class="card-val">17.9%</div>
-      <div class="card-sub">GAAP: 13.3% ｜ YoY <span class="pos">+5.6pp</span></div>
-    </div>
-    <div class="card">
-      <div class="card-label">EBITDAマージン</div>
-      <div class="card-val">20.1%</div>
-      <div class="card-sub">Adj. EBITDA: $287M（<span class="pos">+84% YoY</span>）</div>
-    </div>
-    <div class="card">
-      <div class="card-label">Q2ガイダンス（売上）</div>
-      <div class="card-val pos">$1,500M</div>
-      <div class="card-sub">レンジ: $1,450M - $1,550M</div>
-    </div>
-  </div>
+<div class="section-title">📊 Key Metrics</div>
+<div class="grid">
+<div class="card">
+<div class="card-label">売上高</div>
+<div class="card-val">$1,427M</div>
+<div class="card-sub">YoY <span class="pos">+33.1%</span> ｜ QoQ <span class="pos">+5.5%</span></div>
 </div>
-
+<div class="card">
+<div class="card-label">Adjusted EPS</div>
+<div class="card-val pos">$1.35</div>
+<div class="card-sub">YoY <span class="pos">+111%</span>（GAAP: $1.03）</div>
+</div>
+<div class="card">
+<div class="card-label">売上ビート</div>
+<div class="card-val pos">+$37M</div>
+<div class="card-sub">コンセンサス $1,390M（<span class="pos">+2.7%</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">EPSビート</div>
+<div class="card-val pos">+$0.21</div>
+<div class="card-sub">コンセンサス $1.14（<span class="pos">+18.4%</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">粗利益率（Non-GAAP）</div>
+<div class="card-val">44.7%</div>
+<div class="card-sub">GAAP: 43.8% ｜ YoY横ばい</div>
+</div>
+<div class="card">
+<div class="card-label">営業利益率（Non-GAAP）</div>
+<div class="card-val">17.9%</div>
+<div class="card-sub">GAAP: 13.3% ｜ YoY <span class="pos">+5.6pp</span></div>
+</div>
+<div class="card">
+<div class="card-label">EBITDAマージン</div>
+<div class="card-val">20.1%</div>
+<div class="card-sub">Adj. EBITDA: $287M（<span class="pos">+84% YoY</span>）</div>
+</div>
+<div class="card">
+<div class="card-label">Q2ガイダンス（売上）</div>
+<div class="card-val pos">$1,500M</div>
+<div class="card-sub">レンジ: $1,450M - $1,550M</div>
+</div>
+</div>
+</div>
 <!-- 売上高チャート -->
-<div class="section">
-  <div class="section-title">📈 売上高推移（直近8四半期）</div>
-  <div class="chart-box"><div class="chart-wrap"><canvas id="revChart"></canvas></div></div>
-</div>
-
+<div class="section" data-accordion="" id="sec-revenue">
+<div class="section-title">📈 売上高推移（直近8四半期）</div><div class="section-body">
+<div class="chart-box"><div class="chart-wrap"><canvas id="revChart"></canvas></div></div>
+</div></div>
 <!-- EPSチャート -->
 <div class="section">
-  <div class="section-title">💰 EPS推移（直近7四半期）</div>
-  <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
+<div class="section-title">💰 EPS推移（直近7四半期）</div>
+<div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
 </div>
-
 <!-- 利益率トレンド -->
-<div class="section">
-  <div class="section-title">📉 利益率トレンド</div>
-  <div class="chart-box"><div class="chart-wrap"><canvas id="marginChart"></canvas></div></div>
-</div>
-
+<div class="section" data-accordion="" id="sec-margin">
+<div class="section-title">📉 利益率トレンド</div><div class="section-body">
+<div class="chart-box"><div class="chart-wrap"><canvas id="marginChart"></canvas></div></div>
+</div></div>
 <!-- キャッシュフロー -->
-<div class="section">
-  <div class="section-title">🏦 キャッシュフロー</div>
-  <div class="grid">
-    <div class="card"><div class="card-label">営業CF</div><div class="card-val pos">$228M</div><div class="card-sub">YoY <span class="pos">+119%</span></div></div>
-    <div class="card"><div class="card-label">FCF</div><div class="card-val pos">$154M</div><div class="card-sub">YoY <span class="pos">+100%</span></div></div>
-    <div class="card"><div class="card-label">設備投資</div><div class="card-val">$74M</div><div class="card-sub">YoY +175%（拡大投資）</div></div>
-    <div class="card"><div class="card-label">手元流動性</div><div class="card-val">$1,370M</div><div class="card-sub">現金$1,123M + 短期投資$176M + 長期$70M</div></div>
-  </div>
+<div class="section" data-accordion="" id="sec-cashflow">
+<div class="section-title">🏦 キャッシュフロー</div><div class="section-body">
+<div class="grid">
+<div class="card"><div class="card-label">営業CF</div><div class="card-val pos">$228M</div><div class="card-sub">YoY <span class="pos">+119%</span></div></div>
+<div class="card"><div class="card-label">FCF</div><div class="card-val pos">$154M</div><div class="card-sub">YoY <span class="pos">+100%</span></div></div>
+<div class="card"><div class="card-label">設備投資</div><div class="card-val">$74M</div><div class="card-sub">YoY +175%（拡大投資）</div></div>
+<div class="card"><div class="card-label">手元流動性</div><div class="card-val">$1,370M</div><div class="card-sub">現金$1,123M + 短期投資$176M + 長期$70M</div></div>
 </div>
-
+</div></div>
 <!-- セグメント -->
-<div class="section">
-  <div class="section-title">🏭 セグメント別売上</div>
-  <div class="grid-2">
-    <div class="chart-box"><div class="chart-wrap"><canvas id="segPie"></canvas></div></div>
-    <div class="card">
-      <table class="tbl">
-        <thead><tr><th>セグメント</th><th>売上</th><th>構成比</th><th>YoY</th></tr></thead>
-        <tbody>
-          <tr><td>🔵 Optical Networking</td><td>$1,023M</td><td>71.7%</td><td class="pos">+40.5%</td></tr>
-          <tr><td>🟢 Routing & Switching</td><td>$126M</td><td>8.8%</td><td class="pos">+35.2%</td></tr>
-          <tr><td>🟣 Platform SW & Svc</td><td>$93M</td><td>6.5%</td><td class="neg">-1.9%</td></tr>
-          <tr><td>🔴 Blue Planet</td><td>$20M</td><td>1.5%</td><td class="neg">-21.5%</td></tr>
-          <tr><td>🟡 Global Services</td><td>$164M</td><td>11.5%</td><td class="pos">+26.2%</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:16px;font-size:.82rem;color:var(--t2);line-height:1.7">
-        <strong>Optical Networking</strong>が+40.5% YoYで全体を牽引。Waveserverは前年比80%超成長。RLSは2四半期連続で過去最高出荷。<strong>Blue Planet</strong>は営業損失に転落し課題が残る。
+<div class="section" data-accordion="" id="sec-segment">
+<div class="section-title">🏭 セグメント別売上</div><div class="section-body">
+<div class="grid-2">
+<div class="chart-box"><div class="chart-wrap"><canvas id="segPie"></canvas></div></div>
+<div class="card">
+<table class="tbl">
+<thead><tr><th>セグメント</th><th>売上</th><th>構成比</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>🔵 Optical Networking</td><td>$1,023M</td><td>71.7%</td><td class="pos">+40.5%</td></tr>
+<tr><td>🟢 Routing &amp; Switching</td><td>$126M</td><td>8.8%</td><td class="pos">+35.2%</td></tr>
+<tr><td>🟣 Platform SW &amp; Svc</td><td>$93M</td><td>6.5%</td><td class="neg">-1.9%</td></tr>
+<tr><td>🔴 Blue Planet</td><td>$20M</td><td>1.5%</td><td class="neg">-21.5%</td></tr>
+<tr><td>🟡 Global Services</td><td>$164M</td><td>11.5%</td><td class="pos">+26.2%</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;font-size:.82rem;color:var(--t2);line-height:1.7">
+<strong>Optical Networking</strong>が+40.5% YoYで全体を牽引。Waveserverは前年比80%超成長。RLSは2四半期連続で過去最高出荷。<strong>Blue Planet</strong>は営業損失に転落し課題が残る。
       </div>
-    </div>
-  </div>
 </div>
-
+</div>
+</div></div>
 <!-- 地域別 -->
-<div class="section">
-  <div class="section-title">🌐 地域別売上構成（推定）</div>
-  <div class="grid-2">
-    <div class="chart-box"><div class="chart-wrap"><canvas id="geoPie"></canvas></div></div>
-    <div class="card">
-      <table class="tbl">
-        <thead><tr><th>地域</th><th>構成比</th><th>主要ドライバー</th></tr></thead>
-        <tbody>
-          <tr><td>🇺🇸 米州</td><td>~77%</td><td>ハイパースケーラー・通信事業者</td></tr>
-          <tr><td>🇪🇺 EMEA</td><td>~14.5%</td><td>通信事業者・政府</td></tr>
-          <tr><td>🌏 APAC</td><td>~8.5%</td><td>インド（MOFN +40% YoY）</td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:16px;font-size:.82rem;color:var(--t2);line-height:1.7">
+<div class="section" data-accordion="" id="sec-geo">
+<div class="section-title">🌐 地域別売上構成（推定）</div><div class="section-body">
+<div class="grid-2">
+<div class="chart-box"><div class="chart-wrap"><canvas id="geoPie"></canvas></div></div>
+<div class="card">
+<table class="tbl">
+<thead><tr><th>地域</th><th>構成比</th><th>主要ドライバー</th></tr></thead>
+<tbody>
+<tr><td>🇺🇸 米州</td><td>~77%</td><td>ハイパースケーラー・通信事業者</td></tr>
+<tr><td>🇪🇺 EMEA</td><td>~14.5%</td><td>通信事業者・政府</td></tr>
+<tr><td>🌏 APAC</td><td>~8.5%</td><td>インド（MOFN +40% YoY）</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;font-size:.82rem;color:var(--t2);line-height:1.7">
         米州がハイパースケーラー向けAI接続需要で圧倒的比率。インドはMOFN（海底光ファイバー網）関連のデザインウィンが加速し、前年比+40%成長。
       </div>
-    </div>
-  </div>
 </div>
-
+</div>
+</div></div>
 <!-- テクニカル分析 -->
-<div class="section">
-  <div class="section-title">📐 株価・テクニカル分析</div>
-  <div style="margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch">
-    <div class="tradingview-widget-container" style="display:inline-block;max-width:100%">
-      <div class="tradingview-widget-container__widget"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+<div class="section" data-accordion="" id="sec-technical">
+<div class="section-title">📐 株価・テクニカル分析</div><div class="section-body">
+<div style="margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch">
+<div class="tradingview-widget-container" style="display:inline-block;max-width:100%">
+<div class="tradingview-widget-container__widget"></div>
+<script async="" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" type="text/javascript">
       {
         "autosize": false,
         "width": 1100,
@@ -301,148 +323,142 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);
         }
       }
       </script>
-    </div>
-  </div>
-  <div class="grid">
-    <div class="card"><div class="card-label">現在株価</div><div class="card-val">$342.54</div><div class="card-sub">決算後 <span class="neg">-12.9%</span></div></div>
-    <div class="card"><div class="card-label">時価総額</div><div class="card-val">$47.7B</div><div class="card-sub">発行済: 141.5M株</div></div>
-    <div class="card"><div class="card-label">52週レンジ</div><div class="card-val">$49.21 - $365.90</div><div class="card-sub">レンジの93%（高値圏）</div></div>
-    <div class="card"><div class="card-label">空売り比率</div><div class="card-val">8.42%</div><div class="card-sub">7.31M株（前回6.41Mから増加）</div></div>
-  </div>
-  <div class="card" style="margin-top:16px">
-    <table class="tbl">
-      <thead><tr><th>指標</th><th>値</th><th>シグナル</th></tr></thead>
-      <tbody>
-        <tr><td>50日移動平均線</td><td>SMA20 > SMA60</td><td class="pos">中期ブルトレンド</td></tr>
-        <tr><td>RSI（14日）</td><td>58.5</td><td class="neu">中立ゾーン</td></tr>
-        <tr><td>MACD</td><td>14.43（シグナル19.01を下回る）</td><td class="neg">やや弱気クロス</td></tr>
-        <tr><td>サポートライン</td><td>$320 / $299</td><td>直近安値 / 決算後安値</td></tr>
-        <tr><td>レジスタンスライン</td><td>$347 / $366</td><td>直近高値 / 52週高値</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="grid" style="margin-top:16px">
-    <div class="card"><div class="card-label">PER（Trailing）</div><div class="card-val">~210x</div><div class="card-sub">TTM GAAP EPSに一時要因含む</div></div>
-    <div class="card"><div class="card-label">PER（Forward FY26）</div><div class="card-val">55.0x</div><div class="card-sub">FY26E Adj. EPS: $6.20</div></div>
-    <div class="card"><div class="card-label">PEG Ratio</div><div class="card-val">0.99</div><div class="card-sub">成長率対比で概ね適正</div></div>
-    <div class="card"><div class="card-label">アナリスト評価</div><div class="card-val pos">Buy</div><div class="card-sub">16名中: Buy 11 / Hold 4 / Sell 1</div></div>
-  </div>
 </div>
-
+</div>
+<div class="grid">
+<div class="card"><div class="card-label">現在株価</div><div class="card-val">$342.54</div><div class="card-sub">決算後 <span class="neg">-12.9%</span></div></div>
+<div class="card"><div class="card-label">時価総額</div><div class="card-val">$47.7B</div><div class="card-sub">発行済: 141.5M株</div></div>
+<div class="card"><div class="card-label">52週レンジ</div><div class="card-val">$49.21 - $365.90</div><div class="card-sub">レンジの93%（高値圏）</div></div>
+<div class="card"><div class="card-label">空売り比率</div><div class="card-val">8.42%</div><div class="card-sub">7.31M株（前回6.41Mから増加）</div></div>
+</div>
+<div class="card" style="margin-top:16px">
+<table class="tbl">
+<thead><tr><th>指標</th><th>値</th><th>シグナル</th></tr></thead>
+<tbody>
+<tr><td>50日移動平均線</td><td>SMA20 &gt; SMA60</td><td class="pos">中期ブルトレンド</td></tr>
+<tr><td>RSI（14日）</td><td>58.5</td><td class="neu">中立ゾーン</td></tr>
+<tr><td>MACD</td><td>14.43（シグナル19.01を下回る）</td><td class="neg">やや弱気クロス</td></tr>
+<tr><td>サポートライン</td><td>$320 / $299</td><td>直近安値 / 決算後安値</td></tr>
+<tr><td>レジスタンスライン</td><td>$347 / $366</td><td>直近高値 / 52週高値</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid" style="margin-top:16px">
+<div class="card"><div class="card-label">PER（Trailing）</div><div class="card-val">~210x</div><div class="card-sub">TTM GAAP EPSに一時要因含む</div></div>
+<div class="card"><div class="card-label">PER（Forward FY26）</div><div class="card-val">55.0x</div><div class="card-sub">FY26E Adj. EPS: $6.20</div></div>
+<div class="card"><div class="card-label">PEG Ratio</div><div class="card-val">0.99</div><div class="card-sub">成長率対比で概ね適正</div></div>
+<div class="card"><div class="card-label">アナリスト評価</div><div class="card-val pos">Buy</div><div class="card-sub">16名中: Buy 11 / Hold 4 / Sell 1</div></div>
+</div>
+</div></div>
 <!-- 経営陣コメント -->
-<div class="section">
-  <div class="section-title">🎤 経営陣コメントハイライト</div>
-  <div class="insight">
-    <strong>Gary Smith CEO:</strong><br>
+<div class="section" data-accordion="" id="sec-mgmt">
+<div class="section-title">🎤 経営陣コメントハイライト</div><div class="section-body">
+<div class="insight">
+<strong>Gary Smith CEO:</strong><br/>
     「当社は過去最高の四半期売上と受注残を記録した。Q1の需要は前例のないレベルだった。2025年は市場シェア獲得で最強の年の1つとなったが、2026年はさらに強くなると確信している。AIトレーニングのクラスタリングはまだ非常に初期段階にある。」
   </div>
-  <div class="insight">
-    <strong>Mark Graff CFO:</strong><br>
+<div class="insight">
+<strong>Mark Graff CFO:</strong><br/>
     「サプライチェーン制約がなければ、当四半期の売上はさらに高かった。過去90日間の受注は非常に強く、大幅な新記録を達成した。価格引き上げの効果は下半期から本格的に反映される。需要が供給を上回る状況は、少なくとも今後数四半期は続く。」
   </div>
-  <div class="insight">
-    <strong>カンファレンスコール重要ポイント:</strong><br>
-    • ハイパースケーラー3社がAIトレーニング向けにCienaソリューションを導入中<br>
-    • バックログが四半期中に+$2B増加し$7Bに到達（大半はFY2027向け）— 売上可視性が極めて高い<br>
-    • 4大グローバルハイパースケーラーの2026年CapExは合計6,000億ドル超、AIインフラが牽引<br>
-    • Waveserverは前年比80%超成長、RLSは2四半期連続で過去最高出荷<br>
-    • 次世代Vesta 206.4T CPO、HyperRailは2026年標準化開始→2027年本格立ち上がり<br>
+<div class="insight">
+<strong>カンファレンスコール重要ポイント:</strong><br/>
+    • ハイパースケーラー3社がAIトレーニング向けにCienaソリューションを導入中<br/>
+    • バックログが四半期中に+$2B増加し$7Bに到達（大半はFY2027向け）— 売上可視性が極めて高い<br/>
+    • 4大グローバルハイパースケーラーの2026年CapExは合計6,000億ドル超、AIインフラが牽引<br/>
+    • Waveserverは前年比80%超成長、RLSは2四半期連続で過去最高出荷<br/>
+    • 次世代Vesta 206.4T CPO、HyperRailは2026年標準化開始→2027年本格立ち上がり<br/>
     • インターコネクト事業：前年比3倍成長を目標
   </div>
-</div>
-
+</div></div>
 <!-- リスク・カタリスト -->
-<div class="section">
-  <div class="section-title">⚡ リスク・注目ポイント / カタリスト</div>
-  <div class="risk-grid">
-    <div class="risk-card bull">
-      <h3><span class="pos">📈</span> ポジティブ・カタリスト</h3>
-      <ul>
-        <li>AI CapEx $600B+の直接的恩恵、光接続はAIインフラの必須要素</li>
-        <li>バックログ$7B（売上の約5四半期分）で極めて高い売上可視性</li>
-        <li>WaveLogic技術の競争優位性、Waveserver +80% YoY成長</li>
-        <li>FY26通期ガイダンスを$5.9B-$6.3Bに上方修正</li>
-        <li>Vesta CPO・HyperRail等の新製品パイプラインが2027年以降に貢献</li>
-        <li>価格引き上げ効果が下半期から本格化→マージン改善余地</li>
-        <li>インド・MOFN市場の成長（+40% YoY）、新興市場の拡大</li>
-      </ul>
-    </div>
-    <div class="risk-card bear">
-      <h3><span class="neg">📉</span> リスク要因</h3>
-      <ul>
-        <li>サプライチェーン制約が売上成長の上限を制約（ソールドアウト状態）</li>
-        <li>決算後-12.9%下落：好決算でも市場期待値がさらに高かった</li>
-        <li>Forward PER 55xと高バリュエーション、期待先行リスク</li>
-        <li>顧客集中：上位3顧客が売上の47.4%（最大顧客23%）</li>
-        <li>Blue Planet事業が営業損失に転落、SW事業の立て直しが課題</li>
-        <li>空売り比率8.42%に増加（ショートポジション拡大中）</li>
-        <li>関税・地政学リスク、CapEx急増（設備投資が過去平均の2-3倍）</li>
-      </ul>
-    </div>
-  </div>
+<div class="section" data-accordion="" id="sec-risk">
+<div class="section-title">⚡ リスク・注目ポイント / カタリスト</div><div class="section-body">
+<div class="risk-grid">
+<div class="risk-card bull">
+<h3><span class="pos">📈</span> ポジティブ・カタリスト</h3>
+<ul>
+<li>AI CapEx $600B+の直接的恩恵、光接続はAIインフラの必須要素</li>
+<li>バックログ$7B（売上の約5四半期分）で極めて高い売上可視性</li>
+<li>WaveLogic技術の競争優位性、Waveserver +80% YoY成長</li>
+<li>FY26通期ガイダンスを$5.9B-$6.3Bに上方修正</li>
+<li>Vesta CPO・HyperRail等の新製品パイプラインが2027年以降に貢献</li>
+<li>価格引き上げ効果が下半期から本格化→マージン改善余地</li>
+<li>インド・MOFN市場の成長（+40% YoY）、新興市場の拡大</li>
+</ul>
 </div>
-
+<div class="risk-card bear">
+<h3><span class="neg">📉</span> リスク要因</h3>
+<ul>
+<li>サプライチェーン制約が売上成長の上限を制約（ソールドアウト状態）</li>
+<li>決算後-12.9%下落：好決算でも市場期待値がさらに高かった</li>
+<li>Forward PER 55xと高バリュエーション、期待先行リスク</li>
+<li>顧客集中：上位3顧客が売上の47.4%（最大顧客23%）</li>
+<li>Blue Planet事業が営業損失に転落、SW事業の立て直しが課題</li>
+<li>空売り比率8.42%に増加（ショートポジション拡大中）</li>
+<li>関税・地政学リスク、CapEx急増（設備投資が過去平均の2-3倍）</li>
+</ul>
+</div>
+</div>
+</div></div>
 <!-- 前回決算比較 -->
-<div class="section">
-  <div class="section-title">🔄 前回決算（FY2025 Q4）との比較</div>
-  <div class="card">
-    <table class="tbl">
-      <thead><tr><th>指標</th><th>FY2025 Q4</th><th>FY2026 Q1</th><th>変化</th></tr></thead>
-      <tbody>
-        <tr><td>売上高</td><td>$1,352M</td><td>$1,427M</td><td class="pos">+$75M (+5.5%)</td></tr>
-        <tr><td>Adjusted EPS</td><td>$0.91</td><td>$1.35</td><td class="pos">+$0.44 (+48.4%)</td></tr>
-        <tr><td>Non-GAAP粗利益率</td><td>~43.4%</td><td>44.7%</td><td class="pos">+1.3pp</td></tr>
-        <tr><td>Non-GAAP営業利益率</td><td>~13.2%</td><td>17.9%</td><td class="pos">+4.7pp</td></tr>
-        <tr><td>営業CF</td><td>—</td><td>$228M</td><td>—</td></tr>
-        <tr><td>バックログ</td><td>~$5B</td><td>~$7B</td><td class="pos">+$2B</td></tr>
-        <tr><td>総合評価スコア</td><td>—</td><td>4 📈</td><td>—</td></tr>
-      </tbody>
-    </table>
-    <div style="margin-top:16px;font-size:.85rem;color:var(--t2);line-height:1.8">
-      <strong>トレンド: 大幅改善↑</strong> — 売上・EPS・利益率・バックログの全指標でQoQ大幅改善。特にAdj. EPSは+48.4% QoQと加速。営業利益率は+4.7ppの大幅改善で利益成長フェーズに突入。バックログの$2B増加はFY2027以降の成長を強く裏付ける。
+<div class="section" data-accordion="" id="sec-compare">
+<div class="section-title">🔄 前回決算（FY2025 Q4）との比較</div><div class="section-body">
+<div class="card">
+<table class="tbl">
+<thead><tr><th>指標</th><th>FY2025 Q4</th><th>FY2026 Q1</th><th>変化</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$1,352M</td><td>$1,427M</td><td class="pos">+$75M (+5.5%)</td></tr>
+<tr><td>Adjusted EPS</td><td>$0.91</td><td>$1.35</td><td class="pos">+$0.44 (+48.4%)</td></tr>
+<tr><td>Non-GAAP粗利益率</td><td>~43.4%</td><td>44.7%</td><td class="pos">+1.3pp</td></tr>
+<tr><td>Non-GAAP営業利益率</td><td>~13.2%</td><td>17.9%</td><td class="pos">+4.7pp</td></tr>
+<tr><td>営業CF</td><td>—</td><td>$228M</td><td>—</td></tr>
+<tr><td>バックログ</td><td>~$5B</td><td>~$7B</td><td class="pos">+$2B</td></tr>
+<tr><td>総合評価スコア</td><td>—</td><td>4 📈</td><td>—</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;font-size:.85rem;color:var(--t2);line-height:1.8">
+<strong>トレンド: 大幅改善↑</strong> — 売上・EPS・利益率・バックログの全指標でQoQ大幅改善。特にAdj. EPSは+48.4% QoQと加速。営業利益率は+4.7ppの大幅改善で利益成長フェーズに突入。バックログの$2B増加はFY2027以降の成長を強く裏付ける。
     </div>
-  </div>
 </div>
-
+</div></div>
 <!-- バリュエーション -->
-<div class="section">
-  <div class="section-title">🎯 バリュエーション（想定株価 3シナリオ）</div>
-  <div style="text-align:center;font-size:.82rem;color:var(--t3);margin-bottom:16px">
+<div class="section" data-accordion="" id="sec-valuation">
+<div class="section-title">🎯 バリュエーション（想定株価 3シナリオ）</div><div class="section-body">
+<div style="text-align:center;font-size:.82rem;color:var(--t3);margin-bottom:16px">
     算出方法: 想定株価 = Forward EPS × 予想PER ｜ 現在株価: <strong style="color:var(--t1)">$343.55</strong>
-  </div>
-  <div class="val-grid">
-    <div class="val-card low">
-      <div class="scenario">LOW（保守的）</div>
-      <div class="price">$212</div>
-      <div class="detail">EPS $4.72（ガイダンス下限）<br>× PER 45.0x（過去5Y下限）</div>
-      <div class="gap neg">乖離: -38.3%</div>
-    </div>
-    <div class="val-card mid">
-      <div class="scenario">MID（基本）</div>
-      <div class="price">$310</div>
-      <div class="detail">EPS $6.20（コンセンサス）<br>× PER 50.0x（過去5Y中央値）</div>
-      <div class="gap neg">乖離: -9.8%</div>
-    </div>
-    <div class="val-card high">
-      <div class="scenario">HIGH（楽観的）</div>
-      <div class="price">$504</div>
-      <div class="detail">EPS $7.00（楽観予想）<br>× PER 72.0x（過去5Y上限）</div>
-      <div class="gap pos">乖離: +46.7%</div>
-    </div>
-  </div>
-  <div class="card" style="margin-top:16px;text-align:center">
-    <div style="font-size:.9rem;color:var(--t2)">MID想定株価 vs 現在株価の乖離率: <strong style="color:var(--t1);font-size:1.1rem">-9.8%</strong></div>
-    <div style="font-size:1rem;font-weight:700;color:var(--blue);margin-top:8px">📊 判定: 適正水準</div>
-    <div style="font-size:.8rem;color:var(--t3);margin-top:4px">アナリスト平均目標株価: $310（-9.8%） ｜ 最高目標: $380（JP Morgan）</div>
-  </div>
 </div>
-
+<div class="val-grid">
+<div class="val-card low">
+<div class="scenario">LOW（保守的）</div>
+<div class="price">$212</div>
+<div class="detail">EPS $4.72（ガイダンス下限）<br/>× PER 45.0x（過去5Y下限）</div>
+<div class="gap neg">乖離: -38.3%</div>
+</div>
+<div class="val-card mid">
+<div class="scenario">MID（基本）</div>
+<div class="price">$310</div>
+<div class="detail">EPS $6.20（コンセンサス）<br/>× PER 50.0x（過去5Y中央値）</div>
+<div class="gap neg">乖離: -9.8%</div>
+</div>
+<div class="val-card high">
+<div class="scenario">HIGH（楽観的）</div>
+<div class="price">$504</div>
+<div class="detail">EPS $7.00（楽観予想）<br/>× PER 72.0x（過去5Y上限）</div>
+<div class="gap pos">乖離: +46.7%</div>
+</div>
+</div>
+<div class="card" style="margin-top:16px;text-align:center">
+<div style="font-size:.9rem;color:var(--t2)">MID想定株価 vs 現在株価の乖離率: <strong style="color:var(--t1);font-size:1.1rem">-9.8%</strong></div>
+<div style="font-size:1rem;font-weight:700;color:var(--blue);margin-top:8px">📊 判定: 適正水準</div>
+<div style="font-size:.8rem;color:var(--t3);margin-top:4px">アナリスト平均目標株価: $310（-9.8%） ｜ 最高目標: $380（JP Morgan）</div>
+</div>
+</div></div>
 <div class="footer">
-  U&I株倶楽部 ｜ CIEN FY2026 Q1 決算分析 ｜ 生成日: 2026年3月12日<br>
-  ※ 本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。<br>
+  U&amp;I株倶楽部 ｜ CIEN FY2026 Q1 決算分析 ｜ 生成日: 2026年3月12日<br/>
+  ※ 本レポートは投資助言ではありません。投資判断はご自身の責任で行ってください。<br/>
   Powered by Claude
 </div>
-
 <script>
 const Q=['Q2 FY24','Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26'];
 const REV=[911,942,1124,1072,1126,1219,1352,1427];
@@ -467,6 +483,77 @@ new Chart(document.getElementById('segPie'),{type:'doughnut',data:{labels:['Opti
 new Chart(document.getElementById('geoPie'),{type:'doughnut',data:{labels:['米州 (77%)','EMEA (14.5%)','APAC (8.5%)'],datasets:[{data:[77,14.5,8.5],backgroundColor:[C.blue,C.green,C.yellow],borderColor:'#161b22',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{padding:16,font:{size:12}}}}}});
 </script>
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高推移（直近8四半期）</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別売上</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成（推定）</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">株価・テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算（FY2025 Q4）との比較</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3シナリオ）</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>

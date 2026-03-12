@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Oracle (ORCL) FY2026 Q3 決算分析レポート</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -118,33 +119,63 @@ in-bottom:8px}
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
   .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .compare-table,.tech-table,.tbl{font-size:.78rem}
   .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr}
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
   .header h1{font-size:1.2rem}
   .score-big{font-size:3.5em}
   .score-label{font-size:1.2em}
   .section-title,.section-header{font-size:1rem}
 }
-</style>
-<link rel="icon" type="image/png" href="../favicon.png">
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}</style>
+<link href="../favicon.png" rel="icon" type="image/png"/>
 </head>
 <body>
 <div class="container">
-
 <!-- ========== HEADER ========== -->
 <!-- Header -->
 <div class="header">
-  <div class="header-content">
-    <div class="header-logo-row"><img class="report-header-logo" src="../logos/ORCL.svg" alt="ORCL"><div class="ticker-badge">NYSE: ORCL</div></div>
-    <h1>Oracle Corporation 決算分析レポート</h1>
-    <div class="date">発表日: 2026年3月10日 ｜ 分析日: 2026年3月11日</div>
-  </div>
+<div class="header-content">
+<div class="header-logo-row"><img alt="ORCL" class="report-header-logo" src="../logos/ORCL.svg"/><div class="ticker-badge">NYSE: ORCL</div></div>
+<h1>Oracle Corporation 決算分析レポート</h1>
+<div class="date">発表日: 2026年3月10日 ｜ 分析日: 2026年3月11日</div>
 </div>
-
+</div>
 <!-- ========== 1. 総合評価スコア ========== -->
 <section class="score-section">
 <div class="score-badge">
@@ -158,7 +189,6 @@ in-bottom:8px}
 売上・EPSともにコンセンサスをビート。FY2027売上ガイダンスを$90Bに上方修正（コンセンサス$86.6B超）。OCI売上は+84% YoYと爆発的成長。15年以上ぶりにオーガニック売上・EPSが共に+20%超成長。ただし、CapEx $50Bに伴う負のFCF・総債務$124Bが構造的懸念として残る。
 </div>
 </section>
-
 <!-- ========== 2. Key Metrics ========== -->
 <section>
 <h2>📊 Key Metrics</h2>
@@ -207,10 +237,9 @@ in-bottom:8px}
 </div>
 </div>
 </section>
-
 <!-- ========== 3. 売上・EPS 7四半期推移 ========== -->
-<section>
-<h2>📈 売上高・EPS 7四半期推移</h2>
+<section class="section" data-accordion="" id="sec-revenue">
+<h2 class="section-title">📈 売上高・EPS 7四半期推移</h2><div class="section-body">
 <div class="two-col">
 <div class="chart-container">
 <h3 style="font-size:15px;margin-bottom:12px;color:#8b949e">売上高推移（$B）</h3>
@@ -221,11 +250,10 @@ in-bottom:8px}
 <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
 </div>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 4. コンセンサス比較 ========== -->
-<section>
-<h2>🎯 コンセンサス比較</h2>
+<section class="section" data-accordion="" id="sec-consensus">
+<h2 class="section-title">🎯 コンセンサス比較</h2><div class="section-body">
 <table>
 <thead><tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>判定</th></tr></thead>
 <tbody>
@@ -234,7 +262,6 @@ in-bottom:8px}
 <tr><td>クラウド売上</td><td>$8.85B</td><td>$8.9B</td><td class="positive">+$50M (+0.6%)</td><td><span class="tag tag-green">ビート</span></td></tr>
 </tbody>
 </table>
-
 <h3 style="font-size:16px;margin:20px 0 12px;color:#e6edf3">ガイダンス</h3>
 <table>
 <thead><tr><th>項目</th><th>ガイダンス</th><th>コンセンサス</th><th>評価</th></tr></thead>
@@ -247,11 +274,10 @@ in-bottom:8px}
 <tr><td>FY2026 CapEx</td><td>$50B</td><td>—</td><td><span class="tag tag-yellow">維持（巨額投資継続）</span></td></tr>
 </tbody>
 </table>
-</section>
-
+</div></section>
 <!-- ========== 5. 利益率トレンド ========== -->
-<section>
-<h2>💰 利益率・マージン</h2>
+<section class="section" data-accordion="" id="sec-margin">
+<h2 class="section-title">💰 利益率・マージン</h2><div class="section-body">
 <table>
 <thead><tr><th>指標</th><th>FY26 Q3</th><th>FY25 Q3</th><th>YoY変化</th></tr></thead>
 <tbody>
@@ -269,11 +295,10 @@ in-bottom:8px}
 <li>売上成長率（+22%）がコスト増ペースを上回り、利益の絶対額は大幅増加</li>
 </ul>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 6. キャッシュフロー ========== -->
-<section>
-<h2>💵 キャッシュフロー</h2>
+<section class="section" data-accordion="" id="sec-cashflow">
+<h2 class="section-title">💵 キャッシュフロー</h2><div class="section-body">
 <div class="card-grid">
 <div class="card">
 <div class="label">営業CF（TTM）</div>
@@ -305,11 +330,10 @@ in-bottom:8px}
 <li>Moody's格付け: Baa2（投資適格だがジャンク級まで2段階）</li>
 </ul>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 7. セグメント別売上 ========== -->
-<section>
-<h2>🏢 セグメント別売上</h2>
+<section class="section" data-accordion="" id="sec-segment">
+<h2 class="section-title">🏢 セグメント別売上</h2><div class="section-body">
 <table>
 <thead><tr><th>セグメント</th><th>FY26 Q3</th><th>FY25 Q3</th><th>YoY</th><th>QoQ</th></tr></thead>
 <tbody>
@@ -322,7 +346,6 @@ in-bottom:8px}
 <tr style="border-top:2px solid #e6edf3"><td><strong>総売上</strong></td><td><strong>$17.19B</strong></td><td><strong>$14.1B</strong></td><td class="positive"><strong>+22%</strong></td><td class="positive"><strong>+6.8%</strong></td></tr>
 </tbody>
 </table>
-
 <h3 style="font-size:15px;margin:16px 0 8px;color:#8b949e">売上構成比</h3>
 <div class="segment-bar">
 <div style="width:28.5%;background:#388bfd" title="OCI">OCI 28.5%</div>
@@ -330,7 +353,6 @@ in-bottom:8px}
 <div style="width:35.5%;background:#8b949e" title="Software">SW 35.5%</div>
 <div style="width:12.7%;background:#484f58" title="HW/Svc">他 12.7%</div>
 </div>
-
 <div class="card-grid" style="margin-top:16px">
 <div class="card beat">
 <div class="label">AIインフラ売上</div>
@@ -342,23 +364,20 @@ in-bottom:8px}
 <div class="sub">AWS/Azure/GCP上のOCI</div>
 </div>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 8. 地域別売上 ========== -->
-<section>
-<h2>🌍 地域別売上構成比（推定）</h2>
+<section class="section" data-accordion="" id="sec-geo">
+<h2 class="section-title">🌍 地域別売上構成比（推定）</h2><div class="section-body">
 <p style="font-size:13px;color:#8b949e;margin-bottom:12px">※ Q3プレスリリースでは地域別詳細未開示。過去実績に基づく推定値</p>
 <div class="segment-bar">
 <div style="width:58%;background:#388bfd">Americas ~58%</div>
 <div style="width:28%;background:#8957e5">EMEA ~28%</div>
 <div style="width:14%;background:#f0883e">APAC ~14%</div>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 9. 経営陣コメント ========== -->
-<section>
-<h2>🎙️ 経営陣コメントハイライト</h2>
-
+<section class="section" data-accordion="" id="sec-mgmt">
+<h2 class="section-title">🎙️ 経営陣コメントハイライト</h2><div class="section-body">
 <div class="highlight-box">
 <h3>Larry Ellison（会長兼CTO）</h3>
 <ul>
@@ -370,7 +389,6 @@ in-bottom:8px}
 <li><strong>プライベートデータAI:</strong>「公開データでのAIモデル訓練は史上最大・最速成長のビジネス。プライベートデータでのAI推論はさらに巨大で価値のあるビジネスになる」</li>
 </ul>
 </div>
-
 <div class="highlight-box">
 <h3>Safra Catz（CEO）</h3>
 <ul>
@@ -380,7 +398,6 @@ in-bottom:8px}
 <li><strong>新ビジネスモデル:</strong> 顧客前払い+BYOHモデルにより、Oracle本体のCapEx負担を実質的に軽減</li>
 </ul>
 </div>
-
 <div class="highlight-box">
 <h3>その他の重要トピック</h3>
 <ul>
@@ -389,11 +406,10 @@ in-bottom:8px}
 <li><strong>人員整理:</strong> 2〜3万人のレイオフを検討中（リストラ費用最大$1.6B）</li>
 </ul>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 10. リスク・カタリスト ========== -->
-<section>
-<h2>⚠️ リスク・カタリスト</h2>
+<section class="section" data-accordion="" id="sec-risk">
+<h2 class="section-title">⚠️ リスク・カタリスト</h2><div class="section-body">
 <div class="risk-grid">
 <div class="highlight-box">
 <h3 style="color:#f85149">リスク要因</h3>
@@ -421,11 +437,10 @@ in-bottom:8px}
 </ul>
 </div>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 11. 前回決算との比較 ========== -->
-<section>
-<h2>🔄 前回決算との比較</h2>
+<section class="section" data-accordion="" id="sec-compare">
+<h2 class="section-title">🔄 前回決算との比較</h2><div class="section-body">
 <div class="highlight-box">
 <h3>初回分析のため前回比較なし</h3>
 <ul>
@@ -434,13 +449,11 @@ in-bottom:8px}
 <li><strong>成長加速トレンド:</strong> 売上成長率 FY25 Q3: +6% → FY26 Q1: +7% → FY26 Q2: +9% → FY26 Q3: +22%（CC: +23%）と急加速</li>
 </ul>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 12. バリュエーション ========== -->
-<section>
-<h2>💎 バリュエーション（想定株価 3パターン）</h2>
+<section class="section" data-accordion="" id="sec-technical">
+<h2 class="section-title">💎 バリュエーション（想定株価 3パターン）</h2><div class="section-body">
 <p style="font-size:13px;color:#8b949e;margin-bottom:16px">現在株価: $151.56（2026/3/10終値）｜ アフターマーケット: ~$166（+10%）｜ 計算式: Forward EPS × 予想PER</p>
-
 <div class="valuation-grid">
 <div class="val-card low">
 <div class="val-label">LOW（保守的）</div>
@@ -464,14 +477,12 @@ in-bottom:8px}
 <div class="val-gap positive">+142.8%（大幅割安）</div>
 </div>
 </div>
-
 <table style="margin-top:20px">
 <thead><tr><th>判定基準</th><th>MID乖離率</th><th>判定</th></tr></thead>
 <tbody>
 <tr><td>MID想定株価 $225 vs 現在株価 $151.56</td><td class="positive"><strong>+48.5%</strong></td><td><span class="tag tag-green" style="font-size:14px;padding:6px 16px"><strong>割安</strong></span></td></tr>
 </tbody>
 </table>
-
 <table style="margin-top:12px">
 <thead><tr><th>参考指標</th><th>数値</th></tr></thead>
 <tbody>
@@ -482,11 +493,10 @@ in-bottom:8px}
 <tr><td>時価総額</td><td>~$430B</td></tr>
 </tbody>
 </table>
-</section>
-
+</div></section>
 <!-- ========== 株価・テクニカル ========== -->
-<section>
-<h2>📉 株価・テクニカル分析</h2>
+<section class="section" data-accordion="" id="sec-technical-2">
+<h2 class="section-title">📉 株価・テクニカル分析</h2><div class="section-body">
 <div class="card-grid">
 <div class="card">
 <div class="label">現在株価</div>
@@ -519,11 +529,10 @@ in-bottom:8px}
 <li><strong>オプション:</strong> IV 71（高水準）、ストラドル±13%想定 → 実際+8-10%（IVクラッシュ局面）</li>
 </ul>
 </div>
-</section>
-
+</div></section>
 <!-- ========== 外部環境 ========== -->
-<section>
-<h2>🌐 外部環境・競合分析</h2>
+<section class="section" data-accordion="" id="sec-external">
+<h2 class="section-title">🌐 外部環境・競合分析</h2><div class="section-body">
 <div class="highlight-box">
 <h3>クラウドインフラ市場（2026年）</h3>
 <ul>
@@ -541,7 +550,6 @@ in-bottom:8px}
 <tr style="background:rgba(56,139,253,0.1)"><td><strong>Oracle OCI</strong></td><td><strong>$4.9B（Q3）</strong></td><td class="positive"><strong>+84%</strong></td><td><strong>$50B</strong></td><td><strong>~5.6%</strong></td></tr>
 </tbody>
 </table>
-
 <div class="two-col" style="margin-top:16px">
 <div class="highlight-box">
 <h3>Oracleの競争優位性</h3>
@@ -562,17 +570,14 @@ in-bottom:8px}
 </ul>
 </div>
 </div>
-</section>
-
+</div></section>
 <!-- ========== FOOTER ========== -->
 <div class="footer">
-<p>Oracle (ORCL) FY2026 Q3 決算分析レポート ｜ U&I株倶楽部</p>
+<p>Oracle (ORCL) FY2026 Q3 決算分析レポート ｜ U&amp;I株倶楽部</p>
 <p>本レポートは情報提供のみを目的としており、投資助言ではありません。投資判断はご自身の責任で行ってください。</p>
 <p>Generated: 2026-03-11</p>
 </div>
-
 </div>
-
 <!-- ========== Chart.js ========== -->
 <script>
 const chartDefaults = {
@@ -660,6 +665,79 @@ new Chart(document.getElementById('epsChart'), {
 });
 </script>
 <style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
-<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-</body>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高・EPS 7四半期推移</span></a></li>
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率・マージン</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別売上</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成比（推定）</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">️ 経営陣コメントハイライト</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">️ リスク・カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">バリュエーション（想定株価 3パターン）</span></a></li>
+<li><a href="#sec-technical-2" onclick="tocJump('sec-technical-2')"><span class="toc-icon">📉</span><span class="toc-label">株価・テクニカル分析</span></a></li>
+<li><a href="#sec-external" onclick="tocJump('sec-external')"><span class="toc-icon">🌐</span><span class="toc-label">外部環境・競合分析</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}</script></body>
 </html>
