@@ -35,6 +35,28 @@ SCORE_LABELS = {
     "1": "1👎 壊滅的な決算",
 }
 
+SCORE_ICONS = {5: "🚀", 4: "📈", 3: "⏸️", 2: "📉", 1: "👎"}
+
+def extract_score_from_report(ticker):
+    """レポートHTMLからスコアを抽出（最新レポートの score-number クラスを探す）"""
+    import re
+    ticker_dir = os.path.join(REPO_DIR, ticker)
+    if not os.path.isdir(ticker_dir):
+        return None
+    htmls = sorted([f for f in os.listdir(ticker_dir) if f.endswith(".html") and f != "index.html"], reverse=True)
+    if not htmls:
+        return None
+    path = os.path.join(ticker_dir, htmls[0])
+    try:
+        with open(path, encoding="utf-8") as f:
+            content = f.read(20000)  # ヘッダー部分だけ読む
+        m = re.search(r'class="score-number"[^>]*>\s*(\d)', content)
+        if m:
+            return int(m.group(1))
+    except Exception:
+        pass
+    return None
+
 SECTOR_MAP = {
     "ADI":   "半導体",
     "ALAB":  "半導体",
@@ -180,7 +202,22 @@ def make_root_index(ticker_data):
                 break
         extra_style = ' style="border-radius:6px"' if logo_file and logo_file.endswith(".png") else ""
         logo_html = f'<img class="card-logo" src="{logo_file}" alt="{ticker}"{extra_style}>' if logo_file else ''
-        cards += f'<div class="card" data-ticker="{ticker}" data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}{logo_html}</div>{fy_html}</div>'
+
+        # スコアバッジ
+        score = extract_score_from_report(ticker)
+        score_attr = f' data-score="{score}"' if score else ''
+        score_html = ''
+        if score:
+            icon = SCORE_ICONS.get(score, "")
+            if score >= 4:
+                bg, fg, bd = "#2ea04322", "#2ea043", "#2ea04344"
+            elif score == 3:
+                bg, fg, bd = "#d2992222", "#d29922", "#d2992244"
+            else:
+                bg, fg, bd = "#f8514922", "#f85149", "#f8514944"
+            score_html = f'<span class="score-badge" style="background:{bg};color:{fg};border:1px solid {bd}">{icon} {score}/5</span>'
+
+        cards += f'<div class="card" data-ticker="{ticker}"{score_attr} data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}{score_html}{logo_html}</div>{fy_html}</div>'
 
     now = datetime.now().strftime("%Y/%m/%d %H:%M")
     return f"""<!DOCTYPE html>
@@ -211,11 +248,19 @@ footer{{text-align:center;margin-top:48px;color:#30363d;font-size:.75rem}}
 .sort-btn.active{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 .sort-btn:hover:not(.active){{border-color:#58a6ff;color:#58a6ff}}
 .sector-heading{{color:#58a6ff;font-size:1rem;font-weight:700;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid #21262d;grid-column:1/-1}}
+.score-badge{{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}}
+.search-bar{{max-width:400px;margin:0 auto 20px;position:relative}}
+.search-bar input{{width:100%;padding:10px 16px 10px 40px;border-radius:10px;border:1px solid #30363d;background:#161b22;color:#e6edf3;font-family:'Noto Sans JP',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s}}
+.search-bar input:focus{{border-color:#58a6ff}}
+.search-bar svg{{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#6e7681}}
+.card.hidden{{display:none}}
+.no-results{{grid-column:1/-1;text-align:center;color:#6e7681;font-size:.9rem;padding:40px 0}}
 .card-logo{{height:28px;width:auto;object-fit:contain;opacity:.85;margin-left:auto}}
 </style>
 </head><body>
 <header><h1><img src="logos/ui-kabu-logo.png" alt="U&I">株倶楽部 決算レポート</h1><p>最終更新: {now}</p></header>
-<div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button></div>
+<div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button><button class="sort-btn" onclick="sortBy('score')">スコア順</button></div>
+<div class="search-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search" placeholder="ティッカーで検索..." oninput="filterCards()"></div>
 <div class="grid" id="grid">{cards}</div>
 <footer>U&I株倶楽部 · Powered by Claude</footer>
 <script>
@@ -229,6 +274,12 @@ function sortBy(mode){{
   var cards=Array.from(grid.querySelectorAll('.card'));
   if(mode==='ticker'){{
     cards.sort(function(a,b){{return a.dataset.ticker.localeCompare(b.dataset.ticker)}});
+    cards.forEach(function(c){{grid.appendChild(c)}});
+  }}else if(mode==='score'){{
+    cards.sort(function(a,b){{
+      var s=parseInt(b.dataset.score||0)-parseInt(a.dataset.score||0);
+      return s!==0?s:a.dataset.ticker.localeCompare(b.dataset.ticker);
+    }});
     cards.forEach(function(c){{grid.appendChild(c)}});
   }}else{{
     cards.sort(function(a,b){{
@@ -247,6 +298,22 @@ function sortBy(mode){{
       grid.appendChild(c);
     }});
   }}
+}}
+function filterCards(){{
+  var q=document.getElementById('search').value.toUpperCase();
+  var grid=document.getElementById('grid');
+  var cards=grid.querySelectorAll('.card');
+  var found=0;
+  cards.forEach(function(c){{
+    var match=c.dataset.ticker.toUpperCase().indexOf(q)!==-1;
+    c.classList.toggle('hidden',!match);
+    if(match)found++;
+  }});
+  var nr=grid.querySelector('.no-results');
+  if(found===0&&q){{
+    if(!nr){{nr=document.createElement('div');nr.className='no-results';grid.appendChild(nr);}}
+    nr.textContent='該当する銘柄が見つかりません';
+  }}else if(nr){{nr.remove();}}
 }}
 </script>
 </body></html>"""
