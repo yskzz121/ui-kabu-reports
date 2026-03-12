@@ -292,9 +292,10 @@ def make_root_index(ticker_data):
 <style>
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;padding:40px 20px}}
+.site-logo{{display:block;margin:0 0 32px 12px}}
+.site-logo img{{height:48px;width:auto;filter:invert(1)}}
 header{{text-align:center;margin-bottom:48px}}
-header h1{{color:#58a6ff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:14px}}
-header h1 img{{height:52px;width:auto;filter:invert(1)}}
+header h1{{color:#58a6ff;font-size:1.8rem;font-weight:700}}
 header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}}
 .card{{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s}}
@@ -334,13 +335,13 @@ footer a:hover{{text-decoration:underline}}
 .scroll-top:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
 </style>
 </head><body>
-<header><h1><img src="logos/ui-kabu-logo.png" alt="U&I株倶楽部"> 決算レポート</h1><p>最終更新: {now}</p></header>
+<div class="site-logo"><img src="logos/ui-kabu-logo.png" alt="U&I株倶楽部"></div>
+<header><h1>決算レポート</h1><p>最終更新: {now}</p></header>
 <div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button><button class="sort-btn" onclick="sortBy('score')">スコア順</button></div>
 <div class="search-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search" placeholder="ティッカーで検索..." oninput="filterCards()"></div>
 <div class="grid" id="grid">{cards}</div>
 <footer>
 <img src="logos/ui-kabu-logo.png" alt="U&I株倶楽部">
-<p>Powered by <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></p>
 <p style="margin-top:6px;font-size:.7rem;color:#30363d">本レポートは情報提供を目的としたものであり、特定の銘柄の売買を推奨するものではありません。投資判断はご自身の責任でお願いいたします。</p>
 </footer>
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({{top:0,behavior:'smooth'}})">&#9650;</button>
