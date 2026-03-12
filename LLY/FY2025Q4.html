@@ -356,6 +356,7 @@ body {
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 
+.geo-grid{grid-template-columns:1fr 1fr}
 /* === Mobile Responsive === */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
@@ -374,6 +375,7 @@ body {
   .card-grid{grid-template-columns:1fr 1fr}
   .two-col{grid-template-columns:1fr}
   .rc-grid{grid-template-columns:1fr}
+  .geo-grid{grid-template-columns:1fr!important}
   .saas-grid{grid-template-columns:1fr 1fr}
   .metrics-grid{grid-template-columns:1fr 1fr!important}
   .chart-row{grid-template-columns:1fr!important}
@@ -418,8 +420,7 @@ body {
   .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
   .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
   body{padding-bottom:60px!important}
-}</style>
-&lt;
+}
 .header-content { position: relative; z-index: 1; }
 .ticker-badge {
   display: inline-block;
@@ -433,7 +434,8 @@ body {
   letter-spacing: 1px;
 }
 .header .subtitle { color: var(--text-sub); font-size: 1.1em; }
-link rel="icon" type="image/png" href="../favicon.png"&gt;
+</style>
+<link rel="icon" type="image/png" href="../favicon.png">
 </head>
 <body>
 <!-- Header -->
@@ -576,8 +578,8 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 </div>
 </div></div>
 <!-- 5. Operating Expenses -->
-<div class="section">
-<div class="section-title"><span class="section-icon">💰</span> 営業費用内訳（Q4 2025）</div>
+<div class="section" id="sec-expense" data-accordion="">
+<div class="section-title"><span class="section-icon">💰</span> 営業費用内訳（Q4 2025）</div><div class="section-body">
 <div class="card">
 <table class="data-table">
 <thead>
@@ -622,10 +624,10 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 </tbody>
 </table>
 </div>
-</div>
+</div></div>
 <!-- 6. Segment Revenue -->
-<div class="section">
-<div class="section-title"><span class="section-icon">🏥</span> 製品別売上（Q4 2025）</div>
+<div class="section" id="sec-product" data-accordion="">
+<div class="section-title"><span class="section-icon">🏥</span> 製品別売上（Q4 2025）</div><div class="section-body">
 <div class="card">
 <table class="data-table">
 <thead>
@@ -678,7 +680,7 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 </div>
 <div style="margin-top:16px;">
 <div class="section-title" style="border:none; margin-bottom:12px;"><span class="section-icon">🌍</span> 地域別売上</div>
-<div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+<div class="card-grid geo-grid">
 <div class="card">
 <div class="card-title">米国</div>
 <div class="card-value neutral">$12,900M</div>
@@ -699,10 +701,10 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 <canvas id="segmentChart"></canvas>
 </div>
 </div>
-</div>
+</div></div>
 <!-- 7. Full Year 2025 Summary -->
-<div class="section">
-<div class="section-title"><span class="section-icon">📅</span> FY2025 通期サマリー</div>
+<div class="section" id="sec-annual" data-accordion="">
+<div class="section-title"><span class="section-icon">📅</span> FY2025 通期サマリー</div><div class="section-body">
 <div class="card-grid">
 <div class="card">
 <div class="card-title">通期売上高</div>
@@ -725,7 +727,7 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 <div class="card-sub">YoY <span class="positive">+104%</span>（vs FY24 $12,899M）</div>
 </div>
 </div>
-</div>
+</div></div>
 <!-- 8. Management Comments -->
 <div class="section" data-accordion="" id="sec-mgmt">
 <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div><div class="section-body">
@@ -785,8 +787,8 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 </div>
 </div></div>
 <!-- 10. Previous Quarter Comparison -->
-<div class="section">
-<div class="section-title"><span class="section-icon">🔄</span> 前四半期（Q3 2025）との比較</div>
+<div class="section" id="sec-compare" data-accordion="">
+<div class="section-title"><span class="section-icon">🔄</span> 前四半期（Q3 2025）との比較</div><div class="section-body">
 <div class="card" style="padding:0; overflow:hidden;">
 <table class="data-table">
 <thead>
@@ -851,7 +853,7 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
       構造的な成長ストーリーは健在。
     </p>
 </div>
-</div>
+</div></div>
 <!-- 11. Valuation -->
 <div class="section" data-accordion="" id="sec-valuation">
 <div class="section-title"><span class="section-icon">🎯</span> バリュエーション（想定株価 3パターン）</div><div class="section-body">
@@ -900,8 +902,8 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 </div>
 </div></div>
 <!-- Stock Info -->
-<div class="section">
-<div class="section-title"><span class="section-icon">📉</span> 株価・マーケット情報</div>
+<div class="section" id="sec-market" data-accordion="">
+<div class="section-title"><span class="section-icon">📉</span> 株価・マーケット情報</div><div class="section-body">
 <div class="card-grid">
 <div class="card">
 <div class="card-title">現在株価</div>
@@ -934,7 +936,7 @@ link rel="icon" type="image/png" href="../favicon.png"&gt;
 <div class="card-sub">ガイダンスベース</div>
 </div>
 </div>
-</div>
+</div></div>
 <!-- Footer -->
 <div class="footer">
 <p>本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。</p>
@@ -1113,9 +1115,14 @@ new Chart(document.getElementById('segmentChart'), {
 <ul class="toc-list">
 <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高・EPS 7四半期推移</span></a></li>
 <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-expense" onclick="tocJump('sec-expense')"><span class="toc-icon">💰</span><span class="toc-label">営業費用内訳</span></a></li>
+<li><a href="#sec-product" onclick="tocJump('sec-product')"><span class="toc-icon">🏥</span><span class="toc-label">製品別売上</span></a></li>
+<li><a href="#sec-annual" onclick="tocJump('sec-annual')"><span class="toc-icon">📅</span><span class="toc-label">FY2025 通期サマリー</span></a></li>
 <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
 <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前四半期比較</span></a></li>
 <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3パターン）</span></a></li>
+<li><a href="#sec-market" onclick="tocJump('sec-market')"><span class="toc-icon">📉</span><span class="toc-label">株価・マーケット情報</span></a></li>
 </ul>
 </div>
 </nav>

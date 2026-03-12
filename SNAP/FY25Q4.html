@@ -482,6 +482,9 @@ body {
 </div>
 </div>
 <!-- 3. Revenue Chart -->
+<div class="section" id="sec-revenue" data-accordion="">
+<h2 class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</h2>
+<div class="section-body">
 <div class="chart-section">
 <h2>売上高 推移（直近7四半期）</h2>
 <div class="chart-container">
@@ -495,6 +498,7 @@ body {
 <canvas id="epsChart"></canvas>
 </div>
 </div>
+</div></div>
 <!-- 4. Profitability -->
 <div class="section" data-accordion="" id="sec-margin">
 <h2 class="section-title">収益性指標</h2><div class="section-body">
@@ -810,7 +814,7 @@ body {
 </table>
 </div></div>
 <!-- 11. Valuation -->
-<div class="section" data-accordion="" id="sec-technical-2">
+<div class="section" data-accordion="" id="sec-valuation">
 <h2 class="section-title">バリュエーション（想定株価 3シナリオ）</h2><div class="section-body">
 <p style="font-size:13px; color:#8b949e; margin-bottom:16px;">※ SNAPはTrailing EPSが赤字のため、PSR（株価売上高倍率）で算出。FY2026売上予想 × 想定PSR ÷ 希薄化後発行済株式数（~1.67B）</p>
 <div class="val-grid">
@@ -941,6 +945,7 @@ new Chart(epsCtx, {
 <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
 </div>
 <ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
 <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">収益性指標</span></a></li>
 <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー（Q4 2025）</span></a></li>
 <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
@@ -948,7 +953,7 @@ new Chart(epsCtx, {
 <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
 <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算との比較サマリー</span></a></li>
 <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">株価・市場データ</span></a></li>
-<li><a href="#sec-technical-2" onclick="tocJump('sec-technical-2')"><span class="toc-icon">📉</span><span class="toc-label">バリュエーション（想定株価 3シナリオ）</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3シナリオ）</span></a></li>
 </ul>
 </div>
 </nav>

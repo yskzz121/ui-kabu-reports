@@ -389,6 +389,10 @@ body {
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 
+/* Grid helpers */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
 /* === Mobile Responsive === */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
@@ -542,7 +546,7 @@ age/png"/>
 <div class="section-icon" style="background:var(--blue-bg);">📊</div>
     売上高・EPS 7四半期推移
   </div><div class="section-body">
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+<div class="chart-row">
 <div>
 <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px; text-align:center;">売上高（Net Sales, $B）※Q4は16週間</div>
 <div class="chart-container">
@@ -620,7 +624,7 @@ age/png"/>
 <div class="section-icon" style="background:var(--blue-bg);">🏪</div>
     部門別・地域別売上構成
   </div><div class="section-body">
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+<div class="two-col">
 <div>
 <div style="font-size:14px; font-weight:700; margin-bottom:12px;">商品カテゴリ別構成</div>
 <table class="data-table">
