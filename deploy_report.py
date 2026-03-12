@@ -35,6 +35,22 @@ SCORE_LABELS = {
     "1": "1👎 壊滅的な決算",
 }
 
+SECTOR_MAP = {
+    "COST":  "小売・会員制倉庫",
+    "GOOGL": "テクノロジー・広告",
+    "LLY":   "ヘルスケア・医薬品",
+    "MU":    "半導体・メモリ",
+    "NVDA":  "半導体・GPU",
+    "ORCL":  "エンタープライズSW・クラウド",
+    "PANW":  "サイバーセキュリティ",
+    "PATH":  "エンタープライズSW・RPA",
+    "RBRK":  "サイバーセキュリティ・データ保護",
+    "RDDT":  "ソーシャルメディア",
+    "SNAP":  "ソーシャルメディア",
+    "TXN":   "半導体・アナログ",
+    "ZS":    "サイバーセキュリティ",
+}
+
 # ─────────────────────────────────────────
 def run(cmd, cwd=None):
     result = subprocess.run(cmd, shell=True, cwd=cwd or REPO_DIR,
@@ -103,19 +119,73 @@ def make_ticker_index(ticker, reports):
 {"<div class='archive'><h3>過去のレポート</h3><ul>" + archive_rows + "</ul></div>" if archive_rows else ""}
 </div></body></html>"""
 
+def _parse_fy_quarter(name):
+    """ファイル名からFY年度とクォーターを抽出。例: FY26Q1 → ('FY26','Q1'), FY2025Q4 → ('FY2025','Q4')"""
+    import re
+    m = re.match(r'(FY\d+)(Q\d)', name)
+    if m:
+        return m.group(1), m.group(2)
+    # MU_Q1_FY2026 のような特殊パターン
+    m = re.match(r'.*_(Q\d)_(FY\d+)', name)
+    if m:
+        return m.group(2), m.group(1)
+    return None, None
+
 def make_root_index(ticker_data):
     cards = ""
     for ticker in sorted(ticker_data.keys()):
         reports = ticker_data[ticker]
+        sector = SECTOR_MAP.get(ticker, "")
         latest_q, latest_f = reports[0]
-        url = f"{PAGES_BASE_URL}/{ticker}/{latest_f}"
-        ticker_url = f"{PAGES_BASE_URL}/{ticker}/"
-        cards += f'<div class="card"><div class="ticker">{ticker}</div><div class="latest">{latest_q}</div><a class="btn" href="{url}">レポートを見る →</a><br><a class="arch" href="{ticker_url}">過去のレポート</a></div>'
+
+        # FY年度ごとにクォーターをグループ化
+        fy_groups = {}
+        for qname, fname in reports:
+            fy, q = _parse_fy_quarter(qname)
+            if fy and q:
+                fy_groups.setdefault(fy, []).append((q, fname))
+            else:
+                fy_groups.setdefault("その他", []).append((qname, fname))
+
+        # FY年度を降順ソート
+        fy_html = ""
+        for fy in sorted(fy_groups.keys(), reverse=True):
+            quarters = fy_groups[fy]
+            # クォーターを昇順ソート
+            quarters.sort(key=lambda x: x[0])
+            pills = ""
+            for q, fname in quarters:
+                url = f"{PAGES_BASE_URL}/{ticker}/{fname}"
+                pills += f'<a class="q-pill" href="{url}">{q}</a>'
+            fy_html += f'<div class="fy-row"><span class="fy-label">{fy}</span><div class="q-pills">{pills}</div></div>'
+
+        sector_html = f'<div class="sector">{sector}</div>' if sector else ''
+        cards += f'<div class="card"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}</div>{fy_html}</div>'
+
     now = datetime.now().strftime("%Y/%m/%d %H:%M")
     return f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>U&I株倶楽部 決算レポート</title>
-<style>*{{box-sizing:border-box;margin:0;padding:0}}body{{font-family:sans-serif;background:#0f1117;color:#e0e0e0;padding:40px 20px}}header{{text-align:center;margin-bottom:40px}}header h1{{color:#60a5fa;font-size:1.8rem}}header p{{color:#6b7280;font-size:.9rem;margin-top:8px}}.grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;max-width:960px;margin:0 auto}}.card{{background:#1a1d27;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:10px}}.ticker{{font-size:1.5rem;font-weight:bold}}.latest{{font-size:.85rem;color:#6b7280}}.btn{{background:#3b82f6;color:white;padding:10px;border-radius:8px;text-decoration:none;font-weight:bold;text-align:center}}.arch{{font-size:.8rem;color:#6b7280;text-align:center}}footer{{text-align:center;margin-top:40px;color:#374151;font-size:.8rem}}</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{{box-sizing:border-box;margin:0;padding:0}}
+body{{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;padding:40px 20px}}
+header{{text-align:center;margin-bottom:48px}}
+header h1{{color:#58a6ff;font-size:1.8rem;font-weight:700}}
+header p{{color:#6e7681;font-size:.85rem;margin-top:8px}}
+.grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}}
+.card{{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:border-color .2s}}
+.card:hover{{border-color:#58a6ff}}
+.card-header{{display:flex;align-items:baseline;gap:12px}}
+.ticker{{font-size:1.5rem;font-weight:700;color:#e6edf3}}
+.sector{{font-size:.75rem;color:#8b949e;background:rgba(88,166,255,.1);padding:2px 10px;border-radius:12px;white-space:nowrap}}
+.fy-row{{display:flex;align-items:center;gap:10px;margin-bottom:6px}}
+.fy-label{{font-size:.8rem;font-weight:700;color:#8b949e;min-width:52px}}
+.q-pills{{display:flex;gap:6px;flex-wrap:wrap}}
+.q-pill{{font-size:.78rem;font-weight:500;padding:4px 14px;border-radius:8px;background:#21262d;color:#58a6ff;text-decoration:none;border:1px solid #30363d;transition:all .15s}}
+.q-pill:hover{{background:#58a6ff;color:#0d1117;border-color:#58a6ff}}
+footer{{text-align:center;margin-top:48px;color:#30363d;font-size:.75rem}}
+</style>
 </head><body>
 <header><h1>📊 U&I株倶楽部 決算レポート</h1><p>最終更新: {now}</p></header>
 <div class="grid">{cards}</div>
