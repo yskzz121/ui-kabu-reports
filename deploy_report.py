@@ -172,8 +172,14 @@ def make_root_index(ticker_data):
             fy_html += f'<div class="fy-row"><span class="fy-label">{fy}</span><div class="q-pills">{pills}</div></div>'
 
         sector_html = f'<div class="sector">{sector}</div>' if sector else ''
-        logo_file = f"logos/{ticker}.svg"
-        logo_html = f'<img class="card-logo" src="{logo_file}" alt="{ticker}">' if os.path.exists(os.path.join(REPO_DIR, logo_file)) else ''
+        logo_file = None
+        for ext in ("svg", "png"):
+            candidate = f"logos/{ticker}.{ext}"
+            if os.path.exists(os.path.join(REPO_DIR, candidate)):
+                logo_file = candidate
+                break
+        extra_style = ' style="border-radius:6px"' if logo_file and logo_file.endswith(".png") else ""
+        logo_html = f'<img class="card-logo" src="{logo_file}" alt="{ticker}"{extra_style}>' if logo_file else ''
         cards += f'<div class="card" data-ticker="{ticker}" data-sector="{sector}"><div class="card-header"><div class="ticker">{ticker}</div>{sector_html}{logo_html}</div>{fy_html}</div>'
 
     now = datetime.now().strftime("%Y/%m/%d %H:%M")
