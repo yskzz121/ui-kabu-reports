@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dollar General (DG) FY2025 Q4 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;--border2:#30363d;
+  --text:#e6edf3;--text-sub:#8b949e;--green:#2ea043;--green-bg:rgba(46,160,67,.12);
+  --red:#f85149;--red-bg:rgba(248,81,73,.12);--blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);
+  --yellow:#d29922;--purple:#bc8cff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:20px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;border-radius:16px 16px 0 0}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Sections */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin-top:20px}
+.section-title{font-size:1.3em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-desc{color:var(--text-sub);margin-top:4px;font-size:1em}
+
+/* Grid */
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+/* Cards */
+.card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.card-label{font-size:.78em;color:var(--text-sub);margin-bottom:4px}
+.card-value{font-size:1.4em;font-weight:700}
+.card-sub{font-size:.82em;margin-top:4px}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--yellow)}
+
+/* Chart */
+.chart-container{position:relative;height:350px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.88em}
+.tbl th,.tbl td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--text-sub);font-weight:500;font-size:.82em;text-transform:uppercase;letter-spacing:.5px}
+.tbl tr:hover{background:rgba(88,166,255,.04)}
+
+/* Metric row */
+.metric-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.metric-row:last-child{border-bottom:none}
+.metric-label{color:var(--text-sub);font-size:.9em}
+.metric-value{font-weight:700}
+
+/* Valuation cards */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:rgba(46,160,67,.08);border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:rgba(88,166,255,.08);border-color:rgba(88,166,255,.3)}
+.val-card.high{background:rgba(188,140,255,.08);border-color:rgba(188,140,255,.3)}
+.val-scenario{font-size:.85em;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-price{font-size:2.2em;font-weight:900;margin:8px 0}
+.val-detail{font-size:.82em;color:var(--text-sub);margin-top:4px}
+
+/* Risk/Catalyst grid */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rc-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px}
+.rc-box h4{font-size:.95em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.rc-box ul{list-style:none;padding:0}
+.rc-box li{padding:6px 0;font-size:.88em;color:var(--text-sub);border-bottom:1px solid var(--border)}
+.rc-box li:last-child{border-bottom:none}
+.rc-box li::before{margin-right:8px}
+
+/* Overview grid */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.overview-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px}
+.overview-card h4{font-size:.95em;font-weight:700;margin-bottom:12px;color:var(--blue)}
+
+/* Tech grid */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:.9em;font-weight:700;margin-bottom:10px;color:var(--blue)}
+
+/* Two col */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Consensus badge */
+.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.78em;font-weight:700}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.badge-blue{background:var(--blue-bg);color:var(--blue)}
+
+/* Mgmt quote */
+.quote{border-left:3px solid var(--blue);padding:12px 16px;margin:12px 0;background:rgba(88,166,255,.04);border-radius:0 8px 8px 0;font-size:.9em;color:var(--text-sub)}
+.quote-author{font-weight:700;color:var(--text);margin-top:6px;font-size:.85em}
+
+/* Compare section */
+.compare-table{width:100%}
+.compare-table td{padding:8px 0}
+
+/* Metrics grid for Key Metrics */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/DG.svg" alt="DG">
+      <div class="ticker-badge">NYSE: DG</div>
+    </div>
+    <h1>Dollar General 決算分析</h1>
+    <div class="subtitle">FY2025 Q4（2025年11月1日〜2026年1月30日）</div>
+    <div class="date">発表日: 2026年3月13日 ｜ レポート作成: 2026年3月14日</div>
+  </div>
+</div>
+
+<!-- Score -->
+<div class="section score-section">
+  <div class="score-big">📈</div>
+  <div class="score-label">スコア 4 / 5 — 良い決算</div>
+  <div class="score-desc">売上・EPSともにビート、ガイダンス売上は上方修正。EPSガイダンスは概ねインライン。粗利・営業利益率が大幅改善し、「Back to Basics」戦略の成果が明確に表れた四半期。</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📋</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="card">
+      <div class="card-label">売上高</div>
+      <div class="card-value">$10.91B</div>
+      <div class="card-sub positive">+5.9% YoY / +2.9% QoQ</div>
+    </div>
+    <div class="card">
+      <div class="card-label">EPS（GAAP）</div>
+      <div class="card-value">$1.93</div>
+      <div class="card-sub positive">+121.8% YoY / +50.8% QoQ</div>
+    </div>
+    <div class="card">
+      <div class="card-label">売上ビート</div>
+      <div class="card-value positive">+$100M</div>
+      <div class="card-sub positive">+0.9% vs コンセンサス$10.81B</div>
+    </div>
+    <div class="card">
+      <div class="card-label">EPSビート</div>
+      <div class="card-value positive">+$0.27</div>
+      <div class="card-sub positive">+16.3% vs コンセンサス$1.66</div>
+    </div>
+    <div class="card">
+      <div class="card-label">既存店売上（SSS）</div>
+      <div class="card-value positive">+4.3%</div>
+      <div class="card-sub">客数+2.6% / 客単価+1.7%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">粗利益率</div>
+      <div class="card-value">30.4%</div>
+      <div class="card-sub positive">+105bp YoY</div>
+    </div>
+    <div class="card">
+      <div class="card-label">営業利益率</div>
+      <div class="card-value">5.6%</div>
+      <div class="card-sub positive">+270bp YoY</div>
+    </div>
+    <div class="card">
+      <div class="card-label">FCF（通期）</div>
+      <div class="card-value">$1.69B</div>
+      <div class="card-sub positive">+142.2% YoY</div>
+    </div>
+  </div>
+</div>
+
+<!-- Revenue / EPS 7Q Charts -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+      <div class="chart-container"><canvas id="epsChart"></canvas></div>
+    </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>四半期</th><th>売上高</th><th>YoY</th><th>EPS</th><th>YoY</th></tr></thead>
+      <tbody>
+        <tr><td>FY24 Q2</td><td>$10.21B</td><td>+2.6%</td><td>$1.70</td><td>-20.2%</td></tr>
+        <tr><td>FY24 Q3</td><td>$10.18B</td><td>+1.3%</td><td>$1.26</td><td>-29.3%</td></tr>
+        <tr><td>FY24 Q4</td><td>$10.30B</td><td>+4.7%</td><td>$0.87</td><td>-67.0%</td></tr>
+        <tr><td>FY25 Q1</td><td>$10.40B</td><td>+4.7%</td><td>$1.78</td><td>+4.7%</td></tr>
+        <tr><td>FY25 Q2</td><td>$10.70B</td><td>+4.8%</td><td>$1.86</td><td>+9.4%</td></tr>
+        <tr><td>FY25 Q3</td><td>$10.60B</td><td>+4.1%</td><td>$1.28</td><td>+1.6%</td></tr>
+        <tr style="background:rgba(88,166,255,.06);font-weight:700"><td>FY25 Q4</td><td>$10.91B</td><td>+5.9%</td><td>$1.93</td><td>+121.8%</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:.82em;color:var(--text-sub)">※FY24 Q4のEPS $0.87には$232Mの店舗減損費用（約-$0.81/株）が含まれており、FY25 Q4のYoY+121.8%にはその反動が含まれます。調整後の改善幅は約+15〜20%と推定。</div>
+  </div>
+</div>
+
+<!-- Margin Trends -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div>
+        <table class="tbl">
+          <thead><tr><th>指標</th><th>Q4 FY25</th><th>Q4 FY24</th><th>変化</th></tr></thead>
+          <tbody>
+            <tr><td>粗利益率</td><td><strong>30.4%</strong></td><td>29.3%</td><td class="positive">+105bp</td></tr>
+            <tr><td>営業利益率</td><td><strong>5.6%</strong></td><td>2.9%</td><td class="positive">+270bp</td></tr>
+            <tr><td>SGA比率</td><td><strong>24.9%</strong></td><td>26.5%</td><td class="positive">-165bp</td></tr>
+            <tr><td>EBITDA推定</td><td><strong>~7.2%</strong></td><td>~4.5%</td><td class="positive">+~270bp</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h4 style="font-size:.95em;font-weight:700;margin-bottom:12px">改善の主要因</h4>
+        <ul style="list-style:none;padding:0;font-size:.88em;color:var(--text-sub)">
+          <li style="padding:6px 0;border-bottom:1px solid var(--border)">✅ シュリンク削減: 粗利+62bp改善（セルフレジ撤去効果）</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border)">✅ マークアップ改善・損傷品削減</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border)">✅ SGA: 前年の$232M減損費用が剥落</li>
+          <li style="padding:6px 0;border-bottom:1px solid var(--border)">✅ 小売給与の効率化</li>
+          <li style="padding:6px 0">⚠️ LIFO引当金増加（関税影響$45M）が一部相殺</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px">
+      <div style="font-weight:700;margin-bottom:8px">📌 通期 FY2025 実績</div>
+      <div class="grid grid-3" style="gap:12px">
+        <div><span style="color:var(--text-sub);font-size:.82em">売上高</span><br><strong>$42.72B</strong> <span class="positive" style="font-size:.85em">+5.2% YoY</span></div>
+        <div><span style="color:var(--text-sub);font-size:.82em">EPS</span><br><strong>$6.85</strong> <span class="positive" style="font-size:.85em">+34.1% YoY</span></div>
+        <div><span style="color:var(--text-sub);font-size:.82em">SSS</span><br><strong>+3.0%</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Consensus -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div class="card" style="text-align:center">
+        <div class="card-label">売上高</div>
+        <div style="font-size:.85em;color:var(--text-sub);margin:8px 0">実績 $10.91B vs 予想 $10.81B</div>
+        <div class="card-value positive" style="font-size:2em">BEAT</div>
+        <div class="card-sub positive">+$100M（+0.9%）</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-label">EPS</div>
+        <div style="font-size:.85em;color:var(--text-sub);margin:8px 0">実績 $1.93 vs 予想 $1.66</div>
+        <div class="card-value positive" style="font-size:2em">BEAT</div>
+        <div class="card-sub positive">+$0.27（+16.3%）</div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <h4 style="font-size:.95em;font-weight:700;margin-bottom:12px">FY2026 ガイダンス vs コンセンサス</h4>
+      <table class="tbl">
+        <thead><tr><th>項目</th><th>会社ガイダンス</th><th>コンセンサス</th><th>判定</th></tr></thead>
+        <tbody>
+          <tr><td>売上高</td><td>$44.3B〜$44.5B</td><td>$43.3B</td><td><span class="badge badge-green">上方</span></td></tr>
+          <tr><td>EPS</td><td>$7.10〜$7.35</td><td>$7.25</td><td><span class="badge badge-blue">インライン</span></td></tr>
+          <tr><td>SSS成長率</td><td>+2.2%〜+2.7%</td><td>+3.0%</td><td><span class="badge badge-red">下方</span></td></tr>
+          <tr><td>Q1 SSS</td><td>Low 2%台</td><td>+2.5%</td><td><span class="badge badge-red">やや保守的</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:.82em;color:var(--text-sub)">※Q1は2026年2月の厳しい冬季嵐による一時的な店舗閉鎖が影響。EPSガイダンスにはWOTCの失効（-$0.13/株）が織り込み済み。</div>
+    </div>
+  </div>
+</div>
+
+<!-- Cash Flow -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー（FY2025 通期）</div>
+  <div class="section-body">
+    <div class="grid grid-4">
+      <div class="card">
+        <div class="card-label">営業CF</div>
+        <div class="card-value positive">$3.60B</div>
+        <div class="card-sub positive">+21.3% YoY</div>
+      </div>
+      <div class="card">
+        <div class="card-label">投資CF</div>
+        <div class="card-value negative">-$1.30B</div>
+        <div class="card-sub">店舗拡大・改装投資</div>
+      </div>
+      <div class="card">
+        <div class="card-label">財務CF</div>
+        <div class="card-value negative">-$1.83B</div>
+        <div class="card-sub">$1.7Bノート償還+$130M配当</div>
+      </div>
+      <div class="card">
+        <div class="card-label">FCF</div>
+        <div class="card-value positive">$1.69B</div>
+        <div class="card-sub positive">+142.2% YoY</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:.88em;color:var(--text-sub)">
+      営業CFの大幅改善は、利益率の改善と運転資本の効率化が主因。FCFは前年比2.4倍と大幅に拡大し、財務体質の強化が進んでいる。
+    </div>
+    <div style="margin-top:16px">
+      <h4 style="font-size:.95em;font-weight:700;margin-bottom:12px">PER</h4>
+      <div class="grid grid-2" style="max-width:400px">
+        <div class="card">
+          <div class="card-label">Trailing PER</div>
+          <div class="card-value">19.3x</div>
+          <div class="card-sub">$132.21 / $6.85</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Forward PER</div>
+          <div class="card-value">18.3x</div>
+          <div class="card-sub">$132.21 / $7.23</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Segments -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead><tr><th>カテゴリ</th><th>売上構成比</th><th>YoY成長率</th><th>トレンド</th></tr></thead>
+      <tbody>
+        <tr><td><strong>消耗品（Consumables）</strong></td><td>~82%</td><td class="positive">+5.5%</td><td>食品・飲料・ヘルスケア・清掃用品</td></tr>
+        <tr><td><strong>季節商品（Seasonal）</strong></td><td>~10%</td><td class="positive">+8.2%</td><td>ホリデー需要で堅調成長</td></tr>
+        <tr><td><strong>家庭用品（Home）</strong></td><td>~6%</td><td class="positive">+8.6%</td><td>$643.8M — 最高成長率カテゴリ</td></tr>
+        <tr><td><strong>衣料品（Apparel）</strong></td><td>~4%</td><td class="positive">+3.5%</td><td>Value Valley効果で回復</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:16px;background:rgba(46,160,67,.06);border:1px solid rgba(46,160,67,.2);border-radius:10px">
+      <div style="font-weight:700;margin-bottom:8px;color:var(--green)">📌 注目ポイント</div>
+      <ul style="font-size:.88em;color:var(--text-sub);padding-left:16px">
+        <li>非消耗品カテゴリ（季節・家庭・衣料）が<strong>4四半期連続</strong>で消耗品を上回る成長率を記録</li>
+        <li>「Value Valley」（$1商品500品目以上）が既存店売上<strong>+17.6%</strong>のコンプ成長を達成</li>
+        <li>Dolly Partonブランドコラボなど裁量消費型バリュー商品へのシフトが成功</li>
+        <li>2029年までに非消費財構成比<strong>20%</strong>を目標（高マージン化戦略）</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Geography -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌎</span> 地域別展開</div>
+  <div class="section-body">
+    <div class="grid grid-3">
+      <div class="card" style="text-align:center">
+        <div class="card-label">総店舗数</div>
+        <div class="card-value">20,662</div>
+        <div class="card-sub">48州 + メキシコ</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-label">FY2026 新規出店計画</div>
+        <div class="card-value">~460</div>
+        <div class="card-sub">米国450 + メキシコ10</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="card-label">FY2026 不動産PJ</div>
+        <div class="card-value">4,730件</div>
+        <div class="card-sub">改装2,000 + Elevate 2,250</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:.85em;color:var(--text-sub)">
+      Dollar Generalは米国内専業（メキシコに少数展開中）。地域別売上の詳細開示はなし。新規出店の約80%は人口2万人以下の農村部・小規模コミュニティ。米国人口の約75%が5マイル圏内にDG店舗がある。
+    </div>
+  </div>
+</div>
+
+<!-- Company Overview -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏪</span> 企業概要</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h4>基本情報</h4>
+        <div class="metric-row"><span class="metric-label">設立</span><span class="metric-value">1939年</span></div>
+        <div class="metric-row"><span class="metric-label">本社</span><span class="metric-value">テネシー州グッドレッツビル</span></div>
+        <div class="metric-row"><span class="metric-label">CEO</span><span class="metric-value">Todd J. Vasos</span></div>
+        <div class="metric-row"><span class="metric-label">従業員数</span><span class="metric-value">約194,200人</span></div>
+        <div class="metric-row"><span class="metric-label">時価総額</span><span class="metric-value">約$29.1B</span></div>
+        <div class="metric-row"><span class="metric-label">上場市場</span><span class="metric-value">NYSE</span></div>
+      </div>
+      <div class="overview-card">
+        <h4>ビジネスモデル</h4>
+        <div style="font-size:.88em;color:var(--text-sub);line-height:1.8">
+          米国最大の店舗数を誇るディスカウントリテーラー。EDLP（Everyday Low Price）戦略で、大半の商品を10ドル以下で提供。人口2万人以下の農村部・小規模コミュニティに注力する「スモールボックス」業態で、大型店の進出しにくいエリアに事実上の地域独占を構築。<br><br>
+          収益の~82%が消耗品（食品・飲料・日用品）で高頻度来店を生み、PB（プライベートブランド）のClover Valley（年間$2.3B超）を軸に粗利率を改善中。新収益源のDG Media Network（リテールメディア）は年間~$170M規模に成長。
+        </div>
+      </div>
+      <div class="overview-card">
+        <h4>競合環境</h4>
+        <table class="tbl">
+          <thead><tr><th>企業</th><th>年間売上</th><th>店舗数</th></tr></thead>
+          <tbody>
+            <tr><td>Walmart</td><td>$648B</td><td>~10,500</td></tr>
+            <tr><td><strong>Dollar General</strong></td><td><strong>$42.7B</strong></td><td><strong>20,662</strong></td></tr>
+            <tr><td>Dollar Tree</td><td>$17.6B</td><td>~16,000</td></tr>
+            <tr><td>Five Below</td><td>$3.7B</td><td>~1,700</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-size:.82em;color:var(--text-sub)">ディスカウントリテール市場シェア: DG ~33-34%（Dollar Treeと2社で~60%）</div>
+      </div>
+      <div class="overview-card">
+        <h4>主要施策（FY2026）</h4>
+        <ul style="font-size:.88em;color:var(--text-sub);padding-left:16px;line-height:1.8">
+          <li>セルフレジ撤去 → アシスト型レジ（シュリンク削減）</li>
+          <li>生鮮食品7,000店舗へ拡大（+300店）</li>
+          <li>PB商品大幅拡充（100+新商品）</li>
+          <li>DG Media Network拡大（高マージン広告収入）</li>
+          <li>AI駆動のSGA効率化（追加アップサイド）</li>
+          <li>4,730件の不動産PJ（新店・改装・Elevate）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Technical Analysis -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <!-- TradingView Chart -->
+    <div class="tradingview-widget-container" style="margin-bottom:24px">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NYSE:DG",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-card">
+        <h4>トレンド分析</h4>
+        <div class="metric-row"><span class="metric-label">短期（1〜4週）</span><span class="metric-value negative">弱気</span></div>
+        <div class="metric-row"><span class="metric-label">中期（1〜6ヶ月）</span><span class="metric-value neutral">中立</span></div>
+        <div class="metric-row"><span class="metric-label">長期（6ヶ月〜）</span><span class="metric-value positive">やや強気</span></div>
+        <div style="font-size:.82em;color:var(--text-sub);margin-top:8px">$76.44（1月安値）から$158.23（52週高値）まで+107%の大幅反発後、決算後-7%の調整局面。200日SMA上は維持。</div>
+      </div>
+      <div class="tech-card">
+        <h4>移動平均線</h4>
+        <div class="metric-row"><span class="metric-label">50日 SMA</span><span class="metric-value">~$138</span></div>
+        <div class="metric-row"><span class="metric-label">100日 SMA</span><span class="metric-value">~$128</span></div>
+        <div class="metric-row"><span class="metric-label">200日 EMA</span><span class="metric-value">~$118</span></div>
+        <div style="font-size:.82em;color:var(--text-sub);margin-top:8px">株価は50日SMAを下抜け、100日SMA付近で推移。200日EMAはまだ上方に位置。中期的にはゴールデンクロス維持。</div>
+      </div>
+      <div class="tech-card">
+        <h4>オシレーター</h4>
+        <div class="metric-row"><span class="metric-label">RSI（14日）</span><span class="metric-value">~42</span></div>
+        <div class="metric-row"><span class="metric-label">MACD</span><span class="metric-value negative">弱気クロス</span></div>
+        <div class="metric-row"><span class="metric-label">ストキャスティクス</span><span class="metric-value">~35</span></div>
+        <div style="font-size:.82em;color:var(--text-sub);margin-top:8px">RSIは中立圏下限付近。決算後の急落でMACDは弱気クロス発生。ストキャスティクスは売られすぎ圏に接近中。</div>
+      </div>
+      <div class="tech-card">
+        <h4>サポート / レジスタンス</h4>
+        <div style="font-size:.88em">
+          <div style="color:var(--green);font-weight:700;margin-bottom:6px">サポート</div>
+          <div class="metric-row"><span class="metric-label">Fib 38.2%</span><span class="metric-value">$127.0</span></div>
+          <div class="metric-row"><span class="metric-label">100日SMA</span><span class="metric-value">$128.0</span></div>
+          <div class="metric-row"><span class="metric-label">Fib 50%</span><span class="metric-value">$117.3</span></div>
+          <div style="color:var(--red);font-weight:700;margin:10px 0 6px">レジスタンス</div>
+          <div class="metric-row"><span class="metric-label">Fib 23.6%</span><span class="metric-value">$138.9</span></div>
+          <div class="metric-row"><span class="metric-label">52週高値</span><span class="metric-value">$158.2</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px">
+      <div style="font-weight:700;margin-bottom:8px">📌 総合テクニカル判定: <span class="neutral">中立</span></div>
+      <div style="font-size:.88em;color:var(--text-sub)">
+        $76から$158への大幅な回復ラリー後、決算の好材料出尽くし（Sell the News）で-7%の調整。株価は50日SMAを下抜けたが、200日EMA（~$118）はまだ上方に位置し、長期的な上昇トレンドは崩れていない。Fib 38.2%（$127）と100日SMA（$128）がサポートとして機能するかが短期的な焦点。ここを維持できれば健全な調整に留まり、再び上昇に転じる可能性。割り込むと$117（Fib 50%）が次の防衛ラインとなる。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Management Comments -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎤</span> 経営陣コメントハイライト</div>
+  <div class="section-body">
+    <div class="quote">
+      「セルフレジユニットを撤去し、アシスト型レジに切り替えたことは大きな勝利だった。フロントエンドを100%スタッフ配置にしたことも大きな勝利だ。」
+      <div class="quote-author">— CEO Todd Vasos（シュリンク対策について）</div>
+    </div>
+    <div class="quote">
+      「2025年通期で店舗マネージャーの離職率が375bp以上低下した。これは売上と業務執行の改善に直結する先行指標だ。」
+      <div class="quote-author">— CEO Todd Vasos（人材リテンションについて）</div>
+    </div>
+    <div class="quote">
+      「消費者心理は引き続き慎重かつ停滞しており、インフレは粘着的で、マクロ環境は変化し続けている。多くの顧客が財務状況が昨年より悪化したと報告しており、基本的な必需品を買う余裕しかないと述べている顧客もいる。」
+      <div class="quote-author">— CEO Todd Vasos（消費者環境について）</div>
+    </div>
+    <div class="quote">
+      「粗利率のさらなる拡大を見込んでいるが、2025年と比べるとはるかに小幅なものになるだろう。シュリンク削減、サプライチェーン生産性向上、DGメディアネットワークの拡大が寄与する。」
+      <div class="quote-author">— CFO Donny Lau（FY2026見通し）</div>
+    </div>
+    <div class="quote">
+      「AI駆動の効率化によるSGA改善は、現時点の長期SGAレバレッジ目標には含まれておらず、追加のアップサイド要因となる可能性がある。」
+      <div class="quote-author">— CFO Donny Lau（AI活用の潜在効果）</div>
+    </div>
+
+    <div style="margin-top:20px">
+      <h4 style="font-size:.95em;font-weight:700;margin-bottom:12px">📌 中長期戦略フレームワーク</h4>
+      <div class="grid grid-3" style="gap:12px">
+        <div class="card">
+          <div class="card-label">営業利益率目標</div>
+          <div class="card-value">6〜7%</div>
+          <div class="card-sub">3〜4年で達成（現在5.6%）</div>
+        </div>
+        <div class="card">
+          <div class="card-label">粗利改善余地</div>
+          <div class="card-value">+120bp</div>
+          <div class="card-sub">シュリンク/損害で+50bp含む</div>
+        </div>
+        <div class="card">
+          <div class="card-label">非消費財比率目標</div>
+          <div class="card-value">20%</div>
+          <div class="card-sub">2029年まで（現在~18%）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Risks & Catalysts -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> リスク・カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div class="rc-box">
+        <h4><span style="color:var(--red)">⚠️</span> リスク要因</h4>
+        <ul>
+          <li>📌 関税影響: Q4でLIFO $45M影響。コスト40-50%が消費者に転嫁される見込み</li>
+          <li>📌 コア顧客の購買力低下: 低所得層の財務状況悪化が継続。SNAP就労要件強化の影響リスク</li>
+          <li>📌 ガソリン価格上昇: コア顧客の可処分所得を直接圧迫</li>
+          <li>📌 FY2026 SSS成長率鈍化: ガイダンス+2.2-2.7%はFY2025の+3.0%から減速</li>
+          <li>📌 WOTCの失効: FY2026のEPSに約-$0.13の影響</li>
+          <li>📌 Walmartの低価格帯侵食: 食料品シェア72%到達、DGの顧客層と重複拡大</li>
+          <li>📌 最低賃金引上げ: SGA費用の構造的な上昇圧力</li>
+          <li>📌 粗利改善ペースの鈍化: CFOが「FY2025比で大幅に小さい」と明言</li>
+        </ul>
+      </div>
+      <div class="rc-box">
+        <h4><span style="color:var(--green)">🚀</span> カタリスト</h4>
+        <ul>
+          <li>✅ シュリンク削減の継続: さらに+50bpの粗利改善余地が残存</li>
+          <li>✅ セルフレジ撤去の成功: 損失防止と顧客体験の両面で効果実証済み</li>
+          <li>✅ DG Media Network拡大: $170M規模の高マージン広告収入が急成長中</li>
+          <li>✅ PB商品（Clover Valley）の拡充: 年間$2.3B超の高マージン売上</li>
+          <li>✅ 店舗マネージャー離職率-375bp: 売上・執行力改善の先行指標</li>
+          <li>✅ Value Valley（$1商品）の成功: +17.6%コンプ成長</li>
+          <li>✅ AI駆動SGA効率化: 長期目標に未織り込みの追加アップサイド</li>
+          <li>✅ 景気後退耐性: 不況時にトレードダウン需要が増加するカウンターシクリカル特性</li>
+          <li>✅ 機関投資家の買い増し: BlackRock+2.96%、State Street+9.09%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Previous Comparison -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較</div>
+  <div class="section-body">
+    <div style="text-align:center;padding:20px;background:var(--bg);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:1.1em;font-weight:700;margin-bottom:8px">初回分析</div>
+      <div style="color:var(--text-sub);font-size:.9em">当レポートはDollar Generalの初回決算分析です。次回以降の決算で前回比較を行います。</div>
+    </div>
+    <div style="margin-top:16px">
+      <h4 style="font-size:.95em;font-weight:700;margin-bottom:12px">📌 FY2025 四半期トレンド（参考）</h4>
+      <table class="tbl">
+        <thead><tr><th>指標</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>トレンド</th></tr></thead>
+        <tbody>
+          <tr><td>売上高</td><td>$10.40B</td><td>$10.70B</td><td>$10.60B</td><td>$10.91B</td><td class="positive">↑ 改善</td></tr>
+          <tr><td>EPS</td><td>$1.78</td><td>$1.86</td><td>$1.28</td><td>$1.93</td><td class="positive">↑ 回復</td></tr>
+          <tr><td>SSS</td><td>+2.5%</td><td>+2.4%</td><td>+3.0%</td><td>+4.3%</td><td class="positive">↑ 加速</td></tr>
+          <tr><td>粗利率</td><td>31.1%</td><td>30.0%</td><td>29.9%</td><td>30.4%</td><td class="neutral">→ 安定</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Valuation -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション</div>
+  <div class="section-body">
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="val-scenario" style="color:var(--green)">LOW（保守的）</div>
+        <div class="val-price" style="color:var(--green)">$113.60</div>
+        <div class="val-detail">Forward EPS $7.10 × PER 16.0x</div>
+        <div class="val-detail">ガイダンスLow端 × 過去PER下限</div>
+        <div class="val-detail" style="margin-top:8px">現在株価比: <span class="negative">-14.1%</span></div>
+      </div>
+      <div class="val-card mid">
+        <div class="val-scenario" style="color:var(--blue)">MID（基本）</div>
+        <div class="val-price" style="color:var(--blue)">$137.75</div>
+        <div class="val-detail">Forward EPS $7.25 × PER 19.0x</div>
+        <div class="val-detail">コンセンサスEPS × 過去PER中央値</div>
+        <div class="val-detail" style="margin-top:8px">現在株価比: <span class="positive">+4.2%</span></div>
+      </div>
+      <div class="val-card high">
+        <div class="val-scenario" style="color:var(--purple)">HIGH（楽観的）</div>
+        <div class="val-price" style="color:var(--purple)">$161.70</div>
+        <div class="val-detail">Forward EPS $7.35 × PER 22.0x</div>
+        <div class="val-detail">ガイダンスHigh端 × 過去PER上限</div>
+        <div class="val-detail" style="margin-top:8px">現在株価比: <span class="positive">+22.3%</span></div>
+      </div>
+    </div>
+    <div style="margin-top:20px;text-align:center;padding:20px;background:var(--bg);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.9em;color:var(--text-sub);margin-bottom:8px">MID想定株価 vs 現在株価の乖離率</div>
+      <div style="font-size:2em;font-weight:900;color:var(--blue)">+4.2%</div>
+      <div style="font-size:1.1em;font-weight:700;color:var(--blue);margin-top:4px">適正</div>
+      <div style="font-size:.82em;color:var(--text-sub);margin-top:8px">現在株価 $132.21 ｜ 乖離率 -10%〜+10% = 適正圏</div>
+    </div>
+    <div style="margin-top:16px;font-size:.82em;color:var(--text-sub)">
+      ※算出根拠: Forward EPSはFY2026ガイダンス中央値$7.225を使用。PERレンジはDGの過去3年のTrailing PER（15x〜23x）を参考に設定。LOWは関税・消費低迷の悲観シナリオ、HIGHは「Back to Basics」戦略の加速による利益率改善シナリオを想定。
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌎</span><span class="toc-label">地域別展開</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏪</span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎤</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Revenue Chart
+var ctx1 = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['FY24Q2','FY24Q3','FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4'],
+    datasets: [{
+      label: '売上高 ($B)',
+      data: [10.21,10.18,10.30,10.40,10.70,10.60,10.91],
+      backgroundColor: ['#30363d','#30363d','#30363d','#30363d','#30363d','#30363d','#58a6ff'],
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: '売上高 7四半期推移 ($B)', color: '#e6edf3', font: { family: 'Noto Sans JP', size: 14, weight: '700' } }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e' }, grid: { display: false } },
+      y: { min: 9.5, max: 11.5, ticks: { color: '#8b949e', callback: function(v){ return '$'+v+'B'; } }, grid: { color: 'rgba(48,54,61,.3)' } }
+    }
+  }
+});
+
+// EPS Chart
+var ctx2 = document.getElementById('epsChart').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['FY24Q2','FY24Q3','FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4'],
+    datasets: [{
+      label: 'EPS ($)',
+      data: [1.70,1.26,0.87,1.78,1.86,1.28,1.93],
+      backgroundColor: function(context) {
+        var v = context.raw;
+        return context.dataIndex === 6 ? '#58a6ff' : (v >= 1.50 ? '#2ea043' : '#f85149');
+      },
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: 'EPS 7四半期推移 ($)', color: '#e6edf3', font: { family: 'Noto Sans JP', size: 14, weight: '700' } }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e' }, grid: { display: false } },
+      y: { min: 0, max: 2.5, ticks: { color: '#8b949e', callback: function(v){ return '$'+v.toFixed(2); } }, grid: { color: 'rgba(48,54,61,.3)' } }
+    }
+  }
+});
+
+// Fix EPS chart colors (backgroundColor as function doesn't work in Chart.js config object)
+// Re-set using array
+(function(){
+  var colors = [1.70,1.26,0.87,1.78,1.86,1.28,1.93].map(function(v,i){
+    if(i===6) return '#58a6ff';
+    return v >= 1.50 ? '#2ea043' : '#f85149';
+  });
+  var chart = Chart.getChart('epsChart');
+  if(chart){
+    chart.data.datasets[0].backgroundColor = colors;
+    chart.update();
+  }
+})();
+
+// Accordion
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+// Auto-collapse on mobile
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// TOC
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
