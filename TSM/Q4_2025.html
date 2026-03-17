@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSM Q4 2025 決算分析 | TSMC</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-sub: #8b949e;
+  --green: #2ea043;
+  --green-bg: rgba(46,160,67,0.12);
+  --red: #f85149;
+  --red-bg: rgba(248,81,73,0.12);
+  --blue: #58a6ff;
+  --blue-bg: rgba(88,166,255,0.12);
+  --yellow: #d29922;
+  --purple: #bc8cff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  padding: 0;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);
+  border-bottom: 1px solid #21262d;
+  padding: 40px 20px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(88,166,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(46,160,67,0.06) 0%, transparent 60%);
+}
+.header-content { position: relative; z-index: 1; }
+.header h1 { font-size: 2.2em; font-weight: 900; margin-bottom: 4px; }
+.header .subtitle { color: var(--text-sub); font-size: 1.1em; }
+.header .date { color: var(--text-sub); font-size: 0.85em; margin-top: 8px; }
+.header-logo-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 8px; }
+.report-header-logo { height: 48px; width: auto; max-width: 180px; object-fit: contain; vertical-align: middle; margin-right: 12px; opacity: .9; flex-shrink: 0; }
+.ticker-badge { display: inline-block; background: rgba(88,166,255,0.15); border: 1px solid rgba(88,166,255,0.3); border-radius: 8px; padding: 6px 16px; font-size: 14px; color: var(--blue); margin-bottom: 12px; letter-spacing: 1px; }
+
+/* Section */
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  margin-top: 20px;
+}
+.section-title {
+  font-size: 1.15em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-icon { font-size: 1.2em; }
+
+/* Score */
+.score-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px 24px;
+  margin-top: 20px;
+  text-align: center;
+}
+.score-big { font-size: 5em; font-weight: 900; line-height: 1; }
+.score-label { font-size: 1.5em; font-weight: 700; margin-top: 8px; }
+.score-reason { color: var(--text-sub); font-size: 0.9em; margin-top: 12px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.metric-card {
+  background: rgba(22,27,34,0.8);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.metric-label { color: var(--text-sub); font-size: 0.75em; margin-bottom: 4px; }
+.metric-value { font-size: 1.4em; font-weight: 700; }
+.metric-sub { font-size: 0.75em; margin-top: 4px; }
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+.neutral { color: var(--text-sub); }
+
+/* Charts */
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-wrap { position: relative; height: 320px; }
+
+/* Tables */
+.tbl { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.tbl th, .tbl td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+.tbl th { color: var(--text-sub); font-weight: 500; font-size: 0.8em; }
+.tbl td { font-weight: 500; }
+
+/* Cards grid */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.info-card {
+  background: rgba(13,17,23,0.6);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+.info-card .card-title { color: var(--text-sub); font-size: 0.78em; margin-bottom: 6px; }
+.info-card .card-value { font-size: 1.2em; font-weight: 700; }
+.info-card .card-sub { font-size: 0.75em; color: var(--text-sub); margin-top: 4px; }
+
+/* Two col */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* Valuation cards */
+.val-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.val-card {
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.val-card.low { background: rgba(46,160,67,0.08); border-color: rgba(46,160,67,0.3); }
+.val-card.mid { background: rgba(88,166,255,0.08); border-color: rgba(88,166,255,0.3); }
+.val-card.high { background: rgba(188,140,255,0.08); border-color: rgba(188,140,255,0.3); }
+.val-card .val-scenario { font-size: 0.8em; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+.val-card.low .val-scenario { color: var(--green); }
+.val-card.mid .val-scenario { color: var(--blue); }
+.val-card.high .val-scenario { color: var(--purple); }
+.val-card .val-price { font-size: 2.2em; font-weight: 900; }
+.val-card .val-detail { font-size: 0.78em; color: var(--text-sub); margin-top: 8px; }
+
+/* Risk / Catalyst */
+.rc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.rc-list { list-style: none; padding: 0; }
+.rc-list li { padding: 8px 0; border-bottom: 1px solid rgba(48,54,61,0.5); font-size: 0.88em; display: flex; gap: 8px; align-items: flex-start; }
+.rc-list li:last-child { border-bottom: none; }
+
+/* Overview grid */
+.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+/* Tech grid */
+.tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.tech-card {
+  background: rgba(13,17,23,0.6);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.tech-card .tech-label { color: var(--text-sub); font-size: 0.78em; margin-bottom: 4px; }
+.tech-card .tech-value { font-size: 1.1em; font-weight: 700; }
+.tech-card .tech-sub { font-size: 0.75em; color: var(--text-sub); margin-top: 4px; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75em;
+  font-weight: 700;
+}
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-red { background: var(--red-bg); color: var(--red); }
+.badge-blue { background: var(--blue-bg); color: var(--blue); }
+.badge-yellow { background: rgba(210,153,34,0.15); color: var(--yellow); }
+
+.comment-block {
+  background: rgba(13,17,23,0.6);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  font-size: 0.88em;
+  line-height: 1.8;
+}
+.comment-speaker { color: var(--blue); font-weight: 700; font-size: 0.82em; margin-bottom: 4px; }
+
+.tradingview-widget-container { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.consensus-highlight {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85em;
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion] { position: relative; }
+.section[data-accordion] .section-title { cursor: pointer; user-select: none; padding-right: 36px; }
+.section[data-accordion] .section-title::after { content: '\25BC'; position: absolute; right: 20px; top: 28px; font-size: .7em; color: var(--text-sub); transition: transform .25s; }
+.section[data-accordion].collapsed .section-title::after { transform: rotate(-90deg); }
+.section[data-accordion] .section-body { overflow: visible; transition: max-height .35s ease, opacity .25s ease; max-height: 5000px; opacity: 1; }
+.section[data-accordion].collapsing .section-body { overflow: hidden; }
+.section[data-accordion].collapsed .section-body { max-height: 0; overflow: hidden; opacity: 0; margin: 0; padding: 0; }
+
+/* === TOC Nav (mobile only) === */
+.toc-nav { display: none; }
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/TSM.svg" alt="TSM">
+      <div class="ticker-badge">NYSE: TSM</div>
+    </div>
+    <h1>TSMC 決算分析</h1>
+    <div class="subtitle">Q4 2025（2025年10月-12月）</div>
+    <div class="date">発表日: 2026年1月15日 ｜ レポート作成: 2026年3月17日</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 1. 総合評価スコア -->
+<div class="score-section">
+  <div class="score-big" style="color:var(--green);">5</div>
+  <div class="score-label">&#x1F680; 素晴らしい決算</div>
+  <div class="score-reason">
+    売上・EPSともにガイダンス/コンセンサスをビート。粗利益率62.3%がガイダンス上限を+1.3pt超過し、過去最高の四半期利益NT$505.7Bを記録。Q1 2026ガイダンスは売上+38% YoY・GM 63-65%と極めて強力。FY2026通期~30%成長見込み + 記録的Capex $52-56Bが示すAI需要への確信。
+  </div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">&#x1F4CA;</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">売上高</div>
+      <div class="metric-value">$33.73B</div>
+      <div class="metric-sub positive">+20.5% YoY / +5.7% QoQ</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">EPS (ADR)</div>
+      <div class="metric-value">$3.14</div>
+      <div class="metric-sub positive">+35.0% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">粗利益率</div>
+      <div class="metric-value" style="color:var(--green);">62.3%</div>
+      <div class="metric-sub positive">ガイダンス上限+1.3pt</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">営業利益率</div>
+      <div class="metric-value" style="color:var(--green);">54.0%</div>
+      <div class="metric-sub positive">+5.0pt YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">売上ビート</div>
+      <div class="metric-value" style="color:var(--green);">&#x2714;</div>
+      <div class="metric-sub positive">ガイダンス上限+$330M</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 売上高 / EPS 7四半期推移 -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F4C8;</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-wrap">
+        <canvas id="revenueChart"></canvas>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="epsChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 利益率トレンド -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F4C8;</span> 利益率トレンド</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>指標</th>
+          <th>Q4 2024</th>
+          <th>Q3 2025</th>
+          <th>Q4 2025</th>
+          <th>QoQ変化</th>
+          <th>YoY変化</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>粗利益率</td>
+          <td>59.0%</td>
+          <td>59.5%</td>
+          <td style="font-weight:900;color:var(--green);">62.3%</td>
+          <td class="positive">+2.8pt</td>
+          <td class="positive">+3.3pt</td>
+        </tr>
+        <tr>
+          <td>営業利益率</td>
+          <td>49.0%</td>
+          <td>50.6%</td>
+          <td style="font-weight:900;color:var(--green);">54.0%</td>
+          <td class="positive">+3.4pt</td>
+          <td class="positive">+5.0pt</td>
+        </tr>
+        <tr>
+          <td>純利益率</td>
+          <td>43.1%</td>
+          <td>45.7%</td>
+          <td style="font-weight:900;color:var(--green);">48.3%</td>
+          <td class="positive">+2.6pt</td>
+          <td class="positive">+5.2pt</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;">
+      <span class="badge badge-green">Q1 2026ガイダンス: 粗利益率 63-65% / 営業利益率 54-56%</span>
+    </div>
+  </div>
+</div>
+
+<!-- 5. コンセンサス比較 -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F3AF;</span> コンセンサス比較</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>実績</th>
+          <th>ガイダンス/コンセンサス</th>
+          <th>結果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>売上高</td>
+          <td>$33.73B</td>
+          <td>$32.2-33.4B（ガイダンス）</td>
+          <td><span class="badge badge-green">&#x2714; ビート +$330M</span></td>
+        </tr>
+        <tr>
+          <td>粗利益率</td>
+          <td>62.3%</td>
+          <td>59-61%（ガイダンス）</td>
+          <td><span class="badge badge-green">&#x2714; +1.3pt above high end</span></td>
+        </tr>
+        <tr>
+          <td>EPS</td>
+          <td>$3.14/ADR</td>
+          <td>コンセンサス</td>
+          <td><span class="badge badge-green">&#x2714; ビート</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:20px;">
+      <div class="section-title" style="font-size:1em;"><span class="section-icon">&#x1F52E;</span> Q1 2026 ガイダンス</div>
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="card-title">売上ガイダンス</div>
+          <div class="card-value">$34.6-35.8B</div>
+          <div class="card-sub positive">+38% YoY / +4% QoQ</div>
+        </div>
+        <div class="info-card">
+          <div class="card-title">粗利益率ガイダンス</div>
+          <div class="card-value" style="color:var(--green);">63-65%</div>
+          <div class="card-sub positive">更なる改善見込み</div>
+        </div>
+        <div class="info-card">
+          <div class="card-title">営業利益率ガイダンス</div>
+          <div class="card-value" style="color:var(--green);">54-56%</div>
+          <div class="card-sub positive">コンセンサスを大幅超過</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;">
+      <span class="badge badge-green">FY2026通期: USDベースで売上~30%成長見込み</span>
+      <span class="badge badge-blue" style="margin-left:8px;">Capex $52-56B（+30% YoY、過去最高）</span>
+    </div>
+  </div>
+</div>
+
+<!-- 6. キャッシュフロー -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F4B0;</span> キャッシュフロー</div>
+  <div class="section-body">
+    <div style="margin-bottom:12px;"><span class="badge badge-blue">FY2025 通期</span></div>
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-title">営業キャッシュフロー</div>
+        <div class="card-value positive">~$71.5B</div>
+        <div class="card-sub">TWD 2.3T</div>
+      </div>
+      <div class="info-card">
+        <div class="card-title">設備投資</div>
+        <div class="card-value">$40.9B</div>
+        <div class="card-sub">TWD 1.3T</div>
+      </div>
+      <div class="info-card">
+        <div class="card-title">フリーキャッシュフロー</div>
+        <div class="card-value positive">~$31B</div>
+        <div class="card-sub positive">+15.2% YoY</div>
+      </div>
+    </div>
+    <div style="margin-top:16px; margin-bottom:12px;"><span class="badge badge-blue">Q4 2025</span></div>
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-title">営業CF</div>
+        <div class="card-value positive">~$23.4B</div>
+        <div class="card-sub">~NT$726B</div>
+      </div>
+      <div class="info-card">
+        <div class="card-title">Capex</div>
+        <div class="card-value">~$11.5B</div>
+      </div>
+      <div class="info-card">
+        <div class="card-title">期末現金</div>
+        <div class="card-value">$98B</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <span class="badge badge-yellow">FY2025 配当支払: TWD 467B（+28.6% YoY）</span>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 部門別売上 -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F3ED;</span> 部門別売上構成</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div>
+        <h3 style="font-size:0.95em;margin-bottom:12px;color:var(--blue);">プラットフォーム別</h3>
+        <table class="tbl">
+          <thead>
+            <tr><th>プラットフォーム</th><th>Q4 2025</th><th>Q3 2025</th><th>Q4 2024</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>HPC</td><td style="font-weight:700;">55%</td><td>57%</td><td>53%</td></tr>
+            <tr><td>スマートフォン</td><td style="font-weight:700;">32%</td><td>28%</td><td>35%</td></tr>
+            <tr><td>IoT</td><td>5%</td><td>5%</td><td>-</td></tr>
+            <tr><td>車載</td><td>5%</td><td>5%</td><td>-</td></tr>
+            <tr><td>DCE</td><td>1%</td><td>2%</td><td>-</td></tr>
+            <tr><td>その他</td><td>2%</td><td>3%</td><td>-</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h3 style="font-size:0.95em;margin-bottom:12px;color:var(--blue);">テクノロジーノード別</h3>
+        <table class="tbl">
+          <thead>
+            <tr><th>ノード</th><th>Q4 2025</th><th>Q3 2025</th><th>Q4 2024</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>3nm</td><td style="font-weight:700;color:var(--green);">28%</td><td>23%</td><td>26%</td></tr>
+            <tr><td>5nm</td><td style="font-weight:700;">35%</td><td>37%</td><td>34%</td></tr>
+            <tr><td>7nm</td><td>14%</td><td>14%</td><td>16%</td></tr>
+            <tr><td style="font-weight:700;">先端合計（7nm以下）</td><td style="font-weight:900;color:var(--green);">77%</td><td>74%</td><td>76%</td></tr>
+            <tr><td>16nm以上</td><td>23%</td><td>26%</td><td>24%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. 地域別売上 -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F30D;</span> 地域別売上構成</div>
+  <div class="section-body">
+    <div class="card-grid" style="grid-template-columns:repeat(5,1fr);">
+      <div class="info-card" style="text-align:center;">
+        <div class="card-title">北米</div>
+        <div class="card-value" style="font-size:1.8em;color:var(--blue);">75%</div>
+      </div>
+      <div class="info-card" style="text-align:center;">
+        <div class="card-title">中国</div>
+        <div class="card-value" style="font-size:1.8em;">9%</div>
+      </div>
+      <div class="info-card" style="text-align:center;">
+        <div class="card-title">アジア太平洋</div>
+        <div class="card-value" style="font-size:1.8em;">9%</div>
+      </div>
+      <div class="info-card" style="text-align:center;">
+        <div class="card-title">日本</div>
+        <div class="card-value" style="font-size:1.8em;">4%</div>
+      </div>
+      <div class="info-card" style="text-align:center;">
+        <div class="card-title">EMEA</div>
+        <div class="card-value" style="font-size:1.8em;">3%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 9. 企業概要 -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F3E2;</span> 企業概要</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div>
+        <table class="tbl">
+          <tbody>
+            <tr><td style="color:var(--text-sub);">正式名称</td><td>Taiwan Semiconductor Manufacturing Co.</td></tr>
+            <tr><td style="color:var(--text-sub);">設立</td><td>1987年</td></tr>
+            <tr><td style="color:var(--text-sub);">本社</td><td>新竹, 台湾</td></tr>
+            <tr><td style="color:var(--text-sub);">CEO</td><td>C.C. Wei（魏哲家）</td></tr>
+            <tr><td style="color:var(--text-sub);">従業員数</td><td>~76,000人</td></tr>
+            <tr><td style="color:var(--text-sub);">時価総額</td><td>~$1.8T</td></tr>
+            <tr><td style="color:var(--text-sub);">上場</td><td>NYSE: TSM / TWSE: 2330</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="info-card" style="margin-bottom:12px;">
+          <div class="card-title">事業概要</div>
+          <div style="font-size:0.88em;line-height:1.8;">世界最大の半導体ファウンドリ（受託製造）専業企業。自社ブランド製品を持たず、Apple・NVIDIA・AMD等の顧客向けにウェーハ製造サービスと先端パッケージング（CoWoS, InFO, SOIC）を提供。ファウンドリ市場シェア71%。</div>
+        </div>
+        <div class="info-card">
+          <div class="card-title">競合環境</div>
+          <div style="font-size:0.88em;line-height:1.8;">
+            <strong>Samsung Foundry</strong>: シェア13%、歩留まり問題に苦戦<br>
+            <strong>Intel Foundry</strong>: 再建中、市場シェア獲得にはまだ時間を要する
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10. テクニカル分析 -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F4C9;</span> テクニカル分析</div>
+  <div class="section-body">
+    <!-- TradingView Widget -->
+    <div class="tradingview-widget-container" style="margin-bottom:24px;">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NYSE:TSM",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-label">トレンド判定</div>
+        <div class="tech-value"><span class="badge badge-green">中立〜やや強気</span></div>
+        <div class="tech-sub">長期上昇トレンド内の調整局面。$390高値からの調整中。</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">移動平均線</div>
+        <div class="tech-value">50日SMA: ~$303 / 200日SMA: ~$272</div>
+        <div class="tech-sub positive">ゴールデンクロス有効（50日 > 200日）</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">RSI (14日)</div>
+        <div class="tech-value">42-50</div>
+        <div class="tech-sub">中立圏、やや売られすぎに接近</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">MACD</div>
+        <div class="tech-value"><span class="badge badge-red">売りシグナル出現</span></div>
+        <div class="tech-sub">3ヶ月MACDで短期弱含み</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">サポート / レジスタンス</div>
+        <div class="tech-value">S: $333-340 / R: $352-361</div>
+        <div class="tech-sub">$333サポートからの反発を試す局面</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">出来高</div>
+        <div class="tech-value">決算後増加→通常回帰</div>
+        <div class="tech-sub">特段の異常なし</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div class="info-card">
+        <div class="card-title">総合テクニカル判定</div>
+        <div style="font-size:0.9em;line-height:1.8;">
+          <strong style="color:var(--green);">中立〜やや強気</strong> — 長期上昇トレンド継続中。50日/200日SMAゴールデンクロスを維持。短期的には$390からの調整局面で、$333付近のサポートからの反発を試す展開。RSIは中立圏にあり、極端な過熱/売られすぎではない。MACDの売りシグナルには注意が必要。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. 経営陣コメント -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F4AC;</span> 経営陣コメント ハイライト</div>
+  <div class="section-body">
+    <div class="comment-block">
+      <div class="comment-speaker">C.C. Wei (CEO) — AI需要について</div>
+      「AIは本物です。本物であるだけでなく、私たちの日常生活に浸透し始めています。コンシューマー、エンタープライズ、ソブリンAIの各セグメントでAIモデルの採用が加速しており、リーディングエッジシリコンへの旺盛な需要を支えています」
+    </div>
+    <div class="comment-block">
+      <div class="comment-speaker">C.C. Wei (CEO) — 成長見通し</div>
+      AI accelerator売上はFY2025全体のhigh-teens%を占める。FY2026はUSDベースで約30%の売上成長を見込む。ファウンドリ業界成長率~14%の2倍以上のペースで成長。
+    </div>
+    <div class="comment-block">
+      <div class="comment-speaker">C.C. Wei (CEO) — N2（2nm）と設備投資</div>
+      N2は2025年Q4に新竹・高雄の両拠点でHVM（量産）を開始、良好な歩留まり。2nm生産の約30%を米国で実施予定。2026年Capex $52-56B（過去最高、+30% YoY）の70-80%を先端プロセスに配分。
+    </div>
+    <div class="comment-block">
+      <div class="comment-speaker">C.C. Wei (CEO) — 海外展開</div>
+      アリゾナFab 2のツールインは2026年中。Fab 3の建設も進行中。日本の熊本スペシャルティファブが量産稼働中。ドイツのドレスデンも進行中。
+    </div>
+    <div class="comment-block">
+      <div class="comment-speaker">マージン見通し</div>
+      N2ランプでFY2026にマージン2-3%希薄化の見込み。海外ファブスケールアップで追加2-4%希薄化（長期的）。ただし、製造効率改善とクロスノード最適化で相殺を予定。
+    </div>
+  </div>
+</div>
+
+<!-- 12. リスク・カタリスト -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x26A0;&#xFE0F;</span> リスク・カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div>
+        <h3 style="font-size:0.9em;color:var(--red);margin-bottom:12px;">&#x1F6A8; リスク要因</h3>
+        <ul class="rc-list">
+          <li><span style="color:var(--red);">&#x25CF;</span> 地政学リスク（台湾海峡の緊張）</li>
+          <li><span style="color:var(--red);">&#x25CF;</span> 海外ファブ展開（米国/日本/欧州）によるマージン希薄化</li>
+          <li><span style="color:var(--red);">&#x25CF;</span> N2ランプによる短期的マージン圧力（2-3%希薄化）</li>
+          <li><span style="color:var(--red);">&#x25CF;</span> 顧客集中リスク（Apple + NVIDIA比率高い）</li>
+          <li><span style="color:var(--red);">&#x25CF;</span> 米中関係悪化による中国売上影響</li>
+          <li><span style="color:var(--red);">&#x25CF;</span> $52-56B記録的Capexの投資回収リスク</li>
+          <li><span style="color:var(--red);">&#x25CF;</span> 半導体サイクルの景気敏感性</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:0.9em;color:var(--green);margin-bottom:12px;">&#x1F680; カタリスト</h3>
+        <ul class="rc-list">
+          <li><span style="color:var(--green);">&#x25CF;</span> AI需要の持続的拡大（consumer/enterprise/sovereign AI）</li>
+          <li><span style="color:var(--green);">&#x25CF;</span> N2量産開始 → 次世代AI/スマートフォンチップ需要取り込み</li>
+          <li><span style="color:var(--green);">&#x25CF;</span> CoWoS先端パッケージング容量拡大（月産12-13万枚へ）</li>
+          <li><span style="color:var(--green);">&#x25CF;</span> アリゾナFab稼働開始（米国顧客近接メリット）</li>
+          <li><span style="color:var(--green);">&#x25CF;</span> FY2026売上~30%成長 + 粗利益率63-65%へ改善</li>
+          <li><span style="color:var(--green);">&#x25CF;</span> ファウンドリ市場シェア71%の独占的地位</li>
+          <li><span style="color:var(--green);">&#x25CF;</span> 2nm生産容量を2026年に月産10万枚に拡大</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. 前回決算比較 -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F504;</span> 前回決算との比較</div>
+  <div class="section-body">
+    <div class="info-card" style="text-align:center;padding:30px;">
+      <div style="font-size:1.1em;color:var(--text-sub);">TSMの前回分析データなし（今回が初回分析）</div>
+      <div style="font-size:0.85em;color:var(--text-sub);margin-top:8px;">次回決算以降に比較サマリーを生成します</div>
+    </div>
+  </div>
+</div>
+
+<!-- 14. バリュエーション -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">&#x1F48E;</span> バリュエーション</div>
+  <div class="section-body">
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="val-scenario">LOW（保守的）</div>
+        <div class="val-price" style="color:var(--green);">$253</div>
+        <div class="val-detail">Forward EPS $11.50 x PER 22x</div>
+        <div class="val-detail">現在株価比: -27.7%</div>
+      </div>
+      <div class="val-card mid">
+        <div class="val-scenario">MID（基本）</div>
+        <div class="val-price" style="color:var(--blue);">$340</div>
+        <div class="val-detail">Forward EPS $12.61 x PER 27x</div>
+        <div class="val-detail">現在株価比: -2.9%</div>
+      </div>
+      <div class="val-card high">
+        <div class="val-scenario">HIGH（楽観的）</div>
+        <div class="val-price" style="color:var(--purple);">$462</div>
+        <div class="val-detail">Forward EPS $14.00 x PER 33x</div>
+        <div class="val-detail">現在株価比: +32.0%</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;text-align:center;">
+      <span class="consensus-highlight" style="background:var(--blue-bg);color:var(--blue);">
+        MID $340 vs 現在株価 ~$350 → 乖離率 -2.9% → 適正
+      </span>
+    </div>
+
+    <div style="margin-top:20px;">
+      <table class="tbl">
+        <thead>
+          <tr><th>指標</th><th>値</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>現在株価</td><td>~$350</td></tr>
+          <tr><td>52週高値</td><td>$390.21（2026/2/25）</td></tr>
+          <tr><td>52週安値</td><td>$134.25</td></tr>
+          <tr><td>時価総額</td><td>~$1.8T</td></tr>
+          <tr><td>Trailing PE</td><td>~34x</td></tr>
+          <tr><td>Forward PE</td><td>~26x</td></tr>
+          <tr><td>FY2025 EPS</td><td>$10.65/ADR</td></tr>
+          <tr><td>FY2026E EPS（コンセンサス）</td><td>$12.61/ADR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div class="info-card">
+        <div class="card-title">アナリスト評価</div>
+        <div style="font-size:0.9em;line-height:1.8;">
+          <span class="badge badge-green">Strong Buy</span>
+          <span style="margin-left:12px;">Buy: 7 / Hold: 1 / Sell: 0</span><br>
+          平均目標株価: <strong>$423.50</strong>（最高: $470 / 最低: $370）<br>
+          現在株価からの上昇余地: <span class="positive">+21.0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">&#x1F4C8;</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">&#x1F4C8;</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">&#x1F3AF;</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">&#x1F4B0;</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">&#x1F3ED;</span><span class="toc-label">部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">&#x1F30D;</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">&#x1F3E2;</span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">&#x1F4C9;</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">&#x1F4AC;</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">&#x26A0;&#xFE0F;</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">&#x1F504;</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">&#x1F48E;</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">&#x2630;</button>
+
+<script>
+// === Chart.js: Revenue ===
+var revCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Q2 2024','Q3 2024','Q4 2024','Q1 2025','Q2 2025','Q3 2025','Q4 2025'],
+    datasets: [{
+      label: '売上高 ($B)',
+      data: [20.82, 23.50, 26.88, 25.53, 30.07, 33.10, 33.73],
+      backgroundColor: [
+        'rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)',
+        'rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)',
+        'rgba(46,160,67,0.7)'
+      ],
+      borderColor: [
+        'rgba(88,166,255,0.8)','rgba(88,166,255,0.8)','rgba(88,166,255,0.8)',
+        'rgba(88,166,255,0.8)','rgba(88,166,255,0.8)','rgba(88,166,255,0.8)',
+        'rgba(46,160,67,1)'
+      ],
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: '売上高推移 ($B)', color: '#e6edf3', font: { family: 'Noto Sans JP', size: 14, weight: '700' } }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e', font: { size: 11 } }, grid: { color: 'rgba(48,54,61,0.3)' } },
+      y: { ticks: { color: '#8b949e', callback: function(v){ return '$' + v + 'B'; } }, grid: { color: 'rgba(48,54,61,0.3)' }, beginAtZero: false, min: 15 }
+    }
+  }
+});
+
+// === Chart.js: EPS ===
+var epsCtx = document.getElementById('epsChart').getContext('2d');
+new Chart(epsCtx, {
+  type: 'line',
+  data: {
+    labels: ['Q2 2024','Q3 2024','Q4 2024','Q1 2025','Q2 2025','Q3 2025','Q4 2025'],
+    datasets: [{
+      label: 'EPS ($/ADR)',
+      data: [1.48, 1.94, 2.24, 2.12, 2.47, 2.92, 3.14],
+      borderColor: 'rgba(46,160,67,1)',
+      backgroundColor: 'rgba(46,160,67,0.15)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 5,
+      pointBackgroundColor: function(ctx){
+        return ctx.dataIndex === 6 ? '#2ea043' : '#58a6ff';
+      },
+      pointBorderColor: function(ctx){
+        return ctx.dataIndex === 6 ? '#2ea043' : '#58a6ff';
+      },
+      pointHoverRadius: 7
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: 'EPS推移 ($/ADR)', color: '#e6edf3', font: { family: 'Noto Sans JP', size: 14, weight: '700' } }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e', font: { size: 11 } }, grid: { color: 'rgba(48,54,61,0.3)' } },
+      y: { ticks: { color: '#8b949e', callback: function(v){ return '$' + v.toFixed(2); } }, grid: { color: 'rgba(48,54,61,0.3)' }, beginAtZero: false, min: 1.0 }
+    }
+  }
+});
+
+// === Accordion ===
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+// Auto-collapse on mobile
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '\u2715 セクション' : '\u2630';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
