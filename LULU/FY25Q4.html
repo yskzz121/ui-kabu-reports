@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LULU FY2025 Q4 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;
+  --text:#e6edf3;--text-sub:#8b949e;
+  --green:#2ea043;--green-bg:rgba(46,160,67,.12);
+  --red:#f85149;--red-bg:rgba(248,81,73,.12);
+  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);
+  --yellow:#d29922;--yellow-bg:rgba(210,153,34,.12);
+  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;padding:20px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;border-radius:16px 16px 0 0;margin-bottom:0}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Sections */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin-bottom:16px}
+.section-title{font-size:1.3em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.2em}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-sub{color:var(--text-sub);font-size:.95em;margin-top:4px}
+
+/* Cards / Grids */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.metric-label{font-size:.75em;color:var(--text-sub);margin-bottom:4px;font-weight:500}
+.metric-value{font-size:1.4em;font-weight:700}
+.metric-sub{font-size:.72em;margin-top:4px;font-weight:500}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--yellow)}
+
+/* Charts */
+.chart-container{position:relative;height:320px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.85em}
+.tbl th{background:var(--bg);padding:10px 12px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);color:var(--text-sub)}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--border)}
+.tbl tr:hover{background:rgba(88,166,255,.04)}
+
+/* Grid layouts */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Risk/Catalyst cards */
+.risk-card,.catalyst-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.risk-card{border-left:3px solid var(--red)}
+.catalyst-card{border-left:3px solid var(--green)}
+.risk-card h4,.catalyst-card h4{font-size:.85em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.risk-card p,.catalyst-card p{font-size:.8em;color:var(--text-sub);line-height:1.6}
+
+/* Valuation */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:rgba(46,160,67,.08);border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:rgba(88,166,255,.08);border-color:rgba(88,166,255,.3)}
+.val-card.high{background:rgba(188,140,255,.08);border-color:rgba(188,140,255,.3)}
+.val-scenario{font-size:.8em;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-price{font-size:2.2em;font-weight:900}
+.val-detail{font-size:.75em;color:var(--text-sub);margin-top:8px;line-height:1.5}
+.val-gap{font-size:.85em;font-weight:700;margin-top:8px}
+
+/* Mgmt comments */
+.mgmt-quote{background:var(--bg);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:16px;margin-bottom:12px;font-size:.88em;line-height:1.7}
+.mgmt-speaker{color:var(--blue);font-weight:600;font-size:.8em;margin-bottom:4px}
+
+/* Overview grid */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.overview-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.overview-card h4{font-size:.85em;color:var(--blue);margin-bottom:8px}
+.overview-card p,.overview-card li{font-size:.82em;color:var(--text-sub);line-height:1.6}
+.overview-card ul{padding-left:16px}
+
+/* Tech grid */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:.85em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.tech-card .tech-val{font-size:1.3em;font-weight:700}
+.tech-card .tech-note{font-size:.78em;color:var(--text-sub);margin-top:4px}
+
+/* Compare */
+.compare-table{width:100%;border-collapse:collapse;font-size:.85em}
+.compare-table th{background:var(--bg);padding:10px 12px;text-align:center;font-weight:600;border-bottom:2px solid var(--border);color:var(--text-sub)}
+.compare-table td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:center}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px auto;text-align:center}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/LULU.svg" alt="LULU">
+      <div class="ticker-badge">NASDAQ: LULU</div>
+    </div>
+    <h1>Lululemon Athletica 決算分析</h1>
+    <div class="subtitle">FY2025 Q4（2025年11月3日〜2026年2月1日）</div>
+    <div class="date">発表日: 2026年3月17日 ｜ レポート作成: 2026年3月18日</div>
+  </div>
+</div>
+
+<!-- 総合評価スコア -->
+<div class="section score-section">
+  <div class="score-big">⏸️ 3</div>
+  <div class="score-label">悪くない決算</div>
+  <div class="score-sub">Q4は売上・EPSともにコンセンサスビートも、FY2026ガイダンスが売上・EPSともにミス。<br>関税コスト増(FY2026: $380M)と北米需要軟化が重石。CEO空席・創業者のプロキシファイトも不透明要因。</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">売上高</div>
+      <div class="metric-value">$3,641M</div>
+      <div class="metric-sub positive">YoY +0.8%（53週除外 +6%）</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">GAAP EPS</div>
+      <div class="metric-value">$5.01</div>
+      <div class="metric-sub negative">YoY -18.4%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">売上ビート</div>
+      <div class="metric-value positive">+$71M</div>
+      <div class="metric-sub positive">+1.8% ビート</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">EPSビート</div>
+      <div class="metric-value positive">+$0.25</div>
+      <div class="metric-sub positive">+5.2% ビート</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">粗利益率</div>
+      <div class="metric-value">54.9%</div>
+      <div class="metric-sub negative">YoY -550bps</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">営業利益率</div>
+      <div class="metric-value">22.3%</div>
+      <div class="metric-sub negative">YoY -660bps</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">既存店売上成長率</div>
+      <div class="metric-value positive">+3%</div>
+      <div class="metric-sub">定額ベース +2%</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">株価（3/17終値）</div>
+      <div class="metric-value">$159.55</div>
+      <div class="metric-sub negative">52週高値比 -54%</div>
+    </div>
+  </div>
+</div>
+
+<!-- 売上高 / EPS 7四半期推移 -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div>
+        <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div>
+        <div class="chart-container"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>四半期</th><th>売上高($M)</th><th>YoY</th><th>EPS($)</th><th>YoY</th></tr></thead>
+      <tbody>
+        <tr><td>Q2 FY2024</td><td>2,371</td><td>+7%</td><td>3.15</td><td>+18%</td></tr>
+        <tr><td>Q3 FY2024</td><td>2,397</td><td>+9%</td><td>2.87</td><td>+16%</td></tr>
+        <tr><td>Q4 FY2024</td><td>3,611</td><td>+13%</td><td>6.14</td><td>+16%</td></tr>
+        <tr><td>Q1 FY2025</td><td>2,371</td><td>+10%</td><td>2.60</td><td>-17%</td></tr>
+        <tr><td>Q2 FY2025</td><td>2,525</td><td>+7%</td><td>3.10</td><td>-2%</td></tr>
+        <tr><td>Q3 FY2025</td><td>2,566</td><td>+7%</td><td>2.59</td><td>-10%</td></tr>
+        <tr style="background:rgba(88,166,255,.06)"><td><strong>Q4 FY2025</strong></td><td><strong>3,641</strong></td><td><strong>+0.8%</strong></td><td><strong>5.01</strong></td><td class="negative"><strong>-18.4%</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.78em;color:var(--text-sub);margin-top:8px">※Q4 FY2024は53週（14週間）を含むため、YoY比較には注意。53週目除外ベースでは売上+6%。</p>
+  </div>
+</div>
+
+<!-- 利益率トレンド -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
+    <div class="chart-container"><canvas id="marginChart"></canvas></div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>指標</th><th>Q4 FY2025</th><th>Q4 FY2024</th><th>変化</th><th>主因</th></tr></thead>
+      <tbody>
+        <tr><td>粗利益率（GAAP）</td><td>54.9%</td><td>60.4%</td><td class="negative">-550bps</td><td>関税コスト増(-560bps)、マークダウン増加</td></tr>
+        <tr><td>営業利益率（GAAP）</td><td>22.3%</td><td>28.9%</td><td class="negative">-660bps</td><td>粗利率悪化 + SG&A率微増</td></tr>
+        <tr><td>EBITDAマージン（推定）</td><td>~26.8%</td><td>~33%</td><td class="negative">~-600bps</td><td>営業利益減 + 推定D&A</td></tr>
+        <tr><td>SG&A率</td><td>32.5%</td><td>31.5%</td><td class="negative">+100bps</td><td>マーケティング費用増</td></tr>
+        <tr><td>実効税率</td><td>27.8%</td><td>29.2%</td><td class="positive">-140bps</td><td>税務効率化</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- コンセンサス比較 -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
+    <h4 style="margin-bottom:12px;color:var(--blue)">Q4 FY2025 実績 vs コンセンサス</h4>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$3,570M</td><td>$3,641M</td><td class="positive">+$71M (+1.8%)</td><td class="positive">✅ ビート</td></tr>
+        <tr><td>EPS</td><td>$4.76</td><td>$5.01</td><td class="positive">+$0.25 (+5.2%)</td><td class="positive">✅ ビート</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:24px 0 12px;color:var(--yellow)">Q1 FY2026 ガイダンス vs コンセンサス</h4>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>ガイダンス</th><th>コンセンサス</th><th>差分</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$2,400〜2,430M</td><td>$2,470M</td><td class="negative">-$40〜70M</td><td class="negative">❌ ミス</td></tr>
+        <tr><td>EPS</td><td>$1.63〜$1.68</td><td>$2.07</td><td class="negative">-$0.39〜0.44</td><td class="negative">❌ 大幅ミス</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin:24px 0 12px;color:var(--yellow)">FY2026 通年ガイダンス vs コンセンサス</h4>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>ガイダンス</th><th>コンセンサス</th><th>差分</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$11,350〜11,500M (+2〜4%)</td><td>$11,520M</td><td class="negative">-$20〜170M</td><td class="negative">❌ ミス</td></tr>
+        <tr><td>EPS</td><td>$12.10〜$12.30</td><td>$12.58</td><td class="negative">-$0.28〜0.48</td><td class="negative">❌ ミス</td></tr>
+        <tr><td>関税コスト（グロス）</td><td colspan="3">$380M（FY2025: $275Mから+38%増）</td><td class="negative">逆風</td></tr>
+        <tr><td>関税コスト（ネット）</td><td colspan="3">$220M（緩和策後）→ 粗利率に-410bps影響</td><td class="negative">逆風</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- キャッシュフロー -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+  <div class="section-body">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">営業CF（FY2025通年）</div>
+        <div class="metric-value positive">$1,602M</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">投資CF</div>
+        <div class="metric-value negative">-$662M</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">財務CF</div>
+        <div class="metric-value negative">-$1,209M</div>
+        <div class="metric-sub">主に自社株買い</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">FCF</div>
+        <div class="metric-value positive">$940M</div>
+        <div class="metric-sub">FCFマージン ~8.5%</div>
+      </div>
+    </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>バランスシート</th><th>FY2025末</th><th>前年比</th></tr></thead>
+      <tbody>
+        <tr><td>現金及び現金同等物</td><td>$1,807M</td><td class="negative">-8.9%</td></tr>
+        <tr><td>棚卸資産</td><td>$1,701M</td><td class="negative">+18%（数量+6%）</td></tr>
+        <tr><td>自社株買い（FY2025通年）</td><td>$1,200M（5.0M株）</td><td>—</td></tr>
+        <tr><td>店舗数</td><td>811店</td><td>+44店（+5.7%）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 部門別売上構成 -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏬</span> チャネル別売上（FY2025通年）</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div>
+        <table class="tbl">
+          <thead><tr><th>チャネル</th><th>YoY</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>直営店舗</td><td>+1%</td><td>811店（+44店）</td></tr>
+            <tr><td>Eコマース（DTC）</td><td class="positive">+8%</td><td>売上構成比 ~42%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="chart-container" style="height:250px"><canvas id="channelChart"></canvas></div>
+      </div>
+    </div>
+    <p style="font-size:.78em;color:var(--text-sub);margin-top:12px">FY2026計画: 新規40〜45店舗出店予定（中国7、米州6等）。フランチャイズで6新市場（ギリシャ、オーストリア、ポーランド、ハンガリー、ルーマニア、インド）に参入予定。</p>
+  </div>
+</div>
+
+<!-- 地域別売上 -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成（Q4 FY2025）</div>
+  <div class="section-body">
+    <div class="two-col">
+      <div>
+        <table class="tbl">
+          <thead><tr><th>地域</th><th>売上高</th><th>構成比</th><th>YoY</th><th>Comp Sales</th></tr></thead>
+          <tbody>
+            <tr><td>Americas</td><td>$2,681M</td><td>74%</td><td class="negative">-4%</td><td class="negative">-1%</td></tr>
+            <tr><td>中国本土</td><td>$528M</td><td>15%</td><td class="positive">+24%</td><td class="positive">+30%</td></tr>
+            <tr><td>その他国際</td><td>$432M</td><td>12%</td><td class="positive">+10%</td><td class="positive">+9%</td></tr>
+            <tr style="font-weight:700"><td>合計</td><td>$3,641M</td><td>100%</td><td>+0.8%</td><td>+3%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="chart-container" style="height:250px"><canvas id="geoChart"></canvas></div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:12px;background:var(--bg);border-radius:8px;border-left:3px solid var(--green)">
+      <p style="font-size:.85em"><strong style="color:var(--green)">中国が最大の成長ドライバー</strong> — Q4売上+24%（既存店+30%）。FY2025通年で+29%成長。FY2026ガイダンス: +20-25%。</p>
+    </div>
+    <div style="margin-top:8px;padding:12px;background:var(--bg);border-radius:8px;border-left:3px solid var(--red)">
+      <p style="font-size:.85em"><strong style="color:var(--red)">北米は低迷</strong> — Americas Q4 comp -1%。FY2026ガイダンス: -1%〜-3%の減収見通し。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 企業概要 -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 企業概要・外部環境</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h4>企業概要</h4>
+        <ul>
+          <li>設立: 1998年 / 本社: カナダ・バンクーバー</li>
+          <li>CEO: <strong>空席（探索中）</strong> — Calvin McDonald退任（2026/1/31）</li>
+          <li>暫定共同CEO: Meghan Frank（CFO）& Andre Maestrini（CCO）</li>
+          <li>従業員: ~39,000人 / 店舗: 811店</li>
+          <li>時価総額: ~$190億</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>ビジネスモデル</h4>
+        <ul>
+          <li>プレミアム・アスレジャーブランド（DTC中心）</li>
+          <li>直営店舗 ~58% + EC ~42%（卸売は極少）</li>
+          <li>プレミアム価格帯: レギンス$88-$128</li>
+          <li>独自素材技術: Nulu、Luon、Everlux等</li>
+          <li>メンバーシップ会員: ~870万人</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>競合環境</h4>
+        <ul>
+          <li>Nike (シェア31.6%), LULU (21.2%)</li>
+          <li>Vuori (+1pt/年、重複率52%）、Alo Yoga（重複率63%）が急成長</li>
+          <li>On Running: パフォーマンス分野で拡大</li>
+          <li>アスレジャー市場CAGR: 9-10%</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>注目イベント</h4>
+        <ul>
+          <li><strong style="color:var(--red)">創業者Chip Wilsonのプロキシファイト</strong> — 取締役3名交代を要求。「現取締役会にCEOを選ぶ能力なし」と主張</li>
+          <li>新CEO外部探索中 — 適切な人材選任がカタリストに</li>
+          <li>Chief AI Technology Officer新設（2025/8月）</li>
+          <li>6新市場にフランチャイズ展開予定</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル分析 -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <div style="margin-bottom:20px;padding:16px;background:var(--red-bg);border:1px solid rgba(248,81,73,.3);border-radius:10px;text-align:center">
+      <div style="font-size:1.8em;font-weight:900;color:var(--red)">弱気（Bearish）🔴</div>
+      <div style="color:var(--text-sub);font-size:.85em;margin-top:4px">デッドクロス形成済み・全主要MA下回る・52週安値圏</div>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <h4>📊 トレンド判定</h4>
+        <table class="tbl">
+          <tbody>
+            <tr><td>短期（1ヶ月）</td><td class="negative">弱気 ↓（-12.4%）</td></tr>
+            <tr><td>中期（3ヶ月）</td><td class="negative">弱気 ↓（YTD -19%）</td></tr>
+            <tr><td>長期（1年）</td><td class="negative">弱気 ↓（-52%）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tech-card">
+        <h4>📏 移動平均線</h4>
+        <table class="tbl">
+          <tbody>
+            <tr><td>SMA 50日</td><td>~$185</td><td class="negative">株価が下方</td></tr>
+            <tr><td>SMA 200日</td><td>~$200</td><td class="negative">株価が下方</td></tr>
+            <tr><td>クロス</td><td colspan="2" class="negative">デッドクロス形成済み</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tech-card">
+        <h4>🔄 オシレーター</h4>
+        <table class="tbl">
+          <tbody>
+            <tr><td>RSI（14日）</td><td>~40台前半</td><td class="neutral">中立〜売られ気味</td></tr>
+            <tr><td>MACD</td><td colspan="2" class="negative">弱気転換の可能性</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tech-card">
+        <h4>🎯 サポート / レジスタンス</h4>
+        <table class="tbl">
+          <tbody>
+            <tr><td>レジスタンス</td><td>$184-185（50日SMA）</td></tr>
+            <tr><td>現在株価</td><td><strong>$159.55</strong></td></tr>
+            <tr><td>サポート1</td><td>$156-157（52週安値）</td></tr>
+            <tr><td>サポート2</td><td>$137（次の節目）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TradingView -->
+    <div style="margin-top:20px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NASDAQ:LULU",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": [
+            "MASimple@tv-basicstudies",
+            "MAExp@tv-basicstudies"
+          ],
+          "studies_overrides": {
+            "moving average.length": 50,
+            "moving average exponential.length": 200
+          }
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
+  <div class="section-body">
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">Meghan Frank（暫定共同CEO / CFO）— 北米回復戦略</div>
+      北米のフルプライス販売回復が最優先課題。マークダウン削減、SKU合理化、在庫リバランスを推進。2026年春夏の新スタイル浸透率35%を目標に、新クリエイティブディレクターの初ラインを投入。初期反応は良好（"green shoots"）。
+    </div>
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">Andre Maestrini（暫定共同CEO / CCO）— 製品イノベーション</div>
+      新素材「ShowZero」（汗を隠す新糸ベース技術）を発表。製品開発サイクルを18-24ヶ月から12-14ヶ月に短縮する目標。Chase & Fast-Trackプロセスで6-8週間での売れ筋補充を実現。「製品が予測可能になりすぎていた」との反省を踏まえ、大幅な製品刷新を約束。
+    </div>
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">経営陣 — 関税・コスト環境</div>
+      FY2026の関税コスト総額$380M（FY2025: $275Mから+38%増）。緩和策後のネット影響は$220M。ベトナム・中国からの輸入品への新関税、de minimis免除の廃止が影響。粗利率に-410bpsの逆風。「営業利益率はネガティブ要因がポジティブ要因を上回る」との見通し。
+    </div>
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">経営陣 — 中国市場</div>
+      中国本土は引き続き最大の成長ドライバー。Q4売上+24%（既存店+30%）。FY2026ガイダンスは+20-25%成長を見込む。FY2025通年で中国+29%成長を達成。
+    </div>
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">経営陣 — FY2026戦略3本柱</div>
+      (1) 製品クリエーション — 新スタイル35%浸透、PowerLu等の素材イノベーション<br>
+      (2) 製品アクティベーション — デジタル・店舗体験の強化、マーケティング費を売上の7-9%に増加<br>
+      (3) エンタープライズ効率化 — 関税・コスト軽減策の実行
+    </div>
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚠️</span> リスク・カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div>
+        <h4 style="color:var(--red);margin-bottom:12px">🔻 リスク要因</h4>
+        <div class="risk-card" style="margin-bottom:8px">
+          <h4>CEO空席 + プロキシファイト</h4>
+          <p>Calvin McDonald退任後、CEO不在。創業者Chip Wilson（持株8.4%）が取締役3名交代を要求。経営の空白が長期化リスク。</p>
+        </div>
+        <div class="risk-card" style="margin-bottom:8px">
+          <h4>北米市場の構造的低迷</h4>
+          <p>最大市場Americas（74%）がFY2026で-1%〜-3%減収見通し。消費者の裁量支出削減、競合激化（Vuori、Alo Yoga）が圧迫。</p>
+        </div>
+        <div class="risk-card" style="margin-bottom:8px">
+          <h4>関税コスト急増</h4>
+          <p>FY2026関税コスト$380M（前年比+38%）。粗利率に-410bps影響。製造拠点の中国・ベトナム依存が課題。</p>
+        </div>
+        <div class="risk-card" style="margin-bottom:8px">
+          <h4>中国マクロリスク</h4>
+          <p>成長ドライバーの中国に過度に依存。不動産市場低迷、消費者信頼感の低下、地政学リスクが顕在化すれば大きな影響。</p>
+        </div>
+        <div class="risk-card">
+          <h4>バリュエーション圧縮の継続</h4>
+          <p>PER 10-13x（過去5年中央値の大幅下。成長鈍化+関税→さらなるデレーティングリスク。</p>
+        </div>
+      </div>
+      <div>
+        <h4 style="color:var(--green);margin-bottom:12px">🔺 ポジティブカタリスト</h4>
+        <div class="catalyst-card" style="margin-bottom:8px">
+          <h4>中国の高成長持続</h4>
+          <p>Q4 +24%、FY2025通年+29%成長。FY2026も+20-25%成長見通し。第2位市場への急成長が全体を牽引。</p>
+        </div>
+        <div class="catalyst-card" style="margin-bottom:8px">
+          <h4>製品刷新・イノベーション加速</h4>
+          <p>新スタイル浸透率35%目標、ShowZero/PowerLu等の素材イノベーション。開発サイクル短縮（18-24ヶ月→12-14ヶ月）。</p>
+        </div>
+        <div class="catalyst-card" style="margin-bottom:8px">
+          <h4>国際フランチャイズ展開</h4>
+          <p>2026年に6新市場（ギリシャ、オーストリア、ポーランド、ハンガリー、ルーマニア、インド）に参入予定。</p>
+        </div>
+        <div class="catalyst-card" style="margin-bottom:8px">
+          <h4>新CEO選任</h4>
+          <p>適切な人材がCEOに就任すれば、戦略の明確化とセンチメント改善のカタリストに。</p>
+        </div>
+        <div class="catalyst-card">
+          <h4>バリュエーション水準</h4>
+          <p>Forward PER ~13x、FCF利回り~5%。歴史的な低PERは、リスク/リワードが改善していることを示唆。ヘッジファンド（Citadel +459%、D.E.Shaw +601%）が大口買い増し中。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算比較 -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較</div>
+  <div class="section-body">
+    <table class="compare-table">
+      <thead><tr><th>指標</th><th>Q3 FY2025</th><th>Q4 FY2025</th><th>トレンド</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$2,566M</td><td>$3,641M</td><td class="positive">↑ 季節性で大幅増</td></tr>
+        <tr><td>売上YoY</td><td>+7%</td><td>+0.8%</td><td class="negative">↓ 53週比較の影響</td></tr>
+        <tr><td>粗利益率</td><td>55.6%</td><td>54.9%</td><td class="negative">↓ -70bps</td></tr>
+        <tr><td>営業利益率</td><td>17.0%</td><td>22.3%</td><td class="positive">↑ +530bps（季節性）</td></tr>
+        <tr><td>EPS</td><td>$2.59</td><td>$5.01</td><td class="positive">↑ 季節性で大幅増</td></tr>
+        <tr><td>中国成長率</td><td>+46%</td><td>+24%</td><td class="negative">↓ 減速（依然高水準）</td></tr>
+        <tr><td>Americas Comp</td><td>-2%</td><td>-1%</td><td class="positive">↑ やや改善</td></tr>
+        <tr><td>株価反応</td><td>+16%（好感）</td><td>-1〜2%（ガイダンス懸念）</td><td class="negative">↓</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:12px;background:var(--bg);border-radius:8px">
+      <p style="font-size:.85em;color:var(--text-sub)">
+        <strong>トレンド: 横ばい→やや悪化</strong><br>
+        Q4の実績自体はQ3を上回るビート幅だが、FY2026ガイダンスのコンセンサスミス（特にQ1 EPS -19〜21%）が市場を失望させた。北米の回復は道半ば。中国の成長鈍化傾向も注視が必要。CEO不在とプロキシファイトが新たな不透明要因として加わった。
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3シナリオ）</div>
+  <div class="section-body">
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="val-scenario" style="color:var(--green)">LOW（保守的）</div>
+        <div class="val-price" style="color:var(--green)">$157</div>
+        <div class="val-detail">Forward EPS $12.10（ガイダンスLow端）<br>× PER 13x（現在の市場評価）</div>
+        <div class="val-gap negative">現在株価比 -1.6%</div>
+      </div>
+      <div class="val-card mid">
+        <div class="val-scenario" style="color:var(--blue)">MID（基本）</div>
+        <div class="val-price" style="color:var(--blue)">$220</div>
+        <div class="val-detail">Forward EPS $12.20（ガイダンスMid）<br>× PER 18x（回復シナリオ）</div>
+        <div class="val-gap positive">現在株価比 +37.9%</div>
+      </div>
+      <div class="val-card high">
+        <div class="val-scenario" style="color:var(--purple)">HIGH（楽観的）</div>
+        <div class="val-price" style="color:var(--purple)">$315</div>
+        <div class="val-detail">Forward EPS $12.58（コンセンサス）<br>× PER 25x（リレーティング）</div>
+        <div class="val-gap positive">現在株価比 +97.4%</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;text-align:center;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--border)">
+      <div style="font-size:1.1em;font-weight:700">MID想定株価 $220 vs 現在株価 $159.55</div>
+      <div style="font-size:1.3em;font-weight:900;color:var(--green);margin-top:4px">乖離率 +37.9% → 割安</div>
+      <div style="font-size:.8em;color:var(--text-sub);margin-top:8px">
+        ※PER 18xはLULU過去5年レンジ（20-60x）と比べ依然保守的。北米回復と関税影響の可視化がリレーティングの鍵。<br>
+        アナリスト平均目標株価: $208（現在株価比 +30%）<br>
+        Trailing PER: 10.9x | Forward PER: 13.0x（歴史的低水準）
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏬</span><span class="toc-label">チャネル別売上</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏢</span><span class="toc-label">企業概要・外部環境</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎙️</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Charts
+var chartColors = {
+  green:'#2ea043', red:'#f85149', blue:'#58a6ff', yellow:'#d29922', purple:'#bc8cff',
+  greenBg:'rgba(46,160,67,.3)', redBg:'rgba(248,81,73,.3)', blueBg:'rgba(88,166,255,.3)'
+};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = 'rgba(48,54,61,.5)';
+Chart.defaults.font.family = "'Noto Sans JP',sans-serif";
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:['Q2\nFY24','Q3\nFY24','Q4\nFY24','Q1\nFY25','Q2\nFY25','Q3\nFY25','Q4\nFY25'],
+    datasets:[{
+      label:'売上高 ($M)',
+      data:[2371,2397,3611,2371,2525,2566,3641],
+      backgroundColor:['rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(46,160,67,.5)'],
+      borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#2ea043'],
+      borderWidth:1,borderRadius:4
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'売上高推移（$M）',font:{size:14,weight:'bold'}}},scales:{y:{beginAtZero:false,min:2000,ticks:{callback:function(v){return '$'+v.toLocaleString()}}}}}
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:['Q2\nFY24','Q3\nFY24','Q4\nFY24','Q1\nFY25','Q2\nFY25','Q3\nFY25','Q4\nFY25'],
+    datasets:[{
+      label:'GAAP EPS ($)',
+      data:[3.15,2.87,6.14,2.60,3.10,2.59,5.01],
+      backgroundColor:['rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(88,166,255,.4)','rgba(210,153,34,.5)'],
+      borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#d29922'],
+      borderWidth:1,borderRadius:4
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'GAAP EPS推移（$）',font:{size:14,weight:'bold'}}},scales:{y:{beginAtZero:false,min:2,ticks:{callback:function(v){return '$'+v.toFixed(2)}}}}}
+});
+
+// Margin Chart
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['Q2\nFY24','Q3\nFY24','Q4\nFY24','Q1\nFY25','Q2\nFY25','Q3\nFY25','Q4\nFY25'],
+    datasets:[
+      {label:'粗利益率(%)',data:[59.6,56.4,60.4,57.6,58.7,55.6,54.9],borderColor:chartColors.blue,backgroundColor:chartColors.blueBg,fill:false,tension:.3,pointRadius:4},
+      {label:'営業利益率(%)',data:[22.8,18.3,28.9,18.6,21.7,17.0,22.3],borderColor:chartColors.green,backgroundColor:chartColors.greenBg,fill:false,tension:.3,pointRadius:4}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'利益率トレンド（%）',font:{size:14,weight:'bold'}}},scales:{y:{min:10,max:65,ticks:{callback:function(v){return v+'%'}}}}}
+});
+
+// Channel Chart (Pie)
+new Chart(document.getElementById('channelChart'),{
+  type:'doughnut',
+  data:{
+    labels:['直営店舗','EC/デジタル','その他'],
+    datasets:[{data:[58,40,2],backgroundColor:[chartColors.blue,chartColors.green,chartColors.yellow],borderColor:'#161b22',borderWidth:2}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'チャネル別構成比（FY2025推定）',font:{size:13,weight:'bold'}},legend:{position:'bottom',labels:{padding:12,font:{size:11}}}}}
+});
+
+// Geo Chart (Pie)
+new Chart(document.getElementById('geoChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Americas (74%)','中国本土 (15%)','その他国際 (12%)'],
+    datasets:[{data:[2681,528,432],backgroundColor:[chartColors.blue,chartColors.red,chartColors.green],borderColor:'#161b22',borderWidth:2}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:'地域別売上構成（Q4 FY2025）',font:{size:13,weight:'bold'}},legend:{position:'bottom',labels:{padding:12,font:{size:11}}}}}
+});
+
+// Accordion
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now()},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'))}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'))}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed')})}})();
+
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'})},100)}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
