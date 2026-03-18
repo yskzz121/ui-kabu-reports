@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="70" viewBox="0 0 200 70">
+  <!-- Walmart Spark -->
+  <g transform="translate(16,6)">
+    <g fill="#FFC220">
+      <path d="M29 0 L32 18 L35 0 Z"/>
+      <path d="M29 58 L32 40 L35 58 Z"/>
+      <path d="M0 29 L18 26 L0 23 Z"/>
+      <path d="M64 29 L46 26 L64 23 Z"/>
+      <path d="M8 8 L22 20 L12 6 Z"/>
+      <path d="M56 48 L42 36 L52 50 Z"/>
+      <path d="M8 48 L22 36 L12 50 Z"/>
+      <path d="M56 8 L42 20 L52 6 Z"/>
+    </g>
+    <circle cx="32" cy="29" r="6" fill="#FFC220"/>
+  </g>
+  <!-- Walmart Text -->
+  <text x="90" y="43" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="28" fill="#0071DC" letter-spacing="-0.5">Walmart</text>
+</svg>

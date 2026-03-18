@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walmart (WMT) FY2026 Q4 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;--border2:#30363d;
+  --text:#e6edf3;--text-sub:#8b949e;--text-dim:#484f58;
+  --green:#2ea043;--green-bg:rgba(46,160,67,.12);
+  --red:#f85149;--red-bg:rgba(248,81,73,.12);
+  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);
+  --yellow:#d29922;--yellow-bg:rgba(210,153,34,.12);
+  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.12);
+  --orange:#f0883e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:0 20px 40px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin:24px 0}
+.score-big{font-size:5em;line-height:1}
+.score-num{font-size:4em;font-weight:900;color:var(--yellow)}
+.score-label{font-size:1.6em;font-weight:700;margin-top:8px;color:var(--yellow)}
+.score-desc{color:var(--text-sub);margin-top:8px;font-size:.95em}
+
+/* Section */
+.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:20px 0}
+.section-title{font-size:1.2em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.1em}
+
+/* Cards */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.metric-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.metric-label{font-size:.75em;color:var(--text-sub);margin-bottom:6px;font-weight:500}
+.metric-value{font-size:1.4em;font-weight:900}
+.metric-sub{font-size:.7em;color:var(--text-sub);margin-top:4px}
+.metric-beat{color:var(--green)}
+.metric-miss{color:var(--red)}
+.metric-neutral{color:var(--yellow)}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Chart */
+.chart-container{position:relative;height:350px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Table */
+table{width:100%;border-collapse:collapse;font-size:.85em}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{color:var(--text-sub);font-weight:500;font-size:.78em;text-transform:uppercase}
+.tbl{width:100%;border-collapse:collapse;font-size:.85em}
+
+/* Valuation */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:rgba(46,160,67,.08);border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:rgba(88,166,255,.08);border-color:rgba(88,166,255,.3)}
+.val-card.high{background:rgba(188,140,255,.08);border-color:rgba(188,140,255,.3)}
+.val-scenario{font-size:.8em;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-price{font-size:2em;font-weight:900;margin:8px 0}
+.val-detail{font-size:.75em;color:var(--text-sub);margin-top:4px}
+.val-gap{font-size:.85em;margin-top:8px;font-weight:700}
+
+/* Risk/Catalyst */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rc-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px}
+.rc-title{font-weight:700;margin-bottom:12px;font-size:.95em}
+.rc-item{padding:6px 0;font-size:.85em;color:var(--text-sub);display:flex;align-items:flex-start;gap:8px}
+.rc-item::before{flex-shrink:0}
+
+/* Management */
+.mgmt-quote{background:var(--bg);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:16px 20px;margin:12px 0;font-size:.88em;color:var(--text-sub)}
+.mgmt-speaker{font-weight:700;color:var(--text);margin-bottom:4px;font-size:.82em}
+
+/* Compare */
+.compare-table{width:100%;font-size:.85em}
+.compare-table td,.compare-table th{padding:8px 12px}
+
+/* Overview */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.overview-item{background:var(--bg);border-radius:10px;padding:14px;border:1px solid var(--border)}
+.overview-label{font-size:.72em;color:var(--text-sub);font-weight:500}
+.overview-value{font-size:.92em;font-weight:700;margin-top:2px}
+
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.tech-label{font-size:.72em;color:var(--text-sub)}
+.tech-value{font-size:1.1em;font-weight:700;margin-top:4px}
+.tech-table{width:100%;font-size:.82em}
+.tech-table td,.tech-table th{padding:8px 10px}
+
+.tag{display:inline-block;padding:2px 10px;border-radius:6px;font-size:.75em;font-weight:600}
+.tag-green{background:var(--green-bg);color:var(--green)}
+.tag-red{background:var(--red-bg);color:var(--red)}
+.tag-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.tag-blue{background:var(--blue-bg);color:var(--blue)}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/WMT.svg" alt="WMT">
+      <div class="ticker-badge">NASDAQ: WMT</div>
+    </div>
+    <h1>Walmart Inc. 決算分析</h1>
+    <div class="subtitle">FY2026 Q4（2025年11月〜2026年1月）</div>
+    <div class="date">発表日: 2026年2月19日 ｜ レポート作成: 2026年3月18日</div>
+  </div>
+</div>
+
+<!-- Score -->
+<div class="score-section">
+  <div class="score-big">⏸️</div>
+  <div class="score-num">3 / 5</div>
+  <div class="score-label">悪くない決算</div>
+  <div class="score-desc">売上・EPSともにわずかにビートも、FY2027ガイダンスがコンセンサスを下回る慎重な見通し。<br>実績は堅調だが、マクロ不透明感を反映した控えめなガイダンスが市場期待に届かず。</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📋</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">売上高</div>
+      <div class="metric-value">$190.7B</div>
+      <div class="metric-sub"><span class="metric-beat">+5.6% YoY</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Adj. EPS</div>
+      <div class="metric-value metric-beat">$0.74</div>
+      <div class="metric-sub"><span class="metric-beat">+12.1% YoY</span></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">売上ビート</div>
+      <div class="metric-value metric-beat">+0.1%</div>
+      <div class="metric-sub">$190.7B vs $190.4B</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">EPSビート</div>
+      <div class="metric-value metric-beat">+1.4%</div>
+      <div class="metric-sub">$0.74 vs $0.73</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">粗利益率</div>
+      <div class="metric-value">24.7%</div>
+      <div class="metric-sub">前年同期と同水準</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">営業利益率</div>
+      <div class="metric-value">4.6%</div>
+      <div class="metric-sub">前年同期と同水準</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">eコマース成長</div>
+      <div class="metric-value metric-beat">+24%</div>
+      <div class="metric-sub">グローバル</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">広告収入成長</div>
+      <div class="metric-value metric-beat">+37%</div>
+      <div class="metric-sub">Walmart Connect US: +41%</div>
+    </div>
+  </div>
+</div>
+
+<!-- Revenue / EPS Chart -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div>
+        <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div>
+        <div class="chart-container"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Margin Trend -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>指標</th><th>Q4 FY2026</th><th>Q4 FY2025</th><th>変化</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>粗利益率（GAAP）</td><td>24.7%</td><td>24.6%</td><td><span class="tag tag-green">+0.1pp</span></td></tr>
+        <tr><td>営業利益率（GAAP）</td><td>4.6%</td><td>4.6%</td><td><span class="tag tag-yellow">横ばい</span></td></tr>
+        <tr><td>Adj. EBITDAマージン</td><td>6.5%</td><td>6.3%</td><td><span class="tag tag-green">+0.2pp</span></td></tr>
+        <tr><td>Adj. 営業利益成長</td><td colspan="2">$8.7B → +10.8% YoY</td><td><span class="tag tag-green">好調</span></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:14px;background:var(--bg);border-radius:10px;border:1px solid var(--border);font-size:.85em;color:var(--text-sub)">
+      営業利益の成長率（+10.8%）が売上成長率（+5.6%）を大幅に上回り、3年連続で利益成長が売上成長を超過。eコマース収益性の改善、広告事業・メンバーシップ収入の高マージン成長が牽引。
+    </div>
+  </div>
+</div>
+
+<!-- Consensus -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>判定</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>売上高</td><td>$190.4B</td><td>$190.7B</td><td>+$0.3B</td><td><span class="tag tag-green">ビート</span></td></tr>
+        <tr><td>Adj. EPS</td><td>$0.73</td><td>$0.74</td><td>+$0.01</td><td><span class="tag tag-green">ビート</span></td></tr>
+        <tr><td>Adj. EBITDA</td><td>$12.27B</td><td>$12.45B</td><td>+$0.18B</td><td><span class="tag tag-green">ビート</span></td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px">
+      <div style="font-weight:700;margin-bottom:12px;font-size:.95em">📌 FY2027 ガイダンス vs コンセンサス</div>
+      <table class="tbl">
+        <thead>
+          <tr><th>指標</th><th>ガイダンス</th><th>コンセンサス</th><th>判定</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>FY2027 売上高</td><td>$738B〜$745B (+3.5%〜+4.5%)</td><td>—</td><td><span class="tag tag-yellow">堅調</span></td></tr>
+          <tr><td>FY2027 Adj. EPS</td><td>$2.75〜$2.85</td><td>$2.94</td><td><span class="tag tag-red">下回る (-4.8%)</span></td></tr>
+          <tr><td>Q1 FY2027 EPS</td><td>$0.63〜$0.65</td><td>—</td><td><span class="tag tag-yellow">慎重</span></td></tr>
+          <tr><td>Q1 FY2027 売上成長</td><td>+3.5%〜+4.5%</td><td>—</td><td><span class="tag tag-yellow">減速</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:.82em;color:var(--text-sub)">
+        ⚠️ CFO Rainey氏が「hiring recession（採用不況）」「学生ローン延滞増加」「貿易政策の不透明感」に言及し、慎重なガイダンスを提示。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cash Flow -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー（FY2026通期）</div>
+  <div class="section-body">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">営業CF</div>
+        <div class="metric-value metric-beat">$41.6B</div>
+        <div class="metric-sub">+$5.1B YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">設備投資</div>
+        <div class="metric-value">$26.7B</div>
+        <div class="metric-sub">≈ 営業CF - FCF</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">FCF</div>
+        <div class="metric-value metric-beat">$14.9B</div>
+        <div class="metric-sub">+$2.3B YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">FCFマージン</div>
+        <div class="metric-value">2.1%</div>
+        <div class="metric-sub">$14.9B / $713B</div>
+      </div>
+    </div>
+    <div style="margin-top:16px">
+      <table class="tbl">
+        <tr><td style="color:var(--text-sub)">Net Debt</td><td>$56.4B</td></tr>
+        <tr><td style="color:var(--text-sub)">手元現金</td><td>$10.7B</td></tr>
+        <tr><td style="color:var(--text-sub)">総負債</td><td>$67.1B</td></tr>
+        <tr><td style="color:var(--text-sub)">Net Debt / EBITDA</td><td>1.2x（健全）</td></tr>
+        <tr><td style="color:var(--text-sub)">自社株買い</td><td>$30B（新規承認）</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Segment -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成（Q4 FY2026）</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>セグメント</th><th>売上高</th><th>YoY</th><th>Comp Sales</th><th>eComm</th><th>営業利益</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Walmart U.S.</strong></td>
+          <td>$129.2B</td>
+          <td><span class="tag tag-green">+4.6%</span></td>
+          <td>+4.6%</td>
+          <td><span style="color:var(--green)">+27%</span></td>
+          <td>$7.0B (+6.6%)</td>
+        </tr>
+        <tr>
+          <td><strong>International</strong></td>
+          <td>$34.6B</td>
+          <td><span class="tag tag-green">+7.5% CC</span></td>
+          <td>—</td>
+          <td><span style="color:var(--green)">+17%</span></td>
+          <td>+26% CC</td>
+        </tr>
+        <tr>
+          <td><strong>Sam's Club U.S.</strong></td>
+          <td>$23.8B</td>
+          <td><span class="tag tag-green">+2.9%</span></td>
+          <td>+4.0%</td>
+          <td><span style="color:var(--green)">+23%</span></td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px">
+      <div class="chart-container" style="height:280px"><canvas id="segmentChart"></canvas></div>
+    </div>
+
+    <div style="margin-top:16px;font-size:.85em;color:var(--text-sub)">
+      <strong>FY2026通期:</strong> Walmart U.S. $483.0B (+4.4%), International $130.4B (+7.0%/+9.3% CC), Sam's Club $93.0B (est.)。全3セグメントで利益成長が売上成長を上回る。
+    </div>
+  </div>
+</div>
+
+<!-- Geography -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+  <div class="section-body">
+    <div class="grid">
+      <div>
+        <div class="chart-container" style="height:280px"><canvas id="geoChart"></canvas></div>
+      </div>
+      <div>
+        <table class="tbl">
+          <thead><tr><th>地域</th><th>構成比</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td>🇺🇸 米国</td><td>~82%</td><td>Walmart US + Sam's Club</td></tr>
+            <tr><td>🇲🇽 メキシコ/中米</td><td>~7%</td><td>Walmex（好調）</td></tr>
+            <tr><td>🇮🇳 インド</td><td>~4%</td><td>Flipkart</td></tr>
+            <tr><td>🇨🇳 中国</td><td>~4%</td><td>強い成長</td></tr>
+            <tr><td>🌏 その他</td><td>~3%</td><td>カナダ、チリ等</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Company Overview -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏬</span> 企業概要</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div class="overview-item"><div class="overview-label">設立</div><div class="overview-value">1962年</div></div>
+      <div class="overview-item"><div class="overview-label">本社</div><div class="overview-value">Bentonville, Arkansas</div></div>
+      <div class="overview-item"><div class="overview-label">CEO</div><div class="overview-value">John Furner（2026年2月〜）</div></div>
+      <div class="overview-item"><div class="overview-label">従業員数</div><div class="overview-value">約210万人</div></div>
+      <div class="overview-item"><div class="overview-label">店舗数</div><div class="overview-value">10,900+（19カ国）</div></div>
+      <div class="overview-item"><div class="overview-label">週間来客数</div><div class="overview-value">約2.8億人</div></div>
+      <div class="overview-item"><div class="overview-label">時価総額</div><div class="overview-value">$1.01T（2026/3/18）</div></div>
+      <div class="overview-item"><div class="overview-label">52週レンジ</div><div class="overview-value">$79.81 〜 $134.69</div></div>
+    </div>
+    <div style="margin-top:16px;font-size:.85em;color:var(--text-sub)">
+      <strong>ビジネスモデル:</strong> 「Everyday Low Price（EDLP）」を基盤とした世界最大の小売企業。店舗小売に加え、eコマース（全体の23%）、広告プラットフォーム（Walmart Connect）、メンバーシップ（Walmart+、Sam's Club）、マーケットプレイス、フルフィルメントサービスを展開。近年は高マージンのデジタル事業が急成長し、テック企業としての再評価が進行中。<br><br>
+      <strong>競争優位性（モート）:</strong> ①圧倒的なスケール（年商$713B）による仕入コスト優位、②210+配送センターのサプライチェーン網、③10,900+店舗のラストマイル優位、④高所得層の取り込みに成功したオムニチャネル戦略。
+    </div>
+  </div>
+</div>
+
+<!-- Technical -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-label">RSI (14日)</div>
+        <div class="tech-value" style="color:var(--yellow)">67.6</div>
+        <div style="font-size:.7em;color:var(--text-sub)">中立〜やや過熱</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">MACD</div>
+        <div class="tech-value" style="color:var(--green)">強気</div>
+        <div style="font-size:.7em;color:var(--text-sub)">シグナル線上</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-label">総合判定</div>
+        <div class="tech-value" style="color:var(--green)">強気</div>
+        <div style="font-size:.7em;color:var(--text-sub)">Buy</div>
+      </div>
+    </div>
+
+    <table class="tech-table" style="margin-top:16px">
+      <thead><tr><th>移動平均線</th><th>値</th><th>vs 株価</th><th>シグナル</th></tr></thead>
+      <tbody>
+        <tr><td>SMA (50日)</td><td>$110.84</td><td>株価上方</td><td><span class="tag tag-green">買い</span></td></tr>
+        <tr><td>SMA (100日)</td><td>~$106</td><td>株価上方</td><td><span class="tag tag-green">買い</span></td></tr>
+        <tr><td>EMA (200日)</td><td>$101.38</td><td>株価上方</td><td><span class="tag tag-green">買い</span></td></tr>
+      </tbody>
+    </table>
+
+    <table class="tech-table" style="margin-top:16px">
+      <thead><tr><th>指標</th><th>分析</th></tr></thead>
+      <tbody>
+        <tr><td>トレンド</td><td>短期・中期・長期すべて上昇トレンド。52週高値圏で推移。</td></tr>
+        <tr><td>サポート</td><td>$110（50日SMA）、$100（心理的節目）</td></tr>
+        <tr><td>レジスタンス</td><td>$134.69（52週高値）→ 上抜けで青天井</td></tr>
+        <tr><td>出来高</td><td>平均日量6,380万株。決算後に出来高増加。</td></tr>
+        <tr><td>パターン</td><td>上昇チャネル継続。50日SMAが200日SMAを大きく上回るゴールデンクロス状態。</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NASDAQ:WMT",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": [
+            "MASimple@tv-basicstudies",
+            "MAExp@tv-basicstudies"
+          ],
+          "studies_overrides": {
+            "moving average.length": 50,
+            "moving average exponential.length": 200
+          }
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Management Comments -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
+  <div class="section-body">
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">John Furner — CEO（2026年2月就任）</div>
+      eコマースと広告事業がWalmartの成長エンジンとして加速。グローバルeコマースは前年比24%成長し、全体売上の23%を占めるまでに拡大。広告プラットフォーム「Walmart Connect」は米国で41%成長を記録。
+    </div>
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">John David Rainey — CFO</div>
+      「hiring recession（採用不況）」の兆候を指摘。学生ローン延滞率の上昇や貿易政策の不透明感を懸念材料として挙げ、FY2027の慎重なガイダンスの根拠とした。一方で、営業利益が3年連続で売上を上回るペースで成長していることを強調。
+    </div>
+    <div class="mgmt-quote">
+      <div class="mgmt-speaker">成長戦略のハイライト</div>
+      ・メンバーシップ収入: グローバルで+15.1%成長<br>
+      ・マーケットプレイス: 第三者販売が急拡大、GMV大幅増<br>
+      ・$30Bの新規自社株買いプログラムを発表<br>
+      ・高所得層（年収$100K+）の顧客獲得に成功、市場シェア拡大<br>
+      ・International: 中国・Walmex・Flipkartが牽引、営業利益+26% CC
+    </div>
+  </div>
+</div>
+
+<!-- Risk / Catalyst -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> リスク・カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div class="rc-card">
+        <div class="rc-title" style="color:var(--red)">⚠️ リスク要因</div>
+        <div class="rc-item">🔸 FY2027ガイダンスがコンセンサス下回る（EPS -4.8%）</div>
+        <div class="rc-item">🔸 関税政策の不透明感（FY2026 Q2以降の影響）</div>
+        <div class="rc-item">🔸 消費者支出の減速懸念（「hiring recession」）</div>
+        <div class="rc-item">🔸 バリュエーション高止まり（Trailing PER ~46x）</div>
+        <div class="rc-item">🔸 インサイダー売りが継続（過去1年77件、買いゼロ）</div>
+        <div class="rc-item">🔸 粗利益率の改善余地が限定的（24.7%で横ばい）</div>
+        <div class="rc-item">🔸 International営業利益がFY2026通期で-7.2%</div>
+      </div>
+      <div class="rc-card">
+        <div class="rc-title" style="color:var(--green)">🚀 ポジティブカタリスト</div>
+        <div class="rc-item">🟢 eコマース24%成長が7四半期連続で+20%超</div>
+        <div class="rc-item">🟢 広告事業（Walmart Connect）が高マージンで+37%成長</div>
+        <div class="rc-item">🟢 メンバーシップ収入+15.1%で安定的なリカーリング収益</div>
+        <div class="rc-item">🟢 高所得層の顧客取り込みに成功、市場シェア拡大</div>
+        <div class="rc-item">🟢 $30B自社株買いプログラムの株主還元</div>
+        <div class="rc-item">🟢 営業利益成長率が3年連続で売上成長を超過</div>
+        <div class="rc-item">🟢 時価総額$1T到達、ディフェンシブ銘柄として評価</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Previous Comparison -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+  <div class="section-body">
+    <table class="compare-table">
+      <thead><tr><th>指標</th><th>Q3 FY2026</th><th>Q4 FY2026</th><th>トレンド</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$179.5B</td><td>$190.7B</td><td><span class="tag tag-green">↑ 季節性＋成長</span></td></tr>
+        <tr><td>Adj. EPS</td><td>$0.62</td><td>$0.74</td><td><span class="tag tag-green">↑ +19.4% QoQ</span></td></tr>
+        <tr><td>YoY売上成長</td><td>+5.8%</td><td>+5.6%</td><td><span class="tag tag-yellow">→ 安定</span></td></tr>
+        <tr><td>eComm成長</td><td>+27%</td><td>+24%</td><td><span class="tag tag-yellow">→ やや減速</span></td></tr>
+        <tr><td>Comp Sales (US)</td><td>+4.5%</td><td>+4.6%</td><td><span class="tag tag-green">→ 安定</span></td></tr>
+        <tr><td>ガイダンス</td><td>FY2026上方修正</td><td>FY2027慎重</td><td><span class="tag tag-red">↓ トーン弱化</span></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:.85em;color:var(--text-sub)">
+      <strong>前回スコア:</strong> DB初回登録のため比較なし<br>
+      <strong>変化の主要因:</strong> Q4実績は季節性もあり強力だが、FY2027ガイダンスが市場期待を下回ったことがセンチメントの転換点。eコマース成長率はQ3の+27%からQ4は+24%とわずかに減速。
+    </div>
+  </div>
+</div>
+
+<!-- Valuation -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション</div>
+  <div class="section-body">
+    <div style="margin-bottom:16px;font-size:.85em;color:var(--text-sub)">
+      計算式: 想定株価 = FY2027 Forward EPS × 予想PER ｜ 現在株価: <strong style="color:var(--text)">$125.08</strong>
+    </div>
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="val-scenario" style="color:var(--green)">LOW（保守的）</div>
+        <div class="val-price" style="color:var(--green)">$68.75</div>
+        <div class="val-detail">EPS $2.75 × PER 25x</div>
+        <div class="val-detail">ガイダンスLow端 × 過去5年PER下限</div>
+        <div class="val-gap" style="color:var(--red)">乖離率: -45.1%</div>
+      </div>
+      <div class="val-card mid">
+        <div class="val-scenario" style="color:var(--blue)">MID（基本）</div>
+        <div class="val-price" style="color:var(--blue)">$97.02</div>
+        <div class="val-detail">EPS $2.94 × PER 33x</div>
+        <div class="val-detail">コンセンサス × 過去5年PER中央値</div>
+        <div class="val-gap" style="color:var(--red)">乖離率: -22.4%</div>
+      </div>
+      <div class="val-card high">
+        <div class="val-scenario" style="color:var(--purple)">HIGH（楽観的）</div>
+        <div class="val-price" style="color:var(--purple)">$142.60</div>
+        <div class="val-detail">EPS $3.10 × PER 46x</div>
+        <div class="val-detail">楽観予想 × 過去5年PER上限</div>
+        <div class="val-gap" style="color:var(--green)">乖離率: +14.0%</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;text-align:center">
+      <span class="tag tag-red" style="font-size:1em;padding:8px 20px">MIDベース判定: やや割高</span>
+    </div>
+    <div style="margin-top:16px;font-size:.82em;color:var(--text-sub)">
+      現在のTrailing PER ~46xは過去5年中央値（33x）を大幅に上回る水準。eコマース・広告・メンバーシップの高成長が「テック企業プレミアム」を正当化しているが、ガイダンス慎重化によりプレミアムの持続性に疑問符。アナリスト平均目標株価は$136.02。
+    </div>
+    <table class="tbl" style="margin-top:12px">
+      <tr><td style="color:var(--text-sub)">Trailing PER</td><td>~46x</td></tr>
+      <tr><td style="color:var(--text-sub)">Forward PER</td><td>~43x</td></tr>
+      <tr><td style="color:var(--text-sub)">アナリスト目標株価</td><td>$136.02（高値$150 / 安値$62）</td></tr>
+      <tr><td style="color:var(--text-sub)">レーティング</td><td>Strong Buy（31アナリスト中39人が買い推奨）</td></tr>
+      <tr><td style="color:var(--text-sub)">Short Interest</td><td>95.8M株（1.2%）/ Days to Cover: 1.5</td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- .container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏬</span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎙️</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Charts ===
+var quarters = ['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'];
+var revData = [169.3,169.6,180.6,165.6,177.4,179.5,190.7];
+var epsData = [0.67,0.58,0.66,0.61,0.68,0.62,0.74];
+
+var chartDefaults = {
+  color:'#e6edf3',
+  borderColor:'#30363d',
+  font:{family:'Noto Sans JP'}
+};
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:quarters,
+    datasets:[{
+      label:'売上高 ($B)',
+      data:revData,
+      backgroundColor:revData.map(function(v,i){return i===6?'rgba(88,166,255,.8)':'rgba(88,166,255,.4)'}),
+      borderColor:'rgba(88,166,255,.9)',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return '$'+c.raw+'B'}}}
+    },
+    scales:{
+      x:{ticks:{color:'#8b949e'},grid:{display:false}},
+      y:{ticks:{color:'#8b949e',callback:function(v){return '$'+v+'B'}},grid:{color:'rgba(48,54,61,.3)'},beginAtZero:false,min:150}
+    }
+  }
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:quarters,
+    datasets:[{
+      label:'Adj. EPS ($)',
+      data:epsData,
+      backgroundColor:epsData.map(function(v,i){return i===6?'rgba(46,160,67,.8)':'rgba(46,160,67,.4)'}),
+      borderColor:'rgba(46,160,67,.9)',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return '$'+c.raw}}}
+    },
+    scales:{
+      x:{ticks:{color:'#8b949e'},grid:{display:false}},
+      y:{ticks:{color:'#8b949e',callback:function(v){return '$'+v}},grid:{color:'rgba(48,54,61,.3)'},beginAtZero:false,min:0.4}
+    }
+  }
+});
+
+// Segment Chart
+new Chart(document.getElementById('segmentChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Walmart U.S.','International','Sam\'s Club'],
+    datasets:[{
+      data:[129.2,34.6,23.8],
+      backgroundColor:['rgba(88,166,255,.7)','rgba(46,160,67,.7)','rgba(210,153,34,.7)'],
+      borderColor:'#161b22',borderWidth:3
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'bottom',labels:{color:'#e6edf3',padding:16,font:{size:12}}},
+      tooltip:{callbacks:{label:function(c){return c.label+': $'+c.raw+'B ('+Math.round(c.raw/187.6*100)+'%)'}}}
+    }
+  }
+});
+
+// Geo Chart
+new Chart(document.getElementById('geoChart'),{
+  type:'doughnut',
+  data:{
+    labels:['米国','メキシコ/中米','インド','中国','その他'],
+    datasets:[{
+      data:[82,7,4,4,3],
+      backgroundColor:['rgba(88,166,255,.7)','rgba(46,160,67,.7)','rgba(210,153,34,.7)','rgba(248,81,73,.6)','rgba(188,140,255,.6)'],
+      borderColor:'#161b22',borderWidth:3
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'bottom',labels:{color:'#e6edf3',padding:12,font:{size:11}}},
+      tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+'%'}}}
+    }
+  }
+});
+
+// === Accordion ===
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){
+    touchStartY=e.touches[0].clientY;
+    touchStartX=e.touches[0].clientX;
+    touchStartTime=Date.now();
+  },{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+(function(){
+  if(window.innerWidth<=768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth',block:'start'});
+    },100);
+  }
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
