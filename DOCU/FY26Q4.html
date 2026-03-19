@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DocuSign (DOCU) FY2026 Q4 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;--border2:#30363d;
+  --text:#e6edf3;--text-sub:#8b949e;--green:#2ea043;--red:#f85149;
+  --blue:#58a6ff;--yellow:#d29922;--purple:#bc8cff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:20px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Sections */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin:20px 0}
+.section-title{font-size:1.3em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.1em}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-sub{color:var(--text-sub);font-size:1em;margin-top:4px}
+
+/* Cards & Grids */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.metric-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:18px 16px;text-align:center}
+.metric-card .label{font-size:.78em;color:var(--text-sub);margin-bottom:6px}
+.metric-card .value{font-size:1.5em;font-weight:700}
+.metric-card .sub{font-size:.75em;color:var(--text-sub);margin-top:4px}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--text-sub)}
+
+/* Charts */
+.chart-container{position:relative;height:350px;margin:20px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.88em}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:left}
+.tbl th{color:var(--text-sub);font-weight:500;font-size:.82em;text-transform:uppercase;letter-spacing:.5px}
+.tbl tr:last-child td{border-bottom:none}
+
+/* Two column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Valuation cards */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:rgba(46,160,67,0.08);border-color:rgba(46,160,67,0.3)}
+.val-card.mid{background:rgba(88,166,255,0.08);border-color:rgba(88,166,255,0.3)}
+.val-card.high{background:rgba(188,140,255,0.08);border-color:rgba(188,140,255,0.3)}
+.val-card .val-scenario{font-size:.82em;color:var(--text-sub);margin-bottom:8px;font-weight:500}
+.val-card .val-price{font-size:2.2em;font-weight:900}
+.val-card .val-detail{font-size:.78em;color:var(--text-sub);margin-top:8px}
+.val-card .val-upside{font-size:1em;font-weight:700;margin-top:8px}
+.val-card .val-badge{display:inline-block;padding:3px 12px;border-radius:6px;font-size:.75em;font-weight:600;margin-top:6px}
+
+/* Risk/Catalyst grid */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rc-box{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:20px}
+.rc-box h3{font-size:1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.rc-box ul{list-style:none;padding:0}
+.rc-box li{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:.88em;line-height:1.6}
+.rc-box li:last-child{border-bottom:none}
+.rc-box li::before{content:'•';margin-right:8px;font-weight:700}
+.risk-item::before{color:var(--red)!important}
+.catalyst-item::before{color:var(--green)!important}
+
+/* SaaS grid */
+.saas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.saas-card{background:rgba(188,140,255,0.06);border:1px solid rgba(188,140,255,0.2);border-radius:10px;padding:18px;text-align:center}
+.saas-card .label{font-size:.78em;color:var(--purple);margin-bottom:6px}
+.saas-card .value{font-size:1.4em;font-weight:700}
+.saas-card .sub{font-size:.75em;color:var(--text-sub);margin-top:4px}
+
+/* Tech grid */
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tech-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.tech-card .label{font-size:.72em;color:var(--text-sub);margin-bottom:4px}
+.tech-card .value{font-size:1.1em;font-weight:600}
+.tech-card .sub{font-size:.7em;margin-top:3px}
+
+/* Overview grid */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.overview-box{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:18px}
+.overview-box h3{font-size:.95em;font-weight:600;color:var(--blue);margin-bottom:10px}
+.overview-box p,.overview-box li{font-size:.88em;line-height:1.7}
+
+/* Mgmt comments */
+.mgmt-block{background:rgba(255,255,255,0.02);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:16px 20px;margin:12px 0}
+.mgmt-block .speaker{font-weight:700;color:var(--blue);font-size:.9em;margin-bottom:6px}
+.mgmt-block ul{list-style:none;padding:0}
+.mgmt-block li{padding:4px 0;font-size:.88em;line-height:1.6}
+.mgmt-block li::before{content:'▸ ';color:var(--blue)}
+
+/* Compare */
+.compare-badge{display:inline-block;padding:4px 14px;border-radius:6px;font-size:.82em;font-weight:600;background:rgba(88,166,255,0.12);color:var(--blue)}
+
+/* Trend direction */
+.trend-table{width:100%;border-collapse:collapse}
+.trend-table th,.trend-table td{padding:8px 12px;border-bottom:1px solid var(--border);text-align:left;font-size:.88em}
+.trend-table th{color:var(--text-sub);font-weight:500}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px auto;text-align:center}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/DOCU.svg" alt="DOCU" width="180" height="48">
+      <div class="ticker-badge">NASDAQ: DOCU</div>
+    </div>
+    <h1>DocuSign 決算分析</h1>
+    <div class="subtitle">FY2026 Q4（2025年11月〜2026年1月）</div>
+    <div class="date">発表日: 2026年3月17日 ｜ レポート作成: 2026年3月20日</div>
+  </div>
+</div>
+
+<!-- 総合評価スコア -->
+<div class="section score-section">
+  <div class="score-big" style="color:var(--green)">4</div>
+  <div class="score-label">📈 良い決算</div>
+  <div class="score-sub">売上・EPSともにビート + ガイダンスがコンセンサス上回る + Billings/FCFで大台到達</div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="label">売上高</div>
+      <div class="value">$836.9M</div>
+      <div class="sub positive">YoY +7.8% / QoQ +2.3%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Non-GAAP EPS</div>
+      <div class="value">$1.01</div>
+      <div class="sub positive">YoY +17.4%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">売上ビート</div>
+      <div class="value positive">+$9.0M</div>
+      <div class="sub">+1.1% vs コンセンサス</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">EPSビート</div>
+      <div class="value positive">+$0.06</div>
+      <div class="sub">+6.3% vs コンセンサス</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">GAAP営業利益率</div>
+      <div class="value">10.5%</div>
+      <div class="sub positive">YoY +270bps</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Non-GAAP営業利益率</div>
+      <div class="value">29.5%</div>
+      <div class="sub positive">YoY +70bps</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">FCF</div>
+      <div class="value">$350.2M</div>
+      <div class="sub">FCFマージン 41.8%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Billings</div>
+      <div class="value positive">$1,019.2M</div>
+      <div class="sub positive">初の$10億超 YoY +10.4%</div>
+    </div>
+  </div>
+</div>
+
+<!-- 売上高 / EPS 7四半期推移 -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div>
+        <h3 style="font-size:.95em;color:var(--text-sub);margin-bottom:12px;font-weight:500">売上高推移（$M）</h3>
+        <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div>
+        <h3 style="font-size:.95em;color:var(--text-sub);margin-bottom:12px;font-weight:500">Non-GAAP EPS推移</h3>
+        <div class="chart-container"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 利益率トレンド -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>指標</th><th>Q4 FY2026</th><th>Q4 FY2025</th><th>YoY変化</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GAAP粗利益率</td><td>79.7%</td><td>79.4%</td><td class="positive">+30bps</td></tr>
+        <tr><td>Non-GAAP粗利益率</td><td>81.8%</td><td>82.3%</td><td class="negative">-50bps</td></tr>
+        <tr><td>GAAP営業利益率</td><td>10.5%</td><td>7.8%</td><td class="positive">+270bps</td></tr>
+        <tr><td>Non-GAAP営業利益率</td><td>29.5%</td><td>28.8%</td><td class="positive">+70bps</td></tr>
+        <tr><td>EBITDAマージン（推定）</td><td>31〜32%</td><td>—</td><td class="neutral">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- コンセンサス比較 -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
+    <h3 style="font-size:.95em;color:var(--text-sub);margin-bottom:12px;font-weight:500">Q4実績 vs コンセンサス</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>ビート率</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>売上高</td><td>$827.9M</td><td>$836.9M</td><td class="positive">+$9.0M</td><td class="positive">+1.1%</td></tr>
+        <tr><td>Non-GAAP EPS</td><td>$0.95</td><td>$1.01</td><td class="positive">+$0.06</td><td class="positive">+6.3%</td></tr>
+        <tr><td>Billings</td><td>$998M</td><td>$1,019.2M</td><td class="positive">+$21.2M</td><td class="positive">+2.1%</td></tr>
+      </tbody>
+    </table>
+    <h3 style="font-size:.95em;color:var(--text-sub);margin:24px 0 12px;font-weight:500">ガイダンス vs コンセンサス</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>項目</th><th>ガイダンス</th><th>コンセンサス</th><th>評価</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Q1 FY2027 売上</td><td>$822〜826M</td><td>$813M</td><td class="positive">コンセンサス上回る</td></tr>
+        <tr><td>FY2027 通期売上</td><td>$3,484〜3,496M</td><td>$3,420M</td><td class="positive">+$70M上回る</td></tr>
+        <tr><td>FY2027 Non-GAAP営業利益率</td><td>30.0〜30.5%</td><td>—</td><td class="positive">堅調</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- キャッシュフロー -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>項目</th><th>Q4 FY2026</th><th>FY2026通期</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>営業CF</td><td class="positive">$377.2M</td><td class="positive">$1,165.0M</td></tr>
+        <tr><td>投資CF</td><td>-$33.7M</td><td>-$126.8M</td></tr>
+        <tr><td>財務CF</td><td>-$332.6M</td><td>-$1,099.9M</td></tr>
+        <tr><td>FCF</td><td class="positive">$350.2M</td><td class="positive">$1,058.6M</td></tr>
+        <tr><td>FCFマージン</td><td class="positive">41.8%</td><td class="positive">32.9%</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px;font-size:.88em;color:var(--green)">FY2026通期でFCF $10億超を初達成。</p>
+  </div>
+</div>
+
+<!-- 部門別売上構成 -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>セグメント</th><th>Q4 FY2026</th><th>構成比</th><th>YoY%</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Subscription</td><td>$819.0M</td><td>97.9%</td><td class="positive">+8.1%</td></tr>
+        <tr><td>Professional Services</td><td>$17.9M</td><td>2.1%</td><td class="negative">-3.2%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 地域別売上構成 -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead>
+        <tr><th>地域</th><th>構成比</th><th>YoY%</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>United States</td><td>~70%</td><td>~+5%</td></tr>
+        <tr><td>International</td><td>~30%</td><td class="positive">+15%</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px;font-size:.88em;color:var(--green)">国際売上が初めて30%超を突破。</p>
+  </div>
+</div>
+
+<!-- 企業概要 -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏗️</span> 企業概要</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div class="overview-box">
+        <h3>基本情報</h3>
+        <table class="tbl">
+          <tbody>
+            <tr><td style="color:var(--text-sub)">設立</td><td>2003年</td></tr>
+            <tr><td style="color:var(--text-sub)">本社</td><td>サンフランシスコ, CA</td></tr>
+            <tr><td style="color:var(--text-sub)">CEO</td><td>Allan Thygesen</td></tr>
+            <tr><td style="color:var(--text-sub)">従業員数</td><td>約6,838人</td></tr>
+            <tr><td style="color:var(--text-sub)">顧客数</td><td>170万社超 / 180カ国</td></tr>
+            <tr><td style="color:var(--text-sub)">市場シェア</td><td>40〜56%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="overview-box">
+        <h3>ビジネスモデル</h3>
+        <p>電子署名を中核に、IAM（Intelligent Agreement Management）プラットフォームへ転換中。サブスクリプション収益が97.9%を占める。</p>
+        <h3 style="margin-top:16px">主要製品</h3>
+        <p>eSignature, CLM, IAM (Navigator, Maestro, Iris AI)</p>
+        <h3 style="margin-top:16px">TAM</h3>
+        <p>$50B（eSignature+CLM）→ $135B（IAM拡張）</p>
+        <h3 style="margin-top:16px">主要競合</h3>
+        <p>Adobe Sign (11%), PandaDoc (10%), Dropbox Sign</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SaaS KPI -->
+<div class="section" id="sec-saas" data-accordion>
+  <div class="section-title"><span class="section-icon">🔮</span> SaaS KPI</div>
+  <div class="section-body">
+    <div class="saas-grid">
+      <div class="saas-card">
+        <div class="label">Rule of 40</div>
+        <div class="value" style="color:var(--yellow)">37.3</div>
+        <div class="sub">Q4 / 通期38.3（FCFベース41.1でクリア）</div>
+      </div>
+      <div class="saas-card">
+        <div class="label">NRR（DNR）</div>
+        <div class="value positive">102%</div>
+        <div class="sub">前年101%→102% 改善トレンド</div>
+      </div>
+      <div class="saas-card">
+        <div class="label">ARR</div>
+        <div class="value">$3,272M</div>
+        <div class="sub positive">YoY +8.0%</div>
+      </div>
+      <div class="saas-card">
+        <div class="label">IAM ARR</div>
+        <div class="value positive">$350M超</div>
+        <div class="sub">全体の10.8% / 18ヶ月でゼロから構築</div>
+      </div>
+      <div class="saas-card">
+        <div class="label">Billings</div>
+        <div class="value positive">$1,019.2M</div>
+        <div class="sub">初の$10億超 / YoY +10.4%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル分析 -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <!-- TradingView Widget -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NASDAQ:DOCU",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+
+    <h3 style="font-size:.95em;color:var(--text-sub);margin:24px 0 12px;font-weight:500">テクニカル指標サマリー</h3>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="label">50日SMA</div>
+        <div class="value">$51.11</div>
+        <div class="sub negative">株価が下方乖離 -6.6%</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">100日SMA</div>
+        <div class="value">$53.10</div>
+        <div class="sub negative">株価が下方乖離 -10.1%</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">200日SMA</div>
+        <div class="value">$64.46</div>
+        <div class="sub negative">大幅下方乖離 -25.9%</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">RSI(14)</div>
+        <div class="value" style="color:var(--yellow)">28.8〜50</div>
+        <div class="sub">売られ過ぎから回復中</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">MACD</div>
+        <div class="value positive">+0.290</div>
+        <div class="sub positive">短期買いシグナル</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">デッドクロス</div>
+        <div class="value negative">発生済み</div>
+        <div class="sub">50日SMA &lt; 200日SMA</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">サポート</div>
+        <div class="value">$46.07 / $40.16</div>
+        <div class="sub">52週安値が最重要</div>
+      </div>
+      <div class="tech-card">
+        <div class="label">レジスタンス</div>
+        <div class="value">$51.11 / $67.00</div>
+        <div class="sub">50日SMA・旧サポート</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:.95em;color:var(--text-sub);margin:24px 0 12px;font-weight:500">トレンド判定</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>期間</th><th>方向</th><th>判定</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>短期</td><td style="color:var(--yellow)">やや上昇</td><td>52週安値からの反発+13.9%</td></tr>
+        <tr><td>中期</td><td class="negative">下落</td><td>高値から-50%、下降チャネル</td></tr>
+        <tr><td>長期</td><td class="negative">下落</td><td>200日SMA大幅下回り</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:20px;background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:10px;padding:18px">
+      <div style="font-weight:700;color:var(--red);margin-bottom:8px">総合テクニカル判定: 弱気</div>
+      <p style="font-size:.88em;line-height:1.7">短期的にRSI売られ過ぎからの反発とMACD買いシグナルでリバウンド余地はあるが、全移動平均線を下回り下降トレンドチャネル内。50日SMA($51)回復が短期転換の最低条件。</p>
+      <p style="font-size:.85em;color:var(--text-sub);margin-top:8px">チャートパターン: 下降トレンドチャネル（確認済）/ ピボットボトム（2/23、$40.16付近）/ フィボナッチ23.6%戻し $53.04（未達）</p>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメントハイライト -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎤</span> 経営陣コメントハイライト</div>
+  <div class="section-body">
+    <div class="mgmt-block">
+      <div class="speaker">CEO Allan Thygesen</div>
+      <ul>
+        <li>「IAMは期待通りの軌道。18ヶ月でARR $350M超達成」</li>
+        <li>「プライベート契約データという巨大なAI優位性を持つ」</li>
+        <li>AIコスト効率化: LLMダイレクト比で最大50倍効率化</li>
+        <li>パートナー経由ブッキング YoY +30%成長</li>
+      </ul>
+    </div>
+    <div class="mgmt-block">
+      <div class="speaker">CFO</div>
+      <ul>
+        <li>Non-GAAP営業利益率: FY2026通期で初の30%超達成</li>
+        <li>FCF $10億超を初達成</li>
+        <li>新規自社株買い枠: $2.0B追加（残り$2.6B）</li>
+        <li>FY2027ガイダンス: 売上$3.48〜3.50B、Non-GAAP営業利益率30.0〜30.5%</li>
+      </ul>
+    </div>
+    <div class="mgmt-block">
+      <div class="speaker">カンファレンスコール重要発言</div>
+      <ul>
+        <li>IAM顧客10,000社超。FY2027でIAM ARR $600M超を目指す</li>
+        <li>消費型価格モデル（サービスクレジット型）をQ1導入予定</li>
+        <li>Anthropic Cowork連携で垂直拡張推進</li>
+        <li>Salesforce Agentforce連携</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚠️</span> リスク・カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div class="rc-box">
+        <h3><span style="color:var(--red)">⚠️</span> リスク</h3>
+        <ul>
+          <li class="risk-item">eSignature成熟化: コア事業の成長率+7.8%は減速傾向</li>
+          <li class="risk-item">IAM転換リスク: まだARRの11%。大規模投資が必要</li>
+          <li class="risk-item">競合のAI追随: Adobe、PandaDoc等もAI積極投入</li>
+          <li class="risk-item">株価低迷: 52週高値から-50%、空売り比率7.1%に急増</li>
+          <li class="risk-item">インサイダー売り越し: 直近6ヶ月で購入ゼロ</li>
+          <li class="risk-item">Non-GAAP粗利益率低下: クラウド移行コストで-50bps</li>
+        </ul>
+      </div>
+      <div class="rc-box">
+        <h3><span style="color:var(--green)">🚀</span> カタリスト</h3>
+        <ul>
+          <li class="catalyst-item">IAM ARR加速: FY2027目標$600M超（+71%成長見込み）</li>
+          <li class="catalyst-item">ガイダンス上振れ: 売上・営業利益率ともにコンセンサス超え</li>
+          <li class="catalyst-item">FCF $10億超の安定的創出: 大規模自社株買い原資</li>
+          <li class="catalyst-item">$2.6B自社株買い枠: 時価総額の約27%</li>
+          <li class="catalyst-item">AI契約エージェント: 業界初の専用AIエージェントで差別化</li>
+          <li class="catalyst-item">消費型価格モデル導入: ARPU拡大の余地</li>
+          <li class="catalyst-item">NRR改善トレンド: 101%→102%で拡張が進展</li>
+          <li class="catalyst-item">eIDAS 2.0: EUデジタルID義務化が需要押し上げ</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算との比較サマリー -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+  <div class="section-body">
+    <div style="text-align:center;padding:30px">
+      <div class="compare-badge">初回分析のため前回比較不可</div>
+      <p style="margin-top:16px;font-size:.88em;color:var(--text-sub)">DOCUの決算分析は今回が初回のため、前回比較データはありません。<br>次回（FY2027 Q1）以降、スコア推移・トレンド方向・変化の主要因を記載します。</p>
+    </div>
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション</div>
+  <div class="section-body">
+    <p style="text-align:center;margin-bottom:20px;font-size:.92em;color:var(--text-sub)">現在株価: <strong style="color:var(--text);font-size:1.2em">$47.75</strong></p>
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="val-scenario">LOW（保守的）</div>
+        <div class="val-price" style="color:var(--green)">$70.20</div>
+        <div class="val-detail">EPS $3.90 × PER 18x</div>
+        <div class="val-upside positive">+47.0%</div>
+        <div class="val-badge" style="background:rgba(46,160,67,0.2);color:var(--green)">割安</div>
+      </div>
+      <div class="val-card mid">
+        <div class="val-scenario">MID（基本）</div>
+        <div class="val-price" style="color:var(--blue)">$90.20</div>
+        <div class="val-detail">EPS $4.10 × PER 22x</div>
+        <div class="val-upside positive">+88.9%</div>
+        <div class="val-badge" style="background:rgba(88,166,255,0.2);color:var(--blue)">割安</div>
+      </div>
+      <div class="val-card high">
+        <div class="val-scenario">HIGH（楽観的）</div>
+        <div class="val-price" style="color:var(--purple)">$123.20</div>
+        <div class="val-detail">EPS $4.40 × PER 28x</div>
+        <div class="val-upside positive">+158.0%</div>
+        <div class="val-badge" style="background:rgba(188,140,255,0.2);color:var(--purple)">割安</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.15);border-radius:10px;padding:16px">
+      <p style="font-size:.85em;color:var(--text-sub);line-height:1.7">
+        <strong style="color:var(--blue)">計算根拠:</strong><br>
+        Forward EPS: FY2027 Non-GAAP EPS予想。LOW=$3.90（ガイダンスベース保守）、MID=$4.10（コンセンサス）、HIGH=$4.40（IAM加速シナリオ）<br>
+        予想PER: DOCUの過去PERレンジ。LOW=18x（直近の圧縮水準）、MID=22x（過去中央値）、HIGH=28x（成長加速時の上限）<br>
+        <strong style="color:var(--green)">MID乖離率 +88.9% → 割安</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏗️</span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">🔮</span><span class="toc-label">SaaS KPI</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎤</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Chart.js ===
+var revLabels = ['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'];
+var revData = [736.0,754.8,776.3,763.7,800.6,818.4,836.9];
+var epsData = [0.97,0.90,0.86,0.90,0.92,1.01,1.01];
+
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{
+    labels:revLabels,
+    datasets:[{
+      label:'売上高($M)',
+      data:revData,
+      backgroundColor:revData.map(function(v,i){return i===revData.length-1?'rgba(88,166,255,0.8)':'rgba(88,166,255,0.4)'}),
+      borderColor:'rgba(88,166,255,1)',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y.toFixed(1)+'M'}}}
+    },
+    scales:{
+      y:{beginAtZero:false,min:700,grid:{color:'rgba(48,54,61,0.3)'},ticks:{color:'#8b949e',callback:function(v){return '$'+v+'M'}}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:revLabels,
+    datasets:[{
+      label:'Non-GAAP EPS',
+      data:epsData,
+      backgroundColor:epsData.map(function(v,i){return i===epsData.length-1?'rgba(46,160,67,0.8)':'rgba(46,160,67,0.4)'}),
+      borderColor:'rgba(46,160,67,1)',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y.toFixed(2)}}}
+    },
+    scales:{
+      y:{beginAtZero:false,min:0.7,grid:{color:'rgba(48,54,61,0.3)'},ticks:{color:'#8b949e',callback:function(v){return '$'+v.toFixed(2)}}},
+      x:{grid:{display:false},ticks:{color:'#8b949e'}}
+    }
+  }
+});
+
+// === Accordion ===
+var touchStartY=0;
+var touchStartX=0;
+var touchStartTime=0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){
+    touchStartY=e.touches[0].clientY;
+    touchStartX=e.touches[0].clientX;
+    touchStartTime=Date.now();
+  },{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+// Auto-collapse on mobile
+(function(){
+  if(window.innerWidth<=768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth',block:'start'});
+    },100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
