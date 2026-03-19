@@ -617,10 +617,37 @@ body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: va
 <div class="section" id="sec-compare" data-accordion>
   <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
   <div class="section-body">
-    <div class="compare-box">
-      <p class="compare-text" style="font-size:1.1em;font-weight:700;color:var(--blue);margin-bottom:8px">初回分析</p>
-      <p class="compare-text">本レポートがMicron Technologyの初回決算分析となるため、前回比較データはありません。次回以降、トレンド比較を実施します。</p>
+    <div class="metrics-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric-card">
+        <div class="metric-label">前回（FQ1 FY2026）</div>
+        <div class="metric-value" style="color:var(--green)">5 🚀</div>
+        <div class="metric-sub">素晴らしい決算</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">今回（FQ2 FY2026）</div>
+        <div class="metric-value" style="color:var(--green)">5 🚀</div>
+        <div class="metric-sub">素晴らしい決算</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">トレンド</div>
+        <div class="metric-value" style="color:var(--green)">加速 ↑↑</div>
+        <div class="metric-sub">2四半期連続最高評価・成長加速</div>
+      </div>
     </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>指標</th><th>FQ1 FY2026</th><th>FQ2 FY2026</th><th>変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$13.64B</td><td>$23.86B</td><td class="green" style="font-weight:700">+74.9% ↑</td></tr>
+        <tr><td>Non-GAAP EPS</td><td>$4.78</td><td>$12.20</td><td class="green" style="font-weight:700">+155.2% ↑</td></tr>
+        <tr><td>Non-GAAP粗利益率</td><td>56.8%</td><td>74.9%</td><td class="green" style="font-weight:700">+18.1pt ↑</td></tr>
+        <tr><td>Non-GAAP営業利益率</td><td>47.0%</td><td>69.0%</td><td class="green" style="font-weight:700">+22.0pt ↑</td></tr>
+        <tr><td>FCF</td><td>$3.91B</td><td>$6.90B</td><td class="green" style="font-weight:700">+76.5% ↑</td></tr>
+        <tr><td>営業CF</td><td>$8.41B</td><td>$11.90B</td><td class="green" style="font-weight:700">+41.5% ↑</td></tr>
+        <tr><td>売上ビート率</td><td>+4.9%</td><td>+18.9%</td><td class="green" style="font-weight:700">ビート幅拡大 ↑</td></tr>
+        <tr><td>EPSビート率</td><td>+21.3%</td><td>+31.0%</td><td class="green" style="font-weight:700">ビート幅拡大 ↑</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.9em;color:var(--text-sub);margin-top:12px"><strong>変化の主要因:</strong> HBM3E量産本格化によるASP大幅上昇、AI/データセンター需要の爆発的拡大、プロダクトミックスの劇的改善（HBM構成比拡大）。Q1時点でも過去最高だった全指標がQ2でさらに大幅に上振れ。売上は前四半期比+75%、EPSは+155%と成長が加速。ガイダンスもQ3売上$33.5BとQ2からさらに+40%の見通しを提示。</p>
   </div>
 </div>
 
