@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Alibaba Group FY26Q3 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#21262d;--text:#e6edf3;--text-sub:#8b949e;--green:#2ea043;--red:#f85149;--blue:#58a6ff;--yellow:#d29922;--purple:#bc8cff;--orange:#f0883e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:20px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;border-radius:16px 16px 0 0}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin:24px 0}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-desc{color:var(--text-sub);margin-top:4px;font-size:0.95em}
+.score-rationale{margin-top:16px;padding:16px;background:rgba(88,166,255,0.05);border-radius:8px;text-align:left;max-width:700px;margin-left:auto;margin-right:auto;font-size:0.9em;color:var(--text-sub)}
+
+/* Section */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin:16px 0}
+.section-title{font-size:1.2em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.2em}
+
+/* Metrics Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.metric-label{font-size:0.78em;color:var(--text-sub);margin-bottom:6px}
+.metric-value{font-size:1.4em;font-weight:700}
+.metric-change{font-size:0.8em;margin-top:4px}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--text-sub)}
+
+/* Charts */
+.chart-container{position:relative;height:320px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:0.88em}
+.tbl th{background:rgba(88,166,255,0.08);padding:10px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid rgba(33,38,45,0.5)}
+.tbl tr:hover{background:rgba(255,255,255,0.02)}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.card h4{font-size:0.95em;margin-bottom:8px;color:var(--blue)}
+.card p,.card li{font-size:0.88em;color:var(--text-sub);line-height:1.6}
+.card ul{padding-left:16px}
+
+/* Two Column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Valuation */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,0.1),rgba(46,160,67,0.03));border-color:rgba(46,160,67,0.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,0.1),rgba(88,166,255,0.03));border-color:rgba(88,166,255,0.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(188,140,255,0.1),rgba(188,140,255,0.03));border-color:rgba(188,140,255,0.3)}
+.val-card h4{font-size:0.9em;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.val-card .val-price{font-size:2.2em;font-weight:900;margin:8px 0}
+.val-card .val-detail{font-size:0.82em;color:var(--text-sub);margin-top:4px}
+.val-card.low h4,.val-card.low .val-price{color:var(--green)}
+.val-card.mid h4,.val-card.mid .val-price{color:var(--blue)}
+.val-card.high h4,.val-card.high .val-price{color:var(--purple)}
+.val-gap{text-align:center;margin-top:20px;padding:16px;background:rgba(88,166,255,0.05);border-radius:10px}
+.val-gap .gap-value{font-size:1.8em;font-weight:900}
+.val-gap .gap-label{font-size:0.9em;color:var(--text-sub)}
+
+/* Risk/Catalyst */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rc-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.rc-card h4{font-size:1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.rc-card li{font-size:0.88em;color:var(--text-sub);line-height:1.8;margin-left:16px}
+
+/* Overview */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.overview-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.overview-card h4{color:var(--blue);font-size:0.95em;margin-bottom:10px}
+.overview-card p,.overview-card li{font-size:0.88em;color:var(--text-sub);line-height:1.7}
+.overview-card ul{padding-left:16px}
+
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tech-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:0.9em;color:var(--blue);margin-bottom:8px}
+.tech-card p{font-size:0.85em;color:var(--text-sub)}
+.tech-verdict{text-align:center;padding:20px;margin-top:16px;background:rgba(88,166,255,0.06);border-radius:10px;border:1px solid rgba(88,166,255,0.15)}
+.tech-verdict .verdict-label{font-size:1.3em;font-weight:700}
+
+/* Quote */
+.quote{border-left:3px solid var(--blue);padding:12px 16px;margin:12px 0;background:rgba(88,166,255,0.04);border-radius:0 8px 8px 0;font-size:0.9em;color:var(--text-sub);font-style:italic}
+.quote-author{font-style:normal;font-weight:600;color:var(--text);margin-top:4px;font-size:0.85em}
+
+/* Compare */
+.compare-table{width:100%;border-collapse:collapse;font-size:0.88em}
+.compare-table th,.compare-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.compare-table th{background:rgba(88,166,255,0.08);font-weight:600}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px auto;text-align:center}
+
+/* Tag */
+.tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:0.78em;font-weight:600}
+.tag-green{background:rgba(46,160,67,0.15);color:var(--green)}
+.tag-red{background:rgba(248,81,73,0.15);color:var(--red)}
+.tag-blue{background:rgba(88,166,255,0.15);color:var(--blue)}
+.tag-yellow{background:rgba(210,153,34,0.15);color:var(--yellow)}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+.toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+.toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+.toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.toc-list{list-style:none;padding:8px 0;margin:0}
+.toc-list li{border-bottom:1px solid #21262d}
+.toc-list li:last-child{border-bottom:none}
+.toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+.toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+.toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+.toc-list .toc-label{flex:1}
+.toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+.toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+.toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+body{padding:12px!important}
+.container{padding:12px}
+.header{padding:28px 16px}
+.header h1{font-size:1.4rem}
+.header .subtitle{font-size:.95em}
+.header-logo-row{flex-direction:column;gap:8px}
+.report-header-logo{height:36px}
+.ticker-badge{font-size:12px;padding:4px 12px}
+.grid,.metrics-grid{grid-template-columns:1fr 1fr}
+.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+.chart-wrap,.chart-container{height:250px}
+.section{padding:20px 16px}
+.card-grid{grid-template-columns:1fr 1fr}
+.two-col{grid-template-columns:1fr}
+.rc-grid{grid-template-columns:1fr}
+.saas-grid{grid-template-columns:1fr 1fr}
+.metrics-grid{grid-template-columns:1fr 1fr!important}
+.chart-row{grid-template-columns:1fr!important}
+.overview-grid{grid-template-columns:1fr!important}
+.tech-grid{grid-template-columns:1fr!important}
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.compare-table,.tech-table,.tbl{font-size:.78rem}
+.portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+.header h1{font-size:1.2rem}
+.score-big{font-size:3.5em}
+.score-label{font-size:1.2em}
+.section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+<div class="header-content">
+<div class="header-logo-row">
+<img class="report-header-logo" src="../logos/BABA.svg" alt="BABA">
+<div class="ticker-badge">NYSE: BABA</div>
+</div>
+<h1>Alibaba Group Holding Limited 決算分析</h1>
+<div class="subtitle">FY26Q3（2025年10月〜2025年12月）</div>
+<div class="date">発表日: 2026年3月19日 ｜ レポート作成: 2026年3月20日</div>
+</div>
+</div>
+
+<!-- 1. Score -->
+<div class="score-section">
+<div class="score-big" style="color:var(--red)">2</div>
+<div class="score-label" style="color:var(--red)">📉 悪い決算</div>
+<div class="score-desc">売上微小ミス + EPS大幅悪化。ただしクラウド+36%は加速。AI投資による戦略的利益圧迫。</div>
+<div class="score-rationale">
+<strong>判定根拠:</strong> 売上高US$40.73Bはコンセンサス$41.26Bを-1.3%下回りミス。GAAP EPS/ADS US$0.74はYoY -71%の大幅悪化。Non-GAAP EPS/ADS US$0.89もYoY -67%。3年間3,800億元（約$530億）のAI・クラウドインフラ投資と、Sun Art/Intime事業売却に伴う一時損失が利益を大きく圧迫。一方、クラウド売上は+36%成長（AI関連は10四半期連続3桁成長）と加速しており、戦略的投資フェーズの「痛み」が色濃い四半期。
+</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+<div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">売上高</div>
+<div class="metric-value">RMB 284.8B</div>
+<div class="metric-change neutral">US$40.73B / YoY +2% / QoQ +15%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP EPS/ADS</div>
+<div class="metric-value negative">US$0.89</div>
+<div class="metric-change negative">YoY -67%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">GAAP EPS/ADS</div>
+<div class="metric-value negative">US$0.74</div>
+<div class="metric-change negative">YoY -71%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">売上ミス</div>
+<div class="metric-value negative">-$530M</div>
+<div class="metric-change negative">-1.3% vs コンセンサス</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">クラウド売上</div>
+<div class="metric-value positive">RMB 43.3B</div>
+<div class="metric-change positive">+36% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FCF</div>
+<div class="metric-value negative">RMB 11.3B</div>
+<div class="metric-change negative">YoY -71%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">株価（決算後）</div>
+<div class="metric-value negative">$125.61</div>
+<div class="metric-change negative">決算後 -6.6%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">時価総額</div>
+<div class="metric-value">約$300B</div>
+<div class="metric-change neutral">Forward PER 13.7x</div>
+</div>
+</div>
+</div>
+
+<!-- 3. Revenue / EPS 7Q Charts -->
+<div class="section" id="sec-revenue" data-accordion>
+<div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+<div class="section-body">
+<div class="chart-row">
+<div>
+<h4 style="text-align:center;color:var(--text-sub);margin-bottom:8px;font-size:0.9em">売上高（RMB 十億元）</h4>
+<div class="chart-container"><canvas id="revenueChart"></canvas></div>
+</div>
+<div>
+<h4 style="text-align:center;color:var(--text-sub);margin-bottom:8px;font-size:0.9em">EPS/ADS（USD）*</h4>
+<div class="chart-container"><canvas id="epsChart"></canvas></div>
+</div>
+</div>
+<table class="tbl" style="margin-top:20px">
+<thead><tr><th>四半期</th><th>売上高（RMB B）</th><th>YoY</th><th>EPS/ADS（USD）</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td>FY25Q1</td><td>243.2</td><td>—</td><td>$9.92</td><td>—</td></tr>
+<tr><td>FY25Q2</td><td>236.5</td><td>—</td><td>$18.16</td><td>—</td></tr>
+<tr><td>FY25Q3</td><td>280.2</td><td>—</td><td>$20.40</td><td>—</td></tr>
+<tr><td>FY25Q4</td><td>236.5</td><td>—</td><td>$5.20</td><td>—</td></tr>
+<tr><td>FY26Q1</td><td>247.7</td><td>+2%</td><td>$18.00</td><td>—</td></tr>
+<tr><td>FY26Q2</td><td>247.8</td><td>+5%</td><td>$8.72</td><td>—</td></tr>
+<tr style="font-weight:700;background:rgba(248,81,73,0.05)"><td>FY26Q3</td><td>284.8</td><td>+2%</td><td>$0.74</td><td class="negative">AI投資+処分損</td></tr>
+</tbody>
+</table>
+<div style="margin-top:8px;font-size:0.78em;color:var(--text-sub)">* EPS/ADSはGAAP基準。過去四半期のEPSはソースにより定義が異なる可能性があります。1 ADS = 8普通株。</div>
+</div>
+</div>
+
+<!-- 4. Margin Trends -->
+<div class="section" id="sec-margin" data-accordion>
+<div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+<div class="section-body">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">粗利益率</div>
+<div class="metric-value negative">40.5%</div>
+<div class="metric-change negative">前年42.0%（-1.5pt）</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">GAAP営業利益率</div>
+<div class="metric-value negative">3.7%</div>
+<div class="metric-change negative">前年14.7%（-11.0pt）</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">調整後EBITAマージン</div>
+<div class="metric-value negative">8.2%</div>
+<div class="metric-change negative">前年19.6%（-11.4pt）</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">調整後EBITDAマージン</div>
+<div class="metric-value negative">12.0%</div>
+<div class="metric-change negative">前年22.1%（-10.1pt）</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(248,81,73,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--red)">利益率大幅悪化の要因:</strong> 3年間3,800億元（約$530億）のAI・クラウドインフラ投資（CapEx RMB 25.4B、前年比大幅増）に加え、Sun Art（大潤発）・Intime（銀泰）の事業売却に伴う一時損失が重なり、全利益率指標が2桁ptの悪化。経営陣は「戦略的投資フェーズ」と位置づけ、2〜3年の利益圧迫を許容する姿勢。
+</div>
+</div>
+</div>
+
+<!-- 5. Consensus -->
+<div class="section" id="sec-consensus" data-accordion>
+<div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+<div class="section-body">
+<table class="tbl">
+<thead><tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>US$41.26B</td><td>US$40.73B</td><td class="negative">-$530M</td><td><span class="tag tag-red">-1.3% ミス</span></td></tr>
+<tr><td>EPS/ADS（GAAP）</td><td colspan="2">US$0.74</td><td class="negative">YoY -71%</td><td><span class="tag tag-red">大幅悪化</span></td></tr>
+<tr><td>EPS/ADS（Non-GAAP）</td><td colspan="2">US$0.89</td><td class="negative">YoY -67%</td><td><span class="tag tag-red">大幅悪化</span></td></tr>
+</tbody>
+</table>
+<div style="margin-top:20px">
+<h4 style="color:var(--blue);font-size:0.95em;margin-bottom:12px">ガイダンス・経営陣見通し</h4>
+<div style="padding:14px;background:rgba(88,166,255,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+Alibabaは明確な数値ガイダンスを公表していません。経営陣は「AI + Cloudと消費ビジネスへの集中継続」「5年でAI・クラウド事業$1,000億売上」を目標として掲げ、短期的な利益率悪化を許容する姿勢を示しています。
+</div>
+</div>
+</div>
+</div>
+
+<!-- 6. Cash Flow -->
+<div class="section" id="sec-cashflow" data-accordion>
+<div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+<div class="section-body">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">営業CF</div>
+<div class="metric-value negative">RMB 36.0B</div>
+<div class="metric-change negative">US$5.15B / YoY -49%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">設備投資（CapEx）</div>
+<div class="metric-value">RMB 25.4B</div>
+<div class="metric-change negative">US$3.63B（大幅増）</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">フリーキャッシュフロー</div>
+<div class="metric-value negative">RMB 11.3B</div>
+<div class="metric-change negative">US$1.62B / YoY -71%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">ネットキャッシュ</div>
+<div class="metric-value positive">RMB 297.4B</div>
+<div class="metric-change positive">US$42.5B（安全弁）</div>
+</div>
+</div>
+<div class="metrics-grid" style="margin-top:12px">
+<div class="metric-card">
+<div class="metric-label">Trailing PER</div>
+<div class="metric-value">約18x</div>
+<div class="metric-change neutral">—</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Forward PER（FY2027）</div>
+<div class="metric-value">約13.7x</div>
+<div class="metric-change neutral">—</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(248,81,73,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--red)">FCF急減の背景:</strong> AI・クラウドインフラへの積極投資（CapEx RMB 25.4B）が営業CF（RMB 36.0B）の大部分を吸収。自社株買いもAI投資優先で停止。ただしネットキャッシュUS$42.5Bの潤沢な手元資金が財務の安全弁として機能。
+</div>
+</div>
+</div>
+
+<!-- 7. Segment -->
+<div class="section" id="sec-segment" data-accordion>
+<div class="section-title"><span class="section-icon">🏢</span> セグメント別売上構成</div>
+<div class="section-body">
+<table class="tbl">
+<thead><tr><th>セグメント</th><th>売上高</th><th>構成比</th><th>YoY</th><th>EBITA</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td><strong>中国Eコマース</strong></td><td>RMB 142.7B</td><td>50%</td><td class="positive">+6%</td><td class="negative">RMB 34.6B（-43%）</td><td>CMR +1%、クイックコマース +56%</td></tr>
+<tr><td><strong>Cloud Intelligence</strong></td><td>RMB 43.3B</td><td>15%</td><td class="positive" style="font-weight:700">+36%</td><td class="positive">RMB 3.9B（+25%）</td><td>AI関連10Q連続3桁成長</td></tr>
+<tr><td><strong>AIDC（国際EC）</strong></td><td>RMB 39.2B</td><td>14%</td><td class="neutral">+3%</td><td class="negative">RMB -2.0B（損失縮小）</td><td>小売+3%、卸売+10%</td></tr>
+<tr><td><strong>All Others</strong></td><td>RMB 67.3B</td><td>24%</td><td class="negative">-25%</td><td class="negative">RMB -9.8B（損失拡大）</td><td>Sun Art/Intime処分影響</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;padding:14px;background:rgba(46,160,67,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--green)">クラウド+36%が最大のハイライト:</strong> 外部顧客売上+35%、AI関連は10四半期連続で3桁成長を維持。中国クラウド市場シェア36%（1位）。自社設計GPU（T-Head）量産開始により、長期的なコスト競争力の獲得を目指す。
+</div>
+<div style="margin-top:8px;padding:14px;background:rgba(210,153,34,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--yellow)">事業整理:</strong> Sun Art（大潤発）とIntime（銀泰）の売却が完了。All Othersの売上-25%・損失拡大は処分影響。コア事業（EC + Cloud）への経営資源集中が進行。
+</div>
+</div>
+</div>
+
+<!-- 8. Geo -->
+<div class="section" id="sec-geo" data-accordion>
+<div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+<div class="section-body">
+<div class="metrics-grid" style="grid-template-columns:repeat(2,1fr)">
+<div class="metric-card">
+<div class="metric-label">中国国内</div>
+<div class="metric-value">約75%</div>
+<div class="metric-change neutral">中国Eコマース + Cloud国内 + その他</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">海外</div>
+<div class="metric-value">約25%</div>
+<div class="metric-change neutral">AIDC + Cloud海外</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(88,166,255,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+AIDC（国際EC）はAliExpress、Lazada、Trendyol等を含み、RMB 39.2B（+3%）。国際卸売（Alibaba.com）は+10%と堅調。海外展開はクラウドのグローバル展開とともに中長期の成長ドライバー。
+</div>
+</div>
+</div>
+
+<!-- 9. Overview -->
+<div class="section" id="sec-overview" data-accordion>
+<div class="section-title"><span class="section-icon">🏛️</span> 企業概要</div>
+<div class="section-body">
+<div class="overview-grid">
+<div class="overview-card">
+<h4>基本情報</h4>
+<ul>
+<li>設立: 1999年</li>
+<li>本社: 中国・浙江省杭州市</li>
+<li>CEO: Eddie Wu（呉泳銘）/ 会長: Joe Tsai（蔡崇信）</li>
+<li>従業員: 約126,661名</li>
+<li>上場: NYSE（ADR）/ HKEX: 9988</li>
+<li>1 ADS = 8普通株</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>主要サービス</h4>
+<ul>
+<li>Taobao / Tmall: 中国最大のEC基盤</li>
+<li>AliExpress / Lazada: 国際EC</li>
+<li>Alibaba Cloud: 中国シェア36%（1位）</li>
+<li>Cainiao: スマート物流</li>
+<li>Amap / Youku: デジタルメディア</li>
+<li>Qwen（通義千問）: AIモデル</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>競合環境</h4>
+<ul>
+<li>EC: PDD/Temu、ByteDance/Douyin EC、JD.com、Meituan</li>
+<li>クラウド: Huawei Cloud、Tencent Cloud</li>
+<li>中国EC市場シェア: 約32%（1位）</li>
+<li>中国クラウド市場シェア: 約36%（1位）</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>AI戦略・株主還元</h4>
+<ul>
+<li>Qwen: オープンソース、Hugging Face 10億DL超</li>
+<li>「AIのAndroid」戦略、MAU 3億人超</li>
+<li>3年$530億のAI・クラウドインフラ投資</li>
+<li>5年目標: AI・クラウドで$1,000億売上</li>
+<li>FY2025: $119億自社株買い + $46億配当</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 10. Technical Analysis -->
+<div class="section" id="sec-technical" data-accordion>
+<div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+<div class="section-body">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+{
+  "autosize": false,
+  "width": 1100,
+  "height": 750,
+  "symbol": "NYSE:BABA",
+  "interval": "D",
+  "timezone": "Asia/Tokyo",
+  "theme": "dark",
+  "style": "1",
+  "locale": "ja",
+  "backgroundColor": "rgba(13, 17, 23, 1)",
+  "gridColor": "rgba(48, 54, 61, 0.3)",
+  "range": "6M",
+  "hide_top_toolbar": false,
+  "hide_legend": false,
+  "allow_symbol_change": false,
+  "save_image": true,
+  "calendar": false,
+  "hide_volume_indicator": false,
+  "withdateranges": true,
+  "support_host": "https://www.tradingview.com",
+  "studies": [
+    "MASimple@tv-basicstudies",
+    "MAExp@tv-basicstudies"
+  ],
+  "studies_overrides": {
+    "moving average.length": 50,
+    "moving average exponential.length": 200
+  }
+}
+</script>
+</div>
+
+<div class="tech-grid" style="margin-top:20px">
+<div class="tech-card">
+<h4>移動平均線</h4>
+<p>50日SMA: $155.16（大幅下方乖離）<br>
+200日SMA: $145-159（下回る）<br>
+デッドクロス形成危険</p>
+</div>
+<div class="tech-card">
+<h4>RSI / MACD</h4>
+<p>RSI（14日）: 23-25（<span class="negative">売られすぎ</span>）<br>
+MACD: 弱気シグナル継続<br>
+ストキャスティクス: 売られすぎゾーン</p>
+</div>
+<div class="tech-card">
+<h4>サポート / レジスタンス</h4>
+<p>サポート: $120-123 → $116（23.6% Fibo）→ $95-100<br>
+レジスタンス: $130-135 → $145-155（50日/200日SMA）</p>
+</div>
+<div class="tech-card">
+<h4>チャートパターン</h4>
+<p>下降トレンドチャネル形成中<br>
+ダブルトップ（$193）の可能性<br>
+ボリンジャーバンド: 下限を大幅逸脱（エクスパンション）<br>
+61.8% Fiboリトレースメント（$132.76）を割り込み</p>
+</div>
+</div>
+
+<div class="tech-verdict">
+<div class="verdict-label negative">弱気（Bearish）</div>
+<p style="color:var(--text-sub);font-size:0.88em;margin-top:8px">RSI 23-25の売られすぎにより短期的な反発の可能性はあるが、50日/200日SMAを大幅に下回り、下降トレンドチャネルが継続中。デッドクロス形成の危険性が高い。</p>
+</div>
+</div>
+</div>
+
+<!-- 11. Management Comments -->
+<div class="section" id="sec-mgmt" data-accordion>
+<div class="section-title"><span class="section-icon">💬</span> 経営陣コメントハイライト</div>
+<div class="section-body">
+<div class="quote">
+「AI + Cloudと消費ビジネスへの集中を継続する。テクノロジー、顧客獲得、市場シェアの伸びで大きなモメンタムを確認している」
+<div class="quote-author">— CEO Eddie Wu（呉泳銘）</div>
+</div>
+<div class="card-grid" style="margin-top:16px">
+<div class="card">
+<h4>クラウド・AI</h4>
+<p>外部顧客売上+35%、AI関連10四半期連続3桁成長。中国クラウド市場シェア36%（1位）。3年間3,800億元をAI・クラウドインフラに投資。</p>
+</div>
+<div class="card">
+<h4>Qwen（通義千問）</h4>
+<p>Hugging Faceダウンロード10億回超。MAU 3億人超。「AIのAndroid」戦略でオープンエコシステムを構築。</p>
+</div>
+<div class="card">
+<h4>5年目標</h4>
+<p>AI・クラウド事業で$1,000億売上を目指す。自社設計GPU（T-Head）量産開始で長期コスト競争力を確保。</p>
+</div>
+</div>
+<div class="card-grid" style="margin-top:12px">
+<div class="card">
+<h4>クイックコマース</h4>
+<p>Ele.meを「Taobao Instant Commerce」にリブランド。+56%の高成長で新たな成長エンジンに。</p>
+</div>
+<div class="card">
+<h4>88VIP会員</h4>
+<p>5,900万人超（前年比2桁増）。ロイヤルカスタマー基盤の強化が消費ビジネスの収益安定に寄与。</p>
+</div>
+<div class="card">
+<h4>事業整理</h4>
+<p>Sun Art（大潤発）とIntime（銀泰）の売却が完了。コア事業（EC + Cloud + AI）への経営資源集中を加速。</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 12. Risk / Catalyst -->
+<div class="section" id="sec-risk" data-accordion>
+<div class="section-title"><span class="section-icon">⚠️</span> リスク・カタリスト</div>
+<div class="section-body">
+<div class="rc-grid">
+<div class="rc-card">
+<h4><span style="color:var(--red)">⚠️</span> リスク要因</h4>
+<ul>
+<li><span class="tag tag-red">高</span> AI投資による利益率圧迫（2〜3年継続の可能性）</li>
+<li><span class="tag tag-red">高</span> PDD・ByteDance/Douyin ECとの価格競争激化</li>
+<li><span class="tag tag-red">高</span> AI投資のROI不確実性（3,800億元の回収リスク）</li>
+<li><span class="tag tag-yellow">中</span> 中国マクロ: 消費者信頼感低迷、GDP成長鈍化</li>
+<li><span class="tag tag-yellow">中</span> 自社株買い停止（AI投資優先）</li>
+<li><span class="tag tag-yellow">中</span> 米中地政学リスク（半導体輸出規制、ADR上場廃止リスク）</li>
+<li><span class="tag tag-yellow">中</span> All Others事業の損失拡大</li>
+</ul>
+</div>
+<div class="rc-card">
+<h4><span style="color:var(--green)">🚀</span> カタリスト</h4>
+<ul>
+<li><span class="tag tag-green">高</span> クラウド+36%成長、AI 10Q連続3桁成長 → 収益化加速</li>
+<li><span class="tag tag-green">高</span> Qwen 10億DL超、MAU 3億人超 → AIプラットフォーム価値</li>
+<li><span class="tag tag-yellow">中</span> 独禁法審査が正式終了 → 規制リスク後退</li>
+<li><span class="tag tag-yellow">中</span> ネットキャッシュ$42.5B → 財務安全弁</li>
+<li><span class="tag tag-yellow">中</span> SoftBankが$132で大量再取得 → 機関投資家の信任</li>
+<li><span class="tag tag-yellow">中</span> クイックコマース+56% → 新成長エンジン</li>
+<li><span class="tag tag-yellow">中</span> 事業整理完了 → コア事業集中、一時損失解消</li>
+<li><span class="tag tag-blue">低〜中</span> RSI 23-25の売られすぎ → 短期反発の可能性</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 13. Compare -->
+<div class="section" id="sec-compare" data-accordion>
+<div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+<div class="section-body">
+<table class="compare-table">
+<thead><tr><th>指標</th><th>FY26Q2</th><th>FY26Q3</th><th>変化</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>RMB 247.8B</td><td>RMB 284.8B</td><td class="positive">+15% QoQ</td></tr>
+<tr><td>クラウドYoY成長率</td><td>+7%</td><td>+36%</td><td class="positive">大幅加速</td></tr>
+<tr><td>GAAP営業利益率</td><td>推定10%</td><td>3.7%</td><td class="negative">大幅悪化</td></tr>
+<tr><td>GAAP EPS/ADS</td><td>$8.72</td><td>$0.74</td><td class="negative">大幅悪化</td></tr>
+<tr><td>FCF</td><td>推定プラス</td><td>RMB 11.3B</td><td class="negative">YoY -71%</td></tr>
+<tr><td>株価反応</td><td>+3%</td><td>-6.6%</td><td class="negative">悪化</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap">
+<div style="flex:1;min-width:200px;padding:14px;background:rgba(248,81,73,0.05);border-radius:8px;text-align:center">
+<div style="font-size:0.82em;color:var(--text-sub)">トレンド</div>
+<div style="font-size:1.3em;font-weight:700;color:var(--red);margin-top:4px">悪化 ↓</div>
+</div>
+<div style="flex:1;min-width:200px;padding:14px;background:rgba(88,166,255,0.05);border-radius:8px;text-align:center">
+<div style="font-size:0.82em;color:var(--text-sub)">前回スコア → 今回スコア</div>
+<div style="font-size:1.3em;font-weight:700;color:var(--blue);margin-top:4px">3 ⏸️ → 2 📉</div>
+</div>
+</div>
+<div style="margin-top:12px;padding:14px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong>変化の主要因:</strong> AI投資の急増（CapEx RMB 25.4B）、Sun Art/Intime処分損による利益圧迫、eコマースでのPDD・ByteDance/Douyin ECとの競争激化。一方、クラウド+36%成長は前期+7%から大幅加速しており、AI戦略の成果が一部顕在化。
+</div>
+</div>
+</div>
+
+<!-- 14. Valuation -->
+<div class="section" id="sec-valuation" data-accordion>
+<div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div>
+<div class="section-body">
+<div class="val-cards">
+<div class="val-card low">
+<h4>LOW（保守的）</h4>
+<div class="val-price">$67.50</div>
+<div class="val-detail">EPS $7.50 × PER 9x</div>
+<div class="val-detail">乖離率: <span class="negative">-46.2%</span></div>
+</div>
+<div class="val-card mid">
+<h4>MID（基本）</h4>
+<div class="val-price">$113.75</div>
+<div class="val-detail">EPS $8.75 × PER 13x</div>
+<div class="val-detail">乖離率: <span class="negative">-9.4%</span></div>
+</div>
+<div class="val-card high">
+<h4>HIGH（楽観的）</h4>
+<div class="val-price">$189.00</div>
+<div class="val-detail">EPS $10.50 × PER 18x</div>
+<div class="val-detail">乖離率: <span class="positive">+50.5%</span></div>
+</div>
+</div>
+<div class="val-gap">
+<div class="gap-label">MID想定株価 vs 現在株価（$125.61）</div>
+<div class="gap-value neutral">-9.4%（適正）</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong>アナリスト平均目標株価:</strong> $197.86 ｜ <strong>判定:</strong> <span class="tag tag-blue">適正</span><br>
+MID想定株価$113.75は現在株価$125.61を-9.4%下回り、乖離率-10%〜+10%の「適正」圏内。Forward PER 13.7xは中国テック大手としては割安水準だが、AI投資による利益圧迫が2〜3年続く可能性があり、短期的なEPS回復は不透明。クラウド+36%成長が持続し、AI投資のROIが見えてくれば、HIGHシナリオ（$189.00）への再評価余地あり。
+</div>
+</div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別売上構成</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+<li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏛️</span><span class="toc-label">企業概要</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメント</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Chart.js ===
+var chartFont = {family:"'Noto Sans JP',sans-serif",size:11};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.font = chartFont;
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+type:'bar',
+data:{
+labels:['FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3'],
+datasets:[{
+label:'売上高(RMB B)',
+data:[243.2,236.5,280.2,236.5,247.7,247.8,284.8],
+backgroundColor:['rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(248,81,73,0.7)'],
+borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#f85149'],
+borderWidth:1,
+borderRadius:4
+}]
+},
+options:{
+responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{
+y:{beginAtZero:false,min:220,grid:{color:'rgba(48,54,61,0.3)'}},
+x:{grid:{display:false}}
+}
+}
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+type:'bar',
+data:{
+labels:['FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3'],
+datasets:[{
+label:'EPS/ADS(USD)',
+data:[9.92,18.16,20.40,5.20,18.00,8.72,0.74],
+backgroundColor:['rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(248,81,73,0.7)'],
+borderColor:['#bc8cff','#bc8cff','#bc8cff','#bc8cff','#bc8cff','#bc8cff','#f85149'],
+borderWidth:1,
+borderRadius:4
+}]
+},
+options:{
+responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{
+y:{beginAtZero:true,grid:{color:'rgba(48,54,61,0.3)'}},
+x:{grid:{display:false}}
+}
+}
+});
+
+// === Accordion ===
+var touchStartY=0;var touchStartX=0;var touchStartTime=0;
+function toggleAccordion(sec){
+if(!sec)return;
+var isCollapsed=sec.classList.contains('collapsed');
+if(isCollapsed){
+sec.classList.remove('collapsed');
+sec.classList.add('collapsing');
+var body=sec.querySelector('.section-body');
+var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+body.addEventListener('transitionend',onEnd);
+setTimeout(function(){sec.classList.remove('collapsing');},400);
+}else{
+sec.classList.add('collapsing','collapsed');
+var body2=sec.querySelector('.section-body');
+var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+body2.addEventListener('transitionend',onEnd2);
+setTimeout(function(){sec.classList.remove('collapsing');},400);
+}
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+title.addEventListener('touchend',function(e){
+var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);var dt=Date.now()-touchStartTime;
+if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+});
+title.addEventListener('click',function(e){
+if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+});
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+
+// === TOC ===
+function toggleToc(){
+var menu=document.getElementById('tocMenu');var btn=document.getElementById('tocToggle');
+menu.classList.toggle('open');btn.classList.toggle('open');
+btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+var sec=document.getElementById(id);
+if(sec){
+sec.classList.remove('collapsed');
+toggleToc();
+setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);
+}
+}
+function toggleAllSections(expand){
+document.querySelectorAll('[data-accordion]').forEach(function(sec){
+if(expand)sec.classList.remove('collapsed');
+else sec.classList.add('collapsed');
+});
+}
+</script>
+</body>
+</html>

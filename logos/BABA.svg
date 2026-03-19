@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <!-- Orange circle background -->
+  <circle cx="100" cy="100" r="96" fill="#FF6A00"/>
+  <!-- Alibaba 'a' symbol: counter (hole in the a) -->
+  <path d="
+    M 108 88
+    C 104 82, 92 80, 84 86
+    C 76 92, 76 104, 84 110
+    C 92 116, 104 112, 108 106
+    Z
+  " fill="#FF6A00"/>
+  <!-- Alibaba 'a' symbol: outer shape -->
+  <path d="
+    M 108 66
+    C 108 66, 70 60, 58 82
+    C 48 100, 52 120, 68 128
+    C 84 136, 108 130, 108 130
+    L 108 66 Z
+  " fill="#FFFFFF" fill-rule="evenodd"/>
+  <!-- Counter cutout (hole) -->
+  <path d="
+    M 108 90
+    C 104 84, 92 82, 85 88
+    C 78 94, 78 106, 85 112
+    C 92 118, 104 114, 108 108
+    Z
+  " fill="#FF6A00"/>
+  <!-- Vertical stem of 'a' -->
+  <rect x="103" y="62" width="11" height="76" rx="5" fill="#FFFFFF"/>
+  <!-- Smile curve -->
+  <path d="M 56 140 Q 100 164, 144 140" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+</svg>
