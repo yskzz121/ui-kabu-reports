@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FedEx Corporation FY26Q3 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#21262d;--text:#e6edf3;--text-sub:#8b949e;--green:#2ea043;--red:#f85149;--blue:#58a6ff;--yellow:#d29922;--purple:#bc8cff;--orange:#f0883e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:20px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;border-radius:16px 16px 0 0}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin:24px 0}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-desc{color:var(--text-sub);margin-top:4px;font-size:0.95em}
+.score-rationale{margin-top:16px;padding:16px;background:rgba(88,166,255,0.05);border-radius:8px;text-align:left;max-width:700px;margin-left:auto;margin-right:auto;font-size:0.9em;color:var(--text-sub)}
+
+/* Section */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin:16px 0}
+.section-title{font-size:1.2em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.2em}
+
+/* Metrics Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.metric-label{font-size:0.78em;color:var(--text-sub);margin-bottom:6px}
+.metric-value{font-size:1.4em;font-weight:700}
+.metric-change{font-size:0.8em;margin-top:4px}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--text-sub)}
+
+/* Charts */
+.chart-container{position:relative;height:320px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:0.88em}
+.tbl th{background:rgba(88,166,255,0.08);padding:10px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid rgba(33,38,45,0.5)}
+.tbl tr:hover{background:rgba(255,255,255,0.02)}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.card h4{font-size:0.95em;margin-bottom:8px;color:var(--blue)}
+.card p,.card li{font-size:0.88em;color:var(--text-sub);line-height:1.6}
+.card ul{padding-left:16px}
+
+/* Two Column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Valuation */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,0.1),rgba(46,160,67,0.03));border-color:rgba(46,160,67,0.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,0.1),rgba(88,166,255,0.03));border-color:rgba(88,166,255,0.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(188,140,255,0.1),rgba(188,140,255,0.03));border-color:rgba(188,140,255,0.3)}
+.val-card h4{font-size:0.9em;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.val-card .val-price{font-size:2.2em;font-weight:900;margin:8px 0}
+.val-card .val-detail{font-size:0.82em;color:var(--text-sub);margin-top:4px}
+.val-card.low h4,.val-card.low .val-price{color:var(--green)}
+.val-card.mid h4,.val-card.mid .val-price{color:var(--blue)}
+.val-card.high h4,.val-card.high .val-price{color:var(--purple)}
+.val-gap{text-align:center;margin-top:20px;padding:16px;background:rgba(88,166,255,0.05);border-radius:10px}
+.val-gap .gap-value{font-size:1.8em;font-weight:900}
+.val-gap .gap-label{font-size:0.9em;color:var(--text-sub)}
+
+/* Risk/Catalyst */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rc-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.rc-card h4{font-size:1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.rc-card li{font-size:0.88em;color:var(--text-sub);line-height:1.8;margin-left:16px}
+
+/* Overview */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.overview-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.overview-card h4{color:var(--blue);font-size:0.95em;margin-bottom:10px}
+.overview-card p,.overview-card li{font-size:0.88em;color:var(--text-sub);line-height:1.7}
+.overview-card ul{padding-left:16px}
+
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tech-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:0.9em;color:var(--blue);margin-bottom:8px}
+.tech-card p{font-size:0.85em;color:var(--text-sub)}
+.tech-verdict{text-align:center;padding:20px;margin-top:16px;background:rgba(88,166,255,0.06);border-radius:10px;border:1px solid rgba(88,166,255,0.15)}
+.tech-verdict .verdict-label{font-size:1.3em;font-weight:700}
+
+/* Quote */
+.quote{border-left:3px solid var(--blue);padding:12px 16px;margin:12px 0;background:rgba(88,166,255,0.04);border-radius:0 8px 8px 0;font-size:0.9em;color:var(--text-sub);font-style:italic}
+.quote-author{font-style:normal;font-weight:600;color:var(--text);margin-top:4px;font-size:0.85em}
+
+/* Compare */
+.compare-table{width:100%;border-collapse:collapse;font-size:0.88em}
+.compare-table th,.compare-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.compare-table th{background:rgba(88,166,255,0.08);font-weight:600}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px auto;text-align:center}
+
+/* Tag */
+.tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:0.78em;font-weight:600}
+.tag-green{background:rgba(46,160,67,0.15);color:var(--green)}
+.tag-red{background:rgba(248,81,73,0.15);color:var(--red)}
+.tag-blue{background:rgba(88,166,255,0.15);color:var(--blue)}
+.tag-yellow{background:rgba(210,153,34,0.15);color:var(--yellow)}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+.toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+.toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+.toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.toc-list{list-style:none;padding:8px 0;margin:0}
+.toc-list li{border-bottom:1px solid #21262d}
+.toc-list li:last-child{border-bottom:none}
+.toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+.toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+.toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+.toc-list .toc-label{flex:1}
+.toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+.toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+.toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+body{padding:12px!important}
+.container{padding:12px}
+.header{padding:28px 16px}
+.header h1{font-size:1.4rem}
+.header .subtitle{font-size:.95em}
+.header-logo-row{flex-direction:column;gap:8px}
+.report-header-logo{height:36px}
+.ticker-badge{font-size:12px;padding:4px 12px}
+.grid,.metrics-grid{grid-template-columns:1fr 1fr}
+.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+.chart-wrap,.chart-container{height:250px}
+.section{padding:20px 16px}
+.card-grid{grid-template-columns:1fr 1fr}
+.two-col{grid-template-columns:1fr}
+.rc-grid{grid-template-columns:1fr}
+.saas-grid{grid-template-columns:1fr 1fr}
+.metrics-grid{grid-template-columns:1fr 1fr!important}
+.chart-row{grid-template-columns:1fr!important}
+.overview-grid{grid-template-columns:1fr!important}
+.tech-grid{grid-template-columns:1fr!important}
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.compare-table,.tech-table,.tbl{font-size:.78rem}
+.portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+.header h1{font-size:1.2rem}
+.score-big{font-size:3.5em}
+.score-label{font-size:1.2em}
+.section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+<div class="header-content">
+<div class="header-logo-row">
+<img class="report-header-logo" src="../logos/FDX.svg" alt="FDX">
+<div class="ticker-badge">NYSE: FDX</div>
+</div>
+<h1>FedEx Corporation 決算分析</h1>
+<div class="subtitle">FY26Q3（2025年12月〜2026年2月）</div>
+<div class="date">発表日: 2026年3月19日 ｜ レポート作成: 2026年3月20日</div>
+</div>
+</div>
+
+<!-- 1. Score -->
+<div class="score-section">
+<div class="score-big">5</div>
+<div class="score-label">🚀 素晴らしい決算</div>
+<div class="score-desc">売上・EPSともに大幅ビート + ガイダンス上方修正 + 成長加速</div>
+<div class="score-rationale">
+<strong>判定根拠:</strong> Non-GAAP EPS $5.25はコンセンサス$4.13を+27%上回る大幅ビート。売上高$24.0Bもコンセンサス$23.46Bを+2.3%上回った。FY2026通期ガイダンスはEPS $19.30〜$20.10へ上方修正（旧$17.80〜$19.00）。DRIVE変革プログラムの累計$40億コスト削減効果が顕在化し、Network 2.0統合も順調に進展。ホリデーシーズンの荷量増と利回り改善が追い風となり、売上YoY成長率も+6.8%→+8.1%へ加速。
+</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+<div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">売上高</div>
+<div class="metric-value">$24.0B</div>
+<div class="metric-change positive">+8.1% YoY / +2.1% QoQ</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP EPS</div>
+<div class="metric-value">$5.25</div>
+<div class="metric-change positive">+16.4% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">GAAP EPS</div>
+<div class="metric-value">$4.41</div>
+<div class="metric-change positive">+17.3% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">売上ビート</div>
+<div class="metric-value">+$540M</div>
+<div class="metric-change positive">+2.3% vs コンセンサス</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">EPSビート</div>
+<div class="metric-value">+$1.12</div>
+<div class="metric-change positive">+27% vs コンセンサス</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FY26ガイダンスEPS</div>
+<div class="metric-value">$19.30-$20.10</div>
+<div class="metric-change positive">上方修正</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">株価（時間外）</div>
+<div class="metric-value">$356.11</div>
+<div class="metric-change positive">時間外 +8%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">時価総額</div>
+<div class="metric-value">$83.7B</div>
+<div class="metric-change neutral">Forward PER 18.0x</div>
+</div>
+</div>
+</div>
+
+<!-- 3. Revenue / EPS 7Q Charts -->
+<div class="section" id="sec-revenue" data-accordion>
+<div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+<div class="section-body">
+<div class="chart-row">
+<div>
+<h4 style="text-align:center;color:var(--text-sub);margin-bottom:8px;font-size:0.9em">売上高（$B）</h4>
+<div class="chart-container"><canvas id="revenueChart"></canvas></div>
+</div>
+<div>
+<h4 style="text-align:center;color:var(--text-sub);margin-bottom:8px;font-size:0.9em">Non-GAAP EPS（$）</h4>
+<div class="chart-container"><canvas id="epsChart"></canvas></div>
+</div>
+</div>
+<table class="tbl" style="margin-top:20px">
+<thead><tr><th>四半期</th><th>売上高</th><th>YoY</th><th>Non-GAAP EPS</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>FY25Q1</td><td>$21.6B</td><td>—</td><td>$3.60</td><td>—</td></tr>
+<tr><td>FY25Q2</td><td>$22.0B</td><td>—</td><td>$4.05</td><td>—</td></tr>
+<tr><td>FY25Q3</td><td>$22.2B</td><td>—</td><td>$4.51</td><td>—</td></tr>
+<tr><td>FY25Q4</td><td>$22.2B</td><td>—</td><td>$6.07</td><td>—</td></tr>
+<tr><td>FY26Q1</td><td>$22.2B</td><td>+2.8%</td><td>$3.83</td><td>+6.4%</td></tr>
+<tr><td>FY26Q2</td><td>$23.5B</td><td>+6.8%</td><td>$4.82</td><td>+19.0%</td></tr>
+<tr style="font-weight:700;background:rgba(88,166,255,0.05)"><td>FY26Q3</td><td>$24.0B</td><td>+8.1%</td><td>$5.25</td><td>+16.4%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 4. Margin Trends -->
+<div class="section" id="sec-margin" data-accordion>
+<div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+<div class="section-body">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">GAAP営業利益率（EBIT）</div>
+<div class="metric-value positive">7.1%</div>
+<div class="metric-change neutral">EBIT Margin</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Non-GAAP営業利益率</div>
+<div class="metric-value positive">7.0%</div>
+<div class="metric-change neutral">$1.68B / $24.0B</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">EBITDAマージン</div>
+<div class="metric-value positive">11.4%</div>
+<div class="metric-change neutral">$2.74B / $24.0B</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">粗利益率</div>
+<div class="metric-value neutral">非開示</div>
+<div class="metric-change neutral">輸送業の特性上</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(46,160,67,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--green)">DRIVE変革プログラム:</strong> FY2023対比で累計$40億の構造的コスト削減を達成。FY2026はNetwork 2.0でさらに$10億超の追加削減見通し。利益率は改善トレンドが継続。
+</div>
+</div>
+</div>
+
+<!-- 5. Consensus -->
+<div class="section" id="sec-consensus" data-accordion>
+<div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+<div class="section-body">
+<table class="tbl">
+<thead><tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>ビート率</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$23.46B</td><td>$24.0B</td><td class="positive">+$540M</td><td class="positive">+2.3%</td></tr>
+<tr><td>Non-GAAP EPS</td><td>$4.13</td><td>$5.25</td><td class="positive">+$1.12</td><td class="positive">+27.0%</td></tr>
+</tbody>
+</table>
+<div style="margin-top:20px">
+<h4 style="color:var(--blue);font-size:0.95em;margin-bottom:12px">ガイダンス比較</h4>
+<table class="tbl">
+<thead><tr><th>指標</th><th>旧ガイダンス</th><th>新ガイダンス</th><th>コンセンサス</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>FY2026 EPS</td><td>$17.80〜$19.00</td><td>$19.30〜$20.10</td><td>$18.71</td><td class="positive"><span class="tag tag-green">大幅上方修正</span></td></tr>
+<tr><td>FY2026 売上成長率</td><td>—</td><td>+6.0〜6.5%</td><td>+5.6%</td><td class="positive"><span class="tag tag-green">コンセンサス超</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 6. Cash Flow -->
+<div class="section" id="sec-cashflow" data-accordion>
+<div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+<div class="section-body">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">営業CF（推定）</div>
+<div class="metric-value positive">$1,925M</div>
+<div class="metric-change neutral">逆算推定値</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">設備投資（CapEx）</div>
+<div class="metric-value">$757M</div>
+<div class="metric-change neutral">FY26通期 $4.1B以下</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">フリーキャッシュフロー</div>
+<div class="metric-value positive">$1,168M</div>
+<div class="metric-change positive">堅調</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">PER</div>
+<div class="metric-value">20.4x / 18.0x</div>
+<div class="metric-change neutral">Trailing / Forward</div>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(88,166,255,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+FY2026の設備投資は$4.1B以下に削減予定。Network 2.0統合による拠点集約（475+拠点閉鎖中）でCapEx効率の改善が進行中。
+</div>
+</div>
+</div>
+
+<!-- 7. Segment -->
+<div class="section" id="sec-segment" data-accordion>
+<div class="section-title"><span class="section-icon">🏢</span> セグメント別売上構成</div>
+<div class="section-body">
+<table class="tbl">
+<thead><tr><th>セグメント</th><th>売上高</th><th>構成比</th><th>YoY</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td><strong>Federal Express</strong></td><td>$20.7B</td><td>86%</td><td class="positive">+7.8%</td><td>米国内荷量増・利回り改善・DRIVE効果</td></tr>
+<tr><td><strong>FedEx Freight</strong></td><td>$2.0B</td><td>8%</td><td class="negative">約-3%</td><td>スピンオフ費用増・荷量減</td></tr>
+<tr><td><strong>その他/消去</strong></td><td>$1.3B</td><td>6%</td><td class="neutral">—</td><td>—</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;padding:14px;background:rgba(210,153,34,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--yellow)">FedEx Freightスピンオフ:</strong> 2026年6月1日に独立会社として分離予定（ティッカー: FXDF）。$37億のシニア債を発行済み。4月8日に投資家説明会を開催予定。
+</div>
+</div>
+</div>
+
+<!-- 8. Geo -->
+<div class="section" id="sec-geo" data-accordion>
+<div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+<div class="section-body">
+<div class="metrics-grid" style="grid-template-columns:repeat(2,1fr)">
+<div class="metric-card">
+<div class="metric-label">米国</div>
+<div class="metric-value">71.6%</div>
+<div class="metric-change neutral">約$17.2B</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">米国外</div>
+<div class="metric-value">28.4%</div>
+<div class="metric-change neutral">約$6.8B</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 9. Overview -->
+<div class="section" id="sec-overview" data-accordion>
+<div class="section-title"><span class="section-icon">🏛️</span> 企業概要</div>
+<div class="section-body">
+<div class="overview-grid">
+<div class="overview-card">
+<h4>基本情報</h4>
+<ul>
+<li>設立: 1971年</li>
+<li>本社: テネシー州メンフィス</li>
+<li>CEO: Raj Subramaniam</li>
+<li>従業員: 約44万人</li>
+<li>事業: 輸送・eコマース・ビジネスサービス</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>主要サービス</h4>
+<ul>
+<li>FedEx Express: 国際・国内航空急送</li>
+<li>FedEx Ground: 国内陸上小包</li>
+<li>FedEx Freight: LTL混載貨物</li>
+<li>FedEx Services: テクノロジー・情報</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>競合環境</h4>
+<ul>
+<li>UPS、USPS、Amazon Logistics、DHL、XPO Logistics</li>
+<li>米国パーセル取扱量: 4位（36億個、+5.9%成長）</li>
+<li>Amazon Logisticsが取扱量首位</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>市場・技術トレンド</h4>
+<ul>
+<li>eコマース物流市場: $5,820億（2025年）、CAGR 20%超</li>
+<li>AI/技術: デジタルツイン、予知保全</li>
+<li>Dexterityロボティクス、ドローン配送テスト</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 10. Technical Analysis -->
+<div class="section" id="sec-technical" data-accordion>
+<div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+<div class="section-body">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+{
+  "autosize": false,
+  "width": 1100,
+  "height": 750,
+  "symbol": "NYSE:FDX",
+  "interval": "D",
+  "timezone": "Asia/Tokyo",
+  "theme": "dark",
+  "style": "1",
+  "locale": "ja",
+  "backgroundColor": "rgba(13, 17, 23, 1)",
+  "gridColor": "rgba(48, 54, 61, 0.3)",
+  "range": "6M",
+  "hide_top_toolbar": false,
+  "hide_legend": false,
+  "allow_symbol_change": false,
+  "save_image": true,
+  "calendar": false,
+  "hide_volume_indicator": false,
+  "withdateranges": true,
+  "support_host": "https://www.tradingview.com",
+  "studies": [
+    "MASimple@tv-basicstudies",
+    "MAExp@tv-basicstudies"
+  ],
+  "studies_overrides": {
+    "moving average.length": 50,
+    "moving average exponential.length": 200
+  }
+}
+</script>
+</div>
+
+<div class="tech-grid" style="margin-top:20px">
+<div class="tech-card">
+<h4>移動平均線</h4>
+<p>50日SMA: $349.36（株価が上抜け）<br>
+200日SMA: $289.48（+23%乖離）<br>
+ゴールデンクロス継続中</p>
+</div>
+<div class="tech-card">
+<h4>RSI / MACD</h4>
+<p>RSI（14日）: 55〜67（決算後70接近見込み）<br>
+MACD: やや弱含みから改善転換<br>
+中立〜強気ゾーン</p>
+</div>
+<div class="tech-card">
+<h4>サポート / レジスタンス</h4>
+<p>サポート: $370 → $350（50日SMA）→ $290（200日SMA）<br>
+レジスタンス: $387 → $393（ATH）→ $400〜410</p>
+</div>
+<div class="tech-card">
+<h4>チャートパターン</h4>
+<p>フラッグブレイクアウト・上昇チャネル継続<br>
+ボリンジャーバンド: スクイーズ→エクスパンション転換<br>
+フィボナッチ: 23.6%リトレースメント上方維持</p>
+</div>
+</div>
+
+<div class="tech-verdict">
+<div class="verdict-label positive">強気（Bullish）</div>
+<p style="color:var(--text-sub);font-size:0.88em;margin-top:8px">メインシナリオ（60%）: ATH $392.86更新 → $400〜410へ</p>
+</div>
+</div>
+</div>
+
+<!-- 11. Management Comments -->
+<div class="section" id="sec-mgmt" data-accordion>
+<div class="section-title"><span class="section-icon">💬</span> 経営陣コメントハイライト</div>
+<div class="section-body">
+<div class="quote">
+「Team FedExは、規律ある業務遂行、グローバルネットワークの回復力、そしてデジタルソリューションの加速的な効果により、再び力強い業績を達成しました」
+<div class="quote-author">— CEO Raj Subramaniam</div>
+</div>
+<div class="card-grid" style="margin-top:16px">
+<div class="card">
+<h4>DRIVE変革プログラム</h4>
+<p>FY2023対比で累計$40億の構造的コスト削減を達成。FY2026はNetwork 2.0で$10億超の追加削減見通し。</p>
+</div>
+<div class="card">
+<h4>Network 2.0</h4>
+<p>Express + Ground統合を推進。475+拠点閉鎖中。2026年ピークシーズンまでに対象取扱量の65%到達見込み。</p>
+</div>
+<div class="card">
+<h4>FedEx Freightスピンオフ</h4>
+<p>2026年6月1日予定、ティッカーFXDF。$37億シニア債発行済み。4月8日に投資家説明会を開催。</p>
+</div>
+</div>
+<div class="card-grid" style="margin-top:12px">
+<div class="card">
+<h4>ホリデーシーズン</h4>
+<p>「例外的なホリデーシーズン」が好業績に大きく寄与。米国内荷量が大幅増加。</p>
+</div>
+<div class="card">
+<h4>関税対応</h4>
+<p>FedExはIEEPA関税の全額返還を求め米政府を提訴中。直接コスト約$3億の影響を見込む。</p>
+</div>
+<div class="card">
+<h4>GRI値上げ</h4>
+<p>5.9%の一般料金引上げ（GRI）を実施。インフレ率の約2倍の値上げ幅で利回り改善に貢献。</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 12. Risk / Catalyst -->
+<div class="section" id="sec-risk" data-accordion>
+<div class="section-title"><span class="section-icon">⚠️</span> リスク・カタリスト</div>
+<div class="section-body">
+<div class="rc-grid">
+<div class="rc-card">
+<h4><span style="color:var(--red)">⚠️</span> リスク要因</h4>
+<ul>
+<li>関税・貿易政策の不確実性（直接コスト約$3億、間接影響最大$1B）</li>
+<li>Amazon Logisticsの拡大（取扱量首位、FedExは4位）</li>
+<li>FedEx Freight業績軟化（YoY -3%、スピンオフ費用増）</li>
+<li>Freightスピンオフ実行リスク（一時コスト・オペレーション混乱）</li>
+<li>バリュエーション割高感（Forward PER 18xは過去中央値16x超）</li>
+<li>マクロ景気減速リスク（シクリカル銘柄）</li>
+</ul>
+</div>
+<div class="rc-card">
+<h4><span style="color:var(--green)">🚀</span> カタリスト</h4>
+<ul>
+<li>Freightスピンオフ（6月1日予定）— バリューアンロック</li>
+<li>DRIVE + Network 2.0 — 累計$40億+追加$10億削減</li>
+<li>eコマース物流市場拡大（CAGR 20%超）</li>
+<li>GRI値上げ継続（5.9%、インフレの約2倍）</li>
+<li>ガイダンス上方修正のモメンタム</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 13. Compare -->
+<div class="section" id="sec-compare" data-accordion>
+<div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+<div class="section-body">
+<table class="compare-table">
+<thead><tr><th>指標</th><th>FY26Q2</th><th>FY26Q3</th><th>変化</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$23.5B</td><td>$24.0B</td><td class="positive">+2.1% QoQ</td></tr>
+<tr><td>Non-GAAP EPS</td><td>$4.82</td><td>$5.25</td><td class="positive">+8.9% QoQ</td></tr>
+<tr><td>売上YoY成長率</td><td>+6.8%</td><td>+8.1%</td><td class="positive">加速</td></tr>
+<tr><td>FY26ガイダンスEPS</td><td>$17.80〜$19.00</td><td>$19.30〜$20.10</td><td class="positive">大幅引上げ</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;display:flex;gap:16px;flex-wrap:wrap">
+<div style="flex:1;min-width:200px;padding:14px;background:rgba(46,160,67,0.05);border-radius:8px;text-align:center">
+<div style="font-size:0.82em;color:var(--text-sub)">トレンド</div>
+<div style="font-size:1.3em;font-weight:700;color:var(--green);margin-top:4px">改善 ↑</div>
+</div>
+<div style="flex:1;min-width:200px;padding:14px;background:rgba(88,166,255,0.05);border-radius:8px;text-align:center">
+<div style="font-size:0.82em;color:var(--text-sub)">前回スコア → 今回スコア</div>
+<div style="font-size:1.3em;font-weight:700;color:var(--blue);margin-top:4px">DB未登録 → 5 🚀</div>
+</div>
+</div>
+<div style="margin-top:12px;padding:14px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong>変化の主要因:</strong> ホリデーシーズン好調による荷量増、DRIVE施策の効果拡大（累計$40億削減達成）、GRI値上げ（5.9%）による利回り改善。ガイダンス大幅上方修正が好感。
+</div>
+</div>
+</div>
+
+<!-- 14. Valuation -->
+<div class="section" id="sec-valuation" data-accordion>
+<div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div>
+<div class="section-body">
+<div class="val-cards">
+<div class="val-card low">
+<h4>LOW（保守的）</h4>
+<div class="val-price">$231.60</div>
+<div class="val-detail">EPS $19.30 × PER 12x</div>
+<div class="val-detail">乖離率: <span class="negative">-34.9%</span></div>
+</div>
+<div class="val-card mid">
+<h4>MID（基本）</h4>
+<div class="val-price">$315.20</div>
+<div class="val-detail">EPS $19.70 × PER 16x</div>
+<div class="val-detail">乖離率: <span class="negative">-11.5%</span></div>
+</div>
+<div class="val-card high">
+<h4>HIGH（楽観的）</h4>
+<div class="val-price">$442.20</div>
+<div class="val-detail">EPS $20.10 × PER 22x</div>
+<div class="val-detail">乖離率: <span class="positive">+24.2%</span></div>
+</div>
+</div>
+<div class="val-gap">
+<div class="gap-label">MID想定株価 vs 現在株価</div>
+<div class="gap-value negative">-11.5%（やや割高）</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong>アナリスト平均目標株価:</strong> $376 ｜ <strong>判定:</strong> <span class="tag tag-yellow">やや割高</span><br>
+MID想定株価$315.20は現在株価$356.11を-11.5%下回る。Forward PER 18.0xは過去中央値16xを上回るが、Freightスピンオフによるバリューアンロックと成長加速を考慮すると、中長期では妥当水準の可能性あり。
+</div>
+</div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- Portal Link + Favicon -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別売上構成</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+<li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏛️</span><span class="toc-label">企業概要</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメント</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Chart.js ===
+var chartFont = {family:"'Noto Sans JP',sans-serif",size:11};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.font = chartFont;
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+type:'bar',
+data:{
+labels:['FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3'],
+datasets:[{
+label:'売上高($B)',
+data:[21.6,22.0,22.2,22.2,22.2,23.5,24.0],
+backgroundColor:['rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(46,160,67,0.7)'],
+borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#2ea043'],
+borderWidth:1,
+borderRadius:4
+}]
+},
+options:{
+responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{
+y:{beginAtZero:false,min:20,grid:{color:'rgba(48,54,61,0.3)'}},
+x:{grid:{display:false}}
+}
+}
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+type:'bar',
+data:{
+labels:['FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3'],
+datasets:[{
+label:'Non-GAAP EPS($)',
+data:[3.60,4.05,4.51,6.07,3.83,4.82,5.25],
+backgroundColor:['rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(188,140,255,0.5)','rgba(46,160,67,0.7)'],
+borderColor:['#bc8cff','#bc8cff','#bc8cff','#bc8cff','#bc8cff','#bc8cff','#2ea043'],
+borderWidth:1,
+borderRadius:4
+}]
+},
+options:{
+responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{
+y:{beginAtZero:false,min:2.5,grid:{color:'rgba(48,54,61,0.3)'}},
+x:{grid:{display:false}}
+}
+}
+});
+
+// === Accordion ===
+var touchStartY=0;var touchStartX=0;var touchStartTime=0;
+function toggleAccordion(sec){
+if(!sec)return;
+var isCollapsed=sec.classList.contains('collapsed');
+if(isCollapsed){
+sec.classList.remove('collapsed');
+sec.classList.add('collapsing');
+var body=sec.querySelector('.section-body');
+var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+body.addEventListener('transitionend',onEnd);
+setTimeout(function(){sec.classList.remove('collapsing');},400);
+}else{
+sec.classList.add('collapsing','collapsed');
+var body2=sec.querySelector('.section-body');
+var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+body2.addEventListener('transitionend',onEnd2);
+setTimeout(function(){sec.classList.remove('collapsing');},400);
+}
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+title.addEventListener('touchend',function(e){
+var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);var dt=Date.now()-touchStartTime;
+if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+});
+title.addEventListener('click',function(e){
+if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+});
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+
+// === TOC ===
+function toggleToc(){
+var menu=document.getElementById('tocMenu');var btn=document.getElementById('tocToggle');
+menu.classList.toggle('open');btn.classList.toggle('open');
+btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+var sec=document.getElementById(id);
+if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+document.querySelectorAll('[data-accordion]').forEach(function(sec){
+if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+});
+}
+</script>
+</body>
+</html>
