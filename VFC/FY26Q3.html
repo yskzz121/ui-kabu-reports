@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VFC Q3 FY2026 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --bg:#0d1117;
+  --card:#161b22;
+  --border:#21262d;
+  --border2:#30363d;
+  --text:#e6edf3;
+  --text-sub:#8b949e;
+  --green:#2ea043;
+  --green-bg:rgba(46,160,67,0.15);
+  --red:#f85149;
+  --red-bg:rgba(248,81,73,0.15);
+  --blue:#58a6ff;
+  --blue-bg:rgba(88,166,255,0.15);
+  --yellow:#d29922;
+  --yellow-bg:rgba(210,153,34,0.15);
+  --purple:#bc8cff;
+  --purple-bg:rgba(188,140,255,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:20px}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;border-radius:16px 16px 0 0;margin-bottom:0}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Sections */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin-bottom:16px}
+.section-title{font-size:1.3em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-icon{font-size:1.2em}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-sub{color:var(--text-sub);margin-top:12px;font-size:0.95em;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.8}
+
+/* Cards / Grids */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.metric-label{font-size:0.78em;color:var(--text-sub);margin-bottom:6px}
+.metric-value{font-size:1.4em;font-weight:700}
+.metric-sub{font-size:0.75em;color:var(--text-sub);margin-top:4px}
+.beat{color:var(--green)}
+.miss{color:var(--red)}
+.neutral{color:var(--yellow)}
+
+/* Chart */
+.chart-container{position:relative;height:350px;margin:20px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:0.88em}
+.tbl th,.tbl td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left}
+.tbl th{color:var(--text-sub);font-weight:500;font-size:0.82em;text-transform:uppercase;letter-spacing:0.5px}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .right{text-align:right}
+
+/* Two column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Risk / Catalyst */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rc-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px}
+.rc-card h4{font-size:0.95em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.rc-card ul{list-style:none;padding:0}
+.rc-card li{padding:6px 0;border-bottom:1px solid var(--border);font-size:0.88em;line-height:1.6}
+.rc-card li:last-child{border-bottom:none}
+.rc-card li::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:10px;vertical-align:middle}
+.risk-item::before{background:var(--red)}
+.catalyst-item::before{background:var(--green)}
+
+/* Valuation */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:rgba(46,160,67,0.08);border-color:rgba(46,160,67,0.3)}
+.val-card.mid{background:rgba(88,166,255,0.08);border-color:rgba(88,166,255,0.3)}
+.val-card.high{background:rgba(188,140,255,0.08);border-color:rgba(188,140,255,0.3)}
+.val-card .val-scenario{font-size:0.82em;color:var(--text-sub);font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.val-card .val-price{font-size:2.2em;font-weight:900}
+.val-card.low .val-price{color:var(--green)}
+.val-card.mid .val-price{color:var(--blue)}
+.val-card.high .val-price{color:var(--purple)}
+.val-card .val-detail{font-size:0.82em;color:var(--text-sub);margin-top:8px;line-height:1.6}
+.val-judge{text-align:center;margin-top:20px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.val-judge-label{font-size:0.85em;color:var(--text-sub)}
+.val-judge-value{font-size:1.3em;font-weight:700;margin-top:4px}
+
+/* Overview grid */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.overview-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.overview-card h4{font-size:0.9em;color:var(--text-sub);margin-bottom:10px;font-weight:500}
+.overview-card p,.overview-card li{font-size:0.88em;line-height:1.7}
+.overview-card ul{list-style:none;padding:0}
+.overview-card li{padding:3px 0}
+
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:0.88em;color:var(--text-sub);margin-bottom:10px}
+.tech-item{display:flex;justify-content:space-between;padding:5px 0;font-size:0.85em;border-bottom:1px solid var(--border)}
+.tech-item:last-child{border-bottom:none}
+.tech-signal{text-align:center;padding:20px;background:var(--bg);border:1px solid var(--border);border-radius:10px;margin-top:16px}
+.tech-signal-label{font-size:0.85em;color:var(--text-sub)}
+.tech-signal-value{font-size:1.5em;font-weight:900;margin-top:4px}
+
+/* Mgmt quotes */
+.quote-card{background:var(--bg);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:12px}
+.quote-text{font-size:0.9em;font-style:italic;line-height:1.7;color:var(--text)}
+.quote-author{font-size:0.78em;color:var(--text-sub);margin-top:6px}
+
+/* Compare */
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th,.compare-table td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:0.88em}
+.compare-table th{color:var(--text-sub);font-weight:500;text-align:left}
+.compare-table .right{text-align:right}
+
+/* Segment bar */
+.seg-bar{height:32px;border-radius:8px;overflow:hidden;display:flex;margin:12px 0}
+.seg-bar div{display:flex;align-items:center;justify-content:center;font-size:0.72em;font-weight:600;color:#fff;white-space:nowrap;padding:0 8px}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px auto;display:flex;justify-content:center}
+
+/* Consensus */
+.consensus-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.consensus-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.consensus-card .cc-label{font-size:0.78em;color:var(--text-sub);margin-bottom:4px}
+.consensus-card .cc-value{font-size:1.1em;font-weight:700}
+.consensus-card .cc-detail{font-size:0.75em;color:var(--text-sub);margin-top:4px}
+
+/* Card grid */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+  .consensus-cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .consensus-cards{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/VFC.svg" alt="VFC" onerror="this.src='https://yskzz121.github.io/ui-kabu-reports/logos/VFC.svg'">
+      <div class="ticker-badge">NYSE: VFC</div>
+    </div>
+    <h1>V.F. Corporation 決算分析</h1>
+    <div class="subtitle">Q3 FY2026（2025年10月〜12月期）</div>
+    <div class="date">発表日: 2026年1月28日 ｜ レポート作成: 2026年3月21日</div>
+  </div>
+</div>
+
+<!-- 1. 総合評価スコア -->
+<div class="section score-section">
+  <div class="score-big" style="color:var(--green)">4 📈</div>
+  <div class="score-label" style="color:var(--green)">良い決算</div>
+  <div class="score-sub">売上・EPS共にコンセンサスを大幅ビート（売上+4.2%、EPS+34.9%）。ガイダンスは堅調で、ターンアラウンドの進捗が確認された。The North Faceは+5%成長、Altraは+23%と力強い。一方、Vansの回復は初期段階（-10%）で、調整後EPSは前年比で微減（-4.9%）。</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">売上高</div>
+      <div class="metric-value">$2,875.8M</div>
+      <div class="metric-sub beat">+1.5% YoY（CC +2%）</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">調整後EPS</div>
+      <div class="metric-value">$0.58</div>
+      <div class="metric-sub miss">-4.9% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">売上ビート</div>
+      <div class="metric-value beat">+$116M</div>
+      <div class="metric-sub beat">+4.2% vs コンセンサス</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">EPSビート</div>
+      <div class="metric-value beat">+$0.15</div>
+      <div class="metric-sub beat">+34.9% vs コンセンサス</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">GAAP粗利益率</div>
+      <div class="metric-value">56.62%</div>
+      <div class="metric-sub beat">+33bps YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">調整後営業利益率</div>
+      <div class="metric-value">12.1%</div>
+      <div class="metric-sub beat">+30bps YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">GAAP EPS</div>
+      <div class="metric-value">$0.76</div>
+      <div class="metric-sub beat">+76.7% YoY</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">株価（決算日反応）</div>
+      <div class="metric-value beat">+5.23%</div>
+      <div class="metric-sub">決算発表後上昇</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 売上高 / EPS 7四半期推移 -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div>
+        <h4 style="font-size:0.9em;color:var(--text-sub);margin-bottom:8px;font-weight:500">売上高（$M）</h4>
+        <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div>
+        <h4 style="font-size:0.9em;color:var(--text-sub);margin-bottom:8px;font-weight:500">EPS（$）</h4>
+        <div class="chart-container"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+    <table class="tbl" style="margin-top:20px">
+      <thead><tr><th>四半期</th><th class="right">売上高($M)</th><th class="right">GAAP EPS</th><th class="right">調整後EPS</th></tr></thead>
+      <tbody>
+        <tr><td>Q1 FY2025</td><td class="right">1,769</td><td class="right" style="color:var(--red)">-$0.67</td><td class="right" style="color:var(--red)">-$0.33</td></tr>
+        <tr><td>Q2 FY2025</td><td class="right">2,758</td><td class="right">$0.13</td><td class="right">$0.60</td></tr>
+        <tr><td>Q3 FY2025</td><td class="right">2,834</td><td class="right">$0.43</td><td class="right">$0.62</td></tr>
+        <tr><td>Q4 FY2025</td><td class="right">2,144</td><td class="right" style="color:var(--red)">-$0.38</td><td class="right">~$0.00</td></tr>
+        <tr><td>Q1 FY2026</td><td class="right">1,761</td><td class="right" style="color:var(--red)">-$0.30</td><td class="right" style="color:var(--red)">-$0.24</td></tr>
+        <tr><td>Q2 FY2026</td><td class="right">2,803</td><td class="right">$0.48</td><td class="right">$0.52</td></tr>
+        <tr style="background:rgba(88,166,255,0.08)"><td><strong>Q3 FY2026</strong></td><td class="right"><strong>2,876</strong></td><td class="right" style="color:var(--green)"><strong>$0.76</strong></td><td class="right"><strong>$0.58</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 4. 利益率トレンド -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
+    <div class="metrics-grid" style="margin-bottom:20px">
+      <div class="metric-card">
+        <div class="metric-label">GAAP粗利益率</div>
+        <div class="metric-value">56.62%</div>
+        <div class="metric-sub beat">前年 56.29%（+33bps）</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">調整後粗利益率（ex-Dickies）</div>
+        <div class="metric-value">57.0%</div>
+        <div class="metric-sub beat">+10bps YoY</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">GAAP営業利益率</div>
+        <div class="metric-value">10.05%</div>
+        <div class="metric-sub beat">前年 7.97%（+208bps）</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">調整後営業利益率</div>
+        <div class="metric-value">12.1%</div>
+        <div class="metric-sub beat">前年 11.8%（+30bps）</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="metric-card">
+        <div class="metric-label">推定EBITDAマージン（調整後）</div>
+        <div class="metric-value">~15.7%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">SG&A比率</div>
+        <div class="metric-value">45.5%</div>
+        <div class="metric-sub beat">前年比 -100bps改善</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px">
+      <h4 style="font-size:0.88em;color:var(--text-sub);margin-bottom:8px">特別項目（Q3 FY2026）</h4>
+      <table class="tbl">
+        <tr><td>Dickies売却益</td><td class="right beat">+$139.1M</td></tr>
+        <tr><td>Napapijri減損</td><td class="right miss">-$30.7M</td></tr>
+        <tr><td>年金決済費用</td><td class="right miss">-$34.0M</td></tr>
+        <tr><td>Reinvent変革費用</td><td class="right miss">-$5.1M</td></tr>
+        <tr><td>GAAP EPSへの純影響</td><td class="right">+$0.20/株（Dickies益 - 減損等）</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 5. コンセンサス比較 -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
+    <div class="consensus-cards">
+      <div class="consensus-card">
+        <div class="cc-label">売上高 実績</div>
+        <div class="cc-value">$2,875.8M</div>
+        <div class="cc-detail">コンセンサス $2,760M</div>
+        <div class="cc-value beat" style="font-size:1.3em;margin-top:8px">+$116M（+4.2%）</div>
+      </div>
+      <div class="consensus-card">
+        <div class="cc-label">調整後EPS 実績</div>
+        <div class="cc-value">$0.58</div>
+        <div class="cc-detail">コンセンサス $0.43</div>
+        <div class="cc-value beat" style="font-size:1.3em;margin-top:8px">+$0.15（+34.9%）</div>
+      </div>
+      <div class="consensus-card">
+        <div class="cc-label">ガイダンス vs コンセンサス</div>
+        <div class="cc-value" style="color:var(--yellow)">概ねインライン</div>
+        <div class="cc-detail">やや強気寄り</div>
+      </div>
+    </div>
+    <h4 style="font-size:0.9em;color:var(--text-sub);margin:16px 0 10px">FY2026 ガイダンス</h4>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th class="right">ガイダンス</th></tr></thead>
+      <tbody>
+        <tr><td>Q4売上高成長率（CC）</td><td class="right">横ばい〜+2%</td></tr>
+        <tr><td>Q4調整後営業利益</td><td class="right">$10M〜$30M</td></tr>
+        <tr><td>通期粗利益率</td><td class="right">54.5%以上</td></tr>
+        <tr><td>通期営業利益率</td><td class="right">6.5%以上</td></tr>
+        <tr><td>通期レバレッジ目標</td><td class="right">3.5倍以下（前年4.1倍）</td></tr>
+        <tr><td>FY2026コンセンサスEPS</td><td class="right">$0.84</td></tr>
+        <tr><td>FY2026コンセンサス売上高</td><td class="right">$9.47B</td></tr>
+        <tr><td>FY2027コンセンサスEPS</td><td class="right">$1.07</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 6. キャッシュフロー -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー・財務健全性</div>
+  <div class="section-body">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">9ヶ月累計FCF</div>
+        <div class="metric-value">$513M</div>
+        <div class="metric-sub">前年比横ばい</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">純有利子負債削減（ex-リース）</div>
+        <div class="metric-value beat">~$600M</div>
+        <div class="metric-sub beat">前年比約20%削減</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">純有利子負債削減（リース込）</div>
+        <div class="metric-value beat">~$500M</div>
+        <div class="metric-sub beat">前年比約11%削減</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">四半期配当</div>
+        <div class="metric-value">$0.09/株</div>
+        <div class="metric-sub">年間$0.36</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px">
+      <h4 style="font-size:0.88em;color:var(--text-sub);margin-bottom:8px">レバレッジ改善</h4>
+      <p style="font-size:0.88em;line-height:1.7">FY2025末の4.1倍から、FY2026末には3.5倍以下を目標。Dickies売却（$600M）による債務返済とFCF創出で大幅にデレバレッジ中。Reinvent変革プログラムにより、コスト削減（グロス$300M）も進行。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 部門別売上構成 -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 部門別・ブランド別売上構成</div>
+  <div class="section-body">
+    <h4 style="font-size:0.9em;color:var(--text-sub);margin-bottom:12px">セグメント別売上</h4>
+    <div class="seg-bar">
+      <div style="width:66.8%;background:var(--green)" title="Outdoor">Outdoor $1,872M (66.8%)</div>
+      <div style="width:23.3%;background:var(--blue)" title="Active">Active $654M (23.3%)</div>
+      <div style="width:9.9%;background:var(--yellow)" title="All Other">Other $271M (9.9%)</div>
+    </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>セグメント</th><th class="right">売上高</th><th class="right">営業利益</th><th class="right">備考</th></tr></thead>
+      <tbody>
+        <tr><td>Outdoor</td><td class="right">$1,872.3M</td><td class="right beat">$395.9M</td><td class="right">TNF, Timberland, Smartwool, Icebreaker, Altra</td></tr>
+        <tr><td>Active</td><td class="right">$654.1M</td><td class="right miss">($6.3M)</td><td class="right">Vans（変革初期段階）</td></tr>
+        <tr><td>All Other</td><td class="right">$271.2M</td><td class="right">—</td><td class="right">Dickies（四半期途中売却）</td></tr>
+      </tbody>
+    </table>
+
+    <h4 style="font-size:0.9em;color:var(--text-sub);margin:24px 0 12px">主要ブランド業績（恒常通貨ベース）</h4>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">The North Face</div>
+        <div class="metric-value beat">+5% CC</div>
+        <div class="metric-sub beat">Americas +15%、DTC好調</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Timberland</div>
+        <div class="metric-value beat">+5% CC</div>
+        <div class="metric-sub">6インチブーツ・ボートシューズ好調</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Vans</div>
+        <div class="metric-value miss">-10% CC</div>
+        <div class="metric-sub">想定通り、チャネル最適化中</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Altra</div>
+        <div class="metric-value beat">+23% CC</div>
+        <div class="metric-sub beat">FY2026で$250M超見通し</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:0.88em;line-height:1.7">
+      <strong>DTC:</strong> +3% CC（+4% reported）— 数年ぶりの前年比プラス転換。Eコマースがけん引。<br>
+      <strong>注目:</strong> TNF Americasは+15%と力強い成長。$1,100レザージャケットは即完売。Altraはランニング市場で急成長中。
+    </div>
+  </div>
+</div>
+
+<!-- 8. 地域別売上構成 -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
+  <div class="section-body">
+    <div class="seg-bar">
+      <div style="width:60.3%;background:var(--green)" title="Americas">Americas ~$1,734M (60.3%)</div>
+      <div style="width:28.9%;background:var(--blue)" title="EMEA">EMEA ~$832M (28.9%)</div>
+      <div style="width:10.9%;background:var(--purple)" title="APAC">APAC ~$314M (10.9%)</div>
+    </div>
+    <table class="tbl" style="margin-top:16px">
+      <thead><tr><th>地域</th><th class="right">売上高</th><th class="right">構成比</th><th class="right">成長率（reported）</th><th class="right">CC成長率（ex-Dickies）</th></tr></thead>
+      <tbody>
+        <tr><td>Americas</td><td class="right">~$1,734M</td><td class="right">60.3%</td><td class="right beat">+2%</td><td class="right beat">+6% CC</td></tr>
+        <tr><td>EMEA</td><td class="right">~$832M</td><td class="right">28.9%</td><td class="right beat">+4%</td><td class="right miss">-3% CC</td></tr>
+        <tr><td>APAC</td><td class="right">~$314M</td><td class="right">10.9%</td><td class="right miss">-6%</td><td class="right miss">-7% CC</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:0.88em;line-height:1.7">
+      <strong>ポイント:</strong> Americasが力強い回復を見せる一方、EMEAは為替効果を除くと弱含み（CC -3%）。APACは中国を含め依然として課題が残る（-7% CC）。TNF Americas +15%がAmericasの成長をけん引。
+    </div>
+  </div>
+</div>
+
+<!-- 9. 企業概要 -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏭</span> 企業概要・外部環境</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h4>企業情報</h4>
+        <ul>
+          <li><strong>設立:</strong> 1899年</li>
+          <li><strong>本社:</strong> コロラド州デンバー</li>
+          <li><strong>CEO:</strong> Bracken Darrell（2023年6月〜、元Logitech CEO）</li>
+          <li><strong>従業員数:</strong> 約30,000人</li>
+          <li><strong>時価総額:</strong> $6.37B</li>
+          <li><strong>株式数:</strong> 391.26M株</li>
+          <li><strong>ベータ:</strong> 1.67</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>ビジネスモデル</h4>
+        <ul>
+          <li><strong>収益構造:</strong> ホールセール ~60%、DTC ~40%（リテール+Eコマース）</li>
+          <li><strong>主要ブランド:</strong> The North Face, Timberland, Vans, Altra, Smartwool</li>
+          <li><strong>売却済:</strong> Supreme（2024年7月、$1.5B）、Dickies（2025年11月、$600M）</li>
+          <li><strong>注力:</strong> ポートフォリオ合理化＋Reinvent変革プログラム</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>競合環境</h4>
+        <ul>
+          <li><strong>Columbia Sportswear:</strong> アウトドアアパレル直接競合</li>
+          <li><strong>Hanesbrands:</strong> ベーシックアパレル</li>
+          <li><strong>PVH Corp:</strong> Calvin Klein, Tommy Hilfiger</li>
+          <li><strong>Nike:</strong> アクティブ/スニーカー（Vansの競合）</li>
+          <li><strong>VFCの強み:</strong> アウトドアブランドポートフォリオの厚み</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>外部環境</h4>
+        <ul>
+          <li><strong>業界:</strong> グローバルファッション市場は2026年、1桁台前半の成長</li>
+          <li><strong>関税リスク:</strong> 米国アパレル関税が13%→54%に急騰後、36%に緩和</li>
+          <li><strong>消費者:</strong> ファッション価格最大17%上昇、消費者マインド不透明</li>
+          <li><strong>トレンド:</strong> DTC/Eコマースがシェア拡大中。ミッドマーケット/アクセシブルラグジュアリーが最速成長セグメント</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10. テクニカル分析 -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <div class="tech-grid">
+      <div class="tech-card">
+        <h4>移動平均線</h4>
+        <div class="tech-item"><span>20日SMA</span><span style="color:var(--red)">$17.71（上）</span></div>
+        <div class="tech-item"><span>50日SMA</span><span style="color:var(--red)">$19.14（上）</span></div>
+        <div class="tech-item"><span>100日SMA</span><span style="color:var(--red)">$18.05（上）</span></div>
+        <div class="tech-item"><span>200日SMA</span><span style="color:var(--green)">$15.74（下）</span></div>
+        <div class="tech-item"><span>現在株価</span><span>$16.28</span></div>
+      </div>
+      <div class="tech-card">
+        <h4>オシレーター</h4>
+        <div class="tech-item"><span>RSI (14)</span><span style="color:var(--yellow)">32.93（売られ過ぎ近辺）</span></div>
+        <div class="tech-item"><span>ストキャスティクス %K</span><span style="color:var(--red)">19.35%（売られ過ぎ）</span></div>
+        <div class="tech-item"><span>ADX</span><span>36.79（トレンド有り）</span></div>
+        <div class="tech-item"><span>+DI / -DI</span><span style="color:var(--red)">13.68 / 33.97</span></div>
+        <div class="tech-item"><span>ATR (14)</span><span>$0.79（4.88%）</span></div>
+      </div>
+      <div class="tech-card">
+        <h4>サポート / レジスタンス</h4>
+        <div class="tech-item"><span>サポート1</span><span style="color:var(--green)">$15.74（200日SMA）</span></div>
+        <div class="tech-item"><span>サポート2</span><span style="color:var(--green)">$14.00〜$15.00</span></div>
+        <div class="tech-item"><span>レジスタンス1</span><span style="color:var(--red)">$18.05（100日SMA）</span></div>
+        <div class="tech-item"><span>レジスタンス2</span><span style="color:var(--red)">$19.14（50日SMA）</span></div>
+      </div>
+      <div class="tech-card">
+        <h4>株価情報</h4>
+        <div class="tech-item"><span>現在株価</span><span>$16.28</span></div>
+        <div class="tech-item"><span>52週高値</span><span>$21.92</span></div>
+        <div class="tech-item"><span>52週安値</span><span>$9.41</span></div>
+        <div class="tech-item"><span>直近1ヶ月</span><span style="color:var(--red)">-23%</span></div>
+        <div class="tech-item"><span>直近3ヶ月</span><span style="color:var(--red)">-19%</span></div>
+        <div class="tech-item"><span>HV</span><span>34.53%</span></div>
+      </div>
+    </div>
+    <div class="tech-signal">
+      <div class="tech-signal-label">テクニカル総合判定</div>
+      <div class="tech-signal-value" style="color:var(--red)">短期: 弱気 📉</div>
+      <p style="font-size:0.85em;color:var(--text-sub);margin-top:8px;max-width:700px;margin-left:auto;margin-right:auto;line-height:1.7">20/50/100日移動平均線を全て下回り、短期的には弱気。RSI 32.93は売られ過ぎ近辺で反発余地あり。200日SMA（$15.74）が重要サポートとして機能。関税懸念とマクロ不透明感が売り圧力の主因。決算後の+5.23%上昇は好業績への評価だが、その後のマクロ環境悪化で下落。</p>
+    </div>
+
+    <!-- TradingView Widget -->
+    <div style="margin-top:24px">
+      <h4 style="font-size:0.9em;color:var(--text-sub);margin-bottom:12px">テクニカルチャート（日足 6ヶ月）</h4>
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NYSE:VFC",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": [
+            "MASimple@tv-basicstudies",
+            "MAExp@tv-basicstudies"
+          ],
+          "studies_overrides": {
+            "moving average.length": 50,
+            "moving average exponential.length": 200
+          }
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. 経営陣コメント -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎤</span> 経営陣コメント ハイライト</div>
+  <div class="section-body">
+    <div class="quote-card">
+      <div class="quote-text">"In Q3, we delivered growth during our peak holiday quarter and beat revenue and operating income guidance."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（Q3業績総括）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"Revenue was up 2% YoY on a constant dollar basis, above guidance of down 1% to down 3%."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（ガイダンス上振れ）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"DTC up 3%, led by e-commerce, marking the first positive DTC quarter in several years."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（DTC回復のマイルストーン）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"The North Face Americas region posting 15% growth with double-digit increases across both channels."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（TNFの好調）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"Altra expected to exceed $250 million in revenue for fiscal 2026."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（Altraの成長加速）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"Gross margin at 54.5% or better, within striking distance of fiscal year 2028 target of 55%."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（マージン改善見通し）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"Leverage will be 3.5 times or lower, down from 4.1 times at the end of fiscal 2025."</div>
+      <div class="quote-author">— Bracken Darrell, CEO（デレバレッジ進捗）</div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-text">"We're in our earlier innings of transformation... obsessing over product excellence."</div>
+      <div class="quote-author">— Sun Choe, Vansブランドプレジデント（Vans変革）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 12. リスク・カタリスト -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚠️</span> リスク・注目ポイント / カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div class="rc-card">
+        <h4><span style="color:var(--red)">⚠️</span> リスク要因</h4>
+        <ul>
+          <li class="risk-item">Vansの回復は初期段階（-10% CC）、完全復活は不透明</li>
+          <li class="risk-item">関税リスク: $100M超の影響見込み（米国アパレル関税36%）</li>
+          <li class="risk-item">EMEA（-3% CC）・APAC（-7% CC）の地域的弱さ</li>
+          <li class="risk-item">Q4ガイダンスの営業利益が薄い（$10M〜$30M）</li>
+          <li class="risk-item">調整後EPSが前年比で依然マイナス（-4.9%）</li>
+          <li class="risk-item">高レバレッジ（3.5倍目標もまだ高水準）</li>
+          <li class="risk-item">消費者支出の不透明感・マクロ環境悪化</li>
+          <li class="risk-item">関税による価格転嫁が需要を抑制する可能性</li>
+        </ul>
+      </div>
+      <div class="rc-card">
+        <h4><span style="color:var(--green)">🚀</span> カタリスト</h4>
+        <ul>
+          <li class="catalyst-item">ターンアラウンド進行中: TNF +5%、Timberland +5%の成長</li>
+          <li class="catalyst-item">Altraが成長ブランドとして台頭（+23%、$250M超目標）</li>
+          <li class="catalyst-item">積極的な債務削減（Q3だけで約$600M削減）</li>
+          <li class="catalyst-item">Dickies売却益（$600M）でバランスシート改善</li>
+          <li class="catalyst-item">DTCチャネルが数年ぶりにプラス転換</li>
+          <li class="catalyst-item">コスト削減推進中（グロス$300M、FY2028までにOI +$500-600M目標）</li>
+          <li class="catalyst-item">Eコマース成長加速</li>
+          <li class="catalyst-item">Vans製品戦略が成功すれば大きなアップサイド</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. 前回決算との比較 -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+  <div class="section-body">
+    <div style="text-align:center;padding:20px;background:var(--bg);border:1px solid var(--border);border-radius:10px;margin-bottom:16px">
+      <div style="font-size:0.85em;color:var(--text-sub)">前回スコア → 今回スコア</div>
+      <div style="font-size:1.8em;font-weight:900;margin-top:8px">— → 4 📈</div>
+      <div style="font-size:0.9em;color:var(--text-sub);margin-top:4px">※本レポートがVFC初回分析</div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>項目</th><th class="right">状況</th></tr></thead>
+      <tbody>
+        <tr><td>トレンド方向</td><td class="right beat">改善 ↑</td></tr>
+        <tr><td>売上成長</td><td class="right beat">2四半期連続プラス成長（CC）</td></tr>
+        <tr><td>マージン</td><td class="right beat">粗利益率・営業利益率共に改善基調</td></tr>
+        <tr><td>DTC</td><td class="right beat">数年ぶりのプラス転換（+3% CC）</td></tr>
+        <tr><td>Vans</td><td class="right miss">回復初期段階、まだ-10% CC</td></tr>
+        <tr><td>財務体質</td><td class="right beat">レバレッジ4.1x → 3.5x目標に改善中</td></tr>
+        <tr><td>ポートフォリオ</td><td class="right">Supreme・Dickies売却完了、コアブランドに集中</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:0.88em;line-height:1.7">
+      <strong>変化の主要因:</strong> CEO Bracken Darrell（2023年6月就任）主導のターンアラウンドが着実に進行。ポートフォリオ合理化（Supreme・Dickies売却）、Reinvent変革プログラムによるコスト削減、TNF・Timberland・Altraの成長回復が業績改善を牽引。Vansの回復が次の焦点。
+    </div>
+  </div>
+</div>
+
+<!-- 14. アナリスト評価・センチメント -->
+<div class="section" id="sec-sentiment" data-accordion>
+  <div class="section-title"><span class="section-icon">🔍</span> アナリスト評価・センチメント</div>
+  <div class="section-body">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">コンセンサス</div>
+        <div class="metric-value" style="color:var(--yellow)">Hold</div>
+        <div class="metric-sub">17名アナリスト</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">平均目標株価</div>
+        <div class="metric-value">$17.56</div>
+        <div class="metric-sub beat">+7.9%アップサイド</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">目標株価レンジ</div>
+        <div class="metric-value">$10 - $21</div>
+        <div class="metric-sub">中央値 $18.00</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">PER（Forward）</div>
+        <div class="metric-value">16.83x</div>
+        <div class="metric-sub">Trailing: 28.79x</div>
+      </div>
+    </div>
+    <h4 style="font-size:0.9em;color:var(--text-sub);margin:16px 0 10px">レーティング分布</h4>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <div style="background:rgba(46,160,67,0.15);border:1px solid rgba(46,160,67,0.3);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:0.75em;color:var(--text-sub)">Strong Buy</div>
+        <div style="font-size:1.2em;font-weight:700;color:var(--green)">1</div>
+      </div>
+      <div style="background:rgba(46,160,67,0.1);border:1px solid rgba(46,160,67,0.2);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:0.75em;color:var(--text-sub)">Buy</div>
+        <div style="font-size:1.2em;font-weight:700;color:var(--green)">2</div>
+      </div>
+      <div style="background:rgba(210,153,34,0.1);border:1px solid rgba(210,153,34,0.2);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:0.75em;color:var(--text-sub)">Hold</div>
+        <div style="font-size:1.2em;font-weight:700;color:var(--yellow)">12</div>
+      </div>
+      <div style="background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.2);border-radius:8px;padding:8px 16px;text-align:center">
+        <div style="font-size:0.75em;color:var(--text-sub)">Sell</div>
+        <div style="font-size:1.2em;font-weight:700;color:var(--red)">2</div>
+      </div>
+    </div>
+    <h4 style="font-size:0.9em;color:var(--text-sub);margin:16px 0 10px">直近のアナリストアクション</h4>
+    <table class="tbl">
+      <thead><tr><th>証券会社</th><th>レーティング</th><th class="right">目標株価</th></tr></thead>
+      <tbody>
+        <tr><td>JP Morgan</td><td style="color:var(--red)">Sell（ダウングレード）</td><td class="right">$18</td></tr>
+        <tr><td>Citi</td><td style="color:var(--yellow)">Hold</td><td class="right">$20</td></tr>
+        <tr><td>Goldman Sachs</td><td style="color:var(--yellow)">Hold</td><td class="right">$18</td></tr>
+        <tr><td>Piper Sandler</td><td style="color:var(--yellow)">Hold</td><td class="right">$18</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 15. バリュエーション -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3シナリオ）</div>
+  <div class="section-body">
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="val-scenario">LOW（保守的）</div>
+        <div class="val-price">$10.80</div>
+        <div class="val-detail">
+          FY2027 EPS: $0.90<br>
+          予想PER: 12.0x<br>
+          ターンアラウンド不確実性を反映
+        </div>
+      </div>
+      <div class="val-card mid">
+        <div class="val-scenario">MID（基本）</div>
+        <div class="val-price">$17.12</div>
+        <div class="val-detail">
+          FY2027 EPS: $1.07（コンセンサス）<br>
+          予想PER: 16.0x<br>
+          現在株価との乖離: +5.2%
+        </div>
+      </div>
+      <div class="val-card high">
+        <div class="val-scenario">HIGH（楽観的）</div>
+        <div class="val-price">$25.00</div>
+        <div class="val-detail">
+          FY2027 EPS: $1.25<br>
+          予想PER: 20.0x<br>
+          ターンアラウンド加速シナリオ
+        </div>
+      </div>
+    </div>
+    <div class="val-judge">
+      <div class="val-judge-label">MID想定株価 vs 現在株価（$16.28）</div>
+      <div class="val-judge-value" style="color:var(--yellow)">+5.2% → 適正</div>
+      <div style="font-size:0.82em;color:var(--text-sub);margin-top:8px">乖離率 -10%〜+10% → 適正水準</div>
+    </div>
+    <div style="margin-top:16px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:0.85em;line-height:1.7;color:var(--text-sub)">
+      <strong>算出方法:</strong> FY2027 Forward EPS × 予想PER。LOWはターンアラウンド不確実性を反映した保守的PER 12x、MIDはFY2027コンセンサスEPS $1.07 × PER 16x、HIGHはターンアラウンド加速を想定したEPS $1.25 × PER 20x。現在株価$16.28はMID想定$17.12に対して+5.2%で適正水準と判定。
+    </div>
+  </div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏭</span><span class="toc-label">企業概要・外部環境</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎤</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-sentiment" onclick="tocJump('sec-sentiment')"><span class="toc-icon">🔍</span><span class="toc-label">アナリスト評価</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Chart.js — Revenue Chart
+var ctxRev = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctxRev, {
+  type: 'bar',
+  data: {
+    labels: ['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    datasets: [{
+      label: '売上高 ($M)',
+      data: [1769, 2758, 2834, 2144, 1761, 2803, 2876],
+      backgroundColor: [
+        'rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)',
+        'rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)',
+        'rgba(46,160,67,0.7)'
+      ],
+      borderColor: [
+        'rgba(88,166,255,0.8)','rgba(88,166,255,0.8)','rgba(88,166,255,0.8)',
+        'rgba(88,166,255,0.8)','rgba(88,166,255,0.8)','rgba(88,166,255,0.8)',
+        'rgba(46,160,67,1)'
+      ],
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(ctx){ return '$' + ctx.parsed.y.toLocaleString() + 'M'; }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        min: 1500,
+        grid: { color: 'rgba(48,54,61,0.3)' },
+        ticks: { color: '#8b949e', callback: function(v){ return '$' + v.toLocaleString() + 'M'; } }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { color: '#8b949e', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// Chart.js — EPS Chart
+var ctxEps = document.getElementById('epsChart').getContext('2d');
+new Chart(ctxEps, {
+  type: 'bar',
+  data: {
+    labels: ['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    datasets: [
+      {
+        label: 'GAAP EPS',
+        data: [-0.67, 0.13, 0.43, -0.38, -0.30, 0.48, 0.76],
+        backgroundColor: function(ctx){
+          return ctx.parsed.y < 0 ? 'rgba(248,81,73,0.5)' : 'rgba(88,166,255,0.5)';
+        },
+        borderColor: function(ctx){
+          return ctx.parsed.y < 0 ? 'rgba(248,81,73,0.8)' : 'rgba(88,166,255,0.8)';
+        },
+        borderWidth: 1,
+        borderRadius: 4
+      },
+      {
+        label: '調整後EPS',
+        type: 'line',
+        data: [-0.33, 0.60, 0.62, 0.00, -0.24, 0.52, 0.58],
+        borderColor: 'rgba(46,160,67,1)',
+        backgroundColor: 'rgba(46,160,67,0.1)',
+        pointBackgroundColor: 'rgba(46,160,67,1)',
+        pointRadius: 5,
+        borderWidth: 2,
+        fill: false,
+        tension: 0.3
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: { color: '#8b949e', font: { size: 11 } }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(ctx){ return ctx.dataset.label + ': $' + ctx.parsed.y.toFixed(2); }
+        }
+      }
+    },
+    scales: {
+      y: {
+        grid: { color: 'rgba(48,54,61,0.3)' },
+        ticks: { color: '#8b949e', callback: function(v){ return '$' + v.toFixed(2); } }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { color: '#8b949e', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+// Accordion
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed = sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body = sec.querySelector('.section-body');
+    var onEnd = function(){ sec.classList.remove('collapsing'); body.removeEventListener('transitionend', onEnd); };
+    body.addEventListener('transitionend', onEnd);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  } else {
+    sec.classList.add('collapsing','collapsed');
+    var body2 = sec.querySelector('.section-body');
+    var onEnd2 = function(){ sec.classList.remove('collapsing'); body2.removeEventListener('transitionend', onEnd2); };
+    body2.addEventListener('transitionend', onEnd2);
+    setTimeout(function(){ sec.classList.remove('collapsing'); }, 400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartTime = Date.now();
+  }, {passive:true});
+  title.addEventListener('touchend', function(e){
+    var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    var dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+    var dt = Date.now() - touchStartTime;
+    if(dy < 10 && dx < 10 && dt < 300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click', function(e){
+    if(e.sourceCapabilities && e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+// Auto-collapse on mobile
+(function(){
+  if(window.innerWidth <= 768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// TOC
+function toggleToc(){
+  var menu = document.getElementById('tocMenu');
+  var btn = document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = menu.classList.contains('open') ? '✕ セクション' : '☰';
+}
+
+function tocJump(id){
+  var sec = document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
