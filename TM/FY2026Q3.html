@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>トヨタ自動車 FY2026 Q3 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;--border2:#30363d;
+  --text:#e6edf3;--text-sub:#8b949e;--text-dim:#484f58;
+  --green:#2ea043;--green-bg:rgba(46,160,67,.12);--green-border:rgba(46,160,67,.3);
+  --red:#f85149;--red-bg:rgba(248,81,73,.12);--red-border:rgba(248,81,73,.3);
+  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);--blue-border:rgba(88,166,255,.3);
+  --orange:#d29922;--orange-bg:rgba(210,153,34,.12);--orange-border:rgba(210,153,34,.3);
+  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.12);--purple-border:rgba(188,140,255,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:0;line-height:1.7}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+
+/* Section */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin-bottom:20px;position:relative}
+.section-title{font-size:1.15em;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.2em}
+.section-header{font-size:1rem;font-weight:700}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px}
+.score-big{font-size:5em;font-weight:900;line-height:1}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-reason{color:var(--text-sub);font-size:.9em;max-width:700px;margin:16px auto 0;line-height:1.8}
+
+/* Cards / Grids */
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.metric-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.metric-card .label{font-size:.75em;color:var(--text-sub);margin-bottom:4px}
+.metric-card .value{font-size:1.3em;font-weight:700}
+.metric-card .sub{font-size:.75em;color:var(--text-sub);margin-top:2px}
+.beat{color:var(--green)}.miss{color:var(--red)}.neutral{color:var(--text)}
+
+.grid{display:grid;gap:16px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* Charts */
+.chart-wrap{position:relative;height:340px;margin-bottom:8px}
+.chart-container{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+th{color:var(--text-sub);font-weight:500;font-size:.78em;text-transform:uppercase;letter-spacing:.5px}
+td{color:var(--text)}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.compare-table,.tech-table{width:100%;border-collapse:collapse;font-size:.85rem}
+
+/* Valuation Cards */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:rgba(46,160,67,.08);border-color:var(--green-border)}
+.val-card.mid{background:rgba(88,166,255,.08);border-color:var(--blue-border)}
+.val-card.high{background:rgba(188,140,255,.08);border-color:var(--purple-border)}
+.val-card .scenario{font-size:.8em;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-card .price{font-size:1.8em;font-weight:900}
+.val-card .detail{font-size:.78em;color:var(--text-sub);margin-top:8px;line-height:1.6}
+.val-card.low .scenario{color:var(--green)}.val-card.low .price{color:var(--green)}
+.val-card.mid .scenario{color:var(--blue)}.val-card.mid .price{color:var(--blue)}
+.val-card.high .scenario{color:var(--purple)}.val-card.high .price{color:var(--purple)}
+.val-verdict{text-align:center;margin-top:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}
+
+/* Risk / Catalyst */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rc-card{background:var(--bg);border-radius:10px;padding:18px;border:1px solid var(--border)}
+.rc-card h4{font-size:.85em;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.rc-card ul{list-style:none;padding:0}
+.rc-card li{font-size:.82em;color:var(--text-sub);padding:5px 0;padding-left:16px;position:relative;line-height:1.6}
+.rc-card li::before{content:'';position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%}
+.rc-card.risk li::before{background:var(--red)}
+.rc-card.catalyst li::before{background:var(--green)}
+
+/* Overview Grid */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.overview-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.overview-card h4{font-size:.82em;color:var(--blue);font-weight:600;margin-bottom:8px}
+.overview-card p,.overview-card li{font-size:.82em;color:var(--text-sub);line-height:1.7}
+.overview-card ul{list-style:none;padding:0}
+.overview-card li{padding:3px 0}
+
+/* Tech Grid */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:.82em;font-weight:600;margin-bottom:8px;color:var(--blue)}
+.tech-card .indicator{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:.82em}
+.tech-card .indicator:last-child{border-bottom:none}
+.tech-card .ind-label{color:var(--text-sub)}
+.tech-card .ind-value{font-weight:600}
+.bullish{color:var(--green)}.bearish{color:var(--red)}.neutral-tech{color:var(--orange)}
+
+/* Mgmt Comments */
+.mgmt-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
+.mgmt-item:last-child{margin-bottom:0}
+.mgmt-item h4{font-size:.85em;font-weight:700;margin-bottom:6px;color:var(--blue)}
+.mgmt-item p{font-size:.82em;color:var(--text-sub);line-height:1.7}
+
+/* Compare */
+.compare-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center}
+.compare-card .comp-label{font-size:.78em;color:var(--text-sub)}
+.compare-card .comp-value{font-size:1.4em;font-weight:700;margin:4px 0}
+
+/* SaaS — not used but keep class */
+.saas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* Consensus bar */
+.consensus-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding:12px 16px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}
+.consensus-bar .cb-label{font-size:.78em;color:var(--text-sub);min-width:100px}
+.consensus-bar .cb-actual{font-weight:700;font-size:1em;min-width:80px}
+.consensus-bar .cb-vs{font-size:.78em;color:var(--text-sub);min-width:40px}
+.consensus-bar .cb-est{font-size:.85em;color:var(--text-sub);min-width:80px}
+.consensus-bar .cb-beat{font-size:.82em;font-weight:700;margin-left:auto}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px auto;display:flex;justify-content:center}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  body{padding-bottom:60px!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/TM.svg" alt="TM" width="180" height="48">
+      <div class="ticker-badge">NYSE: TM</div>
+    </div>
+    <h1>トヨタ自動車 決算分析</h1>
+    <div class="subtitle">FY2026 Q3（2025年10月〜12月）</div>
+    <div class="date">発表日: 2026年2月6日 ｜ レポート作成: 2026年3月24日</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 1. Score -->
+<div class="section" style="text-align:center;padding:40px 20px">
+  <div class="score-big" style="color:var(--green)">4</div>
+  <div class="score-label">📈 良い決算</div>
+  <div class="score-reason">EPS大幅ビート（+64.7%）、売上高YoY+8.6%成長、通期営業利益ガイダンス+11.8%上方修正。関税影響で営業利益YoY減益だが、QoQ+41.6%回復。レジリエンスを示した決算。</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+  <div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="label">売上高（Q3）</div>
+      <div class="value">¥13.46兆</div>
+      <div class="sub">$89.7B</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">売上 YoY</div>
+      <div class="value beat">+8.6%</div>
+      <div class="sub">QoQ +8.6%</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">営業利益（Q3）</div>
+      <div class="value">¥1.19兆</div>
+      <div class="sub">$7.9B</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">営業利益率</div>
+      <div class="value">8.8%</div>
+      <div class="sub">YoY -1.0pt / QoQ +2.0pt</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">EPS（ADR）</div>
+      <div class="value beat">$6.26</div>
+      <div class="sub">コンセンサス $3.80</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">EPSビート率</div>
+      <div class="value beat">+64.7%</div>
+      <div class="sub">大幅ビート</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">通期OP見通し</div>
+      <div class="value beat">¥3.8兆</div>
+      <div class="sub">+11.8%上方修正</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">時価総額</div>
+      <div class="value">$332.7B</div>
+      <div class="sub">¥51.67兆</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">配当利回り</div>
+      <div class="value">2.67%</div>
+      <div class="sub">ADR $5.63</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Revenue / EPS Charts -->
+<div class="section" id="sec-revenue" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div>
+        <h4 style="font-size:.85em;color:var(--text-sub);margin-bottom:8px;text-align:center">売上高（兆円）</h4>
+        <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+      </div>
+      <div>
+        <h4 style="font-size:.85em;color:var(--text-sub);margin-bottom:8px;text-align:center">EPS（ADR, USD）</h4>
+        <div class="chart-container"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Margin -->
+<div class="section" id="sec-margin" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>指標</th><th>FY26Q3</th><th>YoY変化</th><th>QoQ変化</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>営業利益率</td><td style="font-weight:700">8.8%</td><td class="miss">-1.0pt</td><td class="beat">+2.0pt</td></tr>
+        <tr><td>EBITDAマージン</td><td style="font-weight:700">~12.5%</td><td class="miss">-0.5pt</td><td class="beat">+1.5pt</td></tr>
+        <tr><td>粗利益率</td><td style="color:var(--text-sub)">非開示（IFRS）</td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:.82em;color:var(--text-sub);line-height:1.7">
+      関税影響（FY2026通期¥1.45兆）により営業利益率はYoYで低下しているものの、QoQでは+2.0ptの改善を示しており、コスト管理と価格転嫁が進んでいることが確認できる。
+    </div>
+  </div>
+</div>
+
+<!-- 5. Consensus -->
+<div class="section" id="sec-consensus" data-accordion>
+  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+  <div class="section-body">
+    <div class="consensus-bar">
+      <span class="cb-label">EPS</span>
+      <span class="cb-actual beat">$6.26</span>
+      <span class="cb-vs">vs</span>
+      <span class="cb-est">$3.80</span>
+      <span class="cb-beat beat">+64.7% ビート</span>
+    </div>
+    <div class="consensus-bar">
+      <span class="cb-label">売上高（9M）</span>
+      <span class="cb-actual beat">$255.6B</span>
+      <span class="cb-vs">vs</span>
+      <span class="cb-est">$239.5B</span>
+      <span class="cb-beat beat">+6.7% ビート</span>
+    </div>
+    <div class="consensus-bar">
+      <span class="cb-label">通期OP見通し</span>
+      <span class="cb-actual beat">¥3.8兆</span>
+      <span class="cb-vs">vs</span>
+      <span class="cb-est">¥3.4兆（前回）</span>
+      <span class="cb-beat beat">+11.8% 上方修正</span>
+    </div>
+  </div>
+</div>
+
+<!-- 6. Cash Flow -->
+<div class="section" id="sec-cashflow" data-accordion>
+  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>項目</th><th>Q3</th><th>Q2</th><th>Q1</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>営業CF</td><td>¥8,251億</td><td>¥10,681億</td><td>¥18,765億</td></tr>
+        <tr><td>投資CF</td><td class="miss">-¥8,343億</td><td class="miss">-¥17,155億</td><td class="miss">-¥18,020億</td></tr>
+        <tr><td>財務CF</td><td class="miss">-¥3,130億</td><td class="beat">¥4,412億</td><td class="miss">-¥8,033億</td></tr>
+        <tr><td style="font-weight:700">FCF</td><td class="miss" style="font-weight:700">-¥4,038億</td><td class="miss">-¥1,220億</td><td class="beat">¥7,029億</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+      <div style="font-size:.82em;color:var(--text-sub);line-height:1.7">
+        <strong style="color:var(--text)">9ヶ月累計:</strong> 営業CF ¥3.77兆 / FCF ¥1,771億円<br>
+        Q3のFCFはマイナスだが、累計ベースではプラスを維持。投資CFの縮小は設備投資の季節性による。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. Segment -->
+<div class="section" id="sec-segment" data-accordion>
+  <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成（9ヶ月累計）</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>セグメント</th><th>売上高</th><th>YoY</th><th>営業利益</th><th>YoY</th><th>構成比</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600">自動車事業</td>
+          <td>¥34.17兆</td>
+          <td class="beat">+5.7%</td>
+          <td>¥2.42兆</td>
+          <td class="miss">-21.2%</td>
+          <td>89.8%</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">金融事業</td>
+          <td>¥3.59兆</td>
+          <td class="beat">+17.0%</td>
+          <td>¥6,633億</td>
+          <td class="beat">+33.6%</td>
+          <td>9.4%</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600">その他</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>0.8%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:.82em;color:var(--text-sub);line-height:1.7">
+      金融事業が売上+17.0%、営業利益+33.6%と強い成長。自動車事業は売上成長も、関税影響により営業利益は-21.2%と大幅減益。
+    </div>
+  </div>
+</div>
+
+<!-- 8. Geographic -->
+<div class="section" id="sec-geo" data-accordion>
+  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成（9ヶ月累計）</div>
+  <div class="section-body">
+    <table>
+      <thead>
+        <tr><th>地域</th><th>営業収益</th><th>構成比</th><th>販売台数</th><th>営業利益</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600">日本</td><td>¥16.33兆</td><td>42.9%</td><td>151.6万台</td><td class="beat">¥1.80兆</td></tr>
+        <tr><td style="font-weight:600">北米</td><td>¥16.15兆</td><td>42.4%</td><td>231.8万台</td><td class="miss">¥-56億（赤字）</td></tr>
+        <tr><td style="font-weight:600">欧州</td><td>-</td><td>-</td><td>88.1万台</td><td class="beat">¥3,177億</td></tr>
+        <tr><td style="font-weight:600">アジア</td><td>-</td><td>-</td><td>132.5万台</td><td class="beat">¥6,454億</td></tr>
+        <tr><td style="font-weight:600">その他</td><td>¥3.49兆</td><td>9.2%</td><td>126.2万台</td><td class="beat">¥2,430億</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:var(--red-bg);border:1px solid var(--red-border);border-radius:8px;font-size:.82em;color:var(--text-sub);line-height:1.7">
+      ⚠️ <strong style="color:var(--red)">北米は関税影響で赤字転落。</strong>販売台数は+27.5万台増にもかかわらず、営業利益は¥-56億。米国自動車関税25%のインパクトが如実に表れている。
+    </div>
+  </div>
+</div>
+
+<!-- 9. Overview -->
+<div class="section" id="sec-overview" data-accordion>
+  <div class="section-title"><span class="section-icon">🏭</span> 企業概要</div>
+  <div class="section-body">
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h4>基本情報</h4>
+        <ul>
+          <li><strong>設立:</strong> 1937年</li>
+          <li><strong>本社:</strong> 愛知県豊田市</li>
+          <li><strong>社長/CEO:</strong> 佐藤恒治（2026年4月〜近健太氏）</li>
+          <li><strong>会長:</strong> 豊田章男</li>
+          <li><strong>従業員:</strong> 連結約38万人</li>
+          <li><strong>会計基準:</strong> IFRS</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>ビジネスモデル</h4>
+        <ul>
+          <li><strong>車両販売:</strong> 89.8%（トヨタ/レクサス/ダイハツ/日野）</li>
+          <li><strong>金融事業:</strong> 9.4%</li>
+          <li><strong>その他:</strong> 0.8%</li>
+          <li><strong>電動車比率:</strong> 46.9%</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>競争優位性（モート）</h4>
+        <ul>
+          <li>TPS（トヨタ生産方式）による製造効率</li>
+          <li>HEV技術で世界をリード（30年の蓄積）</li>
+          <li>グローバル生産体制（現地化戦略）</li>
+          <li>圧倒的ブランド力と品質信頼性</li>
+        </ul>
+      </div>
+      <div class="overview-card">
+        <h4>成長戦略</h4>
+        <ul>
+          <li>マルチパスウェイ（HEV/PHEV/BEV/FCEV）</li>
+          <li>全固体電池: 2027-2028年量産目標</li>
+          <li>SDV: Arene OS開発、Woven City</li>
+          <li>北米$1B投資（現地生産強化）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 10. Technical -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-body">
+    <!-- TradingView Widget -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NYSE:TM",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "6M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="tech-grid">
+        <div class="tech-card">
+          <h4>株価</h4>
+          <div class="indicator"><span class="ind-label">ADR (TM)</span><span class="ind-value">$210.64</span></div>
+          <div class="indicator"><span class="ind-label">東証 (7203)</span><span class="ind-value">¥3,271</span></div>
+          <div class="indicator"><span class="ind-label">52週高値</span><span class="ind-value">$248.90 / ¥4,000</span></div>
+          <div class="indicator"><span class="ind-label">52週安値</span><span class="ind-value">$155.00 / ¥2,226</span></div>
+          <div class="indicator"><span class="ind-label">時価総額</span><span class="ind-value">$332.7B</span></div>
+        </div>
+        <div class="tech-card">
+          <h4>オシレーター</h4>
+          <div class="indicator"><span class="ind-label">RSI (14)</span><span class="ind-value neutral-tech">53.1（中立）</span></div>
+          <div class="indicator"><span class="ind-label">MACD</span><span class="ind-value bearish">-12.1（やや弱気）</span></div>
+          <div class="indicator"><span class="ind-label">ボリンジャー</span><span class="ind-value neutral-tech">中央帯付近</span></div>
+        </div>
+        <div class="tech-card">
+          <h4>移動平均線（7203）</h4>
+          <div class="indicator"><span class="ind-label">SMA 50日</span><span class="ind-value">¥2,947</span></div>
+          <div class="indicator"><span class="ind-label">SMA 200日</span><span class="ind-value">¥2,917</span></div>
+          <div class="indicator"><span class="ind-label">現在値 vs SMA</span><span class="ind-value bullish">上方に位置</span></div>
+        </div>
+        <div class="tech-card">
+          <h4>トレンド判定</h4>
+          <div class="indicator"><span class="ind-label">短期</span><span class="ind-value bullish">やや強気 ↑</span></div>
+          <div class="indicator"><span class="ind-label">中期</span><span class="ind-value neutral-tech">中立 →</span></div>
+          <div class="indicator"><span class="ind-label">長期</span><span class="ind-value bullish">強気 ↑</span></div>
+          <div class="indicator"><span class="ind-label">総合判定</span><span class="ind-value bullish">中立〜やや強気</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px" class="two-col">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px">
+          <h4 style="font-size:.82em;font-weight:600;margin-bottom:8px;color:var(--green)">サポート</h4>
+          <div style="font-size:.82em;color:var(--text-sub);line-height:1.8">
+            <strong>7203:</strong> ¥2,950（SMA50/200）/ ¥2,600<br>
+            <strong>ADR:</strong> $190〜$200
+          </div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px">
+          <h4 style="font-size:.82em;font-weight:600;margin-bottom:8px;color:var(--red)">レジスタンス</h4>
+          <div style="font-size:.82em;color:var(--text-sub);line-height:1.8">
+            <strong>7203:</strong> ¥3,400〜3,500 / ¥4,000（52週高値）<br>
+            <strong>ADR:</strong> $230〜$250
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 11. Mgmt Comments -->
+<div class="section" id="sec-mgmt" data-accordion>
+  <div class="section-title"><span class="section-icon">🎤</span> 経営陣コメントハイライト</div>
+  <div class="section-body">
+    <div class="mgmt-item">
+      <h4>通期見通し上方修正</h4>
+      <p>営業利益を¥3.4兆→¥3.8兆に+4,000億円上方修正。関税影響（¥1.45兆）を吸収してなお上振れ。コスト削減と価格転嫁の成果。</p>
+    </div>
+    <div class="mgmt-item">
+      <h4>CEO交代発表</h4>
+      <p>佐藤恒治社長は副会長・CIOに就任し、近健太氏が新社長兼CEOに（2026年4月1日付）。「フォーメーションチェンジ」として稼ぐ力の強化を推進。</p>
+    </div>
+    <div class="mgmt-item">
+      <h4>関税影響への対応</h4>
+      <p>FY2026通期で約¥1兆4,500億円の減益影響を見込む。北米が最大の打撃を受けるが、北米生産能力拡充（$1B投資）と現地化加速で対策を講じる。</p>
+    </div>
+    <div class="mgmt-item">
+      <h4>電動化・マルチパスウェイ戦略</h4>
+      <p>電動車比率が46.9%に到達。「BEV一辺倒ではなく、顧客と各国事情に合わせた最適ソリューション」を提供。ハイブリッドは各地域で好調、BEV販売も成長。</p>
+    </div>
+    <div class="mgmt-item">
+      <h4>日野自動車の経営統合</h4>
+      <p>三菱ふそうとの経営統合を2026年4月1日付で実施。日野資産を「売却目的保有」に分類。商用車事業の効率化を図る。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 12. Risk / Catalyst -->
+<div class="section" id="sec-risk" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> リスク・カタリスト</div>
+  <div class="section-body">
+    <div class="rc-grid">
+      <div class="rc-card risk">
+        <h4><span style="color:var(--red)">⚠️</span> リスク</h4>
+        <ul>
+          <li>米国自動車関税25%（FY2026通期¥1.45兆の影響）</li>
+          <li>円高転換リスク（日銀利上げ路線）</li>
+          <li>中国市場でBYD等に劣勢</li>
+          <li>BEV出遅れ認識（bZ4Xの評価低迷）</li>
+          <li>ダイハツ認証不正のガバナンスリスク</li>
+          <li>CEO交代に伴う経営不確実性</li>
+        </ul>
+      </div>
+      <div class="rc-card catalyst">
+        <h4><span style="color:var(--green)">🚀</span> カタリスト</h4>
+        <ul>
+          <li>次世代BEVプラットフォーム（2026年投入）</li>
+          <li>全固体電池の実用化進捗（2027-2028年）</li>
+          <li>ハイブリッド車のグローバル需要拡大</li>
+          <li>自社株買い・増配の継続</li>
+          <li>北米生産能力拡充（$1B投資発表）</li>
+          <li>関税対策としての現地化加速</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. Compare -->
+<div class="section" id="sec-compare" data-accordion>
+  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較</div>
+  <div class="section-body">
+    <div style="text-align:center;padding:24px;background:var(--bg);border-radius:10px;border:1px solid var(--border)">
+      <div style="font-size:.85em;color:var(--text-sub);margin-bottom:8px">前回分析</div>
+      <div style="font-size:1.2em;font-weight:700;color:var(--blue)">初回分析</div>
+      <div style="font-size:.82em;color:var(--text-sub);margin-top:12px;line-height:1.7">
+        今回がトヨタ自動車（TM）の初回決算分析のため、前回との比較データはありません。<br>
+        次回FY2026 Q4分析時に、今回のスコア4（📈 良い決算）を基準として比較を行います。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 14. Valuation -->
+<div class="section" id="sec-valuation" data-accordion>
+  <div class="section-title"><span class="section-icon">💎</span> バリュエーション</div>
+  <div class="section-body">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:.82em;color:var(--text-sub);margin-bottom:4px">現在株価（ADR）</div>
+      <div style="font-size:2em;font-weight:900">$210.64</div>
+      <div style="font-size:.78em;color:var(--text-sub);margin-top:4px">Forward PER: 11.55x ｜ EPS TTM: $18.07 ｜ Forward EPS: $18.24</div>
+    </div>
+    <div class="val-cards">
+      <div class="val-card low">
+        <div class="scenario">LOW（保守的）</div>
+        <div class="price">$153.00</div>
+        <div class="detail">
+          Forward EPS: $17.00<br>
+          PER: 9.0x（過去下限）<br>
+          <span class="miss">乖離率: -27.4%</span>
+        </div>
+      </div>
+      <div class="val-card mid">
+        <div class="scenario">MID（基本）</div>
+        <div class="price">$228.00</div>
+        <div class="detail">
+          Forward EPS: $18.24<br>
+          PER: 12.5x（過去中央値）<br>
+          <span class="beat">乖離率: +8.2%</span>
+        </div>
+      </div>
+      <div class="val-card high">
+        <div class="scenario">HIGH（楽観的）</div>
+        <div class="price">$297.25</div>
+        <div class="detail">
+          Forward EPS: $20.50<br>
+          PER: 14.5x（過去上限）<br>
+          <span class="beat">乖離率: +41.1%</span>
+        </div>
+      </div>
+    </div>
+    <div class="val-verdict">
+      <div style="font-size:.82em;color:var(--text-sub);margin-bottom:4px">MID想定株価 vs 現在株価</div>
+      <div style="font-size:1.4em;font-weight:700;color:var(--blue)">適正</div>
+      <div style="font-size:.82em;color:var(--text-sub);margin-top:4px">MID乖離率 +8.2%（-10%〜+10%は適正レンジ）</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏭</span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎤</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// === Chart.js ===
+var chartFont = {family:"'Noto Sans JP',sans-serif"};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
+Chart.defaults.borderColor = 'rgba(48,54,61,0.5)';
+
+var labels7q = ['FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3'];
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:labels7q,
+    datasets:[{
+      label:'売上高（兆円）',
+      data:[11.84,11.44,12.39,12.36,12.25,12.38,13.46],
+      backgroundColor: labels7q.map(function(l){return l==='FY26Q3'?'rgba(88,166,255,0.8)':'rgba(88,166,255,0.35)'}),
+      borderColor:'rgba(88,166,255,1)',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'兆円'}}}},
+    scales:{
+      y:{beginAtZero:false,min:10,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:function(v){return v+'兆'}}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart').getContext('2d'),{
+  type:'bar',
+  data:{
+    labels:labels7q,
+    datasets:[{
+      label:'EPS（USD）',
+      data:[6.35,2.90,9.98,3.39,4.47,4.85,6.26],
+      backgroundColor: labels7q.map(function(l){return l==='FY26Q3'?'rgba(46,160,67,0.8)':'rgba(46,160,67,0.35)'}),
+      borderColor:'rgba(46,160,67,1)',
+      borderWidth:1,
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y}}}},
+    scales:{
+      y:{beginAtZero:true,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:function(v){return '$'+v}}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// === Accordion ===
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+
+function toggleAccordion(sec){
+  if(!sec) return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }
+}
+
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){
+    touchStartY=e.touches[0].clientY;
+    touchStartX=e.touches[0].clientX;
+    touchStartTime=Date.now();
+  },{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){
+      e.preventDefault();
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents) return;
+    if(window.matchMedia('(pointer:fine)').matches){
+      toggleAccordion(this.closest('[data-accordion]'));
+    }
+  });
+});
+
+// Auto-collapse on mobile
+(function(){
+  if(window.innerWidth<=768){
+    document.querySelectorAll('[data-accordion]').forEach(function(sec){
+      sec.classList.add('collapsed');
+    });
+  }
+})();
+
+// === TOC ===
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){
+    sec.classList.remove('collapsed');
+    toggleToc();
+    setTimeout(function(){
+      sec.scrollIntoView({behavior:'smooth',block:'start'});
+    },100);
+  }
+}
+
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand) sec.classList.remove('collapsed');
+    else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
