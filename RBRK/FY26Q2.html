@@ -15,16 +15,16 @@ h1{font-size:2rem;font-weight:900;margin-bottom:8px}
 h2{font-size:1.5rem;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #30363d}
 h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;color:#8b949e}
 .section{margin-bottom:40px}
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-bottom:16px}
-.card-sm{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;text-align:center}
+.card{background:#1A2540;border:1px solid rgba(184,145,42,0.2);border-radius:12px;padding:24px;margin-bottom:16px}
+.card-sm{background:#1A2540;border:1px solid rgba(184,145,42,0.2);border-radius:10px;padding:16px;text-align:center}
 .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
 .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.green{color:#3fb950}.red{color:#f85149}.yellow{color:#d29922}.blue{color:#58a6ff}.gray{color:#8b949e}
+.green{color:#3fb950}.red{color:#f85149}.yellow{color:#d29922}.blue{color:#D4A843}.gray{color:#8b949e}
 .badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.8rem;font-weight:700}
 .badge-green{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3)}
 .badge-red{background:rgba(248,81,73,.15);color:#f85149;border:1px solid rgba(248,81,73,.3)}
-.badge-blue{background:rgba(88,166,255,.15);color:#58a6ff;border:1px solid rgba(88,166,255,.3)}
+.badge-blue{background:rgba(88,166,255,.15);color:#D4A843;border:1px solid rgba(88,166,255,.3)}
 .badge-yellow{background:rgba(210,153,34,.15);color:#d29922;border:1px solid rgba(210,153,34,.3)}
 .metric-value{font-size:2rem;font-weight:900;line-height:1.2}
 .metric-label{font-size:.85rem;color:#8b949e;margin-top:4px}
@@ -32,7 +32,7 @@ h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;color:#8b949e}
 .score-box{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#161b22,#1c2431);border:2px solid #30363d;border-radius:16px}
 .score-number{font-size:5rem;font-weight:900;background:linear-gradient(135deg,#58a6ff,#3fb950);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
 .score-icon{font-size:3rem;margin:8px 0}
-.score-label{font-size:1.5rem;font-weight:700;color:#58a6ff}
+.score-label{font-size:1.5rem;font-weight:700;color:#D4A843}
 .chart-container{position:relative;height:350px;width:100%}
 table{width:100%;border-collapse:collapse;margin-top:12px}
 th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #21262d;font-size:.9rem}
@@ -58,7 +58,7 @@ th{color:#8b949e;font-weight:500;font-size:.8rem;text-transform:uppercase}
 .compare-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #21262d}
 .compare-label{color:#8b949e;font-size:.9rem}
 .compare-values{display:flex;gap:20px;align-items:center;font-size:.9rem}
-.compare-arrow{color:#58a6ff;font-weight:700;font-size:1.1rem}
+.compare-arrow{color:#D4A843;font-weight:700;font-size:1.1rem}
 footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;border-top:1px solid #21262d;margin-top:40px}
 
 
@@ -124,7 +124,7 @@ footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;borde
 /* === TOC Nav (mobile only) === */
 .toc-nav{display:none}
 @media(max-width:768px){
-  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
   .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
@@ -137,7 +137,7 @@ footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;borde
   .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
   .toc-list .toc-label{flex:1}
   .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
-  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
   .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
   body{padding-bottom:60px!important}
 }</style>
@@ -330,7 +330,7 @@ footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;borde
 <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap">
 <div class="card-sm" style="min-width:140px">
 <div class="metric-label">米国</div>
-<div style="font-size:1.3rem;font-weight:700;color:#58a6ff">主要市場</div>
+<div style="font-size:1.3rem;font-weight:700;color:#D4A843">主要市場</div>
 </div>
 <div class="card-sm" style="min-width:140px">
 <div class="metric-label">国際</div>
@@ -429,13 +429,13 @@ footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;borde
 <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:24px">
 <div style="text-align:center">
 <div class="gray" style="font-size:.85rem">FY2026 Q1</div>
-<div style="font-size:2.5rem;font-weight:900;color:#58a6ff">4</div>
+<div style="font-size:2.5rem;font-weight:900;color:#D4A843">4</div>
 <div class="gray">📈 良い決算</div>
 </div>
 <div style="display:flex;align-items:center;font-size:2rem;color:#3fb950">→</div>
 <div style="text-align:center">
 <div class="gray" style="font-size:.85rem">FY2026 Q2</div>
-<div style="font-size:2.5rem;font-weight:900;color:#58a6ff">4</div>
+<div style="font-size:2.5rem;font-weight:900;color:#D4A843">4</div>
 <div class="gray">📈 良い決算</div>
 </div>
 </div>
@@ -485,9 +485,9 @@ footer{text-align:center;color:#484f58;font-size:.8rem;padding:40px 0 20px;borde
 <div class="badge badge-red" style="margin-top:8px">割高</div>
 </div>
 <div class="val-card val-mid">
-<h3 style="color:#58a6ff">MID（基本）</h3>
+<h3 style="color:#D4A843">MID（基本）</h3>
 <div style="color:#8b949e;font-size:.85rem">PSR 12x</div>
-<div class="val-price" style="color:#58a6ff">$77</div>
+<div class="val-price" style="color:#D4A843">$77</div>
 <div style="font-size:.9rem;color:#8b949e">現在比 <span class="red">-9%</span></div>
 <div class="badge badge-yellow" style="margin-top:8px">やや割高</div>
 </div>
@@ -670,7 +670,7 @@ new Chart(document.getElementById('segmentChart'),{
   }
 });
 </script>
-<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}.portal-link svg{flex-shrink:0}</style>
 <a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">

@@ -16,23 +16,23 @@ header{background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%)
 header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
 header h1{font-size:1.6rem;font-weight:700;letter-spacing:.02em}
 header .subtitle{color:#8b949e;font-size:.9rem;margin-top:6px}
-.ticker-badge{display:inline-block;background:#388bfd22;color:#58a6ff;border:1px solid #388bfd44;border-radius:6px;padding:2px 10px;font-weight:700;font-size:.85rem;margin-right:8px}
+.ticker-badge{display:inline-block;background:#388bfd22;color:#D4A843;border:1px solid #388bfd44;border-radius:6px;padding:2px 10px;font-weight:700;font-size:.85rem;margin-right:8px}
 .section{margin-top:36px}
 .section-title{font-size:1.15rem;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #21262d;display:flex;align-items:center;gap:8px}
 .section-title .icon{font-size:1.2rem}
 
 /* Cards */
-.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.card{background:#1A2540;border:1px solid rgba(184,145,42,0.2);border-radius:12px;padding:22px 24px;margin-bottom:16px}
 .card-grid{display:grid;gap:14px}
 .card-grid.c2{grid-template-columns:repeat(2,1fr)}
 .card-grid.c3{grid-template-columns:repeat(3,1fr)}
 .card-grid.c4{grid-template-columns:repeat(4,1fr)}
 
-.metric-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:18px 20px;text-align:center}
+.metric-card{background:#1A2540;border:1px solid rgba(184,145,42,0.2);border-radius:12px;padding:18px 20px;text-align:center}
 .metric-card .label{color:#8b949e;font-size:.75rem;font-weight:500;margin-bottom:4px}
 .metric-card .value{font-size:1.5rem;font-weight:700}
 .metric-card .sub{font-size:.75rem;margin-top:4px}
-.green{color:#3fb950}.red{color:#f85149}.blue{color:#58a6ff}.gray{color:#8b949e}.yellow{color:#d29922}.white{color:#e6edf3}
+.green{color:#3fb950}.red{color:#f85149}.blue{color:#D4A843}.gray{color:#8b949e}.yellow{color:#d29922}.white{color:#e6edf3}
 
 /* Score */
 .score-box{text-align:center;padding:32px 20px}
@@ -70,7 +70,7 @@ tr:hover{background:#1c2129}
 .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:500;margin:3px 4px 3px 0}
 .tag-green{background:#23863622;color:#3fb950;border:1px solid #23863644}
 .tag-red{background:#da363322;color:#f85149;border:1px solid #da363344}
-.tag-blue{background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44}
+.tag-blue{background:#1f6feb22;color:#D4A843;border:1px solid #1f6feb44}
 
 /* List */
 .item-list{list-style:none;padding:0}
@@ -147,7 +147,7 @@ footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:48px;padding:
 /* === TOC Nav (mobile only) === */
 .toc-nav{display:none}
 @media(max-width:768px){
-  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
   .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
@@ -160,7 +160,7 @@ footer{text-align:center;color:#484f58;font-size:.75rem;margin-top:48px;padding:
   .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
   .toc-list .toc-label{flex:1}
   .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
-  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
   .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
   body{padding-bottom:60px!important}
 }</style>
@@ -588,7 +588,7 @@ new Chart(document.getElementById('segChart'),{
   }
 });
 </script>
-<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}.portal-link svg{flex-shrink:0}</style>
 <a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">

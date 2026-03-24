@@ -35,7 +35,7 @@ h1,h2,h3{color:#e6edf3}
 section{margin-bottom:40px}
 section > h2{font-size:20px;font-weight:700;padding:12px 0;border-bottom:2px solid #21262d;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px}
+.card{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:20px}
 .card .label{font-size:12px;color:#8b949e;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
 .card .value{font-size:28px;font-weight:700;color:#e6edf3}
 .card .sub{font-size:13px;margin-top:4px}
@@ -44,15 +44,15 @@ section > h2{font-size:20px;font-weight:700;padding:12px 0;border-bottom:2px sol
 .neutral{color:#d29922}
 .beat{background:rgba(46,160,67,0.1);border-color:rgba(46,160,67,0.3)}
 .miss{background:rgba(248,81,73,0.1);border-color:rgba(248,81,73,0.3)}
-table{width:100%;border-collapse:collapse;background:#161b22;border-radius:12px;overflow:hidden;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;background:#1A2540;border-radius:12px;overflow:hidden;margin-bottom:16px}
 th{background:#1c2128;color:#8b949e;font-size:12px;font-weight:500;text-align:left;padding:12px 16px;text-transform:uppercase;letter-spacing:0.5px}
 td{padding:12px 16px;border-top:1px solid #21262d;font-size:14px}
 tr:hover{background:#1c2128}
-.chart-container{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
+.chart-container{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
 .chart-wrap{position:relative;height:320px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-.highlight-box{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
+.highlight-box{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
 .highlight-box h3{font-size:16px;margin-bottom:12px;color:#e6edf3}
 .highlight-box ul{padding-left:20px}
 .highlight-box li{margin-bottom:8px;font-size:14px;color:#c9d1d9}
@@ -78,7 +78,7 @@ tr:hover{background:#1c2128}
 .footer{text-align:center;padding:40px 20px;color:#484f58;font-size:12px;border-top:1px solid #21262d;margin-top:40px}
 .segment-bar{height:28px;border-radius:6px;overflow:hidden;display:flex;margin:8px 0}
 .segment-bar div{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff}
-.compare-card{display:flex;align-items:center;gap:12px;padding:16px;background:#161b22;border:1px solid #21262d;border-radius:12px;margin-bottom:12px}
+.compare-card{display:flex;align-items:center;gap:12px;padding:16px;background:#1A2540;border:1px solid #21262d;border-radius:12px;margin-bottom:12px}
 .compare-arrow{font-size:28px;font-weight:900}
 .kpi-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 
@@ -146,7 +146,7 @@ in-bottom:8px}
 /* === TOC Nav (mobile only) === */
 .toc-nav{display:none}
 @media(max-width:768px){
-  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
   .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
@@ -159,7 +159,7 @@ in-bottom:8px}
   .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
   .toc-list .toc-label{flex:1}
   .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
-  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
   .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
   body{padding-bottom:60px!important}
 }</style>
@@ -664,7 +664,7 @@ new Chart(document.getElementById('epsChart'), {
   }
 });
 </script>
-<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}.portal-link svg{flex-shrink:0}</style>
 <a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">

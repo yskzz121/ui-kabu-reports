@@ -33,12 +33,12 @@ h1,h2,h3{color:#e6edf3}
 .score-desc{color:#8b949e;margin-top:8px;font-size:1.05em}
 /* Cards Grid */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:16px 0}
-.card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px;text-align:center;transition:transform .2s}
+.card{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:20px;text-align:center;transition:transform .2s}
 .card:hover{transform:translateY(-2px)}
 .card .label{color:#8b949e;font-size:.85em;margin-bottom:6px}
 .card .value{font-size:1.6em;font-weight:700}
 .card .sub{font-size:.85em;margin-top:4px}
-.green{color:#2ea043}.red{color:#f85149}.blue{color:#58a6ff}.yellow{color:#d29922}.white{color:#e6edf3}
+.green{color:#2ea043}.red{color:#f85149}.blue{color:#D4A843}.yellow{color:#d29922}.white{color:#e6edf3}
 .beat{background:rgba(46,160,67,.1);border-color:rgba(46,160,67,.3)}
 .miss{background:rgba(248,81,73,.1);border-color:rgba(248,81,73,.3)}
 /* Table */
@@ -48,7 +48,7 @@ th{color:#8b949e;font-weight:500;font-size:.85em;text-transform:uppercase}
 td:first-child,th:first-child{text-align:left}
 tr:hover{background:rgba(31,111,235,.05)}
 /* Chart Container */
-.chart-container{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:20px;margin:16px 0}
+.chart-container{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:20px;margin:16px 0}
 .chart-wrapper{position:relative;height:320px}
 /* Valuation Cards */
 .val-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0}
@@ -60,7 +60,7 @@ tr:hover{background:rgba(31,111,235,.05)}
 .val-card .val-price{font-size:2.2em;font-weight:900}
 .val-card .val-detail{font-size:.85em;color:#8b949e;margin-top:8px}
 /* Highlight Box */
-.highlight{background:#161b22;border-left:4px solid #1f6feb;border-radius:0 8px 8px 0;padding:16px 20px;margin:12px 0}
+.highlight{background:#1A2540;border-left:4px solid #1f6feb;border-radius:0 8px 8px 0;padding:16px 20px;margin:12px 0}
 .highlight.positive{border-left-color:#2ea043}
 .highlight.negative{border-left-color:#f85149}
 .highlight.warning{border-left-color:#d29922}
@@ -68,7 +68,7 @@ tr:hover{background:rgba(31,111,235,.05)}
 .tag{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.8em;font-weight:500;margin:2px}
 .tag-green{background:rgba(46,160,67,.15);color:#2ea043}
 .tag-red{background:rgba(248,81,73,.15);color:#f85149}
-.tag-blue{background:rgba(88,166,255,.15);color:#58a6ff}
+.tag-blue{background:rgba(88,166,255,.15);color:#D4A843}
 .tag-yellow{background:rgba(210,153,34,.15);color:#d29922}
 /* List */
 .insight-list{list-style:none;padding:0}
@@ -76,7 +76,7 @@ tr:hover{background:rgba(31,111,235,.05)}
 .insight-list li:last-child{border-bottom:none}
 /* Comparison */
 .compare-row{display:flex;gap:16px;margin:8px 0;flex-wrap:wrap}
-.compare-item{flex:1;min-width:200px;background:#161b22;border:1px solid #21262d;border-radius:8px;padding:12px 16px}
+.compare-item{flex:1;min-width:200px;background:#1A2540;border:1px solid #21262d;border-radius:8px;padding:12px 16px}
 .footer{text-align:center;padding:32px;color:#484f58;font-size:.85em;border-top:1px solid #21262d;margin-top:40px}
 /* Responsive */
 
@@ -135,7 +135,7 @@ enter;gap:16px;margin-bottom:8px}
 /* === TOC Nav (mobile only) === */
 .toc-nav{display:none}
 @media(max-width:768px){
-  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#161b22;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
   .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
@@ -148,7 +148,7 @@ enter;gap:16px;margin-bottom:8px}
   .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
   .toc-list .toc-label{flex:1}
   .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
-  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
   .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
   body{padding-bottom:60px!important}
 }</style>
@@ -665,7 +665,7 @@ new Chart(document.getElementById('segmentChart'), {
   }
 });
 </script>
-<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#161b22;border:1px solid #30363d;color:#58a6ff;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.3)}.portal-link:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}.portal-link svg{flex-shrink:0}</style>
+<style>.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}.portal-link svg{flex-shrink:0}</style>
 <a class="portal-link" href="https://yskzz121.github.io/ui-kabu-reports/"><svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>ポータル</a>
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">
