@@ -51,17 +51,24 @@ def extract_score_from_report(ticker):
         with open(path, encoding="utf-8") as f:
             content = f.read(30000)
         patterns = [
+            r'class="score-big[^"]*"[^>]*>\s*(\d)',
             r'class="score-number[^"]*"[^>]*>\s*(\d)',
             r'class="score-num"[^>]*>\s*(\d)',
             r'class="score-label"[^>]*>\s*(\d)\s*[／/]\s*5',
             r'スコア\s*(\d)\s*[／/]\s*5',
             r'score-badge[^>]*>\s*<span[^>]*>\s*(\d)',
+            r'score-badge[^>]*>(?:[^<]*?)(\d)\s*/\s*5',
         ]
         for pat in patterns:
             m = re.search(pat, content)
             if m:
                 return int(m.group(1))
-        # Fallback: count score-dot active elements
+        # Fallback 1: emoji-based score detection
+        emoji_map = {'🚀': 5, '📈': 4, '⏸️': 3, '📉': 2, '👎': 1}
+        for emoji, sc in emoji_map.items():
+            if emoji in content:
+                return sc
+        # Fallback 2: count score-dot active elements
         dots = len(re.findall(r'class="score-dot active"', content))
         if 1 <= dots <= 5:
             return dots
@@ -253,16 +260,22 @@ def make_root_index(ticker_data):
 
         # スコアバッジ
         score = extract_score_from_report(ticker)
+        if not score:
+            print(f"  ⚠️  警告: {ticker} のスコアを自動抽出できませんでした。手動確認が必要です。")
         score_attr = f' data-score="{score}"' if score else ''
         score_html = ''
         if score:
             icon = SCORE_ICONS.get(score, "")
             if score >= 4:
-                bg, fg, bd = "#2ea04322", "#2ea043", "#2ea04344"
+                bg = "rgba(184,145,42,0.15)" if score == 4 else "rgba(184,145,42,0.2)"
+                fg = "#B8912A"
+                bd = "rgba(184,145,42,0.3)" if score == 4 else "rgba(184,145,42,0.4)"
             elif score == 3:
-                bg, fg, bd = "#d2992222", "#d29922", "#d2992244"
+                bg, fg, bd = "rgba(74,85,104,0.12)", "#4A5568", "rgba(74,85,104,0.25)"
             else:
-                bg, fg, bd = "#f8514922", "#f85149", "#f8514944"
+                bg = "rgba(139,32,32,0.1)" if score == 2 else "rgba(139,32,32,0.12)"
+                fg = "#8B2020"
+                bd = "rgba(139,32,32,0.2)" if score == 2 else "rgba(139,32,32,0.25)"
             score_html = f'<span class="score-badge" style="background:{bg};color:{fg};border:1px solid {bd}">{icon} {score}/5</span>'
 
         cards += (
