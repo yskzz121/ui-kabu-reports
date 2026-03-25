@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>よくある質問 | Atlas</title>
+<meta name="description" content="Atlas（旧U&amp;I株倶楽部）のよくある質問です。サービス内容・料金・解約・金融規制への対応についてお答えします。">
+<meta property="og:title" content="よくある質問 | Atlas">
+<meta property="og:description" content="Atlas（旧U&amp;I株倶楽部）のよくある質問です。サービス内容・料金・解約・金融規制への対応についてお答えします。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yskzz121.github.io/ui-kabu-reports/faq.html">
+<meta property="og:site_name" content="Atlas">
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A2540;
+    --gold: #B8912A;
+    --gold-lt: #D4A843;
+    --gold-dark: #B8912A;
+    --slate: #4A5568;
+    --slate-lt: #718096;
+    --paper: #F5F2EC;
+    --paper-dark: #E8E4DC;
+    --ink: #0F0E0C;
+    --ink-mid: rgba(15,14,12,0.55);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 56px 32px 100px; }
+
+  .page-header { margin-bottom: 40px; }
+  .page-header h1 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .page-header p { font-size: 13px; color: var(--ink-mid); }
+
+  /* tab nav */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    background: #fff;
+    border: 1px solid var(--paper-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--ink-mid);
+    background: none;
+    border: none;
+    border-right: 1px solid var(--paper-dark);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .tab-btn:last-child { border-right: none; }
+  .tab-btn:hover { background: var(--paper); color: var(--navy); }
+  .tab-btn.active {
+    background: var(--navy);
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .faq-section { display: none; }
+  .faq-section.active { display: block; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--paper-dark);
+  }
+
+  /* accordion */
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--paper-dark);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 14px;
+    font-family: 'Shippori Mincho B1', serif;
+    font-weight: 700;
+    color: var(--navy);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.6;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: var(--paper); }
+  .faq-q.open { background: var(--navy); color: #fff; }
+  .faq-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    opacity: 0.6;
+  }
+  .faq-q.open .faq-icon { transform: rotate(45deg); opacity: 1; color: var(--gold); border-color: var(--gold); }
+
+  .faq-a {
+    display: none;
+    padding: 16px 20px 20px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--ink);
+    border-top: 1px solid var(--paper-dark);
+  }
+  .faq-a.open { display: block; }
+  .faq-a p { margin-bottom: 10px; }
+  .faq-a p:last-child { margin-bottom: 0; }
+  .faq-a ul { padding-left: 18px; margin-bottom: 10px; }
+  .faq-a li { margin-bottom: 5px; }
+  .faq-a strong { color: var(--navy); }
+  .faq-a .note {
+    background: var(--paper);
+    border-left: 3px solid var(--gold-dark);
+    padding: 8px 14px;
+    font-size: 12px;
+    color: var(--ink-mid);
+    border-radius: 0 4px 4px 0;
+    margin-top: 10px;
+  }
+  .faq-a .disclaimer {
+    background: var(--navy);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 10px;
+    line-height: 1.75;
+  }
+
+  /* contact CTA */
+  .contact-box {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 28px 32px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .contact-box h3 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .contact-box p { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+  .contact-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .contact-btn:hover { background: #D4A843; }
+
+  footer {
+    background: var(--navy);
+    padding: 32px 48px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+  }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px; }
+  footer a:hover { color: var(--gold); }
+  .footer-links { margin-bottom: 12px; }
+
+  @media (max-width: 640px) {
+    .container { padding: 32px 16px 80px; }
+    .tab-btn { min-width: 80px; font-size: 11px; padding: 10px 10px; }
+    footer { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header (Atlas unified nav) ── -->
+<header style="background:rgba(26,37,64,0.97);padding:0 5vw;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(184,145,42,0.12)">
+  <div style="display:flex;justify-content:space-between;align-items:center;height:52px;max-width:1100px;margin:0 auto">
+    <a href="https://yskzz121.github.io/ui-kabu-club/" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:0.04em;display:flex;align-items:baseline;gap:8px">Atlas<span style="color:#D4A843">.</span><span style="font-size:9px;color:rgba(212,168,67,0.6);letter-spacing:0.08em">Powered by U&amp;I CO., LTD.</span></a>
+    <nav style="display:flex;gap:24px;align-items:center">
+      <a href="https://yskzz121.github.io/ui-kabu-times/" style="font-size:12px;color:#D4A843;text-decoration:none">朝刊</a>
+      <a href="https://yskzz121.github.io/ui-kabu-reports/" style="font-size:12px;color:#D4A843;text-decoration:none">分析</a>
+      <a href="https://yskzz121.github.io/ui-kabu-times/glossary/" style="font-size:12px;color:#D4A843;text-decoration:none">用語辞典</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <div class="page-header">
+    <h1>よくある質問</h1>
+    <p>Frequently Asked Questions — お探しの答えが見つからない場合はお問い合わせください。</p>
+  </div>
+
+  <!-- タブナビ -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('service')">サービス内容</button>
+    <button class="tab-btn" onclick="switchTab('payment')">料金・支払い</button>
+    <button class="tab-btn" onclick="switchTab('cancel')">解約・返金</button>
+    <button class="tab-btn" onclick="switchTab('legal')">金融規制・免責</button>
+    <button class="tab-btn" onclick="switchTab('account')">アカウント</button>
+  </div>
+
+  <!-- ===== サービス内容 ===== -->
+  <div class="faq-section active" id="tab-service">
+    <div class="section-label">サービス内容について</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Atlas（旧U&amp;I株倶楽部）はどのようなサービスですか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Atlas（旧U&amp;I株倶楽部）は、米国主要企業の決算を財務・戦略・マクロ経済の三つの視点から読み解く、月額制の学習コミュニティです。</p>
+        <p>決算インフォグラフィックとレポートの配信、毎朝のニュース解説（朝刊）、重要発表時の号外、会員同士が交流できるコミュニティ空間を提供しています。</p>
+        <div class="note">本サービスは教育目的の情報提供です。投資判断の推奨は行いません。</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        誰が運営していますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>U&amp;I株式会社（代表取締役：上間 喜壽）が運営しています。</p>
+        <p>上間は沖縄県を拠点とする連続起業家・経営者であり、経営者向けの財務スクールおよびマネジメント養成講座の運営を通じて培った財務・経営分析の知見をベースにコンテンツを作成しています。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        どのようなコンテンツが配信されますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <ul>
+          <li><strong>決算レポート：</strong>米国主要企業の四半期決算を図解と解説でお届けします（月複数本）</li>
+          <li><strong>朝刊：</strong>毎朝、米国市場・経済ニュースのヘッドラインと解説を配信します</li>
+          <li><strong>号外：</strong>重要な決算発表・経済指標発表時に随時配信します</li>
+          <li><strong>特集記事：</strong>特定テーマを深掘りした記事を月1本程度配信します</li>
+          <li><strong>用語辞典・教育コンテンツ：</strong>財務・経済リテラシーの基礎から実践まで学べるコンテンツを提供します</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        投資初心者でも利用できますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>はい、利用できます。Atlasは「決算の読み方」を基礎から学べる教育コンテンツを用意しており、決算書を読んだことがない方でも段階的に理解できる設計になっています。</p>
+        <p>まずは用語辞典と「決算の読み方・基礎編」から始めることをお勧めします。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        無料で見られるコンテンツはありますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>以下のコンテンツは会員登録不要で閲覧できます。</p>
+        <ul>
+          <li>用語辞典（全項目）</li>
+          <li>決算の読み方・基礎編</li>
+          <li>朝刊ヘッドライン（各日3本のタイトルとリード文）</li>
+          <li>決算レポートのサマリー画像（1枚目）</li>
+        </ul>
+        <p>本文・詳細解説・アーカイブの閲覧には会員登録が必要です。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 料金・支払い ===== -->
+  <div class="faq-section" id="tab-payment">
+    <div class="section-label">料金・支払いについて</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        料金はいくらですか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>月額 <strong>¥980（税込）</strong> です。月単位の自動更新となります。</p>
+        <div class="note">料金は今後変更される場合があります。変更の際は適用30日前までに会員へ通知します。</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        支払い方法は何がありますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>クレジットカード（VISA / Mastercard / American Express / JCB）に対応しています。</p>
+        <p>カード情報は決済代行サービス「Stripe」が管理します。当社のサーバーにカード番号が保存されることはありません。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        いつ請求されますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>入会時に初回の料金が請求されます。その後は毎月同日に自動で請求されます。</p>
+        <p>例：1月15日に入会した場合、以降は毎月15日に請求されます。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        領収書・請求書は発行できますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Stripeの会員ポータルから請求履歴の確認および領収書のダウンロードが可能です。</p>
+        <p>インボイス（適格請求書）が必要な場合はお問い合わせください。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        支払いに失敗した場合はどうなりますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>決済に失敗した場合、Stripeより自動的に再試行が行われます。再試行後も決済が完了しない場合、会員サービスへのアクセスが一時停止されます。</p>
+        <p>カードの有効期限切れや限度額超過が原因の場合は、マイページよりカード情報を更新してください。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 解約・返金 ===== -->
+  <div class="faq-section" id="tab-cancel">
+    <div class="section-label">解約・返金について</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        解約はどこからできますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>マイページの「プラン・支払い管理」より解約手続きができます。</p>
+        <p>解約は<strong>次回更新日の前日まで</strong>に手続きを完了してください。翌月分の請求は発生しません。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        解約後もコンテンツは見られますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>はい。解約手続きを完了した後も、<strong>当月末（次回更新日）までは引き続きサービスをご利用いただけます。</strong></p>
+        <p>更新日を過ぎると会員コンテンツへのアクセスができなくなります。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        返金はしてもらえますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>すでに決済された月の料金は、理由の如何にかかわらず返金いたしません。</p>
+        <p>ただし、当社の都合によりサービスを停止する場合は、未利用期間に相当する料金を返金します。</p>
+        <div class="note">返金をご希望の場合はお問い合わせください。内容を確認の上、個別に対応いたします。</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        一度解約した後、再入会できますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>はい、いつでも再入会できます。入会ページより新たに手続きをお願いします。</p>
+        <p>以前のアカウント情報・閲覧履歴は引き継がれない場合があります。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 金融規制・免責 ===== -->
+  <div class="faq-section" id="tab-legal">
+    <div class="section-label">金融規制・免責について</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Atlasは投資スクールですか？投資の儲け方を教えてもらえますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>Atlasは投資スクールではありません。</p>
+        <p>提供するのは、米国企業の決算・財務・経営戦略・マクロ経済に関する<strong>教育目的の情報提供と解説</strong>です。「どの銘柄をいくらで買うべきか」「今が買い時か」といった投資判断の指示・推奨は一切行いません。</p>
+        <p>投資の最終的な判断は、会員ご自身の責任において行っていただきます。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        金融商品取引業の登録をしていますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>当社は金融商品取引業（投資助言・代理業）の登録を受けておりません。</p>
+        <p>本サービスは、金融商品取引法に定める投資助言・代理業には該当しないことを前提に、教育目的の情報提供として運営しています。投資顧問契約を締結する権限を当社は有していません。</p>
+        <div class="disclaimer">本サービスのコンテンツはすべて教育目的の情報提供であり、特定の有価証券の売買に関する投資判断の助言を目的とするものではありません。</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        掲載されている分析・数値の正確性は保証されますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>当社は公開情報に基づいて分析・解説を作成していますが、その<strong>正確性・完全性・最新性を保証するものではありません。</strong></p>
+        <p>決算情報・財務データは、情報源の誤り・翻訳の誤差・配信の遅延等により実際と異なる場合があります。重要な意思決定を行う際は、必ず一次情報（企業のIRページ・SEC提出書類等）をご確認ください。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        コンテンツを参考に投資して損失が出た場合、補償はありますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>補償はありません。</p>
+        <p>本サービスのコンテンツに基づく投資行動の結果について、当社は故意または重大な過失がある場合を除き、責任を負いません。投資にはリスクが伴い、元本を割り込む可能性があります。</p>
+        <p>Atlasのコンテンツは「自分で考えるための材料」として設計されており、投資判断の根拠として単独で使用することは想定していません。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        コミュニティで特定の銘柄を勧めることはできますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>いいえ。コミュニティ内での特定銘柄の売買推奨・勧誘は<strong>利用規約第7条により禁止</strong>しています。</p>
+        <p>「この銘柄を買いましょう」「今が買い時です」などの発言は、運営側で削除対応を行い、繰り返す場合は会員資格の停止措置を取ることがあります。</p>
+        <p>決算内容についての感想・疑問・意見の共有は歓迎します。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== アカウント ===== -->
+  <div class="faq-section" id="tab-account">
+    <div class="section-label">アカウントについて</div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        メールアドレスを変更したい場合はどうすればよいですか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>マイページの「アカウント設定」よりメールアドレスの変更ができます。</p>
+        <p>変更後、確認メールが新しいアドレスに送られます。メール内のリンクをクリックして変更を完了してください。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        パスワードを忘れた場合はどうすればよいですか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>ログインページの「パスワードを忘れた方はこちら」よりパスワードの再設定が可能です。登録済みのメールアドレスに再設定用リンクを送付します。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        アカウントを複数人で共有できますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>できません。1アカウントは1名のみの利用を前提としており、利用規約第7条によりアカウントの第三者への貸与・共有を禁止しています。</p>
+        <p>複数名でご利用の場合は、それぞれ個別にご入会ください。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        個人情報の削除を依頼できますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>はい。お問い合わせ窓口より「個人情報の削除依頼」としてご連絡ください。解約手続きと合わせて、登録情報の削除対応をいたします。</p>
+        <p>なお、クレジットカード情報はStripe社が管理しており、当社では保有していません。Stripe側のデータ削除については、Stripeのプライバシーポリシーをご確認ください。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        スマートフォンでも利用できますか？
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <p>はい。Atlasのサイトはスマートフォン・タブレット・PCいずれのブラウザでもご利用いただけます。</p>
+        <p>現時点では専用アプリの提供はありませんが、スマートフォンのブラウザから通常通りアクセス可能です。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- お問い合わせ -->
+  <div class="contact-box">
+    <h3>お探しの答えが見つかりませんでしたか？</h3>
+    <p>その他のご質問はお問い合わせフォームよりご連絡ください。<br>営業日2〜3日以内にメールにてご返答します。</p>
+    <a href="mailto:contact@u-and-i.co.jp" class="contact-btn">お問い合わせ</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="terms.html">利用規約</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="legal/tokusho.html">特定商取引法</a>
+    <a href="faq.html">よくある質問</a>
+  </div>
+  &copy; 2026 U&amp;I CO., LTD. All rights reserved. — Powered by U&amp;I CO., LTD.
+</footer>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.faq-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    // 同セクション内を閉じる
+    btn.closest('.faq-section').querySelectorAll('.faq-q.open').forEach(b => {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>

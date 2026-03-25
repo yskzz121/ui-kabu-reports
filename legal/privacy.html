@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>プライバシーポリシー | Atlas</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A2540;--navy-mid:#243158;--navy-deep:#0F1829;
+  --gold:#B8912A;--gold-lt:#D4A843;--gold-pale:#F0E6C8;
+  --paper:#F5F2EC;--paper-dk:#ECE8DF;
+  --ink:#0F0E0C;--slate:#4A5568;--slate-lt:#718096;
+  --rule:rgba(184,145,42,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(26,37,64,0.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,145,42,0.12);padding:0 5vw}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;height:56px;max-width:1200px;margin:0 auto}
+.nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:0.04em}
+.nav-logo span{color:var(--gold-lt)}
+.nav-sub{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:12px;letter-spacing:0.06em;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold-lt)}
+.nav-hamburger{display:none;background:none;border:none;color:rgba(255,255,255,0.7);font-size:20px;cursor:pointer;padding:4px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(26,37,64,0.98);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,145,42,0.12);padding:16px 24px;z-index:99}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:12px 0;font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--gold-lt)}
+
+/* Page */
+.page-header{background:var(--navy-deep);padding:48px 24px;text-align:center;border-bottom:1px solid rgba(184,145,42,0.1)}
+.page-header h1{font-family:'Shippori Mincho B1',serif;font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;letter-spacing:0.06em;margin-bottom:4px}
+.page-header-sub{font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;font-style:italic}
+
+.container{max-width:800px;margin:0 auto;padding:48px 24px}
+
+/* Article */
+.article-num{font-family:'Shippori Mincho B1',serif;font-size:18px;font-weight:700;color:var(--navy);margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--rule)}
+.article-num:first-child{margin-top:0}
+.article-body{margin-bottom:8px;font-size:14px;line-height:2}
+.article-body ul{margin:8px 0 8px 20px}
+.article-body ul li{margin-bottom:6px;line-height:1.9}
+
+.updated{text-align:right;font-size:12px;color:var(--slate-lt);margin-top:40px;padding-top:20px;border-top:1px solid var(--rule)}
+
+/* Footer */
+footer{background:var(--navy);padding:32px 48px;text-align:center}
+.footer-links{margin-bottom:14px}
+.footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:11px;margin:0 14px;letter-spacing:0.04em;transition:color 0.15s}
+.footer-links a:hover{color:var(--gold-lt)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.04em}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-hamburger{display:block}
+  .container{padding:32px 16px}
+  .article-num{font-size:16px;margin:32px 0 10px}
+  footer{padding:24px 16px}
+  .footer-links a{display:block;margin:8px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="https://yskzz121.github.io/ui-kabu-reports/" class="nav-brand">
+      <span class="nav-logo">Atlas<span>.</span></span>
+      <span class="nav-sub">Powered by U&amp;I CO., LTD.</span>
+    </a>
+    <nav class="nav-links">
+      <a href="https://yskzz121.github.io/ui-kabu-times/">朝刊</a>
+      <a href="https://yskzz121.github.io/ui-kabu-reports/">分析</a>
+      <a href="https://yskzz121.github.io/ui-kabu-times/glossary/">用語辞典</a>
+    </nav>
+    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="メニュー">☰</button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://yskzz121.github.io/ui-kabu-times/">Atlas朝刊</a>
+  <a href="https://yskzz121.github.io/ui-kabu-reports/">決算分析</a>
+  <a href="https://yskzz121.github.io/ui-kabu-times/glossary/">用語辞典</a>
+</div>
+
+<div class="page-header">
+  <h1>プライバシーポリシー</h1>
+  <div class="page-header-sub">Privacy Policy</div>
+</div>
+
+<div class="container">
+
+  <div class="article-num">第1条（個人情報の定義）</div>
+  <div class="article-body">
+    <p>個人情報とは、氏名、メールアドレス、クレジットカード情報等、特定の個人を識別できる情報を指します。</p>
+  </div>
+
+  <div class="article-num">第2条（収集する情報）</div>
+  <div class="article-body">
+    <p>当社は、本サービスの提供にあたり、以下の情報を収集します。</p>
+    <ul>
+      <li>氏名（ニックネーム可）</li>
+      <li>メールアドレス</li>
+      <li>決済情報（Stripeが管理。当社サーバーにカード情報は保存しません）</li>
+      <li>アクセスログ（IPアドレス、ブラウザ情報、閲覧ページ）</li>
+      <li>Cookie情報</li>
+    </ul>
+  </div>
+
+  <div class="article-num">第3条（利用目的）</div>
+  <div class="article-body">
+    <p>収集した個人情報は、以下の目的で利用します。</p>
+    <ul>
+      <li>サービスの提供・運営</li>
+      <li>会員の本人確認</li>
+      <li>利用料金の請求</li>
+      <li>サービスの改善・新機能開発</li>
+      <li>お問い合わせへの対応</li>
+      <li>利用規約に違反する行為への対応</li>
+    </ul>
+  </div>
+
+  <div class="article-num">第4条（第三者提供の制限）</div>
+  <div class="article-body">
+    <p>法令に基づく場合を除き、本人の同意なく個人情報を第三者に提供しません。ただし、以下は第三者提供に該当しません：</p>
+    <ul>
+      <li>決済処理のためStripe, Inc.への情報提供</li>
+      <li>会員認証のためMemberstack, Inc.への情報提供</li>
+    </ul>
+  </div>
+
+  <div class="article-num">第5条（個人情報の管理）</div>
+  <div class="article-body">
+    <p>当社は個人情報の漏洩・滅失・毀損を防止するため、適切な安全管理措置を講じます。</p>
+  </div>
+
+  <div class="article-num">第6条（個人情報の開示・訂正・削除）</div>
+  <div class="article-body">
+    <p>会員は自己の個人情報の開示・訂正・削除を請求できます。contact@u-and-i.co.jp までご連絡ください。</p>
+  </div>
+
+  <div class="article-num">第7条（Cookie の使用）</div>
+  <div class="article-body">
+    <p>当社はサービスの利便性向上のためCookieを使用します。ブラウザ設定でCookieを無効にできますが、一部機能が制限される場合があります。</p>
+  </div>
+
+  <div class="article-num">第8条（アクセス解析）</div>
+  <div class="article-body">
+    <p>当社はサービス改善のため、アクセス解析ツールを使用する場合があります。収集される情報は統計データとして処理され、個人を特定するものではありません。</p>
+  </div>
+
+  <div class="article-num">第9条（プライバシーポリシーの変更）</div>
+  <div class="article-body">
+    <p>本ポリシーは法令の変更やサービスの変更に伴い、予告なく改定する場合があります。改定後のポリシーは本ページへの掲載をもって効力を生じます。</p>
+  </div>
+
+  <div class="article-num">第10条（お問い合わせ窓口）</div>
+  <div class="article-body">
+    <p>U&amp;I株式会社 個人情報管理責任者<br>
+    メール: contact@u-and-i.co.jp<br>
+    電話: 098-923-2822（平日10:00〜17:00）</p>
+  </div>
+
+  <div class="updated">制定日: 2026年4月1日</div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/tokusho.html">特定商取引法</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/privacy.html">プライバシーポリシー</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/terms.html">利用規約</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/">決算分析ポータル</a>
+    <a href="https://yskzz121.github.io/atlas-news/">Atlasについて</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 U&amp;I CO., LTD. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleMobileMenu(){
+  var menu=document.getElementById('mobileMenu');
+  var btn=document.querySelector('.nav-hamburger');
+  menu.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕':'☰';
+}
+</script>
+</body>
+</html>

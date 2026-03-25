@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>特定商取引法に基づく表記 | Atlas</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A2540;--navy-mid:#243158;--navy-deep:#0F1829;
+  --gold:#B8912A;--gold-lt:#D4A843;--gold-pale:#F0E6C8;
+  --paper:#F5F2EC;--paper-dk:#ECE8DF;
+  --ink:#0F0E0C;--slate:#4A5568;--slate-lt:#718096;
+  --rule:rgba(184,145,42,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(26,37,64,0.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,145,42,0.12);padding:0 5vw}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;height:56px;max-width:1200px;margin:0 auto}
+.nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:0.04em}
+.nav-logo span{color:var(--gold-lt)}
+.nav-sub{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:12px;letter-spacing:0.06em;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold-lt)}
+.nav-hamburger{display:none;background:none;border:none;color:rgba(255,255,255,0.7);font-size:20px;cursor:pointer;padding:4px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(26,37,64,0.98);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,145,42,0.12);padding:16px 24px;z-index:99}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:12px 0;font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--gold-lt)}
+
+/* Page */
+.page-header{background:var(--navy-deep);padding:48px 24px;text-align:center;border-bottom:1px solid rgba(184,145,42,0.1)}
+.page-header h1{font-family:'Shippori Mincho B1',serif;font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;letter-spacing:0.06em;margin-bottom:4px}
+.page-header-sub{font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;font-style:italic}
+
+.container{max-width:800px;margin:0 auto;padding:48px 24px}
+
+/* Table */
+.legal-table{width:100%;border-collapse:collapse;margin-top:8px}
+.legal-table th,.legal-table td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.9}
+.legal-table th{font-family:'Shippori Mincho B1',serif;font-weight:700;font-size:13px;color:var(--navy);white-space:nowrap;width:160px;background:rgba(184,145,42,0.04)}
+.legal-table td{font-size:14px;color:var(--ink)}
+.legal-table tr:last-child th,.legal-table tr:last-child td{border-bottom:none}
+
+.updated{text-align:right;font-size:12px;color:var(--slate-lt);margin-top:32px}
+
+/* Footer */
+footer{background:var(--navy);padding:32px 48px;text-align:center}
+.footer-links{margin-bottom:14px}
+.footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:11px;margin:0 14px;letter-spacing:0.04em;transition:color 0.15s}
+.footer-links a:hover{color:var(--gold-lt)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.04em}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-hamburger{display:block}
+  .container{padding:32px 16px}
+  .legal-table th,.legal-table td{display:block;width:100%;padding:10px 16px}
+  .legal-table th{border-bottom:none;padding-bottom:0;background:rgba(184,145,42,0.08)}
+  .legal-table td{padding-top:4px}
+  footer{padding:24px 16px}
+  .footer-links a{display:block;margin:8px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="https://yskzz121.github.io/ui-kabu-reports/" class="nav-brand">
+      <span class="nav-logo">Atlas<span>.</span></span>
+      <span class="nav-sub">Powered by U&amp;I CO., LTD.</span>
+    </a>
+    <nav class="nav-links">
+      <a href="https://yskzz121.github.io/ui-kabu-times/">朝刊</a>
+      <a href="https://yskzz121.github.io/ui-kabu-reports/">分析</a>
+      <a href="https://yskzz121.github.io/ui-kabu-times/glossary/">用語辞典</a>
+    </nav>
+    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="メニュー">☰</button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://yskzz121.github.io/ui-kabu-times/">Atlas朝刊</a>
+  <a href="https://yskzz121.github.io/ui-kabu-reports/">決算分析</a>
+  <a href="https://yskzz121.github.io/ui-kabu-times/glossary/">用語辞典</a>
+</div>
+
+<div class="page-header">
+  <h1>特定商取引法に基づく表記</h1>
+  <div class="page-header-sub">Specified Commercial Transactions Act</div>
+</div>
+
+<div class="container">
+  <table class="legal-table">
+    <tr><th>事業者名</th><td>U&amp;I株式会社</td></tr>
+    <tr><th>代表者</th><td>上間 喜壽</td></tr>
+    <tr><th>所在地</th><td>沖縄県沖縄市登川3丁目23-18-201号室</td></tr>
+    <tr><th>電話番号</th><td>098-923-2822（受付時間：平日10:00〜17:00）</td></tr>
+    <tr><th>メールアドレス</th><td>contact@u-and-i.co.jp</td></tr>
+    <tr><th>サービス名</th><td>Atlas（アトラス）</td></tr>
+    <tr><th>サービス内容</th><td>米国株式市場に関する教育目的の情報提供（決算分析レポート、マーケットニュース、学習コンテンツ等）</td></tr>
+    <tr><th>販売価格</th><td>月額980円（税込）<br>※価格変更時は30日前に通知</td></tr>
+    <tr><th>支払方法</th><td>クレジットカード（VISA / Mastercard / American Express / JCB）</td></tr>
+    <tr><th>支払時期</th><td>入会時に初回課金、以降毎月同日に自動課金</td></tr>
+    <tr><th>サービス提供時期</th><td>決済完了後、直ちにサービスをご利用いただけます</td></tr>
+    <tr><th>返品・キャンセル</th><td>デジタルコンテンツのため、決済済みの月の返金は原則不可。解約は次回更新日の前日まで</td></tr>
+    <tr><th>解約方法</th><td>マイページより解約手続き。解約後も当月末までサービス利用可</td></tr>
+    <tr><th>動作環境</th><td>最新のWebブラウザ（Chrome, Safari, Firefox, Edge）。専用アプリなし</td></tr>
+    <tr><th>特記事項</th><td>本サービスは金融商品取引法に基づく投資助言・代理業ではありません</td></tr>
+  </table>
+  <div class="updated">制定日: 2026年4月1日</div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/tokusho.html">特定商取引法</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/privacy.html">プライバシーポリシー</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/terms.html">利用規約</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/">決算分析ポータル</a>
+    <a href="https://yskzz121.github.io/atlas-news/">Atlasについて</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 U&amp;I CO., LTD. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleMobileMenu(){
+  var menu=document.getElementById('mobileMenu');
+  var btn=document.querySelector('.nav-hamburger');
+  menu.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕':'☰';
+}
+</script>
+</body>
+</html>

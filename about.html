@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlasとは | Atlas</title>
+<meta name="description" content="Atlasは、米国株式市場を財務・戦略・経済の視点から読み解く、経営者・ビジネスパーソン向けの学習コミュニティです。">
+<meta property="og:title" content="Atlasとは | Atlas">
+<meta property="og:description" content="Atlasは、米国株式市場を財務・戦略・経済の視点から読み解く、経営者・ビジネスパーソン向けの学習コミュニティです。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yskzz121.github.io/ui-kabu-reports/about.html">
+<meta property="og:site_name" content="Atlas">
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A2540;
+    --navy-light: #243058;
+    --gold: #B8912A;
+    --gold-lt: #D4A843;
+    --gold-dark: #B8912A;
+    --slate: #4A5568;
+    --slate-lt: #718096;
+    --paper: #F5F2EC;
+    --paper-dark: #E8E4DC;
+    --ink: #0F0E0C;
+    --ink-mid: rgba(15,14,12,0.55);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: var(--navy);
+    padding: 88px 48px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,145,42,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-en {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+  .hero h1 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── Section common ── */
+  .section { padding: 80px 48px; }
+  .section-inner { max-width: 800px; margin: 0 auto; }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+  .section-title.light { color: #fff; }
+  .section-body {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 2;
+  }
+  .section-body p { margin-bottom: 18px; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  /* ── backgrounds ── */
+  .bg-white  { background: #fff; }
+  .bg-paper  { background: var(--paper); }
+  .bg-navy   { background: var(--navy); }
+
+  /* ── divider ── */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gold-dark);
+    margin: 0 auto 32px;
+  }
+  .divider.left { margin: 0 0 28px; }
+
+  /* ── message ── */
+  .message-body {
+    font-size: 14px;
+    color: rgba(255,255,255,0.82);
+    line-height: 2.1;
+  }
+  .message-body p { margin-bottom: 20px; }
+  .message-body p:last-child { margin-bottom: 0; }
+
+  /* ── name grid ── */
+  .name-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .name-card {
+    background: #fff;
+    border: 1px solid var(--paper-dark);
+    border-radius: 8px;
+    padding: 20px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .name-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold-dark);
+    opacity: 0.5;
+    flex-shrink: 0;
+    line-height: 1.2;
+    width: 28px;
+  }
+  .name-content h3 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 5px;
+  }
+  .name-content p {
+    font-size: 12px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+  }
+
+  /* ── offer grid ── */
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  .offer-box {
+    border-radius: 8px;
+    padding: 24px 24px;
+    border: 1px solid var(--paper-dark);
+  }
+  .offer-box.yes { background: #fff; }
+  .offer-box.no  { background: var(--paper); }
+  .offer-box h3 {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--paper-dark);
+  }
+  .offer-box.yes h3 { color: var(--navy); }
+  .offer-box.no  h3 { color: var(--ink-mid); }
+  .offer-list { list-style: none; }
+  .offer-item {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    margin-bottom: 9px;
+    line-height: 1.65;
+    align-items: flex-start;
+  }
+  .offer-item:last-child { margin-bottom: 0; }
+  .offer-icon { flex-shrink: 0; margin-top: 2px; }
+  .offer-box.yes .offer-icon { color: var(--gold-dark); }
+  .offer-box.no  .offer-icon { color: #aaa; }
+
+  /* ── profile ── */
+  .profile {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--paper-dark);
+    border-radius: 8px;
+    padding: 32px;
+    margin-top: 8px;
+  }
+  .profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .profile-name {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .profile-title {
+    font-size: 12px;
+    color: var(--ink-mid);
+    margin-bottom: 14px;
+  }
+  .profile-body {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.9;
+  }
+  .profile-body p { margin-bottom: 10px; }
+  .profile-body p:last-child { margin-bottom: 0; }
+
+  /* ── promise ── */
+  .promise {
+    background: var(--navy);
+    border-radius: 8px;
+    padding: 48px 40px;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .promise-text {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: clamp(17px, 3vw, 22px);
+    color: #fff;
+    line-height: 1.75;
+    margin-bottom: 20px;
+    letter-spacing: 0.04em;
+  }
+  .promise-text span { color: var(--gold); }
+  .promise-name {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--paper-dark);
+    padding: 72px 48px;
+    text-align: center;
+  }
+  .cta-inner { max-width: 520px; margin: 0 auto; }
+  .cta-title {
+    font-family: 'Shippori Mincho B1', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .cta-body {
+    font-size: 13px;
+    color: var(--ink-mid);
+    margin-bottom: 28px;
+    line-height: 1.8;
+  }
+  .cta-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .cta-price span { font-size: 16px; }
+  .cta-note {
+    font-size: 11px;
+    color: var(--ink-mid);
+    margin-bottom: 24px;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 40px;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: var(--navy-light); }
+  .btn-secondary {
+    display: inline-block;
+    margin-left: 16px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--paper-dark);
+    padding-bottom: 1px;
+  }
+  .btn-secondary:hover { color: var(--navy); border-color: var(--navy); }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--navy);
+    padding: 32px 48px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+  }
+  footer a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    margin: 0 12px;
+  }
+  footer a:hover { color: var(--gold); }
+  .footer-links { margin-bottom: 12px; }
+
+  @media (max-width: 768px) {
+    .hero { padding: 64px 24px 60px; }
+    .section { padding: 56px 24px; }
+    .name-grid { grid-template-columns: 1fr; }
+    .offer-grid { grid-template-columns: 1fr; }
+    .profile { flex-direction: column; gap: 20px; }
+    .promise { padding: 36px 24px; }
+    .cta-section { padding: 56px 24px; }
+    footer { padding: 24px 20px; }
+    .btn-secondary { display: block; margin: 14px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header (Atlas unified nav) ── -->
+<header style="background:rgba(26,37,64,0.97);padding:0 5vw;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(184,145,42,0.12)">
+  <div style="display:flex;justify-content:space-between;align-items:center;height:52px;max-width:1100px;margin:0 auto">
+    <a href="https://yskzz121.github.io/ui-kabu-club/" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:0.04em;display:flex;align-items:baseline;gap:8px">Atlas<span style="color:#D4A843">.</span><span style="font-size:9px;color:rgba(212,168,67,0.6);letter-spacing:0.08em">Powered by U&amp;I CO., LTD.</span></a>
+    <nav style="display:flex;gap:24px;align-items:center">
+      <a href="https://yskzz121.github.io/ui-kabu-times/" style="font-size:12px;color:#D4A843;text-decoration:none">朝刊</a>
+      <a href="https://yskzz121.github.io/ui-kabu-reports/" style="font-size:12px;color:#D4A843;text-decoration:none">分析</a>
+      <a href="https://yskzz121.github.io/ui-kabu-times/glossary/" style="font-size:12px;color:#D4A843;text-decoration:none">用語辞典</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-en">About Atlas</div>
+  <h1>決算を読む。<span>世界が見える。</span></h1>
+  <p class="hero-sub">米国株式市場を、財務・戦略・経済の視点から読み解く<br>経営者・ビジネスパーソン向けの学習コミュニティです。</p>
+</section>
+
+<!-- ── 01 会社のメッセージ ── -->
+<section class="section bg-navy">
+  <div class="section-inner">
+    <div class="section-label">Message from U&amp;I CO., LTD.</div>
+    <div class="divider left"></div>
+    <h2 class="section-title light">なぜ、U&amp;I株式会社が<br>この事業をつくったのか。</h2>
+    <div class="message-body">
+      <p>U&amp;I株式会社は、経営者向けの財務スクールとマネジメント養成講座を通じて、「数字を読める経営者を育てる」ことを一貫したテーマとして歩んできました。</p>
+      <p>その活動のなかで、私たちはひとつの事実に繰り返し直面しました。財務に強い経営者ほど、米国株式市場に深い関心を持っている——という事実です。</p>
+      <p>それは「儲けたい」からではありません。GAFAMの決算、半導体メーカーの設備投資計画、エネルギー企業の地政学的立ち位置。それらを読み解く力が、世界経済の「構造」を理解する力と直結していると知っているからです。</p>
+      <p>Atlasは、その学びをより多くの人に届けるために生まれました。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 02 ブランドのメッセージ ── -->
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-label">Brand Message</div>
+    <div class="divider left"></div>
+    <h2 class="section-title">Atlasという名前に<br>込めた意味</h2>
+    <div class="section-body">
+      <p>かつて地図は、権力者だけのものでした。正確な地図を持つ者が、航路を決め、世界を動かすことができた時代がありました。</p>
+      <p>株式市場の「決算」もまた、同じです。数字を正確に読める者だけが、世界経済の地形を把握できる。私たちは、その「地図の読み方」を渡したいのです。</p>
+    </div>
+    <div class="name-grid">
+      <div class="name-card">
+        <div class="name-num">01</div>
+        <div class="name-content">
+          <h3>地図帳</h3>
+          <p>世界全体を一冊に収めた知識の集成。「世界の読み方」を渡すサービスの本質。</p>
+        </div>
+      </div>
+      <div class="name-card">
+        <div class="name-num">02</div>
+        <div class="name-content">
+          <h3>巨人（ギリシャ神話）</h3>
+          <p>世界を肩で支えたアトラス。会員の知的成長を支える責任感を込めています。</p>
+        </div>
+      </div>
+      <div class="name-card">
+        <div class="name-num">03</div>
+        <div class="name-content">
+          <h3>第一頸椎（アトラス椎）</h3>
+          <p>頭蓋骨を支える骨。知的判断の土台となるリテラシーを提供します。</p>
+        </div>
+      </div>
+      <div class="name-card">
+        <div class="name-num">04</div>
+        <div class="name-content">
+          <h3>アトラスロケット</h3>
+          <p>宇宙開発のフロンティア。知らなかった世界への最初の一歩を後押しします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 提供するもの・しないもの ── -->
+<section class="section bg-paper">
+  <div class="section-inner">
+    <div class="section-label">What We Do / Don't Do</div>
+    <div class="divider left"></div>
+    <h2 class="section-title">提供するもの、<br>提供しないもの</h2>
+    <div class="offer-grid">
+      <div class="offer-box yes">
+        <h3>&#10022; 提供するもの</h3>
+        <ul class="offer-list">
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>米国主要企業の決算インフォグラフィックとレポート</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>財務・戦略・マクロの三視点による解説</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>経営者の視点からの業績解釈</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>毎朝のマーケットニュース解説（朝刊）</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>財務・経済リテラシーの学習コンテンツ</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>会員同士が意見を交わせるコミュニティ空間</span>
+          </li>
+        </ul>
+      </div>
+      <div class="offer-box no">
+        <h3>&#10022; 提供しないもの</h3>
+        <ul class="offer-list">
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>特定銘柄の売買推奨・タイミングの指示</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>「今が買い時」等の投資判断への誘導</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>運用実績・リターンに関する訴求</span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-icon">—</span>
+            <span>投資顧問契約に基づく個別相談</span>
+          </li>
+        </ul>
+        <p style="font-size:12px; color:var(--ink-mid); margin-top:16px; line-height:1.75;">投資判断はすべて会員ご自身に委ねます。Atlasは「考えるための材料」を届ける場です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 04 運営者 ── -->
+<section class="section bg-white">
+  <div class="section-inner">
+    <div class="section-label">About the Founder</div>
+    <div class="divider left"></div>
+    <h2 class="section-title">運営者紹介</h2>
+    <div class="profile">
+      <div class="profile-avatar"><img src="https://yskzz121.github.io/atlas-news/founder.jpg" alt="上間 喜壽" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+      <div>
+        <div class="profile-name">上間 喜壽（うえま よしかず）</div>
+        <div class="profile-title">U&amp;I株式会社 代表取締役 / 連続起業家・経営者</div>
+        <div class="profile-body">
+          <p>皆さん、こんにちは。U&amp;I株式会社代表の上間です。この度、U&amp;I株式会社は、新しい金融投資リテラシー向上のための学びのサービス「アトラス（旧U&amp;I株倶楽部）」をリリースします。U&amp;Iで提供している経営に関する学びのコンテンツを、さらに世界経済や金融・投資の世界へと拡張させます。より学びの範囲を広げ、決算や経済ニュースを通じて世界をより深く理解できるようなサービスを目指して、頑張ってまいります。皆様が共に学び、共に成長し、共に豊かになる未来を目指して、これからも努めてまいります。どうぞ引き続き、アトラスおよびU&amp;I株式会社をよろしくお願いいたします。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 05 コアプロミス ── -->
+<section class="section bg-paper">
+  <div class="section-inner">
+    <div class="section-label">Core Promise</div>
+    <div class="divider"></div>
+    <div class="promise">
+      <p class="promise-text">
+        投資判断を教えない。<br>
+        投資を<span>自分で考える力</span>を育てる。<br><br>
+        Atlasはそのために存在します。
+      </p>
+      <p class="promise-name">上間 喜壽 / U&amp;I株式会社 代表取締役</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title">Atlasに参加する</h2>
+    <p class="cta-body">月々の決算を継続して読んでいくと、企業の戦略の変化や業界の構造が少しずつ見えてくるようになります。その積み重ねを、Atlasでお手伝いします。</p>
+    <div class="cta-price">¥980<span> / 月（税込）</span></div>
+    <p class="cta-note">いつでも解約できます</p>
+    <a href="#" class="btn-primary">準備中</a>
+    <a href="faq.html" class="btn-secondary">よくある質問を見る</a>
+  </div>
+</section>
+
+<!-- ── Disclaimer ── -->
+<div style="background:#fff; padding:24px 48px; border-top:1px solid var(--paper-dark);">
+  <div style="max-width:800px; margin:0 auto; font-size:11px; color:var(--ink-mid); line-height:1.85;">
+    本サービスはU&amp;I株式会社が提供する教育目的の情報提供であり、特定の有価証券の売買を推奨・助言するものではありません。掲載情報の正確性・完全性・最新性を保証するものではなく、投資に関する最終的な判断はご自身の責任においてお願いいたします。当社は金融商品取引業（投資助言・代理業）の登録を受けておりません。
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-links">
+    <a href="terms.html">利用規約</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="legal/tokusho.html">特定商取引法</a>
+    <a href="faq.html">よくある質問</a>
+  </div>
+  &copy; 2026 U&amp;I CO., LTD. All rights reserved. — Powered by U&amp;I CO., LTD.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>利用規約 | Atlas</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A2540;--navy-mid:#243158;--navy-deep:#0F1829;
+  --gold:#B8912A;--gold-lt:#D4A843;--gold-pale:#F0E6C8;
+  --paper:#F5F2EC;--paper-dk:#ECE8DF;
+  --ink:#0F0E0C;--slate:#4A5568;--slate-lt:#718096;
+  --rule:rgba(184,145,42,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(26,37,64,0.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,145,42,0.12);padding:0 5vw}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;height:56px;max-width:1200px;margin:0 auto}
+.nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:0.04em}
+.nav-logo span{color:var(--gold-lt)}
+.nav-sub{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:12px;letter-spacing:0.06em;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--gold-lt)}
+.nav-hamburger{display:none;background:none;border:none;color:rgba(255,255,255,0.7);font-size:20px;cursor:pointer;padding:4px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(26,37,64,0.98);backdrop-filter:blur(8px);border-bottom:1px solid rgba(184,145,42,0.12);padding:16px 24px;z-index:99}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:12px 0;font-size:14px;color:rgba(255,255,255,0.7);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--gold-lt)}
+
+/* Page */
+.page-header{background:var(--navy-deep);padding:48px 24px;text-align:center;border-bottom:1px solid rgba(184,145,42,0.1)}
+.page-header h1{font-family:'Shippori Mincho B1',serif;font-size:clamp(22px,4vw,32px);font-weight:800;color:#fff;letter-spacing:0.06em;margin-bottom:4px}
+.page-header-sub{font-family:'Playfair Display',serif;font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;font-style:italic}
+
+.container{max-width:800px;margin:0 auto;padding:48px 24px}
+
+/* Article */
+.article-num{font-family:'Shippori Mincho B1',serif;font-size:18px;font-weight:700;color:var(--navy);margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--rule)}
+.article-num:first-child{margin-top:0}
+.article-body{margin-bottom:8px;font-size:14px;line-height:2}
+.article-body ul{margin:8px 0 8px 20px}
+.article-body ul li{margin-bottom:6px;line-height:1.9}
+
+.jurisdiction{margin-top:40px;padding:24px;background:rgba(26,37,64,0.04);border:1px solid var(--rule);border-radius:8px}
+.jurisdiction p{font-size:14px;line-height:2;margin-bottom:4px}
+.jurisdiction p:last-child{margin-bottom:0}
+
+.updated{text-align:right;font-size:12px;color:var(--slate-lt);margin-top:32px;padding-top:20px;border-top:1px solid var(--rule)}
+
+/* Footer */
+footer{background:var(--navy);padding:32px 48px;text-align:center}
+.footer-links{margin-bottom:14px}
+.footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:11px;margin:0 14px;letter-spacing:0.04em;transition:color 0.15s}
+.footer-links a:hover{color:var(--gold-lt)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.04em}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-hamburger{display:block}
+  .container{padding:32px 16px}
+  .article-num{font-size:16px;margin:32px 0 10px}
+  footer{padding:24px 16px}
+  .footer-links a{display:block;margin:8px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-inner">
+    <a href="https://yskzz121.github.io/ui-kabu-reports/" class="nav-brand">
+      <span class="nav-logo">Atlas<span>.</span></span>
+      <span class="nav-sub">Powered by U&amp;I CO., LTD.</span>
+    </a>
+    <nav class="nav-links">
+      <a href="https://yskzz121.github.io/ui-kabu-times/">朝刊</a>
+      <a href="https://yskzz121.github.io/ui-kabu-reports/">分析</a>
+      <a href="https://yskzz121.github.io/ui-kabu-times/glossary/">用語辞典</a>
+    </nav>
+    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="メニュー">☰</button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="https://yskzz121.github.io/ui-kabu-times/">Atlas朝刊</a>
+  <a href="https://yskzz121.github.io/ui-kabu-reports/">決算分析</a>
+  <a href="https://yskzz121.github.io/ui-kabu-times/glossary/">用語辞典</a>
+</div>
+
+<div class="page-header">
+  <h1>利用規約</h1>
+  <div class="page-header-sub">Terms of Service</div>
+</div>
+
+<div class="container">
+
+  <div class="article-num">第1条（適用）</div>
+  <div class="article-body">
+    <p>本規約はU&amp;I株式会社（以下「当社」）が提供するサービス「Atlas」（以下「本サービス」）の利用に関する条件を定めます。会員は本規約に同意の上、本サービスを利用するものとします。</p>
+  </div>
+
+  <div class="article-num">第2条（定義）</div>
+  <div class="article-body">
+    <p>本規約において、以下の用語は次の意味で使用します。</p>
+    <ul>
+      <li>「会員」：本サービスに登録した個人</li>
+      <li>「有料会員」：月額利用料を支払い、全コンテンツにアクセスできる会員</li>
+      <li>「無料会員」：一部のコンテンツのみ閲覧できる会員</li>
+      <li>「コンテンツ」：決算分析レポート、朝刊、特集、教育コンテンツ等、本サービスで提供される情報全般</li>
+    </ul>
+  </div>
+
+  <div class="article-num">第3条（会員登録）</div>
+  <div class="article-body">
+    <p>会員登録は、所定の登録フォームに必要事項を記入し、当社が承認した時点で完了します。以下に該当する場合、登録を拒否または取り消すことがあります：虚偽の情報、過去の規約違反、反社会的勢力との関係。</p>
+  </div>
+
+  <div class="article-num">第4条（利用料金・支払い）</div>
+  <div class="article-body">
+    <p>有料会員の月額利用料は980円（税込）です。クレジットカードによる自動課金とし、料金改定は適用30日前までに通知します。</p>
+  </div>
+
+  <div class="article-num">第5条（解約）</div>
+  <div class="article-body">
+    <p>解約はマイページより手続きいただけます。解約後も当月末までサービスをご利用いただけます。既に決済された月の返金は、故意または重大な過失による場合を除き行いません。</p>
+  </div>
+
+  <div class="article-num">第6条（免責事項）</div>
+  <div class="article-body">
+    <p>当社は、本サービスのコンテンツに基づく投資行動の結果について、故意または重大な過失がある場合を除き、責任を負いません。賠償額の上限は、直近1ヶ月分の利用料とします。（消費者契約法対応）</p>
+  </div>
+
+  <div class="article-num">第7条（禁止事項）</div>
+  <div class="article-body">
+    <p>会員は、以下の行為を行ってはなりません。</p>
+    <ul>
+      <li>コンテンツの無断複製・転載・再配布</li>
+      <li>アカウントの第三者への貸与・共有</li>
+      <li>コミュニティ内での特定銘柄の売買推奨・勧誘</li>
+      <li>当社または第三者の名誉・信用を毀損する行為</li>
+      <li>サービスの運営を妨害する行為</li>
+    </ul>
+  </div>
+
+  <div class="article-num">第8条（知的財産権）</div>
+  <div class="article-body">
+    <p>本サービスのコンテンツに関する著作権その他の知的財産権は、当社に帰属します。</p>
+  </div>
+
+  <div class="article-num">第9条（サービスの変更・中断・終了）</div>
+  <div class="article-body">
+    <p>当社は、事前の通知なくサービスの内容を変更、中断、終了できます。当社の都合による終了の場合、未利用期間分を返金します。</p>
+  </div>
+
+  <div class="article-num">第10条（個人情報の取扱い）</div>
+  <div class="article-body">
+    <p>個人情報の取扱いについては、別途定める<a href="https://yskzz121.github.io/ui-kabu-reports/legal/privacy.html" style="color:var(--gold);text-decoration:underline">プライバシーポリシー</a>に従います。</p>
+  </div>
+
+  <div class="article-num">第11条（金融商品取引法上の位置づけ）</div>
+  <div class="article-body">
+    <p>本サービスは、金融商品取引法第2条第8項に定める金融商品取引業（投資助言・代理業）には該当しません。当社は投資顧問契約を締結する権限を有しておらず、特定の有価証券の売買に関する投資判断の助言を目的とするものではありません。本サービスのコンテンツはすべて教育目的の情報提供です。</p>
+  </div>
+
+  <div class="article-num">第12条（情報の正確性）</div>
+  <div class="article-body">
+    <p>当社は公開情報に基づきコンテンツを作成していますが、その正確性・完全性・最新性を保証するものではありません。重要な意思決定を行う際は、必ず一次情報をご確認ください。</p>
+  </div>
+
+  <div class="article-num">第13条（反社会的勢力の排除）</div>
+  <div class="article-body">
+    <p>会員は、自己が反社会的勢力に該当しないことを表明・保証します。該当が判明した場合、当社は即時にアカウントを停止し、サービスの提供を終了できます。</p>
+  </div>
+
+  <div class="jurisdiction">
+    <p><strong>準拠法:</strong> 日本法</p>
+    <p><strong>管轄裁判所:</strong> 那覇地方裁判所</p>
+  </div>
+
+  <div class="updated">制定日: 2026年4月1日</div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/tokusho.html">特定商取引法</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/privacy.html">プライバシーポリシー</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/legal/terms.html">利用規約</a>
+    <a href="https://yskzz121.github.io/ui-kabu-reports/">決算分析ポータル</a>
+    <a href="https://yskzz121.github.io/atlas-news/">Atlasについて</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 U&amp;I CO., LTD. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleMobileMenu(){
+  var menu=document.getElementById('mobileMenu');
+  var btn=document.querySelector('.nav-hamburger');
+  menu.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕':'☰';
+}
+</script>
+</body>
+</html>
