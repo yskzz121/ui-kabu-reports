@@ -76,6 +76,36 @@ def extract_score_from_report(ticker):
         pass
     return None
 
+def extract_sector_from_report(ticker):
+    """レポートHTMLからセクター情報を自動抽出（SECTOR_MAPのフォールバック）"""
+    import re
+    ticker_dir = os.path.join(REPO_DIR, ticker)
+    if not os.path.isdir(ticker_dir):
+        return None
+    htmls = sorted([f for f in os.listdir(ticker_dir) if f.endswith(".html") and f != "index.html"], reverse=True)
+    if not htmls:
+        return None
+    path = os.path.join(ticker_dir, htmls[0])
+    try:
+        with open(path, encoding="utf-8") as f:
+            content = f.read(50000)
+        # パターン: セクター/業種/業界の表記を探す
+        patterns = [
+            r'セクター[：:]\s*([^\s<,、]+)',
+            r'業種[：:]\s*([^\s<,、]+)',
+            r'sector["\s:]+([^"<,]+)',
+            r'data-sector="([^"]+)"',
+        ]
+        for pat in patterns:
+            m = re.search(pat, content, re.IGNORECASE)
+            if m:
+                val = m.group(1).strip()
+                if val and val != "—":
+                    return val
+    except Exception:
+        pass
+    return None
+
 SECTOR_MAP = {
     "ACN":   "ITサービス",
     "ADBE":  "SaaS・ソフトウェア",
@@ -239,6 +269,11 @@ def make_root_index(ticker_data):
     for ticker in sorted(ticker_data.keys()):
         reports = ticker_data[ticker]
         sector = SECTOR_MAP.get(ticker, "")
+        if not sector:
+            sector = extract_sector_from_report(ticker) or ""
+        if not sector:
+            sector = "未分類"
+            print(f"  ⚠️  警告: {ticker} のセクターが SECTOR_MAP に未登録です。「未分類」で表示します。SECTOR_MAP に追加してください。")
         latest_q, latest_f = reports[0]
 
         # 最新レポートの日付を取得してNEW判定
