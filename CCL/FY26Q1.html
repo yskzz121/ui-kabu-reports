@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Carnival Corporation FY26Q1 決算分析</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Playfair+Display:wght@700;900&family=Shippori+Mincho+B1:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#21262d;--text:#e6edf3;--text-sub:#8b949e;--gold:#B8912A;--gold-light:#D4A843;--alert:#8B2020;--navy:#1A2540;--paper:#F5F2EC;--green:#2ea043;--red:#f85149;--blue:#58a6ff;--yellow:#d29922;--purple:#bc8cff;--orange:#f0883e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:20px;line-height:1.7}
+.container{max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;border-radius:16px 16px 0 0}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-family:'Shippori Mincho B1',serif;font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin:24px 0}
+.score-big{font-family:'Playfair Display',serif;font-size:5em;font-weight:900;line-height:1;color:var(--gold-light)}
+.score-label{font-size:1.5em;font-weight:700;margin-top:8px}
+.score-desc{color:var(--text-sub);margin-top:4px;font-size:0.95em}
+.score-rationale{margin-top:16px;padding:16px;background:rgba(184,145,42,0.05);border-radius:8px;text-align:left;max-width:700px;margin-left:auto;margin-right:auto;font-size:0.9em;color:var(--text-sub)}
+
+/* Section */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin:16px 0}
+.section-title{font-family:'Shippori Mincho B1',serif;font-size:1.2em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.2em}
+
+/* Metrics Grid */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.metric-label{font-size:0.78em;color:var(--text-sub);margin-bottom:6px}
+.metric-value{font-family:'Playfair Display',serif;font-size:1.4em;font-weight:700}
+.metric-change{font-size:0.8em;margin-top:4px}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--text-sub)}
+
+/* Charts */
+.chart-container{position:relative;height:320px;margin:16px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:0.88em}
+.tbl th{background:rgba(184,145,42,0.08);padding:10px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:10px 12px;border-bottom:1px solid rgba(33,38,45,0.5)}
+.tbl tr:hover{background:rgba(255,255,255,0.02)}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.card h4{font-size:0.95em;margin-bottom:8px;color:var(--gold-light)}
+.card p,.card li{font-size:0.88em;color:var(--text-sub);line-height:1.6}
+.card ul{padding-left:16px}
+
+/* Two Column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* Valuation */
+.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:12px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,0.1),rgba(46,160,67,0.03));border-color:rgba(46,160,67,0.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,0.1),rgba(88,166,255,0.03));border-color:rgba(88,166,255,0.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(188,140,255,0.1),rgba(188,140,255,0.03));border-color:rgba(188,140,255,0.3)}
+.val-card h4{font-size:0.9em;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.val-card .val-price{font-family:'Playfair Display',serif;font-size:2.2em;font-weight:900;margin:8px 0}
+.val-card .val-detail{font-size:0.82em;color:var(--text-sub);margin-top:4px}
+.val-card.low h4,.val-card.low .val-price{color:var(--green)}
+.val-card.mid h4,.val-card.mid .val-price{color:var(--blue)}
+.val-card.high h4,.val-card.high .val-price{color:var(--purple)}
+.val-gap{text-align:center;margin-top:20px;padding:16px;background:rgba(184,145,42,0.05);border-radius:10px}
+.val-gap .gap-value{font-family:'Playfair Display',serif;font-size:1.8em;font-weight:900}
+.val-gap .gap-label{font-size:0.9em;color:var(--text-sub)}
+
+/* Risk/Catalyst */
+.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rc-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.rc-card h4{font-size:1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.rc-card li{font-size:0.88em;color:var(--text-sub);line-height:1.8;margin-left:16px}
+
+/* Overview */
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.overview-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:20px}
+.overview-card h4{color:var(--gold-light);font-size:0.95em;margin-bottom:10px}
+.overview-card p,.overview-card li{font-size:0.88em;color:var(--text-sub);line-height:1.7}
+.overview-card ul{padding-left:16px}
+
+/* Tech */
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tech-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:16px}
+.tech-card h4{font-size:0.9em;color:var(--gold-light);margin-bottom:8px}
+.tech-card p{font-size:0.85em;color:var(--text-sub)}
+.tech-verdict{text-align:center;padding:20px;margin-top:16px;background:rgba(248,81,73,0.06);border-radius:10px;border:1px solid rgba(248,81,73,0.15)}
+.tech-verdict .verdict-label{font-size:1.3em;font-weight:700}
+
+/* Quote */
+.quote{border-left:3px solid var(--gold);padding:12px 16px;margin:12px 0;background:rgba(184,145,42,0.04);border-radius:0 8px 8px 0;font-size:0.9em;color:var(--text-sub);font-style:italic}
+.quote-author{font-style:normal;font-weight:600;color:var(--text);margin-top:4px;font-size:0.85em}
+
+/* Compare */
+.compare-table{width:100%;border-collapse:collapse;font-size:0.88em}
+.compare-table th,.compare-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.compare-table th{background:rgba(184,145,42,0.08);font-weight:600}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px auto;text-align:center}
+
+/* Tag */
+.tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:0.78em;font-weight:600}
+.tag-green{background:rgba(46,160,67,0.15);color:var(--green)}
+.tag-red{background:rgba(248,81,73,0.15);color:var(--red)}
+.tag-blue{background:rgba(88,166,255,0.15);color:var(--blue)}
+.tag-yellow{background:rgba(210,153,34,0.15);color:var(--yellow)}
+.tag-gold{background:rgba(184,145,42,0.15);color:var(--gold-light)}
+
+/* Score dot */
+.score-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+.toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid rgba(184,145,42,0.15);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+.toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+.toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.toc-list{list-style:none;padding:8px 0;margin:0}
+.toc-list li{border-bottom:1px solid #21262d}
+.toc-list li:last-child{border-bottom:none}
+.toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+.toc-list a:hover,.toc-list a:active{background:rgba(184,145,42,.1)}
+.toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+.toc-list .toc-label{flex:1}
+.toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+.toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
+.toc-expand-all button:active{background:#B8912A;color:#0F1829}
+body{padding-bottom:60px!important}
+}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+body{padding:12px!important}
+.container{padding:12px}
+.header{padding:28px 16px}
+.header h1{font-size:1.4rem}
+.header .subtitle{font-size:.95em}
+.header-logo-row{flex-direction:column;gap:8px}
+.report-header-logo{height:36px}
+.ticker-badge{font-size:12px;padding:4px 12px}
+.grid,.metrics-grid{grid-template-columns:1fr 1fr}
+.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+.chart-wrap,.chart-container{height:250px}
+.section{padding:20px 16px}
+.card-grid{grid-template-columns:1fr 1fr}
+.two-col{grid-template-columns:1fr}
+.rc-grid{grid-template-columns:1fr}
+.saas-grid{grid-template-columns:1fr 1fr}
+.metrics-grid{grid-template-columns:1fr 1fr!important}
+.chart-row{grid-template-columns:1fr!important}
+.overview-grid{grid-template-columns:1fr!important}
+.tech-grid{grid-template-columns:1fr!important}
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.compare-table,.tech-table,.tbl{font-size:.78rem}
+.portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+.header h1{font-size:1.2rem}
+.score-big{font-size:3.5em}
+.score-label{font-size:1.2em}
+.section-title,.section-header{font-size:1rem}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+<div class="header-content">
+<div class="header-logo-row">
+<img class="report-header-logo" src="../logos/CCL.svg" alt="CCL">
+<div class="ticker-badge">NYSE: CCL</div>
+</div>
+<h1>Carnival Corporation 決算分析</h1>
+<div class="subtitle">FY26Q1（2025年12月〜2026年2月）</div>
+<div class="date">発表日: 2026年3月27日 ｜ レポート作成: 2026年3月28日</div>
+</div>
+</div>
+
+<!-- 1. Score -->
+<div class="score-section">
+<div class="score-big">3</div>
+<div class="score-label">⏸️ 悪くない決算</div>
+<div class="score-desc">概ねインライン〜やや上振れ。ガイダンス下方修正が重し</div>
+<div class="score-rationale">
+<strong>判定根拠:</strong> 売上$6.17B（+0.6%ビート）、調整後EPS $0.20（+8.9%ビート）とQ1過去最高の営業実績を達成。営業利益$607M（YoY +11.8%）、Adj EBITDA $1.27B（YoY +5.1%）、FCF $697M（YoY +119%）、顧客預り金$7.9B（過去最高）と全てレコード。しかし、燃料費高騰（約$500Mヘッドウィンド）によりFY2026通期Adj EPSガイダンスを$2.48→$2.21へ10.9%下方修正。Q2 EPSガイダンス$0.34もコンセンサス$0.37を下回る。株価は決算後-3.3%。営業面は文句なしだが、ガイダンス切り下げが評価を抑制。
+</div>
+</div>
+
+<!-- 2. Key Metrics -->
+<div class="section">
+<div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">売上高</div>
+<div class="metric-value">$6.17B</div>
+<div class="metric-change positive">+6.1% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">調整後EPS</div>
+<div class="metric-value">$0.20</div>
+<div class="metric-change positive">ビート +$0.02</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">GAAP EPS</div>
+<div class="metric-value">$0.19</div>
+<div class="metric-change positive">前年 -$0.06 → 黒字転換</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">営業利益</div>
+<div class="metric-value">$607M</div>
+<div class="metric-change positive">+11.8% YoY 🏆</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Adj EBITDA</div>
+<div class="metric-value">$1.27B</div>
+<div class="metric-change positive">+5.1% YoY 🏆</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FCF</div>
+<div class="metric-value">$697M</div>
+<div class="metric-change positive">+119% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FY26 Adj EPSガイダンス</div>
+<div class="metric-value">$2.21</div>
+<div class="metric-change negative">▼ $2.48から下方修正</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Forward PER</div>
+<div class="metric-value">10.9x</div>
+<div class="metric-change neutral">業界平均 23.4x</div>
+</div>
+</div>
+</div>
+
+<!-- 3. Revenue / EPS 7Q Charts -->
+<div class="section" id="sec-revenue" data-accordion>
+<div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+<div class="section-body">
+<div class="chart-row">
+<div>
+<h4 style="text-align:center;color:var(--text-sub);margin-bottom:8px;font-size:0.9em">売上高（$B）</h4>
+<div class="chart-container"><canvas id="revenueChart"></canvas></div>
+</div>
+<div>
+<h4 style="text-align:center;color:var(--text-sub);margin-bottom:8px;font-size:0.9em">調整後EPS（$）</h4>
+<div class="chart-container"><canvas id="epsChart"></canvas></div>
+</div>
+</div>
+<table class="tbl" style="margin-top:20px">
+<thead><tr><th>四半期</th><th>売上高</th><th>YoY</th><th>Adj EPS</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>FY24 Q3（Aug 2024）</td><td>$7.90B</td><td>+14.5%</td><td>$1.27</td><td>+47.7%</td></tr>
+<tr><td>FY24 Q4（Nov 2024）</td><td>$5.94B</td><td>+10.0%</td><td>$0.26</td><td>黒字転換</td></tr>
+<tr><td>FY25 Q1（Feb 2025）</td><td>$5.81B</td><td>+7.4%</td><td>$0.13</td><td>黒字転換</td></tr>
+<tr><td>FY25 Q2（May 2025）</td><td>$6.30B</td><td>+9.0%</td><td>$0.35</td><td>+218%</td></tr>
+<tr><td>FY25 Q3（Aug 2025）</td><td>$8.15B</td><td>+3.2%</td><td>$1.43</td><td>+12.6%</td></tr>
+<tr><td>FY25 Q4（Nov 2025）</td><td>$6.33B</td><td>+6.6%</td><td>$0.34</td><td>+30.8%</td></tr>
+<tr style="font-weight:700;background:rgba(184,145,42,0.05)"><td>FY26 Q1（Feb 2026）</td><td>$6.17B</td><td>+6.1%</td><td>$0.20</td><td>+53.8%</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 4. Margin Trends -->
+<div class="section" id="sec-margin" data-accordion>
+<div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+<div class="section-body">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">営業利益率</div>
+<div class="metric-value">9.8%</div>
+<div class="metric-change positive">+0.5pp YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Adj EBITDAマージン</div>
+<div class="metric-value">20.6%</div>
+<div class="metric-change neutral">前年同期 20.7%</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">ネットイールド成長（CC）</div>
+<div class="metric-value">+2.7%</div>
+<div class="metric-change positive">ガイダンス+100bp超過</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">グロスマージン・イールド</div>
+<div class="metric-value">+10%</div>
+<div class="metric-change positive">YoY レコード</div>
+</div>
+</div>
+<table class="tbl" style="margin-top:20px">
+<thead><tr><th>指標</th><th>Q1 FY2026</th><th>Q1 FY2025</th><th>YoY変化</th></tr></thead>
+<tbody>
+<tr><td>営業利益</td><td>$607M</td><td>$543M</td><td class="positive">+11.8%</td></tr>
+<tr><td>営業利益率</td><td>9.8%</td><td>9.3%</td><td class="positive">+0.5pp</td></tr>
+<tr><td>Adj EBITDA</td><td>$1,267M</td><td>$1,205M</td><td class="positive">+5.1%</td></tr>
+<tr><td>Adj EBITDAマージン</td><td>20.6%</td><td>20.7%</td><td class="neutral">-0.1pp</td></tr>
+<tr><td>ネットイールド/ALBD（CC）</td><td>$189.86</td><td>$184.95</td><td class="positive">+2.7%</td></tr>
+<tr><td>燃料消費/ALBD</td><td>—</td><td>—</td><td class="positive">-4.7% YoY</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- 5. Consensus -->
+<div class="section" id="sec-consensus" data-accordion>
+<div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
+<div class="section-body">
+<div class="two-col">
+<div>
+<h4 style="color:var(--gold-light);margin-bottom:12px">Q1 FY2026 実績 vs コンセンサス</h4>
+<table class="tbl">
+<thead><tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$6.13B</td><td style="font-weight:700">$6.17B</td><td class="positive">+$40M（+0.6%）</td></tr>
+<tr><td>調整後EPS</td><td>$0.18</td><td style="font-weight:700">$0.20</td><td class="positive">+$0.02（+8.9%）</td></tr>
+<tr><td>GAAP EPS</td><td>—</td><td style="font-weight:700">$0.19</td><td class="positive">前年 -$0.06→黒字</td></tr>
+</tbody>
+</table>
+</div>
+<div>
+<h4 style="color:var(--gold-light);margin-bottom:12px">ガイダンス vs コンセンサス</h4>
+<table class="tbl">
+<thead><tr><th>指標</th><th>ガイダンス</th><th>コンセンサス</th><th>評価</th></tr></thead>
+<tbody>
+<tr><td>Q2 Adj EPS</td><td>$0.34</td><td>$0.37</td><td class="negative">ミス</td></tr>
+<tr><td>FY26 Adj EPS</td><td>$2.21</td><td>$2.48</td><td class="negative">▼10.9%修正</td></tr>
+<tr><td>FY26 Adj EBITDA</td><td>$7.19B</td><td>$7.48B</td><td class="negative">下振れ</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div style="margin-top:16px;padding:14px;background:rgba(248,81,73,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong style="color:var(--red)">⚠️ ガイダンス下方修正の要因:</strong> 営業改善で+$0.11/株（Q1超過$0.07 + 残り$0.04）の上乗せがあるものの、燃料ヘッドウィンド-$0.38/株（約$500M）が相殺。燃料前提: Brent $90→$85→$80と段階的低下を見込む。
+</div>
+</div>
+</div>
+
+<!-- 6. Cash Flow -->
+<div class="section" id="sec-cashflow" data-accordion>
+<div class="section-title"><span class="section-icon">💰</span> キャッシュフロー</div>
+<div class="section-body">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">営業CF</div>
+<div class="metric-value">$1,263M</div>
+<div class="metric-change positive">+36.5% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">設備投資</div>
+<div class="metric-value">-$566M</div>
+<div class="metric-change positive">-6.8% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FCF</div>
+<div class="metric-value">$697M</div>
+<div class="metric-change positive">+119% YoY</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">FCFマージン</div>
+<div class="metric-value">11.3%</div>
+<div class="metric-change positive">前年 5.5%から大幅改善</div>
+</div>
+</div>
+<table class="tbl" style="margin-top:20px">
+<thead><tr><th>項目</th><th>Q1 FY2026</th><th>Q1 FY2025</th><th>YoY</th></tr></thead>
+<tbody>
+<tr><td>営業キャッシュフロー</td><td>$1,263M</td><td>$925M</td><td class="positive">+36.5%</td></tr>
+<tr><td>設備投資</td><td>-$566M</td><td>-$607M</td><td class="positive">-6.8%</td></tr>
+<tr><td>FCF</td><td>$697M</td><td>$318M</td><td class="positive">+119%</td></tr>
+<tr><td>配当支払</td><td>$208M</td><td>—</td><td class="neutral">FY2025に復活</td></tr>
+<tr><td>現金及び同等物</td><td>$1,424M</td><td>—</td><td>—</td></tr>
+<tr><td>総負債</td><td>$25,290M</td><td>—</td><td>—</td></tr>
+<tr><td>顧客預り金</td><td>$7,923M</td><td>—</td><td class="positive">Q1レコード</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;padding:14px;background:rgba(46,160,67,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong>💡 財務戦略:</strong> $25億の自社株買いプログラムを承認。FY2026通期で$800M超の配当を予定。PROPEL戦略目標: FY2029までにNet Debt/EBITDA 2.75x、営業CFの40%超を株主還元（累計約$140億）。
+</div>
+</div>
+</div>
+
+<!-- 7. Segment -->
+<div class="section" id="sec-segment" data-accordion>
+<div class="section-title"><span class="section-icon">🏢</span> セグメント別・収益構成</div>
+<div class="section-body">
+<div class="two-col">
+<div>
+<h4 style="color:var(--gold-light);margin-bottom:12px">収益構成（Q1 FY2026）</h4>
+<table class="tbl">
+<thead><tr><th>収益源</th><th>YoY成長率</th><th>備考</th></tr></thead>
+<tbody>
+<tr><td>旅客チケット収入</td><td class="positive">+5.0%</td><td>イールド上昇が牽引</td></tr>
+<tr><td>船内・その他収入</td><td class="positive">+8.3%</td><td>船内消費増・為替好影響</td></tr>
+</tbody>
+</table>
+</div>
+<div>
+<h4 style="color:var(--gold-light);margin-bottom:12px">オペレーション指標</h4>
+<table class="tbl">
+<thead><tr><th>指標</th><th>Q1 FY2026</th></tr></thead>
+<tbody>
+<tr><td>ALBD（利用可能下段ベッド日数）</td><td>23.7M</td></tr>
+<tr><td>乗船率</td><td>103%</td></tr>
+<tr><td>船舶数</td><td>約94隻</td></tr>
+<tr><td>バース数</td><td>272,460</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div style="margin-top:20px">
+<h4 style="color:var(--gold-light);margin-bottom:12px">セグメント概要</h4>
+<div class="two-col">
+<div class="overview-card">
+<h4>NAA（北米・豪州）— 約67%</h4>
+<ul>
+<li>Carnival Cruise Line、Princess Cruises、Holland America Line、Seabourn</li>
+<li>カリブ海・アラスカ航路が堅調</li>
+<li>営業利益拡大、価格上昇継続</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>Europe — 約33%</h4>
+<ul>
+<li>Costa Cruises、AIDA Cruises、P&O Cruises（UK）、Cunard</li>
+<li>北欧・西地中海が好調、東地中海はやや軟調</li>
+<li>予約価格が前年比二桁増</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 8. Overview -->
+<div class="section" id="sec-overview" data-accordion>
+<div class="section-title"><span class="section-icon">🏛️</span> 企業概要</div>
+<div class="section-body">
+<div class="overview-grid">
+<div class="overview-card">
+<h4>基本情報</h4>
+<ul>
+<li><strong>設立:</strong> 1972年（フロリダ州ドーラル）</li>
+<li><strong>CEO:</strong> Josh Weinstein</li>
+<li><strong>従業員:</strong> 約160,000人（150カ国以上）</li>
+<li><strong>上場:</strong> NYSE: CCL / LSE: CCL</li>
+<li><strong>時価総額:</strong> 約$334億</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>ビジネスモデル</h4>
+<ul>
+<li><strong>収益構造:</strong> チケット収入（約65%）+ 船内収入（約35%）</li>
+<li><strong>9ブランド:</strong> バリュー〜ウルトラ・ラグジュアリーまで全セグメントカバー</li>
+<li><strong>世界最大:</strong> 約94隻・272,460バース（市場シェア約41%）</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>主要ブランド</h4>
+<ul>
+<li><strong>バリュー:</strong> Carnival Cruise Line（29隻・最大ブランド）</li>
+<li><strong>プレミアム:</strong> Princess、Holland America、P&O UK</li>
+<li><strong>欧州:</strong> Costa、AIDA</li>
+<li><strong>ラグジュアリー:</strong> Cunard、Seabourn</li>
+</ul>
+</div>
+<div class="overview-card">
+<h4>成長戦略</h4>
+<ul>
+<li><strong>Celebration Key:</strong> 2025年7月オープンのプライベートアイランド</li>
+<li><strong>新造船:</strong> Festivale（2027年）、Tropicale（2028年）、Project Ace 3隻（2029年〜）</li>
+<li><strong>PROPEL戦略:</strong> FY2029にROIC 16%超、EPS +50%成長目標</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 9. Technical Analysis -->
+<div class="section" id="sec-technical" data-accordion>
+<div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+<div class="section-body">
+<div class="tradingview-widget-container">
+<div class="tradingview-widget-container__widget"></div>
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+{
+  "autosize": false,
+  "width": 1100,
+  "height": 750,
+  "symbol": "NYSE:CCL",
+  "interval": "D",
+  "timezone": "Asia/Tokyo",
+  "theme": "dark",
+  "style": "1",
+  "locale": "ja",
+  "backgroundColor": "rgba(13, 17, 23, 1)",
+  "gridColor": "rgba(48, 54, 61, 0.3)",
+  "range": "6M",
+  "hide_top_toolbar": false,
+  "hide_legend": false,
+  "allow_symbol_change": false,
+  "save_image": true,
+  "calendar": false,
+  "hide_volume_indicator": false,
+  "withdateranges": true,
+  "support_host": "https://www.tradingview.com",
+  "studies": [
+    "MASimple@tv-basicstudies",
+    "MAExp@tv-basicstudies"
+  ],
+  "studies_overrides": {
+    "moving average.length": 50,
+    "moving average exponential.length": 200
+  }
+}
+</script>
+</div>
+
+<div class="tech-grid" style="margin-top:20px">
+<div class="tech-card">
+<h4>トレンド分析</h4>
+<p><span class="tag tag-red">短期: 弱気</span> <span class="tag tag-red">中期: 弱気</span> <span class="tag tag-red">長期: 弱気転換</span></p>
+<p style="margin-top:8px">3月だけで約24%急落。全移動平均線を大幅に下回る。10日中8日が下落。</p>
+</div>
+<div class="tech-card">
+<h4>移動平均線</h4>
+<p>SMA50: $28.91 / SMA200: $28.84</p>
+<p style="margin-top:8px"><span class="tag tag-red">デッドクロス確認</span> 12指標全てが売りシグナル。株価は全SMA/EMAを16〜19%下回る。</p>
+</div>
+<div class="tech-card">
+<h4>RSI / MACD</h4>
+<p>RSI(14): <strong>36.86</strong>（売られ過ぎ圏に接近）</p>
+<p>MACD: <strong>-1.31</strong>（5週間連続マイナス）</p>
+<p style="margin-top:4px">ADX: 42.30 → 強い下降トレンド確認</p>
+</div>
+<div class="tech-card">
+<h4>出来高・ボリンジャー</h4>
+<p>出来高: 42.6M（平均23.1Mの<strong>1.84倍</strong>）</p>
+<p>BB下限($28.04)を大幅に逸脱。エクスパンション状態。</p>
+<p style="margin-top:4px">ヒストリカルVol(9日): 66.6%</p>
+</div>
+<div class="tech-card">
+<h4>サポート / レジスタンス</h4>
+<p><strong>サポート:</strong> $23.66〜$23.89（トレンド下限）→ $22.31（フィボ61.8%）</p>
+<p><strong>レジスタンス:</strong> $25.63（直近戻り）→ $28.84〜$29.05（200日SMA/50日SMA）</p>
+</div>
+<div class="tech-card">
+<h4>フィボナッチ（$15.07→$34.03）</h4>
+<p>23.6%: $29.55 <span class="tag tag-red">下抜け</span></p>
+<p>38.2%: $26.79 <span class="tag tag-red">下抜け</span></p>
+<p>50.0%: $24.55 ← <strong>現在値付近</strong></p>
+<p>61.8%: $22.31（次の主要サポート）</p>
+</div>
+</div>
+
+<div class="tech-verdict" style="margin-top:16px">
+<div class="verdict-label" style="color:var(--red)">📉 総合テクニカル判定: 弱気</div>
+<p style="color:var(--text-sub);margin-top:8px;font-size:0.88em">全移動平均線が売り（12/12）、MACD 5週連続マイナス、ベアリッシュフラッグ下方ブレイク。ただしRSI 36.86・ストキャスティクス20日 18.84で売られ過ぎ水準に接近しており、短期テクニカルリバウンドの可能性あり。フィボ50%（$24.55）付近での攻防が焦点。</p>
+</div>
+</div>
+</div>
+
+<!-- 10. Management Comments -->
+<div class="section" id="sec-mgmt" data-accordion>
+<div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
+<div class="section-body">
+<div class="quote">
+「記録的なQ1業績を達成。健全なファンダメンタルズと堅実な事業遂行により、ガイダンスを上回る結果を出した。この業績により、通期見通しを営業面で約$150M引き上げ、燃料価格上昇の影響を緩和した。」
+<div class="quote-author">— Josh Weinstein, CEO</div>
+</div>
+
+<div class="quote">
+「今年の出港予約はYoY +10%増。2026年の約85%が既に予約済みで、歴史的な高水準の価格を維持。将来年度（2028年まで）の累積予約もQ1として過去最高。」
+<div class="quote-author">— Josh Weinstein, CEO（予約動向について）</div>
+</div>
+
+<div class="quote">
+「PROPEL戦略を発表。2029年までにROIC 16%超、EPS +50%成長（vs 2025年）、営業CFの40%超を株主還元として約$140億を目標。これらの目標は当社ビジネスの長期的な軌道に関するものであり、大きな楽観を持っている。」
+<div class="quote-author">— Josh Weinstein, CEO（長期戦略）</div>
+</div>
+
+<div class="quote">
+「価格がいくらであれ、使用量を減らせば有利。2019年比で年間約$6.5億の燃料コスト削減を達成した。」
+<div class="quote-author">— Josh Weinstein, CEO（燃料戦略）</div>
+</div>
+
+<div class="quote">
+「ネットイールド+2.7%でガイダンスを100bp以上超過。$25億の自社株買いプログラムを承認し、2026年通期で$800M超の配当を予定。」
+<div class="quote-author">— David Bernstein, CFO</div>
+</div>
+
+<div class="quote">
+「9/11、世界金融危機、COVID、ウクライナ戦争を通じて事業遂行力を実証してきた。地政学的不確実性にも対応できる。」
+<div class="quote-author">— David Bernstein, CFO（リスク耐性について）</div>
+</div>
+</div>
+</div>
+
+<!-- 11. Risk / Catalyst -->
+<div class="section" id="sec-risk" data-accordion>
+<div class="section-title"><span class="section-icon">⚖️</span> リスク・注目ポイント / カタリスト</div>
+<div class="section-body">
+<div class="rc-grid">
+<div class="rc-card">
+<h4><span style="color:var(--red)">⚠️</span> リスク要因</h4>
+<ul>
+<li><strong>燃料費高騰:</strong> Brent $90前提で$500Mヘッドウィンド。ヘッジ未実施で業界最も脆弱</li>
+<li><strong>巨額の負債:</strong> $25.3B。利払い$1.09B/年が収益を圧迫</li>
+<li><strong>地政学リスク:</strong> 中東紛争でアラビア湾航路回避。東地中海予約軟調</li>
+<li><strong>環境規制:</strong> IMO炭素課金（2027年発効、最大$380/t）、EU ETS拡大</li>
+<li><strong>消費者リスク:</strong> インフレ・高金利環境でのマスマーケット消費者への影響</li>
+<li><strong>キャパシティ成長鈍化:</strong> 2033年まで+10%と競合RCL(+27%)・NCLH(+50%)に大幅劣後</li>
+</ul>
+</div>
+<div class="rc-card">
+<h4><span style="color:var(--green)">🚀</span> カタリスト</h4>
+<ul>
+<li><strong>Celebration Key開業:</strong> 2025年7月。10港から20隻が寄港予定で増収効果</li>
+<li><strong>予約モメンタム:</strong> YoY +10%増、85%予約済み、過去最高の価格水準</li>
+<li><strong>PROPEL戦略:</strong> FY2029までにEPS +50%成長、$140億の株主還元</li>
+<li><strong>燃料効率改善:</strong> 2019年比で年間$6.5億のコスト削減達成</li>
+<li><strong>$25億自社株買い:</strong> 新規承認。配当$800M超と合わせた積極的株主還元</li>
+<li><strong>バリュエーション:</strong> Forward PER 10.9xと業界平均23.4xの半分以下で割安</li>
+<li><strong>原油価格下落時の上振れ:</strong> Brent 10%下落で$0.11/株（$160M）の利益改善</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 12. Compare -->
+<div class="section" id="sec-compare" data-accordion>
+<div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
+<div class="section-body">
+<table class="compare-table">
+<thead><tr><th>項目</th><th>FY2025 Q4</th><th>FY2026 Q1</th><th>トレンド</th></tr></thead>
+<tbody>
+<tr><td>売上高</td><td>$6.33B</td><td>$6.17B</td><td class="neutral">→ 季節要因（Q1はオフシーズン）</td></tr>
+<tr><td>Adj EPS</td><td>$0.34</td><td>$0.20</td><td class="neutral">→ 季節要因</td></tr>
+<tr><td>営業利益</td><td>—</td><td>$607M（Q1レコード）</td><td class="positive">↑ 改善</td></tr>
+<tr><td>FCF</td><td>—</td><td>$697M（+119% YoY）</td><td class="positive">↑ 大幅改善</td></tr>
+<tr><td>顧客預り金</td><td>レコード</td><td>$7.9B（Q1レコード更新）</td><td class="positive">↑ 改善</td></tr>
+<tr><td>通期ガイダンス</td><td>Adj EPS $2.48</td><td>Adj EPS $2.21</td><td class="negative">↓ 燃料費で下方修正</td></tr>
+<tr><td>株主還元</td><td>配当復活を発表</td><td>$25億自社株買い承認</td><td class="positive">↑ 拡充</td></tr>
+<tr><td>株価反応</td><td>—</td><td>-3.3%</td><td class="negative">↓ ガイダンス失望</td></tr>
+</tbody>
+</table>
+<div style="margin-top:16px;padding:14px;background:rgba(184,145,42,0.05);border-radius:8px;font-size:0.88em;color:var(--text-sub)">
+<strong>総括:</strong> 営業面は全指標でQ1レコードを更新し改善トレンド継続（↑）。一方、燃料費という外部要因によりガイダンスが切り下がったことで、株価は弱含み。営業パフォーマンスと市場評価のギャップが生じている状況。
+</div>
+</div>
+</div>
+
+<!-- 13. Valuation -->
+<div class="section" id="sec-valuation" data-accordion>
+<div class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</div>
+<div class="section-body">
+<div class="val-cards">
+<div class="val-card low">
+<h4>🟢 LOW（保守的）</h4>
+<div class="val-price">$17.00</div>
+<div class="val-detail">Forward EPS: $2.00</div>
+<div class="val-detail">予想PER: 8.5x</div>
+<div class="val-detail">燃料高止まり+景気減速シナリオ</div>
+</div>
+<div class="val-card mid">
+<h4>🔵 MID（基本）</h4>
+<div class="val-price">$25.42</div>
+<div class="val-detail">Forward EPS: $2.21（ガイダンス中央値）</div>
+<div class="val-detail">予想PER: 11.5x</div>
+<div class="val-detail">コンセンサスベース</div>
+</div>
+<div class="val-card high">
+<h4>🔴 HIGH（楽観的）</h4>
+<div class="val-price">$37.50</div>
+<div class="val-detail">Forward EPS: $2.50</div>
+<div class="val-detail">予想PER: 15.0x</div>
+<div class="val-detail">原油下落+イールド上振れ</div>
+</div>
+</div>
+<div class="val-gap">
+<div class="gap-value" style="color:var(--gold-light)">+5.1%</div>
+<div class="gap-label">MID想定株価 $25.42 vs 現在株価 $24.19 → <span class="tag tag-gold">適正</span></div>
+</div>
+<div style="margin-top:16px;font-size:0.85em;color:var(--text-sub)">
+<strong>算出方法:</strong> 想定株価 = Forward EPS × 予想PER。CarnivalのTrailing PERは12.0x（TTM EPS $2.02）、Forward PERは10.9x。業界平均PER 23.4xと比較して大幅に割安だが、$25.3Bの高負債を考慮してディスカウントPERを適用。MID乖離率+5.1%は「適正」レンジ（-10%〜+10%）に位置する。
+</div>
+</div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- Portal Link + Favicon -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+<button onclick="toggleAllSections(true)">すべて展開</button>
+<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別・収益構成</span></a></li>
+<li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏛️</span><span class="toc-label">企業概要</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎙️</span><span class="toc-label">経営陣コメント</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚖️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<!-- Charts JS -->
+<script>
+var chartFont = {family:"'Inter','Noto Sans JP',sans-serif"};
+Chart.defaults.color = '#8b949e';
+Chart.defaults.font.family = chartFont.family;
+Chart.defaults.font.size = 12;
+
+// Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+type:'bar',
+data:{
+labels:['FY24Q3','FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1'],
+datasets:[{
+label:'売上高($B)',
+data:[7.90,5.94,5.81,6.30,8.15,6.33,6.17],
+backgroundColor:['rgba(184,145,42,0.5)','rgba(184,145,42,0.5)','rgba(184,145,42,0.5)','rgba(184,145,42,0.5)','rgba(184,145,42,0.5)','rgba(184,145,42,0.5)','rgba(212,168,67,0.8)'],
+borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
+borderWidth:1,
+borderRadius:4
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{
+y:{beginAtZero:false,min:4,grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:function(v){return '$'+v.toFixed(1)+'B'}}},
+x:{grid:{display:false}}
+}
+}
+});
+
+// EPS Chart
+new Chart(document.getElementById('epsChart'),{
+type:'bar',
+data:{
+labels:['FY24Q3','FY24Q4','FY25Q1','FY25Q2','FY25Q3','FY25Q4','FY26Q1'],
+datasets:[{
+label:'Adj EPS($)',
+data:[1.27,0.26,0.13,0.35,1.43,0.34,0.20],
+backgroundColor:function(ctx){
+var v=ctx.dataset.data[ctx.dataIndex];
+return ctx.dataIndex===6 ? (v>=0?'rgba(46,160,67,0.8)':'rgba(248,81,73,0.8)') : (v>=0?'rgba(46,160,67,0.5)':'rgba(248,81,73,0.5)');
+},
+borderColor:function(ctx){
+var v=ctx.dataset.data[ctx.dataIndex];
+return v>=0?'#2ea043':'#f85149';
+},
+borderWidth:1,
+borderRadius:4
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+plugins:{legend:{display:false}},
+scales:{
+y:{grid:{color:'rgba(48,54,61,0.3)'},ticks:{callback:function(v){return '$'+v.toFixed(2)}}},
+x:{grid:{display:false}}
+}
+}
+});
+</script>
+
+<!-- Accordion JS -->
+<script>
+var touchStartY=0;var touchStartX=0;var touchStartTime=0;
+function toggleAccordion(sec){
+if(!sec) return;
+var isCollapsed=sec.classList.contains('collapsed');
+if(isCollapsed){
+sec.classList.remove('collapsed');
+sec.classList.add('collapsing');
+var body=sec.querySelector('.section-body');
+var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+body.addEventListener('transitionend',onEnd);
+setTimeout(function(){sec.classList.remove('collapsing');},400);
+}else{
+sec.classList.add('collapsing','collapsed');
+var body2=sec.querySelector('.section-body');
+var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+body2.addEventListener('transitionend',onEnd2);
+setTimeout(function(){sec.classList.remove('collapsing');},400);
+}
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+title.addEventListener('touchend',function(e){
+var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+var dt=Date.now()-touchStartTime;
+if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+});
+title.addEventListener('click',function(e){
+if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents) return;
+if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+});
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+</script>
+
+<!-- TOC JS -->
+<script>
+function toggleToc(){
+var menu=document.getElementById('tocMenu');
+var btn=document.getElementById('tocToggle');
+menu.classList.toggle('open');
+btn.classList.toggle('open');
+btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+var sec=document.getElementById(id);
+if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+document.querySelectorAll('[data-accordion]').forEach(function(sec){
+if(expand) sec.classList.remove('collapsed');
+else sec.classList.add('collapsed');
+});
+}
+</script>
+</body>
+</html>

@@ -1,818 +1,97 @@
 <!DOCTYPE html>
-<html lang="ja" data-theme="light">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Atlas — 決算を読む。世界が見える。</title>
-<meta name="description" content="Atlasは米国株式市場を財務・戦略・経済の視点から読み解く、経営者・ビジネスパーソン向けの学習コミュニティです。">
-<meta property="og:title" content="Atlas — 決算を読む。世界が見える。">
-<meta property="og:description" content="米国株の四半期決算をインフォグラフィックで分かりやすく分析。経営者・ビジネスパーソン向けの学習コミュニティ。">
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U&I株倶楽部 決算レポート</title>
+<meta name="description" content="U&I株倶楽部の米国株決算分析レポートポータル。四半期決算をインフォグラフィックで分かりやすく解説。">
+<meta property="og:title" content="U&I株倶楽部 決算レポート">
+<meta property="og:description" content="米国株の四半期決算をインフォグラフィックで分かりやすく分析。セクター別・スコア別に閲覧可能。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://atlasfinancials.github.io/ui-kabu-reports/">
-<meta property="og:image" content="https://atlasfinancials.github.io/ui-kabu-reports/og-image.png">
+<meta property="og:url" content="https://yskzz121.github.io/ui-kabu-reports/">
+<meta property="og:image" content="https://yskzz121.github.io/ui-kabu-reports/apple-touch-icon.png">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* === Variables === */
-:root{
-  --navy:#1A2540;
-  --navy-mid:#243158;
-  --navy-deep:#0F1829;
-  --gold:#B8912A;
-  --gold-lt:#D4A843;
-  --gold-pale:#F0E6C8;
-  --paper:#F5F2EC;
-  --paper-dk:#ECE8DF;
-  --ink:#0F0E0C;
-  --slate:#4A5568;
-  --slate-lt:#718096;
-  --alert:#8B2020;
-  --rule:rgba(184,145,42,0.2);
-}
-
-/* === Dark Theme === */
-[data-theme="dark"]{
-  --navy:#1A2540;--navy-mid:#243158;--navy-deep:#0F1829;
-  --gold:#D4A843;--gold-lt:#E8C96A;--gold-pale:rgba(184,145,42,0.15);
-  --paper:#0F1829;--paper-dk:#1A2540;
-  --ink:#F5F2EC;--slate:#8b949e;--slate-lt:#6e7681;
-  --alert:#E05555;
-}
-[data-theme="dark"] body{background:var(--paper);color:var(--ink)}
-[data-theme="dark"] .hero{background:#080c14}
-[data-theme="dark"] .hero h1{color:#fff}
-[data-theme="dark"] .hero-sub{color:rgba(245,242,236,0.6)}
-[data-theme="dark"] .site-nav-card{background:var(--paper-dk);border-color:rgba(184,145,42,0.12);color:var(--ink)}
-[data-theme="dark"] .site-nav-title{color:#F5F2EC}
-[data-theme="dark"] .site-nav-desc{color:#8b949e}
-[data-theme="dark"] .card{background:var(--paper-dk);border-color:rgba(184,145,42,0.12);color:var(--ink)}
-[data-theme="dark"] .card:hover{border-color:rgba(212,168,67,0.4);box-shadow:0 2px 12px rgba(0,0,0,0.3)}
-[data-theme="dark"] .ticker{color:#F5F2EC}
-[data-theme="dark"] .sector{background:rgba(184,145,42,0.1);color:#8b949e}
-[data-theme="dark"] .q-pill{background:#243158;color:var(--gold);border-color:rgba(184,145,42,0.15)}
-[data-theme="dark"] .q-pill:hover{background:var(--gold);color:#0F1829;border-color:var(--gold)}
-[data-theme="dark"] .sort-btn{background:#1A2540;color:#8b949e;border-color:rgba(184,145,42,0.12)}
-[data-theme="dark"] .sort-btn.active{background:var(--gold);color:#0F1829}
-[data-theme="dark"] .search-bar input{background:#1A2540;border-color:rgba(184,145,42,0.12);color:#F5F2EC}
-[data-theme="dark"] .section-heading{color:#F5F2EC}
-[data-theme="dark"] .section-desc{color:#8b949e}
-[data-theme="dark"] .stat-num{color:#F5F2EC}
-[data-theme="dark"] .sector-heading{color:#F5F2EC;border-color:rgba(184,145,42,0.2)}
-[data-theme="dark"] .cta-section{background:#0a0e18}
-[data-theme="dark"] .disclaimer-section{border-color:rgba(184,145,42,0.1)}
-[data-theme="dark"] .bg-white{background:#0F1829}
-[data-theme="dark"] .bg-paper{background:#0a0e18}
-[data-theme="dark"] .scroll-top{background:#1A2540;border-color:rgba(184,145,42,0.2)}
-
-/* === Reset === */
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Noto Sans JP',sans-serif;
-  background:var(--paper);
-  color:var(--ink);
-  font-size:14px;
-  line-height:1.8;
-  -webkit-font-smoothing:antialiased;
-}
-
-/* === Header / Nav === */
-.site-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(26,37,64,0.97);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(184,145,42,0.12);
-  padding:0 5vw;
-}
-.nav-inner{
-  display:flex;justify-content:space-between;align-items:center;
-  height:56px;max-width:1200px;margin:0 auto;
-}
-.nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
-.nav-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:0.04em}
-.nav-logo span{color:var(--gold-lt)}
-.nav-sub{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.1em}
-.nav-links{display:flex;gap:28px;align-items:center}
-.nav-links a{font-size:12px;letter-spacing:0.06em;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s}
-.nav-links a:hover{color:var(--gold-lt)}
-.nav-cta{background:var(--gold)!important;color:var(--navy)!important;padding:7px 18px;border-radius:4px;font-weight:700!important;font-size:12px!important}
-.nav-cta:hover{background:var(--gold-lt)!important}
-.nav-hamburger{display:none;background:none;border:none;color:rgba(255,255,255,0.7);font-size:20px;cursor:pointer;padding:4px}
-
-/* === Hero === */
-.hero{
-  background:var(--navy-deep);
-  padding:48px 48px 40px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  border-bottom:1px solid rgba(184,145,42,0.1);
-}
-.hero::after{
-  content:'';position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(184,145,42,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(184,145,42,0.04) 1px,transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-}
-.hero-content{position:relative;z-index:1;max-width:700px;margin:0 auto}
-.hero-eyebrow{
-  font-family:'Playfair Display',serif;
-  font-size:13px;letter-spacing:0.2em;
-  color:var(--gold);text-transform:uppercase;
-  margin-bottom:8px;opacity:0.7;
-}
-.hero h1{
-  font-family:'Shippori Mincho B1',serif;
-  font-size:clamp(24px,4vw,36px);
-  font-weight:800;color:#fff;
-  line-height:1.3;margin-bottom:8px;
-  letter-spacing:0.08em;
-}
-.hero-sub-en{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(12px,2vw,15px);
-  color:rgba(255,255,255,0.35);
-  letter-spacing:0.15em;
-  font-style:italic;
-}
-
-/* === Section Common === */
-.section{padding:72px 48px}
-.section-inner{max-width:1100px;margin:0 auto}
-.section-eyebrow{
-  font-family:'Playfair Display',serif;
-  font-size:10px;letter-spacing:0.18em;
-  text-transform:uppercase;
-  color:var(--gold);margin-bottom:16px;
-}
-.section-heading{
-  font-family:'Shippori Mincho B1',serif;
-  font-size:clamp(20px,3vw,28px);
-  font-weight:700;color:var(--navy);
-  line-height:1.4;margin-bottom:12px;
-}
-.section-heading.light{color:#fff}
-.section-desc{font-size:13px;color:var(--slate);line-height:1.8;max-width:560px}
-.section-desc.light{color:rgba(255,255,255,0.55)}
-.bg-paper{background:var(--paper)}
-.bg-paper-dk{background:var(--paper-dk)}
-.bg-navy{background:var(--navy)}
-.bg-white{background:#FDFCFA}
-
-/* === Site Navigation Cards === */
-.site-nav-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;margin-top:36px;
-}
-.site-nav-card{
-  background:#FDFCFA;
-  border:1px solid var(--paper-dk);
-  border-radius:8px;
-  padding:28px 24px;
-  text-decoration:none;
-  color:var(--ink);
-  transition:border-color 0.2s,box-shadow 0.2s;
-  display:flex;flex-direction:column;gap:8px;
-}
-.site-nav-card:hover{
-  border-color:var(--gold);
-  box-shadow:0 4px 16px rgba(184,145,42,0.08);
-}
-.site-nav-num{
-  font-family:'Playfair Display',serif;
-  font-size:24px;color:var(--gold);
-  opacity:0.4;line-height:1;
-}
-.site-nav-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:15px;font-weight:600;
-  color:var(--navy);
-}
-.site-nav-desc{
-  font-size:12px;color:var(--slate-lt);line-height:1.65;
-}
-.site-nav-arrow{
-  font-size:11px;color:var(--gold);
-  margin-top:auto;letter-spacing:0.08em;
-}
-
-/* === Stats Bar === */
-.stats-bar{
-  display:flex;justify-content:center;
-  gap:48px;margin-top:40px;
-  padding-top:28px;
-  border-top:1px solid var(--paper-dk);
-}
-.stat-item{text-align:center}
-.stat-num{
-  font-family:'Playfair Display',serif;
-  font-size:28px;font-weight:700;
-  color:var(--navy);line-height:1;
-}
-.stat-label{font-size:11px;color:var(--slate-lt);margin-top:4px;letter-spacing:0.04em}
-
-/* === Reports Section === */
-.reports-header{
-  display:flex;align-items:center;
-  justify-content:space-between;
-  gap:16px;margin-bottom:24px;
-  flex-wrap:wrap;
-}
-.reports-controls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;width:100%}
-
-/* Sort */
-.sort-bar{display:flex;gap:0;border:1px solid var(--paper-dk);border-radius:6px;overflow:hidden}
-.sort-btn{
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:12px;font-weight:500;
-  padding:8px 18px;
-  border:none;
-  background:#FDFCFA;
-  color:var(--slate);
-  cursor:pointer;
-  transition:all 0.15s;
-  border-right:1px solid var(--paper-dk);
-}
-.sort-btn:last-child{border-right:none}
-.sort-btn.active{background:var(--navy);color:var(--gold)}
-.sort-btn:hover:not(.active){background:var(--paper-dk);color:var(--navy)}
-
-/* Search */
-.search-bar{position:relative;width:260px}
-.search-bar input{
-  width:100%;padding:9px 16px 9px 38px;
-  border-radius:6px;
-  border:1px solid var(--paper-dk);
-  background:#FDFCFA;
-  color:var(--ink);
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:13px;outline:none;
-  transition:border-color 0.15s;
-}
-.search-bar input:focus{border-color:var(--gold)}
-.search-bar input::placeholder{color:var(--slate-lt)}
-.search-bar svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--slate-lt)}
-
-/* Card Grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:16px;
-}
-
-/* Cards */
-.card{
-  background:#FDFCFA;
-  border:1px solid var(--paper-dk);
-  border-radius:8px;
-  padding:22px 24px;
-  display:flex;flex-direction:column;gap:10px;
-  transition:border-color 0.2s,box-shadow 0.2s;
-}
-.card:hover{
-  border-color:rgba(184,145,42,0.4);
-  box-shadow:0 2px 12px rgba(184,145,42,0.06);
-}
-.card.hidden{display:none}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;padding:40px 20px}
+.site-logo{display:block;margin:0 0 32px 12px}
+.site-logo img{height:48px;width:auto;filter:invert(1)}
+header{text-align:center;margin-bottom:48px}
+header h1{color:#58a6ff;font-size:1.8rem;font-weight:700}
+header p{color:#6e7681;font-size:.85rem;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s}
+.card:hover{border-color:#58a6ff}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .card-id{display:flex;align-items:center;gap:10px;min-width:0}
 .card-badges{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.card-logo{height:28px;width:auto;max-width:44px;object-fit:contain;opacity:1;flex-shrink:0}
+.card-logo{height:26px;width:auto;max-width:40px;object-fit:contain;opacity:.85;flex-shrink:0}
 .card-logo[src$=".png"]{border-radius:4px}
-.ticker{
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem;font-weight:700;
-  color:var(--navy);white-space:nowrap;
-  letter-spacing:0.02em;
-}
-.sector{
-  font-size:11px;color:var(--slate-lt);
-  background:var(--paper-dk);
-  padding:3px 10px;border-radius:10px;
-  white-space:nowrap;display:inline-block;
-  align-self:flex-start;
-}
+.ticker{font-size:1.4rem;font-weight:700;color:#e6edf3;white-space:nowrap}
+.sector{font-size:.7rem;color:#8b949e;background:rgba(88,166,255,.08);padding:3px 10px;border-radius:10px;white-space:nowrap;display:inline-block;align-self:flex-start}
 .fy-row{display:flex;align-items:center;gap:10px}
-.fy-label{
-  font-size:11px;font-weight:700;
-  color:var(--slate-lt);
-  min-width:56px;flex-shrink:0;
-  letter-spacing:0.04em;
-}
+.fy-label{font-size:.78rem;font-weight:700;color:#6e7681;min-width:56px;flex-shrink:0}
 .q-pills{display:flex;gap:6px;flex-wrap:wrap}
-.q-pill{
-  font-size:12px;font-weight:500;
-  padding:5px 14px;border-radius:6px;
-  background:var(--paper);
-  color:var(--navy);
-  text-decoration:none;
-  border:1px solid var(--paper-dk);
-  transition:all 0.15s;
-}
-.q-pill:hover{
-  background:var(--navy);color:var(--gold);
-  border-color:var(--navy);
-}
-
-/* Score Badges */
-.score-badge{
-  font-size:12px;font-weight:700;
-  padding:4px 12px;border-radius:10px;
-  white-space:nowrap;line-height:1.4;
-  letter-spacing:0.02em;
-  display:inline-flex;align-items:center;gap:4px;
-}
-
-/* Sector Heading (for sector sort) */
-.sector-heading{
-  font-family:'Noto Serif JP',serif;
-  color:var(--navy);font-size:14px;
-  font-weight:600;
-  margin:24px 0 8px;
-  padding-bottom:8px;
-  border-bottom:1px solid var(--rule);
-  grid-column:1/-1;
-  letter-spacing:0.04em;
-}
-
-.no-results{
-  grid-column:1/-1;text-align:center;
-  color:var(--slate-lt);font-size:13px;
-  padding:48px 0;
-}
-
-/* === CTA Section === */
-.cta-section{
-  background:var(--navy);
-  padding:72px 48px;text-align:center;
-  position:relative;overflow:hidden;
-}
-.cta-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 50% 100%,rgba(184,145,42,0.06) 0%,transparent 60%);
-  pointer-events:none;
-}
-.cta-content{position:relative;z-index:1;max-width:520px;margin:0 auto}
-.cta-title{
-  font-family:'Shippori Mincho B1',serif;
-  font-size:22px;font-weight:700;
-  color:#fff;margin-bottom:12px;
-}
-.cta-body{font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:28px;line-height:1.9}
-.cta-price{
-  font-family:'Playfair Display',serif;
-  font-size:36px;color:#fff;margin-bottom:4px;
-}
-.cta-price span{font-size:15px;color:rgba(255,255,255,0.6)}
-.cta-note{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:24px}
-.btn-primary{
-  display:inline-block;padding:14px 40px;
-  background:var(--gold);color:var(--navy);
-  font-size:14px;font-weight:700;
-  border-radius:4px;text-decoration:none;
-  letter-spacing:0.06em;
-  transition:background 0.15s;
-}
-.btn-primary:hover{background:var(--gold-lt)}
-
-/* === Disclaimer === */
-.disclaimer-section{
-  padding:24px 48px;
-  border-top:1px solid var(--paper-dk);
-}
-.disclaimer-text{
-  max-width:800px;margin:0 auto;
-  font-size:11px;color:var(--slate-lt);
-  line-height:1.9;
-}
-
-/* === Footer === */
-footer{
-  background:var(--navy);
-  padding:32px 48px;
-  text-align:center;
-}
-.footer-links{margin-bottom:14px}
-.footer-links a{
-  color:rgba(255,255,255,0.4);
-  text-decoration:none;font-size:11px;
-  margin:0 14px;letter-spacing:0.04em;
-  transition:color 0.15s;
-}
-.footer-links a:hover{color:var(--gold-lt)}
-.footer-copy{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.04em}
-
-/* === Scroll Top === */
-.scroll-top{
-  position:fixed;bottom:28px;right:28px;
-  width:44px;height:44px;border-radius:50%;
-  background:var(--navy);
-  border:1px solid rgba(184,145,42,0.2);
-  color:var(--gold);font-size:1rem;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;visibility:hidden;
-  transition:all 0.25s;z-index:90;
-  box-shadow:0 2px 12px rgba(0,0,0,0.15);
-}
+.q-pill{font-size:.76rem;font-weight:500;padding:4px 14px;border-radius:8px;background:#21262d;color:#58a6ff;text-decoration:none;border:1px solid #30363d;transition:all .15s}
+.q-pill:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.sort-bar{text-align:center;margin-bottom:24px}
+.sort-btn{font-family:'Noto Sans JP',sans-serif;font-size:.82rem;font-weight:500;padding:6px 18px;margin:0 4px;border-radius:8px;border:1px solid #30363d;background:#161b22;color:#8b949e;cursor:pointer;transition:all .15s}
+.sort-btn.active{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
+.sort-btn:hover:not(.active){border-color:#58a6ff;color:#58a6ff}
+.sector-heading{color:#58a6ff;font-size:1rem;font-weight:700;margin:28px 0 12px;padding-bottom:8px;border-bottom:1px solid #21262d;grid-column:1/-1}
+.score-badge{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;line-height:1.4}
+.new-badge{font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:10px;background:#da3633;color:#fff;white-space:nowrap;letter-spacing:.5px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.search-bar{max-width:400px;margin:0 auto 20px;position:relative}
+.search-bar input{width:100%;padding:10px 16px 10px 40px;border-radius:10px;border:1px solid #30363d;background:#161b22;color:#e6edf3;font-family:'Noto Sans JP',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s}
+.search-bar input:focus{border-color:#58a6ff}
+.search-bar svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#6e7681}
+.card.hidden{display:none}
+.no-results{grid-column:1/-1;text-align:center;color:#6e7681;font-size:.9rem;padding:40px 0}
+footer{text-align:center;margin-top:60px;padding:24px 20px;border-top:1px solid #21262d;color:#484f58;font-size:.75rem;line-height:1.8}
+footer img{height:28px;width:auto;filter:invert(1);opacity:.4;margin-bottom:8px}
+footer a{color:#58a6ff;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.scroll-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;background:#161b22;border:1px solid #30363d;color:#58a6ff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .25s;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .scroll-top.visible{opacity:1;visibility:visible}
-.scroll-top:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-
-/* === Theme Toggle === */
-.theme-toggle{background:none;border:1px solid rgba(255,255,255,0.15);width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(255,255,255,0.6);transition:all 0.15s;flex-shrink:0}
-.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
-
-/* === Mobile Nav Menu === */
-.mobile-menu{
-  display:none;
-  position:fixed;top:56px;left:0;right:0;
-  background:rgba(26,37,64,0.98);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(184,145,42,0.12);
-  padding:16px 24px;z-index:99;
-}
-.mobile-menu.open{display:block}
-.mobile-menu a{
-  display:block;padding:12px 0;
-  font-size:14px;color:rgba(255,255,255,0.7);
-  text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
-.mobile-menu a:last-child{border-bottom:none}
-.mobile-menu a:hover{color:var(--gold-lt)}
-
-/* === Responsive === */
+.scroll-top:hover{background:#58a6ff;color:#0d1117;border-color:#58a6ff}
 @media(max-width:768px){
-  .site-header{padding:0 20px}
-  .nav-links{display:none}
-  .nav-hamburger{display:block}
-  .hero{padding:64px 24px 56px}
-  .hero h1{letter-spacing:0.02em}
-  .section{padding:48px 20px}
-  .site-nav-grid{grid-template-columns:1fr 1fr;gap:12px}
-  .stats-bar{gap:24px;flex-wrap:wrap}
-  .stat-num{font-size:22px}
-  .reports-controls{flex-direction:column;align-items:stretch}
-  .search-bar{width:100%}
-  .sort-bar{width:100%;justify-content:center}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-  .card{padding:18px 20px}
+  body{padding:24px 12px}
+  header{margin-bottom:28px}
+  header h1{font-size:1.4rem}
+  .site-logo{margin:0 0 20px 8px}
+  .site-logo img{height:36px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+  .card{padding:16px}
   .ticker{font-size:1.1rem}
-  .cta-section{padding:48px 24px}
-  .disclaimer-section{padding:20px}
-  footer{padding:24px 20px}
+  .sort-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+  .sort-btn{margin:0;padding:6px 14px;font-size:.78rem}
+  .search-bar{max-width:100%;margin:0 12px 16px}
+  footer{margin-top:40px;padding:20px 12px}
   .scroll-top{bottom:16px;right:16px;width:40px;height:40px}
 }
 @media(max-width:480px){
-  .site-nav-grid{grid-template-columns:1fr}
+  body{padding:16px 8px}
   .grid{grid-template-columns:1fr}
+  .ticker{font-size:1rem}
+  .q-pill{padding:3px 10px;font-size:.72rem}
+  .fy-label{font-size:.72rem;min-width:48px}
   .card-top{flex-wrap:wrap;gap:6px}
-  .q-pill{padding:4px 10px;font-size:11px}
-  .fy-label{font-size:10px;min-width:48px}
-  .stats-bar{gap:20px}
 }
 </style>
-</head>
-<body>
-
-<!-- ── Header ── -->
-<header class="site-header">
-  <div class="nav-inner">
-    <a href="/" class="nav-brand">
-      <span class="nav-logo">Atlas<span>.</span></span>
-      <span class="nav-sub">Powered by U&amp;I CO., LTD.</span>
-    </a>
-    <nav class="nav-links">
-      <a href="https://atlasfinancials.github.io/ui-kabu-times/">朝刊</a>
-      <a href="https://atlasfinancials.github.io/ui-kabu-reports/" class="active">分析</a>
-      <a href="https://atlasfinancials.github.io/ui-kabu-times/glossary/">用語辞典</a>
-    </nav>
-    <button class="theme-toggle" id="themeToggle" aria-label="テーマ切替" onclick="toggleTheme()">🌙</button>
-    <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="メニュー">☰</button>
-  </div>
-</header>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="https://atlasfinancials.github.io/ui-kabu-times/">Atlas朝刊</a>
-  <a href="https://atlasfinancials.github.io/ui-kabu-reports/">決算分析</a>
-  <a href="https://atlasfinancials.github.io/ui-kabu-times/glossary/">用語辞典</a>
-</div>
-
-<!-- ── Hero ── -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-eyebrow">Atlas</div>
-    <h1>決算分析ポータル</h1>
-    <p class="hero-sub-en">Earnings Analytics Portal</p>
-  </div>
-</section>
-
-<!-- ── Reports ── -->
-<section class="section bg-white" id="reports" style="padding-top:36px">
-  <div class="section-inner">
-    <div class="reports-header">
-      <div class="reports-controls">
-        <div class="sort-bar">
-          <button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button>
-          <button class="sort-btn" onclick="sortBy('sector')">セクター別</button>
-          <button class="sort-btn" onclick="sortBy('score')">スコア順</button>
-        </div>
-        <div class="search-bar">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="search" placeholder="ティッカーで検索..." oninput="filterCards()">
-        </div>
-      </div>
-    </div>
-
-    <div class="grid" id="grid">
-
-<div class="card" data-ticker="ACN" data-score="4" data-sector="ITサービス">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ACN.svg" alt="ACN"><span class="ticker">ACN</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">ITサービス</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/ACN/FY26Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="ADBE" data-score="4" data-sector="SaaS・ソフトウェア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ADBE.svg" alt="ADBE"><span class="ticker">ADBE</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">SaaS・ソフトウェア</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/ADBE/FY26Q1.html">Q1</a></div></div>
-</div>
-
-<div class="card" data-ticker="ADI" data-score="4" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ADI.svg" alt="ADI"><span class="ticker">ADI</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/ADI/FY2026Q1.html">Q1</a></div></div>
-</div>
-
-<div class="card" data-ticker="ALAB" data-score="4" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ALAB.svg" alt="ALAB"><span class="ticker">ALAB</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/ALAB/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="AMZN" data-score="3" data-sector="テクノロジー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/AMZN.svg" alt="AMZN"><span class="ticker">AMZN</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div>
-  <div class="sector">テクノロジー</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/AMZN/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="AVGO" data-score="4" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/AVGO.svg" alt="AVGO"><span class="ticker">AVGO</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/AVGO/FY2026Q1.html">Q1</a></div></div>
-</div>
-
-<div class="card" data-ticker="BABA" data-score="2" data-sector="テクノロジー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/BABA.svg" alt="BABA"><span class="ticker">BABA</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(139,32,32,0.1);color:#8B2020;border:1px solid rgba(139,32,32,0.2)">📉 2/5</span></div></div>
-  <div class="sector">テクノロジー</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/BABA/FY26Q3.html">Q3</a></div></div>
-</div>
-
-<div class="card" data-ticker="CIEN" data-score="4" data-sector="ネットワーク・光学">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/CIEN.png" alt="CIEN"><span class="ticker">CIEN</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">ネットワーク・光学</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/CIEN/FY2026Q1.html">Q1</a></div></div>
-</div>
-
-<div class="card" data-ticker="COST" data-score="4" data-sector="小売">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/COST.svg" alt="COST"><span class="ticker">COST</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">小売</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/COST/FY26Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="DAL" data-score="4" data-sector="航空・運輸">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DAL.svg" alt="DAL"><span class="ticker">DAL</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">航空・運輸</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/DAL/FY25Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="DDOG" data-score="4" data-sector="SaaS・ソフトウェア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DDOG.svg" alt="DDOG"><span class="ticker">DDOG</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">SaaS・ソフトウェア</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/DDOG/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="DG" data-score="4" data-sector="小売">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DG.svg" alt="DG"><span class="ticker">DG</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">小売</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/DG/FY25Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="DOCU" data-score="4" data-sector="SaaS・ソフトウェア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DOCU.svg" alt="DOCU"><span class="ticker">DOCU</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">SaaS・ソフトウェア</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/DOCU/FY26Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="FDX" data-score="5" data-sector="航空・運輸">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/FDX.svg" alt="FDX"><span class="ticker">FDX</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div>
-  <div class="sector">航空・運輸</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/FDX/FY26Q3.html">Q3</a></div></div>
-</div>
-
-<div class="card" data-ticker="FN" data-score="4" data-sector="ネットワーク・光学">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/FN.svg" alt="FN"><span class="ticker">FN</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">ネットワーク・光学</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/FN/FY2026Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="GOOGL" data-score="4" data-sector="テクノロジー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/GOOGL.svg" alt="GOOGL"><span class="ticker">GOOGL</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">テクノロジー</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/GOOGL/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="IOT" data-score="4" data-sector="SaaS・ソフトウェア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/IOT.svg" alt="IOT"><span class="ticker">IOT</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">SaaS・ソフトウェア</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/IOT/FY2026Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="LLY" data-score="4" data-sector="ヘルスケア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/LLY.svg" alt="LLY"><span class="ticker">LLY</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">ヘルスケア</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/LLY/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="LULU" data-score="3" data-sector="アパレル・小売">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/LULU.svg" alt="LULU"><span class="ticker">LULU</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div>
-  <div class="sector">アパレル・小売</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/LULU/FY25Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="META" data-score="4" data-sector="テクノロジー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/META.svg" alt="META"><span class="ticker">META</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">テクノロジー</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/META/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="MRVL" data-score="4" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/MRVL.svg" alt="MRVL"><span class="ticker">MRVL</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/MRVL/FY2026Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="MSFT" data-score="4" data-sector="テクノロジー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/MSFT.svg" alt="MSFT"><span class="ticker">MSFT</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">テクノロジー</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/MSFT/FY2026Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="MU" data-score="5" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/MU.svg" alt="MU"><span class="ticker">MU</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/MU/FY26Q1.html">Q1</a><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/MU/FY26Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="NKE" data-score="1" data-sector="アパレル・小売">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/NKE.svg" alt="NKE"><span class="ticker">NKE</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(139,32,32,0.12);color:#8B2020;border:1px solid rgba(139,32,32,0.25)">👎 1/5</span></div></div>
-  <div class="sector">アパレル・小売</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/NKE/FY26Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="NVDA" data-score="5" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/NVDA.svg" alt="NVDA"><span class="ticker">NVDA</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/NVDA/FY26Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="OKTA" data-score="4" data-sector="SaaS・ソフトウェア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/OKTA.svg" alt="OKTA"><span class="ticker">OKTA</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">SaaS・ソフトウェア</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/OKTA/FY2026Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="ORCL" data-score="4" data-sector="テクノロジー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ORCL.svg" alt="ORCL"><span class="ticker">ORCL</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">テクノロジー</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/ORCL/FY26Q3.html">Q3</a></div></div>
-</div>
-
-<div class="card" data-ticker="PANW" data-score="4" data-sector="サイバーセキュリティ">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/PANW.svg" alt="PANW"><span class="ticker">PANW</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">サイバーセキュリティ</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/PANW/FY26Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="PATH" data-score="4" data-sector="SaaS・ソフトウェア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/PATH.svg" alt="PATH"><span class="ticker">PATH</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">SaaS・ソフトウェア</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/PATH/FY26Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="PAYP" data-score="4" data-sector="フィンテック">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/PAYP.svg" alt="PAYP"><span class="ticker">PAYP</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">フィンテック</div>
-  <div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/PAYP/IPO_2026.html">IPO_2026</a></div></div>
-</div>
-
-<div class="card" data-ticker="RBRK" data-score="4" data-sector="サイバーセキュリティ">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/RBRK.svg" alt="RBRK"><span class="ticker">RBRK</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">サイバーセキュリティ</div>
-  <div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RBRK/FY26_10K.html">FY26_10K</a><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RBRK/FY26_通期.html">FY26_通期</a></div></div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RBRK/FY26Q1.html">Q1</a><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RBRK/FY26Q2.html">Q2</a><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RBRK/FY26Q3.html">Q3</a><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RBRK/FY26Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="RDDT" data-score="4" data-sector="ソーシャルメディア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/RDDT.svg" alt="RDDT"><span class="ticker">RDDT</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">ソーシャルメディア</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/RDDT/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="S" data-score="3" data-sector="サイバーセキュリティ">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/S.svg" alt="S"><span class="ticker">S</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div>
-  <div class="sector">サイバーセキュリティ</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/S/FY26Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="SMCI" data-score="5" data-sector="サーバー・インフラ">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/SMCI.svg" alt="SMCI"><span class="ticker">SMCI</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div>
-  <div class="sector">サーバー・インフラ</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/SMCI/FY26Q2.html">Q2</a></div></div>
-</div>
-
-<div class="card" data-ticker="SNAP" data-score="3" data-sector="ソーシャルメディア">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/SNAP.svg" alt="SNAP"><span class="ticker">SNAP</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div>
-  <div class="sector">ソーシャルメディア</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/SNAP/FY25Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="TM" data-score="4" data-sector="自動車">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TM.svg" alt="TM"><span class="ticker">TM</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">自動車</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/TM/FY2026Q3.html">Q3</a></div></div>
-</div>
-
-<div class="card" data-ticker="TSLA" data-score="4" data-sector="EV・エネルギー">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TSLA.svg" alt="TSLA"><span class="ticker">TSLA</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">EV・エネルギー</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/TSLA/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="TSM" data-score="5" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TSM.svg" alt="TSM"><span class="ticker">TSM</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/TSM/Q4_2025.html">Q4_2025</a></div></div>
-</div>
-
-<div class="card" data-ticker="TXN" data-score="4" data-sector="半導体">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TXN.svg" alt="TXN"><span class="ticker">TXN</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">半導体</div>
-  <div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/TXN/FY2025Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="VFC" data-score="4" data-sector="アパレル・小売">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/VFC.svg" alt="VFC"><span class="ticker">VFC</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">アパレル・小売</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/VFC/FY26Q3.html">Q3</a></div></div>
-</div>
-
-<div class="card" data-ticker="WMT" data-score="3" data-sector="小売">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/WMT.svg" alt="WMT"><span class="ticker">WMT</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div>
-  <div class="sector">小売</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/WMT/FY26Q4.html">Q4</a></div></div>
-</div>
-
-<div class="card" data-ticker="ZS" data-score="4" data-sector="サイバーセキュリティ">
-  <div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ZS.svg" alt="ZS"><span class="ticker">ZS</span></div><div class="card-badges"><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div>
-  <div class="sector">サイバーセキュリティ</div>
-  <div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://atlasfinancials.github.io/ui-kabu-reports/ZS/FY26Q2.html">Q2</a></div></div>
-</div>
-
-    </div><!-- /grid -->
-  </div>
-</section>
-
-<!-- ── Disclaimer ── -->
-<div class="disclaimer-section">
-  <p class="disclaimer-text">本サービスはU&amp;I株式会社が提供する教育目的の情報提供であり、特定の有価証券の売買を推奨・助言するものではありません。掲載情報の正確性・完全性・最新性を保証するものではなく、投資に関する最終的な判断はご自身の責任においてお願いいたします。当社は金融商品取引業（投資助言・代理業）の登録を受けておりません。</p>
-</div>
-
-<!-- ── Footer ── -->
+</head><body>
+<div class="site-logo"><img src="logos/ui-kabu-logo.png" alt="U&I株倶楽部"></div>
+<header><h1>決算レポート</h1><p>最終更新: 2026/03/28 11:58</p></header>
+<div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button><button class="sort-btn" onclick="sortBy('score')">スコア順</button></div>
+<div class="search-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search" placeholder="ティッカーで検索..." oninput="filterCards()"></div>
+<div class="grid" id="grid"><div class="card" data-ticker="ACN" data-score="4" data-sector="ITサービス"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ACN.svg" alt="ACN"><span class="ticker">ACN</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">ITサービス</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/ACN/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="ADBE" data-score="4" data-sector="SaaS・ソフトウェア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ADBE.svg" alt="ADBE"><span class="ticker">ADBE</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">SaaS・ソフトウェア</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/ADBE/FY26Q1.html">Q1</a></div></div></div><div class="card" data-ticker="ADI" data-score="4" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ADI.svg" alt="ADI"><span class="ticker">ADI</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/ADI/FY2026Q1.html">Q1</a></div></div></div><div class="card" data-ticker="ALAB" data-score="4" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ALAB.svg" alt="ALAB"><span class="ticker">ALAB</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/ALAB/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="AMZN" data-score="3" data-sector="テクノロジー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/AMZN.svg" alt="AMZN"><span class="ticker">AMZN</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div><div class="sector">テクノロジー</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/AMZN/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="AVGO" data-score="4" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/AVGO.svg" alt="AVGO"><span class="ticker">AVGO</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/AVGO/FY2026Q1.html">Q1</a></div></div></div><div class="card" data-ticker="BABA" data-score="2" data-sector="テクノロジー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/BABA.svg" alt="BABA"><span class="ticker">BABA</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(139,32,32,0.1);color:#8B2020;border:1px solid rgba(139,32,32,0.2)">📉 2/5</span></div></div><div class="sector">テクノロジー</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/BABA/FY26Q3.html">Q3</a></div></div></div><div class="card" data-ticker="CCL" data-score="3" data-sector="未分類"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/CCL.svg" alt="CCL"><span class="ticker">CCL</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div><div class="sector">未分類</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/CCL/FY26Q1.html">Q1</a></div></div></div><div class="card" data-ticker="CIEN" data-score="4" data-sector="ネットワーク・光学"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/CIEN.png" alt="CIEN"><span class="ticker">CIEN</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">ネットワーク・光学</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/CIEN/FY2026Q1.html">Q1</a></div></div></div><div class="card" data-ticker="COST" data-score="4" data-sector="小売"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/COST.svg" alt="COST"><span class="ticker">COST</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">小売</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/COST/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="DAL" data-score="4" data-sector="航空・運輸"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DAL.svg" alt="DAL"><span class="ticker">DAL</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">航空・運輸</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/DAL/FY25Q4.html">Q4</a></div></div></div><div class="card" data-ticker="DDOG" data-score="4" data-sector="SaaS・ソフトウェア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DDOG.svg" alt="DDOG"><span class="ticker">DDOG</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">SaaS・ソフトウェア</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/DDOG/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="DG" data-score="4" data-sector="小売"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DG.svg" alt="DG"><span class="ticker">DG</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">小売</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/DG/FY25Q4.html">Q4</a></div></div></div><div class="card" data-ticker="DOCU" data-score="4" data-sector="SaaS・ソフトウェア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/DOCU.svg" alt="DOCU"><span class="ticker">DOCU</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">SaaS・ソフトウェア</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/DOCU/FY26Q4.html">Q4</a></div></div></div><div class="card" data-ticker="FDX" data-score="5" data-sector="航空・運輸"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/FDX.svg" alt="FDX"><span class="ticker">FDX</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div><div class="sector">航空・運輸</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/FDX/FY26Q3.html">Q3</a></div></div></div><div class="card" data-ticker="FN" data-score="4" data-sector="ネットワーク・光学"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/FN.svg" alt="FN"><span class="ticker">FN</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">ネットワーク・光学</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/FN/FY2026Q2.html">Q2</a></div></div></div><div class="card" data-ticker="GOOGL" data-score="4" data-sector="テクノロジー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/GOOGL.svg" alt="GOOGL"><span class="ticker">GOOGL</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">テクノロジー</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/GOOGL/FY2025Q4_mobile_test.html">Q4</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/GOOGL/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="IOT" data-score="4" data-sector="SaaS・ソフトウェア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/IOT.svg" alt="IOT"><span class="ticker">IOT</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">SaaS・ソフトウェア</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/IOT/FY2026Q4.html">Q4</a></div></div></div><div class="card" data-ticker="LLY" data-score="4" data-sector="ヘルスケア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/LLY.svg" alt="LLY"><span class="ticker">LLY</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">ヘルスケア</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/LLY/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="LULU" data-score="4" data-sector="アパレル・小売"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/LULU.svg" alt="LULU"><span class="ticker">LULU</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">アパレル・小売</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/LULU/FY25Q4.html">Q4</a></div></div></div><div class="card" data-ticker="META" data-score="4" data-sector="テクノロジー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/META.svg" alt="META"><span class="ticker">META</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">テクノロジー</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/META/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="MRVL" data-score="4" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/MRVL.svg" alt="MRVL"><span class="ticker">MRVL</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/MRVL/FY2026Q4.html">Q4</a></div></div></div><div class="card" data-ticker="MSFT" data-score="4" data-sector="テクノロジー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/MSFT.svg" alt="MSFT"><span class="ticker">MSFT</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">テクノロジー</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/MSFT/FY2026Q2.html">Q2</a></div></div></div><div class="card" data-ticker="MU" data-score="5" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/MU.svg" alt="MU"><span class="ticker">MU</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/MU/FY26Q1.html">Q1</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/MU/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="NKE" data-score="3" data-sector="アパレル・小売"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/NKE.svg" alt="NKE"><span class="ticker">NKE</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div><div class="sector">アパレル・小売</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/NKE/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="NVDA" data-score="5" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/NVDA.svg" alt="NVDA"><span class="ticker">NVDA</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/NVDA/FY26Q4.html">Q4</a></div></div></div><div class="card" data-ticker="OKTA" data-score="4" data-sector="SaaS・ソフトウェア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/OKTA.svg" alt="OKTA"><span class="ticker">OKTA</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">SaaS・ソフトウェア</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/OKTA/FY2026Q4.html">Q4</a></div></div></div><div class="card" data-ticker="ORCL" data-score="4" data-sector="テクノロジー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ORCL.svg" alt="ORCL"><span class="ticker">ORCL</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">テクノロジー</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/ORCL/FY26Q3.html">Q3</a></div></div></div><div class="card" data-ticker="PANW" data-score="4" data-sector="サイバーセキュリティ"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/PANW.svg" alt="PANW"><span class="ticker">PANW</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">サイバーセキュリティ</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/PANW/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="PATH" data-score="4" data-sector="SaaS・ソフトウェア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/PATH.svg" alt="PATH"><span class="ticker">PATH</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">SaaS・ソフトウェア</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/PATH/FY26Q4.html">Q4</a></div></div></div><div class="card" data-ticker="PAYP" data-score="4" data-sector="フィンテック"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/PAYP.svg" alt="PAYP"><span class="ticker">PAYP</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">フィンテック</div><div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/PAYP/IPO_2026.html">IPO_2026</a></div></div></div><div class="card" data-ticker="RBRK" data-score="4" data-sector="サイバーセキュリティ"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/RBRK.svg" alt="RBRK"><span class="ticker">RBRK</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">サイバーセキュリティ</div><div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RBRK/FY26_10K.html">FY26_10K</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RBRK/FY26_通期.html">FY26_通期</a></div></div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RBRK/FY26Q1.html">Q1</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RBRK/FY26Q2.html">Q2</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RBRK/FY26Q3.html">Q3</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RBRK/FY26Q4.html">Q4</a></div></div></div><div class="card" data-ticker="RDDT" data-score="4" data-sector="ソーシャルメディア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/RDDT.svg" alt="RDDT"><span class="ticker">RDDT</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">ソーシャルメディア</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/RDDT/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="S" data-score="3" data-sector="サイバーセキュリティ"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/S.svg" alt="S"><span class="ticker">S</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div><div class="sector">サイバーセキュリティ</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/S/FY26Q4.html">Q4</a></div></div></div><div class="card" data-ticker="SMCI" data-score="4" data-sector="サーバー・インフラ"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/SMCI.svg" alt="SMCI"><span class="ticker">SMCI</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">サーバー・インフラ</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/SMCI/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="SNAP" data-score="3" data-sector="ソーシャルメディア"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/SNAP.svg" alt="SNAP"><span class="ticker">SNAP</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div><div class="sector">ソーシャルメディア</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/SNAP/FY25Q4.html">Q4</a></div></div></div><div class="card" data-ticker="TM" data-score="4" data-sector="自動車"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TM.svg" alt="TM"><span class="ticker">TM</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">自動車</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/TM/FY2026Q3.html">Q3</a></div></div></div><div class="card" data-ticker="TSLA" data-score="4" data-sector="EV・エネルギー"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TSLA.svg" alt="TSLA"><span class="ticker">TSLA</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">EV・エネルギー</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/TSLA/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="TSM" data-score="5" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TSM.svg" alt="TSM"><span class="ticker">TSM</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.2);color:#B8912A;border:1px solid rgba(184,145,42,0.4)">🚀 5/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/TSM/Q4_2025.html">Q4_2025</a></div></div></div><div class="card" data-ticker="TXN" data-score="4" data-sector="半導体"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/TXN.svg" alt="TXN"><span class="ticker">TXN</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">半導体</div><div class="fy-row"><span class="fy-label">FY2025</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/TXN/FY2025Q4.html">Q4</a></div></div></div><div class="card" data-ticker="VFC" data-score="4" data-sector="アパレル・小売"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/VFC.svg" alt="VFC"><span class="ticker">VFC</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">アパレル・小売</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/VFC/FY26Q3.html">Q3</a></div></div></div><div class="card" data-ticker="WMT" data-score="3" data-sector="小売"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/WMT.svg" alt="WMT"><span class="ticker">WMT</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(74,85,104,0.12);color:#4A5568;border:1px solid rgba(74,85,104,0.25)">⏸️ 3/5</span></div></div><div class="sector">小売</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/WMT/FY26Q4.html">Q4</a></div></div></div><div class="card" data-ticker="ZS" data-score="4" data-sector="サイバーセキュリティ"><div class="card-top"><div class="card-id"><img class="card-logo" src="logos/ZS.svg" alt="ZS"><span class="ticker">ZS</span></div><div class="card-badges"><span class="new-badge">NEW</span><span class="score-badge" style="background:rgba(184,145,42,0.15);color:#B8912A;border:1px solid rgba(184,145,42,0.3)">📈 4/5</span></div></div><div class="sector">サイバーセキュリティ</div><div class="fy-row"><span class="fy-label">FY2026</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/ZS/FY26Q2.html">Q2</a></div></div></div><div class="card" data-ticker="legal" data-sector="未分類"><div class="card-top"><div class="card-id"><span class="ticker">legal</span></div><div class="card-badges"><span class="new-badge">NEW</span></div></div><div class="sector">未分類</div><div class="fy-row"><span class="fy-label">その他</span><div class="q-pills"><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/legal/privacy.html">privacy</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/legal/terms.html">terms</a><a class="q-pill" href="https://yskzz121.github.io/ui-kabu-reports/legal/tokusho.html">tokusho</a></div></div></div></div>
 <footer>
-  <div class="footer-links">
-    <a href="https://atlasfinancials.github.io/ui-kabu-times/">朝刊</a>
-    <a href="https://atlasfinancials.github.io/ui-kabu-reports/">分析</a>
-    <a href="https://atlasfinancials.github.io/ui-kabu-times/glossary/">用語辞典</a>
-    <a href="about.html">Atlasとは</a>
-    <a href="faq.html">FAQ</a>
-    <a href="legal/terms.html">利用規約</a>
-    <a href="legal/privacy.html">プライバシー</a>
-    <a href="legal/tokusho.html">特商法</a>
-  </div>
-  <div class="footer-copy">&copy; 2026 U&amp;I CO., LTD. All rights reserved.</div>
+<img src="logos/ui-kabu-logo.png" alt="U&I株倶楽部">
+<p style="margin-top:6px;font-size:.7rem;color:#30363d">本レポートは情報提供を目的としたものであり、特定の銘柄の売買を推奨するものではありません。投資判断はご自身の責任でお願いいたします。</p>
 </footer>
-
-<!-- Scroll Top -->
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</button>
-
 <script>
-/* Sort */
 function sortBy(mode){
   var grid=document.getElementById('grid');
   var btns=document.querySelectorAll('.sort-btn');
@@ -831,16 +110,13 @@ function sortBy(mode){
     cards.forEach(function(c){grid.appendChild(c)});
   }else{
     cards.sort(function(a,b){
-      var sa=a.dataset.sector||'\uffff';
-      var sb=b.dataset.sector||'\uffff';
-      var s=sa.localeCompare(sb);
+      var s=a.dataset.sector.localeCompare(b.dataset.sector);
       return s!==0?s:a.dataset.ticker.localeCompare(b.dataset.ticker);
     });
     var last='';
     cards.forEach(function(c){
-      var sec=c.dataset.sector||'';
-      if(sec!==last){
-        last=sec;
+      if(c.dataset.sector!==last){
+        last=c.dataset.sector;
         var h=document.createElement('div');
         h.className='sector-heading';
         h.textContent=last||'その他';
@@ -850,8 +126,6 @@ function sortBy(mode){
     });
   }
 }
-
-/* Filter */
 function filterCards(){
   var q=document.getElementById('search').value.toUpperCase();
   var grid=document.getElementById('grid');
@@ -864,39 +138,13 @@ function filterCards(){
   });
   var nr=grid.querySelector('.no-results');
   if(found===0&&q){
-    if(!nr){nr=document.createElement('div');nr.className='no-results';grid.appendChild(nr)}
+    if(!nr){nr=document.createElement('div');nr.className='no-results';grid.appendChild(nr);}
     nr.textContent='該当する銘柄が見つかりません';
-  }else if(nr){nr.remove()}
+  }else if(nr){nr.remove();}
 }
-
-/* Scroll Top */
 window.addEventListener('scroll',function(){
   var btn=document.getElementById('scrollTop');
-  if(window.scrollY>400){btn.classList.add('visible')}else{btn.classList.remove('visible')}
+  if(window.scrollY>300){btn.classList.add('visible')}else{btn.classList.remove('visible')}
 });
-
-/* Mobile Menu */
-function toggleMobileMenu(){
-  var menu=document.getElementById('mobileMenu');
-  var btn=document.querySelector('.nav-hamburger');
-  menu.classList.toggle('open');
-  btn.textContent=menu.classList.contains('open')?'✕':'☰';
-}
-
-/* Theme Toggle */
-function toggleTheme(){
-  var html=document.documentElement;
-  var next=html.getAttribute('data-theme')==='dark'?'light':'dark';
-  html.setAttribute('data-theme',next);
-  localStorage.setItem('atlas-theme',next);
-  document.getElementById('themeToggle').textContent=next==='dark'?'☀️':'🌙';
-}
-(function(){
-  var saved=localStorage.getItem('atlas-theme');
-  if(saved){document.documentElement.setAttribute('data-theme',saved)}
-  var btn=document.getElementById('themeToggle');
-  if(btn) btn.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';
-})();
 </script>
-</body>
-</html>
+</body></html>
