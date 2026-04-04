@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TSLA Tesla 納車・生産・在庫トラッカー（2023–2026）</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#30363d;
+  --text:#e6edf3;--text-sub:#8b949e;--text-dim:#6e7681;
+  --gold:#B8912A;--gold-light:#D4A843;--gold-bg:rgba(184,145,42,0.12);
+  --navy:#1A2540;--paper:#F5F2EC;
+  --green:#3fb950;--red:#ff7b72;--blue:#58a6ff;--purple:#bc8cff;--orange:#f0883e;
+  --green-bg:rgba(63,185,80,0.12);--red-bg:rgba(255,123,114,0.12);
+  --blue-bg:rgba(88,166,255,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg, #1a2332 0%, #1A2540 50%, #0F1829 100%);
+  border-bottom:1px solid rgba(184,145,42,0.15);
+  padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;
+  border-radius:16px 16px 0 0;
+}
+.header::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 30% 50%, rgba(184,145,42,0.08) 0%, transparent 60%),
+             radial-gradient(ellipse at 70% 50%, rgba(184,145,42,0.06) 0%, transparent 60%);
+}
+.header-content{position:relative;z-index:1}
+.header h1{font-family:'Shippori Mincho B1',serif;font-size:2.2em;font-weight:800;margin-bottom:4px;color:var(--text)}
+.header .subtitle{color:var(--text-sub);font-size:1.1em;font-family:'Noto Sans JP',sans-serif}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px;font-family:'Inter',sans-serif}
+.extra-badge{display:inline-block;background:rgba(188,140,255,0.15);border:1px solid rgba(188,140,255,0.3);border-radius:8px;padding:4px 14px;font-size:12px;color:var(--purple);letter-spacing:1px;margin-left:8px;font-family:'Inter',sans-serif}
+
+/* Sections */
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:24px}
+.section-title{font-family:'Shippori Mincho B1',serif;font-size:1.15rem;font-weight:700;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.section-icon{font-size:1.2em}
+
+/* Key Metrics Cards */
+.key-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.key-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.key-card .label{font-size:.72rem;font-weight:500;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:'Inter',sans-serif}
+.key-card .value{font-size:1.8rem;font-weight:700;font-family:'Inter','Noto Sans JP',sans-serif}
+.key-card .sub{font-size:.8rem;color:var(--text-sub);margin-top:4px}
+.pos{color:var(--green)}.neg{color:var(--red)}.neu{color:var(--text)}
+
+/* Chart containers */
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.chart-wrap{position:relative;height:380px}
+.chart-title{font-family:'Shippori Mincho B1',serif;font-size:1rem;font-weight:700;margin-bottom:16px;color:var(--text)}
+
+/* Table */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;font-family:'Inter','Noto Sans JP',sans-serif}
+.tbl th,.tbl td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--text-dim);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;position:sticky;top:0;background:var(--card)}
+.tbl td:first-child,.tbl th:first-child{text-align:left}
+.tbl tr:hover td{background:rgba(88,166,255,.04)}
+.tbl .year-row td{background:rgba(184,145,42,0.06);font-weight:700;border-top:2px solid var(--gold);color:var(--gold-light)}
+.tbl .highlight{background:rgba(255,123,114,0.08)}
+
+/* Insight boxes */
+.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;font-size:.88rem;line-height:1.9;color:var(--text-sub);margin-bottom:14px}
+.insight strong{color:var(--text)}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.insight.red{border-left-color:var(--red)}
+.insight.green{border-left-color:var(--green)}
+.insight.blue{border-left-color:var(--blue)}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text-dim);font-size:.75rem;line-height:1.8}
+
+/* TradingView */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:16px}
+
+/* Pill tags */
+.tag{display:inline-block;font-size:.72rem;padding:3px 10px;border-radius:20px;margin:2px 4px}
+.tag-green{background:var(--green-bg);color:var(--green);border:1px solid rgba(63,185,80,0.2)}
+.tag-red{background:var(--red-bg);color:var(--red);border:1px solid rgba(255,123,114,0.2)}
+.tag-blue{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(88,166,255,0.2)}
+
+/* Annual summary cards */
+.annual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.annual-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border);background:var(--card)}
+.annual-card .year{font-family:'Inter','Noto Sans JP',sans-serif;font-size:1.6rem;font-weight:900;margin-bottom:8px;color:var(--gold-light)}
+.annual-card .metric{font-size:.78rem;color:var(--text-sub);margin-bottom:4px}
+.annual-card .val{font-family:'Inter','Noto Sans JP',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:12px}
+
+/* === Mobile Responsive === */
+@media(max-width:768px){
+  body{padding:12px!important}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .key-grid{grid-template-columns:1fr 1fr}
+  .section{padding:20px 16px}
+  .chart-wrap{height:280px}
+  .insight-grid{grid-template-columns:1fr}
+  .annual-grid{grid-template-columns:1fr}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .key-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid rgba(184,145,42,0.15);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/TSLA.svg" alt="TSLA">
+      <div><div class="ticker-badge">NASDAQ: TSLA</div><span class="extra-badge">EXTRA</span></div>
+    </div>
+    <h1>Tesla 納車・生産・在庫トラッカー</h1>
+    <div class="subtitle">13四半期の推移（Q1 2023 – Q1 2026）</div>
+    <div class="date">データ更新: 2026年4月4日 ｜ 次回決算発表: 2026年4月22日（予定）</div>
+  </div>
+</div>
+
+<!-- Key Metrics: Latest Quarter -->
+<div style="margin-top:24px">
+  <div class="key-grid">
+    <div class="key-card">
+      <div class="label">Q1 2026 納車台数</div>
+      <div class="value neu">358,023</div>
+      <div class="sub"><span class="pos">+6.3% YoY</span> / <span class="neg">-14.4% QoQ</span></div>
+    </div>
+    <div class="key-card">
+      <div class="label">Q1 2026 生産台数</div>
+      <div class="value neu">408,386</div>
+      <div class="sub"><span class="pos">+12.6% YoY</span> / <span class="neg">-6.0% QoQ</span></div>
+    </div>
+    <div class="key-card">
+      <div class="label">在庫積み増し</div>
+      <div class="value neg">+50,363</div>
+      <div class="sub">生産 > 納車（過去最大級）</div>
+    </div>
+    <div class="key-card">
+      <div class="label">コンセンサス対比</div>
+      <div class="value neg">MISS</div>
+      <div class="sub">予想 365,645 vs 実績 358,023</div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart: Production vs Deliveries -->
+<div class="section" id="sec-prod-del" data-accordion>
+  <div class="section-title"><span class="section-icon">📊</span> 生産台数 vs 納車台数（13四半期推移）</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-wrap">
+        <canvas id="chartProdDel"></canvas>
+      </div>
+    </div>
+    <div class="insight">
+      <strong>ポイント:</strong> 2023年は生産・納車ともに右肩上がりで年間180万台を達成。2024年は成長が鈍化し初の年間減少（-1.1%）。2025年はModel Y刷新の影響でQ1に大幅減少後、Q3にEV税額控除期限前の駆け込みで過去最高の49.7万台を記録。2026年Q1は再び減速し、生産と納車の乖離が拡大。
+    </div>
+  </div>
+</div>
+
+<!-- Chart: Cumulative Inventory -->
+<div class="section" id="sec-inventory" data-accordion>
+  <div class="section-title"><span class="section-icon">📦</span> 推定在庫総量の推移</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-wrap">
+        <canvas id="chartInventory"></canvas>
+      </div>
+    </div>
+    <div class="insight red">
+      <strong>在庫が過去最高水準に:</strong> 各四半期の「生産−納車」を累積した推定在庫は、Q1 2026末時点で約<strong>90,000台超</strong>に到達。2024年後半に在庫消化が進み一時マイナス圏（在庫薄）に入ったが、2025年Q1以降は再び積み上がりが続き、Q1 2026の+50,363台の大幅積み増しで過去最高を更新。
+    </div>
+    <div class="insight-grid">
+      <div class="insight green">
+        <strong>在庫消化に成功した時期:</strong><br>
+        2024年Q2〜Q4にかけて在庫を約62,000台消化。四半期末のインセンティブ強化・値引きキャンペーンが効果を発揮した期間。
+      </div>
+      <div class="insight red">
+        <strong>在庫膨張が加速する局面:</strong><br>
+        2025年Q1以降、5四半期中4四半期で在庫増加。Q1 2026の+50,363台は単一四半期として過去最大。「受注生産モデル」の優位性が崩れつつある。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Annual Summary -->
+<div class="section" id="sec-annual" data-accordion>
+  <div class="section-title"><span class="section-icon">📅</span> 年間サマリー</div>
+  <div class="section-body">
+    <div class="annual-grid">
+      <div class="annual-card">
+        <div class="year">2023</div>
+        <div class="metric">納車台数</div>
+        <div class="val pos">1,808,581</div>
+        <div class="metric">生産台数</div>
+        <div class="val">1,845,985</div>
+        <div class="metric">在庫変動</div>
+        <div class="val neg">+37,404</div>
+        <div class="sub"><span class="pos">YoY 納車 +38%</span></div>
+      </div>
+      <div class="annual-card">
+        <div class="year">2024</div>
+        <div class="metric">納車台数</div>
+        <div class="val neg">1,789,226</div>
+        <div class="metric">生産台数</div>
+        <div class="val">1,773,443</div>
+        <div class="metric">在庫変動</div>
+        <div class="val pos">-15,783</div>
+        <div class="sub"><span class="neg">YoY 納車 -1.1%（初の年間減少）</span></div>
+      </div>
+      <div class="annual-card">
+        <div class="year">2025</div>
+        <div class="metric">納車台数</div>
+        <div class="val neg">1,636,129</div>
+        <div class="metric">生産台数</div>
+        <div class="val">1,654,667</div>
+        <div class="metric">在庫変動</div>
+        <div class="val neg">+18,538</div>
+        <div class="sub"><span class="neg">YoY 納車 -8.6%（2年連続減少）</span></div>
+      </div>
+    </div>
+    <div class="insight">
+      <strong>トレンド:</strong> テスラの年間納車台数は2023年の180.9万台をピークに、2024年→2025年と2年連続で減少。2024年は在庫消化（-15,783台）で凌いだが、2025年は生産も納車も純減。2026年Q1ペースが続けば年間143万台水準で、3年連続減少の危険性。
+    </div>
+  </div>
+</div>
+
+<!-- Full Data Table -->
+<div class="section" id="sec-table" data-accordion>
+  <div class="section-title"><span class="section-icon">📋</span> 四半期データ一覧</div>
+  <div class="section-body">
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>四半期</th>
+            <th>生産台数</th>
+            <th>納車台数</th>
+            <th>在庫変動</th>
+            <th>納車 YoY</th>
+            <th>納車 QoQ</th>
+            <th>エネルギー貯蔵</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Q1 2023</td><td>440,808</td><td>422,875</td>
+            <td class="neg">+17,933</td><td class="neg">-4.0%</td><td class="neg">-18.4%</td><td>3.9 GWh</td>
+          </tr>
+          <tr>
+            <td>Q2 2023</td><td>479,700</td><td>466,140</td>
+            <td class="neg">+13,560</td><td class="pos">+83.5%</td><td class="pos">+10.2%</td><td>3.7 GWh</td>
+          </tr>
+          <tr>
+            <td>Q3 2023</td><td>430,488</td><td>435,059</td>
+            <td class="pos">-4,571</td><td class="pos">+26.5%</td><td class="neg">-6.7%</td><td>4.0 GWh</td>
+          </tr>
+          <tr>
+            <td>Q4 2023</td><td>494,989</td><td>484,507</td>
+            <td class="neg">+10,482</td><td class="pos">+19.5%</td><td class="pos">+11.4%</td><td>3.1 GWh</td>
+          </tr>
+          <tr class="year-row">
+            <td>2023 通年</td><td>1,845,985</td><td>1,808,581</td>
+            <td>+37,404</td><td colspan="2">YoY +38%</td><td>14.7 GWh</td>
+          </tr>
+          <tr>
+            <td>Q1 2024</td><td>433,371</td><td>386,810</td>
+            <td class="neg">+46,561</td><td class="neg">-8.5%</td><td class="neg">-20.2%</td><td>4.1 GWh</td>
+          </tr>
+          <tr>
+            <td>Q2 2024</td><td>410,831</td><td>443,956</td>
+            <td class="pos">-33,125</td><td class="neg">-4.8%</td><td class="pos">+14.8%</td><td>9.4 GWh</td>
+          </tr>
+          <tr>
+            <td>Q3 2024</td><td>469,796</td><td>462,890</td>
+            <td class="neg">+6,906</td><td class="pos">+6.4%</td><td class="pos">+4.3%</td><td>6.9 GWh</td>
+          </tr>
+          <tr>
+            <td>Q4 2024</td><td>459,445</td><td>495,570</td>
+            <td class="pos">-36,125</td><td class="pos">+2.3%</td><td class="pos">+7.1%</td><td>11.0 GWh</td>
+          </tr>
+          <tr class="year-row">
+            <td>2024 通年</td><td>1,773,443</td><td>1,789,226</td>
+            <td>-15,783</td><td colspan="2">YoY -1.1%</td><td>31.4 GWh</td>
+          </tr>
+          <tr>
+            <td>Q1 2025</td><td>362,615</td><td>336,681</td>
+            <td class="neg">+25,934</td><td class="neg">-13.0%</td><td class="neg">-32.1%</td><td>10.4 GWh</td>
+          </tr>
+          <tr>
+            <td>Q2 2025</td><td>410,244</td><td>384,122</td>
+            <td class="neg">+26,122</td><td class="neg">-13.5%</td><td class="pos">+14.1%</td><td>9.6 GWh</td>
+          </tr>
+          <tr>
+            <td>Q3 2025</td><td>447,450</td><td>497,099</td>
+            <td class="pos">-49,649</td><td class="pos">+7.4%</td><td class="pos">+29.4%</td><td>12.5 GWh</td>
+          </tr>
+          <tr>
+            <td>Q4 2025</td><td>434,358</td><td>418,227</td>
+            <td class="neg">+16,131</td><td class="neg">-15.6%</td><td class="neg">-15.9%</td><td>14.2 GWh</td>
+          </tr>
+          <tr class="year-row">
+            <td>2025 通年</td><td>1,654,667</td><td>1,636,129</td>
+            <td>+18,538</td><td colspan="2">YoY -8.6%</td><td>46.7 GWh</td>
+          </tr>
+          <tr class="highlight">
+            <td><strong>Q1 2026</strong></td><td><strong>408,386</strong></td><td><strong>358,023</strong></td>
+            <td class="neg"><strong>+50,363</strong></td><td class="pos"><strong>+6.3%</strong></td><td class="neg"><strong>-14.4%</strong></td><td>8.8 GWh</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Energy Storage Chart -->
+<div class="section" id="sec-energy" data-accordion>
+  <div class="section-title"><span class="section-icon">⚡</span> エネルギー貯蔵導入量（GWh）</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-wrap" style="height:300px">
+        <canvas id="chartEnergy"></canvas>
+      </div>
+    </div>
+    <div class="insight green">
+      <strong>エネルギー事業は別世界:</strong> 車両販売が減速する中、エネルギー貯蔵（Megapack）は2023年通年14.7 GWh → 2024年31.4 GWh → 2025年46.7 GWhと3年で3倍以上に拡大。ただしQ1 2026は8.8 GWhにとどまり、前四半期の14.2 GWhから大幅減。季節性かコンセンサス38%ミスかは決算発表で要確認。
+    </div>
+  </div>
+</div>
+
+<!-- Model Breakdown -->
+<div class="section" id="sec-model" data-accordion>
+  <div class="section-title"><span class="section-icon">🚗</span> モデル別納車内訳（直近5四半期）</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-wrap" style="height:320px">
+        <canvas id="chartModel"></canvas>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>四半期</th><th>Model 3/Y 納車</th><th>その他 納車</th><th>合計</th><th>3/Y 構成比</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Q1 2025</td><td>323,800</td><td>12,881</td><td>336,681</td><td>96.2%</td></tr>
+          <tr><td>Q2 2025</td><td>370,713</td><td>13,409</td><td>384,122</td><td>96.5%</td></tr>
+          <tr><td>Q3 2025</td><td>481,166</td><td>15,933</td><td>497,099</td><td>96.8%</td></tr>
+          <tr><td>Q4 2025</td><td>406,585</td><td>11,642</td><td>418,227</td><td>97.2%</td></tr>
+          <tr class="highlight"><td><strong>Q1 2026</strong></td><td><strong>341,893</strong></td><td><strong>16,130</strong></td><td><strong>358,023</strong></td><td><strong>95.5%</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight blue">
+      <strong>Cybertruck効果:</strong> 「その他」カテゴリ（Model S/X + Cybertruck + Semi）はQ1 2026で16,130台を納車。Cybertruck単体では前年同期比+111%の成長との報道あり。ただし全体に占める割合は依然5%未満。テスラの命運は引き続きModel 3/Yに左右される。
+    </div>
+  </div>
+</div>
+
+<!-- Demand Patterns -->
+<div class="section" id="sec-pattern" data-accordion>
+  <div class="section-title"><span class="section-icon">🔍</span> 需要パターン分析</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-title">四半期別 納車台数ヒートマップ</div>
+      <div class="chart-wrap" style="height:280px">
+        <canvas id="chartHeatmap"></canvas>
+      </div>
+    </div>
+    <div class="insight-grid">
+      <div class="insight">
+        <strong>Q1 = 季節的底:</strong> 毎年Q1は最も低い四半期。2024年Q1は386,810台（-20.2% QoQ）、2025年Q1は336,681台（-32.1% QoQ）、2026年Q1は358,023台（-14.4% QoQ）。Model刷新の生産切替や年末駆け込みの反動が重なる。
+      </div>
+      <div class="insight">
+        <strong>Q3/Q4 = 需要集中:</strong> 2023年Q4に484,507台、2024年Q4に495,570台（過去最高水準）、2025年Q3に497,099台（過去最高）。年末のインセンティブや税制優遇期限が需要を押し上げ。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TradingView -->
+<div class="section" id="sec-technical" data-accordion>
+  <div class="section-title"><span class="section-icon">📈</span> 株価チャート</div>
+  <div class="section-body">
+    <div style="text-align:center;margin-bottom:12px">
+      <span style="font-size:.85rem;color:var(--text-sub)">現在株価: <strong style="color:var(--text);font-family:'Playfair Display',serif;font-size:1.1rem">$360.59</strong></span>
+      <span style="margin-left:16px;font-size:.85rem;color:var(--text-sub)">52週: <span class="neg">$214.25</span> – <span class="pos">$498.83</span></span>
+    </div>
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": false,
+        "width": 1100,
+        "height": 750,
+        "symbol": "NASDAQ:TSLA",
+        "interval": "D",
+        "timezone": "Asia/Tokyo",
+        "theme": "dark",
+        "style": "1",
+        "locale": "ja",
+        "backgroundColor": "rgba(13, 17, 23, 1)",
+        "gridColor": "rgba(48, 54, 61, 0.3)",
+        "range": "12M",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "allow_symbol_change": false,
+        "save_image": true,
+        "calendar": false,
+        "hide_volume_indicator": false,
+        "withdateranges": true,
+        "support_host": "https://www.tradingview.com",
+        "studies": [
+          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies"
+        ],
+        "studies_overrides": {
+          "moving average.length": 50,
+          "moving average exponential.length": 200
+        }
+      }
+      </script>
+    </div>
+  </div>
+</div>
+
+<!-- Financial Deep Dive -->
+<div class="section" id="sec-financial" data-accordion>
+  <div class="section-title"><span class="section-icon">🔬</span> 在庫増加が示す経営の構造変化</div>
+  <div class="section-body">
+
+    <!-- Revenue & EPS charts side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px" class="chart-row">
+      <div class="chart-box">
+        <div class="chart-title">四半期売上高（$B）</div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chartRevenue"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">四半期EPS（GAAP）</div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chartEPS"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Operating Margin chart -->
+    <div class="chart-box" style="margin-bottom:20px">
+      <div class="chart-title">営業利益率の推移（%）</div>
+      <div class="chart-wrap" style="height:300px"><canvas id="chartOpMargin"></canvas></div>
+    </div>
+
+    <!-- Narrative Analysis -->
+    <h3 style="font-family:'Shippori Mincho B1',serif;font-size:1.05rem;color:var(--gold-light);margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)">1. 「値下げしても売れない」フェーズへの突入</h3>
+
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <thead><tr><th></th><th>FY2023</th><th>FY2024</th><th>FY2025</th><th>変化率（2年間）</th></tr></thead>
+        <tbody>
+          <tr><td><strong>売上高</strong></td><td>$96.8B</td><td>$97.7B</td><td>$94.8B</td><td class="neg">-2.0%</td></tr>
+          <tr><td><strong>納車台数</strong></td><td>1,808,581</td><td>1,789,226</td><td>1,636,129</td><td class="neg">-9.5%</td></tr>
+          <tr><td><strong>EPS（GAAP）</strong></td><td>$2.61</td><td>$2.05</td><td>$1.10</td><td class="neg">-57.9%</td></tr>
+          <tr><td><strong>営業利益率</strong></td><td>9.2%</td><td>7.2%</td><td>4.6%</td><td class="neg">-4.6pp</td></tr>
+          <tr><td><strong>粗利益率</strong></td><td>18.2%</td><td>17.9%</td><td>18.0%</td><td>-0.2pp</td></tr>
+          <tr><td><strong>車両1台あたり粗利</strong></td><td>~$8,200</td><td>~$7,100</td><td>~$6,000</td><td class="neg">-26.8%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight red">
+      <strong>核心的な問題:</strong> テスラは2023年以降、積極的な値下げで販売台数を維持しようとしたが、2024年には売上が横ばいにとどまり、2025年は<strong>売上-2.9%かつ納車-8.6%</strong>と、値下げしても台数を守れない局面に入った。EPS は2年間で<strong>$2.61→$1.10</strong>と58%の暴落。在庫の累積増加（推定9万台超）は、この「値下げしても売れない」状態が数字に表れたものである。
+    </div>
+
+    <h3 style="font-family:'Shippori Mincho B1',serif;font-size:1.05rem;color:var(--gold-light);margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)">2. 利益率の二重圧縮</h3>
+
+    <div class="insight-grid" style="margin-bottom:16px">
+      <div class="insight red">
+        <strong>値下げ圧力（トップライン）:</strong><br>
+        車両1台あたりの売上（ASP）は年々低下。2022年のASP約$52,000から、2025年には推定$43,000前後まで下落。値引き・インセンティブの常態化で、「プレミアムEV」のポジショニングが希薄化している。
+      </div>
+      <div class="insight red">
+        <strong>コスト圧力（ボトムライン）:</strong><br>
+        営業利益率はQ1 2023の<strong>11.4%→Q4 2025の5.7%</strong>と半減。特にQ2 2025は<strong>2.1%</strong>まで低下し、赤字転落の瀬戸際に。R&D費・SGA費（FSD/Optimus/Robotaxi投資）が収益を圧迫。
+      </div>
+    </div>
+
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <thead><tr><th>四半期</th><th>売上高</th><th>粗利益率</th><th>営業利益率</th><th>EPS</th><th>在庫変動</th></tr></thead>
+        <tbody>
+          <tr><td>Q1 2023</td><td>$23.3B</td><td>19.3%</td><td>11.4%</td><td>$0.73</td><td class="neg">+17,933</td></tr>
+          <tr><td>Q2 2023</td><td>$24.9B</td><td>18.2%</td><td>9.6%</td><td>$0.78</td><td class="neg">+13,560</td></tr>
+          <tr><td>Q3 2023</td><td>$23.4B</td><td>17.9%</td><td>7.6%</td><td>$0.53</td><td class="pos">-4,571</td></tr>
+          <tr><td>Q4 2023</td><td>$25.2B</td><td>17.6%</td><td>8.2%</td><td>$0.57</td><td class="neg">+10,482</td></tr>
+          <tr style="border-top:2px solid var(--border)"><td>Q1 2024</td><td>$21.3B</td><td>17.4%</td><td>5.5%</td><td>$0.35</td><td class="neg">+46,561</td></tr>
+          <tr><td>Q2 2024</td><td>$25.5B</td><td>18.0%</td><td>6.3%</td><td>$0.42</td><td class="pos">-33,125</td></tr>
+          <tr><td>Q3 2024</td><td>$25.2B</td><td>19.8%</td><td>10.8%</td><td>$0.62</td><td class="neg">+6,906</td></tr>
+          <tr><td>Q4 2024</td><td>$25.7B</td><td>16.3%</td><td>6.3%</td><td>$0.66</td><td class="pos">-36,125</td></tr>
+          <tr style="border-top:2px solid var(--border)"><td>Q1 2025</td><td>$19.3B</td><td>16.3%</td><td>2.1%</td><td class="neg">$0.15</td><td class="neg">+25,934</td></tr>
+          <tr><td>Q2 2025</td><td>$22.5B</td><td>18.2%</td><td>6.2%</td><td>$0.27</td><td class="neg">+26,122</td></tr>
+          <tr><td>Q3 2025</td><td>$28.1B</td><td>18.0%</td><td>5.8%</td><td>$0.37</td><td class="pos">-49,649</td></tr>
+          <tr><td>Q4 2025</td><td>$24.9B</td><td>20.1%</td><td>5.7%</td><td>$0.31</td><td class="neg">+16,131</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <strong>在庫と利益率の相関:</strong> 在庫が大きく積み上がる四半期（Q1 2024: +46,561台、Q1 2025: +25,934台）は、同時に営業利益率が急落する四半期でもある。在庫を抱えた翌四半期には値引きで在庫消化→利益率がさらに悪化、という負のスパイラルが形成されている。
+    </div>
+
+    <h3 style="font-family:'Shippori Mincho B1',serif;font-size:1.05rem;color:var(--gold-light);margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)">3. PER 334倍 — 本業の数字が正当化できないバリュエーション</h3>
+
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <thead><tr><th>指標</th><th>テスラ（TSLA）</th><th>トヨタ（TM）</th><th>S&P500 平均</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Trailing PER</strong></td><td class="neg"><strong>334倍</strong></td><td>10倍</td><td>~22倍</td></tr>
+          <tr><td><strong>Forward PER</strong></td><td class="neg"><strong>174倍</strong></td><td>9倍</td><td>~19倍</td></tr>
+          <tr><td><strong>営業利益率</strong></td><td class="neg">4.6%</td><td>~10%</td><td>—</td></tr>
+          <tr><td><strong>年間EPS</strong></td><td class="neg">$1.08</td><td>—</td><td>—</td></tr>
+          <tr><td><strong>年間EPS成長率</strong></td><td class="neg">-47%（YoY）</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight red">
+      <strong>本業ベースの適正株価:</strong> EPS $1.08に自動車メーカーの標準PER（15〜25倍）を掛けると、適正株価は<strong>$16〜$27</strong>。現在の$360.59は<strong>13〜22倍の乖離</strong>。仮にハイテク成長株として寛容にPER 50〜80倍を適用しても<strong>$54〜$86</strong>であり、現在価格の1/4以下。つまり、現在の株価の<strong>80%以上はFSD/Robotaxi/Optimusなど「まだ存在しない収益」への期待</strong>で構成されている。
+    </div>
+
+    <h3 style="font-family:'Shippori Mincho B1',serif;font-size:1.05rem;color:var(--gold-light);margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)">4. 「未来への期待」は盤石か？</h3>
+
+    <div class="insight">
+      <strong>市場がPER 334倍を許容する根拠は、以下の「未来の事業」が実現することが前提である:</strong>
+    </div>
+
+    <div class="tbl-wrap" style="margin-bottom:16px">
+      <table class="tbl">
+        <thead><tr><th>期待される事業</th><th>現在の進捗</th><th>リスク</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FSD / Robotaxi</strong></td><td>FSD v13展開中。Cybercabは2026年テキサスで開始目標</td><td class="neg">マスクは過去に自動運転の期限を<strong>少なくとも5回以上</strong>外している。Waymoが商用化で大幅に先行</td></tr>
+          <tr><td><strong>Optimus（ロボット）</strong></td><td>Gen 2プロトタイプ段階。工場内で限定試験</td><td class="neg"><strong>売上ゼロ</strong>。商用化時期は不透明。市場規模も未確立</td></tr>
+          <tr><td><strong>エネルギー貯蔵</strong></td><td>2025年46.7 GWh、粗利26%。唯一の光明</td><td>Q1 2026で<strong>8.8 GWh</strong>に急減速（コンセンサス14.4 GWhを38%ミス）</td></tr>
+          <tr><td><strong>低価格モデル</strong></td><td>新型Model Yは展開中</td><td class="neg">さらなるASP低下→利益率圧縮の懸念</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight red">
+      <strong>最悪シナリオの試算:</strong> FSD/Robotaxiの実現が2028年以降にずれ込み、Optimusの売上が当面ゼロ、本業EPSが$1前後で横ばいの場合 — PERの正常化（50〜80倍でも楽観的）で株価は<strong>$50〜$80</strong>。現在の$360からは<strong>-78%〜-86%の下落余地</strong>。
+    </div>
+
+    <h3 style="font-family:'Shippori Mincho B1',serif;font-size:1.05rem;color:var(--gold-light);margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)">5. 在庫9万台が物語る「負のスパイラル」</h3>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px">
+      <div style="text-align:center;font-size:.9rem;color:var(--text-sub);line-height:2.4;font-family:'Noto Sans JP',sans-serif">
+        <span style="color:var(--red);font-weight:700;font-size:1rem">在庫9万台超の積み上がり</span><br>
+        <span style="color:var(--text-dim)">↓</span><br>
+        値引き・インセンティブの常態化で<strong style="color:var(--text)">ASP（平均販売価格）が低下</strong><br>
+        <span style="color:var(--text-dim)">↓</span><br>
+        <strong style="color:var(--text)">1台あたり粗利益が $15,000 → $6,000 に崩壊</strong>（-60%）<br>
+        <span style="color:var(--text-dim)">↓</span><br>
+        営業利益率が <strong style="color:var(--red)">11.4% → 2.1%</strong> に圧縮（赤字の瀬戸際）<br>
+        <span style="color:var(--text-dim)">↓</span><br>
+        <strong style="color:var(--text)">EPS が $2.61 → $1.08 に暴落</strong>（-58%）<br>
+        <span style="color:var(--text-dim)">↓</span><br>
+        しかし株価は<strong style="color:var(--red)">PER 334倍</strong>のまま<br>
+        <span style="color:var(--text-dim)">↓</span><br>
+        <span style="color:var(--red);font-weight:700">「期待」が剥がれた瞬間の下落余地が極めて大きい</span>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Shippori Mincho B1',serif;font-size:1.05rem;color:var(--gold-light);margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border)">6. 総合評価</h3>
+
+    <div style="background:linear-gradient(135deg,rgba(255,123,114,0.08),rgba(255,123,114,0.03));border:1px solid rgba(255,123,114,0.3);border-radius:14px;padding:28px;margin-bottom:16px;text-align:center">
+      <div style="font-size:.8rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;font-family:'Inter',sans-serif">本業ベースの経営健全性</div>
+      <div style="font-size:3rem;font-weight:900;color:var(--red);font-family:'Inter',sans-serif;margin-bottom:4px">危険水域</div>
+      <div style="font-size:.9rem;color:var(--text-sub);max-width:700px;margin:0 auto;line-height:1.9">
+        売上減少・EPS崩壊・営業利益率半減・在庫過去最大 — 本業の数字は自動車メーカーとして健全とは言い難い。現在の時価総額$1.16兆は、まだ実現していない複数の将来事業の成功を<strong style="color:var(--text)">同時に</strong>織り込んでおり、いずれか一つの遅延・失敗が大幅な株価修正のトリガーになり得る。
+      </div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight green">
+        <strong>唯一のポジティブ要素:</strong><br>
+        ・キャッシュ$36.6Bで<strong>倒産リスクは当面ゼロ</strong><br>
+        ・エネルギー事業は高成長・高利益率を維持<br>
+        ・Q4 2025の粗利率20.1%は改善兆候<br>
+        ・Supercharger網のNACS標準化は長期的資産<br>
+        ・FSD/Robotaxi/Optimusが実現すれば評価は正当化され得る
+      </div>
+      <div class="insight red">
+        <strong>4/22決算で確認すべきこと:</strong><br>
+        ・Q1 2026の在庫水準と値引き政策の規模<br>
+        ・FY2026ガイダンス（「20-30%成長」は維持か撤回か）<br>
+        ・エネルギー事業Q1急減速の原因<br>
+        ・FSD Unsupervised / Robotaxiの具体的タイムライン<br>
+        ・マスクのDOGE離脱と経営復帰の見通し
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>Tesla Delivery & Production Tracker — Atlas Financials</p>
+  <p>データソース: Tesla IR、CNBC、Electrek、TeslaBrief</p>
+  <p>本コンテンツは情報提供を目的としたものであり、投資助言ではありません。</p>
+  <p style="margin-top:8px;color:var(--text-dim)">© 2026 Atlas Financials. All rights reserved.</p>
+</div>
+
+<!-- Portal link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-prod-del" onclick="tocJump('sec-prod-del')"><span class="toc-icon">📊</span><span class="toc-label">生産 vs 納車推移</span></a></li>
+      <li><a href="#sec-inventory" onclick="tocJump('sec-inventory')"><span class="toc-icon">📦</span><span class="toc-label">推定在庫総量</span></a></li>
+      <li><a href="#sec-annual" onclick="tocJump('sec-annual')"><span class="toc-icon">📅</span><span class="toc-label">年間サマリー</span></a></li>
+      <li><a href="#sec-table" onclick="tocJump('sec-table')"><span class="toc-icon">📋</span><span class="toc-label">四半期データ一覧</span></a></li>
+      <li><a href="#sec-energy" onclick="tocJump('sec-energy')"><span class="toc-icon">⚡</span><span class="toc-label">エネルギー貯蔵</span></a></li>
+      <li><a href="#sec-model" onclick="tocJump('sec-model')"><span class="toc-icon">🚗</span><span class="toc-label">モデル別内訳</span></a></li>
+      <li><a href="#sec-pattern" onclick="tocJump('sec-pattern')"><span class="toc-icon">🔍</span><span class="toc-label">需要パターン</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📈</span><span class="toc-label">株価チャート</span></a></li>
+      <li><a href="#sec-financial" onclick="tocJump('sec-financial')"><span class="toc-icon">🔬</span><span class="toc-label">経営の構造変化・総合評価</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<!-- Chart.js Scripts -->
+<script>
+// Common config
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#30363d';
+Chart.defaults.font.family = "'Inter','Noto Sans JP',sans-serif";
+
+var labels = ['Q1\'23','Q2\'23','Q3\'23','Q4\'23','Q1\'24','Q2\'24','Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25','Q1\'26'];
+var production = [440808,479700,430488,494989,433371,410831,469796,459445,362615,410244,447450,434358,408386];
+var deliveries = [422875,466140,435059,484507,386810,443956,462890,495570,336681,384122,497099,418227,358023];
+var gap = production.map(function(p,i){return p - deliveries[i]});
+
+// Chart 1: Production vs Deliveries
+new Chart(document.getElementById('chartProdDel'),{
+  type:'bar',
+  data:{
+    labels:labels,
+    datasets:[
+      {label:'生産台数',data:production,backgroundColor:'rgba(88,166,255,0.7)',borderColor:'rgba(88,166,255,1)',borderWidth:1,borderRadius:4},
+      {label:'納車台数',data:deliveries,backgroundColor:'rgba(184,145,42,0.7)',borderColor:'rgba(184,145,42,1)',borderWidth:1,borderRadius:4}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{position:'top',labels:{usePointStyle:true,padding:16}},
+      tooltip:{
+        callbacks:{
+          label:function(ctx){return ctx.dataset.label+': '+ctx.raw.toLocaleString()+'台'}
+        }
+      }
+    },
+    scales:{
+      y:{
+        beginAtZero:false,min:300000,
+        ticks:{callback:function(v){return (v/1000).toFixed(0)+'K'}},
+        grid:{color:'rgba(48,54,61,0.3)'}
+      },
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// Chart 2: Cumulative Inventory
+// Calculate running total of (production - deliveries)
+var cumInventory = [];
+var runningTotal = 0;
+for(var i=0;i<gap.length;i++){
+  runningTotal += gap[i];
+  cumInventory.push(runningTotal);
+}
+new Chart(document.getElementById('chartInventory'),{
+  type:'line',
+  data:{
+    labels:labels,
+    datasets:[
+      {
+        label:'推定在庫総量',
+        data:cumInventory,
+        borderColor:'rgba(255,123,114,1)',
+        backgroundColor:function(ctx){
+          var chart=ctx.chart;
+          var {ctx:c,chartArea}=chart;
+          if(!chartArea)return 'rgba(255,123,114,0.15)';
+          var gradient=c.createLinearGradient(0,chartArea.top,0,chartArea.bottom);
+          gradient.addColorStop(0,'rgba(255,123,114,0.3)');
+          gradient.addColorStop(1,'rgba(255,123,114,0.02)');
+          return gradient;
+        },
+        fill:true,tension:0.35,pointRadius:6,
+        pointBackgroundColor:cumInventory.map(function(v){return v>=0?'rgba(255,123,114,1)':'rgba(63,185,80,1)'}),
+        pointBorderColor:'#161b22',pointBorderWidth:2,borderWidth:2.5
+      },
+      {
+        label:'四半期変動（生産−納車）',
+        data:gap,
+        type:'bar',
+        backgroundColor:gap.map(function(v){return v>0?'rgba(255,123,114,0.25)':'rgba(63,185,80,0.25)'}),
+        borderColor:gap.map(function(v){return v>0?'rgba(255,123,114,0.6)':'rgba(63,185,80,0.6)'}),
+        borderWidth:1,borderRadius:3,yAxisID:'y2'
+      }
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{position:'top',labels:{usePointStyle:true,padding:16}},
+      tooltip:{
+        callbacks:{
+          label:function(ctx){
+            var v=ctx.raw;
+            if(ctx.datasetIndex===0) return '推定在庫総量: '+v.toLocaleString()+'台';
+            return '四半期変動: '+(v>0?'+':'')+v.toLocaleString()+'台';
+          }
+        }
+      }
+    },
+    scales:{
+      y:{
+        position:'left',
+        title:{display:true,text:'推定在庫総量（台）',color:'#8b949e',font:{size:11}},
+        ticks:{callback:function(v){return v.toLocaleString()}},
+        grid:{color:'rgba(48,54,61,0.3)'}
+      },
+      y2:{
+        position:'right',
+        title:{display:true,text:'四半期変動（台）',color:'#8b949e',font:{size:11}},
+        ticks:{callback:function(v){return (v>0?'+':'')+v.toLocaleString()}},
+        grid:{display:false}
+      },
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// Chart 3: Energy Storage
+var energyData = [3.9,3.7,4.0,3.1,4.1,9.4,6.9,11.0,10.4,9.6,12.5,14.2,8.8];
+new Chart(document.getElementById('chartEnergy'),{
+  type:'line',
+  data:{
+    labels:labels,
+    datasets:[{
+      label:'エネルギー貯蔵導入量 (GWh)',
+      data:energyData,
+      borderColor:'rgba(63,185,80,1)',
+      backgroundColor:'rgba(63,185,80,0.1)',
+      fill:true,tension:0.3,pointRadius:5,pointBackgroundColor:'rgba(63,185,80,1)',
+      pointBorderColor:'#161b22',pointBorderWidth:2
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(ctx){return ctx.raw+' GWh'}}}
+    },
+    scales:{
+      y:{beginAtZero:true,ticks:{callback:function(v){return v+' GWh'}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+
+// Chart 4: Model Breakdown (stacked bar)
+new Chart(document.getElementById('chartModel'),{
+  type:'bar',
+  data:{
+    labels:['Q1\'25','Q2\'25','Q3\'25','Q4\'25','Q1\'26'],
+    datasets:[
+      {label:'Model 3/Y',data:[323800,370713,481166,406585,341893],backgroundColor:'rgba(88,166,255,0.7)',borderRadius:4},
+      {label:'その他（S/X/Cybertruck/Semi）',data:[12881,13409,15933,11642,16130],backgroundColor:'rgba(188,140,255,0.7)',borderRadius:4}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{usePointStyle:true,padding:16}},
+      tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+': '+ctx.raw.toLocaleString()+'台'}}}
+    },
+    scales:{
+      x:{stacked:true,grid:{display:false}},
+      y:{stacked:true,min:300000,ticks:{callback:function(v){return (v/1000).toFixed(0)+'K'}},grid:{color:'rgba(48,54,61,0.3)'}}
+    }
+  }
+});
+
+// Chart 5: Quarterly Heatmap (grouped bar by year)
+new Chart(document.getElementById('chartHeatmap'),{
+  type:'bar',
+  data:{
+    labels:['Q1','Q2','Q3','Q4'],
+    datasets:[
+      {label:'2023',data:[422875,466140,435059,484507],backgroundColor:'rgba(88,166,255,0.6)',borderRadius:4},
+      {label:'2024',data:[386810,443956,462890,495570],backgroundColor:'rgba(184,145,42,0.6)',borderRadius:4},
+      {label:'2025',data:[336681,384122,497099,418227],backgroundColor:'rgba(63,185,80,0.6)',borderRadius:4},
+      {label:'2026',data:[358023,null,null,null],backgroundColor:'rgba(188,140,255,0.6)',borderRadius:4}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{usePointStyle:true,padding:16}},
+      tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+': '+(ctx.raw?ctx.raw.toLocaleString()+'台':'—')}}}
+    },
+    scales:{
+      y:{beginAtZero:false,min:300000,ticks:{callback:function(v){return (v/1000).toFixed(0)+'K'}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+// ==============================
+// Financial Deep Dive Charts
+// ==============================
+
+var finLabels = ['Q1\'23','Q2\'23','Q3\'23','Q4\'23','Q1\'24','Q2\'24','Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25'];
+var revenueData = [23.33,24.93,23.35,25.17,21.30,25.50,25.18,25.71,19.34,22.50,28.10,24.90];
+var epsData = [0.73,0.78,0.53,0.57,0.35,0.42,0.62,0.66,0.15,0.27,0.37,0.31];
+var opMarginData = [11.4,9.6,7.6,8.2,5.5,6.3,10.8,6.3,2.1,6.2,5.8,5.7];
+
+// Chart: Revenue
+new Chart(document.getElementById('chartRevenue'),{
+  type:'bar',
+  data:{
+    labels:finLabels,
+    datasets:[{
+      label:'売上高 ($B)',data:revenueData,
+      backgroundColor:revenueData.map(function(v,i){
+        return i>=8?'rgba(255,123,114,0.6)':i>=4?'rgba(184,145,42,0.6)':'rgba(88,166,255,0.6)';
+      }),
+      borderRadius:4,borderWidth:0
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(ctx){return '$'+ctx.raw.toFixed(2)+'B'}}}
+    },
+    scales:{
+      y:{beginAtZero:false,min:15,ticks:{callback:function(v){return '$'+v+'B'}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{grid:{display:false},ticks:{font:{size:10}}}
+    }
+  }
+});
+
+// Chart: EPS
+new Chart(document.getElementById('chartEPS'),{
+  type:'bar',
+  data:{
+    labels:finLabels,
+    datasets:[{
+      label:'EPS (GAAP)',data:epsData,
+      backgroundColor:epsData.map(function(v){return v<0.3?'rgba(255,123,114,0.7)':v<0.5?'rgba(184,145,42,0.7)':'rgba(63,185,80,0.7)'}),
+      borderRadius:4,borderWidth:0
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(ctx){return '$'+ctx.raw.toFixed(2)}}}
+    },
+    scales:{
+      y:{beginAtZero:true,ticks:{callback:function(v){return '$'+v.toFixed(2)}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{grid:{display:false},ticks:{font:{size:10}}}
+    }
+  }
+});
+
+// Chart: Operating Margin
+new Chart(document.getElementById('chartOpMargin'),{
+  type:'line',
+  data:{
+    labels:finLabels,
+    datasets:[{
+      label:'営業利益率 (%)',data:opMarginData,
+      borderColor:'rgba(255,123,114,1)',borderWidth:2.5,
+      backgroundColor:function(ctx){
+        var chart=ctx.chart;
+        var {ctx:c,chartArea}=chart;
+        if(!chartArea)return 'rgba(255,123,114,0.1)';
+        var gradient=c.createLinearGradient(0,chartArea.top,0,chartArea.bottom);
+        gradient.addColorStop(0,'rgba(255,123,114,0.25)');
+        gradient.addColorStop(1,'rgba(255,123,114,0.02)');
+        return gradient;
+      },
+      fill:true,tension:0.3,
+      pointRadius:6,pointBackgroundColor:opMarginData.map(function(v){return v<4?'rgba(255,123,114,1)':v<7?'rgba(184,145,42,1)':'rgba(63,185,80,1)'}),
+      pointBorderColor:'#161b22',pointBorderWidth:2
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:function(ctx){return ctx.raw.toFixed(1)+'%'}}},
+      annotation:undefined
+    },
+    scales:{
+      y:{beginAtZero:true,max:14,ticks:{callback:function(v){return v+'%'}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{grid:{display:false}}
+    }
+  }
+});
+</script>
+
+<!-- Accordion & TOC JS -->
+<script>
+// Accordion
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing')},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now()},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'))}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'))}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed')})}})();
+
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'})},100)}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed')});
+}
+</script>
+</body>
+</html>
