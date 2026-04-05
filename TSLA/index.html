@@ -1,8 +1,94 @@
 <!DOCTYPE html>
 <html lang="ja"><head><meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=./FY2025Q4.html">
-<title>TSLA — Atlas</title>
-<style>body{font-family:'Noto Sans JP',sans-serif;background:#F5F2EC;color:#0F0E0C;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}.card{background:#FDFCFA;border:1px solid #ECE8DF;border-radius:12px;padding:40px;max-width:500px;width:100%;text-align:center}h1{font-family:'Playfair Display',serif;color:#1A2540;font-size:32px;margin-bottom:8px}.sub{color:#718096;font-size:13px;margin-bottom:16px}.btn{display:inline-block;background:#1A2540;color:#D4A843;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:16px;transition:all .15s}.btn:hover{background:#B8912A;color:#0F1829}</style>
-</head><body><div class="card"><h1>TSLA</h1><p class="sub">最新レポートに移動中...</p>
-<a class="btn" href="./FY2025Q4.html">最新レポートを見る</a>
-</div></body></html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSLA Tesla — Atlas Financials</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--text-sub:#8b949e;--text-dim:#6e7681;--gold:#B8912A;--gold-light:#D4A843;--navy:#1A2540;--blue:#58a6ff;--purple:#bc8cff;--green:#3fb950}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0}
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border-bottom:1px solid rgba(184,145,42,0.15);padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;opacity:.9;margin-bottom:12px}
+.ticker{font-family:'Inter',sans-serif;font-size:13px;color:var(--gold);background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:5px 14px;display:inline-block;letter-spacing:1px;margin-bottom:10px}
+.header h1{font-family:'Shippori Mincho B1',serif;font-size:2rem;font-weight:800;margin-bottom:4px}
+.header .sub{color:var(--text-sub);font-size:.95rem}
+.container{max-width:800px;margin:0 auto;padding:32px 20px}
+.section-label{font-family:'Shippori Mincho B1',serif;font-size:1rem;font-weight:700;color:var(--text-sub);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.report-list{display:flex;flex-direction:column;gap:12px;margin-bottom:36px}
+.report-card{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 22px;text-decoration:none;color:var(--text);transition:all .15s}
+.report-card:hover{border-color:var(--gold);background:#1c2333;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.report-card .icon{font-size:1.6rem;flex-shrink:0;width:40px;text-align:center}
+.report-card .info{flex:1}
+.report-card .title{font-family:'Inter','Noto Sans JP',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:3px}
+.report-card .desc{font-size:.78rem;color:var(--text-sub);line-height:1.6}
+.report-card .arrow{color:var(--text-dim);font-size:1.2rem;flex-shrink:0;transition:transform .15s}
+.report-card:hover .arrow{color:var(--gold);transform:translateX(3px)}
+.tag{display:inline-block;font-size:.65rem;padding:2px 8px;border-radius:12px;margin-left:8px;vertical-align:middle;font-family:'Inter',sans-serif;font-weight:600}
+.tag-earnings{background:rgba(88,166,255,0.12);color:var(--blue);border:1px solid rgba(88,166,255,0.2)}
+.tag-extra{background:rgba(188,140,255,0.12);color:var(--purple);border:1px solid rgba(188,140,255,0.2)}
+.tag-latest{background:rgba(63,185,80,0.12);color:var(--green);border:1px solid rgba(63,185,80,0.2)}
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);color:var(--text-dim);font-size:.75rem}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--gold);text-decoration:none;font-size:.85rem;margin-bottom:24px;transition:opacity .15s}
+.back-link:hover{opacity:.7}
+@media(max-width:600px){
+  .header h1{font-size:1.4rem}
+  .report-card{padding:14px 16px;gap:12px}
+  .report-card .icon{font-size:1.3rem;width:32px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-content">
+    <img class="header-logo" src="../logos/TSLA.svg" alt="TSLA">
+    <div class="ticker">NASDAQ: TSLA</div>
+    <h1>Tesla, Inc.</h1>
+    <div class="sub">決算分析レポート・関連データ</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <a class="back-link" href="../">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    ポータルに戻る
+  </a>
+
+  <!-- 決算レポート -->
+  <div class="section-label">📊 決算分析レポート</div>
+  <div class="report-list">
+    <a class="report-card" href="./FY2025Q4.html">
+      <div class="icon">📄</div>
+      <div class="info">
+        <div class="title">FY2025 Q4 決算分析 <span class="tag tag-earnings">決算</span><span class="tag tag-latest">最新</span></div>
+        <div class="desc">2025年10–12月期｜2026年1月28日発表</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+  </div>
+
+  <!-- 付録・関連データ -->
+  <div class="section-label">📎 付録・関連データ</div>
+  <div class="report-list">
+    <a class="report-card" href="./delivery_tracker.html">
+      <div class="icon">🚗</div>
+      <div class="info">
+        <div class="title">納車・生産・在庫トラッカー <span class="tag tag-extra">EXTRA</span></div>
+        <div class="desc">Q1 2023〜Q1 2026（13四半期）の生産・納車・推定在庫推移、財務分析、バリュエーション検証</div>
+      </div>
+      <div class="arrow">→</div>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>© 2026 Atlas Financials. All rights reserved.</p>
+</div>
+
+</body>
+</html>
