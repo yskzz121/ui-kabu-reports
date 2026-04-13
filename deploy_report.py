@@ -2,7 +2,7 @@
 """
 deploy_report.py
 ================
-決算レポートHTMLをGitHub Pagesに自動デプロイし、
+決算レポートHTMLをCloudflare Pagesに自動デプロイし、
 LINE U&I株倶楽部グループに自動通知するスクリプト。
 
 使い方:
@@ -21,10 +21,8 @@ try:
 except ImportError:
     pass
 
-GITHUB_USERNAME = "yskzz121"
-REPO_NAME       = "ui-kabu-reports"
 REPO_DIR        = os.path.expanduser("~/ui-kabu-reports")
-PAGES_BASE_URL  = f"https://{GITHUB_USERNAME}.github.io/{REPO_NAME}"
+PAGES_BASE_URL  = "https://atlas-financials.jp/reports"
 LINE_CONFIG     = os.path.expanduser("~/.line_config")
 
 SCORE_LABELS = {
@@ -522,32 +520,34 @@ def deploy(html_path, ticker, quarter, score=None, comment=None):
 
     print(f"\n🚀 デプロイ開始: {ticker} {quarter}")
 
-    # ── 1. 最新化
-    print("📥 リポジトリを最新化中...")
-    run("git pull origin main")
-
-    # ── 2. HTMLコピー
+    # ── 1. HTMLコピー
     os.makedirs(ticker_dir, exist_ok=True)
     shutil.copy2(html_path, dest_path)
     print(f"✅ HTMLコピー: {ticker}/{filename}")
 
-    # ── 3. 銘柄index更新
+    # ── 2. 銘柄index更新
     reports = scan_existing_reports(ticker)
     with open(os.path.join(ticker_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(make_ticker_index(ticker, reports))
     print(f"✅ {ticker}/index.html 更新")
 
-    # ── 4. ルートindex更新
+    # ── 3. ルートindex更新
     with open(os.path.join(REPO_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(make_root_index(scan_all_tickers()))
     print("✅ 全銘柄ポータル更新")
 
-    # ── 5. push
-    print("📤 GitHubにプッシュ中...")
-    run("git add -A")
-    run(f'git commit -m "Add {ticker} {quarter} report"')
-    run("git push origin main")
-    print("✅ プッシュ完了")
+    # ── 4. Cloudflare Pages にデプロイ
+    print("📤 Cloudflare Pages にデプロイ中...")
+    run(f"npx wrangler pages deploy {REPO_DIR} --project-name atlas-reports --commit-dirty=true")
+    print("✅ デプロイ完了")
+
+    # ── 5. Gitにもコミット（バックアップ・履歴管理用）
+    try:
+        run("git add -A")
+        run(f'git commit -m "Add {ticker} {quarter} report"')
+        run("git push origin main")
+    except Exception as e:
+        print(f"⚠️ Git push スキップ（Cloudflareデプロイは成功済み）: {e}")
 
     report_url = f"{PAGES_BASE_URL}/{ticker}/{filename}"
     portal_url = f"{PAGES_BASE_URL}/"
