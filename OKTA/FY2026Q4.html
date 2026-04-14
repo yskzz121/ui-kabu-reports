@@ -130,8 +130,23 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);
   .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
   body{padding-bottom:60px!important}
 }</style>
+  <script>window.ATLAS_FX = { rate: 158.82, date: "2026/4/15" };</script>
 </head>
 <body>
+<!-- Atlas Currency Toggle (floating, top-right) -->
+<style>
+.atlas-floating-currency{position:fixed;top:16px;right:16px;z-index:999;background:rgba(26,37,64,.9);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.2);backdrop-filter:blur(6px)}
+.currency-toggle{background:none;border:1px solid rgba(255,255,255,0.12);cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;line-height:1;letter-spacing:.3px;color:rgba(255,255,255,0.85);transition:all .15s;display:inline-flex;align-items:center;gap:2px}
+.currency-toggle:hover{opacity:.85;border-color:rgba(184,145,42,0.4)}
+.currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.currency-toggle .cur-inactive{color:inherit;opacity:.55}
+.currency-toggle .cur-sep{opacity:.4;margin:0 1px;font-weight:400}
+.currency-toggle.jpy-mode{border-color:rgba(184,145,42,0.45);background:rgba(184,145,42,0.08)}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode{color:#D4A843}
+</style>
+<div class="atlas-floating-currency"><button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button></div>
+
 <!-- Header -->
 <div class="header">
 <div class="header-content">
@@ -771,5 +786,132 @@ function toggleAllSections(expand){
   document.querySelectorAll('[data-accordion]').forEach(function(sec){
     if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
   });
-}</script></body>
+}</script><script>
+/* === Atlas Currency Toggle (USD ⇄ JPY) ===
+ * Usage: set window.ATLAS_FX = { rate: 159.0, date: '2026/4/15' } before loading,
+ * or rely on the inline default below. Persists user choice to localStorage.
+ *
+ * HTML button:
+ *   <button class="currency-toggle" onclick="toggleCurrency()">
+ *     <span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span>
+ *   </button>
+ *
+ * Skip containers: add class "no-currency" to any element whose $ values
+ * must stay in USD (stock prices, target prices, support/resistance, etc.)
+ */
+(function(){
+  if(window.__ATLAS_CURRENCY_LOADED) return;
+  window.__ATLAS_CURRENCY_LOADED = true;
+
+  var FX = window.ATLAS_FX || { rate: 159.0, date: '2026/4/15' };
+  var currencyMode = localStorage.getItem('atlas-currency') || 'USD';
+
+  function fmtJPY(usd, unit){
+    var usd_b = unit==='T'?usd*1000:unit==='B'?usd:unit==='M'?usd/1000:unit==='K'?usd/1e6:null;
+    if(usd_b !== null){
+      var jpy_b = usd_b * FX.rate;
+      if(jpy_b >= 1000) return '¥' + (jpy_b/1000).toFixed(2) + '兆';
+      if(jpy_b >= 1) return '¥' + (jpy_b*10).toFixed(0) + '億';
+      return '¥' + (jpy_b*1000).toFixed(0) + '百万';
+    }
+    var jpy = usd * FX.rate;
+    if(jpy >= 10000) return '¥' + (jpy/10000).toFixed(2) + '万';
+    return '¥' + Math.round(jpy).toLocaleString();
+  }
+
+  var WRAP_DONE = false;
+  function wrapCurrencyValues(){
+    if(WRAP_DONE) return; WRAP_DONE = true;
+    var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+    var skipTags = {SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
+    var skipClasses = ['portal-link','currency-toggle','theme-toggle','font-scale-btn','lang-switch','toc-toggle','toc-list','tradingview-widget-container','no-currency','nav-hamburger','overview-toggle-btn'];
+    function shouldSkip(node){
+      var p = node.parentNode;
+      while(p && p !== document.body){
+        if(skipTags[p.tagName]) return true;
+        if(p.classList){
+          for(var i=0;i<skipClasses.length;i++) if(p.classList.contains(skipClasses[i])) return true;
+        }
+        p = p.parentNode;
+      }
+      return false;
+    }
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [], n;
+    while((n = walker.nextNode())){
+      if(n.nodeValue && n.nodeValue.indexOf('$') >= 0 && !shouldSkip(n)) nodes.push(n);
+    }
+    nodes.forEach(function(node){
+      var text = node.nodeValue;
+      if(!re.test(text)) return;
+      re.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var lastIdx = 0, m;
+      while((m = re.exec(text)) !== null){
+        if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
+        var num = parseFloat(m[1].replace(/,/g,''));
+        var unit = m[2] || '';
+        var span = document.createElement('span');
+        span.className = 'cur-val';
+        span.setAttribute('data-usd', num);
+        span.setAttribute('data-unit', unit);
+        span.setAttribute('data-orig', m[0]);
+        span.textContent = m[0];
+        frag.appendChild(span);
+        lastIdx = m.index + m[0].length;
+      }
+      if(lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  function applyCurrency(mode){
+    document.querySelectorAll('.cur-val').forEach(function(el){
+      if(mode === 'JPY'){
+        var usd = parseFloat(el.getAttribute('data-usd'));
+        var unit = el.getAttribute('data-unit') || '';
+        el.textContent = fmtJPY(usd, unit);
+        el.classList.add('jpy-mode');
+      } else {
+        el.textContent = el.getAttribute('data-orig');
+        el.classList.remove('jpy-mode');
+      }
+    });
+    document.querySelectorAll('.currency-toggle').forEach(function(btn){
+      var act = btn.querySelector('.cur-active');
+      var inact = btn.querySelector('.cur-inactive');
+      if(!act || !inact) return;
+      if(mode === 'JPY'){
+        btn.classList.add('jpy-mode');
+        act.textContent = '¥'; inact.textContent = '$';
+        btn.title = '円表示中（レート: ' + FX.rate + '円/$、' + FX.date + '）';
+      } else {
+        btn.classList.remove('jpy-mode');
+        act.textContent = '$'; inact.textContent = '¥';
+        btn.title = 'USD/JPY 切替（レート: ' + FX.rate + '円/$、' + FX.date + '）';
+      }
+    });
+  }
+
+  window.toggleCurrency = function(){
+    wrapCurrencyValues();
+    currencyMode = currencyMode === 'USD' ? 'JPY' : 'USD';
+    localStorage.setItem('atlas-currency', currencyMode);
+    applyCurrency(currencyMode);
+  };
+
+  // Initial: if saved JPY, auto-apply on DOM ready
+  document.addEventListener('DOMContentLoaded', function(){
+    if(currencyMode === 'JPY'){
+      wrapCurrencyValues();
+      applyCurrency('JPY');
+    } else {
+      // still init button tooltip
+      applyCurrency('USD');
+    }
+  });
+})();
+
+</script>
+</body>
 </html>
