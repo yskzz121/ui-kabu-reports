@@ -682,6 +682,54 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
   </div>
 </div>
 
+<!-- NTM Fair Value -->
+<div class="section" data-accordion id="sec-ntm-fv">
+  <div class="section-title">💡 NTM想定株価 / NTM Fair Value（NTM EPS × 過去3年平均PER）</div>
+  <div class="section-body">
+    <div class="insight" style="margin-bottom:20px">
+      アナリストコンセンサス（Next Twelve Months = 2026年12月期通期EPS見通し）に、JPMの過去3年平均Trailing PER（2023–2025年 TTM PER 平均、約12.5x、米大手銀行セクター平均に沿う水準）を掛けた <strong>補完的バリュエーション指標</strong>。Forward PE基準の3シナリオ（LOW/MID/HIGH）とは別軸で、長期平均バリュエーションに照らした現株価の妥当性を確認するためのもの。
+    </div>
+    <div class="card" style="padding:32px 24px;text-align:center;background:linear-gradient(135deg, rgba(184,145,42,0.08) 0%, rgba(26,37,64,0.4) 100%);border:1px solid rgba(184,145,42,0.3);position:relative">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:16px;align-items:center;max-width:900px;margin:0 auto 20px">
+        <div>
+          <div class="card-label" style="margin-bottom:6px">NTM EPS（コンセンサス）</div>
+          <div class="card-val neu" style="font-size:1.8rem">$21.80</div>
+          <div class="card-sub" style="font-size:.72rem">2026年12月期通期見通し</div>
+        </div>
+        <div style="font-size:1.8rem;color:var(--gold2,#D4A843);font-weight:700">×</div>
+        <div>
+          <div class="card-label" style="margin-bottom:6px">過去3年平均 Trailing PER</div>
+          <div class="card-val neu" style="font-size:1.8rem">12.5x</div>
+          <div class="card-sub" style="font-size:.72rem">2023–2025 TTM PER 平均</div>
+        </div>
+        <div style="font-size:1.8rem;color:var(--gold2,#D4A843);font-weight:700">=</div>
+        <div>
+          <div class="card-label" style="margin-bottom:6px;color:var(--gold,#B8912A)">想定株価</div>
+          <div class="card-val pos" style="font-size:2.6rem;font-weight:900;color:var(--gold,#B8912A)">$272.50</div>
+          <div class="card-sub" style="font-size:.72rem">NTM Fair Value</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid rgba(184,145,42,0.15)">
+        <div style="text-align:center">
+          <div class="card-label" style="font-size:.78rem;margin-bottom:4px">現株価</div>
+          <div style="font-size:1.3rem;font-weight:700;color:var(--text-main,#e6edf3)">$302.00</div>
+        </div>
+        <div style="text-align:center">
+          <div class="card-label" style="font-size:.78rem;margin-bottom:4px">乖離率（想定株価 vs 現株価）</div>
+          <div class="neg" style="font-size:1.3rem;font-weight:700">-9.8%</div>
+        </div>
+        <div style="text-align:center">
+          <div class="card-label" style="font-size:.78rem;margin-bottom:4px">判定</div>
+          <div class="neg" style="font-size:1.3rem;font-weight:700">やや割高</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px;font-size:.82rem">
+      <strong>補足:</strong> バリュエーション3シナリオ（Forward PE基準: LOW $240 / MID $301 / HIGH $360）とは<strong>補完関係</strong>にある指標。Forward PE基準のMID $301 は現株価 $302 にほぼ一致するが、過去3年平均PER（12.5x）に照らすと $272.50 となり、直近の市場がJPMに対してやや高めのマルチプルを付与していることが分かる。
+    </div>
+  </div>
+</div>
+
 <!-- 地域別 -->
 <div class="section" data-accordion id="sec-geo">
   <div class="section-title">🌏 地域別売上構成（CIB 中心）</div>
@@ -1048,6 +1096,7 @@ new Chart(document.getElementById('marginChart'),{
       <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">預金・貸出・資本（CF代替）</span></a></li>
       <li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">🏦</span><span class="toc-label">銀行特有KPI（CET1/ROTCE/NIM）</span></a></li>
       <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別業績</span></a></li>
+      <li><a href="#sec-ntm-fv" onclick="tocJump('sec-ntm-fv')"><span class="toc-icon">💡</span><span class="toc-label">NTM想定株価</span></a></li>
       <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成</span></a></li>
       <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
       <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメント</span></a></li>
