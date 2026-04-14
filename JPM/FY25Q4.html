@@ -184,12 +184,69 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
 .portal-link svg{flex-shrink:0}
+
+/* === 企業概要ドロップダウン（ヘッダー内） === */
+.overview-toggle-wrap{position:absolute;top:14px;right:18px;z-index:2}
+.overview-toggle-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:#D4A843;font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.overview-toggle-btn:hover{background:rgba(184,145,42,0.22);color:#F5F2EC}
+.overview-toggle-btn .chev{transition:transform .25s;display:inline-block}
+.overview-toggle-btn.open .chev{transform:rotate(180deg)}
+.overview-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid rgba(184,145,42,0.2);border-radius:12px;margin:0 0 0 0}
+.overview-dropdown.open{max-height:1200px;opacity:1;margin:0 0 28px 0;padding:22px 26px}
+.overview-dropdown h2{font-size:1rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--gold2)}
+.overview-dropdown p{font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.overview-dropdown .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.overview-dropdown .tag{font-size:.72rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25)}
+@media(max-width:768px){
+  .overview-toggle-wrap{position:relative;top:auto;right:auto;margin-top:12px;text-align:center}
+}
+
+/* === Top Panel (株価・コンセンサス) === */
+.top-panel{display:grid;grid-template-columns:minmax(260px,1fr) 2fr;gap:16px;margin-bottom:28px}
+.price-panel,.consensus-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.price-panel h3,.consensus-panel h3{font-size:.78rem;color:var(--gold2);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:700}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dashed rgba(48,54,61,.7)}
+.price-row:last-child{border-bottom:none}
+.price-row .lbl{font-size:.78rem;color:var(--t2)}
+.price-row .val{font-size:1.3rem;font-weight:800;color:var(--t1);font-family:'Inter',sans-serif}
+.price-row .sub{font-size:.72rem;color:var(--t3);display:block;margin-top:2px}
+.price-change-big{background:linear-gradient(135deg,rgba(63,185,80,.12),rgba(63,185,80,.04));border:1px solid rgba(63,185,80,.3);border-radius:10px;padding:10px 14px;margin-top:12px;text-align:center}
+.price-change-big .pct{font-size:1.5rem;font-weight:900;color:var(--gl);font-family:'Inter',sans-serif}
+.price-change-big .lbl{font-size:.7rem;color:var(--t2);margin-top:2px}
+
+.consensus-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.consensus-table th,.consensus-table td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.consensus-table th{font-family:'Inter',sans-serif;font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.consensus-table td{color:var(--t2)}
+.consensus-table td.val{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif}
+.consensus-table td.beat-pct{color:var(--gl);font-weight:700;font-family:'Inter',sans-serif}
+.beat-lamp{display:inline-block;width:12px;height:12px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4);animation:pulse-green 1.5s ease-in-out infinite;vertical-align:middle;margin-right:6px}
+@keyframes pulse-green{0%,100%{opacity:1;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4)}50%{opacity:.5;box-shadow:0 0 4px #2ecc71,0 0 8px rgba(46,204,113,.2)}}
+.beat-text{color:#D4A843;font-weight:700;letter-spacing:1px;animation:glow-gold 2.5s ease-in-out infinite;font-family:'Inter',sans-serif}
+@keyframes glow-gold{0%,100%{opacity:1;text-shadow:0 0 8px rgba(212,168,67,.6)}50%{opacity:.6;text-shadow:0 0 4px rgba(212,168,67,.3)}}
+@media(max-width:768px){
+  .top-panel{grid-template-columns:1fr}
+  .consensus-table{font-size:.72rem}
+  .consensus-table th,.consensus-table td{padding:8px 4px}
+}
+
+/* === YoY/QoQ 詳細表示 === */
+.delta-detail{display:block;font-size:.78rem;color:var(--text-sub);margin-top:6px;line-height:1.5}
+.delta-detail .delta-row{display:block;margin-top:2px}
+.delta-detail .delta-pct{font-weight:700;font-family:'Inter',sans-serif}
+.delta-detail .delta-abs{opacity:.85;font-family:'Inter',sans-serif}
+.delta-detail .prior-value{display:block;margin-left:14px;opacity:.65;font-size:.92em;font-family:'Inter',sans-serif}
+.delta-detail .delta-pct.pos{color:var(--gl)}
+.delta-detail .delta-pct.neg{color:var(--rl)}
 </style>
 </head>
 <body>
 
 <!-- Header -->
 <div class="header">
+  <div class="overview-toggle-wrap">
+    <button class="overview-toggle-btn" id="overviewToggleBtn" onclick="toggleOverview()">📖 企業概要 <span class="chev">▼</span></button>
+  </div>
   <div class="header-content">
     <div class="header-logo-row">
       <img class="report-header-logo" src="../logos/JPM.svg" alt="JPM">
@@ -201,10 +258,10 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
   </div>
 </div>
 
-<!-- 企業概要 -->
-<div class="overview" id="sec-overview-top">
+<!-- 企業概要 ドロップダウン -->
+<div class="overview-dropdown" id="overviewDropdown">
   <h2>🏛️ 企業概要</h2>
-  <p><strong>JPMorgan Chase &amp; Co.</strong>（NYSE: JPM）は米国最大かつ世界最大級の金融機関。1799年設立（現在の形態は2000年のJ.P.MorganとChase Manhattanの合併による）、本社はニューヨーク。CEOはJamie Dimon（2026年4月発表でMarianne Lake氏が2027年1月1日付の後継CEOに確定、Dimonは2028年までExecutive Chairmanへ）。総資産 $4.425兆、従業員数は約32万人超のグローバル・ユニバーサルバンク。</p>
+  <p><strong>JPMorgan Chase &amp; Co.</strong>（NYSE: JPM）は米国最大かつ世界最大級の金融機関。1799年設立（現在の形態は2000年のJ.P.MorganとChase Manhattanの合併による）、本社はニューヨーク。CEOはJamie Dimon（2026年4月発表でMarianne Lake氏が2027年1月1日付の後継CEOに確定、Dimonは2028年までExecutive Chairmanへ）。総資産 $4.425兆、従業員数は約31万人超（約32万人規模）のグローバル・ユニバーサルバンク。</p>
   <p>4セグメント体制: ①CCB（Consumer &amp; Community Banking: 個人・小規模事業者・カード・住宅ローン）、②CIB（Commercial &amp; Investment Bank: M&amp;Aアドバイザリー・債券/株式引受・マーケッツ・決済・商業銀行）、③AWM（Asset &amp; Wealth Management: AUM $4.79兆）、④Corporate。預金+貸出+手数料+マーケッツを収益源とする多角化モデル。競合: Bank of America、Citigroup、Wells Fargo、Goldman Sachs、Morgan Stanley。</p>
   <div class="tags">
     <span class="tag">ユニバーサルバンク</span>
@@ -213,6 +270,53 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
     <span class="tag">マーケッツ #1</span>
     <span class="tag">AUM $4.79T</span>
     <span class="tag">総資産 $4.425T</span>
+  </div>
+</div>
+
+<!-- Top Panel: 株価 + コンセンサス比較 -->
+<div class="top-panel">
+  <div class="price-panel">
+    <h3>💹 株価</h3>
+    <div class="price-row">
+      <span class="lbl">記事作成日<span class="sub">2026/4/14</span></span>
+      <span class="val">$302</span>
+    </div>
+    <div class="price-row">
+      <span class="lbl">決算発表日<span class="sub">2026/1/13（発表翌営業日終値）</span></span>
+      <span class="val">$246</span>
+    </div>
+    <div class="price-change-big">
+      <div class="pct">+22.8%</div>
+      <div class="lbl">決算発表後の変動率</div>
+    </div>
+  </div>
+  <div class="consensus-panel">
+    <h3>🎯 コンセンサス vs 実績（Q4 2025）</h3>
+    <table class="consensus-table">
+      <thead>
+        <tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>ビート率</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>売上高 / Revenue</td>
+          <td>$44.0B</td>
+          <td class="val">$46.8B</td>
+          <td class="beat-pct"><span class="beat-lamp"></span>+6.4% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td>EPS（報告値 / Reported）</td>
+          <td>$4.08</td>
+          <td class="val">$4.63</td>
+          <td class="beat-pct"><span class="beat-lamp"></span>+13.5% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td>EPS（除外ベース / Ex-items）</td>
+          <td>$4.08</td>
+          <td class="val">$5.23</td>
+          <td class="beat-pct"><span class="beat-lamp"></span>+28.2% <span class="beat-text">ビート</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -230,44 +334,64 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
   <div class="section-title">📊 Key Metrics</div>
   <div class="grid">
     <div class="card">
-      <div class="card-label">Managed Revenue</div>
+      <div class="card-label">マネージドレベニュー / Managed Revenue</div>
       <div class="card-val neu">$46.8B</div>
-      <div class="card-sub"><span class="pos">+7% YoY</span> / <span class="neg">-1% QoQ</span></div>
+      <div class="delta-detail">
+        <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +6.8%</span> <span class="delta-abs">($3.0B増)</span></span>
+        <span class="prior-value">前年同期: $43.8B</span>
+        <span class="delta-row"><span class="delta-pct neg">QoQ（前期比）: -0.8%</span> <span class="delta-abs">($0.4B減)</span></span>
+        <span class="prior-value">前期: $47.2B</span>
+      </div>
     </div>
     <div class="card">
-      <div class="card-label">EPS（Diluted, 報告値）</div>
+      <div class="card-label">EPS（希薄化後・報告値 / Diluted Reported）</div>
       <div class="card-val neu">$4.63</div>
-      <div class="card-sub"><span class="neg">-$0.18 YoY</span> / <span class="neg">-$0.44 QoQ</span>（Apple Card引当 -$0.60）</div>
+      <div class="delta-detail">
+        <span class="delta-row"><span class="delta-pct neg">YoY（前年比）: -3.7%</span> <span class="delta-abs">(-$0.18)</span></span>
+        <span class="prior-value">前年同期: $4.81</span>
+        <span class="delta-row"><span class="delta-pct neg">QoQ（前期比）: -8.7%</span> <span class="delta-abs">(-$0.44)</span></span>
+        <span class="prior-value">前期: $5.07（Apple Card引当 -$0.60影響）</span>
+      </div>
     </div>
     <div class="card">
-      <div class="card-label">EPS（除外ベース）</div>
+      <div class="card-label">EPS（除外ベース / Ex-items）</div>
       <div class="card-val pos">$5.23</div>
       <div class="card-sub">Apple Card significant item 除外、コンセンサス $4.08 を大幅ビート</div>
     </div>
     <div class="card">
-      <div class="card-label">Net Income</div>
+      <div class="card-label">純利益 / Net Income</div>
       <div class="card-val neu">$13.0B</div>
-      <div class="card-sub"><span class="neg">-7% YoY</span>（除外後 $14.7B）</div>
+      <div class="delta-detail">
+        <span class="delta-row"><span class="delta-pct neg">YoY（前年比）: -7.1%</span> <span class="delta-abs">($1.0B減)</span></span>
+        <span class="prior-value">前年同期: $14.0B</span>
+        <span class="delta-row"><span class="delta-pct neg">QoQ（前期比）: -9.7%</span> <span class="delta-abs">($1.4B減)</span></span>
+        <span class="prior-value">前期: $14.4B（除外後 $14.7B）</span>
+      </div>
     </div>
     <div class="card">
-      <div class="card-label">ROTCE</div>
+      <div class="card-label">有形普通株主資本利益率 / ROTCE</div>
       <div class="card-val pos">18%</div>
       <div class="card-sub">除外後 <span class="pos">20%</span> / FY25通期 20%</div>
     </div>
     <div class="card">
-      <div class="card-label">CET1 Ratio (Std.)</div>
+      <div class="card-label">普通株式等Tier1比率 / CET1 Ratio (Std.)</div>
       <div class="card-val gold">14.5%</div>
       <div class="card-sub">Adv. 14.1% / Apple Card RWA増で低下</div>
     </div>
     <div class="card">
-      <div class="card-label">NII</div>
+      <div class="card-label">純金利収入 / Net Interest Income (NII)</div>
       <div class="card-val pos">$25.1B</div>
-      <div class="card-sub"><span class="pos">+7% YoY</span> / <span class="pos">+4% QoQ</span></div>
+      <div class="delta-detail">
+        <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +6.8%</span> <span class="delta-abs">($1.6B増)</span></span>
+        <span class="prior-value">前年同期: $23.5B</span>
+        <span class="delta-row"><span class="delta-pct pos">QoQ（前期比）: +4.1%</span> <span class="delta-abs">($1.0B増)</span></span>
+        <span class="prior-value">前期: $24.1B</span>
+      </div>
     </div>
     <div class="card">
-      <div class="card-label">Overhead Ratio</div>
+      <div class="card-label">経費率 / Overhead Ratio</div>
       <div class="card-val neu">51%</div>
-      <div class="card-sub">Expense $24.0B（+5% YoY）</div>
+      <div class="card-sub">Expense $24.0B（+5% YoY / -1% QoQ）</div>
     </div>
   </div>
 </div>
@@ -341,7 +465,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
     </div>
     <div class="grid" style="margin-top:16px">
       <div class="card">
-        <div class="card-label">Overhead Ratio</div>
+        <div class="card-label">経費率 / Overhead Ratio</div>
         <div class="card-val neu">51%</div>
         <div class="card-sub">Q3 52% → Q4 51%。通期 51%</div>
       </div>
@@ -351,7 +475,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div class="card-sub">FY25通期 17%</div>
       </div>
       <div class="card">
-        <div class="card-label">ROTCE</div>
+        <div class="card-label">有形普通株主資本利益率 / ROTCE</div>
         <div class="card-val pos">18%</div>
         <div class="card-sub">除外後 20%、FY25通期 20%</div>
       </div>
@@ -403,14 +527,20 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div class="card-sub">流動性カバレッジ比率</div>
       </div>
       <div class="card">
-        <div class="card-label">TBV / 株</div>
+        <div class="card-label">有形簿価 / Tangible Book Value (TBV) per Share</div>
         <div class="card-val pos">$107.56</div>
         <div class="card-sub"><span class="pos">+11% YoY</span>（$97.30→）</div>
       </div>
       <div class="card">
-        <div class="card-label">信用コスト（Q4）</div>
+        <div class="card-label">信用コスト / Credit Costs（Q4）</div>
         <div class="card-val neg">$4.7B</div>
-        <div class="card-sub">NCO $2.5B + Reserve build $2.1B（Apple Card $2.2B含む）</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct neg">YoY（前年比）: +80.8%</span> <span class="delta-abs">($2.1B増)</span></span>
+          <span class="prior-value">前年同期: $2.6B</span>
+          <span class="delta-row"><span class="delta-pct neg">QoQ（前期比）: +38.2%</span> <span class="delta-abs">($1.3B増)</span></span>
+          <span class="prior-value">前期: $3.4B</span>
+        </div>
+        <div class="card-sub" style="margin-top:6px">純貸倒償却 / NCO $2.5B + 引当金積増 / Reserve Build $2.1B（Apple Card $2.2B含む）</div>
       </div>
     </div>
     <div class="grid" style="margin-top:14px">
@@ -439,17 +569,17 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
   <div class="section-body">
     <div class="grid">
       <div class="card">
-        <div class="card-label">CET1 Ratio (Std.)</div>
+        <div class="card-label">普通株式等Tier1比率 / CET1 Ratio (Std.)</div>
         <div class="card-val gold">14.5%</div>
         <div class="card-sub">規制最低+バッファ超過。Q3 15.7%から<span class="neg">-1.2pp</span>（Apple Card RWA増）</div>
       </div>
       <div class="card">
-        <div class="card-label">CET1 Ratio (Adv.)</div>
+        <div class="card-label">普通株式等Tier1比率 / CET1 Ratio (Adv.)</div>
         <div class="card-val gold">14.1%</div>
         <div class="card-sub">2026年中にApple Card Adv. RWA $110B→$30B低下見込み</div>
       </div>
       <div class="card">
-        <div class="card-label">ROTCE（Q4 報告）</div>
+        <div class="card-label">有形普通株主資本利益率 / ROTCE（Q4 報告）</div>
         <div class="card-val pos">18%</div>
         <div class="card-sub">除外後 <span class="pos">20%</span></div>
       </div>
@@ -459,22 +589,22 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div class="card-sub">長期目標 17%+ を大幅に上回る</div>
       </div>
       <div class="card">
-        <div class="card-label">NIM</div>
+        <div class="card-label">純金利マージン / Net Interest Margin (NIM)</div>
         <div class="card-val neu">約 2.66%</div>
         <div class="card-sub">NII $25.1B ÷ 平均生息資産</div>
       </div>
       <div class="card">
-        <div class="card-label">NII ex. Markets</div>
+        <div class="card-label">純金利収入 / NII（マーケット除外）</div>
         <div class="card-val pos">$23.9B</div>
         <div class="card-sub"><span class="pos">+4% YoY</span></div>
       </div>
       <div class="card">
-        <div class="card-label">Card Services NCO率</div>
+        <div class="card-label">純貸倒償却率 / Card Services NCO Rate</div>
         <div class="card-val neu">3.14%</div>
         <div class="card-sub">2026年<span class="neg">~3.4%</span>見込み（正常化進行）</div>
       </div>
       <div class="card">
-        <div class="card-label">Reserve Build（Q4）</div>
+        <div class="card-label">引当金積増 / Reserve Build（Q4）</div>
         <div class="card-val neg">$2.1B</div>
         <div class="card-sub">Apple Card $2.2B引当が主因</div>
       </div>
@@ -490,17 +620,35 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
       <div class="card">
         <div class="card-label">CCB（Consumer &amp; Community Banking）</div>
         <div class="card-val neu">$19.4B</div>
-        <div class="card-sub">売上 <span class="pos">+6% YoY</span> / Net Income $3.6B（<span class="neg">-19% YoY</span>、Apple Card影響）<br>ROE 25% / Overhead 53%</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +5.4%</span> <span class="delta-abs">($1.0B増)</span></span>
+          <span class="prior-value">前年同期: $18.4B</span>
+          <span class="delta-row"><span class="delta-pct neg">QoQ（前期比）: -0.5%</span> <span class="delta-abs">($0.1B減)</span></span>
+          <span class="prior-value">前期: $19.5B</span>
+        </div>
+        <div class="card-sub" style="margin-top:8px">Net Income $3.6B（<span class="neg">-19% YoY / -28% QoQ</span>、Apple Card影響）<br>ROE 25% / Overhead 53%</div>
       </div>
       <div class="card">
         <div class="card-label">CIB（Commercial &amp; Investment Bank）</div>
         <div class="card-val pos">$19.4B</div>
-        <div class="card-sub">売上 <span class="pos">+10% YoY</span> / Net Income $7.3B（<span class="pos">+10% YoY</span>）<br>ROE 19% / Overhead 47%</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +10.2%</span> <span class="delta-abs">($1.8B増)</span></span>
+          <span class="prior-value">前年同期: $17.6B</span>
+          <span class="delta-row"><span class="delta-pct neg">QoQ（前期比）: -2.5%</span> <span class="delta-abs">($0.5B減)</span></span>
+          <span class="prior-value">前期: $19.9B</span>
+        </div>
+        <div class="card-sub" style="margin-top:8px">Net Income $7.3B（<span class="pos">+10% YoY / +6% QoQ</span>）<br>ROE 19% / Overhead 47%</div>
       </div>
       <div class="card">
         <div class="card-label">AWM（Asset &amp; Wealth Management）</div>
         <div class="card-val pos">$6.5B</div>
-        <div class="card-sub">売上 <span class="pos">+13% YoY</span> / Net Income $1.81B（<span class="pos">+19% YoY</span>）<br>ROE 44% / Pretax margin 38%</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +12.1%</span> <span class="delta-abs">($0.7B増)</span></span>
+          <span class="prior-value">前年同期: $5.8B</span>
+          <span class="delta-row"><span class="delta-pct pos">QoQ（前期比）: +6.6%</span> <span class="delta-abs">($0.4B増)</span></span>
+          <span class="prior-value">前期: $6.1B</span>
+        </div>
+        <div class="card-sub" style="margin-top:8px">Net Income $1.8B（<span class="pos">+20% YoY / +6% QoQ</span>）<br>ROE 44% / Pretax margin 38%</div>
       </div>
       <div class="card">
         <div class="card-label">Corporate</div>
@@ -516,8 +664,8 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <tr><td>Investment Banking Revenue</td><td>$2.55B</td><td class="neg">-2%</td><td>IB Fees $2.35B（-5%）。M&amp;A回復期待</td></tr>
         <tr><td>Payments</td><td>$5.11B</td><td class="pos">+9%</td><td>トランザクション銀行の安定成長</td></tr>
         <tr><td>Lending</td><td>$1.99B</td><td class="pos">+4%</td><td></td></tr>
-        <tr><td>Fixed Income Markets</td><td>$5.38B</td><td class="pos">+7%</td><td>金利・クレジット堅調</td></tr>
-        <tr><td>Equity Markets</td><td>$2.86B</td><td class="pos">+40%</td><td>デリバ・キャッシュ双方で急伸</td></tr>
+        <tr><td>債券マーケット部門収入 / Fixed Income Markets Revenue</td><td>$5.38B</td><td class="pos">+7%</td><td>金利・クレジット堅調</td></tr>
+        <tr><td>株式マーケット部門収入 / Equity Markets Revenue</td><td>$2.86B</td><td class="pos">+40%</td><td>デリバ・キャッシュ双方で急伸</td></tr>
         <tr><td>Securities Services</td><td>$1.49B</td><td class="pos">+13%</td><td>カストディ・ファンドサービス</td></tr>
       </tbody>
     </table>
@@ -717,14 +865,14 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
     <table class="tbl">
       <thead><tr><th>指標</th><th>Q3 2025</th><th>Q4 2025</th><th>変化</th></tr></thead>
       <tbody>
-        <tr><td>Managed Revenue</td><td>$47.2B</td><td>$46.8B</td><td class="neg">-1% QoQ</td></tr>
-        <tr><td>NII</td><td>$24.1B</td><td>$25.1B</td><td class="pos">+4% QoQ</td></tr>
-        <tr><td>NIR</td><td>$23.1B</td><td>$21.7B</td><td class="neg">-6% QoQ</td></tr>
-        <tr><td>Expense</td><td>$24.3B</td><td>$24.0B</td><td class="pos">-1% QoQ</td></tr>
-        <tr><td>Net Income</td><td>$14.4B</td><td>$13.0B</td><td class="neg">-10% QoQ</td></tr>
-        <tr><td>EPS（報告）</td><td>$5.07</td><td>$4.63</td><td class="neg">-$0.44</td></tr>
-        <tr><td>EPS（除外ベース）</td><td>$5.07</td><td>$5.23</td><td class="pos">+$0.16</td></tr>
-        <tr><td>ROTCE</td><td>20%</td><td>18%（除外 20%）</td><td class="neu">横ばい</td></tr>
+        <tr><td>マネージドレベニュー / Managed Revenue</td><td>$47.2B</td><td>$46.8B</td><td class="neg">-1% QoQ</td></tr>
+        <tr><td>純金利収入 / NII</td><td>$24.1B</td><td>$25.1B</td><td class="pos">+4% QoQ</td></tr>
+        <tr><td>非金利収入 / Noninterest Revenue (NIR)</td><td>$23.1B</td><td>$21.7B</td><td class="neg">-6% QoQ</td></tr>
+        <tr><td>経費 / Expense</td><td>$24.3B</td><td>$24.0B</td><td class="pos">-1% QoQ</td></tr>
+        <tr><td>純利益 / Net Income</td><td>$14.4B</td><td>$13.0B</td><td class="neg">-10% QoQ</td></tr>
+        <tr><td>EPS（報告値 / Reported）</td><td>$5.07</td><td>$4.63</td><td class="neg">-$0.44</td></tr>
+        <tr><td>EPS（除外ベース / Ex-items）</td><td>$5.07</td><td>$5.23</td><td class="pos">+$0.16</td></tr>
+        <tr><td>有形普通株主資本利益率 / ROTCE</td><td>20%</td><td>18%（除外 20%）</td><td class="neu">横ばい</td></tr>
         <tr><td>総合評価スコア</td><td>4 📈</td><td>3 ⏸️</td><td class="neg">-1</td></tr>
       </tbody>
     </table>
@@ -963,6 +1111,15 @@ function toggleAllSections(expand){
   document.querySelectorAll('[data-accordion]').forEach(function(sec){
     if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
   });
+}
+
+// Overview dropdown toggle
+function toggleOverview(){
+  var dd=document.getElementById('overviewDropdown');
+  var btn=document.getElementById('overviewToggleBtn');
+  if(!dd||!btn)return;
+  dd.classList.toggle('open');
+  btn.classList.toggle('open');
 }
 </script>
 </body>
