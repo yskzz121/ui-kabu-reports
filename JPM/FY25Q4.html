@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JPMorgan Chase (JPM) FY25 Q4 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;
+  --gold:#B8912A;--gold2:#D4A843;--navy:#1A2540;--paper:#F5F2EC;
+  --gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--alert:#8B2020;
+  --text-sub:#8b949e;--card-border:#30363d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.card-val,.score-num,.price,.val-card .price{font-family:'Inter','Noto Sans JP',sans-serif}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg, #1a2332 0%, #1A2540 50%, #0F1829 100%);
+  border-bottom:1px solid rgba(184,145,42,0.15);
+  padding:40px 20px 30px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  margin-bottom:28px;
+}
+.header::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(184,145,42,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(184,145,42,0.06) 0%, transparent 60%);
+}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px;font-family:'Inter',sans-serif}
+
+/* Overview */
+.overview{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:28px}
+.overview h2{font-size:1rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--gold2)}
+.overview p{font-size:.92rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:.75rem;padding:3px 12px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25)}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(184,145,42,.08),rgba(88,166,255,.04));border-radius:16px;border:1px solid var(--border)}
+.score-badge{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:16px 32px;margin-bottom:14px}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2)}
+.score-icon{font-size:2.5rem}
+.score-label{font-size:1.3rem;font-weight:700;color:var(--gold2)}
+.score-desc{color:var(--t2);font-size:.9rem;margin-top:8px;max-width:820px;margin-left:auto;margin-right:auto;line-height:1.9}
+
+/* Sections */
+.section{margin-bottom:36px}
+.section-title{font-size:1.15rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-label{font-size:.72rem;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:'Inter',sans-serif}
+.card-val{font-size:1.6rem;font-weight:700}
+.card-sub{font-size:.8rem;color:var(--t2);margin-top:4px}
+.pos{color:var(--gl)}.neg{color:var(--rl)}.neu{color:var(--t1)}.gold{color:var(--gold2)}
+
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.chart-wrap{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;font-size:.9rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
+.insight strong{color:var(--t1)}
+
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h3{font-size:.95rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.85rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(48,54,61,.5);line-height:1.7}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'•';margin-right:8px;font-weight:700}
+.risk-card.bull li::before{color:var(--gl)}
+.risk-card.bear li::before{color:var(--rl)}
+
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,.08),rgba(46,160,67,.03));border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.03));border-color:rgba(88,166,255,.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(139,32,32,.1),rgba(188,140,255,.04));border-color:rgba(188,140,255,.3)}
+.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-card.low .scenario{color:var(--gl)}
+.val-card.mid .scenario{color:var(--blue)}
+.val-card.high .scenario{color:var(--purple)}
+.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px}
+.val-card.low .price{color:var(--gl)}
+.val-card.mid .price{color:var(--blue)}
+.val-card.high .price{color:var(--purple)}
+.val-card .detail{font-size:.78rem;color:var(--t2);line-height:1.6}
+.val-card .gap{font-size:.85rem;font-weight:700;margin-top:8px;font-family:'Inter',sans-serif}
+
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif}
+.tbl td{color:var(--t2)}
+.tbl tr:hover td{background:rgba(184,145,42,.04)}
+
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--t3);font-size:.75rem;line-height:1.8}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid rgba(184,145,42,0.15);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(184,145,42,.12)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* Portal link */
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/JPM.svg" alt="JPM">
+      <div class="ticker-badge">NYSE: JPM</div>
+    </div>
+    <h1>JPMorgan Chase &amp; Co. 決算分析</h1>
+    <div class="subtitle">FY25 Q4（2025年10-12月期）</div>
+    <div class="date">発表日: 2026年1月13日 ｜ レポート作成: 2026年4月14日</div>
+  </div>
+</div>
+
+<!-- 企業概要 -->
+<div class="overview" id="sec-overview-top">
+  <h2>🏛️ 企業概要</h2>
+  <p><strong>JPMorgan Chase &amp; Co.</strong>（NYSE: JPM）は米国最大かつ世界最大級の金融機関。1799年設立（現在の形態は2000年のJ.P.MorganとChase Manhattanの合併による）、本社はニューヨーク。CEOはJamie Dimon（2026年4月発表でMarianne Lake氏が2027年1月1日付の後継CEOに確定、Dimonは2028年までExecutive Chairmanへ）。総資産 $4.425兆、従業員数は約32万人超のグローバル・ユニバーサルバンク。</p>
+  <p>4セグメント体制: ①CCB（Consumer &amp; Community Banking: 個人・小規模事業者・カード・住宅ローン）、②CIB（Commercial &amp; Investment Bank: M&amp;Aアドバイザリー・債券/株式引受・マーケッツ・決済・商業銀行）、③AWM（Asset &amp; Wealth Management: AUM $4.79兆）、④Corporate。預金+貸出+手数料+マーケッツを収益源とする多角化モデル。競合: Bank of America、Citigroup、Wells Fargo、Goldman Sachs、Morgan Stanley。</p>
+  <div class="tags">
+    <span class="tag">ユニバーサルバンク</span>
+    <span class="tag">GSIB最大手</span>
+    <span class="tag">投資銀行 #1</span>
+    <span class="tag">マーケッツ #1</span>
+    <span class="tag">AUM $4.79T</span>
+    <span class="tag">総資産 $4.425T</span>
+  </div>
+</div>
+
+<!-- 総合評価 -->
+<div class="score-section">
+  <div class="score-badge"><span class="score-num">3</span><span class="score-icon">⏸️</span></div>
+  <div class="score-label">悪くない決算</div>
+  <div class="score-desc">
+    Managed Revenue $46.8B（+7% YoY）・EPS $4.63はコンセンサス $4.08 をビート。しかし Apple Card フォワード購入 commitment に対する $2.2B の一括信用引当（EPS影響 -$0.60）でヘッドライン EPS は QoQ -$0.44。除外ベースでは EPS $5.23・Net Income $14.7B・ROTCE 20% と依然として強い。2026年ガイダンスは利下げ前提で NII ~$103B・Adjusted Expense ~$105B と慎重、Card NCO率も 3.14% → 3.4% へ悪化見込み。通期では record Net Income $57B・EPS $20.02 を達成した一方、成長鈍化とクレジット正常化の綱引きが鮮明。
+  </div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section" id="sec-metrics">
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">Managed Revenue</div>
+      <div class="card-val neu">$46.8B</div>
+      <div class="card-sub"><span class="pos">+7% YoY</span> / <span class="neg">-1% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">EPS（Diluted, 報告値）</div>
+      <div class="card-val neu">$4.63</div>
+      <div class="card-sub"><span class="neg">-$0.18 YoY</span> / <span class="neg">-$0.44 QoQ</span>（Apple Card引当 -$0.60）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">EPS（除外ベース）</div>
+      <div class="card-val pos">$5.23</div>
+      <div class="card-sub">Apple Card significant item 除外、コンセンサス $4.08 を大幅ビート</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Net Income</div>
+      <div class="card-val neu">$13.0B</div>
+      <div class="card-sub"><span class="neg">-7% YoY</span>（除外後 $14.7B）</div>
+    </div>
+    <div class="card">
+      <div class="card-label">ROTCE</div>
+      <div class="card-val pos">18%</div>
+      <div class="card-sub">除外後 <span class="pos">20%</span> / FY25通期 20%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">CET1 Ratio (Std.)</div>
+      <div class="card-val gold">14.5%</div>
+      <div class="card-sub">Adv. 14.1% / Apple Card RWA増で低下</div>
+    </div>
+    <div class="card">
+      <div class="card-label">NII</div>
+      <div class="card-val pos">$25.1B</div>
+      <div class="card-sub"><span class="pos">+7% YoY</span> / <span class="pos">+4% QoQ</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Overhead Ratio</div>
+      <div class="card-val neu">51%</div>
+      <div class="card-sub">Expense $24.0B（+5% YoY）</div>
+    </div>
+  </div>
+</div>
+
+<!-- ガイダンス vs コンセンサス -->
+<div class="section" data-accordion id="sec-consensus">
+  <div class="section-title">🎯 2026ガイダンス vs コンセンサス</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">2026 NII（市場依存含む）</div>
+        <div class="card-val gold">~$103B</div>
+        <div class="card-sub">FY25 $95.9Bから<span class="pos">+7%</span>。2回利下げ前提（FFTUB 3.25% YE）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">2026 NII ex. Markets</div>
+        <div class="card-val neu">~$95B</div>
+        <div class="card-sub">利下げ環境で横ばい〜微増ペース</div>
+      </div>
+      <div class="card">
+        <div class="card-label">2026 Markets NII</div>
+        <div class="card-val pos">~$8B</div>
+        <div class="card-sub">FY25 $3.3Bから<span class="pos">+倍以上</span>に拡大見込み</div>
+      </div>
+      <div class="card">
+        <div class="card-label">2026 Adjusted Expense</div>
+        <div class="card-val neg">~$105B</div>
+        <div class="card-sub">FY25 $95.6Bから<span class="neg">+10%</span>（テクノロジー・マーケッツ投資）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Card NCO率</div>
+        <div class="card-val neg">~3.4%</div>
+        <div class="card-sub">Q4実績 3.14% → 正常化で<span class="neg">悪化見込み</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Apple Card Adv. RWA影響</div>
+        <div class="card-val pos">~$110B → $30B</div>
+        <div class="card-sub">2026年中に段階的低下。CET1圧迫が緩和へ</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <strong>Q4 実績のコンセンサス比較:</strong> Revenue $46.8B（コンセンサス $44.9B 前後を<span class="pos">+4%ビート</span>）、EPS $4.63（コンセンサス $4.08 を<span class="pos">+13%ビート</span>）。一方、2026ガイダンスは利下げ前提で NII 成長が鈍化、Expense は+10%超で<strong>Jaws はネガティブに転じる見込み</strong>。Markets NII の倍増（$3.3B→$8B）が成長ドライバー。
+    </div>
+  </div>
+</div>
+
+<!-- 売上高 / EPS 7四半期推移 -->
+<div class="section" data-accordion id="sec-revenue">
+  <div class="section-title">📈 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      Managed Revenue は 2Q24 の $50.2B（Visa株売却益含む）をピークに横ばいレンジ $43〜$47B で推移。FY25 通期は $185.6B（+3% YoY）で record。EPS は Q2 $5.24 をピークに Q4 $4.63 まで低下したが、これは Apple Card 一括引当 -$0.60 の影響が大きく、除外ベースでは Q3・Q4 ともに $5.20 台を維持。
+    </div>
+  </div>
+</div>
+
+<!-- 利益率・主要指標トレンド -->
+<div class="section" data-accordion id="sec-margin">
+  <div class="section-title">📊 収益性・資本効率トレンド</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div class="card">
+        <div class="card-label">Overhead Ratio</div>
+        <div class="card-val neu">51%</div>
+        <div class="card-sub">Q3 52% → Q4 51%。通期 51%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROE (Firm)</div>
+        <div class="card-val pos">15%</div>
+        <div class="card-sub">FY25通期 17%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROTCE</div>
+        <div class="card-val pos">18%</div>
+        <div class="card-sub">除外後 20%、FY25通期 20%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">NIM</div>
+        <div class="card-val neu">約 2.66%</div>
+        <div class="card-sub">NII $25.1B / 平均生息資産ベース</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- キャッシュフロー / 銀行業指標 -->
+<div class="section" data-accordion id="sec-cashflow">
+  <div class="section-title">💰 キャッシュフロー（銀行業: 預金・貸出・資本）</div>
+  <div class="section-body">
+    <div class="insight">
+      <strong>注:</strong> 銀行業のため従来型の営業CF/投資CF/財務CFは意味合いが異なる。ここでは預金・貸出・資本還元・資本比率で代替開示する。
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">平均預金</div>
+        <div class="card-val pos">$2.565T</div>
+        <div class="card-sub"><span class="pos">+6% YoY</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">平均貸出</div>
+        <div class="card-val pos">$1.500T</div>
+        <div class="card-sub"><span class="pos">+9% YoY</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">総資産 (EOP)</div>
+        <div class="card-val neu">$4.425T</div>
+        <div class="card-sub">世界最大級のB/S</div>
+      </div>
+      <div class="card">
+        <div class="card-label">CET1資本</div>
+        <div class="card-val gold">$288B</div>
+        <div class="card-sub">YoY +$12B</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Firm SLR</div>
+        <div class="card-val neu">5.8%</div>
+        <div class="card-sub">規制最低超過で十分</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Firm LCR</div>
+        <div class="card-val neu">111%</div>
+        <div class="card-sub">流動性カバレッジ比率</div>
+      </div>
+      <div class="card">
+        <div class="card-label">TBV / 株</div>
+        <div class="card-val pos">$107.56</div>
+        <div class="card-sub"><span class="pos">+11% YoY</span>（$97.30→）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">信用コスト（Q4）</div>
+        <div class="card-val neg">$4.7B</div>
+        <div class="card-sub">NCO $2.5B + Reserve build $2.1B（Apple Card $2.2B含む）</div>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card">
+        <div class="card-label">配当（Q4）</div>
+        <div class="card-val gold">$4.1B</div>
+        <div class="card-sub">$1.50/sh</div>
+      </div>
+      <div class="card">
+        <div class="card-label">自社株買い（Q4）</div>
+        <div class="card-val gold">$7.9B</div>
+        <div class="card-sub">株主還元の主役</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Net Payout Ratio (LTM)</div>
+        <div class="card-val pos">82%</div>
+        <div class="card-sub">利益の大部分を株主還元</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 銀行特有KPI -->
+<div class="section" data-accordion id="sec-saas">
+  <div class="section-title">🏦 銀行特有KPI（CET1 / ROTCE / NIM / Credit）</div>
+  <div class="section-body">
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">CET1 Ratio (Std.)</div>
+        <div class="card-val gold">14.5%</div>
+        <div class="card-sub">規制最低+バッファ超過。Q3 15.7%から<span class="neg">-1.2pp</span>（Apple Card RWA増）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">CET1 Ratio (Adv.)</div>
+        <div class="card-val gold">14.1%</div>
+        <div class="card-sub">2026年中にApple Card Adv. RWA $110B→$30B低下見込み</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROTCE（Q4 報告）</div>
+        <div class="card-val pos">18%</div>
+        <div class="card-sub">除外後 <span class="pos">20%</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROTCE（FY25 通期）</div>
+        <div class="card-val pos">20%</div>
+        <div class="card-sub">長期目標 17%+ を大幅に上回る</div>
+      </div>
+      <div class="card">
+        <div class="card-label">NIM</div>
+        <div class="card-val neu">約 2.66%</div>
+        <div class="card-sub">NII $25.1B ÷ 平均生息資産</div>
+      </div>
+      <div class="card">
+        <div class="card-label">NII ex. Markets</div>
+        <div class="card-val pos">$23.9B</div>
+        <div class="card-sub"><span class="pos">+4% YoY</span></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Card Services NCO率</div>
+        <div class="card-val neu">3.14%</div>
+        <div class="card-sub">2026年<span class="neg">~3.4%</span>見込み（正常化進行）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Reserve Build（Q4）</div>
+        <div class="card-val neg">$2.1B</div>
+        <div class="card-sub">Apple Card $2.2B引当が主因</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- セグメント -->
+<div class="section" data-accordion id="sec-segment">
+  <div class="section-title">🏢 セグメント別業績（Q4 2025）</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">CCB（Consumer &amp; Community Banking）</div>
+        <div class="card-val neu">$19.4B</div>
+        <div class="card-sub">売上 <span class="pos">+6% YoY</span> / Net Income $3.6B（<span class="neg">-19% YoY</span>、Apple Card影響）<br>ROE 25% / Overhead 53%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">CIB（Commercial &amp; Investment Bank）</div>
+        <div class="card-val pos">$19.4B</div>
+        <div class="card-sub">売上 <span class="pos">+10% YoY</span> / Net Income $7.3B（<span class="pos">+10% YoY</span>）<br>ROE 19% / Overhead 47%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">AWM（Asset &amp; Wealth Management）</div>
+        <div class="card-val pos">$6.5B</div>
+        <div class="card-sub">売上 <span class="pos">+13% YoY</span> / Net Income $1.81B（<span class="pos">+19% YoY</span>）<br>ROE 44% / Pretax margin 38%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Corporate</div>
+        <div class="card-val neu">$1.48B</div>
+        <div class="card-sub">売上 <span class="neg">-$520M YoY</span> / Net Income $307M</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">CIB 内訳（プロダクトライン別）</h3>
+    <table class="tbl">
+      <thead><tr><th>ライン</th><th>Q4 2025 売上</th><th>YoY</th><th>コメント</th></tr></thead>
+      <tbody>
+        <tr><td>Investment Banking Revenue</td><td>$2.55B</td><td class="neg">-2%</td><td>IB Fees $2.35B（-5%）。M&amp;A回復期待</td></tr>
+        <tr><td>Payments</td><td>$5.11B</td><td class="pos">+9%</td><td>トランザクション銀行の安定成長</td></tr>
+        <tr><td>Lending</td><td>$1.99B</td><td class="pos">+4%</td><td></td></tr>
+        <tr><td>Fixed Income Markets</td><td>$5.38B</td><td class="pos">+7%</td><td>金利・クレジット堅調</td></tr>
+        <tr><td>Equity Markets</td><td>$2.86B</td><td class="pos">+40%</td><td>デリバ・キャッシュ双方で急伸</td></tr>
+        <tr><td>Securities Services</td><td>$1.49B</td><td class="pos">+13%</td><td>カストディ・ファンドサービス</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">CCB / AWM 主要KPI</h3>
+    <div class="grid">
+      <div class="card"><div class="card-label">CCB Active Mobile Customers</div><div class="card-val pos">61.7M</div><div class="card-sub"><span class="pos">+7% YoY</span></div></div>
+      <div class="card"><div class="card-label">CCB 平均貸出 / 預金</div><div class="card-val neu">$584.6B / $1,056.8B</div><div class="card-sub">貸出<span class="pos">+1%</span> / 預金<span class="pos">+1%</span></div></div>
+      <div class="card"><div class="card-label">Debit/Credit Card Sales Volume</div><div class="card-val pos">$512.5B</div><div class="card-sub"><span class="pos">+7% YoY</span></div></div>
+      <div class="card"><div class="card-label">AWM AUM</div><div class="card-val pos">$4.79T</div><div class="card-sub"><span class="pos">+18% YoY</span></div></div>
+      <div class="card"><div class="card-label">AWM Client Assets</div><div class="card-val pos">$7.12T</div><div class="card-sub"><span class="pos">+20% YoY</span></div></div>
+      <div class="card"><div class="card-label">AWM Long-Term Net Inflows</div><div class="card-val pos">$52B</div><div class="card-sub">Liquidity Inflows $105B</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 地域別 -->
+<div class="section" data-accordion id="sec-geo">
+  <div class="section-title">🌏 地域別売上構成（CIB 中心）</div>
+  <div class="section-body">
+    <div class="insight">
+      JPMの開示はLine of Business中心で地域別開示は限定的。CIBベースでGlobal Corporate &amp; Investment Banking $6.49B、Commercial Banking $3.16B 等が開示。全社ベースでは北米70%+が中核、その他は下記目安。
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">北米（米国＋カナダ）</div>
+        <div class="card-val neu">~70%+</div>
+        <div class="card-sub">CCB・米国コマーシャル・米系M&amp;A</div>
+      </div>
+      <div class="card">
+        <div class="card-label">EMEA（欧州・中東・アフリカ）</div>
+        <div class="card-val neu">~15-20%</div>
+        <div class="card-sub">ロンドンCIBハブ</div>
+      </div>
+      <div class="card">
+        <div class="card-label">APAC（アジア太平洋）</div>
+        <div class="card-val neu">~10%</div>
+        <div class="card-sub">香港・東京・シンガポール</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LATAM（中南米）</div>
+        <div class="card-val neu">数%</div>
+        <div class="card-sub">Payments・商社顧客中心</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル -->
+<div class="section" data-accordion id="sec-technical">
+  <div class="section-title">📉 テクニカル分析</div>
+  <div class="section-body">
+    <div class="grid tech-grid">
+      <div class="card">
+        <div class="card-label">現在株価</div>
+        <div class="card-val neu">$302〜$309</div>
+        <div class="card-sub">2026年4月8日時点</div>
+      </div>
+      <div class="card">
+        <div class="card-label">52週レンジ</div>
+        <div class="card-val neu">$215 — $310</div>
+        <div class="card-sub">52週高値圏で推移</div>
+      </div>
+      <div class="card">
+        <div class="card-label">時価総額</div>
+        <div class="card-val neu">約 $860B</div>
+        <div class="card-sub">米銀最大</div>
+      </div>
+      <div class="card">
+        <div class="card-label">RSI (14日)</div>
+        <div class="card-val neu">~55</div>
+        <div class="card-sub">中立〜やや強気ゾーン</div>
+      </div>
+      <div class="card">
+        <div class="card-label">50日 SMA</div>
+        <div class="card-val pos">~$290</div>
+        <div class="card-sub">上向き。株価は上に位置</div>
+      </div>
+      <div class="card">
+        <div class="card-label">200日 EMA</div>
+        <div class="card-val pos">~$260</div>
+        <div class="card-sub">上向き。中長期トレンド継続</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MACD</div>
+        <div class="card-val neu">中立〜やや強気</div>
+        <div class="card-sub">ヒストグラム 0 近辺</div>
+      </div>
+      <div class="card">
+        <div class="card-label">サポート / レジスタンス</div>
+        <div class="card-val neu">S $280 / R $310</div>
+        <div class="card-sub">第2S $255、R超えで $330（平均目標）</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <strong>チャートパターン:</strong> 上昇トレンドチャネルを維持。決算前は水平もみ合い後、Q4決算のヘッドラインEPS下振れで一時調整も、除外ベースの強さと株主還元で押し目買い継続。<br>
+      <strong>総合判定: 中立〜やや強気</strong> — 年初来+1%、直近6ヶ月+8%。52週高値$310を明確にブレイクすれば$330（アナリスト平均目標）へのパス。下値$280（50日SMA）・$255（100日SMA）がサポート。
+    </div>
+    <div class="chart-box" style="padding:16px;margin-top:16px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NYSE:JPM",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": [
+            "MASimple@tv-basicstudies",
+            "MAExp@tv-basicstudies"
+          ],
+          "studies_overrides": {
+            "moving average.length": 50,
+            "moving average exponential.length": 200
+          }
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section" data-accordion id="sec-mgmt">
+  <div class="section-title">💬 経営陣コメント・ハイライト</div>
+  <div class="section-body">
+    <div class="insight">
+      <strong>Jamie Dimon（会長兼CEO）:</strong>「Q4は1件の大型 significant item（Apple Card フォワード購入 commitment に対する $2.2B 引当）にもかかわらず堅調。通期では record Net Income $57B・EPS $20.02・ROTCE 20%を達成した。米国経済はレジリエントだが、関税、中東、欧州など地政学リスクは継続しており、信用コストは正常化局面にある」
+    </div>
+    <div class="insight">
+      <strong>Dimon（2026見通し）:</strong>「2026年は2回の利下げ（FFTUB 3.25% YE）を前提に NII ~$103B、Markets NII は $3.3B → $8B へ倍以上に拡大する見込み。Adjusted Expense は ~$105B。Card NCO率は 3.4% まで上昇を見込むが、基礎的な消費者信用は健全」
+    </div>
+    <div class="insight">
+      <strong>経営承継（2026年4月発表）:</strong>「Marianne Lake（現CCB CEO、元CFO）が<strong>2027年1月1日付でCEO就任</strong>。Dimon は <strong>2028年まで Executive Chairman</strong> として移行を支援。長年の後継計画が明確化」
+    </div>
+    <div class="insight">
+      <strong>CFO（資本・配分）:</strong>「Apple Card に伴うAdvanced RWA の一時的な増加($110B)は、カード資産のアドバンストアプローチ移行により 2026年中に ~$30Bまで低下する見込み。CET1 は 15.7% → 14.5% へ低下したが、規制バッファ超過で十分な余裕。Q4 の配当 $4.1B・自社株買い $7.9B で Net Payout 82%（LTM）を維持」
+    </div>
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section" data-accordion id="sec-risk">
+  <div class="section-title">⚠️ リスク・注目ポイント / カタリスト</div>
+  <div class="section-body">
+    <div class="risk-grid">
+      <div class="risk-card bull">
+        <h3>🟢 ポジティブ・カタリスト</h3>
+        <ul>
+          <li>M&amp;A回復期待 — IB Fees は mid-to-high teens 成長ガイダンス</li>
+          <li>Markets NII 倍増見通し $3.3B → $8B（2026年）</li>
+          <li>AWM AUM $4.79T（+18% YoY）・Client Assets $7.12T（+20% YoY）の二桁成長継続</li>
+          <li>配当+自社株買い 合計 $12B/Q・Net Payout 82% の株主還元力</li>
+          <li>Marianne Lake CEO 後継確定 — 不透明感によるディスカウント解消</li>
+          <li>TBV/株 $107.56（+11% YoY）で内在価値積み上がり継続</li>
+          <li>Apple Card Adv. RWA は 2026年中に $110B → $30B へ低下、CET1圧迫緩和</li>
+          <li>Equity Markets +40% YoY の勢い継続（Fixed Income +7%）</li>
+        </ul>
+      </div>
+      <div class="risk-card bear">
+        <h3>🔴 リスク・注目ポイント</h3>
+        <ul>
+          <li>Apple Card フォワード購入commitmentに伴うカード信用品質の不確実性（引当 $2.2B）</li>
+          <li>関税・地政学リスク（中東・欧州）によるマクロ減速・信用コスト増</li>
+          <li>NII ex. Markets は利下げ環境で減少圧力（2026年 ~$95B でほぼ横ばい）</li>
+          <li>Card Services NCO率 3.14% → 2026年 ~3.4% へ悪化見込み</li>
+          <li>CET1 比率 15.7% → 14.5% へ低下（Apple Card RWA増）</li>
+          <li>Adjusted Expense +10% 成長見込み — 負のJaws圧力</li>
+          <li>CCB Net Income -19% YoY — カード関連引当のブレ</li>
+          <li>Corporate セグメント売上 -$520M YoY で変動要因</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算との比較 -->
+<div class="section" data-accordion id="sec-compare">
+  <div class="section-title">🔄 前回決算（Q3 2025）との比較</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead><tr><th>指標</th><th>Q3 2025</th><th>Q4 2025</th><th>変化</th></tr></thead>
+      <tbody>
+        <tr><td>Managed Revenue</td><td>$47.2B</td><td>$46.8B</td><td class="neg">-1% QoQ</td></tr>
+        <tr><td>NII</td><td>$24.1B</td><td>$25.1B</td><td class="pos">+4% QoQ</td></tr>
+        <tr><td>NIR</td><td>$23.1B</td><td>$21.7B</td><td class="neg">-6% QoQ</td></tr>
+        <tr><td>Expense</td><td>$24.3B</td><td>$24.0B</td><td class="pos">-1% QoQ</td></tr>
+        <tr><td>Net Income</td><td>$14.4B</td><td>$13.0B</td><td class="neg">-10% QoQ</td></tr>
+        <tr><td>EPS（報告）</td><td>$5.07</td><td>$4.63</td><td class="neg">-$0.44</td></tr>
+        <tr><td>EPS（除外ベース）</td><td>$5.07</td><td>$5.23</td><td class="pos">+$0.16</td></tr>
+        <tr><td>ROTCE</td><td>20%</td><td>18%（除外 20%）</td><td class="neu">横ばい</td></tr>
+        <tr><td>総合評価スコア</td><td>4 📈</td><td>3 ⏸️</td><td class="neg">-1</td></tr>
+      </tbody>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <strong>トレンド方向: 横ばい →</strong> — Apple Card 一括引当 $2.2B（EPS -$0.60）によるヘッドラインEPS QoQ -$0.44 が最大の変化。これを除外するとEPSは$5.07→$5.23に増加し、NII +4% QoQ、AWM +13% YoY、Equity Markets +40% YoY と基礎的な業績はむしろ改善。質の良い決算がヘッドラインだけでは見えにくい四半期。2026年ガイダンスの利下げ前提・Expense +10%見通しが慎重評価の要因。
+    </div>
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section" data-accordion id="sec-valuation">
+  <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
+  <div class="section-body">
+    <div class="val-grid">
+      <div class="val-card low">
+        <div class="scenario">LOW（保守的）</div>
+        <div class="price">$240</div>
+        <div class="detail">Forward EPS $20.00<br>× PER 12x（下限）</div>
+        <div class="gap neg">現在株価比 -21%</div>
+      </div>
+      <div class="val-card mid">
+        <div class="scenario">MID（基本）</div>
+        <div class="price">$301</div>
+        <div class="detail">Forward EPS $21.50（コンセンサス2026E）<br>× PER 14x（中央値）</div>
+        <div class="gap neu">現在株価比 -0.3%</div>
+      </div>
+      <div class="val-card high">
+        <div class="scenario">HIGH（楽観的）</div>
+        <div class="price">$360</div>
+        <div class="detail">Forward EPS $22.50（楽観）<br>× PER 16x（上限）</div>
+        <div class="gap pos">現在株価比 +19%</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      <strong>判定: 適正</strong> — MID 想定株価 $301 vs 現在株価 $302（乖離率 <span class="neu">-0.3%</span>）。市場は既に コンセンサス $21.50 × PER 14x を織り込んでおり、ここからの上昇余地は EPS 上方修正 or PER レーティングのどちらか次第。アナリスト平均目標 <strong>$330.53</strong>（+7.6%）、Goldman Sachs <strong>$365</strong>（Buy）、Morgan Stanley <strong>$334</strong>。Forward PER 14.14・配当利回り 1.98% は過去レンジの中央値〜やや上端。<br>
+      上方リスク: M&amp;A回復・Markets NII倍増・後継CEO確定によるディスカウント解消。<br>
+      下方リスク: 追加Card関連引当・利下げによるNII減退・Expense +10%のJaws悪化。
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card"><div class="card-label">Trailing PER</div><div class="card-val neu">14.32</div><div class="card-sub">FY25 EPS $20.02</div></div>
+      <div class="card"><div class="card-label">Forward PER</div><div class="card-val neu">14.14</div><div class="card-sub">2026E EPS ~$21.50</div></div>
+      <div class="card"><div class="card-label">配当利回り (TTM)</div><div class="card-val pos">1.98%</div><div class="card-sub">$6.00/sh</div></div>
+      <div class="card"><div class="card-label">P/TBV</div><div class="card-val neu">2.8x</div><div class="card-sub">TBV/sh $107.56</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- アナリスト評価 -->
+<div class="section">
+  <div class="section-title">🏦 アナリスト評価</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">コンセンサス</div>
+      <div class="card-val pos">Buy</div>
+      <div class="card-sub">Buy優勢</div>
+    </div>
+    <div class="card">
+      <div class="card-label">平均目標株価</div>
+      <div class="card-val pos">$330.53</div>
+      <div class="card-sub">現在株価から<span class="pos">+7.6%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Goldman Sachs</div>
+      <div class="card-val pos">Buy / $365</div>
+      <div class="card-sub">強気</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Morgan Stanley</div>
+      <div class="card-val gold">$334</div>
+      <div class="card-sub">目標株価</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  本レポートは公開情報（JPMorgan Chase 4Q25 Earnings Presentation 2026/1/13発表、IR資料等）に基づく分析であり、投資助言を目的としたものではありません。<br>
+  投資判断はご自身の責任で行ってください。<br>
+  JPMorgan Chase &amp; Co. (NYSE: JPM) FY25 Q4 決算分析 ｜ 生成日: 2026年4月14日
+</div>
+
+<!-- Chart.js scripts -->
+<script>
+const chartFont={family:'Inter',size:12};
+Chart.defaults.color='#8b949e';
+Chart.defaults.font=chartFont;
+const gridOpt={color:'rgba(48,54,61,0.5)'};
+
+// 売上高 7四半期
+new Chart(document.getElementById('revChart'),{
+  type:'bar',
+  data:{
+    labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25'],
+    datasets:[{
+      label:'Managed Revenue ($B)',
+      data:[50.2,43.3,43.8,46.0,45.7,47.2,46.8],
+      backgroundColor:['rgba(184,145,42,0.4)','rgba(184,145,42,0.4)','rgba(184,145,42,0.4)','rgba(184,145,42,0.5)','rgba(184,145,42,0.5)','rgba(184,145,42,0.6)','rgba(212,168,67,0.75)'],
+      borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'Managed Revenue（直近7四半期, $B）',color:'#e6edf3',font:{size:13,weight:'700'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(1)+'B'}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(0)+'B'},min:40},x:{grid:{display:false}}}
+  }
+});
+
+// EPS 7四半期
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25'],
+    datasets:[{
+      label:'EPS (Diluted, $)',
+      data:[6.12,4.37,4.81,5.07,5.24,5.07,4.63],
+      backgroundColor:['rgba(88,166,255,0.4)','rgba(88,166,255,0.4)','rgba(88,166,255,0.4)','rgba(88,166,255,0.5)','rgba(63,185,80,0.55)','rgba(88,166,255,0.55)','rgba(255,123,114,0.6)'],
+      borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#3fb950','#58a6ff','#ff7b72'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'EPS（直近7四半期, $）Q2 24はVisa株売却益含む',color:'#e6edf3',font:{size:13,weight:'700'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)},min:4},x:{grid:{display:false}}}
+  }
+});
+
+// 収益性トレンド
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25'],
+    datasets:[
+      {label:'ROTCE (%)',data:[28,19,21,21,21,20,18],borderColor:'#D4A843',fill:false,tension:.3,pointRadius:4},
+      {label:'ROE (%)',data:[23,16,17,18,18,17,15],borderColor:'#58a6ff',fill:false,tension:.3,pointRadius:4},
+      {label:'Overhead Ratio (%)',data:[49,54,53,51,52,52,51],borderColor:'#bc8cff',fill:false,tension:.3,pointRadius:4,borderDash:[5,3]}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
+      title:{display:true,text:'ROTCE / ROE / Overhead Ratio 推移',color:'#e6edf3',font:{size:13,weight:'700'}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:10,max:60},x:{grid:{display:false}}}
+  }
+});
+</script>
+
+<!-- Portal link -->
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">2026ガイダンス vs コンセンサス</span></a></li>
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">収益性・資本効率トレンド</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">預金・貸出・資本（CF代替）</span></a></li>
+      <li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">🏦</span><span class="toc-label">銀行特有KPI（CET1/ROTCE/NIM）</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別業績</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}
+</script>
+</body>
+</html>
