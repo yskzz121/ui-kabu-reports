@@ -185,8 +185,16 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
 .portal-link svg{flex-shrink:0}
 
+/* === Currency Toggle === */
+.currency-toggle-btn{background:rgba(46,204,113,0.10);border:1px solid rgba(46,204,113,0.35);color:#7be095;font-family:'Inter','Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:4px;margin-right:8px}
+.currency-toggle-btn:hover{background:rgba(46,204,113,0.22);color:#fff}
+.currency-toggle-btn .cur-alt{opacity:.55}
+.currency-toggle-btn.jpy{background:rgba(184,145,42,0.12);border-color:rgba(184,145,42,0.45);color:#D4A843}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode{color:#D4A843}
+
 /* === 企業概要ドロップダウン（ヘッダー内） === */
-.overview-toggle-wrap{position:absolute;top:14px;right:18px;z-index:2}
+.overview-toggle-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
 .overview-toggle-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:#D4A843;font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .overview-toggle-btn:hover{background:rgba(184,145,42,0.22);color:#F5F2EC}
 .overview-toggle-btn .chev{transition:transform .25s;display:inline-block}
@@ -245,6 +253,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 <!-- Header -->
 <div class="header">
   <div class="overview-toggle-wrap">
+    <button class="currency-toggle-btn" id="currencyToggleBtn" onclick="toggleCurrency()" title="USD/JPY 切替（レート: 159.0円/$、2026/4/15）"><span id="currencyLabel">USD</span> ⇄ <span class="cur-alt">JPY</span></button>
     <button class="overview-toggle-btn" id="overviewToggleBtn" onclick="toggleOverview()">📖 企業概要 <span class="chev">▼</span></button>
   </div>
   <div class="header-content">
@@ -1161,6 +1170,109 @@ function toggleOverview(){
   if(!dd||!btn)return;
   dd.classList.toggle('open');
   btn.classList.toggle('open');
+}
+
+/* === USD/JPY Currency Toggle === */
+var FX_RATE = 159.0;  // USD/JPY as of 2026-04-15
+var FX_DATE = '2026/4/15';
+var currencyMode = 'USD';
+
+function fmtJPY(usd, unit){
+  // unit: T, B, M, K, '' (per share / small)
+  var usd_b = unit==='T' ? usd*1000 : unit==='B' ? usd : unit==='M' ? usd/1000 : unit==='K' ? usd/1e6 : null;
+  if(usd_b !== null){
+    var jpy_b = usd_b * FX_RATE;  // billion JPY
+    if(jpy_b >= 1000) return '¥' + (jpy_b/1000).toFixed(2) + '兆';
+    if(jpy_b >= 1) return '¥' + (jpy_b*10).toFixed(0) + '億';
+    return '¥' + (jpy_b*1000).toFixed(0) + '百万';
+  }
+  // per-share / small dollar: usd is plain $XXX.XX
+  var jpy = usd * FX_RATE;
+  if(jpy >= 10000) return '¥' + (jpy/10000).toFixed(2) + '万';
+  return '¥' + Math.round(jpy).toLocaleString();
+}
+
+/* On first toggle: walk DOM, wrap matched $X[T|B|M|K]? patterns into <span class="cur-val"> */
+var WRAP_DONE = false;
+function wrapCurrencyValues(){
+  if(WRAP_DONE) return;
+  WRAP_DONE = true;
+  var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+  var skipTags = {SCRIPT:1, STYLE:1, NOSCRIPT:1, BUTTON:1, A:1};
+  var skipClasses = ['portal-link','currency-toggle-btn','overview-toggle-btn','toc-toggle','toc-list','tradingview-widget-container'];
+  function shouldSkip(node){
+    var p = node.parentNode;
+    while(p && p !== document.body){
+      if(skipTags[p.tagName]) return true;
+      if(p.classList){
+        for(var i=0;i<skipClasses.length;i++) if(p.classList.contains(skipClasses[i])) return true;
+      }
+      p = p.parentNode;
+    }
+    return false;
+  }
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  var nodes = [];
+  var n;
+  while((n = walker.nextNode())){
+    if(n.nodeValue && n.nodeValue.indexOf('$') >= 0 && !shouldSkip(n)) nodes.push(n);
+  }
+  nodes.forEach(function(node){
+    var text = node.nodeValue;
+    if(!re.test(text)) return;
+    re.lastIndex = 0;
+    var frag = document.createDocumentFragment();
+    var lastIdx = 0;
+    var m;
+    while((m = re.exec(text)) !== null){
+      if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
+      var num = parseFloat(m[1].replace(/,/g,''));
+      var unit = m[2] || '';
+      var span = document.createElement('span');
+      span.className = 'cur-val';
+      span.setAttribute('data-usd', num);
+      span.setAttribute('data-unit', unit);
+      span.setAttribute('data-orig', m[0]);
+      span.textContent = m[0];
+      frag.appendChild(span);
+      lastIdx = m.index + m[0].length;
+    }
+    if(lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+
+function applyCurrency(mode){
+  document.querySelectorAll('.cur-val').forEach(function(el){
+    if(mode === 'JPY'){
+      var usd = parseFloat(el.getAttribute('data-usd'));
+      var unit = el.getAttribute('data-unit') || '';
+      el.textContent = fmtJPY(usd, unit);
+      el.classList.add('jpy-mode');
+    } else {
+      el.textContent = el.getAttribute('data-orig');
+      el.classList.remove('jpy-mode');
+    }
+  });
+}
+
+function toggleCurrency(){
+  wrapCurrencyValues();
+  currencyMode = currencyMode === 'USD' ? 'JPY' : 'USD';
+  applyCurrency(currencyMode);
+  var btn = document.getElementById('currencyToggleBtn');
+  var lbl = document.getElementById('currencyLabel');
+  if(currencyMode === 'JPY'){
+    btn.classList.add('jpy');
+    lbl.textContent = 'JPY';
+    btn.querySelector('.cur-alt').textContent = 'USD';
+    btn.title = '円表示中（レート: ' + FX_RATE + '円/$、' + FX_DATE + '）';
+  } else {
+    btn.classList.remove('jpy');
+    lbl.textContent = 'USD';
+    btn.querySelector('.cur-alt').textContent = 'JPY';
+    btn.title = 'USD/JPY 切替（レート: ' + FX_RATE + '円/$、' + FX_DATE + '）';
+  }
 }
 </script>
 </body>
