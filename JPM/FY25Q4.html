@@ -284,7 +284,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 
 <!-- Top Panel: 株価 + コンセンサス比較 -->
 <div class="top-panel">
-  <div class="price-panel">
+  <div class="price-panel no-currency">
     <h3>💹 株価</h3>
     <div class="price-row">
       <span class="lbl">決算発表日<span class="sub">2026/1/13（発表翌営業日終値）</span></span>
@@ -706,14 +706,14 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div style="font-size:1.8rem;color:var(--gold2,#D4A843);font-weight:700">=</div>
         <div>
           <div class="card-label" style="margin-bottom:6px;color:var(--gold,#B8912A)">想定株価</div>
-          <div class="card-val pos" style="font-size:2.6rem;font-weight:900;color:var(--gold,#B8912A)">$272.50</div>
+          <div class="card-val pos no-currency" style="font-size:2.6rem;font-weight:900;color:var(--gold,#B8912A)">$272.50</div>
           <div class="card-sub" style="font-size:.72rem">NTM Fair Value</div>
         </div>
       </div>
       <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid rgba(184,145,42,0.15)">
         <div style="text-align:center">
           <div class="card-label" style="font-size:.78rem;margin-bottom:4px">現株価</div>
-          <div style="font-size:1.3rem;font-weight:700;color:var(--text-main,#e6edf3)">$302.00</div>
+          <div class="no-currency" style="font-size:1.3rem;font-weight:700;color:var(--text-main,#e6edf3)">$302.00</div>
         </div>
         <div style="text-align:center">
           <div class="card-label" style="font-size:.78rem;margin-bottom:4px">乖離率（想定株価 vs 現株価）</div>
@@ -726,7 +726,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
       </div>
     </div>
     <div class="insight" style="margin-top:16px;font-size:.82rem">
-      <strong>補足:</strong> バリュエーション3シナリオ（Forward PE基準: LOW $240 / MID $301 / HIGH $360）とは<strong>補完関係</strong>にある指標。Forward PE基準のMID $301 は現株価 $302 にほぼ一致するが、過去3年平均PER（12.5x）に照らすと $272.50 となり、直近の市場がJPMに対してやや高めのマルチプルを付与していることが分かる。
+      <strong>補足:</strong> バリュエーション3シナリオ（<span class="no-currency">Forward PE基準: LOW $240 / MID $301 / HIGH $360</span>）とは<strong>補完関係</strong>にある指標。<span class="no-currency">Forward PE基準のMID $301 は現株価 $302 にほぼ一致するが、過去3年平均PER（12.5x）に照らすと $272.50</span> となり、直近の市場がJPMに対してやや高めのマルチプルを付与していることが分かる。
     </div>
   </div>
 </div>
@@ -768,12 +768,12 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
   <div class="section-title">📉 テクニカル分析</div>
   <div class="section-body">
     <div class="grid tech-grid">
-      <div class="card">
+      <div class="card no-currency">
         <div class="card-label">現在株価</div>
         <div class="card-val neu">$302〜$309</div>
         <div class="card-sub">2026年4月8日時点</div>
       </div>
-      <div class="card">
+      <div class="card no-currency">
         <div class="card-label">52週レンジ</div>
         <div class="card-val neu">$215 — $310</div>
         <div class="card-sub">52週高値圏で推移</div>
@@ -788,12 +788,12 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div class="card-val neu">~55</div>
         <div class="card-sub">中立〜やや強気ゾーン</div>
       </div>
-      <div class="card">
+      <div class="card no-currency">
         <div class="card-label">50日 SMA</div>
         <div class="card-val pos">~$290</div>
         <div class="card-sub">上向き。株価は上に位置</div>
       </div>
-      <div class="card">
+      <div class="card no-currency">
         <div class="card-label">200日 EMA</div>
         <div class="card-val pos">~$260</div>
         <div class="card-sub">上向き。中長期トレンド継続</div>
@@ -803,13 +803,13 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div class="card-val neu">中立〜やや強気</div>
         <div class="card-sub">ヒストグラム 0 近辺</div>
       </div>
-      <div class="card">
+      <div class="card no-currency">
         <div class="card-label">サポート / レジスタンス</div>
         <div class="card-val neu">S $280 / R $310</div>
         <div class="card-sub">第2S $255、R超えで $330（平均目標）</div>
       </div>
     </div>
-    <div class="insight" style="margin-top:14px">
+    <div class="insight no-currency" style="margin-top:14px">
       <strong>チャートパターン:</strong> 上昇トレンドチャネルを維持。決算前は水平もみ合い後、Q4決算のヘッドラインEPS下振れで一時調整も、除外ベースの強さと株主還元で押し目買い継続。<br>
       <strong>総合判定: 中立〜やや強気</strong> — 年初来+1%、直近6ヶ月+8%。52週高値$310を明確にブレイクすれば$330（アナリスト平均目標）へのパス。下値$280（50日SMA）・$255（100日SMA）がサポート。
     </div>
@@ -935,7 +935,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 <div class="section" data-accordion id="sec-valuation">
   <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
   <div class="section-body">
-    <div class="val-grid">
+    <div class="val-grid no-currency">
       <div class="val-card low">
         <div class="scenario">LOW（保守的）</div>
         <div class="price">$240</div>
@@ -955,7 +955,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
         <div class="gap pos">現在株価比 +19%</div>
       </div>
     </div>
-    <div class="insight" style="margin-top:16px">
+    <div class="insight no-currency" style="margin-top:16px">
       <strong>判定: 適正</strong> — MID 想定株価 $301 vs 現在株価 $302（乖離率 <span class="neu">-0.3%</span>）。市場は既に コンセンサス $21.50 × PER 14x を織り込んでおり、ここからの上昇余地は EPS 上方修正 or PER レーティングのどちらか次第。アナリスト平均目標 <strong>$330.53</strong>（+7.6%）、Goldman Sachs <strong>$365</strong>（Buy）、Morgan Stanley <strong>$334</strong>。Forward PER 14.14・配当利回り 1.98% は過去レンジの中央値〜やや上端。<br>
       上方リスク: M&amp;A回復・Markets NII倍増・後継CEO確定によるディスカウント解消。<br>
       下方リスク: 追加Card関連引当・利下げによるNII減退・Expense +10%のJaws悪化。
@@ -978,17 +978,17 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
       <div class="card-val pos">Buy</div>
       <div class="card-sub">Buy優勢</div>
     </div>
-    <div class="card">
+    <div class="card no-currency">
       <div class="card-label">平均目標株価</div>
       <div class="card-val pos">$330.53</div>
       <div class="card-sub">現在株価から<span class="pos">+7.6%</span></div>
     </div>
-    <div class="card">
+    <div class="card no-currency">
       <div class="card-label">Goldman Sachs</div>
       <div class="card-val pos">Buy / $365</div>
       <div class="card-sub">強気</div>
     </div>
-    <div class="card">
+    <div class="card no-currency">
       <div class="card-label">Morgan Stanley</div>
       <div class="card-val gold">$334</div>
       <div class="card-sub">目標株価</div>
@@ -1199,7 +1199,7 @@ function wrapCurrencyValues(){
   WRAP_DONE = true;
   var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
   var skipTags = {SCRIPT:1, STYLE:1, NOSCRIPT:1, BUTTON:1, A:1};
-  var skipClasses = ['portal-link','currency-toggle-btn','overview-toggle-btn','toc-toggle','toc-list','tradingview-widget-container'];
+  var skipClasses = ['portal-link','currency-toggle-btn','overview-toggle-btn','toc-toggle','toc-list','tradingview-widget-container','no-currency'];
   function shouldSkip(node){
     var p = node.parentNode;
     while(p && p !== document.body){
