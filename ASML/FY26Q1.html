@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="icon" type="image/png" href="../favicon.png">
-<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 152.5, date: '2026/4/16', fmt:'cjk-ja' };</script>
+<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 152.5, eurRate: 165.0, date: '2026/4/16', fmt:'cjk-ja' };</script>
 <style>
 :root{
   --bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;
@@ -233,7 +233,7 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
   </div>
   <div class="header-content">
     <div class="header-logo-row">
-      <img class="report-header-logo" src="../logos/ASML.svg" alt="ASML">
+      <img class="report-header-logo" src="../logos/ASML.png" alt="ASML" style="border-radius:8px;background:#fff">
       <div class="ticker-badge">NASDAQ: ASML</div>
     </div>
     <h1>ASML Holding N.V. 決算分析</h1>
@@ -1053,26 +1053,27 @@ function toggleOverview(){
   var currencyMode = localStorage.getItem(localKey) || 'USD';
   if(currencyMode !== 'USD' && currencyMode !== FX.code) currencyMode = FX.code;
 
-  function fmtLocal(usd, unit){
-    var usd_b = unit==='T'?usd*1000:unit==='B'?usd:unit==='M'?usd/1000:unit==='K'?usd/1e6:null;
+  function fmtLocal(amt, unit, sym){
+    var rate = (sym === '€' && FX.eurRate) ? FX.eurRate : FX.rate;
+    var amt_b = unit==='T'?amt*1000:unit==='B'?amt:unit==='M'?amt/1000:unit==='K'?amt/1e6:null;
     if(FX.fmt === 'cjk-ja'){
-      if(usd_b !== null){
-        var jpy_b = usd_b * FX.rate;
+      if(amt_b !== null){
+        var jpy_b = amt_b * rate;
         if(jpy_b >= 1000) return FX.symbol + (jpy_b/1000).toFixed(2) + '兆';
         if(jpy_b >= 1) return FX.symbol + (jpy_b*10).toFixed(0) + '億';
         return FX.symbol + (jpy_b*1000).toFixed(0) + '百万';
       }
-      var jpy = usd * FX.rate;
+      var jpy = amt * rate;
       if(jpy >= 10000) return FX.symbol + (jpy/10000).toFixed(2) + '万';
       return FX.symbol + Math.round(jpy).toLocaleString();
     }
-    return FX.symbol + Math.round(usd * FX.rate).toLocaleString();
+    return FX.symbol + Math.round(amt * rate).toLocaleString();
   }
 
   var WRAP_DONE = false;
   function wrapCurrencyValues(){
     if(WRAP_DONE) return; WRAP_DONE = true;
-    var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+    var re = /([\$€])(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
     var skipTags = {SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
     var skipClasses = ['portal-link','currency-toggle','theme-toggle-btn','toc-toggle','toc-list','tradingview-widget-container','no-currency','overview-toggle-btn'];
     function shouldSkip(node){
@@ -1086,7 +1087,7 @@ function toggleOverview(){
     }
     var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
     var nodes = [], n;
-    while((n = walker.nextNode())){ if(n.nodeValue && n.nodeValue.indexOf('$') >= 0 && !shouldSkip(n)) nodes.push(n); }
+    while((n = walker.nextNode())){ if(n.nodeValue && (n.nodeValue.indexOf('$') >= 0 || n.nodeValue.indexOf('€') >= 0) && !shouldSkip(n)) nodes.push(n); }
     nodes.forEach(function(node){
       var text = node.nodeValue;
       if(!re.test(text)) return;
@@ -1095,10 +1096,12 @@ function toggleOverview(){
       var lastIdx = 0, m;
       while((m = re.exec(text)) !== null){
         if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
-        var num = parseFloat(m[1].replace(/,/g,''));
-        var unit = m[2] || '';
+        var sym = m[1];
+        var num = parseFloat(m[2].replace(/,/g,''));
+        var unit = m[3] || '';
         var span = document.createElement('span');
         span.className = 'cur-val';
+        span.setAttribute('data-sym', sym);
         span.setAttribute('data-usd', num);
         span.setAttribute('data-unit', unit);
         span.setAttribute('data-orig', m[0]);
@@ -1116,7 +1119,8 @@ function toggleOverview(){
       if(mode !== 'USD'){
         var usd = parseFloat(el.getAttribute('data-usd'));
         var unit = el.getAttribute('data-unit') || '';
-        el.textContent = fmtLocal(usd, unit);
+        var sym = el.getAttribute('data-sym') || '$';
+        el.textContent = fmtLocal(usd, unit, sym);
         el.classList.add('local-mode','jpy-mode');
       } else {
         el.textContent = el.getAttribute('data-orig');
