@@ -478,7 +478,7 @@ body {
   body{padding-bottom:60px!important}
 }</style>
 <link href="../favicon.png" rel="icon" type="image/png"/>
-  <script>window.ATLAS_FX = { rate: 158.82, date: "2026/4/15" };</script>
+  <script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 158.82, date: '2026/4/15', fmt: 'cjk-ja' };</script>
 </head>
 <body>
 <!-- Atlas Currency Toggle (floating, top-right) -->
@@ -493,7 +493,10 @@ body {
 .cur-val{transition:color .2s}
 .cur-val.jpy-mode{color:#D4A843}
 </style>
-<div class="atlas-floating-currency"><button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button></div>
+<div class="atlas-floating-tools">
+  <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
+  <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
+</div>
 
 <!-- Header -->
 <div class="header">
@@ -1291,9 +1294,53 @@ function toggleAllSections(expand){
     if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
   });
 }</script><script>
-/* === Atlas Currency Toggle (USD ⇄ JPY) ===
- * Usage: set window.ATLAS_FX = { rate: 159.0, date: '2026/4/15' } before loading,
- * or rely on the inline default below. Persists user choice to localStorage.
+
+
+</script>
+
+<!-- ATLAS_PHASE_A_V1 begin -->
+<style>
+/* === Atlas Floating Tools (Phase A V1 — currency + theme) === */
+.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;transition:all .15s;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:600;white-space:nowrap}
+.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
+.atlas-floating-tools .currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.atlas-floating-tools .currency-toggle .cur-inactive{color:inherit;opacity:.5}
+.atlas-floating-tools .currency-toggle .cur-sep{opacity:.35;margin:0 1px;font-weight:400}
+.atlas-floating-tools .currency-toggle.jpy-mode,.atlas-floating-tools .currency-toggle.local-mode{border-color:rgba(184,145,42,0.6);background:rgba(184,145,42,0.12)}
+.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode,.cur-val.local-mode{color:#D4A843;font-weight:700}
+
+/* === Light Theme Overrides === */
+html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
+html[data-theme="light"] .container,html[data-theme="light"] .section,html[data-theme="light"] .card,html[data-theme="light"] .kpi-card,html[data-theme="light"] .metric-card,html[data-theme="light"] .risk-card,html[data-theme="light"] .news-card{background:#FDFCFA!important;border-color:rgba(26,37,64,0.12)!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
+html[data-theme="light"] .header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
+html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3,html[data-theme="light"] h4{color:#1A2540!important}
+html[data-theme="light"] .header h1,html[data-theme="light"] .header h2,html[data-theme="light"] .header h3,html[data-theme="light"] .header *{color:#F5F2EC!important}
+html[data-theme="light"] .header .subtitle,html[data-theme="light"] .header .date{color:rgba(245,242,236,0.75)!important}
+html[data-theme="light"] .muted,html[data-theme="light"] .text-sub,html[data-theme="light"] .subtitle,html[data-theme="light"] [class*="sub"],html[data-theme="light"] small{color:#6e7681!important}
+html[data-theme="light"] a{color:#B8912A}
+html[data-theme="light"] table,html[data-theme="light"] th,html[data-theme="light"] td{border-color:rgba(26,37,64,0.15)!important;color:#1A2540!important}
+html[data-theme="light"] th{background:rgba(184,145,42,0.08)!important}
+html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15);box-shadow:0 2px 12px rgba(26,37,64,.1)}
+html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
+html[data-theme="light"] .atlas-floating-tools .currency-toggle:hover,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn:hover{color:#B8912A;border-color:rgba(184,145,42,0.55);background:rgba(184,145,42,0.08)}
+html[data-theme="light"] .atlas-floating-tools .currency-toggle .cur-active{color:#B8912A}
+html[data-theme="light"] .cur-val.jpy-mode,html[data-theme="light"] .cur-val.local-mode{color:#B8912A}
+html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:rgba(26,37,64,0.15)!important;color:#B8912A!important;box-shadow:0 2px 8px rgba(26,37,64,.08)}
+/* /* * */ end ATLAS_PHASE_A_V1 theme overrides */
+</style>
+<script>
+/* === Atlas Currency Toggle (USD ⇄ 現地通貨) ===
+ * Multi-currency support (2026-04-15 updated).
+ *
+ * Configuration via window.ATLAS_FX:
+ *   { code: 'JPY', symbol: '¥', rate: 158.45, date: '2026/4/14', fmt: 'cjk-ja' }
+ *   { code: 'HKD', symbol: 'HK$', rate: 7.78,  date: '2026/4/14', fmt: 'western' }
+ *   { code: 'KRW', symbol: '₩',  rate: 1420,   date: '2026/4/14', fmt: 'cjk-ko' }
+ *
+ * If ATLAS_FX is undefined or { code: 'USD' }, the toggle is auto-hidden.
  *
  * HTML button:
  *   <button class="currency-toggle" onclick="toggleCurrency()">
@@ -1301,26 +1348,83 @@ function toggleAllSections(expand){
  *   </button>
  *
  * Skip containers: add class "no-currency" to any element whose $ values
- * must stay in USD (stock prices, target prices, support/resistance, etc.)
+ * must stay in USD (stock prices, commodity prices, market caps in 兆, etc.)
  */
 (function(){
   if(window.__ATLAS_CURRENCY_LOADED) return;
   window.__ATLAS_CURRENCY_LOADED = true;
 
-  var FX = window.ATLAS_FX || { rate: 159.0, date: '2026/4/15' };
-  var currencyMode = localStorage.getItem('atlas-currency') || 'USD';
+  var FX = window.ATLAS_FX;
 
-  function fmtJPY(usd, unit){
+  // If no config or USD-only, hide all currency toggles and stop
+  if(!FX || !FX.code || FX.code === 'USD'){
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.currency-toggle').forEach(function(b){ b.style.display = 'none'; });
+    });
+    window.toggleCurrency = function(){};
+    return;
+  }
+
+  // Defaults for backward compatibility (old JP-only config without code/symbol)
+  if(!FX.code) FX.code = 'JPY';
+  if(!FX.symbol) FX.symbol = '¥';
+  if(!FX.fmt) FX.fmt = 'cjk-ja';
+
+  var localKey = 'atlas-currency';
+  var currencyMode = localStorage.getItem(localKey) || 'USD';
+  // Normalize legacy 'JPY' mode for non-JPY languages
+  if(currencyMode !== 'USD' && currencyMode !== FX.code) currencyMode = FX.code;
+
+  function fmtLocal(usd, unit){
+    // usd_b = amount in billions USD
     var usd_b = unit==='T'?usd*1000:unit==='B'?usd:unit==='M'?usd/1000:unit==='K'?usd/1e6:null;
-    if(usd_b !== null){
-      var jpy_b = usd_b * FX.rate;
-      if(jpy_b >= 1000) return '¥' + (jpy_b/1000).toFixed(2) + '兆';
-      if(jpy_b >= 1) return '¥' + (jpy_b*10).toFixed(0) + '億';
-      return '¥' + (jpy_b*1000).toFixed(0) + '百万';
+
+    if(FX.fmt === 'cjk-ja'){
+      // 日本円: 万 / 億 / 兆
+      if(usd_b !== null){
+        var jpy_b = usd_b * FX.rate;
+        if(jpy_b >= 1000) return FX.symbol + (jpy_b/1000).toFixed(2) + '兆';
+        if(jpy_b >= 1) return FX.symbol + (jpy_b*10).toFixed(0) + '億';
+        return FX.symbol + (jpy_b*1000).toFixed(0) + '百万';
+      }
+      var jpy = usd * FX.rate;
+      if(jpy >= 10000) return FX.symbol + (jpy/10000).toFixed(2) + '万';
+      return FX.symbol + Math.round(jpy).toLocaleString();
     }
-    var jpy = usd * FX.rate;
-    if(jpy >= 10000) return '¥' + (jpy/10000).toFixed(2) + '万';
-    return '¥' + Math.round(jpy).toLocaleString();
+
+    if(FX.fmt === 'cjk-ko'){
+      // 韓国ウォン: 만 / 억 / 조
+      // 1억 = 1e8 KRW, 1조 = 1e12 KRW
+      if(usd_b !== null){
+        var krw_b = usd_b * FX.rate; // billions of KRW = 1e9 KRW each
+        // 1 billion KRW = 10억. So krw_b billions = krw_b * 10 억
+        // If krw_b >= 1000 (i.e., 1T KRW = 1조): express in 조
+        if(krw_b >= 1000) return FX.symbol + (krw_b/1000).toFixed(2) + '조';
+        // Else express in 억
+        return FX.symbol + (krw_b*10).toFixed(0) + '억';
+      }
+      var krw = usd * FX.rate;
+      if(krw >= 10000) return FX.symbol + (krw/10000).toFixed(2) + '만';
+      return FX.symbol + Math.round(krw).toLocaleString();
+    }
+
+    if(FX.fmt === 'western'){
+      // HKD / EUR / GBP etc: K / M / B / T
+      if(usd_b !== null){
+        var x_b = usd_b * FX.rate;
+        if(x_b >= 1000) return FX.symbol + (x_b/1000).toFixed(2) + 'T';
+        if(x_b >= 1) return FX.symbol + x_b.toFixed(2) + 'B';
+        return FX.symbol + (x_b*1000).toFixed(0) + 'M';
+      }
+      var x = usd * FX.rate;
+      if(x >= 1e9) return FX.symbol + (x/1e9).toFixed(2) + 'B';
+      if(x >= 1e6) return FX.symbol + (x/1e6).toFixed(2) + 'M';
+      if(x >= 1e3) return FX.symbol + (x/1e3).toFixed(1) + 'K';
+      return FX.symbol + Math.round(x).toLocaleString();
+    }
+
+    // Fallback
+    return FX.symbol + Math.round(usd * FX.rate).toLocaleString();
   }
 
   var WRAP_DONE = false;
@@ -1328,7 +1432,7 @@ function toggleAllSections(expand){
     if(WRAP_DONE) return; WRAP_DONE = true;
     var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
     var skipTags = {SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
-    var skipClasses = ['portal-link','currency-toggle','theme-toggle','font-scale-btn','lang-switch','toc-toggle','toc-list','tradingview-widget-container','no-currency','nav-hamburger','overview-toggle-btn'];
+    var skipClasses = ['portal-link','currency-toggle','theme-toggle','font-scale-btn','lang-switch','lang-menu','toc-toggle','toc-list','tradingview-widget-container','no-currency','nav-hamburger','overview-toggle-btn','market-panels'];
     function shouldSkip(node){
       var p = node.parentNode;
       while(p && p !== document.body){
@@ -1371,13 +1475,15 @@ function toggleAllSections(expand){
 
   function applyCurrency(mode){
     document.querySelectorAll('.cur-val').forEach(function(el){
-      if(mode === 'JPY'){
+      if(mode !== 'USD'){
         var usd = parseFloat(el.getAttribute('data-usd'));
         var unit = el.getAttribute('data-unit') || '';
-        el.textContent = fmtJPY(usd, unit);
-        el.classList.add('jpy-mode');
+        el.textContent = fmtLocal(usd, unit);
+        el.classList.add('local-mode');
+        el.classList.add('jpy-mode'); // backward compat
       } else {
         el.textContent = el.getAttribute('data-orig');
+        el.classList.remove('local-mode');
         el.classList.remove('jpy-mode');
       }
     });
@@ -1385,37 +1491,71 @@ function toggleAllSections(expand){
       var act = btn.querySelector('.cur-active');
       var inact = btn.querySelector('.cur-inactive');
       if(!act || !inact) return;
-      if(mode === 'JPY'){
-        btn.classList.add('jpy-mode');
-        act.textContent = '¥'; inact.textContent = '$';
-        btn.title = '円表示中（レート: ' + FX.rate + '円/$、' + FX.date + '）';
+      if(mode !== 'USD'){
+        btn.classList.add('local-mode','jpy-mode');
+        act.textContent = FX.symbol; inact.textContent = '$';
+        btn.title = FX.code + '表示中（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
       } else {
-        btn.classList.remove('jpy-mode');
-        act.textContent = '$'; inact.textContent = '¥';
-        btn.title = 'USD/JPY 切替（レート: ' + FX.rate + '円/$、' + FX.date + '）';
+        btn.classList.remove('local-mode','jpy-mode');
+        act.textContent = '$'; inact.textContent = FX.symbol;
+        btn.title = 'USD ⇄ ' + FX.code + ' 切替（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
       }
+    });
+  }
+
+  // Init toggle button's inactive symbol before any click
+  function initButtons(){
+    document.querySelectorAll('.currency-toggle').forEach(function(btn){
+      var inact = btn.querySelector('.cur-inactive');
+      if(inact && inact.textContent === '¥') inact.textContent = FX.symbol;
     });
   }
 
   window.toggleCurrency = function(){
     wrapCurrencyValues();
-    currencyMode = currencyMode === 'USD' ? 'JPY' : 'USD';
-    localStorage.setItem('atlas-currency', currencyMode);
+    currencyMode = currencyMode === 'USD' ? FX.code : 'USD';
+    localStorage.setItem(localKey, currencyMode);
     applyCurrency(currencyMode);
   };
 
-  // Initial: if saved JPY, auto-apply on DOM ready
   document.addEventListener('DOMContentLoaded', function(){
-    if(currencyMode === 'JPY'){
+    initButtons();
+    if(currencyMode !== 'USD'){
       wrapCurrencyValues();
-      applyCurrency('JPY');
+      applyCurrency(currencyMode);
     } else {
-      // still init button tooltip
       applyCurrency('USD');
     }
   });
 })();
 
 </script>
+
+<script>
+/* Atlas Theme Toggle (Phase A V1) */
+(function(){
+  var html = document.documentElement;
+  var KEY = 'atlas-theme';
+  // Reports default to dark (no attr = dark). If user stored 'light', apply it.
+  function applyTheme(t){
+    if(t === 'light'){ html.setAttribute('data-theme','light'); }
+    else { html.removeAttribute('data-theme'); }
+    document.querySelectorAll('.theme-toggle-btn').forEach(function(b){
+      b.textContent = (t === 'light') ? '🌙' : '☀️';
+      b.title = (t === 'light') ? 'ダークモードに切替' : 'ライトモードに切替';
+    });
+  }
+  var saved = localStorage.getItem(KEY) || 'dark';
+  applyTheme(saved);
+  window.toggleAtlasTheme = function(){
+    var cur = localStorage.getItem(KEY) || 'dark';
+    var next = cur === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(KEY, next);
+    applyTheme(next);
+  };
+})();
+</script>
+<!-- ATLAS_PHASE_A_V1 end -->
+
 </body>
 </html>
