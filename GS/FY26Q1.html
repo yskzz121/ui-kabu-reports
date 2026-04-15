@@ -56,7 +56,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .tag{font-size:.75rem;padding:3px 12px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25)}
 
 /* Score */
-.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(184,145,42,.08),rgba(88,166,255,.04));border-radius:16px;border:1px solid var(--border)}
+.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:var(--card);border-radius:16px;border:1px solid var(--border)}
 .score-badge{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:16px 32px;margin-bottom:14px}
 .score-num{font-size:3rem;font-weight:900;color:var(--gold2)}
 .score-icon{font-size:2.5rem}
@@ -92,18 +92,9 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .risk-card.bear li::before{color:var(--rl)}
 
 .val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
-.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,.08),rgba(46,160,67,.03));border-color:rgba(46,160,67,.3)}
-.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.03));border-color:rgba(88,166,255,.3)}
-.val-card.high{background:linear-gradient(135deg,rgba(139,32,32,.1),rgba(188,140,255,.04));border-color:rgba(188,140,255,.3)}
-.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px}
-.val-card.low .scenario{color:var(--gl)}
-.val-card.mid .scenario{color:var(--blue)}
-.val-card.high .scenario{color:var(--purple)}
-.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px}
-.val-card.low .price{color:var(--gl)}
-.val-card.mid .price{color:var(--blue)}
-.val-card.high .price{color:var(--purple)}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border);background:var(--card)}
+.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px;color:var(--gold2)}
+.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px;color:var(--t1)}
 .val-card .detail{font-size:.78rem;color:var(--t2);line-height:1.6}
 .val-card .gap{font-size:.85rem;font-weight:700;margin-top:8px;font-family:'Inter',sans-serif}
 
@@ -219,7 +210,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .price-row .lbl{font-size:.78rem;color:var(--t2)}
 .price-row .val{font-size:1.3rem;font-weight:800;color:var(--t1);font-family:'Inter',sans-serif}
 .price-row .sub{font-size:.72rem;color:var(--t3);display:block;margin-top:2px}
-.price-change-big{background:linear-gradient(135deg,rgba(63,185,80,.12),rgba(63,185,80,.04));border:1px solid rgba(63,185,80,.3);border-radius:10px;padding:10px 14px;margin-top:12px;text-align:center}
+.price-change-big{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-top:12px;text-align:center}
 .price-change-big .pct{font-size:1.5rem;font-weight:900;color:var(--gl);font-family:'Inter',sans-serif}
 .price-change-big .lbl{font-size:.7rem;color:var(--t2);margin-top:2px}
 
@@ -300,7 +291,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
       <span class="lbl">時価総額</span>
       <span class="val">約 $282B</span>
     </div>
-    <div class="price-change-big" style="background:linear-gradient(135deg,rgba(255,123,114,.12),rgba(255,123,114,.04));border-color:rgba(255,123,114,.3)">
+    <div class="price-change-big">
       <div class="pct" style="color:var(--rl)">-3%</div>
       <div class="lbl">Pre-market 反応（FICC未達を嫌気）</div>
     </div>
@@ -845,7 +836,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
     </div>
 
     <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">NTM想定株価（補完的バリュエーション指標）</h3>
-    <div class="card" style="padding:32px 24px;text-align:center;background:linear-gradient(135deg, rgba(184,145,42,0.08) 0%, rgba(26,37,64,0.4) 100%);border:1px solid rgba(184,145,42,0.3);position:relative">
+    <div class="card" style="padding:32px 24px;text-align:center;background:var(--card);border:1px solid var(--border);position:relative">
       <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:16px;align-items:center;max-width:900px;margin:0 auto 20px">
         <div>
           <div class="card-label" style="margin-bottom:6px">NTM EPS（コンセンサス）</div>
