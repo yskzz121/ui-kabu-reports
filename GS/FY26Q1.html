@@ -78,7 +78,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .chart-wrap{position:relative;height:300px}
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;font-size:.9rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
+.insight{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 22px;font-size:.9rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
 .insight strong{color:var(--t1)}
 
 .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -178,8 +178,8 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .portal-link svg{flex-shrink:0}
 
 /* === Currency Toggle === */
-.currency-toggle-btn{background:rgba(46,204,113,0.10);border:1px solid rgba(46,204,113,0.35);color:#7be095;font-family:'Inter','Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:4px;margin-right:8px}
-.currency-toggle-btn:hover{background:rgba(46,204,113,0.22);color:#fff}
+.currency-toggle-btn{background:var(--card);border:1px solid var(--border);color:var(--t2);font-family:'Inter','Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:4px;margin-right:8px}
+.currency-toggle-btn:hover{background:var(--border);color:var(--t1)}
 .currency-toggle-btn .cur-alt{opacity:.55}
 .currency-toggle-btn.jpy{background:rgba(184,145,42,0.12);border-color:rgba(184,145,42,0.45);color:#D4A843}
 .cur-val{transition:color .2s}
@@ -191,7 +191,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
 .overview-toggle-btn:hover{background:rgba(184,145,42,0.22);color:#F5F2EC}
 .overview-toggle-btn .chev{transition:transform .25s;display:inline-block}
 .overview-toggle-btn.open .chev{transform:rotate(180deg)}
-.overview-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid rgba(184,145,42,0.2);border-radius:12px;margin:0 0 0 0}
+.overview-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px;margin:0 0 0 0}
 .overview-dropdown.open{max-height:1200px;opacity:1;margin:0 0 28px 0;padding:22px 26px}
 .overview-dropdown h2{font-size:1rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--gold2)}
 .overview-dropdown p{font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
@@ -856,7 +856,7 @@ h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
           <div class="card-sub" style="font-size:.72rem">NTM Fair Value</div>
         </div>
       </div>
-      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid rgba(184,145,42,0.15)">
+      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
         <div style="text-align:center">
           <div class="card-label" style="font-size:.78rem;margin-bottom:4px">現株価</div>
           <div class="no-currency" style="font-size:1.3rem;font-weight:700;color:var(--text-main,#e6edf3)">$907.80</div>
@@ -956,8 +956,8 @@ new Chart(document.getElementById('epsChart'),{
     datasets:[{
       label:'EPS (Diluted, $)',
       data:[8.40,11.95,14.12,10.91,12.25,14.01,17.55],
-      backgroundColor:['rgba(88,166,255,0.4)','rgba(88,166,255,0.45)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.55)','rgba(88,166,255,0.6)','rgba(63,185,80,0.75)'],
-      borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#3fb950'],
+      backgroundColor:['rgba(184,145,42,0.4)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.55)','rgba(184,145,42,0.55)','rgba(212,168,67,0.8)'],
+      borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
       borderWidth:1,borderRadius:6
     }]
   },
