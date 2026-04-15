@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Goldman Sachs (GS) FY26 Q1 決算分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="icon" type="image/png" href="../favicon.png">
+<script>window.ATLAS_FX = { rate: 159.0, date: '2026/4/15' };</script>
+<style>
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#30363d;--t1:#e6edf3;--t2:#8b949e;--t3:#6e7681;
+  --gold:#B8912A;--gold2:#D4A843;--navy:#1A2540;--paper:#F5F2EC;
+  --gl:#3fb950;--rl:#ff7b72;--blue:#58a6ff;--bbg:rgba(88,166,255,.12);--purple:#bc8cff;--alert:#8B2020;
+  --text-sub:#8b949e;--card-border:#30363d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+h1,h2,h3,.section-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.card-val,.score-num,.price,.val-card .price{font-family:'Inter','Noto Sans JP',sans-serif}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg, #1a2332 0%, #1A2540 50%, #0F1829 100%);
+  border-bottom:1px solid rgba(184,145,42,0.15);
+  padding:40px 20px 30px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  margin-bottom:28px;
+}
+.header::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(184,145,42,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 50%, rgba(184,145,42,0.06) 0%, transparent 60%);
+}
+.header-content{position:relative;z-index:1}
+.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
+.header .subtitle{color:var(--text-sub);font-size:1.1em}
+.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
+.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
+.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px;font-family:'Inter',sans-serif}
+
+/* Overview */
+.overview{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:28px}
+.overview h2{font-size:1rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--gold2)}
+.overview p{font-size:.92rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:.75rem;padding:3px 12px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25)}
+
+/* Score */
+.score-section{text-align:center;padding:40px 20px;margin-bottom:32px;background:linear-gradient(135deg,rgba(184,145,42,.08),rgba(88,166,255,.04));border-radius:16px;border:1px solid var(--border)}
+.score-badge{display:inline-flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:16px 32px;margin-bottom:14px}
+.score-num{font-size:3rem;font-weight:900;color:var(--gold2)}
+.score-icon{font-size:2.5rem}
+.score-label{font-size:1.3rem;font-weight:700;color:var(--gold2)}
+.score-desc{color:var(--t2);font-size:.9rem;margin-top:8px;max-width:820px;margin-left:auto;margin-right:auto;line-height:1.9}
+
+/* Sections */
+.section{margin-bottom:36px}
+.section-title{font-size:1.15rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-label{font-size:.72rem;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:'Inter',sans-serif}
+.card-val{font-size:1.6rem;font-weight:700}
+.card-sub{font-size:.8rem;color:var(--t2);margin-top:4px}
+.pos{color:var(--gl)}.neg{color:var(--rl)}.neu{color:var(--t1)}.gold{color:var(--gold2)}
+
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+.chart-wrap{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;font-size:.9rem;line-height:1.9;color:var(--t2);margin-bottom:14px}
+.insight strong{color:var(--t1)}
+
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h3{font-size:.95rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.85rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(48,54,61,.5);line-height:1.7}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'•';margin-right:8px;font-weight:700}
+.risk-card.bull li::before{color:var(--gl)}
+.risk-card.bear li::before{color:var(--rl)}
+
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
+.val-card.low{background:linear-gradient(135deg,rgba(46,160,67,.08),rgba(46,160,67,.03));border-color:rgba(46,160,67,.3)}
+.val-card.mid{background:linear-gradient(135deg,rgba(88,166,255,.08),rgba(88,166,255,.03));border-color:rgba(88,166,255,.3)}
+.val-card.high{background:linear-gradient(135deg,rgba(139,32,32,.1),rgba(188,140,255,.04));border-color:rgba(188,140,255,.3)}
+.val-card .scenario{font-size:.75rem;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.val-card.low .scenario{color:var(--gl)}
+.val-card.mid .scenario{color:var(--blue)}
+.val-card.high .scenario{color:var(--purple)}
+.val-card .price{font-size:2rem;font-weight:900;margin-bottom:6px}
+.val-card.low .price{color:var(--gl)}
+.val-card.mid .price{color:var(--blue)}
+.val-card.high .price{color:var(--purple)}
+.val-card .detail{font-size:.78rem;color:var(--t2);line-height:1.6}
+.val-card .gap{font-size:.85rem;font-weight:700;margin-top:8px;font-family:'Inter',sans-serif}
+
+.tbl{width:100%;border-collapse:collapse;font-size:.88rem}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif}
+.tbl td{color:var(--t2)}
+.tbl tr:hover td{background:rgba(184,145,42,.04)}
+
+.footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--t3);font-size:.75rem;line-height:1.8}
+
+/* === Mobile Responsive === */
+.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:768px){
+  body{padding:12px!important}
+  .container{padding:12px}
+  .header{padding:28px 16px}
+  .header h1{font-size:1.4rem}
+  .header .subtitle{font-size:.95em}
+  .header-logo-row{flex-direction:column;gap:8px}
+  .report-header-logo{height:36px}
+  .ticker-badge{font-size:12px;padding:4px 12px}
+  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
+  .chart-wrap,.chart-container{height:250px}
+  .section{padding:20px 16px}
+  .card-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .rc-grid{grid-template-columns:1fr}
+  .saas-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .chart-row{grid-template-columns:1fr!important}
+  .overview-grid{grid-template-columns:1fr!important}
+  .tech-grid{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .compare-table,.tech-table,.tbl{font-size:.78rem}
+  .portal-link{padding:6px 10px;font-size:.7rem}
+}
+@media(max-width:480px){
+  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
+  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
+  .header h1{font-size:1.2rem}
+  .score-big{font-size:3.5em}
+  .score-label{font-size:1.2em}
+  .section-title,.section-header{font-size:1rem}
+}
+
+/* === Accordion (mobile only) === */
+.section[data-accordion]{position:relative}
+.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+
+/* === TOC Nav (mobile only) === */
+.toc-nav{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid rgba(184,145,42,0.15);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
+  .toc-list a:hover,.toc-list a:active{background:rgba(184,145,42,.12)}
+  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
+  .toc-list .toc-label{flex:1}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid #30363d;background:transparent;color:#8b949e;cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+  body{padding-bottom:60px!important}
+}
+
+/* Portal link */
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+
+/* === Currency Toggle === */
+.currency-toggle-btn{background:rgba(46,204,113,0.10);border:1px solid rgba(46,204,113,0.35);color:#7be095;font-family:'Inter','Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:4px;margin-right:8px}
+.currency-toggle-btn:hover{background:rgba(46,204,113,0.22);color:#fff}
+.currency-toggle-btn .cur-alt{opacity:.55}
+.currency-toggle-btn.jpy{background:rgba(184,145,42,0.12);border-color:rgba(184,145,42,0.45);color:#D4A843}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode{color:#D4A843}
+
+/* === 企業概要ドロップダウン（ヘッダー内） === */
+.overview-toggle-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
+.overview-toggle-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:#D4A843;font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.overview-toggle-btn:hover{background:rgba(184,145,42,0.22);color:#F5F2EC}
+.overview-toggle-btn .chev{transition:transform .25s;display:inline-block}
+.overview-toggle-btn.open .chev{transform:rotate(180deg)}
+.overview-dropdown{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid rgba(184,145,42,0.2);border-radius:12px;margin:0 0 0 0}
+.overview-dropdown.open{max-height:1200px;opacity:1;margin:0 0 28px 0;padding:22px 26px}
+.overview-dropdown h2{font-size:1rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--gold2)}
+.overview-dropdown p{font-size:.9rem;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.overview-dropdown .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.overview-dropdown .tag{font-size:.72rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25)}
+@media(max-width:768px){
+  .overview-toggle-wrap{position:relative;top:auto;right:auto;margin-top:12px;text-align:center}
+}
+
+/* === Top Panel (株価・コンセンサス) === */
+.top-panel{display:grid;grid-template-columns:minmax(260px,1fr) 2fr;gap:16px;margin-bottom:28px}
+.price-panel,.consensus-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.price-panel h3,.consensus-panel h3{font-size:.78rem;color:var(--gold2);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:700}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dashed rgba(48,54,61,.7)}
+.price-row:last-child{border-bottom:none}
+.price-row .lbl{font-size:.78rem;color:var(--t2)}
+.price-row .val{font-size:1.3rem;font-weight:800;color:var(--t1);font-family:'Inter',sans-serif}
+.price-row .sub{font-size:.72rem;color:var(--t3);display:block;margin-top:2px}
+.price-change-big{background:linear-gradient(135deg,rgba(63,185,80,.12),rgba(63,185,80,.04));border:1px solid rgba(63,185,80,.3);border-radius:10px;padding:10px 14px;margin-top:12px;text-align:center}
+.price-change-big .pct{font-size:1.5rem;font-weight:900;color:var(--gl);font-family:'Inter',sans-serif}
+.price-change-big .lbl{font-size:.7rem;color:var(--t2);margin-top:2px}
+
+.consensus-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.consensus-table th,.consensus-table td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.consensus-table th{font-family:'Inter',sans-serif;font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.consensus-table td{color:var(--t2)}
+.consensus-table td.val{color:var(--t1);font-weight:700;font-family:'Inter',sans-serif}
+.consensus-table td.beat-pct{color:var(--gl);font-weight:700;font-family:'Inter',sans-serif}
+.beat-lamp{display:inline-block;width:12px;height:12px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4);animation:pulse-green 1.5s ease-in-out infinite;vertical-align:middle;margin-right:6px}
+@keyframes pulse-green{0%,100%{opacity:1;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4)}50%{opacity:.5;box-shadow:0 0 4px #2ecc71,0 0 8px rgba(46,204,113,.2)}}
+.beat-text{color:#D4A843;font-weight:700;letter-spacing:1px;animation:glow-gold 2.5s ease-in-out infinite;font-family:'Inter',sans-serif}
+@keyframes glow-gold{0%,100%{opacity:1;text-shadow:0 0 8px rgba(212,168,67,.6)}50%{opacity:.6;text-shadow:0 0 4px rgba(212,168,67,.3)}}
+@media(max-width:768px){
+  .top-panel{grid-template-columns:1fr}
+  .consensus-table{font-size:.72rem}
+  .consensus-table th,.consensus-table td{padding:8px 4px}
+}
+
+/* === YoY/QoQ 詳細表示 === */
+.delta-detail{display:block;font-size:.78rem;color:var(--text-sub);margin-top:6px;line-height:1.5}
+.delta-detail .delta-row{display:block;margin-top:2px}
+.delta-detail .delta-pct{font-weight:700;font-family:'Inter',sans-serif}
+.delta-detail .delta-abs{opacity:.85;font-family:'Inter',sans-serif}
+.delta-detail .prior-value{display:block;margin-left:14px;opacity:.65;font-size:.92em;font-family:'Inter',sans-serif}
+.delta-detail .delta-pct.pos{color:var(--gl)}
+.delta-detail .delta-pct.neg{color:var(--rl)}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="overview-toggle-wrap">
+    <button class="currency-toggle-btn" id="currencyToggleBtn" onclick="toggleCurrency()" title="USD/JPY 切替（レート: 159.0円/$、2026/4/15）"><span id="currencyLabel">USD</span> ⇄ <span class="cur-alt">JPY</span></button>
+    <button class="overview-toggle-btn" id="overviewToggleBtn" onclick="toggleOverview()">📖 企業概要 <span class="chev">▼</span></button>
+  </div>
+  <div class="header-content">
+    <div class="header-logo-row">
+      <img class="report-header-logo" src="../logos/GS.svg" alt="GS">
+      <div class="ticker-badge">NYSE: GS</div>
+    </div>
+    <h1>The Goldman Sachs Group, Inc. 決算分析</h1>
+    <div class="subtitle">FY26 Q1（2026年1-3月期）</div>
+    <div class="date">発表日: 2026年4月13日 ｜ レポート作成: 2026年4月15日</div>
+  </div>
+</div>
+
+<!-- 企業概要 ドロップダウン -->
+<div class="overview-dropdown" id="overviewDropdown">
+  <h2>🏛️ 企業概要</h2>
+  <p><strong>The Goldman Sachs Group, Inc.</strong>（NYSE: GS）は世界最大級の投資銀行・証券会社。1869年にニューヨークで Marcus Goldman により創業。本社はニューヨーク、CEO は David Solomon、従業員数は約46,000名。時価総額は約$282B（株価 $907.80 ベース）。M&amp;Aアドバイザリー・株式/債券引受で世界トップクラスのブランドを持ち、機関投資家向けマーケッツ事業（FICC / Equities）、アセット&amp;ウェルス・マネジメント、プラットフォーム・ソリューションズの4事業ラインで構成。</p>
+  <p>3セグメント体制: ①Global Banking &amp; Markets（IB手数料・FICC・Equities・トレーディング）、②Asset &amp; Wealth Management（AUM・プライベートバンキング・オルタナティブ投資）、③Platform Solutions（消費者プラットフォーム・トランザクションバンキング）。主要競合: Morgan Stanley、JPMorgan Chase、Bank of America、Citigroup。Private Credit事業は $300B 目標で拡大中、M&amp;A League Table は 2026年Q1 で首位を獲得。</p>
+  <div class="tags">
+    <span class="tag">投資銀行 #1（M&amp;A）</span>
+    <span class="tag">Equities 過去最高</span>
+    <span class="tag">ROE 19.8%</span>
+    <span class="tag">ROTE 21.3%</span>
+    <span class="tag">時価総額 $282B</span>
+    <span class="tag">BV/Share $361.19</span>
+    <span class="tag">従業員 46,000名</span>
+  </div>
+</div>
+
+<!-- Top Panel: 株価 + コンセンサス比較 -->
+<div class="top-panel">
+  <div class="price-panel no-currency">
+    <h3>💹 株価</h3>
+    <div class="price-row">
+      <span class="lbl">決算発表日<span class="sub">2026/4/13 終値</span></span>
+      <span class="val">$907.80</span>
+    </div>
+    <div class="price-row">
+      <span class="lbl">52週高値 / 安値</span>
+      <span class="val">$984.70 / $492.69</span>
+    </div>
+    <div class="price-row">
+      <span class="lbl">時価総額</span>
+      <span class="val">約 $282B</span>
+    </div>
+    <div class="price-change-big" style="background:linear-gradient(135deg,rgba(255,123,114,.12),rgba(255,123,114,.04));border-color:rgba(255,123,114,.3)">
+      <div class="pct" style="color:var(--rl)">-3%</div>
+      <div class="lbl">Pre-market 反応（FICC未達を嫌気）</div>
+    </div>
+  </div>
+  <div class="consensus-panel">
+    <h3>🎯 コンセンサス vs 実績（Q1 2026）</h3>
+    <table class="consensus-table">
+      <thead>
+        <tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>ビート率</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>売上高 / Net Revenues</td>
+          <td>$16.97B</td>
+          <td class="val">$17.23B</td>
+          <td class="beat-pct"><span class="beat-lamp"></span>+1.5% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td>EPS（GAAP 希薄化後）</td>
+          <td>$16.49</td>
+          <td class="val">$17.55</td>
+          <td class="beat-pct"><span class="beat-lamp"></span>+6.4% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td>Investment Banking Fees</td>
+          <td>市場予想比好調</td>
+          <td class="val">$2.84B</td>
+          <td class="beat-pct"><span class="beat-lamp"></span>+48% YoY <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td>FICC 売上</td>
+          <td>市場予想上回り期待</td>
+          <td class="val">$4.01B</td>
+          <td class="neg" style="font-weight:700">-10% YoY（未達）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 総合評価 -->
+<div class="score-section">
+  <div class="score-badge"><span class="score-num">4</span><span class="score-icon">📈</span></div>
+  <div class="score-label">良い決算</div>
+  <div class="score-desc">
+    Net Revenues $17.23B（+14% YoY・コンセンサス +1.5% ビート）、GAAP EPS $17.55（コンセンサス +6.4% ビート）、純利益 $5.63B、ROE 19.8% / ROTE 21.3%。Investment Banking Fees $2.84B（+48% YoY、うち Advisory $1.49B +89% YoY で<strong>M&amp;A League Table 首位</strong>）、Equities $5.33B（+27% YoY で過去最高、うち Equities Financing $2.61B は all-time high）。資本還元は四半期 $6.38B（自社株買い $5.00B + 配当 $1.38B）と潤沢。一方で <strong>FICC $4.01B（-10% YoY）が市場期待未達</strong>で premarket -3%、Platform Solutions -33% YoY・信用引当 $315M・複数アナリスト目標株価引下げという影もあり、「5：素晴らしい」には一歩届かず。
+  </div>
+</div>
+
+<!-- Key Metrics -->
+<div class="section" id="sec-metrics">
+  <div class="section-title">📊 Key Metrics</div>
+  <div class="grid metrics-grid">
+    <div class="card">
+      <div class="card-label">売上高 / Net Revenues</div>
+      <div class="card-val neu">$17.23B</div>
+      <div class="delta-detail">
+        <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +14.4%</span> <span class="delta-abs">(+$2.17B)</span></span>
+        <span class="prior-value">前年同期: $15.06B</span>
+        <span class="delta-row"><span class="delta-pct pos">QoQ（前期比）: +28.1%</span> <span class="delta-abs">(+$3.78B)</span></span>
+        <span class="prior-value">前期: $13.45B</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">EPS（GAAP 希薄化後）</div>
+      <div class="card-val pos">$17.55</div>
+      <div class="delta-detail">
+        <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +24.3%</span> <span class="delta-abs">(+$3.43)</span></span>
+        <span class="prior-value">前年同期: $14.12</span>
+        <span class="delta-row"><span class="delta-pct pos">QoQ（前期比）: +25.3%</span> <span class="delta-abs">(+$3.54)</span></span>
+        <span class="prior-value">前期: $14.01</span>
+      </div>
+      <div class="card-sub" style="margin-top:6px">コンセンサス $16.49 を <span class="pos">+6.4% ビート</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">純利益 / Net Income</div>
+      <div class="card-val pos">$5.63B</div>
+      <div class="card-sub">四半期として歴史的高水準。年率換算で $22.5B ペース</div>
+    </div>
+    <div class="card">
+      <div class="card-label">自己資本利益率 / ROE（年率）</div>
+      <div class="card-val pos">19.8%</div>
+      <div class="card-sub">中長期目標 15%+ を大幅超過</div>
+    </div>
+    <div class="card">
+      <div class="card-label">有形自己資本利益率 / ROTE</div>
+      <div class="card-val pos">21.3%</div>
+      <div class="card-sub">資本効率の高さを示す</div>
+    </div>
+    <div class="card">
+      <div class="card-label">効率比率 / Efficiency Ratio</div>
+      <div class="card-val neu">60.5%</div>
+      <div class="card-sub">営業費用 $10.4B ÷ Net Revenues $17.23B</div>
+    </div>
+    <div class="card">
+      <div class="card-label">普通株式等Tier1比率 / CET1（Standardized）</div>
+      <div class="card-val gold">12.5%</div>
+      <div class="card-sub">Advanced 13.4%。規制最低超過</div>
+    </div>
+    <div class="card">
+      <div class="card-label">書籍価額 / Book Value per Share</div>
+      <div class="card-val pos">$361.19</div>
+      <div class="card-sub">P/B 2.51x（株価 $907.80 ベース）</div>
+    </div>
+  </div>
+</div>
+
+<!-- 売上高 / EPS 7四半期推移 -->
+<div class="section" data-accordion id="sec-revenue">
+  <div class="section-title">📈 売上高 / EPS 7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-box">
+        <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <div class="chart-wrap"><canvas id="epsChart"></canvas></div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      Net Revenues は Q3 2024 の $12.70B から Q1 2026 $17.23B へ<strong>+36%</strong>に拡大、直近 7四半期で最高水準を更新。EPS も Q1 2026 $17.55 で 7Q のピークを形成。特に Q1 2026 は Investment Banking（Advisory +89% YoY）と Equities（+27% YoY、過去最高）が牽引。FICC は -10% YoY で唯一の弱点だが、QoQ では +29% と回復基調。
+    </div>
+  </div>
+</div>
+
+<!-- 利益率・主要指標トレンド -->
+<div class="section" data-accordion id="sec-margin">
+  <div class="section-title">📊 収益性・資本効率トレンド</div>
+  <div class="section-body">
+    <div class="chart-box">
+      <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div class="card">
+        <div class="card-label">効率比率 / Efficiency Ratio</div>
+        <div class="card-val neu">60.5%</div>
+        <div class="card-sub">営業費用 $10.4B / 売上 $17.23B</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROE（年率）</div>
+        <div class="card-val pos">19.8%</div>
+        <div class="card-sub">前年同期の高水準を維持</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROTE（年率）</div>
+        <div class="card-val pos">21.3%</div>
+        <div class="card-sub">同業トップクラス</div>
+      </div>
+      <div class="card">
+        <div class="card-label">報酬比率（除 provisions）</div>
+        <div class="card-val neu">32%</div>
+        <div class="card-sub">業績好調に伴い報酬積み増し</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ガイダンス vs コンセンサス比較 -->
+<div class="section" data-accordion id="sec-consensus">
+  <div class="section-title">🎯 コンセンサス比較サマリー</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">売上（Q1 2026 実績 vs コンセンサス）</div>
+        <div class="card-val pos">$17.23B vs $16.97B</div>
+        <div class="card-sub"><span class="pos">+1.5% ビート</span> / 差分 +$0.26B</div>
+      </div>
+      <div class="card">
+        <div class="card-label">EPS（Q1 2026 実績 vs コンセンサス）</div>
+        <div class="card-val pos">$17.55 vs $16.49</div>
+        <div class="card-sub"><span class="pos">+6.4% ビート</span> / 差分 +$1.06（LSEG推定 $16.30 ベースでは +7.7%）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Investment Banking Fees</div>
+        <div class="card-val pos">$2.84B</div>
+        <div class="card-sub"><span class="pos">+48% YoY</span>。市場期待を上回る強さ</div>
+      </div>
+      <div class="card">
+        <div class="card-label">FICC 実績</div>
+        <div class="card-val neg">$4.01B</div>
+        <div class="card-sub"><span class="neg">-10% YoY</span>。<strong>唯一の未達領域</strong>で決算後株価反応 -3% の主因</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Equities</div>
+        <div class="card-val pos">$5.33B</div>
+        <div class="card-sub"><span class="pos">+27% YoY（過去最高）</span>。Equities Financing $2.61B は all-time high</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Advisory</div>
+        <div class="card-val pos">$1.49B</div>
+        <div class="card-sub"><span class="pos">+89% YoY</span>。<strong>M&amp;A League Table 首位</strong>を獲得</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <strong>総括:</strong> ヘッドラインの売上・EPSは共にビート。<strong>Advisory（+89% YoY）・Equities（+27% YoY）は市場期待を大幅に上回る</strong>サプライズ。唯一 FICC の失望（-10% YoY）が市場センチメントを冷やし、pre-market で株価 -3%。ただし FICC は QoQ では +29% と回復基調で、構造的な悪化ではなく四半期ブレの範疇と評価。2026年通期コンセンサス EPS は $60 前後で形成されており、今回のビートを受けた上方修正余地あり。
+    </div>
+  </div>
+</div>
+
+<!-- キャッシュフロー / 銀行業指標 -->
+<div class="section" data-accordion id="sec-cashflow">
+  <div class="section-title">💰 キャッシュフロー（銀行業: 資本・資本比率・株主還元）</div>
+  <div class="section-body">
+    <div class="insight">
+      <strong>注:</strong> 投資銀行業のため従来型の営業CF/投資CF/財務CFは意味合いが異なる。ここでは資本還元・資本比率・バランスシート健全性指標で代替開示する。
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">CET1資本比率（Standardized）</div>
+        <div class="card-val gold">12.5%</div>
+        <div class="card-sub">規制最低超過。資本バッファ十分</div>
+      </div>
+      <div class="card">
+        <div class="card-label">CET1資本比率（Advanced）</div>
+        <div class="card-val gold">13.4%</div>
+        <div class="card-sub">Stdより+0.9pp</div>
+      </div>
+      <div class="card">
+        <div class="card-label">書籍価額 / Book Value per Share</div>
+        <div class="card-val pos">$361.19</div>
+        <div class="card-sub">内在価値の積み上がり継続</div>
+      </div>
+      <div class="card">
+        <div class="card-label">営業費用 / Operating Expenses</div>
+        <div class="card-val neu">$10.4B</div>
+        <div class="card-sub">効率比率 60.5% ベース</div>
+      </div>
+      <div class="card">
+        <div class="card-label">信用損失引当金 / Provision for Credit Losses</div>
+        <div class="card-val neg">$315M</div>
+        <div class="card-sub">Wholesale lending の一部 impairment 反映</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROE（年率）</div>
+        <div class="card-val pos">19.8%</div>
+        <div class="card-sub">長期目標 15%+ を超過</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ROTE（年率）</div>
+        <div class="card-val pos">21.3%</div>
+        <div class="card-sub">業界トップクラス</div>
+      </div>
+      <div class="card">
+        <div class="card-label">純利益 / Net Income</div>
+        <div class="card-val pos">$5.63B</div>
+        <div class="card-sub">Q1 単体で record 水準</div>
+      </div>
+    </div>
+    <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">株主還元（Q1 2026）</h3>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">自社株買い / Share Repurchase</div>
+        <div class="card-val gold">$5.00B</div>
+        <div class="card-sub">5.4M株の買入消却</div>
+      </div>
+      <div class="card">
+        <div class="card-label">配当 / Dividends</div>
+        <div class="card-val gold">$1.38B</div>
+        <div class="card-sub">四半期安定配当</div>
+      </div>
+      <div class="card">
+        <div class="card-label">資本還元合計 / Total Capital Return</div>
+        <div class="card-val pos">$6.38B</div>
+        <div class="card-sub">純利益 $5.63B を上回る水準</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- セグメント -->
+<div class="section" data-accordion id="sec-segment">
+  <div class="section-title">🏢 セグメント別業績（Q1 2026）</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Global Banking &amp; Markets</div>
+        <div class="card-val pos">$12.74B</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +19%</span> <span class="delta-abs"><strong>record</strong></span></span>
+        </div>
+        <div class="card-sub" style="margin-top:8px">IB Fees $2.84B（+48%）・Advisory $1.49B（+89%）・Equities $5.33B（+27% record）・FICC $4.01B（-10%）</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Asset &amp; Wealth Management</div>
+        <div class="card-val pos">$4.08B</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct pos">YoY（前年比）: +10%</span></span>
+        </div>
+        <div class="card-sub" style="margin-top:8px">Management &amp; other fees $3.08B / Private banking &amp; lending $638M</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Platform Solutions</div>
+        <div class="card-val neg">$411M</div>
+        <div class="delta-detail">
+          <span class="delta-row"><span class="delta-pct neg">YoY（前年比）: -33%</span></span>
+        </div>
+        <div class="card-sub" style="margin-top:8px">消費者プラットフォーム事業の縮小継続。売上寄与は小さいが構造的悪化が継続</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">Global Banking &amp; Markets 内訳（プロダクトライン別）</h3>
+    <table class="tbl">
+      <thead><tr><th>ライン</th><th>Q1 2026 売上</th><th>YoY</th><th>コメント</th></tr></thead>
+      <tbody>
+        <tr><td>Investment Banking Fees</td><td>$2.84B</td><td class="pos">+48%</td><td>全Line好調、特にM&amp;A</td></tr>
+        <tr><td>└ Advisory（M&amp;Aアドバイザリー）</td><td>$1.49B</td><td class="pos">+89%</td><td><strong>M&amp;A League Table 首位</strong>を獲得</td></tr>
+        <tr><td>Equities</td><td>$5.33B</td><td class="pos">+27%</td><td><strong>過去最高（record）</strong></td></tr>
+        <tr><td>└ Equities Financing（Prime Brokerage）</td><td>$2.61B</td><td class="pos">all-time high</td><td>史上最高水準。プライムブローカレッジの構造的強さ</td></tr>
+        <tr><td>FICC（債券・為替・コモディティ）</td><td>$4.01B</td><td class="neg">-10%</td><td>QoQ +29%で回復基調。Intermediation が市場期待未達</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">Asset &amp; Wealth Management 内訳</h3>
+    <div class="grid">
+      <div class="card"><div class="card-label">Management and other fees</div><div class="card-val pos">$3.08B</div><div class="card-sub">AUM ベースの安定フィー収入</div></div>
+      <div class="card"><div class="card-label">Private banking and lending</div><div class="card-val pos">$638M</div><div class="card-sub">富裕層向け融資・預金</div></div>
+      <div class="card"><div class="card-label">Private Credit 目標</div><div class="card-val gold">$300B</div><div class="card-sub">CEO 曰く "significant runway"</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 地域別 -->
+<div class="section" data-accordion id="sec-geo">
+  <div class="section-title">🌏 地域別売上構成（参考）</div>
+  <div class="section-body">
+    <div class="insight">
+      GSの開示はライン別（Banking &amp; Markets / AWM / Platform）中心で地域別開示は限定的。全社ベースでは米州中心、EMEA・APAC が続く構成。
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">米州（Americas）</div>
+        <div class="card-val neu">~60%+</div>
+        <div class="card-sub">米系M&amp;A・機関投資家・AWM中核</div>
+      </div>
+      <div class="card">
+        <div class="card-label">EMEA（欧州・中東・アフリカ）</div>
+        <div class="card-val neu">~20-25%</div>
+        <div class="card-sub">ロンドンハブ。中東情勢の影響を受けやすい</div>
+      </div>
+      <div class="card">
+        <div class="card-label">APAC（アジア太平洋）</div>
+        <div class="card-val neu">~15%</div>
+        <div class="card-sub">東京・香港・シンガポール</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- テクニカル -->
+<div class="section" data-accordion id="sec-technical">
+  <div class="section-title">📉 テクニカル分析</div>
+  <div class="section-body">
+    <div class="grid tech-grid">
+      <div class="card no-currency">
+        <div class="card-label">現在株価</div>
+        <div class="card-val neu">$907.80</div>
+        <div class="card-sub">2026/4/13 終値</div>
+      </div>
+      <div class="card no-currency">
+        <div class="card-label">52週レンジ</div>
+        <div class="card-val neu">$492.69 — $984.70</div>
+        <div class="card-sub">52週高値 $984.70 の約 92% 水準</div>
+      </div>
+      <div class="card">
+        <div class="card-label">時価総額</div>
+        <div class="card-val neu">約 $282B</div>
+        <div class="card-sub">米大手投資銀行トップ級</div>
+      </div>
+      <div class="card">
+        <div class="card-label">RSI (14日)</div>
+        <div class="card-val neu">60-65</div>
+        <div class="card-sub">中立〜やや過熱ゾーン</div>
+      </div>
+      <div class="card no-currency">
+        <div class="card-label">50日 SMA</div>
+        <div class="card-val pos">$872.59</div>
+        <div class="card-sub">直近サポート。株価は上に位置</div>
+      </div>
+      <div class="card no-currency">
+        <div class="card-label">Ichimoku Kijun</div>
+        <div class="card-val pos">$849.33</div>
+        <div class="card-sub">中期サポート</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MACD</div>
+        <div class="card-val neu">買いシグナル優勢</div>
+        <div class="card-sub">主 +24.67 / 一部 -8.85 で divergent</div>
+      </div>
+      <div class="card no-currency">
+        <div class="card-label">サポート / レジスタンス</div>
+        <div class="card-val neu">S $872 / R $985</div>
+        <div class="card-sub">長期S $674。来週予想レンジ $871〜$899</div>
+      </div>
+    </div>
+    <div class="insight no-currency" style="margin-top:14px">
+      <strong>チャートパターン:</strong> 全 timeframe で主要移動平均線（SMA50 $872.59・Ichimoku Kijun $849.33 等）の上に位置し、長期トレンドは強気を維持。ただし短期は Stoch RSI / CCI が overbought 警告を点灯し、52週高値 $984.70 に近づく過熱圏入り。<br>
+      <strong>総合判定: 強気（ただし短期過熱）</strong> — 長期強気トレンド継続、中期サポート $849 / 短期サポート $872。決算後 -3% の調整は健全な overbought 解消と解釈可能。短期来週予想レンジ $871〜$899。上抜けで $985 再挑戦、下抜けで $849 → 長期 $674 までの調整リスク。
+    </div>
+    <div class="chart-box" style="padding:16px;margin-top:16px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NYSE:GS",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": [
+            "MASimple@tv-basicstudies",
+            "MAExp@tv-basicstudies"
+          ],
+          "studies_overrides": {
+            "moving average.length": 50,
+            "moving average exponential.length": 200
+          }
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 経営陣コメント -->
+<div class="section" data-accordion id="sec-mgmt">
+  <div class="section-title">💬 経営陣コメント・ハイライト</div>
+  <div class="section-body">
+    <div class="insight">
+      <strong>David Solomon（会長兼CEO）全体評価:</strong>「Goldman Sachs delivered very strong performance for our shareholders this quarter, even as market conditions became more volatile.」（市場環境が変動的になる中でも、当四半期は株主向けに非常に強力なパフォーマンスを実現した）
+    </div>
+    <div class="insight">
+      <strong>Solomon（リスク管理）:</strong>「The geopolitical landscape remains very complex – so disciplined risk management must remain core to how we operate.」（地政学的情勢は依然として非常に複雑であり、規律ある risk management を引き続き経営の中核に据える必要がある）
+    </div>
+    <div class="insight">
+      <strong>Solomon（Investment Banking 環境）:</strong> Investment Banking 環境は堅調、特に M&amp;A が継続的に強い。IPO は中東情勢影響で一時減速したものの、パイプラインは豊富。Advisory +89% YoY の勢いが M&amp;A League Table 首位獲得に反映された。
+    </div>
+    <div class="insight">
+      <strong>Solomon（マクロ見通し）:</strong> 中東情勢の長期化は第2〜3四半期のインフレ等を通じて逆風となる可能性がある。一方、クレジットサイクルの到来は disciplined underwriting 企業にとって機会と認識。
+    </div>
+    <div class="insight">
+      <strong>Private Credit 戦略:</strong>「目標 $300B に向けた "significant runway" がある」。AWM を核とするプライベートクレジット拡大戦略を継続し、ビジネスモデル多角化を推進。
+    </div>
+  </div>
+</div>
+
+<!-- リスク・カタリスト -->
+<div class="section" data-accordion id="sec-risk">
+  <div class="section-title">⚠️ リスク・注目ポイント / カタリスト</div>
+  <div class="section-body">
+    <div class="risk-grid">
+      <div class="risk-card bull">
+        <h3>🟢 ポジティブ・カタリスト</h3>
+        <ul>
+          <li>M&amp;A League Table 首位、Advisory +89% YoY の勢いで投資銀行リーダーシップ再確立</li>
+          <li>Equities 過去最高 $5.33B（+27% YoY）、Equities Financing 史上最高 $2.61B の Prime Brokerage 強さ</li>
+          <li>Investment Banking Fees +48% YoY で M&amp;A サイクル回復の先導者</li>
+          <li>Private Credit 事業 $300B 目標への拡大余地、AWM+PC の多角化</li>
+          <li>四半期資本還元 $6.38B（自社株買い $5.00B + 配当 $1.38B）は純利益を上回る水準</li>
+          <li>ROE 19.8% / ROTE 21.3% の業界トップクラス資本効率</li>
+          <li>Book Value/Share $361.19 の堅実な内在価値積み上がり</li>
+          <li>FICC QoQ +29% の回復基調。Q2 以降の巻き返し余地</li>
+        </ul>
+      </div>
+      <div class="risk-card bear">
+        <h3>🔴 リスク・注目ポイント</h3>
+        <ul>
+          <li>FICC $4.01B（-10% YoY）の intermediation 期待未達。volatility 依存の収益性</li>
+          <li>決算後株価 pre-market -3% / 複数アナリストが目標株価引き下げ</li>
+          <li>地政学リスク（中東情勢）による IPO 市場減速・インフレ圧力</li>
+          <li>Platform Solutions -33% YoY の継続的悪化。セグメントの戦略再考が課題</li>
+          <li>信用損失引当金 $315M（wholesale lending の impairment 反映）</li>
+          <li>短期テクニカル過熱（Stoch RSI / CCI overbought）、52週高値 $984.70 まで接近</li>
+          <li>CET1 12.5% は JPM 14.5% 等と比べ相対的に薄く、資本バッファ余裕は限定的</li>
+          <li>Q2 以降の中東情勢の長期化によるインフレ等を通じた逆風シナリオ</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 前回決算との比較 -->
+<div class="section" data-accordion id="sec-compare">
+  <div class="section-title">🔄 前回決算（Q4 2025）との比較</div>
+  <div class="section-body">
+    <table class="tbl">
+      <thead><tr><th>指標</th><th>Q4 2025</th><th>Q1 2026</th><th>変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上高 / Net Revenues</td><td>$13.45B</td><td>$17.23B</td><td class="pos">+28% QoQ</td></tr>
+        <tr><td>EPS（GAAP 希薄化後）</td><td>$14.01</td><td>$17.55</td><td class="pos">+$3.54 / +25% QoQ</td></tr>
+        <tr><td>純利益 / Net Income</td><td>$4.11B</td><td>$5.63B</td><td class="pos">+37% QoQ</td></tr>
+        <tr><td>ROE（年率）</td><td>約15% 水準</td><td>19.8%</td><td class="pos">+約5pp</td></tr>
+        <tr><td>Investment Banking Fees</td><td>—</td><td>$2.84B</td><td class="pos">+48% YoY</td></tr>
+        <tr><td>Equities</td><td>—</td><td>$5.33B</td><td class="pos">record / +27% YoY</td></tr>
+        <tr><td>FICC</td><td>~$3.11B</td><td>$4.01B</td><td class="pos">+29% QoQ（YoYは-10%）</td></tr>
+        <tr><td>自社株買い</td><td>—</td><td>$5.00B</td><td class="pos">5.4M株買入消却</td></tr>
+        <tr><td>総合評価スコア</td><td>4 📈</td><td>4 📈</td><td class="neu">横ばい</td></tr>
+      </tbody>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <strong>トレンド方向: 改善↑</strong> — 売上 +28% QoQ・EPS +25% QoQ と全ての主要指標で前期を大きく上回る Q1 2026。特に Investment Banking（Advisory +89% YoY）・Equities（record）・FICC（QoQ +29% 回復）と全プロダクトでモメンタム改善。スコアは Q4 と同じ「4」に据え置いたが、これは FICC の YoY -10% および決算後株価 -3% 反応、Platform Solutions の継続悪化を踏まえたもので、内容的には「5：素晴らしい」の一歩手前。2026 通期 EPS コンセンサス $60 に対してもポジティブな走り出し。
+    </div>
+  </div>
+</div>
+
+<!-- バリュエーション -->
+<div class="section" data-accordion id="sec-valuation">
+  <div class="section-title">💎 バリュエーション（想定株価 3パターン）</div>
+  <div class="section-body">
+    <div class="val-grid no-currency">
+      <div class="val-card low">
+        <div class="scenario">LOW（保守的）</div>
+        <div class="price">$825</div>
+        <div class="detail">Forward EPS $55（保守）<br>× PER 15x（下限）</div>
+        <div class="gap neg">現在株価比 -9.1%</div>
+      </div>
+      <div class="val-card mid">
+        <div class="scenario">MID（基本）</div>
+        <div class="price">$930</div>
+        <div class="detail">Forward EPS $60（コンセンサス2026E）<br>× PER 15.5x（中央値）</div>
+        <div class="gap pos">現在株価比 +2.4%</div>
+      </div>
+      <div class="val-card high">
+        <div class="scenario">HIGH（楽観的）</div>
+        <div class="price">$1,105</div>
+        <div class="detail">Forward EPS $65（楽観）<br>× PER 17x（上限）</div>
+        <div class="gap pos">現在株価比 +21.7%</div>
+      </div>
+    </div>
+    <div class="insight no-currency" style="margin-top:16px">
+      <strong>判定: 適正</strong> — MID 想定株価 $930 vs 現在株価 $907.80（乖離率 <span class="pos">+2.4%</span>）。アナリスト平均目標株価 <strong>$894.60</strong>（レンジ $856〜$930、15アナリスト、コンセンサス Hold）で、市場は既にコンセンサス $60 × PER 15.5x 前後を織り込んでいる。ここからの上昇余地は EPS 上方修正（M&amp;A 回復継続・FICC 反発・Private Credit 拡大）or PER レーティング次第。<br>
+      上方リスク: M&amp;A サイクル本格回復・IPO 再開・Private Credit $300B 達成ペース加速・次期クレジットサイクルでの市場シェア獲得。<br>
+      下方リスク: 中東情勢長期化で IPO/M&amp;A の再減速、FICC 弱さの構造化、Platform Solutions 追加減損、クレジット正常化に伴う引当増、資本バッファ CET1 12.5% の薄さが顕在化。
+    </div>
+
+    <h3 style="margin-top:24px;margin-bottom:12px;font-size:1rem;color:var(--gold2)">NTM想定株価（補完的バリュエーション指標）</h3>
+    <div class="card" style="padding:32px 24px;text-align:center;background:linear-gradient(135deg, rgba(184,145,42,0.08) 0%, rgba(26,37,64,0.4) 100%);border:1px solid rgba(184,145,42,0.3);position:relative">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:16px;align-items:center;max-width:900px;margin:0 auto 20px">
+        <div>
+          <div class="card-label" style="margin-bottom:6px">NTM EPS（コンセンサス）</div>
+          <div class="card-val neu" style="font-size:1.8rem">$60.00</div>
+          <div class="card-sub" style="font-size:.72rem">2026年12月期通期見通し</div>
+        </div>
+        <div style="font-size:1.8rem;color:var(--gold2,#D4A843);font-weight:700">×</div>
+        <div>
+          <div class="card-label" style="margin-bottom:6px">過去3年平均 Trailing PER</div>
+          <div class="card-val neu" style="font-size:1.8rem">14x</div>
+          <div class="card-sub" style="font-size:.72rem">2023–2025 TTM PER 平均</div>
+        </div>
+        <div style="font-size:1.8rem;color:var(--gold2,#D4A843);font-weight:700">=</div>
+        <div>
+          <div class="card-label" style="margin-bottom:6px;color:var(--gold,#B8912A)">想定株価</div>
+          <div class="card-val pos no-currency" style="font-size:2.6rem;font-weight:900;color:var(--gold,#B8912A)">$840</div>
+          <div class="card-sub" style="font-size:.72rem">NTM Fair Value</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid rgba(184,145,42,0.15)">
+        <div style="text-align:center">
+          <div class="card-label" style="font-size:.78rem;margin-bottom:4px">現株価</div>
+          <div class="no-currency" style="font-size:1.3rem;font-weight:700;color:var(--text-main,#e6edf3)">$907.80</div>
+        </div>
+        <div style="text-align:center">
+          <div class="card-label" style="font-size:.78rem;margin-bottom:4px">乖離率（想定株価 vs 現株価）</div>
+          <div class="neg" style="font-size:1.3rem;font-weight:700">-7.5%</div>
+        </div>
+        <div style="text-align:center">
+          <div class="card-label" style="font-size:.78rem;margin-bottom:4px">判定</div>
+          <div class="neu" style="font-size:1.3rem;font-weight:700">やや割高</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px;font-size:.82rem">
+      <strong>補足:</strong> Forward PE基準の MID <span class="no-currency">$930</span> は現在株価 <span class="no-currency">$907.80</span> にほぼ一致（適正）。一方、過去3年平均 PER（14x）に基づく NTM Fair Value <span class="no-currency">$840</span> は現在株価を下回り、<strong>直近の市場がGSに対してやや高めのマルチプル（15.5x 近辺）を付与している</strong>ことを示唆。今後の EPS 上方修正継続によって現行マルチプルが正当化されるかが鍵。
+    </div>
+
+    <div class="grid" style="margin-top:14px">
+      <div class="card"><div class="card-label">Trailing PER</div><div class="card-val neu">約 16x</div><div class="card-sub">直近12ヶ月 EPS ベース</div></div>
+      <div class="card"><div class="card-label">Forward PER</div><div class="card-val neu">約 15.1x</div><div class="card-sub">2026E EPS $60 ベース</div></div>
+      <div class="card"><div class="card-label">P/B (Price-to-Book)</div><div class="card-val neu">2.51x</div><div class="card-sub">BV/sh $361.19</div></div>
+      <div class="card no-currency"><div class="card-label">アナリスト平均目標株価</div><div class="card-val gold">$894.60</div><div class="card-sub">レンジ $856〜$930 / 15 アナリスト / Hold</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- アナリスト評価 -->
+<div class="section">
+  <div class="section-title">🏦 アナリスト評価</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">コンセンサス</div>
+      <div class="card-val neu">Hold</div>
+      <div class="card-sub">15アナリスト</div>
+    </div>
+    <div class="card no-currency">
+      <div class="card-label">平均目標株価</div>
+      <div class="card-val gold">$894.60</div>
+      <div class="card-sub">現在株価 $907.80 から<span class="neg">-1.5%</span></div>
+    </div>
+    <div class="card no-currency">
+      <div class="card-label">目標株価レンジ</div>
+      <div class="card-val neu">$856 — $930</div>
+      <div class="card-sub">レンジ幅 $74</div>
+    </div>
+    <div class="card">
+      <div class="card-label">決算後アナリスト動向</div>
+      <div class="card-val neg">引き下げ複数</div>
+      <div class="card-sub">FICC 未達を受けて目標株価引き下げ相次ぐ</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  本レポートは公開情報（Goldman Sachs Q1 2026 Earnings Release 2026/4/13発表、IR資料等）に基づく分析であり、投資助言を目的としたものではありません。<br>
+  投資判断はご自身の責任で行ってください。<br>
+  The Goldman Sachs Group, Inc. (NYSE: GS) FY26 Q1 決算分析 ｜ 生成日: 2026年4月15日
+</div>
+
+<!-- Chart.js scripts -->
+<script>
+const chartFont={family:'Inter',size:12};
+Chart.defaults.color='#8b949e';
+Chart.defaults.font=chartFont;
+const gridOpt={color:'rgba(48,54,61,0.5)'};
+
+// 売上高 7四半期
+new Chart(document.getElementById('revChart'),{
+  type:'bar',
+  data:{
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
+    datasets:[{
+      label:'Net Revenues ($B)',
+      data:[12.70,13.87,15.06,14.58,15.18,13.45,17.23],
+      backgroundColor:['rgba(184,145,42,0.4)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.55)','rgba(184,145,42,0.55)','rgba(212,168,67,0.8)'],
+      borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'Net Revenues（直近7四半期, $B）',color:'#e6edf3',font:{size:13,weight:'700'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)+'B'}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(0)+'B'},min:10},x:{grid:{display:false}}}
+  }
+});
+
+// EPS 7四半期
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
+    datasets:[{
+      label:'EPS (Diluted, $)',
+      data:[8.40,11.95,14.12,10.91,12.25,14.01,17.55],
+      backgroundColor:['rgba(88,166,255,0.4)','rgba(88,166,255,0.45)','rgba(88,166,255,0.5)','rgba(88,166,255,0.5)','rgba(88,166,255,0.55)','rgba(88,166,255,0.6)','rgba(63,185,80,0.75)'],
+      borderColor:['#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#58a6ff','#3fb950'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'EPS（直近7四半期, $）Q1 26は7Q最高',color:'#e6edf3',font:{size:13,weight:'700'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)},min:6},x:{grid:{display:false}}}
+  }
+});
+
+// 収益性トレンド
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
+    datasets:[
+      {label:'ROE (%)',data:[10.4,14.6,16.9,12.8,14.5,16.0,19.8],borderColor:'#D4A843',fill:false,tension:.3,pointRadius:4},
+      {label:'ROTE (%)',data:[11.1,15.5,18.0,13.6,15.5,17.1,21.3],borderColor:'#58a6ff',fill:false,tension:.3,pointRadius:4},
+      {label:'Efficiency Ratio (%)',data:[65,61,60.9,64,62,61,60.5],borderColor:'#bc8cff',fill:false,tension:.3,pointRadius:4,borderDash:[5,3]}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
+      title:{display:true,text:'ROE / ROTE / Efficiency Ratio 推移',color:'#e6edf3',font:{size:13,weight:'700'}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:5,max:70},x:{grid:{display:false}}}
+  }
+});
+</script>
+
+<!-- Portal link -->
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+  <div class="toc-menu" id="tocMenu">
+    <div class="toc-expand-all">
+      <button onclick="toggleAllSections(true)">すべて展開</button>
+      <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+    </div>
+    <ul class="toc-list">
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📈</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📊</span><span class="toc-label">収益性・資本効率トレンド</span></a></li>
+      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較サマリー</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">資本・資本比率・株主還元</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">セグメント別業績</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌏</span><span class="toc-label">地域別売上構成</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+    </ul>
+  </div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Accordion — tap vs swipe detection
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){
+    sec.classList.remove('collapsed');
+    sec.classList.add('collapsing');
+    var body=sec.querySelector('.section-body');
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
+    body.addEventListener('transitionend',onEnd);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }else{
+    sec.classList.add('collapsing','collapsed');
+    var body2=sec.querySelector('.section-body');
+    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
+    body2.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
+  }
+}
+document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){
+    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
+    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
+    var dt=Date.now()-touchStartTime;
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
+  });
+  title.addEventListener('click',function(e){
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
+  });
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+
+// TOC
+function toggleToc(){
+  var menu=document.getElementById('tocMenu');
+  var btn=document.getElementById('tocToggle');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
+}
+function tocJump(id){
+  var sec=document.getElementById(id);
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleAllSections(expand){
+  document.querySelectorAll('[data-accordion]').forEach(function(sec){
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
+  });
+}
+
+// Overview dropdown toggle
+function toggleOverview(){
+  var dd=document.getElementById('overviewDropdown');
+  var btn=document.getElementById('overviewToggleBtn');
+  if(!dd||!btn)return;
+  dd.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+/* === USD/JPY Currency Toggle === */
+var FX_RATE = 159.0;  // USD/JPY as of 2026-04-15
+var FX_DATE = '2026/4/15';
+var currencyMode = 'USD';
+
+function fmtJPY(usd, unit){
+  var usd_b = unit==='T' ? usd*1000 : unit==='B' ? usd : unit==='M' ? usd/1000 : unit==='K' ? usd/1e6 : null;
+  if(usd_b !== null){
+    var jpy_b = usd_b * FX_RATE;
+    if(jpy_b >= 1000) return '¥' + (jpy_b/1000).toFixed(2) + '兆';
+    if(jpy_b >= 1) return '¥' + (jpy_b*10).toFixed(0) + '億';
+    return '¥' + (jpy_b*1000).toFixed(0) + '百万';
+  }
+  var jpy = usd * FX_RATE;
+  if(jpy >= 10000) return '¥' + (jpy/10000).toFixed(2) + '万';
+  return '¥' + Math.round(jpy).toLocaleString();
+}
+
+var WRAP_DONE = false;
+function wrapCurrencyValues(){
+  if(WRAP_DONE) return;
+  WRAP_DONE = true;
+  var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+  var skipTags = {SCRIPT:1, STYLE:1, NOSCRIPT:1, BUTTON:1, A:1};
+  var skipClasses = ['portal-link','currency-toggle-btn','overview-toggle-btn','toc-toggle','toc-list','tradingview-widget-container','no-currency'];
+  function shouldSkip(node){
+    var p = node.parentNode;
+    while(p && p !== document.body){
+      if(skipTags[p.tagName]) return true;
+      if(p.classList){
+        for(var i=0;i<skipClasses.length;i++) if(p.classList.contains(skipClasses[i])) return true;
+      }
+      p = p.parentNode;
+    }
+    return false;
+  }
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  var nodes = [];
+  var n;
+  while((n = walker.nextNode())){
+    if(n.nodeValue && n.nodeValue.indexOf('$') >= 0 && !shouldSkip(n)) nodes.push(n);
+  }
+  nodes.forEach(function(node){
+    var text = node.nodeValue;
+    if(!re.test(text)) return;
+    re.lastIndex = 0;
+    var frag = document.createDocumentFragment();
+    var lastIdx = 0;
+    var m;
+    while((m = re.exec(text)) !== null){
+      if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
+      var num = parseFloat(m[1].replace(/,/g,''));
+      var unit = m[2] || '';
+      var span = document.createElement('span');
+      span.className = 'cur-val';
+      span.setAttribute('data-usd', num);
+      span.setAttribute('data-unit', unit);
+      span.setAttribute('data-orig', m[0]);
+      span.textContent = m[0];
+      frag.appendChild(span);
+      lastIdx = m.index + m[0].length;
+    }
+    if(lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+    node.parentNode.replaceChild(frag, node);
+  });
+}
+
+function applyCurrency(mode){
+  document.querySelectorAll('.cur-val').forEach(function(el){
+    if(mode === 'JPY'){
+      var usd = parseFloat(el.getAttribute('data-usd'));
+      var unit = el.getAttribute('data-unit') || '';
+      el.textContent = fmtJPY(usd, unit);
+      el.classList.add('jpy-mode');
+    } else {
+      el.textContent = el.getAttribute('data-orig');
+      el.classList.remove('jpy-mode');
+    }
+  });
+}
+
+function toggleCurrency(){
+  wrapCurrencyValues();
+  currencyMode = currencyMode === 'USD' ? 'JPY' : 'USD';
+  applyCurrency(currencyMode);
+  var btn = document.getElementById('currencyToggleBtn');
+  var lbl = document.getElementById('currencyLabel');
+  if(currencyMode === 'JPY'){
+    btn.classList.add('jpy');
+    lbl.textContent = 'JPY';
+    btn.querySelector('.cur-alt').textContent = 'USD';
+    btn.title = '円表示中（レート: ' + FX_RATE + '円/$、' + FX_DATE + '）';
+  } else {
+    btn.classList.remove('jpy');
+    lbl.textContent = 'USD';
+    btn.querySelector('.cur-alt').textContent = 'JPY';
+    btn.title = 'USD/JPY 切替（レート: ' + FX_RATE + '円/$、' + FX_DATE + '）';
+  }
+}
+</script>
+</body>
+</html>
