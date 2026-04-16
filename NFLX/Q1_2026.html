@@ -4,7 +4,9 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Netflix (NFLX) Q1 2026 決算分析 — Atlas Quarterly</title>
-<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="shortcut icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 159.0, date: '2026/4/17', fmt:'cjk-ja' };</script>
@@ -449,7 +451,18 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 @media(max-width:768px){
   .chart-split{grid-template-columns:1fr;gap:20px;padding:20px}
   .chart-split-viz{height:220px}
-  .val-gauge{padding:36px 20px 52px}
+  .val-gauge{padding:36px 28px 56px}
+  .val-gauge-track{margin:0 18px}
+  /* LOW mark (0%) — ラベルを左寄せで見切れ防止 */
+  .val-gauge-mark[style*="left:0%"] .lbl,
+  .val-gauge-mark[style*="left:0%"] .amt{left:0;transform:translateX(-6px);text-align:left}
+  /* HIGH mark (100%) — ラベルを右寄せで見切れ防止 */
+  .val-gauge-mark[style*="left:100%"] .lbl,
+  .val-gauge-mark[style*="left:100%"] .amt{left:auto;right:0;transform:translateX(6px);text-align:right}
+  /* 現在株価バブル — サイズ圧縮 + 最大幅制限でクリップ防止 */
+  .val-gauge-current .cur-label{font-size:.7rem;padding:3px 9px;letter-spacing:.01em;max-width:calc(100vw - 100px)}
+  .val-gauge-mark .lbl{font-size:.6rem}
+  .val-gauge-mark .amt{font-size:.8rem}
   .pullq{padding:26px 20px 22px}
   .pullq::before{font-size:3.5rem;left:8px}
   .pullq-body{padding-left:30px;font-size:.94rem}
@@ -850,7 +863,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   </div>
   <div class="rh-inner">
     <div class="rh-logo-row">
-      <img class="rh-logo" src="../logos/NFLX.svg" alt="NFLX">
+      <img class="rh-logo" src="../logos/NFLX-header.png" alt="NFLX">
       <div class="rh-ticker">NASDAQ: NFLX</div>
     </div>
     <h1>Netflix</h1>
