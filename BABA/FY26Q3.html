@@ -194,6 +194,279 @@ table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
 <!-- /ATLAS-PAYWALL-META -->
 </head>
 <body>
+<!-- ATLAS-NAV-START -->
+<header class="atlas-nav" data-atlas-nav>
+  <div class="atlas-nav-inner">
+    <a href="https://atlas-financials.jp/" class="atlas-nav-brand" aria-label="Atlas ホーム">
+      <span class="atlas-nav-logo">Atlas<span class="atlas-nav-dot">.</span></span>
+      <span class="atlas-nav-tag">U.S. Market Intelligence</span>
+    </a>
+    <nav class="atlas-nav-links" aria-label="グローバルナビ">
+      <a href="https://atlas-financials.jp/" data-path="/">ホーム</a>
+      <a href="https://atlas-financials.jp/news/" data-path="/news/">ニュース</a>
+      <a href="https://atlas-financials.jp/reports/" data-path="/reports/">決算分析</a>
+      <a href="https://atlas-financials.jp/news/glossary/" data-path="/news/glossary/">経済辞書</a>
+      <a href="https://atlas-financials.jp/reports/faq.html" data-path="/reports/faq.html">FAQ</a>
+      <a href="https://atlas-financials.jp/login" class="atlas-nav-login-link" data-atlas-login-cta>ログイン</a>
+      <a href="https://atlas-financials.jp/signup" class="atlas-nav-cta" data-atlas-signup-cta>無料ではじめる</a>
+      <div class="atlas-nav-user" data-atlas-nav-user style="display:none">
+        <button class="atlas-nav-avatar-btn" type="button" aria-expanded="false" aria-haspopup="menu" data-atlas-nav-user-btn>
+          <span class="atlas-nav-avatar" data-atlas-nav-avatar>?</span>
+          <span class="atlas-nav-username" data-atlas-nav-username></span>
+          <span class="atlas-nav-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="atlas-nav-menu" role="menu" data-atlas-nav-menu aria-hidden="true">
+          <div class="atlas-nav-menu-head">
+            <div class="atlas-nav-menu-name" data-atlas-nav-menu-name></div>
+            <div class="atlas-nav-menu-email" data-atlas-nav-menu-email></div>
+            <span class="atlas-nav-menu-plan" data-atlas-nav-menu-plan></span>
+          </div>
+          <a href="https://atlas-financials.jp/account" role="menuitem">マイページ</a>
+          <button type="button" role="menuitem" data-atlas-logout>ログアウト</button>
+        </div>
+      </div>
+    </nav>
+    <button class="atlas-nav-burger" aria-label="メニューを開く" aria-expanded="false" data-atlas-nav-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="atlas-nav-drawer" data-atlas-nav-drawer aria-hidden="true">
+    <div class="atlas-nav-drawer-user" data-atlas-nav-drawer-user style="display:none">
+      <span class="atlas-nav-avatar" data-atlas-nav-avatar-m>?</span>
+      <div>
+        <div class="atlas-nav-drawer-name" data-atlas-nav-drawer-name></div>
+        <div class="atlas-nav-drawer-email" data-atlas-nav-drawer-email></div>
+      </div>
+    </div>
+    <a href="https://atlas-financials.jp/">ホーム</a>
+    <a href="https://atlas-financials.jp/news/">ニュース</a>
+    <a href="https://atlas-financials.jp/reports/">決算分析</a>
+    <a href="https://atlas-financials.jp/news/glossary/">経済辞書</a>
+    <a href="https://atlas-financials.jp/reports/faq.html">FAQ</a>
+    <a href="https://atlas-financials.jp/account" data-atlas-drawer-account style="display:none">マイページ</a>
+    <a href="https://atlas-financials.jp/login" data-atlas-drawer-login>ログイン</a>
+    <a href="https://atlas-financials.jp/signup" data-atlas-drawer-signup style="background:rgba(184,145,42,.14)">無料ではじめる</a>
+    <button type="button" data-atlas-drawer-logout style="display:none;background:none;border:none;color:#D4A843;padding:14px 24px;text-align:left;font-family:inherit;font-size:14px;cursor:pointer;width:100%">ログアウト</button>
+  </div>
+</header>
+<style>
+.atlas-nav{position:sticky;top:0;z-index:200;background:rgba(15,24,41,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,145,42,0.18);font-family:'Noto Sans JP',sans-serif}
+.atlas-nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.atlas-nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
+.atlas-nav-logo{font-family:'Playfair Display','Shippori Mincho B1',serif;font-size:22px;font-weight:700;letter-spacing:.04em;line-height:1}
+.atlas-nav-dot{color:#D4A843}
+.atlas-nav-tag{font-size:10px;color:rgba(212,168,67,.6);letter-spacing:.08em;white-space:nowrap}
+.atlas-nav-links{display:flex;gap:22px;align-items:center}
+.atlas-nav-links > a{font-size:13px;color:#D4A843;text-decoration:none;padding:6px 2px;border-bottom:2px solid transparent;transition:border-color .15s,color .15s;white-space:nowrap}
+.atlas-nav-links > a:hover{color:#fff;border-bottom-color:rgba(212,168,67,.5)}
+.atlas-nav-links > a.active{color:#fff;border-bottom-color:#D4A843}
+.atlas-nav-links > a.atlas-nav-cta{background:#B8912A;color:#0F1829;padding:7px 14px;border-radius:6px;font-weight:600;border:none}
+.atlas-nav-links > a.atlas-nav-cta:hover{background:#D4A843;border-bottom:none;color:#0F1829}
+.atlas-nav-links > a.atlas-nav-login-link{color:#D4A843;font-weight:500}
+.atlas-nav-links > a.atlas-nav-login-link:hover{color:#fff;border-bottom-color:rgba(212,168,67,.5)}
+/* User widget */
+.atlas-nav-user{position:relative;display:flex}
+.atlas-nav-avatar-btn{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(212,168,67,.2);border-radius:24px;padding:4px 12px 4px 4px;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
+.atlas-nav-avatar-btn:hover{border-color:#D4A843;background:rgba(184,145,42,.08)}
+.atlas-nav-avatar{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#1A2540;color:#fff;font-weight:700;font-size:13px;letter-spacing:0;flex-shrink:0;font-family:'Inter','Noto Sans JP',sans-serif}
+.atlas-nav-username{color:#D4A843;font-size:13px;font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-caret{color:rgba(212,168,67,.6);font-size:10px}
+.atlas-nav-menu{position:absolute;top:calc(100% + 8px);right:0;background:rgba(15,24,41,0.98);backdrop-filter:blur(12px);border:1px solid rgba(184,145,42,.2);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.35);min-width:240px;padding:14px 0 6px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s}
+.atlas-nav-menu.open{opacity:1;visibility:visible;transform:translateY(0)}
+.atlas-nav-menu-head{padding:0 16px 12px;border-bottom:1px solid rgba(184,145,42,.12);margin-bottom:6px}
+.atlas-nav-menu-name{color:#fff;font-size:14px;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-menu-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-menu-plan{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.atlas-nav-menu-plan.plan-pro{background:rgba(184,145,42,.15);color:#D4A843;border:1px solid rgba(184,145,42,.35)}
+.atlas-nav-menu-plan.plan-free{background:rgba(139,148,158,.15);color:#8b949e;border:1px solid rgba(139,148,158,.3)}
+.atlas-nav-menu a,.atlas-nav-menu button{display:block;padding:9px 16px;color:#D4A843;text-decoration:none;font-size:13px;background:transparent;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;transition:background .12s,color .12s}
+.atlas-nav-menu a:hover,.atlas-nav-menu button:hover{background:rgba(184,145,42,.08);color:#fff}
+/* Burger / Drawer */
+.atlas-nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:4px}
+.atlas-nav-burger span{display:block;width:22px;height:2px;background:#D4A843;transition:all .2s}
+.atlas-nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.atlas-nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.atlas-nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.atlas-nav-drawer{display:none;flex-direction:column;background:rgba(15,24,41,0.98);border-top:1px solid rgba(184,145,42,.18);padding:12px 0}
+.atlas-nav-drawer.open{display:flex}
+.atlas-nav-drawer-user{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid rgba(184,145,42,.12);margin-bottom:6px}
+.atlas-nav-drawer-name{color:#fff;font-size:14px;font-weight:700;line-height:1.3}
+.atlas-nav-drawer-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;line-height:1.3}
+.atlas-nav-drawer > a,.atlas-nav-drawer > button{padding:14px 24px;color:#D4A843;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(184,145,42,.08)}
+.atlas-nav-drawer > a:last-of-type,.atlas-nav-drawer > button:last-of-type{border-bottom:none}
+.atlas-nav-drawer > a.active{color:#fff;background:rgba(184,145,42,.08)}
+@media(max-width:820px){
+  .atlas-nav-links{display:none}
+  .atlas-nav-burger{display:flex}
+  .atlas-nav-tag{display:none}
+  .atlas-nav-inner{padding:0 16px;height:52px}
+  .atlas-nav-logo{font-size:19px}
+}
+/* Light theme override */
+html[data-theme="light"] .atlas-nav{background:rgba(245,242,236,.96);border-bottom-color:rgba(26,37,64,.12)}
+html[data-theme="light"] .atlas-nav-brand{color:#1A2540}
+html[data-theme="light"] .atlas-nav-links > a{color:#1A2540}
+html[data-theme="light"] .atlas-nav-links > a.active{color:#B8912A;border-bottom-color:#B8912A}
+html[data-theme="light"] .atlas-nav-drawer{background:rgba(253,252,250,.98)}
+html[data-theme="light"] .atlas-nav-drawer > a,html[data-theme="light"] .atlas-nav-drawer > button{color:#1A2540}
+html[data-theme="light"] .atlas-nav-menu{background:rgba(253,252,250,.98)}
+html[data-theme="light"] .atlas-nav-menu-name{color:#1A2540}
+html[data-theme="light"] .atlas-nav-menu-email{color:#718096}
+html[data-theme="light"] .atlas-nav-menu a,html[data-theme="light"] .atlas-nav-menu button{color:#1A2540}
+html[data-theme="light"] .atlas-nav-menu a:hover,html[data-theme="light"] .atlas-nav-menu button:hover{color:#B8912A}
+html[data-theme="light"] .atlas-nav-username{color:#1A2540}
+</style>
+<script>
+(function(){
+  var nav = document.querySelector('[data-atlas-nav]');
+  if(!nav) return;
+
+  // Active state for data-path links
+  var path = location.pathname.replace(/\/$/, '') || '/';
+  var links = nav.querySelectorAll('a[data-path]');
+  var bestMatch = null, bestLen = -1;
+  links.forEach(function(a){
+    var p = a.getAttribute('data-path').replace(/\/$/, '') || '/';
+    if(path === p || (p !== '/' && path.indexOf(p) === 0)){
+      if(p.length > bestLen){ bestMatch = a; bestLen = p.length; }
+    }
+  });
+  if(bestMatch){ bestMatch.classList.add('active'); }
+
+  // Burger toggle
+  var burger = nav.querySelector('[data-atlas-nav-burger]');
+  var drawer = nav.querySelector('[data-atlas-nav-drawer]');
+  if(burger && drawer){
+    burger.addEventListener('click', function(){
+      var open = drawer.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+  }
+
+  // Read atlas_user hint cookie (non-HttpOnly)
+  function readUserHint(){
+    var m = document.cookie.match(/(?:^|;\s*)atlas_user=([^;]+)/);
+    if(!m) return null;
+    try { return JSON.parse(decodeURIComponent(m[1])); } catch(e) { return null; }
+  }
+  function avatarColor(seed){
+    seed = seed || '';
+    var h = 0;
+    for(var i=0;i<seed.length;i++){ h = (h*31 + seed.charCodeAt(i)) | 0; }
+    return 'hsl(' + (Math.abs(h) % 360) + ', 42%, 40%)';
+  }
+  function firstChar(s){
+    s = (s || '').trim();
+    return s ? s.charAt(0).toUpperCase() : '?';
+  }
+
+  var user = readUserHint();
+  var loginCta = nav.querySelector('[data-atlas-login-cta]');
+  var signupCta = nav.querySelector('[data-atlas-signup-cta]');
+  var userWidget = nav.querySelector('[data-atlas-nav-user]');
+  var drawerUserBox = nav.querySelector('[data-atlas-nav-drawer-user]');
+  var drawerLogin = nav.querySelector('[data-atlas-drawer-login]');
+  var drawerSignup = nav.querySelector('[data-atlas-drawer-signup]');
+  var drawerAccount = nav.querySelector('[data-atlas-drawer-account]');
+  var drawerLogout = nav.querySelector('[data-atlas-drawer-logout]');
+
+  function applyUser(u){
+    if(!u){
+      if(loginCta) loginCta.style.display = '';
+      if(signupCta) signupCta.style.display = '';
+      if(userWidget) userWidget.style.display = 'none';
+      if(drawerUserBox) drawerUserBox.style.display = 'none';
+      if(drawerLogin) drawerLogin.style.display = '';
+      if(drawerSignup) drawerSignup.style.display = '';
+      if(drawerAccount) drawerAccount.style.display = 'none';
+      if(drawerLogout) drawerLogout.style.display = 'none';
+      return;
+    }
+    // Desktop widget
+    if(loginCta) loginCta.style.display = 'none';
+    if(signupCta) signupCta.style.display = 'none';
+    if(drawerSignup) drawerSignup.style.display = 'none';
+    if(userWidget) userWidget.style.display = 'flex';
+    var nameEl = nav.querySelector('[data-atlas-nav-username]');
+    var avEl = nav.querySelector('[data-atlas-nav-avatar]');
+    var mName = nav.querySelector('[data-atlas-nav-menu-name]');
+    var mEmail = nav.querySelector('[data-atlas-nav-menu-email]');
+    var mPlan = nav.querySelector('[data-atlas-nav-menu-plan]');
+    var avColor = avatarColor(u.e || u.n || '');
+    if(nameEl) nameEl.textContent = u.n || '';
+    if(avEl){ avEl.textContent = firstChar(u.n); avEl.style.background = avColor; }
+    if(mName) mName.textContent = u.n || '';
+    if(mEmail) mEmail.textContent = u.e || '';
+    if(mPlan){
+      if(u.p === 'pro'){ mPlan.textContent = 'Pro 会員'; mPlan.className = 'atlas-nav-menu-plan plan-pro'; }
+      else { mPlan.textContent = 'Free'; mPlan.className = 'atlas-nav-menu-plan plan-free'; }
+    }
+    // Drawer
+    if(drawerUserBox) drawerUserBox.style.display = 'flex';
+    var dName = nav.querySelector('[data-atlas-nav-drawer-name]');
+    var dEmail = nav.querySelector('[data-atlas-nav-drawer-email]');
+    var avM = nav.querySelector('[data-atlas-nav-avatar-m]');
+    if(dName) dName.textContent = u.n || '';
+    if(dEmail) dEmail.textContent = u.e || '';
+    if(avM){ avM.textContent = firstChar(u.n); avM.style.background = avColor; }
+    if(drawerLogin) drawerLogin.style.display = 'none';
+    if(drawerAccount) drawerAccount.style.display = '';
+    if(drawerLogout) drawerLogout.style.display = 'block';
+  }
+  applyUser(user);
+
+  // Dropdown toggle
+  var userBtn = nav.querySelector('[data-atlas-nav-user-btn]');
+  var menu = nav.querySelector('[data-atlas-nav-menu]');
+  if(userBtn && menu){
+    userBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = menu.classList.toggle('open');
+      userBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+    document.addEventListener('click', function(e){
+      if(!menu.contains(e.target) && !userBtn.contains(e.target)){
+        menu.classList.remove('open');
+        userBtn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  // Logout handler (both desktop menu + drawer button)
+  function doLogout(e){
+    if(e) e.preventDefault();
+    fetch('/auth/logout', { method: 'POST', credentials: 'include', redirect: 'manual' })
+      .finally(function(){
+        document.cookie = 'atlas_user=; Max-Age=0; Path=/; SameSite=Lax';
+        location.href = '/';
+      });
+  }
+  nav.querySelectorAll('[data-atlas-logout],[data-atlas-drawer-logout]').forEach(function(b){
+    b.addEventListener('click', doLogout);
+  });
+
+  // Freshen hint cookie silently via /api/me if we don't have one but might be logged in
+  if(!user){
+    fetch('/api/me', { credentials: 'include' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if(data && data.user){
+          applyUser({ n: data.user.nickname || (data.user.email||'').split('@')[0], p: data.user.plan, e: data.user.email });
+        }
+      })
+      .catch(function(){});
+  }
+})();
+</script>
+<!-- ATLAS-NAV-END -->
+<!-- ATLAS-QUARTERLY-BAND-START -->
+<div class="atlas-quarterly-band" style="background:#0F1829;border-bottom:1px solid rgba(184,145,42,.15);padding:10px 16px;text-align:center;position:relative;z-index:10">
+  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:18px;width:auto;opacity:.9;vertical-align:middle;max-width:180px">
+</div>
+<!-- ATLAS-QUARTERLY-BAND-END -->
 <!-- Atlas Currency Toggle (floating, top-right) -->
 <style>
 .atlas-floating-currency{position:fixed;top:16px;right:16px;z-index:999;background:rgba(26,37,64,.9);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.2);backdrop-filter:blur(6px)}
@@ -720,14 +993,6 @@ MID想定株価$113.75は現在株価$125.61を-9.4%下回り、乖離率-10%〜
 </div><!-- /.container -->
 
 <!-- Portal Link -->
-<style>
-.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
-.portal-link svg{flex-shrink:0}
-</style>
-<a class="portal-link" href="https://atlas-financials.jp/reports/">
-<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
-
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">
 <div class="toc-menu" id="tocMenu">
@@ -1316,8 +1581,12 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (data) {
           if (!data || !data.user) return resolve(false);
+          // plan が 'pro' 以外は Pro 非会員
+          if (data.user.plan !== 'pro') return resolve(false);
+          // plan_expires_at が null → 解約予約無し = Pro継続中
           var exp = data.user.plan_expires_at;
-          if (!exp) return resolve(false);
+          if (!exp) return resolve(true);
+          // 期限あり → 期限前なら Pro 有効
           resolve(new Date(exp) > new Date());
         })
         .catch(function () { resolve(false); });
@@ -1449,7 +1718,7 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
       break;
     }
     var titles = {
-      morning: { kicker: 'Atlas 会員限定 — 過去のニュース', title: 'このニュースは Atlas 会員限定です。', desc: '当日・前日のニュースは無料でご覧いただけますが、過去のアーカイブをお読みいただくには会員登録が必要です。<br>米国市場の動きを毎朝定点観測し、意思決定の土台に。' },
+      morning: { kicker: 'Atlas 会員限定 — 過去の朝刊', title: 'この朝刊は Atlas 会員限定です。', desc: '当日・前日の朝刊は無料でご覧いただけますが、過去のアーカイブをお読みいただくには会員登録が必要です。<br>米国市場の動きを毎朝定点観測し、意思決定の土台に。' },
       special: { kicker: 'Atlas 会員限定 — 特集', title: 'この特集記事は Atlas 会員限定です。', desc: '財務・戦略・マクロ経済の観点から編集部が深掘りした長編分析記事です。<br>会員登録で、すべての特集をお楽しみいただけます。' },
       report: { kicker: 'Atlas 会員限定 — 決算分析', title: 'このレポートは Atlas 会員限定です。', desc: '主要7銘柄（NVDA/GOOGL/TSLA/MSFT/META/AMZN/AAPL）の直近四半期は無料でご覧いただけますが、<br>過去四半期や他の銘柄レポートをお読みいただくには会員登録が必要です。' }
     };

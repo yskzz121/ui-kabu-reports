@@ -246,9 +246,27 @@ def _parse_fy_quarter(name):
     return None, None
 
 def _get_report_date(ticker, fname):
-    """レポートファイルのgitコミット日を取得（YYYY-MM-DD文字列）。取得不可時はファイル更新日"""
+    """レポートファイルの初回追加日（公開日）を取得（YYYY-MM-DD）。
+    優先度: 1) git --diff-filter=A で取得する最初の追加コミット日（バルク編集の影響を受けない）
+           2) 通常のgit log
+           3) ファイル mtime
+    """
     import re
     fpath = os.path.join(REPO_DIR, ticker, fname)
+    # 1) 初回追加コミット日（最も堅牢 — バルク編集で書き換えても publish date は保持）
+    try:
+        result = subprocess.run(
+            f'git log --diff-filter=A --format="%ai" --follow -- "{ticker}/{fname}"',
+            shell=True, cwd=REPO_DIR, capture_output=True, text=True
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            # 最終行が最古（初回追加）
+            lines = [l for l in result.stdout.strip().split("\n") if l.strip()]
+            if lines:
+                return lines[-1][:10]
+    except Exception:
+        pass
+    # 2) 通常のgit log（最新コミット日）
     try:
         result = subprocess.run(
             f'git log -1 --format="%ai" -- "{ticker}/{fname}"',
@@ -258,16 +276,71 @@ def _get_report_date(ticker, fname):
             return result.stdout.strip()[:10]
     except Exception:
         pass
+    # 3) ファイル mtime（フォールバック）
     try:
         mtime = os.path.getmtime(fpath)
         return datetime.fromtimestamp(mtime).strftime("%Y-%m-%d")
     except Exception:
         return None
 
+def _business_days_ago(days):
+    """n営業日前の日付を返す（土日除外、祝日は簡略化のため非考慮）"""
+    from datetime import timedelta
+    cur = datetime.now()
+    remaining = days
+    while remaining > 0:
+        cur -= timedelta(days=1)
+        if cur.weekday() < 5:  # 0=Mon..4=Fri
+            remaining -= 1
+    return cur.strftime("%Y-%m-%d")
+
+def _collect_recent_reports(ticker_data, limit=7):
+    """全ティッカーから直近追加レポート最大N件を日付降順で返す"""
+    items = []
+    for ticker, reports in ticker_data.items():
+        if not reports:
+            continue
+        latest_q, latest_f = reports[0]
+        date_str = _get_report_date(ticker, latest_f)
+        if date_str:
+            items.append({"ticker": ticker, "quarter": latest_q, "fname": latest_f, "date": date_str})
+    items.sort(key=lambda x: x["date"], reverse=True)
+    return items[:limit]
+
 def make_root_index(ticker_data):
     from datetime import timedelta
     import re as _re
-    three_weeks_ago = (datetime.now() - timedelta(weeks=3)).strftime("%Y-%m-%d")
+    # NEW判定: レポート公開から 7営業日 以内
+    new_threshold = _business_days_ago(7)
+    # タイムライン: 直近追加レポート7件
+    recent_items = _collect_recent_reports(ticker_data, limit=7)
+    timeline_html = ""
+    if recent_items:
+        tl_chips = ""
+        for item in recent_items:
+            is_new_item = item["date"] >= new_threshold
+            new_dot = '<span class="tl-new-dot" aria-label="NEW"></span>' if is_new_item else ''
+            # MM/DD 表記
+            try:
+                mmdd = f'{int(item["date"][5:7])}/{int(item["date"][8:10])}'
+            except Exception:
+                mmdd = item["date"][5:]
+            url = f'{PAGES_BASE_URL}/{item["ticker"]}/{item["fname"]}'
+            tl_chips += (
+                f'<a class="tl-item" href="{url}">'
+                f'{new_dot}'
+                f'<span class="tl-ticker">{item["ticker"]}</span>'
+                f'<span class="tl-quarter">{item["quarter"]}</span>'
+                f'<span class="tl-date">{mmdd}</span>'
+                f'</a>'
+            )
+        timeline_html = (
+            '<section class="timeline" aria-label="直近追加されたレポート">'
+            '<div class="timeline-inner">'
+            '<div class="timeline-header"><span class="timeline-label">最新レポート</span><span class="timeline-sub">直近追加 · 最大7件</span></div>'
+            f'<div class="timeline-items">{tl_chips}</div>'
+            '</div></section>'
+        )
 
     cards = ""
     for ticker in sorted(ticker_data.keys()):
@@ -280,9 +353,9 @@ def make_root_index(ticker_data):
             print(f"  ⚠️  警告: {ticker} のセクターが SECTOR_MAP に未登録です。「未分類」で表示します。SECTOR_MAP に追加してください。")
         latest_q, latest_f = reports[0]
 
-        # 最新レポートの日付を取得してNEW判定
+        # 最新レポートの日付を取得してNEW判定（7営業日以内）
         latest_date = _get_report_date(ticker, latest_f)
-        is_new = latest_date and latest_date >= three_weeks_ago
+        is_new = latest_date and latest_date >= new_threshold
 
         # FY年度ごとにクォーターをグループ化
         fy_groups = {}
@@ -397,7 +470,33 @@ body{{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--
 .q-pill{{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;padding:5px 14px;border-radius:6px;background:var(--paper);color:var(--navy);text-decoration:none;border:1px solid var(--paper-dk);transition:all .15s;letter-spacing:.03em}}
 .q-pill:hover{{background:var(--navy);color:var(--gold-lt);border-color:var(--navy)}}
 .score-badge{{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap;line-height:1.5;letter-spacing:.03em}}
-.new-badge{{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--alert);color:#fff;white-space:nowrap;letter-spacing:.1em}}
+.new-badge{{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:#E53935;color:#fff;white-space:nowrap;letter-spacing:.1em;animation:atlas-new-pulse 1.8s ease-in-out infinite;box-shadow:0 0 0 0 rgba(229,57,53,.55)}}
+@keyframes atlas-new-pulse{{0%,100%{{opacity:1;box-shadow:0 0 0 0 rgba(229,57,53,.55)}}50%{{opacity:.78;box-shadow:0 0 0 7px rgba(229,57,53,0)}}}}
+/* Timeline */
+.timeline{{max-width:1100px;margin:28px auto 0;padding:0 20px}}
+.timeline-inner{{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:0 1px 3px rgba(26,37,64,.04)}}
+.timeline-header{{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}}
+.timeline-label{{font-family:'Shippori Mincho B1',serif;font-size:14px;font-weight:700;color:var(--navy);letter-spacing:.08em}}
+.timeline-label::before{{content:'';display:inline-block;width:4px;height:14px;background:var(--gold);margin-right:8px;vertical-align:-2px}}
+.timeline-sub{{font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-mute);letter-spacing:.05em}}
+.timeline-items{{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--border) transparent}}
+.timeline-items::-webkit-scrollbar{{height:4px}}
+.timeline-items::-webkit-scrollbar-thumb{{background:var(--border);border-radius:2px}}
+.tl-item{{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:8px;background:var(--paper);border:1px solid var(--paper-dk);text-decoration:none;flex-shrink:0;transition:all .15s;position:relative}}
+.tl-item:hover{{background:var(--navy);border-color:var(--navy);transform:translateY(-1px);box-shadow:0 2px 8px rgba(26,37,64,.12)}}
+.tl-item:hover .tl-ticker{{color:var(--gold-lt)}}
+.tl-item:hover .tl-quarter,.tl-item:hover .tl-date{{color:rgba(255,255,255,.75)}}
+.tl-ticker{{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--navy);letter-spacing:.02em;transition:color .15s}}
+.tl-quarter{{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--ink-sub);letter-spacing:.03em;transition:color .15s}}
+.tl-date{{font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-mute);margin-left:2px;transition:color .15s}}
+.tl-new-dot{{display:inline-block;width:7px;height:7px;border-radius:50%;background:#E53935;flex-shrink:0;animation:atlas-new-pulse 1.8s ease-in-out infinite;box-shadow:0 0 0 0 rgba(229,57,53,.55)}}
+@media(max-width:768px){{
+  .timeline{{margin-top:22px;padding:0 14px}}
+  .timeline-inner{{padding:14px 16px}}
+  .tl-item{{padding:7px 12px;gap:6px}}
+  .tl-ticker{{font-size:12px}}
+  .tl-quarter,.tl-date{{font-size:10px}}
+}}
 .card.hidden{{display:none}}
 .no-results{{grid-column:1/-1;text-align:center;color:var(--ink-mute);font-size:14px;padding:48px 0}}
 .report-footer{{text-align:center;margin-top:50px;padding:36px 20px 30px;border-top:1px solid var(--border);background:#fff;color:var(--ink-mute);font-size:12px;line-height:1.9}}
@@ -434,6 +533,7 @@ body{{font-family:'Noto Sans JP',sans-serif;background:var(--paper);color:var(--
 </style>
 </head><body>
 <section class="hero"><div class="hero-inner"><img class="hero-logo" src="logos/atlas-quarterly-type-gold-transparent-1200w.png" alt="Atlas Quarterly"><h1 class="hero-title">米国決算分析レポート</h1><p class="hero-sub">米国主要49銘柄を四半期ごとに定点観測。財務・戦略・バリュエーションを一枚に凝縮。</p><div class="hero-meta">Last Updated — {now}</div></div></section>
+{timeline_html}
 <div class="controls">
 <div class="sort-bar"><button class="sort-btn active" onclick="sortBy('ticker')">ABC順</button><button class="sort-btn" onclick="sortBy('sector')">セクター別</button><button class="sort-btn" onclick="sortBy('score')">スコア順</button></div>
 <div class="search-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search" placeholder="ティッカーで検索..." oninput="filterCards()"></div>
@@ -546,6 +646,15 @@ def deploy(html_path, ticker, quarter, score=None, comment=None):
     shutil.copy2(html_path, dest_path)
     print(f"✅ HTMLコピー: {ticker}/{filename}")
 
+    # ── 1b. Atlas nav + Quarterlyバンド注入（新規レポートにも適用）
+    inject_script = os.path.expanduser("~/atlas-shared/nav/inject.py")
+    if os.path.exists(inject_script):
+        try:
+            subprocess.run(["python3", inject_script], check=False, capture_output=True)
+            print("✅ Atlas nav + Quarterlyバンド注入")
+        except Exception as e:
+            print(f"⚠️  nav注入失敗: {e}")
+
     # ── 2. 銘柄index更新
     reports = scan_existing_reports(ticker)
     with open(os.path.join(ticker_dir, "index.html"), "w", encoding="utf-8") as f:
@@ -556,6 +665,15 @@ def deploy(html_path, ticker, quarter, score=None, comment=None):
     with open(os.path.join(REPO_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(make_root_index(scan_all_tickers()))
     print("✅ 全銘柄ポータル更新")
+
+    # ── 3b. Atlas共通nav再注入（テーマ切替・ナビリンクを復元）
+    inject_script = os.path.expanduser("~/atlas-shared/nav/inject.py")
+    if os.path.exists(inject_script):
+        try:
+            subprocess.run(["python3", inject_script], check=False, capture_output=True)
+            print("✅ Atlas共通nav再注入")
+        except Exception as e:
+            print(f"⚠️  nav注入失敗: {e}")
 
     # ── 4. Cloudflare Pages にデプロイ
     print("📤 Cloudflare Pages にデプロイ中...")
