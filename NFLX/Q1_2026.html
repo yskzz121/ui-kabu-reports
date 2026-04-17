@@ -481,12 +481,14 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
   body{padding:12px!important}
-  .rh{padding:30px 16px 24px}
-  .rh h1{font-size:1.35rem;margin:12px 0 6px}
-  .rh-logo-row{gap:10px;margin-bottom:12px}
+  /* ヘッダーを縦並び flex 化 — 企業概要ボタンを日付の下（最後）に配置して logo/ticker と被らないようにする */
+  .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
+  .rh-inner{order:1;width:100%}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .rh-logo-row{gap:12px;margin-bottom:10px}
   .rh-logo{height:44px;max-width:180px}
   .rh-ticker{font-size:11px;padding:4px 12px}
-  .ov-wrap{position:relative;top:auto;right:auto;margin-top:10px;justify-content:center}
   .l1{padding:28px 18px 22px;gap:20px}
   .l1-score-num{font-size:2.2rem}
   .l1-score-label{font-size:1rem}
