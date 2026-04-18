@@ -644,8 +644,11 @@ def deploy(html_path, ticker, quarter, score=None, comment=None):
 
     # ── 1. HTMLコピー
     os.makedirs(ticker_dir, exist_ok=True)
-    shutil.copy2(html_path, dest_path)
-    print(f"✅ HTMLコピー: {ticker}/{filename}")
+    if os.path.abspath(html_path) != os.path.abspath(dest_path):
+        shutil.copy2(html_path, dest_path)
+        print(f"✅ HTMLコピー: {ticker}/{filename}")
+    else:
+        print(f"✅ HTMLコピー省略（同一ファイル）: {ticker}/{filename}")
 
     # ── 1b. Atlas nav + Quarterlyバンド注入（新規レポートにも適用）
     inject_script = os.path.expanduser("~/atlas-shared/nav/inject.py")
