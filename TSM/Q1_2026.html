@@ -56,10 +56,10 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
 .rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
 .rh-inner{position:relative;z-index:1}
-.rh-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px}
-.rh-logo{height:48px;width:auto;max-width:180px;object-fit:contain;opacity:.92;flex-shrink:0}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
 .rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
-.rh h1{font-size:2rem;font-weight:800;margin:10px 0 6px;letter-spacing:.02em}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
 .rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
 .rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
 
@@ -97,6 +97,11 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .l1-score-badge{display:inline-flex;align-items:baseline;gap:16px;background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px 32px}
 .l1-score-num{font-size:2.6rem;font-weight:900;color:var(--gold2);line-height:1;font-family:'Inter',sans-serif}
 .l1-score-label{font-size:1.1rem;font-weight:700;color:var(--gold2);font-family:'Shippori Mincho B1',serif}
+/* Score shimmer — score 4+ (良い決算以上) */
+.l1-score-badge.score-high{animation:score-shimmer 3s ease-in-out infinite}
+.l1-score-badge.score-high .l1-score-num,.l1-score-badge.score-high .l1-score-label{animation:score-text-glow 3s ease-in-out infinite}
+@keyframes score-shimmer{0%,100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}40%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}60%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}}
+@keyframes score-text-glow{0%,100%{text-shadow:0 0 0 transparent}40%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}60%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}}
 
 /* Consensus (integrated in Layer 1) */
 .l1-consensus{
@@ -469,11 +474,14 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 @media(max-width:768px){
   body{padding:12px!important}
   .rh{padding:30px 16px 24px}
-  .rh h1{font-size:1.35rem}
-  .rh-logo-row{flex-direction:column;gap:8px}
-  .rh-logo{height:38px}
+  /* ヘッダーを縦並び flex 化 — 企業概要ボタンを日付の下（最後）に配置 */
+  .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
+  .rh-inner{order:1;width:100%}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .rh-logo-row{gap:12px;margin-bottom:10px}
+  .rh-logo{height:44px;max-width:180px}
   .rh-ticker{font-size:11px;padding:4px 12px}
-  .ov-wrap{position:relative;top:auto;right:auto;margin-top:10px;justify-content:center}
   .l1{padding:28px 18px 22px;gap:20px}
   .l1-score-num{font-size:2.2rem}
   .l1-score-label{font-size:1rem}
@@ -882,7 +890,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
   <!-- Score -->
   <div class="l1-score">
-    <div class="l1-score-badge">
+    <div class="l1-score-badge score-high">
       <span class="l1-score-num">5</span>
       <span class="l1-score-label">素晴らしい決算</span>
     </div>

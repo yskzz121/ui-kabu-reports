@@ -1,445 +1,322 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>LLY イーライリリー FY2025 Q4 決算分析</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<title>イーライリリー (LLY) FY2025Q4 決算分析レポート</title>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 158.82, date: '2026/4/15', fmt: 'cjk-ja' };</script>
 <style>
-:root {
-  --bg-primary: #0d1117;
-  --bg-card: #161b22;
-  --bg-card-alt: #1c2333;
-  --border: #30363d;
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-muted: #6e7681;
-  --green: #2ea043;
-  --green-light: #3fb950;
-  --green-bg: rgba(46,160,67,0.15);
-  --red: #f85149;
-  --red-light: #ff7b72;
-  --red-bg: rgba(248,81,73,0.15);
-  --blue: #58a6ff;
-  --blue-bg: rgba(88,166,255,0.15);
-  --purple: #bc8cff;
-  --purple-bg: rgba(188,140,255,0.15);
-  --yellow: #d29922;
-  --yellow-bg: rgba(210,153,34,0.15);
-  --orange: #f0883e;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Noto Sans JP', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.header {background:linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a1a2e 100%);
-  border-bottom: 1px solid var(--card-border);
-  padding: 40px 20px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
-.header .ticker {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--blue);
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-}
-.header h1 {
-  font-size: 32px;
-  font-weight: 900;
-  margin-bottom: 8px;
-}
-.header .quarter {
-  font-size: 18px;
-  color: var(--text-secondary);
-  font-weight: 400;
-}
-.header .date {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-top: 4px;
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.section{margin:32px 0}
+.section-title{font-size:1.3rem;color:#D4A843;border-left:4px solid #1f6feb;padding-left:12px;margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:20px}
+.card .label{font-size:0.8rem;color:#8b949e;margin-bottom:4px}
+.card .value{font-size:1.5rem;font-weight:700}
+.card .sub{font-size:0.8rem;margin-top:4px}
+.green{color:#2ea043}.red{color:#f85149}.blue{color:#D4A843}.yellow{color:#d29922}.gray{color:#8b949e}
+.card-wide{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
+.chart-container{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+canvas{max-height:320px}
+.data-table{width:100%;border-collapse:collapse;font-size:0.9rem}
+.data-table th{background:#1A2540;color:#D4A843;padding:10px 12px;text-align:left;border-bottom:1px solid #30363d;font-weight:500}
+.data-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.data-table tr:hover{background:#1c2128}
+.data-table .right{text-align:right}
+.footer{text-align:center;padding:30px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;margin-top:40px}
+@media(max-width:768px){body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
+@media(max-width:480px){.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}.section-title,.section-header{font-size:1rem}}
+.section[data-accordion],.sec3[data-accordion]{position:relative}
+.section[data-accordion] .section-title,.sec3[data-accordion] .sec3-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after,.sec3[data-accordion] .sec3-title::after{content:'▼';position:absolute;right:6px;top:16px;font-size:.65em;color:var(--t3,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after,.sec3[data-accordion].collapsed .sec3-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body,.sec3[data-accordion] .sec3-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body,.sec3[data-accordion].collapsing .sec3-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body,.sec3[data-accordion].collapsed .sec3-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+@media(max-width:768px){body{padding-bottom:60px!important}}
+
+/* ══ Atlas Quarterly Design System v2 ══ */
+:root{
+  --bg:#0F1829;--card:#1A2540;--card-hover:#243158;
+  --border:rgba(184,145,42,0.18);--border-strong:rgba(184,145,42,0.35);
+  --t1:#F5F2EC;--t2:#A8B0BC;--t3:#6E7A8C;
+  --gold:#B8912A;--gold2:#D4A843;--gold-pale:#F0E6C8;
+  --navy:#1A2540;--navy-deep:#0F1829;--navy-mid:#243158;
+  --paper:#F5F2EC;--ink:#0F0E0C;--alert:#8B2020;--beat:#2ecc71;--muted:#8B949E;
+  /* Legacy aliases */
+  --bg-primary:var(--bg);--bg-card:var(--card);--bg-card-alt:var(--card-hover);
+  --text-primary:var(--t1);--text-secondary:var(--t2);--text-muted:var(--t3);
+  --green-light:var(--beat);--red-light:var(--alert);
 }
 
-/* Score Section */
-.score-section {
-  text-align: center;
-  padding: 40px 20px;
-  margin-bottom: 30px;
-  background: linear-gradient(135deg, rgba(46,160,67,0.08), rgba(88,166,255,0.08));
-  border-radius: 16px;
-  border: 1px solid var(--border);
-}
-.score-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--bg-card);
-  border: 2px solid var(--green);
-  border-radius: 16px;
-  padding: 16px 32px;
-  margin-bottom: 16px;
-}
-.score-number {
-  font-size: 48px;
-  font-weight: 900;
-  color: var(--green-light);
-}
-.score-icon {
-  font-size: 42px;
-}
-.score-label {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--green-light);
-}
-.score-desc {
-  color: var(--text-secondary);
-  font-size: 15px;
-  margin-top: 8px;
-}
+body{background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.num,.kpi-val,.price-val,.score-num,.cardx-val,.metric-val,.val-price,.tbl th{font-family:'Inter','Noto Sans JP',sans-serif}
+.insight-body,.mgmt-body{font-family:'Noto Serif JP',serif;font-weight:400}
 
-/* Card Grid */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-  margin-bottom: 30px;
-}
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-}
-.card-title {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-}
-.card-value {
-  font-size: 28px;
-  font-weight: 700;
-}
-.card-sub {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-.positive { color: var(--green-light); }
-.negative { color: var(--red-light); }
-.neutral { color: var(--text-primary); }
-.tag {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 6px;
-  margin-left: 6px;
-}
-.tag-green { background: var(--green-bg); color: var(--green-light); }
-.tag-red { background: var(--red-bg); color: var(--red-light); }
-.tag-blue { background: var(--blue-bg); color: var(--blue); }
+/* Header */
+.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
+.rh-inner{position:relative;z-index:1}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
+.rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
+.rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
+.ov-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
+.ov-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
+.ov-btn .chev{transition:transform .25s}
+.ov-btn.open .chev{transform:rotate(180deg)}
+.ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
+.ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
+.ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
 
-/* Section */
-.section {
-  margin-bottom: 30px;
-}
-.section-title {
-  font-size: 18px;
-  font-weight: 700;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-icon {
-  font-size: 20px;
-}
+/* Layer I */
+.layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
+.l1{background:linear-gradient(180deg,rgba(184,145,42,.06) 0%,rgba(36,49,88,.1) 100%);border:1px solid var(--border);border-radius:16px;padding:40px 32px 32px;margin-bottom:40px;display:flex;flex-direction:column;gap:26px}
+.l1-score{display:flex;justify-content:center}
+.l1-score-badge{display:inline-flex;align-items:baseline;gap:16px;background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px 32px}
+.l1-score-num{font-size:2.6rem;font-weight:900;color:var(--gold2);line-height:1;font-family:'Inter',sans-serif}
+.l1-score-label{font-size:1.1rem;font-weight:700;color:var(--gold2);font-family:'Shippori Mincho B1',serif}
+.l1-score-badge.score-high{animation:score-shimmer 3s ease-in-out infinite}
+.l1-score-badge.score-high .l1-score-num,.l1-score-badge.score-high .l1-score-label{animation:score-text-glow 3s ease-in-out infinite}
+@keyframes score-shimmer{0%,100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}40%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}60%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}}
+@keyframes score-text-glow{0%,100%{text-shadow:0 0 0 transparent}40%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}60%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}}
+.l1-consensus{background:rgba(15,24,41,0.42);border:1px solid var(--border);border-radius:10px;padding:20px 24px 8px}
+.l1-consensus-head{font-family:'Inter',sans-serif;font-size:.7rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:16px;text-align:center}
+.l1-consensus-tbl{width:100%;border-collapse:collapse}
+.l1-consensus-tbl th,.l1-consensus-tbl td{padding:12px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:middle}
+.l1-consensus-tbl th{font-family:'Inter',sans-serif;font-size:.64rem;color:var(--t3);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.l1-consensus-tbl td{font-size:.92rem;font-family:'Inter',sans-serif}
+.l1-consensus-tbl td.lbl{color:var(--t2);font-family:'Noto Sans JP',sans-serif;font-weight:500}
+.l1-consensus-tbl td.cn{color:var(--t2)}
+.l1-consensus-tbl td.val{color:var(--t1);font-weight:700}
+.l1-consensus-tbl td.beat{color:var(--beat);font-weight:700;white-space:nowrap}
+.l1-consensus-tbl td.neu{color:var(--t2);font-weight:600;white-space:nowrap}
+.l1-consensus-tbl tr:last-child td{border-bottom:none}
+.l1-notes{padding:2px 4px 2px 16px;border-left:2px solid var(--border-strong)}
+.l1-notes-head{font-family:'Inter',sans-serif;font-size:.66rem;color:var(--gold2);letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.l1-note{font-family:'Noto Serif JP',serif;font-size:.9rem;color:var(--t1);line-height:1.95;padding:3px 0;font-weight:400}
+.l1-note strong{color:var(--gold2);font-weight:600}
+.l1-price{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(15,24,41,0.3);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.l1-price-cell{padding:16px 18px;text-align:center;border-right:1px solid var(--border)}
+.l1-price-cell:last-child{border-right:none}
+.l1-price-cell .lbl{font-size:.64rem;letter-spacing:.12em;color:var(--t3);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif;font-weight:600}
+.l1-price-cell .val{font-size:1.2rem;font-weight:700;font-family:'Inter',sans-serif;color:var(--t1)}
 
-/* Chart container */
-.chart-container {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 20px;
-}
-.chart-wrapper {
-  position: relative;
-  height: 300px;
-}
+/* Beat lamp */
+.beat-lamp{display:inline-block;width:10px;height:10px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4);animation:pulse-green 1.5s ease-in-out infinite;vertical-align:middle;margin-right:6px}
+@keyframes pulse-green{0%,100%{opacity:1;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4)}50%{opacity:.5;box-shadow:0 0 4px #2ecc71,0 0 8px rgba(46,204,113,.2)}}
+.beat-text{color:var(--gold2);font-weight:700;letter-spacing:.5px;animation:glow-gold 2.5s ease-in-out infinite;font-family:'Inter',sans-serif;font-size:.82em}
+@keyframes glow-gold{0%,100%{opacity:1;text-shadow:0 0 8px rgba(212,168,67,.6)}50%{opacity:.6;text-shadow:0 0 4px rgba(212,168,67,.3)}}
 
-/* Table */
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-.data-table th {
-  text-align: left;
-  padding: 10px 12px;
-  background: var(--bg-card-alt);
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border);
-}
-.data-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-}
-.data-table tr:last-child td { border-bottom: none; }
-.data-table .right { text-align: right; }
+/* Layer II */
+.section{margin-bottom:36px}
+.section-title{font-size:1.15rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;color:var(--t1);letter-spacing:.01em}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px 22px;display:flex;flex-direction:column}
+.metric-lbl{font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;line-height:1.35}
+.metric-val{font-size:1.75rem;font-weight:800;line-height:1.15;text-align:center;padding:4px 0}
+.metric-sub{font-size:.78rem;color:var(--t2);margin-top:8px;font-family:'Noto Sans JP',sans-serif;line-height:1.6;text-align:center}
+.delta{display:block;font-size:.76rem;color:var(--t2);margin-top:10px;line-height:1.7;font-family:'Inter',sans-serif;text-align:center}
+.delta .pct{font-weight:700}
+.delta .pct.pos{color:var(--beat)}
+.delta .pct.neg{color:var(--alert)}
+.pos{color:var(--beat)}.neg{color:var(--alert)}.gold{color:var(--gold2)}.neu{color:var(--t1)}
+.insight{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 24px;margin-bottom:12px}
+.insight-body{font-family:'Noto Serif JP',serif;font-size:.95rem;color:var(--t1);line-height:1.95;font-weight:400}
+.insight-body strong{color:var(--gold2);font-weight:600}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px}
+.chart-wrap{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-/* Valuation Cards */
-.val-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
+/* Boundary */
+.boundary{display:flex;align-items:center;justify-content:center;gap:24px;margin:72px 0 56px;padding:10px 0}
+.boundary-line{flex:0 0 120px;max-width:120px;height:1px;background:var(--border-strong)}
+.boundary-mark{font-family:'Shippori Mincho B1',serif;font-size:2rem;color:var(--gold);font-weight:700}
 
-.val-card {
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-  border: 1px solid var(--border);
-}
-.val-card.low {
-  background: linear-gradient(135deg, rgba(46,160,67,0.1), rgba(46,160,67,0.05));
-  border-color: var(--green);
-}
-.val-card.mid {
-  background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(88,166,255,0.05));
-  border-color: var(--blue);
-}
-.val-card.high {
-  background: linear-gradient(135deg, rgba(188,140,255,0.1), rgba(188,140,255,0.05));
-  border-color: var(--purple);
-}
-.val-scenario {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-}
-.val-card.low .val-scenario { color: var(--green-light); }
-.val-card.mid .val-scenario { color: var(--blue); }
-.val-card.high .val-scenario { color: var(--purple); }
-.val-price {
-  font-size: 36px;
-  font-weight: 900;
-  margin: 8px 0;
-}
-.val-card.low .val-price { color: var(--green-light); }
-.val-card.mid .val-price { color: var(--blue); }
-.val-card.high .val-price { color: var(--purple); }
-.val-detail {
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-}
-.val-deviation {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-}
+/* Layer III */
+.sec3{margin-bottom:32px}
+.sec3-title{font-family:'Inter',sans-serif;font-size:1.09rem;font-weight:700;color:var(--t1);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;letter-spacing:.06em;display:flex;align-items:baseline;gap:10px}
+.sec3-title .jp{font-family:'Noto Sans JP',sans-serif;font-size:.85em;color:var(--t2);font-weight:500;letter-spacing:.02em}
+.cardx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.cardx{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px 18px;display:flex;flex-direction:column}
+.cardx-lbl{font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;line-height:1.35}
+.cardx-val{font-size:1.4rem;font-weight:800;line-height:1.15;text-align:center;padding:4px 0}
+.cardx-sub{font-size:.76rem;color:var(--t2);margin-top:6px;font-family:'Noto Sans JP',sans-serif;line-height:1.55;text-align:center}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif}
+.tbl td{color:var(--t2);font-family:'Noto Sans JP',sans-serif}
+.tbl tr:hover td{background:rgba(184,145,42,.04)}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h4{font-size:.9rem;font-weight:700;margin-bottom:12px;color:var(--gold2);font-family:'Noto Sans JP',sans-serif;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.82rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(184,145,42,.08);line-height:1.7;font-family:'Noto Serif JP',serif}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'—';margin-right:8px;color:var(--gold)}
+.risk-card ul.risk-top li{color:var(--t1);font-weight:600;font-size:.9rem;line-height:1.8;padding:8px 0}
+.risk-card ul.risk-top li::before{content:'●';font-size:.7em;margin-right:10px;color:var(--gold2)}
+.risk-card ul.risk-top li:last-child{border-bottom:1px solid rgba(184,145,42,.08)}
+.risk-card ul.risk-more{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .25s ease,margin .3s ease;margin:0}
+.risk-card.expanded ul.risk-more{max-height:800px;opacity:1;margin-top:0}
+.risk-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--gold2);font-family:'Noto Sans JP','Inter',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:border-color .2s,background .2s;width:100%}
+.risk-toggle:hover{border-color:var(--gold2);background:rgba(184,145,42,.06)}
+.risk-toggle .chev{display:inline-block;font-size:.7em;transition:transform .3s ease}
+.risk-card.expanded .risk-toggle .chev{transform:rotate(-180deg)}
+.pullq{position:relative;padding:30px 36px 24px;margin-bottom:18px;border-left:2px solid var(--border-strong)}
+.pullq::before{content:'\201C';position:absolute;top:6px;left:16px;font-family:'Shippori Mincho B1',serif;font-size:4.5rem;color:var(--gold);line-height:1;opacity:.28;pointer-events:none}
+.pullq-body{font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--t1);line-height:2;padding-left:44px;margin-bottom:14px;font-weight:300}
+.pullq-body strong{color:var(--gold2);font-weight:600}
+.pullq-attr{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);text-align:right;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding-right:6px}
+.pullq-attr .role{color:var(--t3);font-weight:500;text-transform:none;margin-left:8px;letter-spacing:.02em;font-family:'Noto Sans JP',sans-serif}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.val-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center}
+.val-scn{font-size:.72rem;font-weight:700;letter-spacing:1.5px;color:var(--gold2);margin-bottom:8px;font-family:'Inter',sans-serif}
+.val-price{font-size:1.9rem;font-weight:900;color:var(--t1);margin-bottom:6px;font-family:'Inter',sans-serif}
+.val-detail{font-size:.74rem;color:var(--t2);line-height:1.5;font-family:'Noto Sans JP',sans-serif}
+.val-gap{font-size:.82rem;font-weight:700;margin-top:8px;font-family:'Inter',sans-serif}
+.ntm-calc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;text-align:center}
+.ntm-row{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;gap:14px;align-items:center;max-width:820px;margin:0 auto 18px}
+.ntm-cell{text-align:center}
+.ntm-lbl{font-size:.7rem;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif}
+.ntm-val{font-family:'Inter',sans-serif;font-size:1.65rem;font-weight:700;color:var(--t1)}
+.ntm-val.goal{font-size:2.4rem;font-weight:900;color:var(--gold2)}
+.ntm-sub{font-size:.7rem;color:var(--t3);margin-top:3px;font-family:'Noto Sans JP',sans-serif}
+.ntm-op{font-size:1.4rem;color:var(--gold2);font-weight:700}
+.ntm-foot{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.ntm-foot-cell{text-align:center}
+.ntm-foot-cell .lbl{font-size:.72rem;color:var(--t3);margin-bottom:2px;font-family:'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.ntm-foot-cell .val{font-size:1.15rem;font-weight:700;font-family:'Inter',sans-serif}
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.cmp-tbl th,.cmp-tbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.cmp-tbl th{color:var(--t3);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;font-family:'Inter',sans-serif;font-weight:600}
+.cmp-tbl td{color:var(--t2);font-family:'Inter',sans-serif}
+#sec-compare .cmp-tbl{font-size:.98rem}
+#sec-compare .cmp-tbl th{font-size:.81rem}
+#sec-compare .cmp-tbl th,#sec-compare .cmp-tbl td{padding:13px 16px}
+#sec-compare .cmp-tbl td.pos{color:var(--beat);font-weight:700}
+#sec-compare .cmp-tbl td.neg{color:var(--alert);font-weight:700}
+#sec-compare .cmp-tbl td.neu{color:var(--t1);font-weight:600}
+.chart-split{display:grid;grid-template-columns:minmax(240px,1fr) 1.1fr;gap:28px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px 28px;margin-bottom:18px}
+.chart-split-viz{position:relative;height:260px}
+.chart-split-list{display:flex;flex-direction:column;gap:2px}
+.chart-split-item{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.chart-split-item:last-child{border-bottom:none}
+.csi-sw{width:12px;height:12px;border-radius:2px}
+.csi-lbl{font-size:.86rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500;line-height:1.4}
+.csi-sub{display:block;font-size:.72rem;color:var(--t3);font-weight:400;margin-top:1px}
+.csi-pct{font-family:'Inter',sans-serif;font-weight:700;color:var(--gold2);font-size:1rem}
+.panel-merge{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:18px;overflow:hidden}
+.panel-merge .chart-split{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:26px 28px 20px}
+.panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
+.panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
+.margin-tiles-row{display:grid;grid-template-columns:repeat(4,1fr);padding:24px 0}
+.margin-tile{padding:8px 22px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:center}
+.margin-tile:last-child{border-right:none}
+.margin-tile-lbl{font-size:.8rem;color:var(--t1);margin-bottom:8px;font-family:'Noto Sans JP',sans-serif;font-weight:700}
+.margin-tile-val{font-family:'Inter','Noto Sans JP',sans-serif;font-size:2rem;font-weight:800;line-height:1;margin-bottom:6px}
+.margin-tile-sub{font-size:.7rem;color:var(--t2);font-family:'Noto Sans JP',sans-serif;line-height:1.5}
+.margin-chart-area{padding:18px 24px 26px}
+.margin-chart-area .chart-wrap{height:280px}
+.val-gauge{margin-top:20px;padding:40px 40px 56px;background:var(--card);border:1px solid var(--border);border-radius:14px;position:relative}
+.val-gauge-title{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);font-weight:700;margin-bottom:36px;text-align:center;letter-spacing:.14em;text-transform:uppercase}
+.val-gauge-track{position:relative;height:6px;background:linear-gradient(90deg,rgba(139,32,32,0.3) 0%,rgba(184,145,42,0.3) 50%,rgba(63,185,80,0.35) 100%);border-radius:3px;margin:0 10px}
+.val-gauge-mark{position:absolute;top:-4px;width:2px;height:14px;background:rgba(184,145,42,0.55);transform:translateX(-1px)}
+.val-gauge-mark .lbl{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:.66rem;color:var(--t3);white-space:nowrap;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.val-gauge-mark .amt{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;color:var(--t1);white-space:nowrap}
+.val-gauge-current{position:absolute;top:-12px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:13px solid var(--gold2);transform:translateX(-9px);filter:drop-shadow(0 0 6px rgba(212,168,67,0.45))}
+.val-gauge-current .cur-label{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:var(--gold2);color:var(--navy-deep);padding:4px 12px;border-radius:5px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:800;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.val-gauge-current .cur-label::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold2)}
+.val-reminder{background:rgba(184,145,42,0.05);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-top:16px;font-family:'Noto Serif JP',serif;font-size:.82rem;color:var(--t2);line-height:1.9}
+.val-reminder strong{color:var(--gold2);font-weight:600}
+.footer{text-align:center;padding:40px 20px 24px;border-top:1px solid var(--border);margin-top:48px;color:var(--t3)}
+.footer p{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:2;color:var(--t2);max-width:640px;margin:0 auto}
+.footer .footer-id{margin-top:14px;font-family:'Inter',sans-serif;font-size:.72rem;color:var(--t3);letter-spacing:.05em}
 
-/* Comment box */
-.comment-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 12px;
-}
-.comment-box h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--blue);
-  margin-bottom: 8px;
-}
-.comment-box p, .comment-box li {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-.comment-box ul {
-  padding-left: 20px;
-}
-.comment-box li {
-  margin-bottom: 6px;
-}
-
-/* Risk/Catalyst */
-.risk-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-
-.risk-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-}
-.risk-card.negative-card { border-left: 3px solid var(--red); }
-.risk-card.positive-card { border-left: 3px solid var(--green); }
-.risk-card h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-.risk-card.negative-card h4 { color: var(--red-light); }
-.risk-card.positive-card h4 { color: var(--green-light); }
-.risk-card li {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
-  line-height: 1.6;
-}
-
-/* Comparison */
-.compare-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 12px;
-}
-.compare-label {
-  font-size: 13px;
-  color: var(--text-secondary);
-  min-width: 120px;
-}
-.compare-arrow {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 30px;
-  color: var(--text-muted);
-  font-size: 12px;
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-}
-
-/* Report Logo */
-.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
-.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
-
-.geo-grid{grid-template-columns:1fr 1fr}
-/* === Mobile Responsive === */
-.tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:768px){
-  body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .geo-grid{grid-template-columns:1fr!important}
-  .saas-grid{grid-template-columns:1fr 1fr}
-  .metrics-grid{grid-template-columns:1fr 1fr!important}
-  .chart-row{grid-template-columns:1fr!important}
-  .overview-grid{grid-template-columns:1fr!important}
-  .tech-grid{grid-template-columns:1fr!important}
-  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
-}
-@media(max-width:480px){
-  .grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}
-  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
-}
-/* === Accordion (mobile only) === */
-.section[data-accordion]{position:relative}
-.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
-.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub,#8b949e);transition:transform .25s}
-.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
-.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
-.section[data-accordion].collapsing .section-body{overflow:hidden}
-.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
-/* === TOC Nav (mobile only) === */
+/* TOC Nav */
 .toc-nav{display:none}
 @media(max-width:768px){
-  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
-  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
-  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.85rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
-  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-menu.open{max-height:62vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .toc-list{list-style:none;padding:8px 0;margin:0}
-  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li{border-bottom:1px solid rgba(184,145,42,0.08)}
   .toc-list li:last-child{border-bottom:none}
-  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
-  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
-  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
-  .toc-list .toc-label{flex:1}
-  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
-  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
-  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
-  body{padding-bottom:60px!important}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--t1);text-decoration:none;font-size:.84rem}
+  .toc-list a:active{background:rgba(184,145,42,.12)}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(184,145,42,0.1)}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.72rem;padding:4px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--t2);cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
 }
-.header-content { position: relative; z-index: 1; }
-.ticker-badge {
-  display: inline-block;
-  background: rgba(88,166,255,0.15);
-  border: 1px solid rgba(88,166,255,0.3);
-  border-radius: 8px;
-  padding: 6px 16px;
-  font-size: 14px;
-  color: var(--blue);
-  margin-bottom: 12px;
-  letter-spacing: 1px;
+/* Atlas Floating Tools */
+.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:600}
+.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
+.atlas-floating-tools .currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.atlas-floating-tools .currency-toggle .cur-inactive{color:inherit;opacity:.5}
+.atlas-floating-tools .currency-toggle .cur-sep{opacity:.35;margin:0 1px}
+.atlas-floating-tools .currency-toggle.jpy-mode,.atlas-floating-tools .currency-toggle.local-mode{border-color:rgba(184,145,42,0.6);background:rgba(184,145,42,0.12)}
+.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode,.cur-val.local-mode{color:#D4A843;font-weight:700}
+/* Light Theme */
+html[data-theme="light"]{--bg:#F5F2EC;--card:#FDFCFA;--card-hover:#ECE8DF;--border:rgba(26,37,64,0.12);--border-strong:rgba(26,37,64,0.25);--t1:#1A2540;--t2:#4A5568;--t3:#718096}
+html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
+html[data-theme="light"] .rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
+html[data-theme="light"] .rh h1,html[data-theme="light"] .rh *{color:#F5F2EC!important}
+html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15)}
+html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
+html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:rgba(26,37,64,0.15)!important;color:#B8912A!important}
+html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .risk-card,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important}
+/* Mobile responsive additions */
+@media(max-width:768px){
+  .rh{padding:30px 16px 24px}
+  .rh-inner{order:1;width:100%}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center;display:flex}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .l1{padding:28px 18px 22px;gap:20px}
+  .l1-score-num{font-size:2.2rem}
+  .l1-score-label{font-size:1rem}
+  .l1-score-badge{padding:12px 22px;gap:12px}
+  .l1-price{grid-template-columns:1fr}
+  .l1-price-cell{border-right:none;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline}
+  .l1-price-cell:last-child{border-bottom:none}
+  .metrics-grid,.cardx-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.risk-grid{grid-template-columns:1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  .chart-split{grid-template-columns:1fr;gap:20px;padding:20px}
+  .chart-split-viz{height:220px}
+  .margin-tiles-row{grid-template-columns:repeat(2,1fr)}
+  .margin-tile{border-bottom:1px solid var(--border)}
+  .pullq{padding:26px 20px 22px}
+  .pullq-body{padding-left:30px;font-size:.94rem}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .boundary{margin:48px 0 36px}
+  .ntm-row{grid-template-columns:1fr;gap:8px}
+  .ntm-op{display:none}
+  .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 }
-.header .subtitle { color: var(--text-sub); font-size: 1.1em; }
+@media(max-width:480px){
+  .metrics-grid,.cardx-grid{grid-template-columns:1fr!important}
+  .rh h1{font-size:1.15rem}
+}
 </style>
-<link rel="icon" type="image/png" href="../favicon.png">
-  <script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 158.82, date: '2026/4/15', fmt: 'cjk-ja' };</script>
-<!-- ATLAS-PAYWALL-META -->
 <meta name="atlas-access" content='{"kind":"report","ticker":"LLY","isLatest":true}'>
-<!-- /ATLAS-PAYWALL-META -->
 </head>
 <body>
 <!-- ATLAS-NAV-START -->
@@ -501,7 +378,7 @@ body {
 .atlas-nav{position:sticky;top:0;z-index:200;background:rgba(15,24,41,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,145,42,0.18);font-family:'Noto Sans JP',sans-serif}
 .atlas-nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .atlas-nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
-.atlas-nav-logo{font-family:'Playfair Display','Shippori Mincho B1',serif;font-size:22px;font-weight:700;letter-spacing:.04em;line-height:1}
+.atlas-nav-logo{font-family:'Shippori Mincho B1',serif;font-size:22px;font-weight:700;letter-spacing:.04em;line-height:1}
 .atlas-nav-dot{color:#D4A843}
 .atlas-nav-tag{font-size:10px;color:rgba(212,168,67,.6);letter-spacing:.08em;white-space:nowrap}
 .atlas-nav-links{display:flex;gap:22px;align-items:center}
@@ -511,25 +388,22 @@ body {
 .atlas-nav-links > a.atlas-nav-cta{background:#B8912A;color:#0F1829;padding:7px 14px;border-radius:6px;font-weight:600;border:none}
 .atlas-nav-links > a.atlas-nav-cta:hover{background:#D4A843;border-bottom:none;color:#0F1829}
 .atlas-nav-links > a.atlas-nav-login-link{color:#D4A843;font-weight:500}
-.atlas-nav-links > a.atlas-nav-login-link:hover{color:#fff;border-bottom-color:rgba(212,168,67,.5)}
-/* User widget */
 .atlas-nav-user{position:relative;display:flex}
 .atlas-nav-avatar-btn{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(212,168,67,.2);border-radius:24px;padding:4px 12px 4px 4px;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
 .atlas-nav-avatar-btn:hover{border-color:#D4A843;background:rgba(184,145,42,.08)}
-.atlas-nav-avatar{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#1A2540;color:#fff;font-weight:700;font-size:13px;letter-spacing:0;flex-shrink:0;font-family:'Inter','Noto Sans JP',sans-serif}
+.atlas-nav-avatar{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#1A2540;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;font-family:'Inter','Noto Sans JP',sans-serif}
 .atlas-nav-username{color:#D4A843;font-size:13px;font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .atlas-nav-caret{color:rgba(212,168,67,.6);font-size:10px}
 .atlas-nav-menu{position:absolute;top:calc(100% + 8px);right:0;background:rgba(15,24,41,0.98);backdrop-filter:blur(12px);border:1px solid rgba(184,145,42,.2);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.35);min-width:240px;padding:14px 0 6px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s}
 .atlas-nav-menu.open{opacity:1;visibility:visible;transform:translateY(0)}
 .atlas-nav-menu-head{padding:0 16px 12px;border-bottom:1px solid rgba(184,145,42,.12);margin-bottom:6px}
-.atlas-nav-menu-name{color:#fff;font-size:14px;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.atlas-nav-menu-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-menu-name{color:#fff;font-size:14px;font-weight:700;margin-bottom:2px}
+.atlas-nav-menu-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;margin-bottom:8px}
 .atlas-nav-menu-plan{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.04em}
 .atlas-nav-menu-plan.plan-pro{background:rgba(184,145,42,.15);color:#D4A843;border:1px solid rgba(184,145,42,.35)}
 .atlas-nav-menu-plan.plan-free{background:rgba(139,148,158,.15);color:#8b949e;border:1px solid rgba(139,148,158,.3)}
 .atlas-nav-menu a,.atlas-nav-menu button{display:block;padding:9px 16px;color:#D4A843;text-decoration:none;font-size:13px;background:transparent;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;transition:background .12s,color .12s}
 .atlas-nav-menu a:hover,.atlas-nav-menu button:hover{background:rgba(184,145,42,.08);color:#fff}
-/* Burger / Drawer */
 .atlas-nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:4px}
 .atlas-nav-burger span{display:block;width:22px;height:2px;background:#D4A843;transition:all .2s}
 .atlas-nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
@@ -539,174 +413,59 @@ body {
 .atlas-nav-drawer.open{display:flex}
 .atlas-nav-drawer-user{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid rgba(184,145,42,.12);margin-bottom:6px}
 .atlas-nav-drawer-name{color:#fff;font-size:14px;font-weight:700;line-height:1.3}
-.atlas-nav-drawer-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;line-height:1.3}
+.atlas-nav-drawer-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace}
 .atlas-nav-drawer > a,.atlas-nav-drawer > button{padding:14px 24px;color:#D4A843;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(184,145,42,.08)}
-.atlas-nav-drawer > a:last-of-type,.atlas-nav-drawer > button:last-of-type{border-bottom:none}
-.atlas-nav-drawer > a.active{color:#fff;background:rgba(184,145,42,.08)}
-@media(max-width:820px){
-  .atlas-nav-links{display:none}
-  .atlas-nav-burger{display:flex}
-  .atlas-nav-tag{display:none}
-  .atlas-nav-inner{padding:0 16px;height:52px}
-  .atlas-nav-logo{font-size:19px}
-}
-/* Light theme override */
+@media(max-width:820px){.atlas-nav-links{display:none}.atlas-nav-burger{display:flex}.atlas-nav-tag{display:none}.atlas-nav-inner{padding:0 16px;height:52px}.atlas-nav-logo{font-size:19px}}
 html[data-theme="light"] .atlas-nav{background:rgba(245,242,236,.96);border-bottom-color:rgba(26,37,64,.12)}
 html[data-theme="light"] .atlas-nav-brand{color:#1A2540}
 html[data-theme="light"] .atlas-nav-links > a{color:#1A2540}
-html[data-theme="light"] .atlas-nav-links > a.active{color:#B8912A;border-bottom-color:#B8912A}
 html[data-theme="light"] .atlas-nav-drawer{background:rgba(253,252,250,.98)}
 html[data-theme="light"] .atlas-nav-drawer > a,html[data-theme="light"] .atlas-nav-drawer > button{color:#1A2540}
 html[data-theme="light"] .atlas-nav-menu{background:rgba(253,252,250,.98)}
 html[data-theme="light"] .atlas-nav-menu-name{color:#1A2540}
-html[data-theme="light"] .atlas-nav-menu-email{color:#718096}
 html[data-theme="light"] .atlas-nav-menu a,html[data-theme="light"] .atlas-nav-menu button{color:#1A2540}
-html[data-theme="light"] .atlas-nav-menu a:hover,html[data-theme="light"] .atlas-nav-menu button:hover{color:#B8912A}
 html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 </style>
 <script>
 (function(){
-  var nav = document.querySelector('[data-atlas-nav]');
-  if(!nav) return;
-
-  // Active state for data-path links
-  var path = location.pathname.replace(/\/$/, '') || '/';
-  var links = nav.querySelectorAll('a[data-path]');
-  var bestMatch = null, bestLen = -1;
-  links.forEach(function(a){
-    var p = a.getAttribute('data-path').replace(/\/$/, '') || '/';
-    if(path === p || (p !== '/' && path.indexOf(p) === 0)){
-      if(p.length > bestLen){ bestMatch = a; bestLen = p.length; }
-    }
-  });
-  if(bestMatch){ bestMatch.classList.add('active'); }
-
-  // Burger toggle
-  var burger = nav.querySelector('[data-atlas-nav-burger]');
-  var drawer = nav.querySelector('[data-atlas-nav-drawer]');
-  if(burger && drawer){
-    burger.addEventListener('click', function(){
-      var open = drawer.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-    });
-  }
-
-  // Read atlas_user hint cookie (non-HttpOnly)
-  function readUserHint(){
-    var m = document.cookie.match(/(?:^|;\s*)atlas_user=([^;]+)/);
-    if(!m) return null;
-    try { return JSON.parse(decodeURIComponent(m[1])); } catch(e) { return null; }
-  }
-  function avatarColor(seed){
-    seed = seed || '';
-    var h = 0;
-    for(var i=0;i<seed.length;i++){ h = (h*31 + seed.charCodeAt(i)) | 0; }
-    return 'hsl(' + (Math.abs(h) % 360) + ', 42%, 40%)';
-  }
-  function firstChar(s){
-    s = (s || '').trim();
-    return s ? s.charAt(0).toUpperCase() : '?';
-  }
-
-  var user = readUserHint();
-  var loginCta = nav.querySelector('[data-atlas-login-cta]');
-  var signupCta = nav.querySelector('[data-atlas-signup-cta]');
-  var userWidget = nav.querySelector('[data-atlas-nav-user]');
-  var drawerUserBox = nav.querySelector('[data-atlas-nav-drawer-user]');
-  var drawerLogin = nav.querySelector('[data-atlas-drawer-login]');
-  var drawerSignup = nav.querySelector('[data-atlas-drawer-signup]');
-  var drawerAccount = nav.querySelector('[data-atlas-drawer-account]');
-  var drawerLogout = nav.querySelector('[data-atlas-drawer-logout]');
-
+  var nav=document.querySelector('[data-atlas-nav]');if(!nav)return;
+  var path=location.pathname.replace(/\/$/,'')||'/';
+  var links=nav.querySelectorAll('a[data-path]');var bestMatch=null,bestLen=-1;
+  links.forEach(function(a){var p=a.getAttribute('data-path').replace(/\/$/,'')||'/';if(path===p||(p!=='/'&&path.indexOf(p)===0)){if(p.length>bestLen){bestMatch=a;bestLen=p.length;}}});
+  if(bestMatch){bestMatch.classList.add('active');}
+  var burger=nav.querySelector('[data-atlas-nav-burger]');var drawer=nav.querySelector('[data-atlas-nav-drawer]');
+  if(burger&&drawer){burger.addEventListener('click',function(){var open=drawer.classList.toggle('open');burger.setAttribute('aria-expanded',open?'true':'false');drawer.setAttribute('aria-hidden',open?'false':'true');});}
+  function readUserHint(){var m=document.cookie.match(/(?:^|;\s*)atlas_user=([^;]+)/);if(!m)return null;try{return JSON.parse(decodeURIComponent(m[1]));}catch(e){return null;}}
+  function avatarColor(seed){seed=seed||'';var h=0;for(var i=0;i<seed.length;i++){h=(h*31+seed.charCodeAt(i))|0;}return 'hsl('+(Math.abs(h)%360)+', 42%, 40%)';}
+  function firstChar(s){s=(s||'').trim();return s?s.charAt(0).toUpperCase():'?';}
+  var user=readUserHint();
+  var loginCta=nav.querySelector('[data-atlas-login-cta]');var signupCta=nav.querySelector('[data-atlas-signup-cta]');
+  var userWidget=nav.querySelector('[data-atlas-nav-user]');var drawerUserBox=nav.querySelector('[data-atlas-nav-drawer-user]');
+  var drawerLogin=nav.querySelector('[data-atlas-drawer-login]');var drawerSignup=nav.querySelector('[data-atlas-drawer-signup]');
+  var drawerAccount=nav.querySelector('[data-atlas-drawer-account]');var drawerLogout=nav.querySelector('[data-atlas-drawer-logout]');
   function applyUser(u){
-    if(!u){
-      if(loginCta) loginCta.style.display = '';
-      if(signupCta) signupCta.style.display = '';
-      if(userWidget) userWidget.style.display = 'none';
-      if(drawerUserBox) drawerUserBox.style.display = 'none';
-      if(drawerLogin) drawerLogin.style.display = '';
-      if(drawerSignup) drawerSignup.style.display = '';
-      if(drawerAccount) drawerAccount.style.display = 'none';
-      if(drawerLogout) drawerLogout.style.display = 'none';
-      return;
-    }
-    // Desktop widget
-    if(loginCta) loginCta.style.display = 'none';
-    if(signupCta) signupCta.style.display = 'none';
-    if(drawerSignup) drawerSignup.style.display = 'none';
-    if(userWidget) userWidget.style.display = 'flex';
-    var nameEl = nav.querySelector('[data-atlas-nav-username]');
-    var avEl = nav.querySelector('[data-atlas-nav-avatar]');
-    var mName = nav.querySelector('[data-atlas-nav-menu-name]');
-    var mEmail = nav.querySelector('[data-atlas-nav-menu-email]');
-    var mPlan = nav.querySelector('[data-atlas-nav-menu-plan]');
-    var avColor = avatarColor(u.e || u.n || '');
-    if(nameEl) nameEl.textContent = u.n || '';
-    if(avEl){ avEl.textContent = firstChar(u.n); avEl.style.background = avColor; }
-    if(mName) mName.textContent = u.n || '';
-    if(mEmail) mEmail.textContent = u.e || '';
-    if(mPlan){
-      if(u.p === 'pro'){ mPlan.textContent = 'Pro 会員'; mPlan.className = 'atlas-nav-menu-plan plan-pro'; }
-      else { mPlan.textContent = 'Free'; mPlan.className = 'atlas-nav-menu-plan plan-free'; }
-    }
-    // Drawer
-    if(drawerUserBox) drawerUserBox.style.display = 'flex';
-    var dName = nav.querySelector('[data-atlas-nav-drawer-name]');
-    var dEmail = nav.querySelector('[data-atlas-nav-drawer-email]');
-    var avM = nav.querySelector('[data-atlas-nav-avatar-m]');
-    if(dName) dName.textContent = u.n || '';
-    if(dEmail) dEmail.textContent = u.e || '';
-    if(avM){ avM.textContent = firstChar(u.n); avM.style.background = avColor; }
-    if(drawerLogin) drawerLogin.style.display = 'none';
-    if(drawerAccount) drawerAccount.style.display = '';
-    if(drawerLogout) drawerLogout.style.display = 'block';
+    if(!u){if(loginCta)loginCta.style.display='';if(signupCta)signupCta.style.display='';if(userWidget)userWidget.style.display='none';if(drawerUserBox)drawerUserBox.style.display='none';if(drawerLogin)drawerLogin.style.display='';if(drawerSignup)drawerSignup.style.display='';if(drawerAccount)drawerAccount.style.display='none';if(drawerLogout)drawerLogout.style.display='none';return;}
+    if(loginCta)loginCta.style.display='none';if(signupCta)signupCta.style.display='none';if(drawerSignup)drawerSignup.style.display='none';if(userWidget)userWidget.style.display='flex';
+    var nameEl=nav.querySelector('[data-atlas-nav-username]');var avEl=nav.querySelector('[data-atlas-nav-avatar]');
+    var mName=nav.querySelector('[data-atlas-nav-menu-name]');var mEmail=nav.querySelector('[data-atlas-nav-menu-email]');var mPlan=nav.querySelector('[data-atlas-nav-menu-plan]');
+    var avColor=avatarColor(u.e||u.n||'');
+    if(nameEl)nameEl.textContent=u.n||'';if(avEl){avEl.textContent=firstChar(u.n);avEl.style.background=avColor;}
+    if(mName)mName.textContent=u.n||'';if(mEmail)mEmail.textContent=u.e||'';
+    if(mPlan){if(u.p==='pro'){mPlan.textContent='Pro 会員';mPlan.className='atlas-nav-menu-plan plan-pro';}else{mPlan.textContent='Free';mPlan.className='atlas-nav-menu-plan plan-free';}}
+    if(drawerUserBox)drawerUserBox.style.display='flex';
+    var dName=nav.querySelector('[data-atlas-nav-drawer-name]');var dEmail=nav.querySelector('[data-atlas-nav-drawer-email]');var avM=nav.querySelector('[data-atlas-nav-avatar-m]');
+    if(dName)dName.textContent=u.n||'';if(dEmail)dEmail.textContent=u.e||'';if(avM){avM.textContent=firstChar(u.n);avM.style.background=avColor;}
+    if(drawerLogin)drawerLogin.style.display='none';if(drawerAccount)drawerAccount.style.display='';if(drawerLogout)drawerLogout.style.display='block';
   }
   applyUser(user);
-
-  // Dropdown toggle
-  var userBtn = nav.querySelector('[data-atlas-nav-user-btn]');
-  var menu = nav.querySelector('[data-atlas-nav-menu]');
-  if(userBtn && menu){
-    userBtn.addEventListener('click', function(e){
-      e.stopPropagation();
-      var open = menu.classList.toggle('open');
-      userBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-    });
-    document.addEventListener('click', function(e){
-      if(!menu.contains(e.target) && !userBtn.contains(e.target)){
-        menu.classList.remove('open');
-        userBtn.setAttribute('aria-expanded', 'false');
-        menu.setAttribute('aria-hidden', 'true');
-      }
-    });
+  var userBtn=nav.querySelector('[data-atlas-nav-user-btn]');var menu=nav.querySelector('[data-atlas-nav-menu]');
+  if(userBtn&&menu){
+    userBtn.addEventListener('click',function(e){e.stopPropagation();var open=menu.classList.toggle('open');userBtn.setAttribute('aria-expanded',open?'true':'false');menu.setAttribute('aria-hidden',open?'false':'true');});
+    document.addEventListener('click',function(e){if(!menu.contains(e.target)&&!userBtn.contains(e.target)){menu.classList.remove('open');userBtn.setAttribute('aria-expanded','false');menu.setAttribute('aria-hidden','true');}});
   }
-
-  // Logout handler (both desktop menu + drawer button)
-  function doLogout(e){
-    if(e) e.preventDefault();
-    fetch('/auth/logout', { method: 'POST', credentials: 'include', redirect: 'manual' })
-      .finally(function(){
-        document.cookie = 'atlas_user=; Max-Age=0; Path=/; SameSite=Lax';
-        location.href = '/';
-      });
-  }
-  nav.querySelectorAll('[data-atlas-logout],[data-atlas-drawer-logout]').forEach(function(b){
-    b.addEventListener('click', doLogout);
-  });
-
-  // Freshen hint cookie silently via /api/me if we don't have one but might be logged in
-  if(!user){
-    fetch('/api/me', { credentials: 'include' })
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(data){
-        if(data && data.user){
-          applyUser({ n: data.user.nickname || (data.user.email||'').split('@')[0], p: data.user.plan, e: data.user.email });
-        }
-      })
-      .catch(function(){});
-  }
+  function doLogout(e){if(e)e.preventDefault();fetch('/auth/logout',{method:'POST',credentials:'include',redirect:'manual'}).finally(function(){document.cookie='atlas_user=; Max-Age=0; Path=/; SameSite=Lax';location.href='/';});}
+  nav.querySelectorAll('[data-atlas-logout],[data-atlas-drawer-logout]').forEach(function(b){b.addEventListener('click',doLogout);});
+  if(!user){fetch('/api/me',{credentials:'include'}).then(function(r){return r.ok?r.json():null;}).then(function(data){if(data&&data.user){applyUser({n:data.user.nickname||(data.user.email||'').split('@')[0],p:data.user.plan,e:data.user.email});}}).catch(function(){});}
 })();
 </script>
 <!-- ATLAS-NAV-END -->
@@ -715,1397 +474,774 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:18px;width:auto;opacity:.9;vertical-align:middle;max-width:180px">
 </div>
 <!-- ATLAS-QUARTERLY-BAND-END -->
-<!-- Atlas Currency Toggle (floating, top-right) -->
-<style>
-.atlas-floating-currency{position:fixed;top:16px;right:16px;z-index:999;background:rgba(26,37,64,.9);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.2);backdrop-filter:blur(6px)}
-.currency-toggle{background:none;border:1px solid rgba(255,255,255,0.12);cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;line-height:1;letter-spacing:.3px;color:rgba(255,255,255,0.85);transition:all .15s;display:inline-flex;align-items:center;gap:2px}
-.currency-toggle:hover{opacity:.85;border-color:rgba(184,145,42,0.4)}
-.currency-toggle .cur-active{color:#D4A843;font-weight:800}
-.currency-toggle .cur-inactive{color:inherit;opacity:.55}
-.currency-toggle .cur-sep{opacity:.4;margin:0 1px;font-weight:400}
-.currency-toggle.jpy-mode{border-color:rgba(184,145,42,0.45);background:rgba(184,145,42,0.08)}
-.cur-val{transition:color .2s}
-.cur-val.jpy-mode{color:#D4A843}
-</style>
+
 <div class="atlas-floating-tools">
   <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
   <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
 </div>
 
 <!-- Header -->
-<div class="header">
-<div class="header-content">
-<div class="header-logo-row"><img alt="LLY" class="report-header-logo" src="../logos/LLY.svg"/><div class="ticker-badge">NYSE: LLY</div></div>
-<h1>イーライリリー 決算分析</h1>
-<div class="date">発表日: 2026年2月4日 ｜ 分析日: 2026年3月11日</div>
+<header class="rh">
+  <div class="ov-wrap">
+    <button class="ov-btn" id="ovBtn" onclick="toggleOverview()">企業概要 <span class="chev">▼</span></button>
+  </div>
+  <div class="rh-inner">
+    <div class="rh-logo-row">
+      <img class="rh-logo" src="../logos/LLY.svg" alt="LLY">
+      <div class="rh-ticker">NYSE: LLY</div>
+    </div>
+    <h1>イーライリリー 決算分析</h1>
+    <div class="rh-sub">FY2025 Q4（2025年10月〜12月期）</div>
+    <div class="rh-date">決算発表日: 2026年2月4日 ｜ 対象期間: 2025年10月〜12月 ｜ Atlas Quarterly</div>
+  </div>
+</header>
+
+<!-- 企業概要（折りたたみ） -->
+<div class="ov-drop" id="ovDrop">
+  <h2>企業概要</h2>
+  <p>イーライリリー・アンド・カンパニー（Eli Lilly and Company）は1876年創業、米国インディアナ州インディアナポリス本社の世界的製薬企業。CEO: David A. Ricks（2017年〜）、従業員数 約4.4万人。時価総額 約$940B（2026年3月時点）。</p>
+  <p>主力製品はGLP-1受容体作動薬のMounjaro（2型糖尿病）とZepbound（肥満）で、両製品がFY2025の成長を牽引。腫瘍（Verzenio）、免疫（Omvoh）、神経科学（Kisunla）にも多角化。経口GLP-1薬Orforglipronを2026年Q2に発売予定。</p>
+  <div class="tags">
+    <span class="tag">NYSE: LLY</span><span class="tag">製薬・バイオテク</span><span class="tag">GLP-1リーダー</span><span class="tag">S&amp;P 500</span><span class="tag">配当継続</span>
+  </div>
 </div>
-</div>
-<!-- 1. Score -->
-<div class="score-section">
-<div class="score-badge">
-<span class="score-number">4</span>
-<span class="score-icon">📈</span>
-</div>
-<div class="score-label">良い決算</div>
-<div class="score-desc">売上・EPSともにビート ＋ ガイダンスがコンセンサスを大幅に上回る ＋ GLP-1ポートフォリオが牽引</div>
-</div>
-<!-- 2. Key Metrics -->
-<div class="section">
-<div class="section-title"><span class="section-icon">📊</span> Key Metrics</div>
-<div class="card-grid">
-<div class="card">
-<div class="card-title">売上高</div>
-<div class="card-value neutral">$19,292M</div>
-<div class="card-sub">YoY <span class="positive">+43%</span> ｜ QoQ <span class="positive">+9.6%</span></div>
-</div>
-<div class="card">
-<div class="card-title">Non-GAAP EPS</div>
-<div class="card-value neutral">$7.54</div>
-<div class="card-sub">YoY <span class="positive">+42%</span>（vs Q4'24 $5.32）</div>
-</div>
-<div class="card">
-<div class="card-title">売上 vs コンセンサス</div>
-<div class="card-value positive">+$1,332M</div>
-<div class="card-sub">予想 $17,960M <span class="tag tag-green">+7.4% ビート</span></div>
-</div>
-<div class="card">
-<div class="card-title">EPS vs コンセンサス</div>
-<div class="card-value positive">+$0.58</div>
-<div class="card-sub">予想 $6.96 <span class="tag tag-green">+8.3% ビート</span></div>
-</div>
-<div class="card">
-<div class="card-title">GAAP EPS</div>
-<div class="card-value neutral">$7.39</div>
-<div class="card-sub">YoY <span class="positive">+51%</span>（vs Q4'24 $4.88）</div>
-</div>
-<div class="card">
-<div class="card-title">2026年 売上ガイダンス</div>
-<div class="card-value positive">$80-83B</div>
-<div class="card-sub">Mid $81.5B vs コンセンサス $77.6B <span class="tag tag-green">+5%</span></div>
-</div>
-<div class="card">
-<div class="card-title">2026年 Non-GAAP EPSガイダンス</div>
-<div class="card-value positive">$33.50-$35.00</div>
-<div class="card-sub">Mid $34.25 vs コンセンサス $33.09 <span class="tag tag-green">+3.5%</span></div>
-</div>
-<div class="card">
-<div class="card-title">決算後 株価反応</div>
-<div class="card-value positive">+10%</div>
-<div class="card-sub">時価総額 $1兆超突破（$1,106へ急騰）</div>
-</div>
-</div>
-</div>
-<!-- 3. Revenue & EPS Charts -->
-<div class="section" data-accordion="" id="sec-revenue">
-<div class="section-title"><span class="section-icon">📈</span> 売上高・EPS 7四半期推移</div><div class="section-body">
-<div class="chart-container">
-<h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">売上高推移（$M）</h3>
-<div class="chart-wrapper">
-<canvas id="revenueChart"></canvas>
-</div>
-</div>
-<div class="chart-container">
-<h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">Non-GAAP EPS推移（$）</h3>
-<div class="chart-wrapper">
-<canvas id="epsChart"></canvas>
-</div>
-</div>
-</div></div>
-<!-- 4. Margin Trends -->
-<div class="section" data-accordion="" id="sec-margin">
-<div class="section-title"><span class="section-icon">💹</span> 利益率トレンド</div><div class="section-body">
-<div class="card">
-<table class="data-table">
-<thead>
-<tr>
-<th>指標</th>
-<th class="right">Q4 2025</th>
-<th class="right">Q4 2024</th>
-<th class="right">YoY変化</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>粗利益率（GAAP）</td>
-<td class="right">82.5%</td>
-<td class="right">82.2%</td>
-<td class="right positive">+0.3pp</td>
-</tr>
-<tr>
-<td>粗利益率（Non-GAAP）</td>
-<td class="right">83.2%</td>
-<td class="right">83.2%</td>
-<td class="right neutral">±0pp</td>
-</tr>
-<tr>
-<td>営業利益率（GAAP）</td>
-<td class="right">43.4%</td>
-<td class="right">38.0%</td>
-<td class="right positive">+5.4pp</td>
-</tr>
-<tr>
-<td>Non-GAAPパフォーマンスマージン</td>
-<td class="right">47.2%</td>
-<td class="right">43.0%</td>
-<td class="right positive">+4.2pp</td>
-</tr>
-<tr>
-<td>FY2025 粗利益率（GAAP）</td>
-<td class="right" colspan="1">83.0%</td>
-<td class="right">81.3%</td>
-<td class="right positive">+1.7pp</td>
-</tr>
-<tr>
-<td>FY2025 粗利益率（Non-GAAP）</td>
-<td class="right">83.8%</td>
-<td class="right">82.5%</td>
-<td class="right positive">+1.3pp</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="chart-container" style="margin-top:16px;">
-<h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">利益率推移（%）</h3>
-<div class="chart-wrapper">
-<canvas id="marginChart"></canvas>
-</div>
-</div>
-</div></div>
-<!-- 5. Operating Expenses -->
-<div class="section" id="sec-expense" data-accordion="">
-<div class="section-title"><span class="section-icon">💰</span> 営業費用内訳（Q4 2025）</div><div class="section-body">
-<div class="card">
-<table class="data-table">
-<thead>
-<tr>
-<th>項目</th>
-<th class="right">Q4 2025 ($M)</th>
-<th class="right">Q4 2024 ($M)</th>
-<th class="right">YoY変化</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>売上原価</td>
-<td class="right">$3,372</td>
-<td class="right">$2,410</td>
-<td class="right negative">+40%</td>
-</tr>
-<tr>
-<td>研究開発費</td>
-<td class="right">$3,802</td>
-<td class="right">$3,013</td>
-<td class="right negative">+26%</td>
-</tr>
-<tr>
-<td>販管費</td>
-<td class="right">$3,132</td>
-<td class="right">$2,434</td>
-<td class="right negative">+29%</td>
-</tr>
-<tr>
-<td>取得済みIPR&amp;D</td>
-<td class="right">$529</td>
-<td class="right">$189</td>
-<td class="right negative">+180%</td>
-</tr>
-<tr>
-<td style="font-weight:600;">営業利益（GAAP）</td>
-<td class="right" style="font-weight:600;">$8,373</td>
-<td class="right">$5,134</td>
-<td class="right positive" style="font-weight:600;">+63%</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div></div>
-<!-- 6. Segment Revenue -->
-<div class="section" id="sec-product" data-accordion="">
-<div class="section-title"><span class="section-icon">🏥</span> 製品別売上（Q4 2025）</div><div class="section-body">
-<div class="card">
-<table class="data-table">
-<thead>
-<tr>
-<th>製品</th>
-<th class="right">売上 ($M)</th>
-<th class="right">YoY</th>
-<th class="right">米国 ($M)</th>
-<th class="right">海外 ($M)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Mounjaro</strong>（2型糖尿病）</td>
-<td class="right" style="font-weight:600;">$7,409</td>
-<td class="right positive">+110%</td>
-<td class="right">$4,100</td>
-<td class="right">$3,300</td>
-</tr>
-<tr>
-<td><strong>Zepbound</strong>（肥満）</td>
-<td class="right" style="font-weight:600;">$4,261</td>
-<td class="right positive">+123%</td>
-<td class="right">$4,261</td>
-<td class="right" style="color:var(--text-muted);">—</td>
-</tr>
-<tr>
-<td><strong>Verzenio</strong>（腫瘍）</td>
-<td class="right">$1,604</td>
-<td class="right positive">+3%</td>
-<td class="right">$997</td>
-<td class="right">$608</td>
-</tr>
-<tr>
-<td>その他</td>
-<td class="right">$6,018</td>
-<td class="right">—</td>
-<td class="right">—</td>
-<td class="right">—</td>
-</tr>
-<tr style="background:var(--bg-card-alt);">
-<td style="font-weight:700;">合計</td>
-<td class="right" style="font-weight:700;">$19,292</td>
-<td class="right positive" style="font-weight:700;">+43%</td>
-<td class="right" style="font-weight:700;">$12,900</td>
-<td class="right" style="font-weight:700;">$6,400</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style="margin-top:16px;">
-<div class="section-title" style="border:none; margin-bottom:12px;"><span class="section-icon">🌍</span> 地域別売上</div>
-<div class="card-grid geo-grid">
-<div class="card">
-<div class="card-title">米国</div>
-<div class="card-value neutral">$12,900M</div>
-<div class="card-sub">構成比 66.9% ｜ YoY <span class="positive">+43%</span></div>
-<div class="card-sub">ボリューム +50%、価格 -7%</div>
-</div>
-<div class="card">
-<div class="card-title">海外</div>
-<div class="card-value neutral">$6,400M</div>
-<div class="card-sub">構成比 33.1% ｜ YoY <span class="positive">+43%</span></div>
-<div class="card-sub">ボリューム +38%、為替 +4%</div>
-</div>
-</div>
-</div>
-<div class="chart-container" style="margin-top:16px;">
-<h3 style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">製品別売上構成（Q4 2025）</h3>
-<div class="chart-wrapper" style="height:280px; max-width:400px; margin:0 auto;">
-<canvas id="segmentChart"></canvas>
-</div>
-</div>
-</div></div>
-<!-- 7. Full Year 2025 Summary -->
-<div class="section" id="sec-annual" data-accordion="">
-<div class="section-title"><span class="section-icon">📅</span> FY2025 通期サマリー</div><div class="section-body">
-<div class="card-grid">
-<div class="card">
-<div class="card-title">通期売上高</div>
-<div class="card-value neutral">$65,179M</div>
-<div class="card-sub">YoY <span class="positive">+45%</span></div>
-</div>
-<div class="card">
-<div class="card-title">通期 GAAP EPS</div>
-<div class="card-value neutral">$22.95</div>
-<div class="card-sub">YoY <span class="positive">+96%</span>（vs FY24 $11.71）</div>
-</div>
-<div class="card">
-<div class="card-title">通期 Non-GAAP EPS</div>
-<div class="card-value neutral">$24.21</div>
-<div class="card-sub">YoY <span class="positive">+86%</span>（vs FY24 $12.99）</div>
-</div>
-<div class="card">
-<div class="card-title">通期営業利益</div>
-<div class="card-value neutral">$26,302M</div>
-<div class="card-sub">YoY <span class="positive">+104%</span>（vs FY24 $12,899M）</div>
-</div>
-</div>
-</div></div>
-<!-- 8. Management Comments -->
-<div class="section" data-accordion="" id="sec-mgmt">
-<div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div><div class="section-body">
-<div class="comment-box">
-<h4>業績・成長ドライバー</h4>
-<ul>
-<li>Q4売上は前年同期比43%増の$19.3Bを達成。ボリューム成長+46%が牽引、価格は-5%の逆風</li>
-<li>Mounjaro海外売上が急拡大（$899M → $3,300M）、国際市場での処方拡大が加速</li>
-<li>Zepbound米国売上が$4.2Bに成長し、肥満治療市場でのリーダーシップを強化</li>
-</ul>
-</div>
-<div class="comment-box">
-<h4>パイプライン・新薬</h4>
-<ul>
-<li><strong>Orforglipron（経口GLP-1）：</strong>肥満治療薬として2026年Q2に米国発売予定（FDA承認待ち）。40カ国以上で申請済み</li>
-<li>ATTAIN-2試験で36mg用量は10.5%の体重減少を達成。注射GLP-1モノセラピーと同等の効果を経口で実現</li>
-<li>セマグルチドからorforglipronへの切り替え試験で、体重減少の維持を確認（差わずか0.9kg）</li>
-<li><strong>Retatrutide：</strong>TRIUMPH-4試験で大幅な体重減少と痛み軽減を確認</li>
-</ul>
-</div>
-<div class="comment-box">
-<h4>2026年見通し</h4>
-<ul>
-<li>売上ガイダンス$80-83B（中間値で前年比+25%）、コンセンサス$77.6Bを上回る</li>
-<li>Medicare肥満治療薬カバレッジが2026年7月1日までに開始見込み — 需要拡大の追い風</li>
-<li>価格は10%台前半〜半ばのマイナス要因を予想。ボリューム成長でカバーする方針</li>
-<li>パフォーマンスマージン目標46.0-47.5%、研究開発投資は引き続き積極的</li>
-</ul>
-</div>
-</div></div>
-<!-- 9. Risk & Catalyst -->
-<div class="section" data-accordion="" id="sec-risk">
-<div class="section-title"><span class="section-icon">⚡</span> リスク・注目ポイント / カタリスト</div><div class="section-body">
-<div class="risk-grid">
-<div class="risk-card negative-card">
-<h4>⚠️ リスク要因</h4>
-<ul>
-<li><strong>価格圧力:</strong> 米国GLP-1薬価が低下傾向。2026年は10%台前半〜半ばの価格逆風を予想</li>
-<li><strong>競争激化:</strong> Novo Nordisk経口Wegovy承認（2026年1月発売開始）。24.6万人がすでに処方中</li>
-<li><strong>コンパウンド薬リスク:</strong> セマグルチドの安価なコンパウンド版が市場を侵食する可能性</li>
-<li><strong>規制リスク:</strong> メディケア価格交渉、IRA（インフレ抑制法）による薬価引き下げ圧力</li>
-<li><strong>成長減速:</strong> YoY成長率が54%（Q3）→43%（Q4）に減速。2026年ガイダンスは+25%</li>
-<li><strong>バリュエーション:</strong> Forward PER 33倍は製薬セクターとして高水準</li>
-</ul>
-</div>
-<div class="risk-card positive-card">
-<h4>🚀 カタリスト</h4>
-<ul>
-<li><strong>Orforglipron発売:</strong> 2026年Q2に経口肥満薬として米国発売予定 — 新たな患者層の開拓</li>
-<li><strong>Medicareカバレッジ:</strong> 2026年7月までに肥満治療薬がMedicare適用開始 — TAM大幅拡大</li>
-<li><strong>Mounjaro海外展開:</strong> 国際売上が急成長中（Q4 $3.3B）、さらなる拡大余地大</li>
-<li><strong>Retatrutide:</strong> 次世代トリプルアゴニスト — 20%超の体重減少を目指す</li>
-<li><strong>GLP-1市場成長:</strong> 2030年までに$100B超、2034年に$180Bの市場予測</li>
-<li><strong>パイプライン多角化:</strong> 腫瘍（Verzenio）、免疫（Omvoh）、神経科学など</li>
-</ul>
-</div>
-</div>
-</div></div>
-<!-- 10. Previous Quarter Comparison -->
-<div class="section" id="sec-compare" data-accordion="">
-<div class="section-title"><span class="section-icon">🔄</span> 前四半期（Q3 2025）との比較</div><div class="section-body">
-<div class="card" style="padding:0; overflow:hidden;">
-<table class="data-table">
-<thead>
-<tr>
-<th>指標</th>
-<th class="right">Q3 2025</th>
-<th class="right">Q4 2025</th>
-<th class="right">変化</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>売上高</td>
-<td class="right">$17,600M</td>
-<td class="right">$19,292M</td>
-<td class="right positive">+9.6% QoQ</td>
-</tr>
-<tr>
-<td>売上YoY成長率</td>
-<td class="right">+54%</td>
-<td class="right">+43%</td>
-<td class="right negative">減速 ↓</td>
-</tr>
-<tr>
-<td>Non-GAAP EPS</td>
-<td class="right">$7.02</td>
-<td class="right">$7.54</td>
-<td class="right positive">+7.4% QoQ</td>
-</tr>
-<tr>
-<td>粗利益率（GAAP）</td>
-<td class="right">—</td>
-<td class="right">82.5%</td>
-<td class="right neutral">—</td>
-</tr>
-<tr>
-<td>営業利益率（GAAP）</td>
-<td class="right">—</td>
-<td class="right">43.4%</td>
-<td class="right neutral">—</td>
-</tr>
-<tr>
-<td>Mounjaro売上</td>
-<td class="right">—</td>
-<td class="right">$7,409M</td>
-<td class="right positive">+110% YoY</td>
-</tr>
-<tr>
-<td>Zepbound売上</td>
-<td class="right">—</td>
-<td class="right">$4,261M</td>
-<td class="right positive">+123% YoY</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div style="margin-top:12px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px;">
-<p style="font-size:14px; color:var(--text-secondary);">
-<strong style="color:var(--yellow);">トレンド: やや減速 →↓</strong><br/>
-      売上絶対額はQoQで+9.6%と堅調だが、YoY成長率は54%→43%に減速。これは比較対象（Q4 2024）が強かったことと、価格低下の影響。
-      ただし、2026年ガイダンスがコンセンサスを上回ったこと、orforglipron発売やMedicareカバレッジなど成長ドライバーが豊富であり、
-      構造的な成長ストーリーは健在。
-    </p>
-</div>
-</div></div>
-<!-- 11. Valuation -->
-<div class="section" data-accordion="" id="sec-valuation">
-<div class="section-title"><span class="section-icon">🎯</span> バリュエーション（想定株価 3パターン）</div><div class="section-body">
-<div style="margin-bottom:16px; padding:12px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:8px;">
-<span style="font-size:13px; color:var(--text-secondary);">
-      現在株価: <strong style="color:var(--text-primary);">$1,030</strong>（2026年3月時点）
-      ｜ 時価総額: <strong style="color:var(--text-primary);">約$940B</strong>
-      ｜ Trailing PER: <strong style="color:var(--text-primary);">51.4x</strong>
-      ｜ Forward PER: <strong style="color:var(--text-primary);">33.0x</strong>
-      ｜ アナリスト平均目標: <strong style="color:var(--text-primary);">$1,261</strong>
-</span>
-</div>
-<div class="val-grid">
-<!-- LOW -->
-<div class="val-card low">
-<div class="val-scenario">LOW（保守的）</div>
-<div class="val-price">$938</div>
-<div class="val-detail">Forward EPS: $33.50（ガイダンス下限）</div>
-<div class="val-detail">× PER: 28.0x（過去下限）</div>
-<div class="val-deviation" style="background:var(--red-bg); color:var(--red-light);">乖離率 -8.9%</div>
-</div>
-<!-- MID -->
-<div class="val-card mid">
-<div class="val-scenario">MID（基本）</div>
-<div class="val-price">$1,130</div>
-<div class="val-detail">Forward EPS: $34.25（コンセンサス）</div>
-<div class="val-detail">× PER: 33.0x（過去中央値）</div>
-<div class="val-deviation" style="background:var(--green-bg); color:var(--green-light);">乖離率 +9.7%　やや割安寄りの適正</div>
-</div>
-<!-- HIGH -->
-<div class="val-card high">
-<div class="val-scenario">HIGH（楽観的）</div>
-<div class="val-price">$1,440</div>
-<div class="val-detail">Forward EPS: $36.00（楽観予想）</div>
-<div class="val-detail">× PER: 40.0x（過去上限）</div>
-<div class="val-deviation" style="background:var(--green-bg); color:var(--green-light);">乖離率 +39.8%　割安</div>
-</div>
-</div>
-<div style="margin-top:16px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:12px;">
-<p style="font-size:14px; color:var(--text-secondary);">
-<strong style="color:var(--blue);">判定: 適正〜やや割安</strong>（MID乖離率 +9.7%）<br/>
-      MIDシナリオでは現在株価から約10%のアップサイド。アナリスト平均目標$1,261と比較しても約22%の上昇余地。
-      GLP-1市場の成長性を考慮すると、長期的な投資妙味は依然として高い。ただし、Forward PER 33倍は製薬セクター平均を大きく上回るプレミアム水準であり、
-      期待通りの成長が実現しなかった場合のダウンサイドリスクには留意が必要。
-    </p>
-</div>
-</div></div>
-<!-- Stock Info -->
-<div class="section" id="sec-market" data-accordion="">
-<div class="section-title"><span class="section-icon">📉</span> 株価・マーケット情報</div><div class="section-body">
-<div class="card-grid">
-<div class="card">
-<div class="card-title">現在株価</div>
-<div class="card-value neutral">~$1,030</div>
-<div class="card-sub">2026年3月時点</div>
-</div>
-<div class="card">
-<div class="card-title">52週レンジ</div>
-<div class="card-value neutral" style="font-size:20px;">$623.78 - $1,133.95</div>
-<div class="card-sub">現在値は52週レンジの65%位置</div>
-</div>
-<div class="card">
-<div class="card-title">時価総額</div>
-<div class="card-value neutral">~$940B</div>
-<div class="card-sub">決算後一時$1T超</div>
-</div>
-<div class="card">
-<div class="card-title">アナリスト評価</div>
-<div class="card-value positive">Strong Buy</div>
-<div class="card-sub">19名中 Buy/Strong Buy 84% ｜ 目標株価 $870〜$1,500</div>
-</div>
-<div class="card">
-<div class="card-title">空売り比率</div>
-<div class="card-value neutral">0.87%</div>
-<div class="card-sub">6.97M株 ｜ 低水準</div>
-</div>
-<div class="card">
-<div class="card-title">実効税率（2026年想定）</div>
-<div class="card-value neutral">18-19%</div>
-<div class="card-sub">ガイダンスベース</div>
-</div>
-</div>
-</div></div>
-<!-- ATLAS-RELATED-MORNING -->
+
+<div class="layer-eyebrow">Layer I — Executive Summary</div>
+<section class="l1">
+  <div class="l1-score">
+    <div class="l1-score-badge score-high">
+      <span class="l1-score-num">4</span>
+      <span class="l1-score-label">良い決算</span>
+    </div>
+  </div>
+
+  <div class="l1-consensus">
+    <div class="l1-consensus-head">Consensus vs 実績（FY2025 Q4）</div>
+    <table class="l1-consensus-tbl">
+      <thead>
+        <tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>ビート率</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lbl">売上高 / Revenue</td>
+          <td class="cn">$17,960M</td>
+          <td class="val">$19,292M</td>
+          <td class="beat"><span class="beat-lamp"></span>+7.4% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">EPS（Non-GAAP）</td>
+          <td class="cn">$6.96</td>
+          <td class="val">$7.54</td>
+          <td class="beat"><span class="beat-lamp"></span>+8.3% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">FY2026 売上ガイダンス</td>
+          <td class="cn">$77,600M</td>
+          <td class="val">$80,000-83,000M</td>
+          <td class="beat"><span class="beat-lamp"></span>+5.0% <span class="beat-text">ビート</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="l1-notes">
+    <div class="l1-notes-head">Today's Points · 今四半期の特筆点</div>
+    <div class="l1-note">Q4売上 <strong>$19.3B（+43% YoY）</strong>、MounjaroとZepboundが牽引。コンセンサスを <strong>+$1.33B</strong> 上回る大幅ビート。</div>
+    <div class="l1-note">Non-GAAP EPS <strong>$7.54（+42% YoY）</strong>。GAAP EPS $7.39（+51% YoY）とともに過去最高水準を更新。</div>
+    <div class="l1-note">FY2026 売上ガイダンス <strong>$80〜83B（中間値+25% YoY）</strong>がコンセンサス $77.6B を大幅に上回り、株価は決算発表翌日に<strong>+10%</strong>急騰、時価総額が一時$1兆を突破。</div>
+  </div>
+
+  <div class="l1-price no-currency">
+    <div class="l1-price-cell">
+      <div class="lbl">現在株価（3月）</div>
+      <div class="val">~$1,030</div>
+    </div>
+    <div class="l1-price-cell">
+      <div class="lbl">52週レンジ</div>
+      <div class="val">$623 – $1,134</div>
+    </div>
+    <div class="l1-price-cell">
+      <div class="lbl">決算後反応</div>
+      <div class="val" style="color:var(--beat)">+10%</div>
+    </div>
+  </div>
+</section>
+
+<div class="layer-eyebrow">Layer II — 決算の全体像</div>
+
+<!-- Key Metrics -->
+<section class="section" data-accordion id="sec-metrics">
+  <div class="section-title">Key Metrics</div>
+  <div class="section-body">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-lbl">売上高</div>
+        <div class="metric-val gold">$19,292M</div>
+        <div class="metric-sub">Q4 2025実績</div>
+        <div class="delta"><span class="pct pos">YoY +43%</span> <span class="pct pos">QoQ +9.6%</span><span class="prior">前年同期 $13,530M / 前四半期 $17,600M</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Non-GAAP EPS</div>
+        <div class="metric-val pos">$7.54</div>
+        <div class="metric-sub">希薄化後1株当たり</div>
+        <div class="delta"><span class="pct pos">YoY +42%</span><span class="prior">前年同期 $5.32 / コンセンサス $6.96</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">GAAP EPS</div>
+        <div class="metric-val pos">$7.39</div>
+        <div class="metric-sub">希薄化後1株当たり</div>
+        <div class="delta"><span class="pct pos">YoY +51%</span><span class="prior">前年同期 $4.88</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Mounjaro売上</div>
+        <div class="metric-val pos">$7,409M</div>
+        <div class="metric-sub">GLP-1（2型糖尿病）</div>
+        <div class="delta"><span class="pct pos">YoY +110%</span><span class="prior">前年同期 $3,527M</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Zepbound売上</div>
+        <div class="metric-val pos">$4,261M</div>
+        <div class="metric-sub">GLP-1（肥満治療）</div>
+        <div class="delta"><span class="pct pos">YoY +123%</span><span class="prior">前年同期 $1,910M</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">FY2026 売上ガイダンス</div>
+        <div class="metric-val pos">$80-83B</div>
+        <div class="metric-sub">中間値 $81.5B vs コンセ $77.6B</div>
+        <div class="delta"><span class="pct pos">コンセ比 +5.0%</span><span class="prior">YoY +25%成長見込み</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Revenue & EPS Charts -->
+<section class="section" data-accordion id="sec-revenue">
+  <div class="section-title">売上高 / EPS 直近7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-wrap"><canvas id="revenueChart"></canvas></div></div>
+      <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Margin -->
+<section class="section" data-accordion id="sec-margin">
+  <div class="section-title">利益率トレンド</div>
+  <div class="section-body">
+    <div class="panel-merge">
+      <div class="margin-tiles-row">
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">粗利益率（GAAP）</div>
+          <div class="margin-tile-val pos">82.5%</div>
+          <div class="margin-tile-sub">前年同期 82.2% / YoY +0.3pt</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">粗利益率（Non-GAAP）</div>
+          <div class="margin-tile-val pos">83.2%</div>
+          <div class="margin-tile-sub">前年同期 83.2% / 横ばい</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">営業利益率（GAAP）</div>
+          <div class="margin-tile-val pos">43.4%</div>
+          <div class="margin-tile-sub">前年同期 38.0% / YoY +5.4pt</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">Non-GAAPパフォーマンスマージン</div>
+          <div class="margin-tile-val pos">47.2%</div>
+          <div class="margin-tile-sub">前年同期 43.0% / YoY +4.2pt</div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="margin-chart-area">
+        <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="boundary"><div class="boundary-line"></div><div class="boundary-mark">II</div><div class="boundary-line"></div></div>
+<div class="layer-eyebrow">Layer III — Granular Analysis</div>
+
+<!-- Operating Expenses (sec3 / LLY固有) -->
+<section class="sec3" data-accordion id="sec-expense">
+  <div class="sec3-title">Operating Expenses <span class="jp">· 営業費用内訳（Q4 2025）</span></div>
+  <div class="sec3-body">
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>Q4 2025 ($M)</th><th>Q4 2024 ($M)</th><th>YoY変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上原価</td><td>$3,372</td><td>$2,410</td><td class="neg">+40%</td></tr>
+        <tr><td>研究開発費</td><td>$3,802</td><td>$3,013</td><td class="neg">+26%</td></tr>
+        <tr><td>販管費</td><td>$3,132</td><td>$2,434</td><td class="neg">+29%</td></tr>
+        <tr><td>取得済みIPR&amp;D</td><td>$529</td><td>$189</td><td class="neg">+180%</td></tr>
+        <tr><td style="font-weight:700;color:var(--t1)">営業利益（GAAP）</td><td style="font-weight:700;color:var(--beat)">$8,373</td><td>$5,134</td><td class="pos" style="font-weight:700">+63%</td></tr>
+      </tbody>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">R&amp;D費は売上高比 <strong>19.7%</strong>（前年 22.2%）へ低下。売上高の急拡大に対しコスト増加率が低く抑えられたことで、営業レバレッジが鮮明に現れた。取得済みIPR&amp;Dの+180%増はパイプライン拡充のための戦略的買収費用で一時的性格が強い。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Product Segment (LLY固有) -->
+<section class="sec3" data-accordion id="sec-product">
+  <div class="sec3-title">Product Revenue <span class="jp">· 製品別売上（Q4 2025）</span></div>
+  <div class="sec3-body">
+    <div class="panel-merge">
+      <div class="chart-split">
+        <div class="chart-split-viz"><canvas id="segChart"></canvas></div>
+        <div class="chart-split-list">
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#D4A843"></div>
+            <div><div class="csi-lbl">Mounjaro（GLP-1 / 糖尿病）</div><div class="csi-sub">$7,409M / YoY +110% / 米 $4,100M 海外 $3,300M</div></div>
+            <div class="csi-pct">38.4%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#5C7395"></div>
+            <div><div class="csi-lbl">Zepbound（GLP-1 / 肥満）</div><div class="csi-sub">$4,261M / YoY +123% / 米国専売</div></div>
+            <div class="csi-pct">22.1%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#B8912A"></div>
+            <div><div class="csi-lbl">Verzenio（腫瘍）</div><div class="csi-sub">$1,604M / YoY +3% / 米 $997M 海外 $608M</div></div>
+            <div class="csi-pct">8.3%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#F0E6C8"></div>
+            <div><div class="csi-lbl">その他製品群</div><div class="csi-sub">Jardiance, Taltz, Omvoh, Kisunla 等</div></div>
+            <div class="csi-pct">31.2%</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body">GLP-1二製品（Mounjaro + Zepbound）が合計 <strong>$11,670M（60.5%）</strong> を占め、コアドライバーが明確。Mounjaro海外展開（$3,300M）がQ4の新たな成長エンジンで、YoY約4倍弱。Zepboundは米国専売だが、海外申請を40カ国超で進行中。VerzenioはHR+/HER2-乳がん領域の安定収益源として継続貢献。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Geography -->
+<section class="sec3" data-accordion id="sec-geo">
+  <div class="sec3-title">Geography <span class="jp">· 地域別売上構成</span></div>
+  <div class="sec3-body">
+    <div class="panel-merge">
+      <div class="chart-split">
+        <div class="chart-split-viz"><canvas id="geoChart"></canvas></div>
+        <div class="chart-split-list">
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#D4A843"></div>
+            <div><div class="csi-lbl">米国</div><div class="csi-sub">$12,900M / YoY +43% / ボリューム +50%・価格 -7%</div></div>
+            <div class="csi-pct">66.9%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#5C7395"></div>
+            <div><div class="csi-lbl">海外</div><div class="csi-sub">$6,400M / YoY +43% / ボリューム +38%・為替 +4%</div></div>
+            <div class="csi-pct">33.1%</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body">米国・海外ともにYoY +43%と均一成長。米国はボリューム+50%（価格-7%）で数量主導の構造。海外はMounjaro国際展開が牽引し、為替も+4%の追い風。海外比率 <strong>33.1%</strong> は今後も上昇余地があり、Orforglipronの海外展開（40カ国以上申請）が次の成長源となる見込み。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Annual Summary (LLY固有) -->
+<section class="sec3" data-accordion id="sec-annual">
+  <div class="sec3-title">Annual Summary <span class="jp">· FY2025 通期サマリー</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx">
+        <div class="cardx-lbl">通期売上高</div>
+        <div class="cardx-val gold">$65,179M</div>
+        <div class="cardx-sub">YoY +45% / FY24 $44,932M</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">通期 GAAP EPS</div>
+        <div class="cardx-val pos">$22.95</div>
+        <div class="cardx-sub">YoY +96% / FY24 $11.71</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">通期 Non-GAAP EPS</div>
+        <div class="cardx-val pos">$24.21</div>
+        <div class="cardx-sub">YoY +86% / FY24 $12.99</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">通期営業利益（GAAP）</div>
+        <div class="cardx-val pos">$26,302M</div>
+        <div class="cardx-sub">YoY +104% / FY24 $12,899M</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cash Flow -->
+<section class="sec3" data-accordion id="sec-cashflow">
+  <div class="sec3-title">Cash Flow <span class="jp">· キャッシュフロー</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx">
+        <div class="cardx-lbl">営業CF（FY2025通期）</div>
+        <div class="cardx-val pos">$16,200M</div>
+        <div class="cardx-sub">YoY +90% 推定 / 利益率改善が寄与</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">FCF（FY2025通期推定）</div>
+        <div class="cardx-val pos">~$12,000M</div>
+        <div class="cardx-sub">設備投資急増でCapEx控除後</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">設備投資（CapEx）</div>
+        <div class="cardx-val neg">~$4,500M</div>
+        <div class="cardx-sub">製造能力拡大（GLP-1増産）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">現金・短期投資</div>
+        <div class="cardx-val neu">~$3,200M</div>
+        <div class="cardx-sub">借入余力は十分、投資適格格付</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">GLP-1製造能力増強に向け設備投資を急拡大。供給不足が成長制約となってきたMounjaroとZepboundの増産ラインに重点投資しており、2026〜2027年に生産キャパが解消される見込み。FCFは旺盛なCapExを控除しても大幅な黒字を確保。財務基盤は強固であり、M&amp;A・自社株買い・配当増の余力が十分。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Technical -->
+<section class="sec3" data-accordion id="sec-technical">
+  <div class="sec3-title">Technical <span class="jp">· テクニカル分析</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">現在株価（2026年3月）</div>
+        <div class="cardx-val neg">~$1,030</div>
+        <div class="cardx-sub">決算後 $1,106 高値から調整</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">52週レンジ</div>
+        <div class="cardx-val neu">$623 – $1,134</div>
+        <div class="cardx-sub">現在値はレンジの約65%位置</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">時価総額</div>
+        <div class="cardx-val neu">~$940B</div>
+        <div class="cardx-sub">決算後一時 $1T 超を達成</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">RSI（14日）</div>
+        <div class="cardx-val neu">~55</div>
+        <div class="cardx-sub">決算後過熱→調整で中立圏</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">MACD</div>
+        <div class="cardx-val neu">強気維持</div>
+        <div class="cardx-sub">調整も上昇トレンド継続</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">SMA 50日</div>
+        <div class="cardx-val neu">~$1,000</div>
+        <div class="cardx-sub">サポートラインとして機能</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">SMA 200日</div>
+        <div class="cardx-val pos">~$870</div>
+        <div class="cardx-sub">長期上昇トレンド継続中</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">総合テクニカル判定</div>
+        <div class="cardx-val gold">中立〜やや強気</div>
+        <div class="cardx-sub">$1,000 SMA支持、GLP-1拡大期待が下支え</div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NYSE:LLY",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": ["MASimple@tv-basicstudies","MAExp@tv-basicstudies"],
+          "studies_overrides": {"moving average.length": 50,"moving average exponential.length": 200}
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Management -->
+<section class="sec3" data-accordion id="sec-mgmt">
+  <div class="sec3-title">Management <span class="jp">· 経営陣コメント</span></div>
+  <div class="sec3-body">
+    <div class="pullq">
+      <div class="pullq-body">Q4売上は前年比43%増の$19.3Bを達成。<strong>ボリューム成長+46%</strong>が牽引し、価格は-5%の逆風にもかかわらず強い成長を実現した。Mounjaro海外売上が$3.3Bへ急拡大し、国際展開の加速を確認した。</div>
+      <div class="pullq-attr">David A. Ricks<span class="role">/ CEO — 業績・成長ドライバーについて</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body"><strong>Orforglipron（経口GLP-1）は2026年Q2に米国発売予定</strong>（FDA承認待ち）。40カ国以上で申請済み。ATTAIN-2試験で36mg用量は10.5%の体重減少を達成し、注射GLP-1モノセラピーと同等の効果を経口で実現した。経口薬は注射を望まない患者層へのアクセスを大幅に広げる。</div>
+      <div class="pullq-attr">David A. Ricks<span class="role">/ CEO — パイプライン・新薬について</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">FY2026 売上ガイダンスを<strong>$80〜83B（中間値 $81.5B）</strong>に設定。<strong>Medicare肥満治療薬カバレッジが2026年7月1日までに開始</strong>見込みであり、需要拡大の大きな追い風となる。価格は10%台前半〜半ばのマイナス要因を予想するが、ボリューム成長でカバーする方針。</div>
+      <div class="pullq-attr">Lucas Montarce<span class="role">/ CFO — 2026年見通し</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">Retatrutideの<strong>TRIUMPH-4試験</strong>で大幅な体重減少と痛み軽減を確認。次世代トリプルアゴニストとして20%超の体重減少を目指す。GLP-1市場は2030年に<strong>$100B超、2034年に$180B</strong>に達するとの予測があり、イーライリリーはその最大受益者として位置付けられる。</div>
+      <div class="pullq-attr">経営陣<span class="role">/ カンファレンスコール — パイプラインについて</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Risk & Catalyst -->
+<section class="sec3" data-accordion id="sec-risk">
+  <div class="sec3-title">Risk &amp; Catalyst <span class="jp">· リスク・注目ポイント / カタリスト</span></div>
+  <div class="sec3-body">
+    <div class="risk-grid">
+      <div class="risk-card">
+        <h4>Positive Catalysts</h4>
+        <ul class="risk-top">
+          <li>Orforglipron発売（2026年Q2）— 経口GLP-1で新患者層を開拓</li>
+          <li>Medicareカバレッジ（2026年7月〜）— 肥満治療薬TAMを大幅拡大</li>
+          <li>Mounjaro海外展開継続（Q4 $3.3B）— 国際市場の爆発的成長</li>
+        </ul>
+        <ul class="risk-more">
+          <li>Retatrutide次世代トリプルアゴニスト — 20%超の体重減少を目指す</li>
+          <li>GLP-1市場2030年$100B超 / 2034年$180B予測 — 最大受益者</li>
+          <li>パイプライン多角化（Verzenio腫瘍、Omvoh免疫、Kisunla神経）</li>
+          <li>FY2026ガイダンスが大幅にコンセンサスを上回る — 市場の信頼感</li>
+          <li>製造キャパ増強 — 供給制約の2026〜2027年解消見込み</li>
+        </ul>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
+      </div>
+      <div class="risk-card">
+        <h4>Risk Factors</h4>
+        <ul class="risk-top">
+          <li>価格圧力 — 米国GLP-1薬価低下傾向。2026年は10%台のマイナス価格影響</li>
+          <li>競争激化 — Novo Nordisk経口Wegovy承認（2026年1月発売）。24万人が処方中</li>
+          <li>コンパウンド薬リスク — セマグルチドの安価なコンパウンド版が市場を侵食</li>
+        </ul>
+        <ul class="risk-more">
+          <li>規制リスク — Medicare価格交渉、IRA（インフレ抑制法）による薬価引き下げ</li>
+          <li>成長減速懸念 — YoY成長率 54%（Q3）→ 43%（Q4）→ 25%（FY26ガイダンス）</li>
+          <li>高バリュエーション — Forward PER 33倍は製薬セクター平均を大幅に上回る</li>
+          <li>供給制約リスク — 製造能力増強が予定通り進まない場合の機会損失</li>
+          <li>FDA承認リスク — Orforglipronの承認遅延・追加試験要請の可能性</li>
+        </ul>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QoQ Compare -->
+<section class="sec3" data-accordion id="sec-compare">
+  <div class="sec3-title">QoQ Compare <span class="jp">· 前四半期（Q3 2025）との比較</span></div>
+  <div class="sec3-body">
+    <table class="cmp-tbl">
+      <thead><tr><th>指標</th><th>Q3 2025</th><th>Q4 2025</th><th>変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$17,600M</td><td>$19,292M</td><td class="pos">+9.6% QoQ</td></tr>
+        <tr><td>YoY成長率</td><td>+54%</td><td>+43%</td><td class="neg">成長減速 ↓</td></tr>
+        <tr><td>Non-GAAP EPS</td><td>$7.02</td><td>$7.54</td><td class="pos">+7.4% QoQ</td></tr>
+        <tr><td>GAAP EPS</td><td>—</td><td>$7.39</td><td class="pos">過去最高水準</td></tr>
+        <tr><td>粗利益率（GAAP）</td><td>—</td><td>82.5%</td><td class="neu">堅調維持</td></tr>
+        <tr><td>営業利益率（GAAP）</td><td>—</td><td>43.4%</td><td class="pos">+5.4pt YoY改善</td></tr>
+        <tr><td>Mounjaro売上</td><td>~$4,900M</td><td>$7,409M</td><td class="pos">+51% QoQ / +110% YoY</td></tr>
+        <tr><td>Zepbound売上</td><td>~$1,900M</td><td>$4,261M</td><td class="pos">+124% QoQ / +123% YoY</td></tr>
+        <tr><td>FY2026ガイダンス（年間）</td><td>—</td><td>$80-83B</td><td class="pos">コンセ比 +5.0% ビート</td></tr>
+        <tr><td>株価反応（決算後翌日）</td><td>—</td><td>+10%</td><td class="pos">一時 $1,106 / 時価総額 $1T超</td></tr>
+      </tbody>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body"><strong>トレンド方向: やや減速 → 絶対額は加速</strong> — YoY成長率が54%→43%に鈍化したものの、これは前年比較基準（Q4 2024）の水準が高まった影響が主因。絶対額ベースではQoQ+9.6%と堅調成長を維持。FY2026ガイダンスがコンセンサスを大幅に上回ったことで、市場は成長ストーリーの継続を確認し翌日+10%の急騰で応えた。<strong>GLP-1の供給制約解消とOrforglipron発売</strong>が2026年以降の成長を牽引する見通しであり、構造的な成長ストーリーは健在。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Market Data (LLY固有 sec-market) -->
+<section class="sec3" data-accordion id="sec-market">
+  <div class="sec3-title">Market Data <span class="jp">· 株価・市場センチメント</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid no-currency">
+      <div class="cardx">
+        <div class="cardx-lbl">アナリスト評価</div>
+        <div class="cardx-val gold">Strong Buy</div>
+        <div class="cardx-sub">19名中 Buy/Strong Buy 84% / 目標株価 $870〜$1,500</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">アナリスト目標株価（平均）</div>
+        <div class="cardx-val pos">$1,261</div>
+        <div class="cardx-sub">現在株価比 +22%のアップサイド</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">空売り比率</div>
+        <div class="cardx-val neu">0.87%</div>
+        <div class="cardx-sub">6.97M株 / 低水準</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">実効税率（2026年想定）</div>
+        <div class="cardx-val neu">18〜19%</div>
+        <div class="cardx-sub">ガイダンスベース</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Valuation -->
+<section class="sec3" data-accordion id="sec-valuation">
+  <div class="sec3-title">Valuation <span class="jp">· 想定株価 3パターン</span></div>
+  <div class="sec3-body">
+    <div class="val-grid no-currency">
+      <div class="val-card">
+        <div class="val-scn">LOW — 保守的</div>
+        <div class="val-price">$938</div>
+        <div class="val-detail">Forward EPS: $33.50（ガイダンス下限）<br>× PER: 28.0x（過去レンジ下限）</div>
+        <div class="val-gap neg">現在株価比 -8.9% / やや割高</div>
+      </div>
+      <div class="val-card">
+        <div class="val-scn">MID — 基本</div>
+        <div class="val-price">$1,130</div>
+        <div class="val-detail">Forward EPS: $34.25（コンセンサス）<br>× PER: 33.0x（過去3年平均）</div>
+        <div class="val-gap pos">現在株価比 +9.7% / やや割安〜適正</div>
+      </div>
+      <div class="val-card">
+        <div class="val-scn">HIGH — 楽観的</div>
+        <div class="val-price">$1,440</div>
+        <div class="val-detail">Forward EPS: $36.00（楽観予想）<br>× PER: 40.0x（過去レンジ上限）</div>
+        <div class="val-gap pos">現在株価比 +39.8% / 割安</div>
+      </div>
+    </div>
+
+    <!-- NTM calc -->
+    <div class="ntm-calc no-currency" style="margin-top:18px">
+      <div class="ntm-row">
+        <div class="ntm-cell"><div class="ntm-lbl">NTM EPS（コンセ）</div><div class="ntm-val">$34.25</div><div class="ntm-sub">FY2026E Non-GAAP</div></div>
+        <div class="ntm-op">×</div>
+        <div class="ntm-cell"><div class="ntm-lbl">過去3年平均 PER</div><div class="ntm-val">33.0x</div><div class="ntm-sub">過去PERレンジ中央値</div></div>
+        <div class="ntm-op">=</div>
+        <div class="ntm-cell"><div class="ntm-lbl">NTM想定株価（MID）</div><div class="ntm-val goal">$1,130</div><div class="ntm-sub">現在株価 ~$1,030 比 +9.7%</div></div>
+      </div>
+      <div class="ntm-foot">
+        <div class="ntm-foot-cell"><div class="lbl">Forward PER（現在）</div><div class="val">33.0x</div></div>
+        <div class="ntm-foot-cell"><div class="lbl">Trailing PER</div><div class="val">51.4x</div></div>
+        <div class="ntm-foot-cell"><div class="lbl">アナリスト目標株価</div><div class="val">$1,261</div></div>
+        <div class="ntm-foot-cell"><div class="lbl">判定（MID乖離率）</div><div class="val" style="color:var(--beat)">+9.7% / やや割安</div></div>
+      </div>
+    </div>
+
+    <!-- Gauge -->
+    <div class="val-gauge no-currency" style="margin-top:18px">
+      <div class="val-gauge-title">Price Position · 現在株価の位置</div>
+      <div class="val-gauge-track">
+        <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$938</div></div>
+        <div class="val-gauge-mark" style="left:38.5%"><div class="lbl">MID</div><div class="amt">$1,130</div></div>
+        <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$1,440</div></div>
+        <!-- 現在株価 $1,030 → (1030-938)/(1440-938) = 92/502 = 18.3% -->
+        <div class="val-gauge-current" style="left:18.3%"><div class="cur-label">現在 $1,030</div></div>
+      </div>
+    </div>
+
+    <div class="val-reminder">
+      <strong>判定: 適正〜やや割安</strong>（MID乖離率 +9.7%）— MIDシナリオでは現在株価から約10%のアップサイド。アナリスト平均目標$1,261と比較しても約22%の上昇余地。GLP-1市場の構造的成長と豊富なパイプラインを考慮すると長期的な投資妙味は高い。ただし<strong>Forward PER 33倍は製薬セクター平均を大幅に上回る</strong>プレミアム水準であり、期待成長が未達の場合のダウンサイドには留意が必要。
+    </div>
+  </div>
+</section>
+
+<!-- Related Morning News -->
 <div class="atlas-related-morning" data-ticker="LLY"></div>
 <script>
-/*!
- * Atlas Related Morning News — 決算レポートに表示する「関連ニュース/号外」
- *
- * 使い方:
- *   <div class="atlas-related-morning" data-ticker="NVDA"></div>
- *   <script src="https://atlas-financials.jp/assets/related-morning.js" defer><\/script>
- */
-(function () {
-  var INDEX_URL = '/news/news-index.json';
-  var MAX_ITEMS = 5;
-
-  function byTicker(items, ticker) {
-    var out = [];
-    for (var i = 0; i < items.length; i++) {
-      if (items[i].tickers && items[i].tickers.indexOf(ticker) !== -1) out.push(items[i]);
-    }
-    return out.slice(0, MAX_ITEMS);
-  }
-
-  function fmtDate(d) {
-    if (!d) return '';
-    var parts = d.split('-');
-    return parts.length === 3 ? parts[1] + '/' + parts[2] : d;
-  }
-
-  function render(container, articles) {
-    var ticker = container.getAttribute('data-ticker') || '';
-    if (!articles.length) {
-      container.style.display = 'none';
-      return;
-    }
-    var html =
-      '<div class="arm-inner">' +
-      '<div class="arm-head">' +
-      '<span class="arm-label">関連するニュース・号外</span>' +
-      '<span class="arm-sub">' + ticker + ' に言及された記事</span>' +
-      '</div>' +
-      '<ul class="arm-list">';
-    for (var i = 0; i < articles.length; i++) {
-      var a = articles[i];
-      var kind = a.kind === 'extra' ? '号外' : 'ニュース';
-      html +=
-        '<li class="arm-item">' +
-        '<a class="arm-link" href="' + a.url + '">' +
-        '<span class="arm-kind arm-kind-' + a.kind + '">' + kind + '</span>' +
-        '<span class="arm-date">' + fmtDate(a.date) + '</span>' +
-        '<span class="arm-title">' + (a.title || '(タイトル未取得)') + '</span>' +
-        '</a>' +
-        '</li>';
-    }
-    html += '</ul><div class="arm-foot"><a href="https://atlas-financials.jp/news/">すべてのニュースを見る →</a></div></div>';
-    container.innerHTML = html;
-  }
-
-  var css =
-    '.atlas-related-morning{background:#0F1829;border:1px solid rgba(184,145,42,.2);border-radius:10px;padding:24px 28px;margin:32px 0;font-family:"Noto Sans JP",sans-serif}' +
-    '.atlas-related-morning .arm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,.15);gap:12px;flex-wrap:wrap}' +
-    '.atlas-related-morning .arm-label{color:#D4A843;font-size:12px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}' +
-    '.atlas-related-morning .arm-sub{color:#8b949e;font-size:11px}' +
-    '.atlas-related-morning .arm-list{list-style:none;margin:0;padding:0}' +
-    '.atlas-related-morning .arm-item{border-bottom:1px dashed rgba(184,145,42,.08)}' +
-    '.atlas-related-morning .arm-item:last-child{border-bottom:none}' +
-    '.atlas-related-morning .arm-link{display:grid;grid-template-columns:52px 54px 1fr;gap:12px;align-items:center;padding:10px 0;text-decoration:none;color:#e6edf3;font-size:13px;transition:color .15s}' +
-    '.atlas-related-morning .arm-link:hover{color:#D4A843}' +
-    '.atlas-related-morning .arm-kind{font-size:10px;letter-spacing:.08em;padding:2px 6px;border-radius:3px;text-align:center;font-weight:700}' +
-    '.atlas-related-morning .arm-kind-morning{background:rgba(184,145,42,.15);color:#D4A843}' +
-    '.atlas-related-morning .arm-kind-extra{background:rgba(139,32,32,.25);color:#f85149}' +
-    '.atlas-related-morning .arm-date{color:#8b949e;font-family:Inter,monospace;font-size:11px;letter-spacing:.04em}' +
-    '.atlas-related-morning .arm-title{line-height:1.45}' +
-    '.atlas-related-morning .arm-foot{margin-top:14px;text-align:right;font-size:11px}' +
-    '.atlas-related-morning .arm-foot a{color:#8b949e;text-decoration:none;letter-spacing:.05em}' +
-    '.atlas-related-morning .arm-foot a:hover{color:#D4A843}' +
-    '@media(max-width:600px){.atlas-related-morning{padding:18px 16px}.atlas-related-morning .arm-link{grid-template-columns:44px 44px 1fr;gap:8px;font-size:12px}}' +
-    'html[data-theme="light"] .atlas-related-morning{background:#FDFCFA;border-color:rgba(26,37,64,.15)}' +
-    'html[data-theme="light"] .atlas-related-morning .arm-link{color:#1A2540}' +
-    'html[data-theme="light"] .atlas-related-morning .arm-label{color:#8a6c1f}';
-  var style = document.createElement('style');
-  style.textContent = css;
-  (document.head || document.documentElement).appendChild(style);
-
-  function init() {
-    var containers = document.querySelectorAll('.atlas-related-morning[data-ticker]');
-    if (!containers.length) return;
-    fetch(INDEX_URL, { cache: 'default' })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (items) {
-        for (var i = 0; i < containers.length; i++) {
-          var c = containers[i];
-          var t = c.getAttribute('data-ticker');
-          render(c, byTicker(items, t));
-        }
-      })
-      .catch(function () {
-        for (var i = 0; i < containers.length; i++) containers[i].style.display = 'none';
-      });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-  } else {
-    init();
-  }
+(function(){
+  var INDEX_URL='/news/news-index.json';var MAX_ITEMS=5;
+  function byTicker(items,ticker){var out=[];for(var i=0;i<items.length;i++){if(items[i].tickers&&items[i].tickers.indexOf(ticker)!==-1)out.push(items[i]);}return out.slice(0,MAX_ITEMS);}
+  function fmtDate(d){if(!d)return'';var parts=d.split('-');return parts.length===3?parts[1]+'/'+parts[2]:d;}
+  function render(container,articles){var ticker=container.getAttribute('data-ticker')||'';if(!articles.length){container.style.display='none';return;}
+    var html='<div class="arm-inner"><div class="arm-head"><span class="arm-label">関連するニュース・号外</span><span class="arm-sub">'+ticker+' に言及された記事</span></div><ul class="arm-list">';
+    for(var i=0;i<articles.length;i++){var a=articles[i];var kind=a.kind==='extra'?'号外':'ニュース';html+='<li class="arm-item"><a class="arm-link" href="'+a.url+'"><span class="arm-kind arm-kind-'+a.kind+'">'+kind+'</span><span class="arm-date">'+fmtDate(a.date)+'</span><span class="arm-title">'+(a.title||'(タイトル未取得)')+'</span></a></li>';}
+    html+='</ul><div class="arm-foot"><a href="https://atlas-financials.jp/news/">すべてのニュースを見る →</a></div></div>';container.innerHTML=html;}
+  var css='.atlas-related-morning{background:#0F1829;border:1px solid rgba(184,145,42,.2);border-radius:10px;padding:24px 28px;margin:32px 0;font-family:"Noto Sans JP",sans-serif}.atlas-related-morning .arm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,.15);gap:12px;flex-wrap:wrap}.atlas-related-morning .arm-label{color:#D4A843;font-size:12px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}.atlas-related-morning .arm-sub{color:#8b949e;font-size:11px}.atlas-related-morning .arm-list{list-style:none;margin:0;padding:0}.atlas-related-morning .arm-item{border-bottom:1px dashed rgba(184,145,42,.08)}.atlas-related-morning .arm-item:last-child{border-bottom:none}.atlas-related-morning .arm-link{display:grid;grid-template-columns:52px 54px 1fr;gap:12px;align-items:center;padding:10px 0;text-decoration:none;color:#e6edf3;font-size:13px;transition:color .15s}.atlas-related-morning .arm-link:hover{color:#D4A843}.atlas-related-morning .arm-kind{font-size:10px;letter-spacing:.08em;padding:2px 6px;border-radius:3px;text-align:center;font-weight:700}.atlas-related-morning .arm-kind-morning{background:rgba(184,145,42,.15);color:#D4A843}.atlas-related-morning .arm-kind-extra{background:rgba(139,32,32,.25);color:#f85149}.atlas-related-morning .arm-date{color:#8b949e;font-family:Inter,monospace;font-size:11px}.atlas-related-morning .arm-title{line-height:1.45}.atlas-related-morning .arm-foot{margin-top:14px;text-align:right;font-size:11px}.atlas-related-morning .arm-foot a{color:#8b949e;text-decoration:none}.atlas-related-morning .arm-foot a:hover{color:#D4A843}';
+  var style=document.createElement('style');style.textContent=css;(document.head||document.documentElement).appendChild(style);
+  function init(){var containers=document.querySelectorAll('.atlas-related-morning[data-ticker]');if(!containers.length)return;fetch(INDEX_URL,{cache:'default'}).then(function(r){return r.ok?r.json():[];}).then(function(items){for(var i=0;i<containers.length;i++){var c=containers[i];var t=c.getAttribute('data-ticker');render(c,byTicker(items,t));}}).catch(function(){for(var i=0;i<containers.length;i++)containers[i].style.display='none';});}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init,{once:true});}else{init();}
 })();
-
 </script>
-<!-- /ATLAS-RELATED-MORNING -->
-<!-- Footer -->
+
 <div class="footer">
-<p>本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。</p>
-<p>投資判断はご自身の責任でお願いいたします。</p>
-<p style="margin-top:8px;">Generated by AI ｜ Data as of 2026-03-11</p>
+  <p>本レポートは公開情報に基づく分析であり、投資助言を目的としたものではありません。投資判断はご自身の責任でお願いいたします。</p>
+  <div class="footer-id">Generated by Atlas Quarterly ｜ Data as of 2026-03-11 ｜ LLY FY2025Q4</div>
 </div>
-<script>
-// Chart.js defaults
-Chart.defaults.color = '#8b949e';
-Chart.defaults.borderColor = '#30363d';
-Chart.defaults.font.family = "'Noto Sans JP', sans-serif";
 
-const quarters = ['Q2\'24', 'Q3\'24', 'Q4\'24', 'Q1\'25', 'Q2\'25', 'Q3\'25', 'Q4\'25'];
-const revenues = [11303, 11439, 13530, 12730, 15558, 17600, 19292];
-const eps = [3.92, 1.18, 5.32, 3.34, 6.31, 7.02, 7.54];
+<!-- Portal Link -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
 
-// Revenue Chart
-new Chart(document.getElementById('revenueChart'), {
-  type: 'bar',
-  data: {
-    labels: quarters,
-    datasets: [{
-      label: '売上高 ($M)',
-      data: revenues,
-      backgroundColor: revenues.map((v, i) => i === revenues.length - 1 ? '#58a6ff' : 'rgba(88,166,255,0.5)'),
-      borderColor: '#58a6ff',
-      borderWidth: 1,
-      borderRadius: 4
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => `$${ctx.raw.toLocaleString()}M`
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        min: 8000,
-        ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'B' },
-        grid: { color: '#21262d' }
-      },
-      x: { grid: { display: false } }
-    }
-  }
-});
-
-// EPS Chart
-new Chart(document.getElementById('epsChart'), {
-  type: 'line',
-  data: {
-    labels: quarters,
-    datasets: [{
-      label: 'Non-GAAP EPS ($)',
-      data: eps,
-      borderColor: '#2ea043',
-      backgroundColor: 'rgba(46,160,67,0.1)',
-      fill: true,
-      tension: 0.3,
-      pointBackgroundColor: eps.map((v, i) => i === eps.length - 1 ? '#3fb950' : '#2ea043'),
-      pointRadius: eps.map((v, i) => i === eps.length - 1 ? 6 : 4),
-      pointBorderWidth: 2,
-      pointBorderColor: '#0d1117'
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: ctx => `$${ctx.raw.toFixed(2)}`
-        }
-      }
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        ticks: { callback: v => '$' + v.toFixed(1) },
-        grid: { color: '#21262d' }
-      },
-      x: { grid: { display: false } }
-    }
-  }
-});
-
-// Margin Chart (simplified - using available Q4 data points)
-new Chart(document.getElementById('marginChart'), {
-  type: 'bar',
-  data: {
-    labels: ['粗利益率\n(GAAP)', '粗利益率\n(Non-GAAP)', '営業利益率\n(GAAP)', 'パフォーマンス\nマージン'],
-    datasets: [
-      {
-        label: 'Q4 2024',
-        data: [82.2, 83.2, 38.0, 43.0],
-        backgroundColor: 'rgba(88,166,255,0.3)',
-        borderColor: '#58a6ff',
-        borderWidth: 1,
-        borderRadius: 4
-      },
-      {
-        label: 'Q4 2025',
-        data: [82.5, 83.2, 43.4, 47.2],
-        backgroundColor: 'rgba(46,160,67,0.5)',
-        borderColor: '#2ea043',
-        borderWidth: 1,
-        borderRadius: 4
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'top' },
-      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw + '%' } }
-    },
-    scales: {
-      y: {
-        min: 30,
-        max: 90,
-        ticks: { callback: v => v + '%' },
-        grid: { color: '#21262d' }
-      },
-      x: { grid: { display: false } }
-    }
-  }
-});
-
-// Segment Pie Chart
-new Chart(document.getElementById('segmentChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Mounjaro', 'Zepbound', 'Verzenio', 'その他'],
-    datasets: [{
-      data: [7409, 4261, 1604, 6018],
-      backgroundColor: ['#58a6ff', '#bc8cff', '#2ea043', '#484f58'],
-      borderColor: '#161b22',
-      borderWidth: 3
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'bottom', labels: { padding: 16 } },
-      tooltip: {
-        callbacks: {
-          label: ctx => {
-            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-            const pct = ((ctx.raw / total) * 100).toFixed(1);
-            return `${ctx.label}: $${ctx.raw.toLocaleString()}M (${pct}%)`;
-          }
-        }
-      }
-    }
-  }
-});
-</script>
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">
 <div class="toc-menu" id="tocMenu">
 <div class="toc-expand-all">
-<button onclick="toggleAllSections(true)">すべて展開</button>
-<button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+  <button onclick="toggleAllSections(true)">すべて展開</button>
+  <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
 </div>
 <ul class="toc-list">
-<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高・EPS 7四半期推移</span></a></li>
-<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
-<li><a href="#sec-expense" onclick="tocJump('sec-expense')"><span class="toc-icon">💰</span><span class="toc-label">営業費用内訳</span></a></li>
-<li><a href="#sec-product" onclick="tocJump('sec-product')"><span class="toc-icon">🏥</span><span class="toc-label">製品別売上</span></a></li>
-<li><a href="#sec-annual" onclick="tocJump('sec-annual')"><span class="toc-icon">📅</span><span class="toc-label">FY2025 通期サマリー</span></a></li>
-<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">💬</span><span class="toc-label">経営陣コメントハイライト</span></a></li>
-<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚠️</span><span class="toc-label">リスク・注目ポイント / カタリスト</span></a></li>
-<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前四半期比較</span></a></li>
-<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション（想定株価 3パターン）</span></a></li>
-<li><a href="#sec-market" onclick="tocJump('sec-market')"><span class="toc-icon">📉</span><span class="toc-label">株価・マーケット情報</span></a></li>
+<li><a href="#sec-metrics" onclick="tocJump('sec-metrics')"><span class="toc-icon" style="width:24px;text-align:center">K</span><span class="toc-label">Key Metrics</span></a></li>
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon" style="width:24px;text-align:center">R</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon" style="width:24px;text-align:center">M</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-expense" onclick="tocJump('sec-expense')"><span class="toc-icon" style="width:24px;text-align:center">E</span><span class="toc-label">営業費用内訳</span></a></li>
+<li><a href="#sec-product" onclick="tocJump('sec-product')"><span class="toc-icon" style="width:24px;text-align:center">P</span><span class="toc-label">製品別売上</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon" style="width:24px;text-align:center">G</span><span class="toc-label">地域別売上</span></a></li>
+<li><a href="#sec-annual" onclick="tocJump('sec-annual')"><span class="toc-icon" style="width:24px;text-align:center">A</span><span class="toc-label">FY2025 通期サマリー</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon" style="width:24px;text-align:center">C</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon" style="width:24px;text-align:center">T</span><span class="toc-label">テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon" style="width:24px;text-align:center">Q</span><span class="toc-label">経営陣コメント</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon" style="width:24px;text-align:center">!</span><span class="toc-label">リスク・カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon" style="width:24px;text-align:center">~</span><span class="toc-label">前回比較</span></a></li>
+<li><a href="#sec-market" onclick="tocJump('sec-market')"><span class="toc-icon" style="width:24px;text-align:center">S</span><span class="toc-label">市場センチメント</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon" style="width:24px;text-align:center">V</span><span class="toc-label">バリュエーション</span></a></li>
 </ul>
 </div>
 </nav>
-<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button><script>// Accordion — tap vs swipe detection
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Accordion
 var touchStartY=0,touchStartX=0,touchStartTime=0;
 function toggleAccordion(sec){
   if(!sec)return;
   var isCollapsed=sec.classList.contains('collapsed');
-  if(isCollapsed){
-    sec.classList.remove('collapsed');
-    sec.classList.add('collapsing');
-    var body=sec.querySelector('.section-body');
-    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
-    body.addEventListener('transitionend',onEnd);
-    setTimeout(function(){sec.classList.remove('collapsing');},400);
-  }else{
-    sec.classList.add('collapsing','collapsed');
-    var body2=sec.querySelector('.section-body');
-    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2);};
-    body2.addEventListener('transitionend',onEnd2);
-    setTimeout(function(){sec.classList.remove('collapsing');},400);
-  }
+  if(isCollapsed){sec.classList.remove('collapsed');sec.classList.add('collapsing');var body=sec.querySelector('.section-body,.sec3-body');var onEnd=function(){sec.classList.remove('collapsing');if(body)body.removeEventListener('transitionend',onEnd);};if(body)body.addEventListener('transitionend',onEnd);setTimeout(function(){sec.classList.remove('collapsing');},400);}
+  else{sec.classList.add('collapsing','collapsed');var body2=sec.querySelector('.section-body,.sec3-body');var onEnd2=function(){sec.classList.remove('collapsing');if(body2)body2.removeEventListener('transitionend',onEnd2);};if(body2)body2.addEventListener('transitionend',onEnd2);setTimeout(function(){sec.classList.remove('collapsing');},400);}
 }
-document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
+document.querySelectorAll('[data-accordion] .section-title,[data-accordion] .sec3-title').forEach(function(title){
   title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
-  title.addEventListener('touchend',function(e){
-    var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
-    var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
-    var dt=Date.now()-touchStartTime;
-    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
-  });
-  title.addEventListener('click',function(e){
-    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
-    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
-  });
+  title.addEventListener('touchend',function(e){var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);var dt=Date.now()-touchStartTime;if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}});
+  title.addEventListener('click',function(e){if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}});
 });
 (function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
 // TOC
-function toggleToc(){
-  var menu=document.getElementById('tocMenu');
-  var btn=document.getElementById('tocToggle');
-  menu.classList.toggle('open');
-  btn.classList.toggle('open');
-  btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';
-}
-function tocJump(id){
-  var sec=document.getElementById(id);
-  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
-}
-function toggleAllSections(expand){
-  document.querySelectorAll('[data-accordion]').forEach(function(sec){
-    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
-  });
-}</script><script>
-
-
+function toggleToc(){var menu=document.getElementById('tocMenu');var btn=document.getElementById('tocToggle');menu.classList.toggle('open');btn.classList.toggle('open');btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';}
+function tocJump(id){var sec=document.getElementById(id);if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}}
+function toggleAllSections(expand){document.querySelectorAll('[data-accordion]').forEach(function(sec){if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');});}
+// Overview
+function toggleOverview(){var dd=document.getElementById('ovDrop');var btn=document.getElementById('ovBtn');if(!dd||!btn)return;dd.classList.toggle('open');btn.classList.toggle('open');}
+// Risk accordion
+function toggleRisk(btn){var card=btn.closest('.risk-card');if(!card)return;card.classList.toggle('expanded');var lbl=btn.querySelector('.lbl');if(lbl){var hiddenCount=card.querySelectorAll('.risk-more li').length;lbl.textContent=card.classList.contains('expanded')?'閉じる':'さらに'+hiddenCount+'件を表示';}}
 </script>
 
-<!-- ATLAS_PHASE_A_V1 begin -->
-<style>
-/* === Atlas Floating Tools (Phase A V1 — currency + theme) === */
-.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;transition:all .15s;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:600;white-space:nowrap}
-.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
-.atlas-floating-tools .currency-toggle .cur-active{color:#D4A843;font-weight:800}
-.atlas-floating-tools .currency-toggle .cur-inactive{color:inherit;opacity:.5}
-.atlas-floating-tools .currency-toggle .cur-sep{opacity:.35;margin:0 1px;font-weight:400}
-.atlas-floating-tools .currency-toggle.jpy-mode,.atlas-floating-tools .currency-toggle.local-mode{border-color:rgba(184,145,42,0.6);background:rgba(184,145,42,0.12)}
-.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
-.cur-val{transition:color .2s}
-.cur-val.jpy-mode,.cur-val.local-mode{color:#D4A843;font-weight:700}
-
-/* === Light Theme Overrides === */
-html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
-html[data-theme="light"] .container,html[data-theme="light"] .section,html[data-theme="light"] .card,html[data-theme="light"] .kpi-card,html[data-theme="light"] .metric-card,html[data-theme="light"] .risk-card,html[data-theme="light"] .news-card{background:#FDFCFA!important;border-color:rgba(26,37,64,0.12)!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
-html[data-theme="light"] .header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
-html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3,html[data-theme="light"] h4{color:#1A2540!important}
-html[data-theme="light"] .header h1,html[data-theme="light"] .header h2,html[data-theme="light"] .header h3,html[data-theme="light"] .header *{color:#F5F2EC!important}
-html[data-theme="light"] .header .subtitle,html[data-theme="light"] .header .date{color:rgba(245,242,236,0.75)!important}
-html[data-theme="light"] .muted,html[data-theme="light"] .text-sub,html[data-theme="light"] .subtitle,html[data-theme="light"] [class*="sub"],html[data-theme="light"] small{color:#6e7681!important}
-html[data-theme="light"] a{color:#B8912A}
-html[data-theme="light"] table,html[data-theme="light"] th,html[data-theme="light"] td{border-color:rgba(26,37,64,0.15)!important;color:#1A2540!important}
-html[data-theme="light"] th{background:rgba(184,145,42,0.08)!important}
-html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15);box-shadow:0 2px 12px rgba(26,37,64,.1)}
-html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
-html[data-theme="light"] .atlas-floating-tools .currency-toggle:hover,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn:hover{color:#B8912A;border-color:rgba(184,145,42,0.55);background:rgba(184,145,42,0.08)}
-html[data-theme="light"] .atlas-floating-tools .currency-toggle .cur-active{color:#B8912A}
-html[data-theme="light"] .cur-val.jpy-mode,html[data-theme="light"] .cur-val.local-mode{color:#B8912A}
-html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:rgba(26,37,64,0.15)!important;color:#B8912A!important;box-shadow:0 2px 8px rgba(26,37,64,.08)}
-/* /* * */ end ATLAS_PHASE_A_V1 theme overrides */
-</style>
+<!-- Currency Toggle -->
 <script>
-/* === Atlas Currency Toggle (USD ⇄ 現地通貨) ===
- * Multi-currency support (2026-04-15 updated).
- *
- * Configuration via window.ATLAS_FX:
- *   { code: 'JPY', symbol: '¥', rate: 158.45, date: '2026/4/14', fmt: 'cjk-ja' }
- *   { code: 'HKD', symbol: 'HK$', rate: 7.78,  date: '2026/4/14', fmt: 'western' }
- *   { code: 'KRW', symbol: '₩',  rate: 1420,   date: '2026/4/14', fmt: 'cjk-ko' }
- *
- * If ATLAS_FX is undefined or { code: 'USD' }, the toggle is auto-hidden.
- *
- * HTML button:
- *   <button class="currency-toggle" onclick="toggleCurrency()">
- *     <span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span>
- *   </button>
- *
- * Skip containers: add class "no-currency" to any element whose $ values
- * must stay in USD (stock prices, commodity prices, market caps in 兆, etc.)
- */
 (function(){
-  if(window.__ATLAS_CURRENCY_LOADED) return;
-  window.__ATLAS_CURRENCY_LOADED = true;
-
-  var FX = window.ATLAS_FX;
-
-  // If no config or USD-only, hide all currency toggles and stop
-  if(!FX || !FX.code || FX.code === 'USD'){
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('.currency-toggle').forEach(function(b){ b.style.display = 'none'; });
-    });
-    window.toggleCurrency = function(){};
-    return;
+  if(window.__ATLAS_CURRENCY_LOADED)return;window.__ATLAS_CURRENCY_LOADED=true;
+  var FX=window.ATLAS_FX;
+  if(!FX||!FX.code||FX.code==='USD'){document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.currency-toggle').forEach(function(b){b.style.display='none';});});window.toggleCurrency=function(){};return;}
+  if(!FX.symbol)FX.symbol='¥';if(!FX.fmt)FX.fmt='cjk-ja';
+  var localKey='atlas-currency';var currencyMode=localStorage.getItem(localKey)||'USD';
+  if(currencyMode!=='USD'&&currencyMode!==FX.code)currencyMode=FX.code;
+  function fmtLocal(amt,unit){
+    var amt_b=unit==='T'?amt*1000:unit==='B'?amt:unit==='M'?amt/1000:unit==='K'?amt/1e6:null;
+    if(FX.fmt==='cjk-ja'){if(amt_b!==null){var jpy_b=amt_b*FX.rate;if(jpy_b>=1000)return FX.symbol+(jpy_b/1000).toFixed(2)+'兆';if(jpy_b>=1)return FX.symbol+(jpy_b*10).toFixed(0)+'億';return FX.symbol+(jpy_b*1000).toFixed(0)+'百万';}var jpy=amt*FX.rate;if(jpy>=10000)return FX.symbol+(jpy/10000).toFixed(2)+'万';return FX.symbol+Math.round(jpy).toLocaleString();}
+    return FX.symbol+Math.round(amt*FX.rate).toLocaleString();
   }
-
-  // Defaults for backward compatibility (old JP-only config without code/symbol)
-  if(!FX.code) FX.code = 'JPY';
-  if(!FX.symbol) FX.symbol = '¥';
-  if(!FX.fmt) FX.fmt = 'cjk-ja';
-
-  var localKey = 'atlas-currency';
-  var currencyMode = localStorage.getItem(localKey) || 'USD';
-  // Normalize legacy 'JPY' mode for non-JPY languages
-  if(currencyMode !== 'USD' && currencyMode !== FX.code) currencyMode = FX.code;
-
-  function fmtLocal(usd, unit){
-    // usd_b = amount in billions USD
-    var usd_b = unit==='T'?usd*1000:unit==='B'?usd:unit==='M'?usd/1000:unit==='K'?usd/1e6:null;
-
-    if(FX.fmt === 'cjk-ja'){
-      // 日本円: 万 / 億 / 兆
-      if(usd_b !== null){
-        var jpy_b = usd_b * FX.rate;
-        if(jpy_b >= 1000) return FX.symbol + (jpy_b/1000).toFixed(2) + '兆';
-        if(jpy_b >= 1) return FX.symbol + (jpy_b*10).toFixed(0) + '億';
-        return FX.symbol + (jpy_b*1000).toFixed(0) + '百万';
-      }
-      var jpy = usd * FX.rate;
-      if(jpy >= 10000) return FX.symbol + (jpy/10000).toFixed(2) + '万';
-      return FX.symbol + Math.round(jpy).toLocaleString();
-    }
-
-    if(FX.fmt === 'cjk-ko'){
-      // 韓国ウォン: 만 / 억 / 조
-      // 1억 = 1e8 KRW, 1조 = 1e12 KRW
-      if(usd_b !== null){
-        var krw_b = usd_b * FX.rate; // billions of KRW = 1e9 KRW each
-        // 1 billion KRW = 10억. So krw_b billions = krw_b * 10 억
-        // If krw_b >= 1000 (i.e., 1T KRW = 1조): express in 조
-        if(krw_b >= 1000) return FX.symbol + (krw_b/1000).toFixed(2) + '조';
-        // Else express in 억
-        return FX.symbol + (krw_b*10).toFixed(0) + '억';
-      }
-      var krw = usd * FX.rate;
-      if(krw >= 10000) return FX.symbol + (krw/10000).toFixed(2) + '만';
-      return FX.symbol + Math.round(krw).toLocaleString();
-    }
-
-    if(FX.fmt === 'western'){
-      // HKD / EUR / GBP etc: K / M / B / T
-      if(usd_b !== null){
-        var x_b = usd_b * FX.rate;
-        if(x_b >= 1000) return FX.symbol + (x_b/1000).toFixed(2) + 'T';
-        if(x_b >= 1) return FX.symbol + x_b.toFixed(2) + 'B';
-        return FX.symbol + (x_b*1000).toFixed(0) + 'M';
-      }
-      var x = usd * FX.rate;
-      if(x >= 1e9) return FX.symbol + (x/1e9).toFixed(2) + 'B';
-      if(x >= 1e6) return FX.symbol + (x/1e6).toFixed(2) + 'M';
-      if(x >= 1e3) return FX.symbol + (x/1e3).toFixed(1) + 'K';
-      return FX.symbol + Math.round(x).toLocaleString();
-    }
-
-    // Fallback
-    return FX.symbol + Math.round(usd * FX.rate).toLocaleString();
-  }
-
-  var WRAP_DONE = false;
+  var WRAP_DONE=false;
   function wrapCurrencyValues(){
-    if(WRAP_DONE) return; WRAP_DONE = true;
-    var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
-    var skipTags = {SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
-    var skipClasses = ['portal-link','currency-toggle','theme-toggle','font-scale-btn','lang-switch','lang-menu','toc-toggle','toc-list','tradingview-widget-container','no-currency','nav-hamburger','overview-toggle-btn','market-panels'];
-    function shouldSkip(node){
-      var p = node.parentNode;
-      while(p && p !== document.body){
-        if(skipTags[p.tagName]) return true;
-        if(p.classList){
-          for(var i=0;i<skipClasses.length;i++) if(p.classList.contains(skipClasses[i])) return true;
-        }
-        p = p.parentNode;
-      }
-      return false;
-    }
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-    var nodes = [], n;
-    while((n = walker.nextNode())){
-      if(n.nodeValue && n.nodeValue.indexOf('$') >= 0 && !shouldSkip(n)) nodes.push(n);
-    }
-    nodes.forEach(function(node){
-      var text = node.nodeValue;
-      if(!re.test(text)) return;
-      re.lastIndex = 0;
-      var frag = document.createDocumentFragment();
-      var lastIdx = 0, m;
-      while((m = re.exec(text)) !== null){
-        if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
-        var num = parseFloat(m[1].replace(/,/g,''));
-        var unit = m[2] || '';
-        var span = document.createElement('span');
-        span.className = 'cur-val';
-        span.setAttribute('data-usd', num);
-        span.setAttribute('data-unit', unit);
-        span.setAttribute('data-orig', m[0]);
-        span.textContent = m[0];
-        frag.appendChild(span);
-        lastIdx = m.index + m[0].length;
-      }
-      if(lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
-      node.parentNode.replaceChild(frag, node);
-    });
+    if(WRAP_DONE)return;WRAP_DONE=true;
+    var re=/\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+    var skipTags={SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
+    var skipClasses=['portal-link','currency-toggle','theme-toggle-btn','toc-toggle','toc-list','tradingview-widget-container','no-currency','ov-btn'];
+    function shouldSkip(node){var p=node.parentNode;while(p&&p!==document.body){if(skipTags[p.tagName])return true;if(p.classList){for(var i=0;i<skipClasses.length;i++)if(p.classList.contains(skipClasses[i]))return true;}p=p.parentNode;}return false;}
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
+    var nodes=[],n;while((n=walker.nextNode())){if(n.nodeValue&&n.nodeValue.indexOf('$')>=0&&!shouldSkip(n))nodes.push(n);}
+    nodes.forEach(function(node){var text=node.nodeValue;if(!re.test(text))return;re.lastIndex=0;var frag=document.createDocumentFragment();var lastIdx=0,m;while((m=re.exec(text))!==null){if(m.index>lastIdx)frag.appendChild(document.createTextNode(text.slice(lastIdx,m.index)));var num=parseFloat(m[1].replace(/,/g,''));var unit=m[2]||'';var span=document.createElement('span');span.className='cur-val';span.setAttribute('data-usd',num);span.setAttribute('data-unit',unit);span.setAttribute('data-orig',m[0]);span.textContent=m[0];frag.appendChild(span);lastIdx=m.index+m[0].length;}if(lastIdx<text.length)frag.appendChild(document.createTextNode(text.slice(lastIdx)));node.parentNode.replaceChild(frag,node);});
   }
-
   function applyCurrency(mode){
-    document.querySelectorAll('.cur-val').forEach(function(el){
-      if(mode !== 'USD'){
-        var usd = parseFloat(el.getAttribute('data-usd'));
-        var unit = el.getAttribute('data-unit') || '';
-        el.textContent = fmtLocal(usd, unit);
-        el.classList.add('local-mode');
-        el.classList.add('jpy-mode'); // backward compat
-      } else {
-        el.textContent = el.getAttribute('data-orig');
-        el.classList.remove('local-mode');
-        el.classList.remove('jpy-mode');
-      }
-    });
-    document.querySelectorAll('.currency-toggle').forEach(function(btn){
-      var act = btn.querySelector('.cur-active');
-      var inact = btn.querySelector('.cur-inactive');
-      if(!act || !inact) return;
-      if(mode !== 'USD'){
-        btn.classList.add('local-mode','jpy-mode');
-        act.textContent = FX.symbol; inact.textContent = '$';
-        btn.title = FX.code + '表示中（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
-      } else {
-        btn.classList.remove('local-mode','jpy-mode');
-        act.textContent = '$'; inact.textContent = FX.symbol;
-        btn.title = 'USD ⇄ ' + FX.code + ' 切替（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
-      }
-    });
+    document.querySelectorAll('.cur-val').forEach(function(el){if(mode!=='USD'){var usd=parseFloat(el.getAttribute('data-usd'));var unit=el.getAttribute('data-unit')||'';el.textContent=fmtLocal(usd,unit);el.classList.add('local-mode','jpy-mode');}else{el.textContent=el.getAttribute('data-orig');el.classList.remove('local-mode','jpy-mode');}});
+    document.querySelectorAll('.currency-toggle').forEach(function(btn){var act=btn.querySelector('.cur-active');var inact=btn.querySelector('.cur-inactive');if(!act||!inact)return;if(mode!=='USD'){btn.classList.add('local-mode','jpy-mode');act.textContent=FX.symbol;inact.textContent='$';btn.title=FX.code+'表示中（レート: 1$ = '+FX.rate+' '+FX.code+'、'+FX.date+'）';}else{btn.classList.remove('local-mode','jpy-mode');act.textContent='$';inact.textContent=FX.symbol;btn.title='USD ⇄ '+FX.code+' 切替（レート: 1$ = '+FX.rate+' '+FX.code+'、'+FX.date+'）';}});
   }
-
-  // Init toggle button's inactive symbol before any click
-  function initButtons(){
-    document.querySelectorAll('.currency-toggle').forEach(function(btn){
-      var inact = btn.querySelector('.cur-inactive');
-      if(inact && inact.textContent === '¥') inact.textContent = FX.symbol;
-    });
-  }
-
-  window.toggleCurrency = function(){
-    wrapCurrencyValues();
-    currencyMode = currencyMode === 'USD' ? FX.code : 'USD';
-    localStorage.setItem(localKey, currencyMode);
-    applyCurrency(currencyMode);
-  };
-
-  document.addEventListener('DOMContentLoaded', function(){
-    initButtons();
-    if(currencyMode !== 'USD'){
-      wrapCurrencyValues();
-      applyCurrency(currencyMode);
-    } else {
-      applyCurrency('USD');
-    }
-  });
+  function initButtons(){document.querySelectorAll('.currency-toggle').forEach(function(btn){var inact=btn.querySelector('.cur-inactive');if(inact&&inact.textContent==='¥')inact.textContent=FX.symbol;});}
+  window.toggleCurrency=function(){wrapCurrencyValues();currencyMode=currencyMode==='USD'?FX.code:'USD';localStorage.setItem(localKey,currencyMode);applyCurrency(currencyMode);};
+  document.addEventListener('DOMContentLoaded',function(){initButtons();if(currencyMode!=='USD'){wrapCurrencyValues();applyCurrency(currencyMode);}else{applyCurrency('USD');}});
 })();
-
 </script>
 
+<!-- Theme Toggle -->
 <script>
-/* Atlas Theme Toggle (Phase A V1) */
 (function(){
-  var html = document.documentElement;
-  var KEY = 'atlas-theme';
-  // Reports default to dark (no attr = dark). If user stored 'light', apply it.
-  function applyTheme(t){
-    if(t === 'light'){ html.setAttribute('data-theme','light'); }
-    else { html.removeAttribute('data-theme'); }
-    document.querySelectorAll('.theme-toggle-btn').forEach(function(b){
-      b.textContent = (t === 'light') ? '🌙' : '☀️';
-      b.title = (t === 'light') ? 'ダークモードに切替' : 'ライトモードに切替';
-    });
-  }
-  var saved = localStorage.getItem(KEY) || 'dark';
-  applyTheme(saved);
-  window.toggleAtlasTheme = function(){
-    var cur = localStorage.getItem(KEY) || 'dark';
-    var next = cur === 'dark' ? 'light' : 'dark';
-    localStorage.setItem(KEY, next);
-    applyTheme(next);
-  };
+  var html=document.documentElement;var KEY='atlas-theme';
+  function applyTheme(t){if(t==='light'){html.setAttribute('data-theme','light');}else{html.removeAttribute('data-theme');}document.querySelectorAll('.theme-toggle-btn').forEach(function(b){b.textContent=(t==='light')?'🌙':'☀️';b.title=(t==='light')?'ダークモードに切替':'ライトモードに切替';});}
+  var saved=localStorage.getItem(KEY)||'dark';applyTheme(saved);
+  window.toggleAtlasTheme=function(){var cur=localStorage.getItem(KEY)||'dark';var next=cur==='dark'?'light':'dark';localStorage.setItem(KEY,next);applyTheme(next);};
 })();
 </script>
-<!-- ATLAS_PHASE_A_V1 end -->
 
-<!-- ATLAS-PAYWALL-SCRIPT -->
 <script>
-/*!
- * Atlas Paywall — Phase 1 (client-side MVP)
- *
- * 各ページの <meta name="atlas-access" content='{"kind":"...","...":...}'> を読み、
- * 非会員に対して overlay または truncate を表示する。
- *
- * kind:
- *   - "morning"  : date (YYYY-MM-DD) を持つ。今日/昨日なら free、それ以外は gated
- *   - "extra"    : 常に truncate（本文文字数の1/3だけ無料公開）
- *   - "special"  : 常に gated（冒頭プレビュー以外は非表示）
- *   - "report"   : ticker + isLatest。flagship かつ latest なら free、それ以外は gated
- *
- * 会員判定:
- *   - cookie `atlas_session` 無し → ゲスト（free制限あり）
- *   - cookie あり → /api/me を fetch。plan_expires_at > now なら Pro（制限なし）
- *
- * デバッグ:
- *   - URLに ?atlas-debug=pro  → 強制Pro扱い
- *   - URLに ?atlas-debug=free → 強制Free扱い
- */
-(function () {
-  var FLAGSHIP = { NVDA: 1, GOOGL: 1, TSLA: 1, MSFT: 1, META: 1, AMZN: 1, AAPL: 1 };
-  var MORNING_FREE_DAYS = 2;       // today + yesterday = 2 calendar days
-  var EXTRA_FREE_FRACTION = 1 / 3; // 号外: 本文文字数の1/3
+// Chart.js
+const chartFont={family:'Inter',size:12};
+Chart.defaults.color='#A8B0BC';Chart.defaults.font=chartFont;
+const gridOpt={color:'rgba(184,145,42,0.08)'};
+const quarters=['Q2\'24','Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25'];
+const revenues=[11303,11439,13530,12730,15558,17600,19292];
+const epsNonGAAP=[3.92,1.18,5.32,3.34,6.31,7.02,7.54];
 
-  function readAccess() {
-    var meta = document.querySelector('meta[name="atlas-access"]');
-    if (!meta) return null;
-    try { return JSON.parse(meta.getAttribute('content') || '{}'); }
-    catch (e) { return null; }
-  }
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{labels:quarters,datasets:[{label:'売上高 ($M)',data:revenues,backgroundColor:revenues.map((v,i)=>i===revenues.length-1?'rgba(184,145,42,0.85)':'rgba(184,145,42,0.35)'),borderColor:'#B8912A',borderWidth:1,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.raw.toLocaleString()+'M'}},title:{display:true,text:'売上高推移（$M）',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'B'},beginAtZero:false,min:8000},x:{grid:{display:false}}}}
+});
 
-  function daysAgoJST(ymd) {
-    // ymd: "2026-04-15". Compare JST midnight to JST midnight.
-    if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return Infinity;
-    var parts = ymd.split('-').map(Number);
-    var pubUTC = Date.UTC(parts[0], parts[1] - 1, parts[2]);
-    var now = new Date();
-    // JST = UTC+9. Midnight JST today = today's UTC date at 15:00 prev day in UTC.
-    var jstNow = new Date(now.getTime() + 9 * 3600 * 1000);
-    var jstToday = Date.UTC(jstNow.getUTCFullYear(), jstNow.getUTCMonth(), jstNow.getUTCDate());
-    return Math.floor((jstToday - pubUTC) / 86400000);
-  }
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{labels:quarters,datasets:[{label:'Non-GAAP EPS ($)',data:epsNonGAAP,backgroundColor:epsNonGAAP.map((v,i)=>i===epsNonGAAP.length-1?'rgba(46,204,113,0.85)':'rgba(46,204,113,0.35)'),borderColor:'#2ecc71',borderWidth:1,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.raw.toFixed(2)}},title:{display:true,text:'Non-GAAP EPS推移（$）',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)},beginAtZero:false},x:{grid:{display:false}}}}
+});
 
-  function resolveStatus(cfg) {
-    if (!cfg || !cfg.kind) return 'full';
-    if (cfg.kind === 'morning') {
-      var diff = daysAgoJST(cfg.date);
-      return diff < MORNING_FREE_DAYS ? 'full' : 'gated';
-    }
-    if (cfg.kind === 'extra') return 'truncate';
-    if (cfg.kind === 'special') return 'gated';
-    if (cfg.kind === 'report') {
-      if (cfg.isLatest && FLAGSHIP[cfg.ticker]) return 'full';
-      return 'gated';
-    }
-    return 'full';
-  }
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{labels:quarters,datasets:[
+    {label:'粗利益率 GAAP (%)',data:[82.2,82.1,82.2,82.8,83.0,82.5,82.5],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
+    {label:'Non-GAAPパフォーマンスマージン (%)',data:[42.5,41.8,43.0,43.5,46.0,45.2,47.2],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
+    {label:'営業利益率 GAAP (%)',data:[36.5,35.2,38.0,38.5,41.0,40.5,43.4],borderColor:'#2ecc71',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#2ecc71',borderWidth:2}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},title:{display:true,text:'利益率推移（%）',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:30,max:55},x:{grid:{display:false}}}}
+});
 
-  function hasSession() {
-    return document.cookie.split(';').some(function (c) { return /^\s*atlas_session=/.test(c); });
-  }
+// Segment Donut
+new Chart(document.getElementById('segChart'),{
+  type:'doughnut',
+  data:{labels:['Mounjaro','Zepbound','Verzenio','その他'],datasets:[{data:[38.4,22.1,8.3,31.2],backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],borderColor:'#0F1829',borderWidth:2,hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}}}
+});
 
-  function getDebugOverride() {
-    var m = location.search.match(/[?&]atlas-debug=(pro|free)/);
-    return m ? m[1] : null;
-  }
-
-  function checkPro() {
-    return new Promise(function (resolve) {
-      var dbg = getDebugOverride();
-      if (dbg === 'pro') return resolve(true);
-      if (dbg === 'free') return resolve(false);
-      if (!hasSession()) return resolve(false);
-      var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-      if (ctrl) setTimeout(function () { try { ctrl.abort(); } catch(e){} }, 3000);
-      fetch('/api/me', { credentials: 'include', signal: ctrl ? ctrl.signal : undefined })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (data) {
-          if (!data || !data.user) return resolve(false);
-          // plan が 'pro' 以外は Pro 非会員
-          if (data.user.plan !== 'pro') return resolve(false);
-          // plan_expires_at が null → 解約予約無し = Pro継続中
-          var exp = data.user.plan_expires_at;
-          if (!exp) return resolve(true);
-          // 期限あり → 期限前なら Pro 有効
-          resolve(new Date(exp) > new Date());
-        })
-        .catch(function () { resolve(false); });
-    });
-  }
-
-  // === UI helpers ===
-  var BASE_CSS =
-    '.atlas-paywall-card{background:linear-gradient(135deg,#1A2540 0%,#0F1829 100%);border:1px solid rgba(184,145,42,.3);border-radius:12px;padding:36px 32px;margin:32px auto;max-width:600px;text-align:center;font-family:"Noto Sans JP",sans-serif;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.35)}' +
-    '.atlas-paywall-card .apw-kicker{color:#D4A843;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;font-weight:700}' +
-    '.atlas-paywall-card .apw-ttl{font-family:"Shippori Mincho B1",serif;font-size:22px;font-weight:700;line-height:1.45;margin-bottom:14px;color:#fff}' +
-    '.atlas-paywall-card .apw-desc{font-size:13px;line-height:1.85;color:rgba(255,255,255,.75);margin-bottom:24px}' +
-    '.atlas-paywall-card .apw-price{display:inline-block;background:rgba(184,145,42,.1);border:1px solid rgba(184,145,42,.35);border-radius:8px;padding:10px 18px;margin-bottom:20px;color:#D4A843;font-size:13px;font-weight:600;letter-spacing:.03em}' +
-    '.atlas-paywall-card .apw-cta{display:inline-block;background:#B8912A;color:#0F1829;text-decoration:none;padding:13px 32px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.04em;transition:background .15s}' +
-    '.atlas-paywall-card .apw-cta:hover{background:#D4A843}' +
-    '.atlas-paywall-card .apw-alt{display:block;margin-top:14px;color:rgba(255,255,255,.45);font-size:11px;text-decoration:none}' +
-    '.atlas-paywall-card .apw-alt:hover{color:#D4A843}' +
-    '.atlas-paywall-fade{position:relative;height:160px;margin-top:-160px;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,rgba(13,17,23,.6) 55%,rgba(13,17,23,.98) 100%)}' +
-    '.atlas-paywall-gated-hide{display:none!important}' +
-    '.atlas-paywall-preview-wrap{position:relative;max-height:320px;overflow:hidden}' +
-    '.atlas-paywall-preview-wrap::after{content:"";position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent 0%,rgba(13,17,23,.6) 50%,rgba(13,17,23,.98) 100%);pointer-events:none}' +
-    'html[data-theme="light"] .atlas-paywall-card{background:linear-gradient(135deg,#FDFCFA 0%,#F5F2EC 100%);color:#1A2540;border-color:rgba(26,37,64,.15)}' +
-    'html[data-theme="light"] .atlas-paywall-card .apw-ttl{color:#1A2540}' +
-    'html[data-theme="light"] .atlas-paywall-card .apw-desc{color:#4A5568}' +
-    'html[data-theme="light"] .atlas-paywall-card .apw-price{background:rgba(184,145,42,.08);color:#8a6c1f;border-color:rgba(184,145,42,.25)}' +
-    'html[data-theme="light"] .atlas-paywall-fade{background:linear-gradient(to bottom,transparent 0%,rgba(245,242,236,.6) 55%,rgba(245,242,236,.98) 100%)}' +
-    'html[data-theme="light"] .atlas-paywall-preview-wrap::after{background:linear-gradient(to bottom,transparent 0%,rgba(245,242,236,.6) 50%,rgba(245,242,236,.98) 100%)}';
-
-  function ensureCss() {
-    if (document.getElementById('atlas-paywall-css')) return;
-    var s = document.createElement('style');
-    s.id = 'atlas-paywall-css';
-    s.textContent = BASE_CSS;
-    document.head.appendChild(s);
-  }
-
-  function buildCard(opts) {
-    var url = '/login?redirect=' + encodeURIComponent(location.pathname + location.search);
-    var div = document.createElement('div');
-    div.className = 'atlas-paywall-card';
-    div.setAttribute('data-atlas-paywall', opts.kind);
-    div.innerHTML =
-      '<div class="apw-kicker">' + (opts.kicker || 'Atlas 会員限定') + '</div>' +
-      '<div class="apw-ttl">' + opts.title + '</div>' +
-      '<div class="apw-desc">' + opts.desc + '</div>' +
-      '<div class="apw-price">月額 ¥980（税込）・いつでも解約可能</div><br>' +
-      '<a class="apw-cta" href="' + url + '">会員登録して続きを読む</a>' +
-      '<a class="apw-alt" href="/login?redirect=' + encodeURIComponent(location.pathname + location.search) + '">すでに会員の方はログイン →</a>';
-    return div;
-  }
-
-  function findArticleBody() {
-    var selectors = [
-      'main.main',
-      'main.atlas-article-body',
-      'article',
-      'main',
-      '.container',
-      'body'
-    ];
-    for (var i = 0; i < selectors.length; i++) {
-      var el = document.querySelector(selectors[i]);
-      if (el) return el;
-    }
-    return document.body;
-  }
-
-  // Truncate body to N fraction of total text, insert paywall card.
-  function applyTruncate(cfg) {
-    ensureCss();
-    var body = findArticleBody();
-    // Find block-level content containers (direct children + deep)
-    // We walk through direct children and compute cumulative text length.
-    var children = Array.prototype.slice.call(body.children);
-    var totalLen = body.textContent.replace(/\s+/g, '').length;
-    if (!totalLen) return;
-    var target = Math.floor(totalLen * EXTRA_FREE_FRACTION);
-    var cum = 0, cutIdx = -1;
-    for (var i = 0; i < children.length; i++) {
-      var el = children[i];
-      // Skip header/nav/footer/script/style
-      var tag = el.tagName;
-      if (tag === 'HEADER' || tag === 'NAV' || tag === 'FOOTER' || tag === 'SCRIPT' || tag === 'STYLE') continue;
-      if (el.classList && (el.classList.contains('atlas-nav') || el.classList.contains('site-header') || el.id === 'tocNav')) continue;
-      var l = el.textContent.replace(/\s+/g, '').length;
-      if (cum + l >= target && cum > 0) { cutIdx = i; break; }
-      cum += l;
-    }
-    if (cutIdx < 0) return; // content too short to truncate meaningfully
-    var card = buildCard({
-      kind: 'extra',
-      kicker: 'Atlas 会員限定 — 号外',
-      title: 'この先は Atlas 会員限定です。',
-      desc: '号外記事の続き（残り約 ' + Math.round((1 - EXTRA_FREE_FRACTION) * 100) + '%）は有料会員向けコンテンツです。<br>市場の重要イベントを深掘りするAtlas独自の分析を、ぜひお楽しみください。'
-    });
-    // Add fade overlay before hiding rest
-    var fade = document.createElement('div');
-    fade.className = 'atlas-paywall-fade';
-    var cutElement = children[cutIdx];
-    cutElement.parentNode.insertBefore(fade, cutElement);
-    cutElement.parentNode.insertBefore(card, cutElement);
-    // Hide remaining children
-    for (var j = cutIdx; j < children.length; j++) {
-      var c = children[j];
-      var ctag = c.tagName;
-      if (ctag === 'FOOTER' || ctag === 'SCRIPT' || ctag === 'STYLE') continue;
-      if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav'))) continue;
-      c.classList.add('atlas-paywall-gated-hide');
-    }
-  }
-
-  // Full gate: show minimal preview (hero/intro) + paywall card covering rest.
-  function applyGate(cfg) {
-    ensureCss();
-    var body = findArticleBody();
-    // Preserve first 1-2 obvious "intro" elements (header + first section/paragraph)
-    // Hide everything else in the main content area.
-    var children = Array.prototype.slice.call(body.children);
-    var kept = 0, maxKeep = 2;
-    var insertAt = null;
-    for (var i = 0; i < children.length; i++) {
-      var el = children[i];
-      var tag = el.tagName;
-      if (tag === 'HEADER' || tag === 'NAV' || tag === 'FOOTER' || tag === 'SCRIPT' || tag === 'STYLE') continue;
-      if (el.classList && (el.classList.contains('atlas-nav') || el.classList.contains('site-header'))) continue;
-      if (kept < maxKeep) { kept++; continue; }
-      // This is where we insert the paywall, and hide from here
-      insertAt = el;
-      break;
-    }
-    var titles = {
-      morning: { kicker: 'Atlas 会員限定 — 過去の朝刊', title: 'この朝刊は Atlas 会員限定です。', desc: '当日・前日の朝刊は無料でご覧いただけますが、過去のアーカイブをお読みいただくには会員登録が必要です。<br>米国市場の動きを毎朝定点観測し、意思決定の土台に。' },
-      special: { kicker: 'Atlas 会員限定 — 特集', title: 'この特集記事は Atlas 会員限定です。', desc: '財務・戦略・マクロ経済の観点から編集部が深掘りした長編分析記事です。<br>会員登録で、すべての特集をお楽しみいただけます。' },
-      report: { kicker: 'Atlas 会員限定 — 決算分析', title: 'このレポートは Atlas 会員限定です。', desc: '主要7銘柄（NVDA/GOOGL/TSLA/MSFT/META/AMZN/AAPL）の直近四半期は無料でご覧いただけますが、<br>過去四半期や他の銘柄レポートをお読みいただくには会員登録が必要です。' }
-    };
-    var info = titles[cfg.kind] || { kicker: 'Atlas 会員限定', title: 'この記事は Atlas 会員限定です。', desc: '続きをお読みいただくには会員登録が必要です。' };
-    var card = buildCard({ kind: cfg.kind, kicker: info.kicker, title: info.title, desc: info.desc });
-    if (insertAt) {
-      // Wrap kept preview in max-height wrapper for fade effect
-      // Simpler: just insert card before insertAt, and hide everything after
-      insertAt.parentNode.insertBefore(card, insertAt);
-      for (var k = 0; k < children.length; k++) {
-        var c = children[k];
-        if (c === card) continue;
-        var idx = Array.prototype.indexOf.call(c.parentNode.children, c);
-        var cardIdx = Array.prototype.indexOf.call(card.parentNode.children, card);
-        if (idx <= cardIdx) continue; // keep before card
-        var ctag = c.tagName;
-        if (ctag === 'FOOTER' || ctag === 'SCRIPT' || ctag === 'STYLE') continue;
-        if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav'))) continue;
-        c.classList.add('atlas-paywall-gated-hide');
-      }
-    } else {
-      // No content to preview; just append card to body
-      body.appendChild(card);
-    }
-  }
-
-  function main() {
-    var cfg = readAccess();
-    var status = resolveStatus(cfg);
-    if (status === 'full') return;
-    checkPro().then(function (isPro) {
-      if (isPro) return;
-      if (status === 'truncate') applyTruncate(cfg);
-      else if (status === 'gated') applyGate(cfg);
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', main, { once: true });
-  } else {
-    main();
-  }
-})();
-
+// Geo Donut
+new Chart(document.getElementById('geoChart'),{
+  type:'doughnut',
+  data:{labels:['米国','海外'],datasets:[{data:[66.9,33.1],backgroundColor:['#D4A843','#5C7395'],borderColor:'#0F1829',borderWidth:2,hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}}}
+});
 </script>
-<!-- /ATLAS-PAYWALL-SCRIPT -->
+
 </body>
 </html>

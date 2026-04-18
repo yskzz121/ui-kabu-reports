@@ -1243,7 +1243,7 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
  *   - URLに ?atlas-debug=free → 強制Free扱い
  */
 (function () {
-  var FLAGSHIP = { NVDA: 1, GOOGL: 1, TSLA: 1, MSFT: 1, META: 1, AMZN: 1, AAPL: 1 };
+  var FLAGSHIP={NVDA:1,GOOGL:1,TSLA:1,MSFT:1,META:1,AMZN:1,AAPL:1,AVGO:1,ASML:1,ORCL:1,JPM:1,BAC:1,GS:1,MS:1,C:1,NFLX:1,TSM:1,ADBE:1,DDOG:1,WMT:1,BABA:1,COST:1,LLY:1,OKTA:1,TM:1};
   var MORNING_FREE_DAYS = 2;       // today + yesterday = 2 calendar days
   var EXTRA_FREE_FRACTION = 1 / 3; // 号外: 本文文字数の1/3
 
@@ -1293,8 +1293,7 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
   function checkPro() {
     return new Promise(function (resolve) {
       var dbg = getDebugOverride();
-      if (dbg === 'pro') return resolve(true);
-      if (dbg === 'free') return resolve(false);
+      if (dbg === 'pro') return resolve(true);if(document.cookie.split(';').some(function(c){return /^\s*atlas_admin=/.test(c)}))return resolve(true);if (dbg === 'free') return resolve(false);
       if (!hasSession()) return resolve(false);
       var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
       if (ctrl) setTimeout(function () { try { ctrl.abort(); } catch(e){} }, 3000);

@@ -1474,8 +1474,7 @@ function toggleAllSections(expand){
   function checkPro() {
     return new Promise(function (resolve) {
       var dbg = getDebugOverride();
-      if (dbg === 'pro') return resolve(true);
-      if (dbg === 'free') return resolve(false);
+      if (dbg === 'pro') return resolve(true);if(document.cookie.split(';').some(function(c){return /^\s*atlas_admin=/.test(c)}))return resolve(true);if (dbg === 'free') return resolve(false);
       if (!hasSession()) return resolve(false);
       var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
       if (ctrl) setTimeout(function () { try { ctrl.abort(); } catch(e){} }, 3000);

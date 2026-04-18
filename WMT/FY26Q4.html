@@ -1,191 +1,466 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Walmart (WMT) FY2026 Q4 決算分析</title>
-<link rel="icon" type="image/png" href="../favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Walmart (WMT) FY2026 Q4 決算分析 — Atlas Quarterly</title>
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="shortcut icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 158.82, date: '2026/4/15', fmt:'cjk-ja' };</script>
 <style>
-:root{
-  --bg:#0d1117;--card:#161b22;--border:#21262d;--border2:#30363d;
-  --text:#e6edf3;--text-sub:#8b949e;--text-dim:#484f58;
-  --green:#2ea043;--green-bg:rgba(46,160,67,.12);
-  --red:#f85149;--red-bg:rgba(248,81,73,.12);
-  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);
-  --yellow:#d29922;--yellow-bg:rgba(210,153,34,.12);
-  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.12);
-  --orange:#f0883e;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);padding:0 20px 40px;line-height:1.7}
-.container{max-width:1200px;margin:0 auto}
+/* ══════════════════════════════════════════════════
+   ATLAS QUARTERLY — Report Design System v2
+   Based on Atlas Brand Book Ver. 1.1 / Chapter 06
+═══════════════════════════════════════════════════ */
 
-/* Header */
-.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
-.header-content{position:relative;z-index:1}
-.header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
-.header .subtitle{color:var(--text-sub);font-size:1.1em}
-.header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
-.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
-.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
-.ticker-badge{display:inline-block;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
+:root{
+  /* Dark Mode (Default) — Atlas Navy tokens */
+  --bg:#0F1829;
+  --card:#1A2540;
+  --card-hover:#243158;
+  --border:rgba(184,145,42,0.18);
+  --border-strong:rgba(184,145,42,0.35);
+  --t1:#F5F2EC;
+  --t2:#A8B0BC;
+  --t3:#6E7A8C;
+  --gold:#B8912A;
+  --gold2:#D4A843;
+  --gold-pale:#F0E6C8;
+  --navy:#1A2540;
+  --navy-deep:#0F1829;
+  --navy-mid:#243158;
+  --paper:#F5F2EC;
+  --ink:#0F0E0C;
+  --alert:#8B2020;
+  --beat:#2ecc71;
+  --muted:#8B949E;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  background:var(--bg);
+  color:var(--t1);
+  line-height:1.7;
+  padding:20px;
+  max-width:1200px;
+  margin:0 auto;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.num,.kpi-val,.price-val,.score-num,.summary-line,.cardx-val,.metric-val,.val-price,.sub-label,.tbl th{font-family:'Inter','Noto Sans JP',sans-serif}
+.insight-body,.mgmt-body{font-family:'Noto Serif JP',serif;font-weight:400}
+
+/* ── Header ── */
+.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
+.rh-inner{position:relative;z-index:1}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
+.rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
+.rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
+
+/* ── Overview Dropdown ── */
+.ov-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
+.ov-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
+.ov-btn .chev{transition:transform .25s}
+.ov-btn.open .chev{transform:rotate(180deg)}
+.ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
+.ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
+.ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+
+/* ══════════════════════════════════════════
+   LAYER I — EXECUTIVE SUMMARY
+═══════════════════════════════════════════ */
+.layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
+
+.l1{
+  background:linear-gradient(180deg,rgba(184,145,42,.06) 0%,rgba(36,49,88,.1) 100%);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:40px 32px 32px;
+  margin-bottom:40px;
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+}
 
 /* Score */
-.score-section{text-align:center;padding:40px 20px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin:24px 0}
-.score-big{font-size:5em;line-height:1}
-.score-num{font-size:4em;font-weight:900;color:var(--yellow)}
-.score-label{font-size:1.6em;font-weight:700;margin-top:8px;color:var(--yellow)}
-.score-desc{color:var(--text-sub);margin-top:8px;font-size:.95em}
+.l1-score{display:flex;justify-content:center}
+.l1-score-badge{display:inline-flex;align-items:baseline;gap:16px;background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px 32px}
+.l1-score-num{font-size:2.6rem;font-weight:900;color:var(--gold2);line-height:1;font-family:'Inter',sans-serif}
+.l1-score-label{font-size:1.1rem;font-weight:700;color:var(--gold2);font-family:'Shippori Mincho B1',serif}
+/* Score shimmer — score 4+ */
+.l1-score-badge.score-high{animation:score-shimmer 3s ease-in-out infinite}
+.l1-score-badge.score-high .l1-score-num,.l1-score-badge.score-high .l1-score-label{animation:score-text-glow 3s ease-in-out infinite}
+@keyframes score-shimmer{0%,100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}40%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}60%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}}
+@keyframes score-text-glow{0%,100%{text-shadow:0 0 0 transparent}40%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}60%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}}
 
-/* Section */
-.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:20px 0}
-.section-title{font-size:1.2em;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.section-icon{font-size:1.1em}
+/* Consensus (integrated in Layer 1) */
+.l1-consensus{background:rgba(15,24,41,0.42);border:1px solid var(--border);border-radius:10px;padding:20px 24px 8px}
+.l1-consensus-head{font-family:'Inter',sans-serif;font-size:.7rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:16px;text-align:center}
+.l1-consensus-tbl{width:100%;border-collapse:collapse}
+.l1-consensus-tbl th,.l1-consensus-tbl td{padding:12px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:middle}
+.l1-consensus-tbl th{font-family:'Inter',sans-serif;font-size:.64rem;color:var(--t3);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.l1-consensus-tbl td{font-size:.92rem;font-family:'Inter',sans-serif}
+.l1-consensus-tbl td.lbl{color:var(--t2);font-family:'Noto Sans JP',sans-serif;font-weight:500}
+.l1-consensus-tbl td.cn{color:var(--t2)}
+.l1-consensus-tbl td.val{color:var(--t1);font-weight:700}
+.l1-consensus-tbl td.beat{color:var(--beat);font-weight:700;white-space:nowrap}
+.l1-consensus-tbl td.neu{color:var(--t2);font-weight:600;white-space:nowrap}
+.l1-consensus-tbl tr:last-child td{border-bottom:none}
 
-/* Cards */
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.metric-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
-.metric-label{font-size:.75em;color:var(--text-sub);margin-bottom:6px;font-weight:500}
-.metric-value{font-size:1.4em;font-weight:900}
-.metric-sub{font-size:.7em;color:var(--text-sub);margin-top:4px}
-.metric-beat{color:var(--green)}
-.metric-miss{color:var(--red)}
-.metric-neutral{color:var(--yellow)}
+/* 特筆点 */
+.l1-notes{padding:2px 4px 2px 16px;border-left:2px solid var(--border-strong)}
+.l1-notes-head{font-family:'Inter',sans-serif;font-size:.66rem;color:var(--gold2);letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.l1-note{font-family:'Noto Serif JP',serif;font-size:.9rem;color:var(--t1);line-height:1.95;padding:3px 0;font-weight:400}
+.l1-note strong{color:var(--gold2);font-weight:600}
 
-/* Grid */
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+/* Price row */
+.l1-price{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(15,24,41,0.3);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.l1-price-cell{padding:16px 18px;text-align:center;border-right:1px solid var(--border)}
+.l1-price-cell:last-child{border-right:none}
+.l1-price-cell .lbl{font-size:.64rem;letter-spacing:.12em;color:var(--t3);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif;font-weight:600}
+.l1-price-cell .val{font-size:1.2rem;font-weight:700;font-family:'Inter',sans-serif;color:var(--t1);letter-spacing:.01em}
+.l1-price-cell .react{color:var(--beat)}
 
-/* Chart */
-.chart-container{position:relative;height:350px;margin:16px 0}
-.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+/* Beat lamp / text */
+.beat-lamp{display:inline-block;width:10px;height:10px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4);animation:pulse-green 1.5s ease-in-out infinite;vertical-align:middle;margin-right:6px}
+@keyframes pulse-green{0%,100%{opacity:1;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4)}50%{opacity:.5;box-shadow:0 0 4px #2ecc71,0 0 8px rgba(46,204,113,.2)}}
+.beat-text{color:var(--gold2);font-weight:700;letter-spacing:.5px;animation:glow-gold 2.5s ease-in-out infinite;font-family:'Inter',sans-serif;font-size:.82em}
+@keyframes glow-gold{0%,100%{opacity:1;text-shadow:0 0 8px rgba(212,168,67,.6)}50%{opacity:.6;text-shadow:0 0 4px rgba(212,168,67,.3)}}
 
-/* Table */
-table{width:100%;border-collapse:collapse;font-size:.85em}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
-th{color:var(--text-sub);font-weight:500;font-size:.78em;text-transform:uppercase}
-.tbl{width:100%;border-collapse:collapse;font-size:.85em}
+/* ══════════════════════════════════════════
+   LAYER II — 決算の全体像
+═══════════════════════════════════════════ */
+.section{margin-bottom:36px}
+.section-title{font-size:1.15rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;color:var(--t1);letter-spacing:.01em}
 
-/* Valuation */
-.val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.val-card{border-radius:14px;padding:24px;text-align:center;border:1px solid var(--border)}
-.val-card.low{background:rgba(46,160,67,.08);border-color:rgba(46,160,67,.3)}
-.val-card.mid{background:rgba(88,166,255,.08);border-color:rgba(88,166,255,.3)}
-.val-card.high{background:rgba(188,140,255,.08);border-color:rgba(188,140,255,.3)}
-.val-scenario{font-size:.8em;font-weight:700;letter-spacing:1px;margin-bottom:8px}
-.val-price{font-size:2em;font-weight:900;margin:8px 0}
-.val-detail{font-size:.75em;color:var(--text-sub);margin-top:4px}
-.val-gap{font-size:.85em;margin-top:8px;font-weight:700}
+/* Key Metrics */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px 22px;display:flex;flex-direction:column}
+.metric-lbl{font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;line-height:1.35;letter-spacing:.01em}
+.metric-val{font-size:1.75rem;font-weight:800;line-height:1.15;letter-spacing:.01em;text-align:center;padding:4px 0}
+.metric-sub{font-size:.78rem;color:var(--t2);margin-top:8px;font-family:'Noto Sans JP',sans-serif;line-height:1.6;text-align:center}
+.delta{display:block;font-size:.76rem;color:var(--t2);margin-top:10px;line-height:1.7;font-family:'Inter',sans-serif;text-align:center}
+.delta .pct{font-weight:700}
+.delta .pct.pos{color:var(--beat)}
+.delta .pct.neg{color:var(--alert)}
+.delta .prior{display:block;margin-left:0;opacity:.7;font-size:.92em}
+.pos{color:var(--beat)}
+.neg{color:var(--alert)}
+.gold{color:var(--gold2)}
+.neu{color:var(--t1)}
 
-/* Risk/Catalyst */
-.rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.rc-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px}
-.rc-title{font-weight:700;margin-bottom:12px;font-size:.95em}
-.rc-item{padding:6px 0;font-size:.85em;color:var(--text-sub);display:flex;align-items:flex-start;gap:8px}
-.rc-item::before{flex-shrink:0}
+/* Tooltip */
+.info{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;position:relative;vertical-align:middle;margin-left:4px;color:rgba(212,168,67,0.7);transition:color .2s;background:transparent;border:none;padding:2px;line-height:0;width:18px;height:18px}
+.info svg{width:14px;height:14px;display:block}
+.info:hover,.info:focus{color:var(--gold2);outline:none}
+.tip-pop{display:none;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);width:min(280px,80vw);background:var(--card);border:1px solid var(--border-strong);border-radius:8px;padding:14px 16px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.5);text-align:left;pointer-events:none}
+.tip-pop::before{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--border-strong)}
+.tip-pop .tip-title{display:block;font-family:'Shippori Mincho B1','Noto Sans JP',serif;font-size:.86rem;color:var(--gold2);margin-bottom:6px;font-weight:700;letter-spacing:.01em}
+.tip-pop .tip-body{display:block;font-family:'Noto Serif JP',serif;font-size:.8rem;color:var(--t1);line-height:1.85;font-weight:400}
+.info[data-open="1"] + .tip-pop{display:block}
+.info:hover + .tip-pop,.info:focus + .tip-pop{display:block}
+.metric-lbl,.cardx-lbl,.csi-lbl{position:relative}
 
-/* Management */
-.mgmt-quote{background:var(--bg);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:16px 20px;margin:12px 0;font-size:.88em;color:var(--text-sub)}
-.mgmt-speaker{font-weight:700;color:var(--text);margin-bottom:4px;font-size:.82em}
+/* Insight */
+.insight{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 24px;margin-bottom:12px}
+.insight-body{font-family:'Noto Serif JP',serif;font-size:.95rem;color:var(--t1);line-height:1.95;font-weight:400}
+.insight-body strong{color:var(--gold2);font-weight:600}
 
-/* Compare */
-.compare-table{width:100%;font-size:.85em}
-.compare-table td,.compare-table th{padding:8px 12px}
+/* Charts */
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px}
+.chart-wrap{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 
-/* Overview */
-.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.overview-item{background:var(--bg);border-radius:10px;padding:14px;border:1px solid var(--border)}
-.overview-label{font-size:.72em;color:var(--text-sub);font-weight:500}
-.overview-value{font-size:.92em;font-weight:700;margin-top:2px}
+/* ══════════════════════════════════════════
+   BOUNDARY MARK — Roman Numeral II
+═══════════════════════════════════════════ */
+.boundary{display:flex;align-items:center;justify-content:center;gap:24px;margin:72px 0 56px;padding:10px 0}
+.boundary-line{flex:0 0 120px;max-width:120px;height:1px;background:var(--border-strong)}
+.boundary-mark{font-family:'Shippori Mincho B1',serif;font-size:2rem;color:var(--gold);font-weight:700;letter-spacing:.05em}
 
-/* Tech */
-.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.tech-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
-.tech-label{font-size:.72em;color:var(--text-sub)}
-.tech-value{font-size:1.1em;font-weight:700;margin-top:4px}
-.tech-table{width:100%;font-size:.82em}
-.tech-table td,.tech-table th{padding:8px 10px}
+/* ══════════════════════════════════════════
+   LAYER III — 詳細分析
+═══════════════════════════════════════════ */
+.sec3{margin-bottom:32px}
+.sec3-title{font-family:'Inter',sans-serif;font-size:1.09rem;font-weight:700;color:var(--t1);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;letter-spacing:.06em;display:flex;align-items:baseline;gap:10px}
+.sec3-title .jp{font-family:'Noto Sans JP',sans-serif;font-size:.85em;color:var(--t2);font-weight:500;letter-spacing:.02em}
 
-.tag{display:inline-block;padding:2px 10px;border-radius:6px;font-size:.75em;font-weight:600}
-.tag-green{background:var(--green-bg);color:var(--green)}
-.tag-red{background:var(--red-bg);color:var(--red)}
-.tag-yellow{background:var(--yellow-bg);color:var(--yellow)}
-.tag-blue{background:var(--blue-bg);color:var(--blue)}
+.cardx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.cardx{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px 18px;display:flex;flex-direction:column}
+.cardx-lbl{font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;line-height:1.35;letter-spacing:.01em}
+.cardx-val{font-size:1.4rem;font-weight:800;line-height:1.15;text-align:center;padding:4px 0;letter-spacing:.01em}
+.cardx-sub{font-size:.76rem;color:var(--t2);margin-top:6px;font-family:'Noto Sans JP',sans-serif;line-height:1.55;text-align:center}
 
-/* === Mobile Responsive === */
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif}
+.tbl td{color:var(--t2);font-family:'Noto Sans JP',sans-serif}
+.tbl tr:hover td{background:rgba(184,145,42,.04)}
+
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h4{font-size:.9rem;font-weight:700;margin-bottom:12px;color:var(--gold2);font-family:'Noto Sans JP',sans-serif;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.82rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(184,145,42,.08);line-height:1.7;font-family:'Noto Serif JP',serif}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'—';margin-right:8px;color:var(--gold)}
+.risk-card ul.risk-top li{color:var(--t1);font-weight:600;font-size:.9rem;line-height:1.8;padding:8px 0}
+.risk-card ul.risk-top li::before{content:'●';font-size:.7em;margin-right:10px;color:var(--gold2)}
+.risk-card ul.risk-top li:last-child{border-bottom:1px solid rgba(184,145,42,.08)}
+.risk-card ul.risk-more{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .25s ease,margin .3s ease;margin:0}
+.risk-card.expanded ul.risk-more{max-height:800px;opacity:1;margin-top:0}
+.risk-card.expanded ul.risk-more li:last-child{border-bottom:none}
+.risk-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--gold2);font-family:'Noto Sans JP','Inter',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:border-color .2s,background .2s;letter-spacing:.05em;width:100%}
+.risk-toggle:hover{border-color:var(--gold2);background:rgba(184,145,42,.06)}
+.risk-toggle .chev{display:inline-block;font-size:.7em;transition:transform .3s ease;margin-left:2px}
+.risk-card.expanded .risk-toggle .chev{transform:rotate(-180deg)}
+
+.mgmt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:12px}
+.mgmt-head{font-family:'Noto Sans JP',sans-serif;font-size:.82rem;color:var(--gold2);font-weight:600;margin-bottom:8px}
+.mgmt-body{font-family:'Noto Serif JP',serif;font-size:.92rem;color:var(--t1);line-height:1.95}
+.mgmt-body strong{color:var(--gold2);font-weight:600}
+
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.val-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center}
+.val-scn{font-size:.72rem;font-weight:700;letter-spacing:1.5px;color:var(--gold2);margin-bottom:8px;font-family:'Inter',sans-serif}
+.val-price{font-size:1.9rem;font-weight:900;color:var(--t1);margin-bottom:6px;font-family:'Inter',sans-serif}
+.val-detail{font-size:.74rem;color:var(--t2);line-height:1.5;font-family:'Noto Sans JP',sans-serif}
+.val-gap{font-size:.82rem;font-weight:700;margin-top:8px;font-family:'Inter',sans-serif}
+
+.val-reminder{background:rgba(184,145,42,0.05);border:1px solid var(--border);border-left:2px solid var(--gold);border-radius:8px;padding:14px 18px;margin-top:16px;font-family:'Noto Serif JP',serif;font-size:.82rem;color:var(--t2);line-height:1.9}
+.val-reminder strong{color:var(--gold2);font-weight:600}
+
+/* NTM calc block */
+.ntm-calc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;text-align:center}
+.ntm-row{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;gap:14px;align-items:center;max-width:820px;margin:0 auto 18px}
+.ntm-cell{text-align:center}
+.ntm-lbl{font-size:.7rem;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif}
+.ntm-val{font-family:'Inter',sans-serif;font-size:1.65rem;font-weight:700;color:var(--t1)}
+.ntm-val.goal{font-size:2.4rem;font-weight:900;color:var(--gold2)}
+.ntm-sub{font-size:.7rem;color:var(--t3);margin-top:3px;font-family:'Noto Sans JP',sans-serif}
+.ntm-op{font-size:1.4rem;color:var(--gold2);font-weight:700}
+.ntm-foot{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.ntm-foot-cell{text-align:center}
+.ntm-foot-cell .lbl{font-size:.72rem;color:var(--t3);margin-bottom:2px;font-family:'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.ntm-foot-cell .val{font-size:1.15rem;font-weight:700;font-family:'Inter',sans-serif}
+
+/* Compare table */
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.cmp-tbl th,.cmp-tbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.cmp-tbl th{color:var(--t3);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;font-family:'Inter',sans-serif;font-weight:600}
+.cmp-tbl td{color:var(--t2);font-family:'Inter',sans-serif}
+#sec-compare .cmp-tbl{font-size:.98rem}
+#sec-compare .cmp-tbl th{font-size:.81rem}
+#sec-compare .cmp-tbl th,#sec-compare .cmp-tbl td{padding:13px 16px}
+#sec-compare .insight-body{font-size:1.09rem;line-height:2}
+#sec-compare .cmp-tbl td.pos{color:var(--beat);font-weight:700}
+#sec-compare .cmp-tbl td.neg{color:var(--alert);font-weight:700}
+#sec-compare .cmp-tbl td.neu{color:var(--t1);font-weight:600}
+
+/* ── Chart Split (Donut + list) ── */
+.chart-split{display:grid;grid-template-columns:minmax(240px,1fr) 1.1fr;gap:28px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px 28px;margin-bottom:18px}
+.chart-split-viz{position:relative;height:260px}
+.chart-split-list{display:flex;flex-direction:column;gap:2px}
+.chart-split-item{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.chart-split-item:last-child{border-bottom:none}
+.csi-sw{width:12px;height:12px;border-radius:2px}
+.csi-lbl{font-size:.86rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500;line-height:1.4}
+.csi-sub{display:block;font-size:.72rem;color:var(--t3);font-weight:400;margin-top:1px}
+.csi-pct{font-family:'Inter',sans-serif;font-weight:700;color:var(--gold2);font-size:1rem}
+
+/* ── Unified Panel ── */
+.panel-merge{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:18px;overflow:hidden}
+.panel-merge .chart-split{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:26px 28px 20px}
+.panel-merge .val-gauge{background:transparent;border:none;border-radius:0;margin-top:0;padding:36px 28px 44px}
+.panel-merge .val-reminder{background:transparent;border:none;border-left:none;border-radius:0;margin-top:0;padding:20px 28px 22px}
+.panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
+.panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
+@media(max-width:768px){
+  .panel-merge .chart-split{padding:20px 20px 16px}
+  .panel-merge .val-gauge{padding:30px 20px 40px}
+  .panel-merge .val-reminder{padding:16px 20px 18px}
+  .panel-merge-divider{margin:0 20px}
+  .panel-merge .insight{padding:18px 20px 22px}
+}
+
+/* ── Margin Dashboard ── */
+.margin-tiles-row{display:grid;grid-template-columns:repeat(4,1fr);padding:24px 0}
+.margin-tile{padding:8px 22px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:center}
+.margin-tile:last-child{border-right:none}
+.margin-tile-lbl{font-size:.8rem;color:var(--t1);margin-bottom:8px;font-family:'Noto Sans JP',sans-serif;font-weight:700;letter-spacing:.01em}
+.margin-tile-val{font-family:'Inter','Noto Sans JP',sans-serif;font-size:2rem;font-weight:800;letter-spacing:.01em;line-height:1;margin-bottom:6px}
+.margin-tile-sub{font-size:.7rem;color:var(--t2);font-family:'Noto Sans JP',sans-serif;line-height:1.5}
+.margin-chart-area{padding:18px 24px 26px}
+.margin-chart-area .chart-wrap{height:280px}
+@media(max-width:768px){
+  .margin-tiles-row{grid-template-columns:repeat(2,1fr);padding:18px 0}
+  .margin-tile{padding:12px 16px;border-bottom:1px solid var(--border)}
+  .margin-tile:nth-child(even){border-right:none}
+  .margin-tile:nth-last-child(-n+2){border-bottom:none}
+  .margin-tile-val{font-size:1.55rem}
+  .margin-tile-lbl{font-size:.74rem}
+  .margin-chart-area{padding:14px 16px 20px}
+  .margin-chart-area .chart-wrap{height:240px}
+}
+
+/* ── Valuation Gauge ── */
+.val-gauge{margin-top:20px;padding:40px 40px 56px;background:var(--card);border:1px solid var(--border);border-radius:14px;position:relative}
+.val-gauge-title{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);font-weight:700;margin-bottom:36px;text-align:center;letter-spacing:.14em;text-transform:uppercase}
+.val-gauge-track{position:relative;height:6px;background:linear-gradient(90deg,rgba(139,32,32,0.3) 0%,rgba(184,145,42,0.3) 50%,rgba(63,185,80,0.35) 100%);border-radius:3px;margin:0 10px}
+.val-gauge-mark{position:absolute;top:-4px;width:2px;height:14px;background:rgba(184,145,42,0.55);transform:translateX(-1px)}
+.val-gauge-mark .lbl{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:.66rem;color:var(--t3);white-space:nowrap;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.val-gauge-mark .amt{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;color:var(--t1);white-space:nowrap}
+.val-gauge-current{position:absolute;top:-12px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:13px solid var(--gold2);transform:translateX(-9px);filter:drop-shadow(0 0 6px rgba(212,168,67,0.45))}
+.val-gauge-current .cur-label{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:var(--gold2);color:var(--navy-deep);padding:4px 12px;border-radius:5px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:800;white-space:nowrap;letter-spacing:.02em;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.val-gauge-current .cur-label::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold2)}
+
+/* ── Management Pullquote ── */
+.pullq{position:relative;padding:30px 36px 24px;margin-bottom:18px;border-left:2px solid var(--border-strong)}
+.pullq::before{content:'\201C';position:absolute;top:6px;left:16px;font-family:'Shippori Mincho B1',serif;font-size:4.5rem;color:var(--gold);line-height:1;opacity:.28;pointer-events:none}
+.pullq-body{font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--t1);line-height:2;padding-left:44px;margin-bottom:14px;font-weight:300;letter-spacing:.01em}
+.pullq-body strong{color:var(--gold2);font-weight:600}
+.pullq-attr{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);text-align:right;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding-right:6px}
+.pullq-attr .role{color:var(--t3);font-weight:500;text-transform:none;margin-left:8px;letter-spacing:.02em;font-family:'Noto Sans JP',sans-serif}
+
+/* Mobile adjustments */
+@media(max-width:768px){
+  .chart-split{grid-template-columns:1fr;gap:20px;padding:20px}
+  .chart-split-viz{height:220px}
+  .val-gauge{padding:36px 28px 56px}
+  .val-gauge-track{margin:0 18px}
+  .val-gauge-mark[style*="left:0%"] .lbl,.val-gauge-mark[style*="left:0%"] .amt{left:0;transform:translateX(-6px);text-align:left}
+  .val-gauge-mark[style*="left:100%"] .lbl,.val-gauge-mark[style*="left:100%"] .amt{left:auto;right:0;transform:translateX(6px);text-align:right}
+  .val-gauge-current .cur-label{font-size:.7rem;padding:3px 9px;letter-spacing:.01em;max-width:calc(100vw - 100px)}
+  .val-gauge-mark .lbl{font-size:.6rem}
+  .val-gauge-mark .amt{font-size:.8rem}
+  .pullq{padding:26px 20px 22px}
+  .pullq::before{font-size:3.5rem;left:8px}
+  .pullq-body{padding-left:30px;font-size:.94rem}
+}
+
+/* Footer */
+.footer{text-align:center;padding:40px 20px 24px;border-top:1px solid var(--border);margin-top:48px;color:var(--t3)}
+.footer p{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:2;color:var(--t2);max-width:640px;margin:0 auto}
+.footer p strong{color:var(--t1)}
+.footer .footer-id{margin-top:14px;font-family:'Inter',sans-serif;font-size:.72rem;color:var(--t3);letter-spacing:.05em}
+
+/* ══════════════════════════════════════════
+   Mobile Responsive
+═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
   body{padding:12px!important}
-  .container{padding:12px}
-  .header{padding:28px 16px}
-  .header h1{font-size:1.4rem}
-  .header .subtitle{font-size:.95em}
-  .header-logo-row{flex-direction:column;gap:8px}
-  .report-header-logo{height:36px}
-  .ticker-badge{font-size:12px;padding:4px 12px}
-  .grid,.metrics-grid{grid-template-columns:1fr 1fr}
-  .val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}
-  .chart-wrap,.chart-container{height:250px}
-  .section{padding:20px 16px}
-  .card-grid{grid-template-columns:1fr 1fr}
-  .two-col{grid-template-columns:1fr}
-  .rc-grid{grid-template-columns:1fr}
-  .metrics-grid{grid-template-columns:1fr 1fr!important}
+  .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
+  .rh-inner{order:1;width:100%}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .rh-logo-row{gap:12px;margin-bottom:10px}
+  .rh-logo{height:44px;max-width:180px}
+  .rh-ticker{font-size:11px;padding:4px 12px}
+  .l1{padding:28px 18px 22px;gap:20px}
+  .l1-score-num{font-size:2.2rem}
+  .l1-score-label{font-size:1rem}
+  .l1-score-badge{padding:12px 22px;gap:12px}
+  .l1-consensus{padding:16px 14px 4px}
+  .l1-consensus-head{font-size:.64rem;margin-bottom:12px}
+  .l1-consensus-tbl th,.l1-consensus-tbl td{padding:10px 6px;font-size:.82rem}
+  .l1-consensus-tbl td.lbl{font-size:.8rem}
+  .l1-consensus-tbl th{font-size:.58rem}
+  .l1-consensus-tbl td.beat,.l1-consensus-tbl td.neu{font-size:.78rem}
+  .l1-consensus-tbl td.val{font-size:.88rem}
+  .l1-notes{padding-left:14px}
+  .l1-notes-head{font-size:.6rem}
+  .l1-note{font-size:.86rem;line-height:1.85}
+  .l1-price{grid-template-columns:1fr;text-align:left}
+  .l1-price-cell{padding:12px 16px;border-right:none;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;text-align:left}
+  .l1-price-cell:last-child{border-bottom:none}
+  .l1-price-cell .lbl{margin-bottom:0;flex-shrink:0}
+  .l1-price-cell .val{font-size:1.1rem}
+  .metrics-grid,.cardx-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.risk-grid{grid-template-columns:1fr}
   .chart-row{grid-template-columns:1fr!important}
-  .overview-grid{grid-template-columns:1fr!important}
-  .tech-grid{grid-template-columns:1fr!important}
+  .chart-wrap{height:250px}
+  .boundary{margin:48px 0 36px}
+  .boundary-line{flex:0 0 60px;max-width:60px}
+  .boundary-mark{font-size:1.6rem}
+  .ntm-row{grid-template-columns:1fr;gap:8px}
+  .ntm-op{display:none}
+  .ntm-val{font-size:1.3rem}
+  .ntm-val.goal{font-size:2rem}
   table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .compare-table,.tech-table,.tbl{font-size:.78rem}
-  .portal-link{padding:6px 10px;font-size:.7rem}
 }
 @media(max-width:480px){
-  .grid,.metrics-grid,.card-grid{grid-template-columns:1fr!important}
-  .chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}
-  .header h1{font-size:1.2rem}
-  .score-big{font-size:3.5em}
-  .score-label{font-size:1.2em}
-  .section-title,.section-header{font-size:1rem}
+  .metrics-grid,.cardx-grid{grid-template-columns:1fr!important}
+  .rh h1{font-size:1.15rem}
 }
 
-/* === Accordion (mobile only) === */
-.section[data-accordion]{position:relative}
-.section[data-accordion] .section-title{cursor:pointer;user-select:none;padding-right:36px}
-.section[data-accordion] .section-title::after{content:'▼';position:absolute;right:20px;top:28px;font-size:.7em;color:var(--text-sub);transition:transform .25s}
-.section[data-accordion].collapsed .section-title::after{transform:rotate(-90deg)}
-.section[data-accordion] .section-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
-.section[data-accordion].collapsing .section-body{overflow:hidden}
-.section[data-accordion].collapsed .section-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+/* Accordion */
+.section[data-accordion],.sec3[data-accordion]{position:relative}
+.section[data-accordion] .section-title,.sec3[data-accordion] .sec3-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after,.sec3[data-accordion] .sec3-title::after{content:'▼';position:absolute;right:6px;top:16px;font-size:.65em;color:var(--t3);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after,.sec3[data-accordion].collapsed .sec3-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body,.sec3[data-accordion] .sec3-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body,.sec3[data-accordion].collapsing .sec3-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body,.sec3[data-accordion].collapsed .sec3-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
 
-/* === TOC Nav (mobile only) === */
+/* TOC Nav */
 .toc-nav{display:none}
 @media(max-width:768px){
-  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
-  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
-  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.85rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
-  .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-menu.open{max-height:62vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .toc-list{list-style:none;padding:8px 0;margin:0}
-  .toc-list li{border-bottom:1px solid #21262d}
+  .toc-list li{border-bottom:1px solid rgba(184,145,42,0.08)}
   .toc-list li:last-child{border-bottom:none}
-  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
-  .toc-list a:hover,.toc-list a:active{background:rgba(88,166,255,.1)}
-  .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
-  .toc-list .toc-label{flex:1}
-  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
-  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
-  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--t1);text-decoration:none;font-size:.84rem}
+  .toc-list a:active{background:rgba(184,145,42,.12)}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(184,145,42,0.1)}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.72rem;padding:4px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--t2);cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
   body{padding-bottom:60px!important}
 }
+
+/* Atlas Floating Tools */
+.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:600}
+.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
+.atlas-floating-tools .currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.atlas-floating-tools .currency-toggle .cur-inactive{color:inherit;opacity:.5}
+.atlas-floating-tools .currency-toggle .cur-sep{opacity:.35;margin:0 1px}
+.atlas-floating-tools .currency-toggle.jpy-mode,.atlas-floating-tools .currency-toggle.local-mode{border-color:rgba(184,145,42,0.6);background:rgba(184,145,42,0.12)}
+.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode,.cur-val.local-mode{color:#D4A843;font-weight:700}
+
+/* Light Theme */
+html[data-theme="light"]{--bg:#F5F2EC;--card:#FDFCFA;--card-hover:#ECE8DF;--border:rgba(26,37,64,0.12);--border-strong:rgba(26,37,64,0.25);--t1:#1A2540;--t2:#4A5568;--t3:#718096}
+html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
+html[data-theme="light"] .rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
+html[data-theme="light"] .rh h1,html[data-theme="light"] .rh *{color:#F5F2EC!important}
+html[data-theme="light"] .rh .rh-sub,html[data-theme="light"] .rh .rh-date{color:rgba(245,242,236,0.75)!important}
+html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15)}
+html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
+html[data-theme="light"] .l1{background:linear-gradient(180deg,rgba(184,145,42,.05) 0%,rgba(245,242,236,.8) 100%)}
+html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .risk-card,html[data-theme="light"] .mgmt,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
 </style>
-  <script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 158.82, date: '2026/4/15', fmt: 'cjk-ja' };</script>
-<!-- ATLAS-PAYWALL-META -->
 <meta name="atlas-access" content='{"kind":"report","ticker":"WMT","isLatest":true}'>
-<!-- /ATLAS-PAYWALL-META -->
 </head>
 <body>
+
 <!-- ATLAS-NAV-START -->
 <header class="atlas-nav" data-atlas-nav>
   <div class="atlas-nav-inner">
@@ -454,355 +729,428 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 })();
 </script>
 <!-- ATLAS-NAV-END -->
+
 <!-- ATLAS-QUARTERLY-BAND-START -->
 <div class="atlas-quarterly-band" style="background:#0F1829;border-bottom:1px solid rgba(184,145,42,.15);padding:10px 16px;text-align:center;position:relative;z-index:10">
   <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:18px;width:auto;opacity:.9;vertical-align:middle;max-width:180px">
 </div>
 <!-- ATLAS-QUARTERLY-BAND-END -->
-<!-- Atlas Currency Toggle (floating, top-right) -->
-<style>
-.atlas-floating-currency{position:fixed;top:16px;right:16px;z-index:999;background:rgba(26,37,64,.9);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.2);backdrop-filter:blur(6px)}
-.currency-toggle{background:none;border:1px solid rgba(255,255,255,0.12);cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;line-height:1;letter-spacing:.3px;color:rgba(255,255,255,0.85);transition:all .15s;display:inline-flex;align-items:center;gap:2px}
-.currency-toggle:hover{opacity:.85;border-color:rgba(184,145,42,0.4)}
-.currency-toggle .cur-active{color:#D4A843;font-weight:800}
-.currency-toggle .cur-inactive{color:inherit;opacity:.55}
-.currency-toggle .cur-sep{opacity:.4;margin:0 1px;font-weight:400}
-.currency-toggle.jpy-mode{border-color:rgba(184,145,42,0.45);background:rgba(184,145,42,0.08)}
-.cur-val{transition:color .2s}
-.cur-val.jpy-mode{color:#D4A843}
-</style>
-<div class="atlas-floating-tools">
-  <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
-  <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
-</div>
 
-<div class="container">
-
-<!-- Header -->
-<div class="header">
-  <div class="header-content">
-    <div class="header-logo-row">
-      <img class="report-header-logo" src="../logos/WMT.svg" alt="WMT">
-      <div class="ticker-badge">NASDAQ: WMT</div>
+<!-- ══════════════════════════════════
+     REPORT HEADER
+═══════════════════════════════════ -->
+<header class="rh">
+  <div class="ov-wrap">
+    <button class="ov-btn" id="ovBtn" onclick="toggleOverview()">企業概要 <span class="chev">▼</span></button>
+  </div>
+  <div class="rh-inner">
+    <div class="rh-logo-row">
+      <img class="rh-logo" src="../logos/WMT.svg" alt="WMT">
+      <div class="rh-ticker">NYSE: WMT</div>
     </div>
-    <h1>Walmart Inc. 決算分析</h1>
-    <div class="subtitle">FY2026 Q4（2025年11月〜2026年1月）</div>
-    <div class="date">発表日: 2026年2月19日 ｜ レポート作成: 2026年3月18日</div>
+    <h1>Walmart Inc.</h1>
+    <div class="rh-sub">FY2026 Q4 決算分析（2025年11月-2026年1月）</div>
+    <div class="rh-date">発表日 2026.02.19 ｜ Atlas Quarterly</div>
+  </div>
+</header>
+
+<!-- 企業概要（折りたたみ） -->
+<div class="ov-drop" id="ovDrop">
+  <h2>Company Overview — 企業概要</h2>
+  <p><strong>Walmart Inc.</strong>（NYSE: WMT）は、世界最大の小売企業。1962年に Sam Walton がアーカンソー州で創業。2026年2月より <strong>John Furner</strong> が CEO に就任（前任 Doug McMillon）。従業員数は約210万人、19カ国で10,900超の店舗を展開し、週間来客数は約2.8億人。時価総額は約<span class="no-currency">$1.01T</span>。</p>
+  <p>ビジネスモデルは「Everyday Low Price（EDLP）」を基盤とした店舗小売をコアに、eコマース（全体の23%）、広告プラットフォーム（<strong>Walmart Connect</strong>: 米国+41%成長）、メンバーシップ（Walmart+・Sam's Club）、マーケットプレイス、フルフィルメントサービスを積層。近年は高マージンのデジタル事業が急成長し、テック企業としての再評価が進行中。</p>
+  <div class="tags">
+    <span class="tag">世界最大の小売企業</span>
+    <span class="tag">1962年設立</span>
+    <span class="tag">19カ国 10,900+ 店舗</span>
+    <span class="tag">年商 $713B</span>
+    <span class="tag">eComm 23%</span>
+    <span class="tag">時価総額 <span class="no-currency">$1.01T</span></span>
   </div>
 </div>
 
-<!-- Score -->
-<div class="score-section">
-  <div class="score-big">⏸️</div>
-  <div class="score-num">3 / 5</div>
-  <div class="score-label">悪くない決算</div>
-  <div class="score-desc">売上・EPSともにわずかにビートも、FY2027ガイダンスがコンセンサスを下回る慎重な見通し。<br>実績は堅調だが、マクロ不透明感を反映した控えめなガイダンスが市場期待に届かず。</div>
-</div>
+<!-- ══════════════════════════════════
+     LAYER I — EXECUTIVE SUMMARY
+═══════════════════════════════════ -->
+<div class="layer-eyebrow">Layer I — Executive Summary</div>
+<section class="l1">
+
+  <!-- Score -->
+  <div class="l1-score">
+    <div class="l1-score-badge">
+      <span class="l1-score-num">3</span>
+      <span class="l1-score-label">悪くない決算</span>
+    </div>
+  </div>
+
+  <!-- Consensus vs 実績 -->
+  <div class="l1-consensus">
+    <div class="l1-consensus-head">Consensus vs 実績（FY2026 Q4）</div>
+    <table class="l1-consensus-tbl">
+      <thead>
+        <tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>ビート率</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lbl">売上高 / Revenue</td>
+          <td class="cn">$190.4B</td>
+          <td class="val">$190.7B</td>
+          <td class="beat"><span class="beat-lamp"></span>+0.1% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Adj. EPS</td>
+          <td class="cn">$0.73</td>
+          <td class="val">$0.74</td>
+          <td class="beat"><span class="beat-lamp"></span>+1.4% <span class="beat-text">ビート</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">FY2027 EPS ガイダンス</td>
+          <td class="cn">$2.94</td>
+          <td class="val">$2.75–$2.85</td>
+          <td class="neu">-4.8% ミス</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 特筆点 -->
+  <div class="l1-notes">
+    <div class="l1-notes-head">Today's Points · 今四半期の特筆点</div>
+    <div class="l1-note">売上・EPSともに<strong>わずかにビート</strong>も、FY2027ガイダンスEPSが<strong>コンセンサスを4.8%下回る</strong>慎重な見通し</div>
+    <div class="l1-note">eコマース<strong>+24%成長</strong>（7四半期連続+20%超）、Walmart Connect<strong>+37%成長</strong>で高マージンデジタル事業が加速</div>
+    <div class="l1-note">CFO Rainey氏が<strong>「hiring recession」</strong>に言及、学生ローン延滞増加・貿易政策の不透明感が慎重ガイダンスの根拠</div>
+  </div>
+
+  <!-- 株価 -->
+  <div class="l1-price no-currency">
+    <div class="l1-price-cell">
+      <div class="lbl">現在株価</div>
+      <div class="val">$125.08</div>
+    </div>
+    <div class="l1-price-cell">
+      <div class="lbl">52週レンジ</div>
+      <div class="val">$79.81 – $134.69</div>
+    </div>
+    <div class="l1-price-cell">
+      <div class="lbl">時価総額</div>
+      <div class="val">$1.01T</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     LAYER II — 決算の全体像
+═══════════════════════════════════ -->
+<div class="layer-eyebrow">Layer II — 決算の全体像</div>
 
 <!-- Key Metrics -->
-<div class="section">
-  <div class="section-title"><span class="section-icon">📋</span> Key Metrics</div>
+<section class="section" id="sec-metrics">
+  <div class="section-title">Key Metrics</div>
   <div class="metrics-grid">
     <div class="metric-card">
-      <div class="metric-label">売上高</div>
-      <div class="metric-value">$190.7B</div>
-      <div class="metric-sub"><span class="metric-beat">+5.6% YoY</span></div>
+      <div class="metric-lbl">売上高 / Revenue</div>
+      <div class="metric-val pos">$190.7B</div>
+      <div class="delta">
+        <span class="pct pos">YoY +5.6%</span> <span style="opacity:.7">(+$10.1B)</span>
+        <span class="prior">前年同期: $180.6B</span>
+        <span class="pct pos" style="margin-top:4px;display:inline-block">QoQ +6.2%</span> <span style="opacity:.7">(+$11.2B)</span>
+      </div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">Adj. EPS</div>
-      <div class="metric-value metric-beat">$0.74</div>
-      <div class="metric-sub"><span class="metric-beat">+12.1% YoY</span></div>
+      <div class="metric-lbl">Adj. EPS</div>
+      <div class="metric-val pos">$0.74</div>
+      <div class="delta">
+        <span class="pct pos">YoY +12.1%</span> <span style="opacity:.7">(+$0.08)</span>
+        <span class="prior">前年同期: $0.66</span>
+        <span class="pct pos" style="margin-top:4px;display:inline-block">QoQ +19.4%</span>
+      </div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">売上ビート</div>
-      <div class="metric-value metric-beat">+0.1%</div>
-      <div class="metric-sub">$190.7B vs $190.4B</div>
+      <div class="metric-lbl">粗利益率 / Gross Margin</div>
+      <div class="metric-val neu">24.7%</div>
+      <div class="metric-sub">YoY +0.1pp / 前年同期 24.6%</div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">EPSビート</div>
-      <div class="metric-value metric-beat">+1.4%</div>
-      <div class="metric-sub">$0.74 vs $0.73</div>
+      <div class="metric-lbl">eコマース成長率</div>
+      <div class="metric-val pos">+24%</div>
+      <div class="metric-sub">グローバル / 7四半期連続 +20%超</div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">粗利益率</div>
-      <div class="metric-value">24.7%</div>
-      <div class="metric-sub">前年同期と同水準</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">営業利益率</div>
-      <div class="metric-value">4.6%</div>
-      <div class="metric-sub">前年同期と同水準</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">eコマース成長</div>
-      <div class="metric-value metric-beat">+24%</div>
-      <div class="metric-sub">グローバル</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">広告収入成長</div>
-      <div class="metric-value metric-beat">+37%</div>
-      <div class="metric-sub">Walmart Connect US: +41%</div>
+      <div class="metric-lbl">Walmart Connect 広告成長</div>
+      <div class="metric-val pos">+37%</div>
+      <div class="metric-sub">米国 +41% / 高マージン成長エンジン</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Revenue / EPS Chart -->
-<div class="section" id="sec-revenue" data-accordion>
-  <div class="section-title"><span class="section-icon">📊</span> 売上高 / EPS 7四半期推移</div>
+<!-- 売上/EPS 7Q 推移 -->
+<section class="section" data-accordion id="sec-revenue">
+  <div class="section-title">売上高 / EPS 直近7四半期推移</div>
   <div class="section-body">
     <div class="chart-row">
-      <div>
-        <div class="chart-container"><canvas id="revenueChart"></canvas></div>
-      </div>
-      <div>
-        <div class="chart-container"><canvas id="epsChart"></canvas></div>
-      </div>
+      <div class="chart-box"><div class="chart-wrap"><canvas id="revChart"></canvas></div></div>
+      <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">売上高は FY25Q2 の $169.3B から FY26Q4 の $190.7B まで<strong>堅調な右肩上がり</strong>を維持。季節性（Q4 ホリデーシーズン）による押し上げもあり、Q4 は常にピーク四半期です。Adj. EPS も $0.66 → $0.74 と改善基調で、営業利益成長率が売上成長率を<strong>3年連続で上回る</strong>好循環が続いています。</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Margin Trend -->
-<div class="section" id="sec-margin" data-accordion>
-  <div class="section-title"><span class="section-icon">📈</span> 利益率トレンド</div>
+<!-- 利益率トレンド -->
+<section class="section" data-accordion id="sec-margin">
+  <div class="section-title">利益率トレンド</div>
   <div class="section-body">
-    <table class="tbl">
-      <thead>
-        <tr><th>指標</th><th>Q4 FY2026</th><th>Q4 FY2025</th><th>変化</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>粗利益率（GAAP）</td><td>24.7%</td><td>24.6%</td><td><span class="tag tag-green">+0.1pp</span></td></tr>
-        <tr><td>営業利益率（GAAP）</td><td>4.6%</td><td>4.6%</td><td><span class="tag tag-yellow">横ばい</span></td></tr>
-        <tr><td>Adj. EBITDAマージン</td><td>6.5%</td><td>6.3%</td><td><span class="tag tag-green">+0.2pp</span></td></tr>
-        <tr><td>Adj. 営業利益成長</td><td colspan="2">$8.7B → +10.8% YoY</td><td><span class="tag tag-green">好調</span></td></tr>
-      </tbody>
-    </table>
-    <div style="margin-top:16px;padding:14px;background:var(--bg);border-radius:10px;border:1px solid var(--border);font-size:.85em;color:var(--text-sub)">
-      営業利益の成長率（+10.8%）が売上成長率（+5.6%）を大幅に上回り、3年連続で利益成長が売上成長を超過。eコマース収益性の改善、広告事業・メンバーシップ収入の高マージン成長が牽引。
-    </div>
-  </div>
-</div>
-
-<!-- Consensus -->
-<div class="section" id="sec-consensus" data-accordion>
-  <div class="section-title"><span class="section-icon">🎯</span> コンセンサス比較</div>
-  <div class="section-body">
-    <table class="tbl">
-      <thead>
-        <tr><th>指標</th><th>コンセンサス</th><th>実績</th><th>差分</th><th>判定</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>売上高</td><td>$190.4B</td><td>$190.7B</td><td>+$0.3B</td><td><span class="tag tag-green">ビート</span></td></tr>
-        <tr><td>Adj. EPS</td><td>$0.73</td><td>$0.74</td><td>+$0.01</td><td><span class="tag tag-green">ビート</span></td></tr>
-        <tr><td>Adj. EBITDA</td><td>$12.27B</td><td>$12.45B</td><td>+$0.18B</td><td><span class="tag tag-green">ビート</span></td></tr>
-      </tbody>
-    </table>
-
-    <div style="margin-top:20px">
-      <div style="font-weight:700;margin-bottom:12px;font-size:.95em">📌 FY2027 ガイダンス vs コンセンサス</div>
-      <table class="tbl">
-        <thead>
-          <tr><th>指標</th><th>ガイダンス</th><th>コンセンサス</th><th>判定</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>FY2027 売上高</td><td>$738B〜$745B (+3.5%〜+4.5%)</td><td>—</td><td><span class="tag tag-yellow">堅調</span></td></tr>
-          <tr><td>FY2027 Adj. EPS</td><td>$2.75〜$2.85</td><td>$2.94</td><td><span class="tag tag-red">下回る (-4.8%)</span></td></tr>
-          <tr><td>Q1 FY2027 EPS</td><td>$0.63〜$0.65</td><td>—</td><td><span class="tag tag-yellow">慎重</span></td></tr>
-          <tr><td>Q1 FY2027 売上成長</td><td>+3.5%〜+4.5%</td><td>—</td><td><span class="tag tag-yellow">減速</span></td></tr>
-        </tbody>
-      </table>
-      <div style="margin-top:12px;font-size:.82em;color:var(--text-sub)">
-        ⚠️ CFO Rainey氏が「hiring recession（採用不況）」「学生ローン延滞増加」「貿易政策の不透明感」に言及し、慎重なガイダンスを提示。
+    <div class="panel-merge">
+      <div class="margin-tiles-row">
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">粗利益率</div>
+          <div class="margin-tile-val neu">24.7%</div>
+          <div class="margin-tile-sub">YoY +0.1pp / 安定推移</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">営業利益率</div>
+          <div class="margin-tile-val neu">4.6%</div>
+          <div class="margin-tile-sub">YoY 横ばい</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">Adj. EBITDAマージン</div>
+          <div class="margin-tile-val pos">6.5%</div>
+          <div class="margin-tile-sub">YoY +0.2pp</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">Adj. 営業利益成長</div>
+          <div class="margin-tile-val pos">+10.8%</div>
+          <div class="margin-tile-sub">$8.7B / 売上成長+5.6%を大幅超過</div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="margin-chart-area">
+        <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body">営業利益の成長率（+10.8%）が売上成長率（+5.6%）を大幅に上回り、<strong>3年連続で利益成長が売上成長を超過</strong>。eコマース収益性の改善、広告事業・メンバーシップ収入の高マージン成長が牽引。粗利益率は24.7%で横ばいだが、ミックス改善による営業レバレッジが効いています。</div>
       </div>
     </div>
   </div>
+</section>
+
+<!-- ══════════════════════════════════
+     BOUNDARY — Roman Numeral II
+═══════════════════════════════════ -->
+<div class="boundary">
+  <div class="boundary-line"></div>
+  <div class="boundary-mark">II</div>
+  <div class="boundary-line"></div>
 </div>
 
-<!-- Cash Flow -->
-<div class="section" id="sec-cashflow" data-accordion>
-  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー（FY2026通期）</div>
-  <div class="section-body">
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-label">営業CF</div>
-        <div class="metric-value metric-beat">$41.6B</div>
-        <div class="metric-sub">+$5.1B YoY</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">設備投資</div>
-        <div class="metric-value">$26.7B</div>
-        <div class="metric-sub">≈ 営業CF - FCF</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">FCF</div>
-        <div class="metric-value metric-beat">$14.9B</div>
-        <div class="metric-sub">+$2.3B YoY</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">FCFマージン</div>
-        <div class="metric-value">2.1%</div>
-        <div class="metric-sub">$14.9B / $713B</div>
-      </div>
-    </div>
-    <div style="margin-top:16px">
-      <table class="tbl">
-        <tr><td style="color:var(--text-sub)">Net Debt</td><td>$56.4B</td></tr>
-        <tr><td style="color:var(--text-sub)">手元現金</td><td>$10.7B</td></tr>
-        <tr><td style="color:var(--text-sub)">総負債</td><td>$67.1B</td></tr>
-        <tr><td style="color:var(--text-sub)">Net Debt / EBITDA</td><td>1.2x（健全）</td></tr>
-        <tr><td style="color:var(--text-sub)">自社株買い</td><td>$30B（新規承認）</td></tr>
-      </table>
-    </div>
-  </div>
-</div>
+<!-- ══════════════════════════════════
+     LAYER III — 詳細分析
+═══════════════════════════════════ -->
+<div class="layer-eyebrow">Layer III — Granular Analysis</div>
 
 <!-- Segment -->
-<div class="section" id="sec-segment" data-accordion>
-  <div class="section-title"><span class="section-icon">🏢</span> 部門別売上構成（Q4 FY2026）</div>
-  <div class="section-body">
-    <table class="tbl">
-      <thead>
-        <tr><th>セグメント</th><th>売上高</th><th>YoY</th><th>Comp Sales</th><th>eComm</th><th>営業利益</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Walmart U.S.</strong></td>
-          <td>$129.2B</td>
-          <td><span class="tag tag-green">+4.6%</span></td>
-          <td>+4.6%</td>
-          <td><span style="color:var(--green)">+27%</span></td>
-          <td>$7.0B (+6.6%)</td>
-        </tr>
-        <tr>
-          <td><strong>International</strong></td>
-          <td>$34.6B</td>
-          <td><span class="tag tag-green">+7.5% CC</span></td>
-          <td>—</td>
-          <td><span style="color:var(--green)">+17%</span></td>
-          <td>+26% CC</td>
-        </tr>
-        <tr>
-          <td><strong>Sam's Club U.S.</strong></td>
-          <td>$23.8B</td>
-          <td><span class="tag tag-green">+2.9%</span></td>
-          <td>+4.0%</td>
-          <td><span style="color:var(--green)">+23%</span></td>
-          <td>—</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="margin-top:16px">
-      <div class="chart-container" style="height:280px"><canvas id="segmentChart"></canvas></div>
-    </div>
-
-    <div style="margin-top:16px;font-size:.85em;color:var(--text-sub)">
-      <strong>FY2026通期:</strong> Walmart U.S. $483.0B (+4.4%), International $130.4B (+7.0%/+9.3% CC), Sam's Club $93.0B (est.)。全3セグメントで利益成長が売上成長を上回る。
+<section class="sec3" data-accordion id="sec-segment">
+  <div class="sec3-title">Segment <span class="jp">· 部門別売上構成（Q4 FY2026）</span></div>
+  <div class="sec3-body">
+    <div class="panel-merge">
+      <div class="chart-split">
+        <div class="chart-split-viz"><canvas id="segChart"></canvas></div>
+        <div class="chart-split-list">
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#D4A843"></div>
+            <div>
+              <div class="csi-lbl">Walmart U.S.</div>
+              <div class="csi-sub">$129.2B / YoY +4.6% / Comp Sales +4.6% / eComm +27%</div>
+            </div>
+            <div class="csi-pct">68.8%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#5C7395"></div>
+            <div>
+              <div class="csi-lbl">International</div>
+              <div class="csi-sub">$34.6B / YoY +7.5% CC / eComm +17% / 営業利益 +26% CC</div>
+            </div>
+            <div class="csi-pct">18.4%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#B8912A"></div>
+            <div>
+              <div class="csi-lbl">Sam's Club U.S.</div>
+              <div class="csi-sub">$23.8B / YoY +2.9% / Comp Sales +4.0% / eComm +23%</div>
+            </div>
+            <div class="csi-pct">12.7%</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body"><strong>全3セグメントで利益成長が売上成長を上回る好循環。</strong>Walmart U.S. は Comp Sales +4.6% と安定成長を継続、eComm +27% が牽引。International は中国・Walmex・Flipkart が好調で CC ベースで営業利益 +26% と大幅改善。Sam's Club は Comp +4.0% と堅調ながら、成長率はやや鈍化。<strong>FY2026通期:</strong> Walmart U.S. $483.0B (+4.4%), International $130.4B (+9.3% CC), Sam's Club $93.0B (est.)。</div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- Geography -->
-<div class="section" id="sec-geo" data-accordion>
-  <div class="section-title"><span class="section-icon">🌍</span> 地域別売上構成</div>
-  <div class="section-body">
-    <div class="grid">
-      <div>
-        <div class="chart-container" style="height:280px"><canvas id="geoChart"></canvas></div>
+<section class="sec3" data-accordion id="sec-geo">
+  <div class="sec3-title">Geography <span class="jp">· 地域別売上構成</span></div>
+  <div class="sec3-body">
+    <div class="panel-merge">
+      <div class="chart-split">
+        <div class="chart-split-viz"><canvas id="geoChart"></canvas></div>
+        <div class="chart-split-list">
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#D4A843"></div>
+            <div>
+              <div class="csi-lbl">米国（Walmart US + Sam's Club）</div>
+              <div class="csi-sub">~$153B / 構成比 ~82%</div>
+            </div>
+            <div class="csi-pct">~82%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#5C7395"></div>
+            <div>
+              <div class="csi-lbl">メキシコ/中米（Walmex）</div>
+              <div class="csi-sub">好調 / CC ベースで高成長</div>
+            </div>
+            <div class="csi-pct">~7%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#B8912A"></div>
+            <div>
+              <div class="csi-lbl">インド（Flipkart）</div>
+              <div class="csi-sub">eComm 牽引</div>
+            </div>
+            <div class="csi-pct">~4%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#F0E6C8"></div>
+            <div>
+              <div class="csi-lbl">中国</div>
+              <div class="csi-sub">強い成長</div>
+            </div>
+            <div class="csi-pct">~4%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#6E7A8C"></div>
+            <div>
+              <div class="csi-lbl">その他（カナダ、チリ等）</div>
+            </div>
+            <div class="csi-pct">~3%</div>
+          </div>
+        </div>
       </div>
-      <div>
-        <table class="tbl">
-          <thead><tr><th>地域</th><th>構成比</th><th>備考</th></tr></thead>
-          <tbody>
-            <tr><td>🇺🇸 米国</td><td>~82%</td><td>Walmart US + Sam's Club</td></tr>
-            <tr><td>🇲🇽 メキシコ/中米</td><td>~7%</td><td>Walmex（好調）</td></tr>
-            <tr><td>🇮🇳 インド</td><td>~4%</td><td>Flipkart</td></tr>
-            <tr><td>🇨🇳 中国</td><td>~4%</td><td>強い成長</td></tr>
-            <tr><td>🌏 その他</td><td>~3%</td><td>カナダ、チリ等</td></tr>
-          </tbody>
-        </table>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body">売上の<strong>約82%が米国</strong>に集中する構造。International は CC ベースで +7.5% と堅調だが、為替影響を除くと報告ベースでは若干圧縮される。中国・メキシコ・インド（Flipkart）の3地域が International の成長を牽引し、営業利益は CC +26% と大幅改善。</div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Company Overview -->
-<div class="section" id="sec-overview" data-accordion>
-  <div class="section-title"><span class="section-icon">🏬</span> 企業概要</div>
-  <div class="section-body">
-    <div class="overview-grid">
-      <div class="overview-item"><div class="overview-label">設立</div><div class="overview-value">1962年</div></div>
-      <div class="overview-item"><div class="overview-label">本社</div><div class="overview-value">Bentonville, Arkansas</div></div>
-      <div class="overview-item"><div class="overview-label">CEO</div><div class="overview-value">John Furner（2026年2月〜）</div></div>
-      <div class="overview-item"><div class="overview-label">従業員数</div><div class="overview-value">約210万人</div></div>
-      <div class="overview-item"><div class="overview-label">店舗数</div><div class="overview-value">10,900+（19カ国）</div></div>
-      <div class="overview-item"><div class="overview-label">週間来客数</div><div class="overview-value">約2.8億人</div></div>
-      <div class="overview-item"><div class="overview-label">時価総額</div><div class="overview-value">$1.01T（2026/3/18）</div></div>
-      <div class="overview-item"><div class="overview-label">52週レンジ</div><div class="overview-value">$79.81 〜 $134.69</div></div>
+<!-- Cash Flow -->
+<section class="sec3" data-accordion id="sec-cashflow">
+  <div class="sec3-title">Cash Flow <span class="jp">· キャッシュフロー（FY2026通期）</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx">
+        <div class="cardx-lbl">営業CF</div>
+        <div class="cardx-val pos">$41.6B</div>
+        <div class="cardx-sub">YoY +$5.1B</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">設備投資</div>
+        <div class="cardx-val neu">$26.7B</div>
+        <div class="cardx-sub">営業CF - FCF ベース</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">FCF</div>
+        <div class="cardx-val pos">$14.9B</div>
+        <div class="cardx-sub">YoY +$2.3B</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">FCFマージン</div>
+        <div class="cardx-val neu">2.1%</div>
+        <div class="cardx-sub">$14.9B / $713B</div>
+      </div>
     </div>
-    <div style="margin-top:16px;font-size:.85em;color:var(--text-sub)">
-      <strong>ビジネスモデル:</strong> 「Everyday Low Price（EDLP）」を基盤とした世界最大の小売企業。店舗小売に加え、eコマース（全体の23%）、広告プラットフォーム（Walmart Connect）、メンバーシップ（Walmart+、Sam's Club）、マーケットプレイス、フルフィルメントサービスを展開。近年は高マージンのデジタル事業が急成長し、テック企業としての再評価が進行中。<br><br>
-      <strong>競争優位性（モート）:</strong> ①圧倒的なスケール（年商$713B）による仕入コスト優位、②210+配送センターのサプライチェーン網、③10,900+店舗のラストマイル優位、④高所得層の取り込みに成功したオムニチャネル戦略。
+    <div class="tbl" style="margin-top:16px">
+      <table style="width:100%;border-collapse:collapse;font-size:.85rem">
+        <tr><td style="color:var(--t2);padding:10px 14px;border-bottom:1px solid var(--border)">Net Debt</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">$56.4B</td></tr>
+        <tr><td style="color:var(--t2);padding:10px 14px;border-bottom:1px solid var(--border)">手元現金</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">$10.7B</td></tr>
+        <tr><td style="color:var(--t2);padding:10px 14px;border-bottom:1px solid var(--border)">Net Debt / EBITDA</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">1.2x（健全）</td></tr>
+        <tr><td style="color:var(--t2);padding:10px 14px;border-bottom:1px solid var(--border)">自社株買い</td><td style="padding:10px 14px;border-bottom:1px solid var(--border)">$30B（新規承認）</td></tr>
+      </table>
     </div>
   </div>
-</div>
+</section>
 
 <!-- Technical -->
-<div class="section" id="sec-technical" data-accordion>
-  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
-  <div class="section-body">
-    <div class="tech-grid">
-      <div class="tech-card">
-        <div class="tech-label">RSI (14日)</div>
-        <div class="tech-value" style="color:var(--yellow)">67.6</div>
-        <div style="font-size:.7em;color:var(--text-sub)">中立〜やや過熱</div>
+<section class="sec3" data-accordion id="sec-technical">
+  <div class="sec3-title">Technical <span class="jp">· テクニカル分析</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">現在株価</div>
+        <div class="cardx-val pos">$125.08</div>
+        <div class="cardx-sub">52週高値圏で推移</div>
       </div>
-      <div class="tech-card">
-        <div class="tech-label">MACD</div>
-        <div class="tech-value" style="color:var(--green)">強気</div>
-        <div style="font-size:.7em;color:var(--text-sub)">シグナル線上</div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">52週レンジ</div>
+        <div class="cardx-val neu">$79.81 – $134.69</div>
+        <div class="cardx-sub">上位73%に位置</div>
       </div>
-      <div class="tech-card">
-        <div class="tech-label">総合判定</div>
-        <div class="tech-value" style="color:var(--green)">強気</div>
-        <div style="font-size:.7em;color:var(--text-sub)">Buy</div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">RSI（14日）</div>
+        <div class="cardx-val gold">67.6</div>
+        <div class="cardx-sub">中立〜やや過熱</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">MACD</div>
+        <div class="cardx-val pos">強気</div>
+        <div class="cardx-sub">シグナル線上</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">SMA（50日）</div>
+        <div class="cardx-val pos">$110.84</div>
+        <div class="cardx-sub">株価上方 → 買いシグナル</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">EMA（200日）</div>
+        <div class="cardx-val pos">$101.38</div>
+        <div class="cardx-sub">株価上方 → 長期上昇トレンド</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">サポート</div>
+        <div class="cardx-val neu">$110 / $100</div>
+        <div class="cardx-sub">50日SMA / 心理的節目</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">レジスタンス</div>
+        <div class="cardx-val gold">$134.69</div>
+        <div class="cardx-sub">52週高値 → 上抜けで青天井</div>
       </div>
     </div>
-
-    <table class="tech-table" style="margin-top:16px">
-      <thead><tr><th>移動平均線</th><th>値</th><th>vs 株価</th><th>シグナル</th></tr></thead>
-      <tbody>
-        <tr><td>SMA (50日)</td><td>$110.84</td><td>株価上方</td><td><span class="tag tag-green">買い</span></td></tr>
-        <tr><td>SMA (100日)</td><td>~$106</td><td>株価上方</td><td><span class="tag tag-green">買い</span></td></tr>
-        <tr><td>EMA (200日)</td><td>$101.38</td><td>株価上方</td><td><span class="tag tag-green">買い</span></td></tr>
-      </tbody>
-    </table>
-
-    <table class="tech-table" style="margin-top:16px">
-      <thead><tr><th>指標</th><th>分析</th></tr></thead>
-      <tbody>
-        <tr><td>トレンド</td><td>短期・中期・長期すべて上昇トレンド。52週高値圏で推移。</td></tr>
-        <tr><td>サポート</td><td>$110（50日SMA）、$100（心理的節目）</td></tr>
-        <tr><td>レジスタンス</td><td>$134.69（52週高値）→ 上抜けで青天井</td></tr>
-        <tr><td>出来高</td><td>平均日量6,380万株。決算後に出来高増加。</td></tr>
-        <tr><td>パターン</td><td>上昇チャネル継続。50日SMAが200日SMAを大きく上回るゴールデンクロス状態。</td></tr>
-      </tbody>
-    </table>
-
-    <div style="margin-top:20px">
+    <div class="insight no-currency" style="margin-top:14px">
+      <div class="insight-body"><strong>総合判定: 強気（Buy）</strong> — 短期・中期・長期すべて上昇トレンド。50日SMA が 200日SMA を大きく上回るゴールデンクロス状態が継続。RSI 67.6 はやや過熱圏だが、強い上昇局面では70-80で推移することも多い。上昇チャネル継続中で、平均日量6,380万株の安定した出来高が支持。決算後に出来高増加し、機関投資家の関心の高さを示唆。</div>
+    </div>
+    <div class="chart-box" style="padding:16px;margin-top:16px">
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
         {
           "autosize": false,
           "width": 1100,
-          "height": 750,
-          "symbol": "NASDAQ:WMT",
+          "height": 680,
+          "symbol": "NYSE:WMT",
           "interval": "D",
           "timezone": "Asia/Tokyo",
           "theme": "dark",
           "style": "1",
           "locale": "ja",
-          "backgroundColor": "rgba(13, 17, 23, 1)",
-          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "backgroundColor": "rgba(15, 24, 41, 1)",
+          "gridColor": "rgba(184, 145, 42, 0.08)",
           "range": "6M",
           "hide_top_toolbar": false,
           "hide_legend": false,
@@ -825,131 +1173,227 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Management Comments -->
-<div class="section" id="sec-mgmt" data-accordion>
-  <div class="section-title"><span class="section-icon">🎙️</span> 経営陣コメントハイライト</div>
-  <div class="section-body">
-    <div class="mgmt-quote">
-      <div class="mgmt-speaker">John Furner — CEO（2026年2月就任）</div>
-      eコマースと広告事業がWalmartの成長エンジンとして加速。グローバルeコマースは前年比24%成長し、全体売上の23%を占めるまでに拡大。広告プラットフォーム「Walmart Connect」は米国で41%成長を記録。
+<!-- Management Commentary -->
+<section class="sec3" data-accordion id="sec-mgmt">
+  <div class="sec3-title">Management <span class="jp">· 経営陣コメント</span></div>
+  <div class="sec3-body">
+    <div class="pullq">
+      <div class="pullq-body">eコマースと広告事業がWalmartの成長エンジンとして加速。グローバルeコマースは<strong>前年比24%成長</strong>し、全体売上の23%を占めるまでに拡大。広告プラットフォーム「Walmart Connect」は<strong>米国で41%成長</strong>を記録。</div>
+      <div class="pullq-attr">John Furner<span class="role">/ CEO（2026年2月就任）</span></div>
     </div>
-    <div class="mgmt-quote">
-      <div class="mgmt-speaker">John David Rainey — CFO</div>
-      「hiring recession（採用不況）」の兆候を指摘。学生ローン延滞率の上昇や貿易政策の不透明感を懸念材料として挙げ、FY2027の慎重なガイダンスの根拠とした。一方で、営業利益が3年連続で売上を上回るペースで成長していることを強調。
+    <div class="pullq">
+      <div class="pullq-body"><strong>「hiring recession（採用不況）」</strong>の兆候を指摘。学生ローン延滞率の上昇や貿易政策の不透明感を懸念材料として挙げ、FY2027の慎重なガイダンスの根拠とした。一方で、営業利益が<strong>3年連続で売上を上回るペース</strong>で成長していることを強調。</div>
+      <div class="pullq-attr">John David Rainey<span class="role">/ CFO</span></div>
     </div>
-    <div class="mgmt-quote">
-      <div class="mgmt-speaker">成長戦略のハイライト</div>
-      ・メンバーシップ収入: グローバルで+15.1%成長<br>
-      ・マーケットプレイス: 第三者販売が急拡大、GMV大幅増<br>
-      ・$30Bの新規自社株買いプログラムを発表<br>
-      ・高所得層（年収$100K+）の顧客獲得に成功、市場シェア拡大<br>
-      ・International: 中国・Walmex・Flipkartが牽引、営業利益+26% CC
+    <div class="pullq">
+      <div class="pullq-body">メンバーシップ収入はグローバルで<strong>+15.1%成長</strong>。マーケットプレイスの第三者販売が急拡大し、GMV大幅増。<strong>$30Bの新規自社株買い</strong>プログラムを発表。高所得層（年収$100K+）の顧客獲得に成功、市場シェア拡大。</div>
+      <div class="pullq-attr">経営陣<span class="role">/ Earnings Call 成長戦略ハイライト</span></div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Risk / Catalyst -->
-<div class="section" id="sec-risk" data-accordion>
-  <div class="section-title"><span class="section-icon">⚡</span> リスク・カタリスト</div>
-  <div class="section-body">
-    <div class="rc-grid">
-      <div class="rc-card">
-        <div class="rc-title" style="color:var(--red)">⚠️ リスク要因</div>
-        <div class="rc-item">🔸 FY2027ガイダンスがコンセンサス下回る（EPS -4.8%）</div>
-        <div class="rc-item">🔸 関税政策の不透明感（FY2026 Q2以降の影響）</div>
-        <div class="rc-item">🔸 消費者支出の減速懸念（「hiring recession」）</div>
-        <div class="rc-item">🔸 バリュエーション高止まり（Trailing PER ~46x）</div>
-        <div class="rc-item">🔸 インサイダー売りが継続（過去1年77件、買いゼロ）</div>
-        <div class="rc-item">🔸 粗利益率の改善余地が限定的（24.7%で横ばい）</div>
-        <div class="rc-item">🔸 International営業利益がFY2026通期で-7.2%</div>
+<!-- Risk & Catalyst -->
+<section class="sec3" data-accordion id="sec-risk">
+  <div class="sec3-title">Risk & Catalyst <span class="jp">· リスク・注目ポイント / カタリスト</span></div>
+  <div class="sec3-body">
+    <div class="risk-grid">
+      <div class="risk-card">
+        <h4>Positive Catalysts</h4>
+        <ul class="risk-top">
+          <li>eコマース +24%成長が7四半期連続で +20%超、デジタル化加速</li>
+          <li>Walmart Connect 広告事業が高マージンで +37%成長</li>
+          <li>営業利益成長率が3年連続で売上成長を超過、収益の質が向上</li>
+        </ul>
+        <ul class="risk-more">
+          <li>メンバーシップ収入 +15.1% で安定的なリカーリング収益</li>
+          <li>高所得層（年収$100K+）の顧客取り込みに成功、市場シェア拡大</li>
+          <li>$30B 自社株買いプログラムの株主還元</li>
+          <li>時価総額 $1T 到達、ディフェンシブ銘柄として評価</li>
+        </ul>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに4件を表示</span><span class="chev">▾</span></button>
       </div>
-      <div class="rc-card">
-        <div class="rc-title" style="color:var(--green)">🚀 ポジティブカタリスト</div>
-        <div class="rc-item">🟢 eコマース24%成長が7四半期連続で+20%超</div>
-        <div class="rc-item">🟢 広告事業（Walmart Connect）が高マージンで+37%成長</div>
-        <div class="rc-item">🟢 メンバーシップ収入+15.1%で安定的なリカーリング収益</div>
-        <div class="rc-item">🟢 高所得層の顧客取り込みに成功、市場シェア拡大</div>
-        <div class="rc-item">🟢 $30B自社株買いプログラムの株主還元</div>
-        <div class="rc-item">🟢 営業利益成長率が3年連続で売上成長を超過</div>
-        <div class="rc-item">🟢 時価総額$1T到達、ディフェンシブ銘柄として評価</div>
+      <div class="risk-card">
+        <h4>Risk Factors</h4>
+        <ul class="risk-top">
+          <li>FY2027 ガイダンスがコンセンサスを下回る（EPS -4.8%）</li>
+          <li>関税政策の不透明感（FY2026 Q2以降の影響懸念）</li>
+          <li>消費者支出の減速懸念（CFO「hiring recession」発言）</li>
+        </ul>
+        <ul class="risk-more">
+          <li>バリュエーション高止まり（Trailing PER ~46x）</li>
+          <li>インサイダー売りが継続（過去1年77件、買いゼロ）</li>
+          <li>粗利益率の改善余地が限定的（24.7%で横ばい）</li>
+          <li>International 営業利益が FY2026 通期で -7.2%</li>
+        </ul>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに4件を表示</span><span class="chev">▾</span></button>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- Previous Comparison -->
-<div class="section" id="sec-compare" data-accordion>
-  <div class="section-title"><span class="section-icon">🔄</span> 前回決算との比較サマリー</div>
-  <div class="section-body">
-    <table class="compare-table">
-      <thead><tr><th>指標</th><th>Q3 FY2026</th><th>Q4 FY2026</th><th>トレンド</th></tr></thead>
+<!-- Compare -->
+<section class="sec3" data-accordion id="sec-compare">
+  <div class="sec3-title">QoQ Compare <span class="jp">· 前回決算（Q3 FY2026）との比較</span></div>
+  <div class="sec3-body">
+    <table class="cmp-tbl">
+      <thead><tr><th>指標</th><th>Q3 FY2026</th><th>Q4 FY2026</th><th>変化</th></tr></thead>
       <tbody>
-        <tr><td>売上高</td><td>$179.5B</td><td>$190.7B</td><td><span class="tag tag-green">↑ 季節性＋成長</span></td></tr>
-        <tr><td>Adj. EPS</td><td>$0.62</td><td>$0.74</td><td><span class="tag tag-green">↑ +19.4% QoQ</span></td></tr>
-        <tr><td>YoY売上成長</td><td>+5.8%</td><td>+5.6%</td><td><span class="tag tag-yellow">→ 安定</span></td></tr>
-        <tr><td>eComm成長</td><td>+27%</td><td>+24%</td><td><span class="tag tag-yellow">→ やや減速</span></td></tr>
-        <tr><td>Comp Sales (US)</td><td>+4.5%</td><td>+4.6%</td><td><span class="tag tag-green">→ 安定</span></td></tr>
-        <tr><td>ガイダンス</td><td>FY2026上方修正</td><td>FY2027慎重</td><td><span class="tag tag-red">↓ トーン弱化</span></td></tr>
+        <tr><td>売上高</td><td>$179.5B</td><td>$190.7B</td><td class="pos">+6.2% QoQ（季節性＋成長）</td></tr>
+        <tr><td>Adj. EPS</td><td>$0.62</td><td>$0.74</td><td class="pos">+19.4% QoQ</td></tr>
+        <tr><td>YoY 売上成長</td><td>+5.8%</td><td>+5.6%</td><td class="neu">安定</td></tr>
+        <tr><td>eComm 成長率</td><td>+27%</td><td>+24%</td><td class="neu">やや減速</td></tr>
+        <tr><td>Comp Sales (US)</td><td>+4.5%</td><td>+4.6%</td><td class="pos">微改善</td></tr>
+        <tr><td>広告 (WMC Global)</td><td>—</td><td>+37%</td><td class="pos">高成長継続</td></tr>
+        <tr><td>ガイダンス</td><td>FY2026 上方修正</td><td>FY2027 慎重</td><td class="neg">トーン弱化</td></tr>
+        <tr><td>市場反応</td><td>好感</td><td>ネガティブ</td><td class="neg">ガイダンス失望</td></tr>
       </tbody>
     </table>
-    <div style="margin-top:12px;font-size:.85em;color:var(--text-sub)">
-      <strong>前回スコア:</strong> DB初回登録のため比較なし<br>
-      <strong>変化の主要因:</strong> Q4実績は季節性もあり強力だが、FY2027ガイダンスが市場期待を下回ったことがセンチメントの転換点。eコマース成長率はQ3の+27%からQ4は+24%とわずかに減速。
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body"><strong>トレンド方向: 実績堅調 → ガイダンスで転換点</strong> — Q4 実績は季節性もあり強力だが、FY2027 ガイダンスが市場期待を下回ったことがセンチメントの転換点。eコマース成長率は Q3 の +27% から Q4 は +24% とわずかに減速。前回スコアは DB 初回登録のため比較なし。</div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- Valuation -->
-<div class="section" id="sec-valuation" data-accordion>
-  <div class="section-title"><span class="section-icon">💎</span> バリュエーション</div>
-  <div class="section-body">
-    <div style="margin-bottom:16px;font-size:.85em;color:var(--text-sub)">
-      計算式: 想定株価 = FY2027 Forward EPS × 予想PER ｜ 現在株価: <strong style="color:var(--text)">$125.08</strong>
-    </div>
-    <div class="val-cards">
-      <div class="val-card low">
-        <div class="val-scenario" style="color:var(--green)">LOW（保守的）</div>
-        <div class="val-price" style="color:var(--green)">$68.75</div>
-        <div class="val-detail">EPS $2.75 × PER 25x</div>
-        <div class="val-detail">ガイダンスLow端 × 過去5年PER下限</div>
-        <div class="val-gap" style="color:var(--red)">乖離率: -45.1%</div>
+<section class="sec3" data-accordion id="sec-valuation">
+  <div class="sec3-title">Valuation <span class="jp">· 想定株価 3パターン</span></div>
+  <div class="sec3-body">
+    <div class="val-grid no-currency">
+      <div class="val-card">
+        <div class="val-scn">LOW — 保守的</div>
+        <div class="val-price">$68.75</div>
+        <div class="val-detail">EPS $2.75（ガイダンスLow端）<br>× PER 25x（過去5年下限）</div>
+        <div class="val-gap neg">現在株価比 -45.1%</div>
       </div>
-      <div class="val-card mid">
-        <div class="val-scenario" style="color:var(--blue)">MID（基本）</div>
-        <div class="val-price" style="color:var(--blue)">$97.02</div>
-        <div class="val-detail">EPS $2.94 × PER 33x</div>
-        <div class="val-detail">コンセンサス × 過去5年PER中央値</div>
-        <div class="val-gap" style="color:var(--red)">乖離率: -22.4%</div>
+      <div class="val-card">
+        <div class="val-scn">MID — 基本</div>
+        <div class="val-price">$97.02</div>
+        <div class="val-detail">EPS $2.94（コンセンサス）<br>× PER 33x（過去5年中央値）</div>
+        <div class="val-gap neg">現在株価比 -22.4%</div>
       </div>
-      <div class="val-card high">
-        <div class="val-scenario" style="color:var(--purple)">HIGH（楽観的）</div>
-        <div class="val-price" style="color:var(--purple)">$142.60</div>
-        <div class="val-detail">EPS $3.10 × PER 46x</div>
-        <div class="val-detail">楽観予想 × 過去5年PER上限</div>
-        <div class="val-gap" style="color:var(--green)">乖離率: +14.0%</div>
+      <div class="val-card">
+        <div class="val-scn">HIGH — 楽観的</div>
+        <div class="val-price">$142.60</div>
+        <div class="val-detail">EPS $3.10（楽観予想）<br>× PER 46x（過去5年上限）</div>
+        <div class="val-gap pos">現在株価比 +14.0%</div>
       </div>
     </div>
-    <div style="margin-top:16px;text-align:center">
-      <span class="tag tag-red" style="font-size:1em;padding:8px 20px">MIDベース判定: やや割高</span>
+
+    <!-- Valuation Gauge -->
+    <div class="panel-merge no-currency" style="margin-top:18px">
+      <div class="val-gauge">
+        <div class="val-gauge-title">Price Position · 現在株価の位置</div>
+        <div class="val-gauge-track">
+          <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$68.75</div></div>
+          <div class="val-gauge-mark" style="left:38.3%"><div class="lbl">MID</div><div class="amt">$97.02</div></div>
+          <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$142.60</div></div>
+          <div class="val-gauge-current" style="left:76.2%"><div class="cur-label">現在 $125.08</div></div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body"><strong>読み解き:</strong> MID 想定株価 $97.02 vs 現在株価 $125.08（乖離率 -22.4%）で、<strong>「やや割高」</strong>ゾーン。現在の Trailing PER ~46x は過去5年中央値（33x）を大幅に上回る水準。eコマース・広告・メンバーシップの高成長が「テック企業プレミアム」を正当化しているが、ガイダンス慎重化によりプレミアムの持続性に疑問符。アナリスト平均目標株価は $136.02（高値 $150 / 安値 $62）。</div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="val-reminder">
+        <strong>これは判断の道具です、判断そのものではありません。</strong>3シナリオの想定株価は、FY2027 EPS予想と過去PERレンジから機械的に導出された<strong>考えるための座標</strong>であり、買い推奨・売り推奨ではありません。読者自身が前提（EPS・PER・シナリオ確率）を吟味した上で、ご自身の判断の一助としてお使いください。
+      </div>
     </div>
-    <div style="margin-top:16px;font-size:.82em;color:var(--text-sub)">
-      現在のTrailing PER ~46xは過去5年中央値（33x）を大幅に上回る水準。eコマース・広告・メンバーシップの高成長が「テック企業プレミアム」を正当化しているが、ガイダンス慎重化によりプレミアムの持続性に疑問符。アナリスト平均目標株価は$136.02。
+  </div>
+</section>
+
+<!-- NTM -->
+<section class="sec3" data-accordion id="sec-ntm">
+  <div class="sec3-title">NTM Fair Value <span class="jp">· NTM想定株価（参考指標）</span></div>
+  <div class="sec3-body">
+    <div class="ntm-calc no-currency">
+      <div class="ntm-row">
+        <div class="ntm-cell">
+          <div class="ntm-lbl">NTM EPS</div>
+          <div class="ntm-val">$2.94</div>
+          <div class="ntm-sub">FY2027 コンセンサス</div>
+        </div>
+        <div class="ntm-op">×</div>
+        <div class="ntm-cell">
+          <div class="ntm-lbl">過去3年平均 Forward PER</div>
+          <div class="ntm-val">33x</div>
+          <div class="ntm-sub">2023-2025 平均</div>
+        </div>
+        <div class="ntm-op">=</div>
+        <div class="ntm-cell">
+          <div class="ntm-lbl">想定株価</div>
+          <div class="ntm-val goal">$97.02</div>
+          <div class="ntm-sub">NTM Fair Value</div>
+        </div>
+      </div>
+      <div class="ntm-foot">
+        <div class="ntm-foot-cell">
+          <div class="lbl">現株価</div>
+          <div class="val">$125.08</div>
+        </div>
+        <div class="ntm-foot-cell">
+          <div class="lbl">乖離率</div>
+          <div class="val neg">-22.4%</div>
+        </div>
+        <div class="ntm-foot-cell">
+          <div class="lbl">判定</div>
+          <div class="val neg">やや割高</div>
+        </div>
+      </div>
     </div>
-    <table class="tbl" style="margin-top:12px">
-      <tr><td style="color:var(--text-sub)">Trailing PER</td><td>~46x</td></tr>
-      <tr><td style="color:var(--text-sub)">Forward PER</td><td>~43x</td></tr>
-      <tr><td style="color:var(--text-sub)">アナリスト目標株価</td><td>$136.02（高値$150 / 安値$62）</td></tr>
-      <tr><td style="color:var(--text-sub)">レーティング</td><td>Strong Buy（31アナリスト中39人が買い推奨）</td></tr>
-      <tr><td style="color:var(--text-sub)">Short Interest</td><td>95.8M株（1.2%）/ Days to Cover: 1.5</td></tr>
-    </table>
+  </div>
+</section>
+
+<!-- Analysts -->
+<section class="sec3" data-accordion id="sec-analysts">
+  <div class="sec3-title">Analysts <span class="jp">· アナリスト評価</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">レーティング</div>
+        <div class="cardx-val pos">Strong Buy</div>
+        <div class="cardx-sub">31アナリスト中39人が買い推奨</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">平均目標株価</div>
+        <div class="cardx-val pos">$136.02</div>
+        <div class="cardx-sub">現在株価から +8.7% 上振れ余地</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">目標株価レンジ</div>
+        <div class="cardx-val neu">$62 – $150</div>
+        <div class="cardx-sub">安値派〜強気派</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">Short Interest</div>
+        <div class="cardx-val neu">95.8M株</div>
+        <div class="cardx-sub">1.2% / Days to Cover: 1.5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+  <p>
+    本レポートは公開情報（Walmart FY2026 Q4 Earnings Release 等）に基づく分析であり、<strong>投資助言を目的としたものではありません</strong>。<br>
+    数字は判断の材料を提供しますが、判断そのものは読者ご自身が行うものです。<br>
+    投資判断はご自身の責任で行ってください。
+  </p>
+  <div class="footer-id">
+    Walmart Inc. (NYSE: WMT) ｜ FY2026 Q4 ｜ Atlas Quarterly<br>
+    生成日: 2026年3月18日
   </div>
 </div>
 
-</div><!-- .container -->
+<!-- Atlas Floating Tools -->
+<div class="atlas-floating-tools">
+  <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
+  <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
+</div>
 
-<!-- Portal Link -->
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">
   <div class="toc-menu" id="tocMenu">
@@ -958,178 +1402,61 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
     </div>
     <ul class="toc-list">
-      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon">📊</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
-      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率トレンド</span></a></li>
-      <li><a href="#sec-consensus" onclick="tocJump('sec-consensus')"><span class="toc-icon">🎯</span><span class="toc-label">コンセンサス比較</span></a></li>
-      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
-      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span class="toc-icon">🏢</span><span class="toc-label">部門別売上構成</span></a></li>
-      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon">🌍</span><span class="toc-label">地域別売上構成</span></a></li>
-      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏬</span><span class="toc-label">企業概要</span></a></li>
-      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
-      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎙️</span><span class="toc-label">経営陣コメント</span></a></li>
-      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・カタリスト</span></a></li>
-      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon">🔄</span><span class="toc-label">前回決算比較</span></a></li>
-      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
+      <li><a href="#sec-metrics" onclick="tocJump('sec-metrics')"><span>Key Metrics</span></a></li>
+      <li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span>売上高 / EPS 7Q推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span>利益率トレンド</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span>部門別売上構成</span></a></li>
+      <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span>地域別売上構成</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span>キャッシュフロー</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span>テクニカル分析</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span>経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span>リスク・カタリスト</span></a></li>
+      <li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span>前回決算比較</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span>バリュエーション</span></a></li>
+      <li><a href="#sec-ntm" onclick="tocJump('sec-ntm')"><span>NTM想定株価</span></a></li>
+      <li><a href="#sec-analysts" onclick="tocJump('sec-analysts')"><span>アナリスト評価</span></a></li>
     </ul>
   </div>
 </nav>
 <button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
 
 <script>
-// === Charts ===
-var quarters = ['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'];
-var revData = [169.3,169.6,180.6,165.6,177.4,179.5,190.7];
-var epsData = [0.67,0.58,0.66,0.61,0.68,0.62,0.74];
-
-var chartDefaults = {
-  color:'#e6edf3',
-  borderColor:'#30363d',
-  font:{family:'Noto Sans JP'}
-};
-
-// Revenue Chart
-new Chart(document.getElementById('revenueChart'),{
-  type:'bar',
-  data:{
-    labels:quarters,
-    datasets:[{
-      label:'売上高 ($B)',
-      data:revData,
-      backgroundColor:revData.map(function(v,i){return i===6?'rgba(88,166,255,.8)':'rgba(88,166,255,.4)'}),
-      borderColor:'rgba(88,166,255,.9)',
-      borderWidth:1,
-      borderRadius:4
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},
-      tooltip:{callbacks:{label:function(c){return '$'+c.raw+'B'}}}
-    },
-    scales:{
-      x:{ticks:{color:'#8b949e'},grid:{display:false}},
-      y:{ticks:{color:'#8b949e',callback:function(v){return '$'+v+'B'}},grid:{color:'rgba(48,54,61,.3)'},beginAtZero:false,min:150}
-    }
-  }
-});
-
-// EPS Chart
-new Chart(document.getElementById('epsChart'),{
-  type:'bar',
-  data:{
-    labels:quarters,
-    datasets:[{
-      label:'Adj. EPS ($)',
-      data:epsData,
-      backgroundColor:epsData.map(function(v,i){return i===6?'rgba(46,160,67,.8)':'rgba(46,160,67,.4)'}),
-      borderColor:'rgba(46,160,67,.9)',
-      borderWidth:1,
-      borderRadius:4
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},
-      tooltip:{callbacks:{label:function(c){return '$'+c.raw}}}
-    },
-    scales:{
-      x:{ticks:{color:'#8b949e'},grid:{display:false}},
-      y:{ticks:{color:'#8b949e',callback:function(v){return '$'+v}},grid:{color:'rgba(48,54,61,.3)'},beginAtZero:false,min:0.4}
-    }
-  }
-});
-
-// Segment Chart
-new Chart(document.getElementById('segmentChart'),{
-  type:'doughnut',
-  data:{
-    labels:['Walmart U.S.','International','Sam\'s Club'],
-    datasets:[{
-      data:[129.2,34.6,23.8],
-      backgroundColor:['rgba(88,166,255,.7)','rgba(46,160,67,.7)','rgba(210,153,34,.7)'],
-      borderColor:'#161b22',borderWidth:3
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'bottom',labels:{color:'#e6edf3',padding:16,font:{size:12}}},
-      tooltip:{callbacks:{label:function(c){return c.label+': $'+c.raw+'B ('+Math.round(c.raw/187.6*100)+'%)'}}}
-    }
-  }
-});
-
-// Geo Chart
-new Chart(document.getElementById('geoChart'),{
-  type:'doughnut',
-  data:{
-    labels:['米国','メキシコ/中米','インド','中国','その他'],
-    datasets:[{
-      data:[82,7,4,4,3],
-      backgroundColor:['rgba(88,166,255,.7)','rgba(46,160,67,.7)','rgba(210,153,34,.7)','rgba(248,81,73,.6)','rgba(188,140,255,.6)'],
-      borderColor:'#161b22',borderWidth:3
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{position:'bottom',labels:{color:'#e6edf3',padding:12,font:{size:11}}},
-      tooltip:{callbacks:{label:function(c){return c.label+': '+c.raw+'%'}}}
-    }
-  }
-});
-
-// === Accordion ===
+// ── Accordion ──
 var touchStartY=0,touchStartX=0,touchStartTime=0;
 function toggleAccordion(sec){
-  if(!sec) return;
+  if(!sec)return;
   var isCollapsed=sec.classList.contains('collapsed');
+  var body=sec.querySelector('.section-body')||sec.querySelector('.sec3-body');
+  if(!body)return;
   if(isCollapsed){
     sec.classList.remove('collapsed');
     sec.classList.add('collapsing');
-    var body=sec.querySelector('.section-body');
-    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd)};
+    var onEnd=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd);};
     body.addEventListener('transitionend',onEnd);
-    setTimeout(function(){sec.classList.remove('collapsing')},400);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
   }else{
     sec.classList.add('collapsing','collapsed');
-    var body2=sec.querySelector('.section-body');
-    var onEnd2=function(){sec.classList.remove('collapsing');body2.removeEventListener('transitionend',onEnd2)};
-    body2.addEventListener('transitionend',onEnd2);
-    setTimeout(function(){sec.classList.remove('collapsing')},400);
+    var onEnd2=function(){sec.classList.remove('collapsing');body.removeEventListener('transitionend',onEnd2);};
+    body.addEventListener('transitionend',onEnd2);
+    setTimeout(function(){sec.classList.remove('collapsing');},400);
   }
 }
-document.querySelectorAll('[data-accordion] .section-title').forEach(function(title){
-  title.addEventListener('touchstart',function(e){
-    touchStartY=e.touches[0].clientY;
-    touchStartX=e.touches[0].clientX;
-    touchStartTime=Date.now();
-  },{passive:true});
+document.querySelectorAll('[data-accordion] .section-title,[data-accordion] .sec3-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
   title.addEventListener('touchend',function(e){
     var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);
     var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);
     var dt=Date.now()-touchStartTime;
-    if(dy<10&&dx<10&&dt<300){
-      e.preventDefault();
-      toggleAccordion(this.closest('[data-accordion]'));
-    }
+    if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}
   });
   title.addEventListener('click',function(e){
-    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents) return;
-    if(window.matchMedia('(pointer:fine)').matches){
-      toggleAccordion(this.closest('[data-accordion]'));
-    }
+    if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;
+    if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}
   });
 });
-(function(){
-  if(window.innerWidth<=768){
-    document.querySelectorAll('[data-accordion]').forEach(function(sec){
-      sec.classList.add('collapsed');
-    });
-  }
-})();
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
 
-// === TOC ===
+// ── TOC ──
 function toggleToc(){
   var menu=document.getElementById('tocMenu');
   var btn=document.getElementById('tocToggle');
@@ -1139,658 +1466,278 @@ function toggleToc(){
 }
 function tocJump(id){
   var sec=document.getElementById(id);
-  if(sec){
-    sec.classList.remove('collapsed');
-    toggleToc();
-    setTimeout(function(){
-      sec.scrollIntoView({behavior:'smooth',block:'start'});
-    },100);
-  }
+  if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}
 }
 function toggleAllSections(expand){
   document.querySelectorAll('[data-accordion]').forEach(function(sec){
-    if(expand) sec.classList.remove('collapsed');
-    else sec.classList.add('collapsed');
+    if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');
   });
 }
+
+// ── Overview ──
+function toggleOverview(){
+  var dd=document.getElementById('ovDrop');
+  var btn=document.getElementById('ovBtn');
+  if(!dd||!btn)return;
+  dd.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+// ── Risk/Catalyst accordion ──
+function toggleRisk(btn){
+  var card=btn.closest('.risk-card');
+  if(!card)return;
+  card.classList.toggle('expanded');
+  var lbl=btn.querySelector('.lbl');
+  if(lbl){
+    var hiddenCount=card.querySelectorAll('.risk-more li').length;
+    lbl.textContent=card.classList.contains('expanded')?'閉じる':'さらに'+hiddenCount+'件を表示';
+  }
+}
+
+// ── Tooltip ──
+function tipToggle(el){
+  if(!window.matchMedia('(pointer:coarse)').matches)return;
+  var open=el.getAttribute('data-open')==='1';
+  document.querySelectorAll('.info[data-open="1"]').forEach(function(e){e.removeAttribute('data-open');});
+  if(!open)el.setAttribute('data-open','1');
+  event.stopPropagation();
+}
+document.addEventListener('click',function(e){
+  if(!e.target.classList||!e.target.classList.contains('info')){
+    document.querySelectorAll('.info[data-open="1"]').forEach(function(e){e.removeAttribute('data-open');});
+  }
+});
 </script>
+
+<!-- Currency Toggle -->
 <script>
-
-
-</script>
-
-<!-- ATLAS_PHASE_A_V1 begin -->
-<style>
-/* === Atlas Floating Tools (Phase A V1 — currency + theme) === */
-.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;transition:all .15s;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:600;white-space:nowrap}
-.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
-.atlas-floating-tools .currency-toggle .cur-active{color:#D4A843;font-weight:800}
-.atlas-floating-tools .currency-toggle .cur-inactive{color:inherit;opacity:.5}
-.atlas-floating-tools .currency-toggle .cur-sep{opacity:.35;margin:0 1px;font-weight:400}
-.atlas-floating-tools .currency-toggle.jpy-mode,.atlas-floating-tools .currency-toggle.local-mode{border-color:rgba(184,145,42,0.6);background:rgba(184,145,42,0.12)}
-.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
-.cur-val{transition:color .2s}
-.cur-val.jpy-mode,.cur-val.local-mode{color:#D4A843;font-weight:700}
-
-/* === Light Theme Overrides === */
-html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
-html[data-theme="light"] .container,html[data-theme="light"] .section,html[data-theme="light"] .card,html[data-theme="light"] .kpi-card,html[data-theme="light"] .metric-card,html[data-theme="light"] .risk-card,html[data-theme="light"] .news-card{background:#FDFCFA!important;border-color:rgba(26,37,64,0.12)!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
-html[data-theme="light"] .header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
-html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3,html[data-theme="light"] h4{color:#1A2540!important}
-html[data-theme="light"] .header h1,html[data-theme="light"] .header h2,html[data-theme="light"] .header h3,html[data-theme="light"] .header *{color:#F5F2EC!important}
-html[data-theme="light"] .header .subtitle,html[data-theme="light"] .header .date{color:rgba(245,242,236,0.75)!important}
-html[data-theme="light"] .muted,html[data-theme="light"] .text-sub,html[data-theme="light"] .subtitle,html[data-theme="light"] [class*="sub"],html[data-theme="light"] small{color:#6e7681!important}
-html[data-theme="light"] a{color:#B8912A}
-html[data-theme="light"] table,html[data-theme="light"] th,html[data-theme="light"] td{border-color:rgba(26,37,64,0.15)!important;color:#1A2540!important}
-html[data-theme="light"] th{background:rgba(184,145,42,0.08)!important}
-html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15);box-shadow:0 2px 12px rgba(26,37,64,.1)}
-html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
-html[data-theme="light"] .atlas-floating-tools .currency-toggle:hover,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn:hover{color:#B8912A;border-color:rgba(184,145,42,0.55);background:rgba(184,145,42,0.08)}
-html[data-theme="light"] .atlas-floating-tools .currency-toggle .cur-active{color:#B8912A}
-html[data-theme="light"] .cur-val.jpy-mode,html[data-theme="light"] .cur-val.local-mode{color:#B8912A}
-html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:rgba(26,37,64,0.15)!important;color:#B8912A!important;box-shadow:0 2px 8px rgba(26,37,64,.08)}
-/* /* * */ end ATLAS_PHASE_A_V1 theme overrides */
-</style>
-<script>
-/* === Atlas Currency Toggle (USD ⇄ 現地通貨) ===
- * Multi-currency support (2026-04-15 updated).
- *
- * Configuration via window.ATLAS_FX:
- *   { code: 'JPY', symbol: '¥', rate: 158.45, date: '2026/4/14', fmt: 'cjk-ja' }
- *   { code: 'HKD', symbol: 'HK$', rate: 7.78,  date: '2026/4/14', fmt: 'western' }
- *   { code: 'KRW', symbol: '₩',  rate: 1420,   date: '2026/4/14', fmt: 'cjk-ko' }
- *
- * If ATLAS_FX is undefined or { code: 'USD' }, the toggle is auto-hidden.
- *
- * HTML button:
- *   <button class="currency-toggle" onclick="toggleCurrency()">
- *     <span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span>
- *   </button>
- *
- * Skip containers: add class "no-currency" to any element whose $ values
- * must stay in USD (stock prices, commodity prices, market caps in 兆, etc.)
- */
 (function(){
-  if(window.__ATLAS_CURRENCY_LOADED) return;
-  window.__ATLAS_CURRENCY_LOADED = true;
+  if(window.__ATLAS_CURRENCY_LOADED)return;
+  window.__ATLAS_CURRENCY_LOADED=true;
+  var FX=window.ATLAS_FX;
+  if(!FX||!FX.code||FX.code==='USD'){
+    document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.currency-toggle').forEach(function(b){b.style.display='none';});});
+    window.toggleCurrency=function(){};return;
+  }
+  if(!FX.symbol)FX.symbol='¥';
+  if(!FX.fmt)FX.fmt='cjk-ja';
+  var localKey='atlas-currency';
+  var currencyMode=localStorage.getItem(localKey)||'USD';
+  if(currencyMode!=='USD'&&currencyMode!==FX.code)currencyMode=FX.code;
 
-  var FX = window.ATLAS_FX;
-
-  // If no config or USD-only, hide all currency toggles and stop
-  if(!FX || !FX.code || FX.code === 'USD'){
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('.currency-toggle').forEach(function(b){ b.style.display = 'none'; });
-    });
-    window.toggleCurrency = function(){};
-    return;
+  function fmtLocal(amt,unit,sym){
+    var rate=(sym==='€'&&FX.eurRate)?FX.eurRate:FX.rate;
+    var amt_b=unit==='T'?amt*1000:unit==='B'?amt:unit==='M'?amt/1000:unit==='K'?amt/1e6:null;
+    if(FX.fmt==='cjk-ja'){
+      if(amt_b!==null){var jpy_b=amt_b*rate;if(jpy_b>=1000)return FX.symbol+(jpy_b/1000).toFixed(2)+'兆';if(jpy_b>=1)return FX.symbol+(jpy_b*10).toFixed(0)+'億';return FX.symbol+(jpy_b*1000).toFixed(0)+'百万';}
+      var jpy=amt*rate;if(jpy>=10000)return FX.symbol+(jpy/10000).toFixed(2)+'万';return FX.symbol+Math.round(jpy).toLocaleString();
+    }
+    return FX.symbol+Math.round(amt*rate).toLocaleString();
   }
 
-  // Defaults for backward compatibility (old JP-only config without code/symbol)
-  if(!FX.code) FX.code = 'JPY';
-  if(!FX.symbol) FX.symbol = '¥';
-  if(!FX.fmt) FX.fmt = 'cjk-ja';
-
-  var localKey = 'atlas-currency';
-  var currencyMode = localStorage.getItem(localKey) || 'USD';
-  // Normalize legacy 'JPY' mode for non-JPY languages
-  if(currencyMode !== 'USD' && currencyMode !== FX.code) currencyMode = FX.code;
-
-  function fmtLocal(usd, unit){
-    // usd_b = amount in billions USD
-    var usd_b = unit==='T'?usd*1000:unit==='B'?usd:unit==='M'?usd/1000:unit==='K'?usd/1e6:null;
-
-    if(FX.fmt === 'cjk-ja'){
-      // 日本円: 万 / 億 / 兆
-      if(usd_b !== null){
-        var jpy_b = usd_b * FX.rate;
-        if(jpy_b >= 1000) return FX.symbol + (jpy_b/1000).toFixed(2) + '兆';
-        if(jpy_b >= 1) return FX.symbol + (jpy_b*10).toFixed(0) + '億';
-        return FX.symbol + (jpy_b*1000).toFixed(0) + '百万';
-      }
-      var jpy = usd * FX.rate;
-      if(jpy >= 10000) return FX.symbol + (jpy/10000).toFixed(2) + '万';
-      return FX.symbol + Math.round(jpy).toLocaleString();
-    }
-
-    if(FX.fmt === 'cjk-ko'){
-      // 韓国ウォン: 만 / 억 / 조
-      // 1억 = 1e8 KRW, 1조 = 1e12 KRW
-      if(usd_b !== null){
-        var krw_b = usd_b * FX.rate; // billions of KRW = 1e9 KRW each
-        // 1 billion KRW = 10억. So krw_b billions = krw_b * 10 억
-        // If krw_b >= 1000 (i.e., 1T KRW = 1조): express in 조
-        if(krw_b >= 1000) return FX.symbol + (krw_b/1000).toFixed(2) + '조';
-        // Else express in 억
-        return FX.symbol + (krw_b*10).toFixed(0) + '억';
-      }
-      var krw = usd * FX.rate;
-      if(krw >= 10000) return FX.symbol + (krw/10000).toFixed(2) + '만';
-      return FX.symbol + Math.round(krw).toLocaleString();
-    }
-
-    if(FX.fmt === 'western'){
-      // HKD / EUR / GBP etc: K / M / B / T
-      if(usd_b !== null){
-        var x_b = usd_b * FX.rate;
-        if(x_b >= 1000) return FX.symbol + (x_b/1000).toFixed(2) + 'T';
-        if(x_b >= 1) return FX.symbol + x_b.toFixed(2) + 'B';
-        return FX.symbol + (x_b*1000).toFixed(0) + 'M';
-      }
-      var x = usd * FX.rate;
-      if(x >= 1e9) return FX.symbol + (x/1e9).toFixed(2) + 'B';
-      if(x >= 1e6) return FX.symbol + (x/1e6).toFixed(2) + 'M';
-      if(x >= 1e3) return FX.symbol + (x/1e3).toFixed(1) + 'K';
-      return FX.symbol + Math.round(x).toLocaleString();
-    }
-
-    // Fallback
-    return FX.symbol + Math.round(usd * FX.rate).toLocaleString();
-  }
-
-  var WRAP_DONE = false;
+  var WRAP_DONE=false;
   function wrapCurrencyValues(){
-    if(WRAP_DONE) return; WRAP_DONE = true;
-    var re = /\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
-    var skipTags = {SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
-    var skipClasses = ['portal-link','currency-toggle','theme-toggle','font-scale-btn','lang-switch','lang-menu','toc-toggle','toc-list','tradingview-widget-container','no-currency','nav-hamburger','overview-toggle-btn','market-panels'];
-    function shouldSkip(node){
-      var p = node.parentNode;
-      while(p && p !== document.body){
-        if(skipTags[p.tagName]) return true;
-        if(p.classList){
-          for(var i=0;i<skipClasses.length;i++) if(p.classList.contains(skipClasses[i])) return true;
-        }
-        p = p.parentNode;
-      }
-      return false;
-    }
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-    var nodes = [], n;
-    while((n = walker.nextNode())){
-      if(n.nodeValue && n.nodeValue.indexOf('$') >= 0 && !shouldSkip(n)) nodes.push(n);
-    }
+    if(WRAP_DONE)return;WRAP_DONE=true;
+    var re=/([\$€])(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+    var skipTags={SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
+    var skipClasses=['portal-link','currency-toggle','theme-toggle-btn','toc-toggle','toc-list','tradingview-widget-container','no-currency','ov-btn','tip-pop'];
+    function shouldSkip(node){var p=node.parentNode;while(p&&p!==document.body){if(skipTags[p.tagName])return true;if(p.classList){for(var i=0;i<skipClasses.length;i++)if(p.classList.contains(skipClasses[i]))return true;}p=p.parentNode;}return false;}
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
+    var nodes=[],n;while((n=walker.nextNode())){if(n.nodeValue&&(n.nodeValue.indexOf('$')>=0||n.nodeValue.indexOf('€')>=0)&&!shouldSkip(n))nodes.push(n);}
     nodes.forEach(function(node){
-      var text = node.nodeValue;
-      if(!re.test(text)) return;
-      re.lastIndex = 0;
-      var frag = document.createDocumentFragment();
-      var lastIdx = 0, m;
-      while((m = re.exec(text)) !== null){
-        if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
-        var num = parseFloat(m[1].replace(/,/g,''));
-        var unit = m[2] || '';
-        var span = document.createElement('span');
-        span.className = 'cur-val';
-        span.setAttribute('data-usd', num);
-        span.setAttribute('data-unit', unit);
-        span.setAttribute('data-orig', m[0]);
-        span.textContent = m[0];
-        frag.appendChild(span);
-        lastIdx = m.index + m[0].length;
+      var text=node.nodeValue;if(!re.test(text))return;re.lastIndex=0;
+      var frag=document.createDocumentFragment();var lastIdx=0,m;
+      while((m=re.exec(text))!==null){
+        if(m.index>lastIdx)frag.appendChild(document.createTextNode(text.slice(lastIdx,m.index)));
+        var sym=m[1];var num=parseFloat(m[2].replace(/,/g,''));var unit=m[3]||'';
+        var span=document.createElement('span');span.className='cur-val';span.setAttribute('data-sym',sym);span.setAttribute('data-usd',num);span.setAttribute('data-unit',unit);span.setAttribute('data-orig',m[0]);span.textContent=m[0];frag.appendChild(span);lastIdx=m.index+m[0].length;
       }
-      if(lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
-      node.parentNode.replaceChild(frag, node);
+      if(lastIdx<text.length)frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+      node.parentNode.replaceChild(frag,node);
     });
   }
 
   function applyCurrency(mode){
     document.querySelectorAll('.cur-val').forEach(function(el){
-      if(mode !== 'USD'){
-        var usd = parseFloat(el.getAttribute('data-usd'));
-        var unit = el.getAttribute('data-unit') || '';
-        el.textContent = fmtLocal(usd, unit);
-        el.classList.add('local-mode');
-        el.classList.add('jpy-mode'); // backward compat
-      } else {
-        el.textContent = el.getAttribute('data-orig');
-        el.classList.remove('local-mode');
-        el.classList.remove('jpy-mode');
-      }
+      if(mode!=='USD'){var usd=parseFloat(el.getAttribute('data-usd'));var unit=el.getAttribute('data-unit')||'';var sym=el.getAttribute('data-sym')||'$';el.textContent=fmtLocal(usd,unit,sym);el.classList.add('local-mode','jpy-mode');}
+      else{el.textContent=el.getAttribute('data-orig');el.classList.remove('local-mode','jpy-mode');}
     });
     document.querySelectorAll('.currency-toggle').forEach(function(btn){
-      var act = btn.querySelector('.cur-active');
-      var inact = btn.querySelector('.cur-inactive');
-      if(!act || !inact) return;
-      if(mode !== 'USD'){
-        btn.classList.add('local-mode','jpy-mode');
-        act.textContent = FX.symbol; inact.textContent = '$';
-        btn.title = FX.code + '表示中（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
-      } else {
-        btn.classList.remove('local-mode','jpy-mode');
-        act.textContent = '$'; inact.textContent = FX.symbol;
-        btn.title = 'USD ⇄ ' + FX.code + ' 切替（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
-      }
+      var act=btn.querySelector('.cur-active');var inact=btn.querySelector('.cur-inactive');if(!act||!inact)return;
+      if(mode!=='USD'){btn.classList.add('local-mode','jpy-mode');act.textContent=FX.symbol;inact.textContent='$';btn.title=FX.code+'表示中（レート: 1$ = '+FX.rate+' '+FX.code+'、'+FX.date+'）';}
+      else{btn.classList.remove('local-mode','jpy-mode');act.textContent='$';inact.textContent=FX.symbol;btn.title='USD ⇄ '+FX.code+' 切替（レート: 1$ = '+FX.rate+' '+FX.code+'、'+FX.date+'）';}
     });
   }
 
-  // Init toggle button's inactive symbol before any click
-  function initButtons(){
-    document.querySelectorAll('.currency-toggle').forEach(function(btn){
-      var inact = btn.querySelector('.cur-inactive');
-      if(inact && inact.textContent === '¥') inact.textContent = FX.symbol;
-    });
-  }
+  function initButtons(){document.querySelectorAll('.currency-toggle').forEach(function(btn){var inact=btn.querySelector('.cur-inactive');if(inact&&inact.textContent==='¥')inact.textContent=FX.symbol;});}
 
-  window.toggleCurrency = function(){
-    wrapCurrencyValues();
-    currencyMode = currencyMode === 'USD' ? FX.code : 'USD';
-    localStorage.setItem(localKey, currencyMode);
-    applyCurrency(currencyMode);
-  };
-
-  document.addEventListener('DOMContentLoaded', function(){
-    initButtons();
-    if(currencyMode !== 'USD'){
-      wrapCurrencyValues();
-      applyCurrency(currencyMode);
-    } else {
-      applyCurrency('USD');
-    }
-  });
+  window.toggleCurrency=function(){wrapCurrencyValues();currencyMode=currencyMode==='USD'?FX.code:'USD';localStorage.setItem(localKey,currencyMode);applyCurrency(currencyMode);};
+  document.addEventListener('DOMContentLoaded',function(){initButtons();if(currencyMode!=='USD'){wrapCurrencyValues();applyCurrency(currencyMode);}else{applyCurrency('USD');}});
 })();
-
 </script>
 
+<!-- Theme Toggle -->
 <script>
-/* Atlas Theme Toggle (Phase A V1) */
 (function(){
-  var html = document.documentElement;
-  var KEY = 'atlas-theme';
-  // Reports default to dark (no attr = dark). If user stored 'light', apply it.
-  function applyTheme(t){
-    if(t === 'light'){ html.setAttribute('data-theme','light'); }
-    else { html.removeAttribute('data-theme'); }
-    document.querySelectorAll('.theme-toggle-btn').forEach(function(b){
-      b.textContent = (t === 'light') ? '🌙' : '☀️';
-      b.title = (t === 'light') ? 'ダークモードに切替' : 'ライトモードに切替';
-    });
-  }
-  var saved = localStorage.getItem(KEY) || 'dark';
-  applyTheme(saved);
-  window.toggleAtlasTheme = function(){
-    var cur = localStorage.getItem(KEY) || 'dark';
-    var next = cur === 'dark' ? 'light' : 'dark';
-    localStorage.setItem(KEY, next);
-    applyTheme(next);
-  };
+  var html=document.documentElement;var KEY='atlas-theme';
+  function applyTheme(t){if(t==='light'){html.setAttribute('data-theme','light');}else{html.removeAttribute('data-theme');}document.querySelectorAll('.theme-toggle-btn').forEach(function(b){b.textContent=(t==='light')?'🌙':'☀️';b.title=(t==='light')?'ダークモードに切替':'ライトモードに切替';});}
+  var saved=localStorage.getItem(KEY)||'dark';applyTheme(saved);
+  window.toggleAtlasTheme=function(){var cur=localStorage.getItem(KEY)||'dark';var next=cur==='dark'?'light':'dark';localStorage.setItem(KEY,next);applyTheme(next);};
 })();
 </script>
-<!-- ATLAS_PHASE_A_V1 end -->
+
+<!-- Chart.js — Atlas VI tokens -->
+<script>
+const chartFont={family:'Inter',size:12};
+Chart.defaults.color='#A8B0BC';
+Chart.defaults.font=chartFont;
+const gridOpt={color:'rgba(184,145,42,0.08)'};
+
+// Revenue 7Q
+new Chart(document.getElementById('revChart'),{
+  type:'bar',
+  data:{
+    labels:['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'],
+    datasets:[{
+      label:'Revenue ($B)',
+      data:[169.3,169.6,180.6,165.6,177.4,179.5,190.7],
+      backgroundColor:['rgba(184,145,42,0.35)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.55)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
+      borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'売上高（直近7四半期, $B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y+'B'}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'},min:150},x:{grid:{display:false}}}
+  }
+});
+
+// EPS 7Q
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{
+    labels:['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'],
+    datasets:[{
+      label:'Adj. EPS ($)',
+      data:[0.67,0.58,0.66,0.61,0.68,0.62,0.74],
+      backgroundColor:['rgba(184,145,42,0.35)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.55)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
+      borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
+      borderWidth:1,borderRadius:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      title:{display:true,text:'Adj. EPS（直近7四半期, $）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(2)},min:0.4},x:{grid:{display:false}}}
+  }
+});
+
+// Margin trends
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['FY25Q2','FY25Q3','FY25Q4','FY26Q1','FY26Q2','FY26Q3','FY26Q4'],
+    datasets:[
+      {label:'粗利益率 (%)',data:[24.4,24.2,24.6,24.0,24.4,24.3,24.7],borderColor:'#D4A843',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
+      {label:'営業利益率 (%)',data:[4.3,4.0,4.6,3.5,4.5,4.2,4.6],borderColor:'#B8912A',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
+      {label:'EBITDAマージン (%)',data:[6.0,5.8,6.3,5.3,6.2,5.9,6.5],borderColor:'#F0E6C8',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
+      title:{display:true,text:'粗利益率 / 営業利益率 / EBITDAマージン 推移',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
+      legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:2,max:28},x:{grid:{display:false}}}
+  }
+});
+
+// Segment Donut
+new Chart(document.getElementById('segChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Walmart U.S.','International','Sam\'s Club U.S.'],
+    datasets:[{
+      data:[129.2,34.6,23.8],
+      backgroundColor:['#D4A843','#5C7395','#B8912A'],
+      borderColor:'#0F1829',borderWidth:2,hoverOffset:8
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>ctx.label+': $'+ctx.parsed+'B ('+Math.round(ctx.parsed/187.6*100)+'%)'}}
+    }
+  }
+});
+
+// Geo Donut
+new Chart(document.getElementById('geoChart'),{
+  type:'doughnut',
+  data:{
+    labels:['米国','メキシコ/中米','インド','中国','その他'],
+    datasets:[{
+      data:[82,7,4,4,3],
+      backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8','#6E7A8C'],
+      borderColor:'#0F1829',borderWidth:2,hoverOffset:8
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+'%'}}
+    }
+  }
+});
+</script>
 
 <!-- ATLAS-RELATED-MORNING -->
 <div class="atlas-related-morning" data-ticker="WMT"></div>
 <script>
-/*!
- * Atlas Related Morning News — 決算レポートに表示する「関連ニュース/号外」
- *
- * 使い方:
- *   <div class="atlas-related-morning" data-ticker="NVDA"></div>
- *   <script src="https://atlas-financials.jp/assets/related-morning.js" defer><\/script>
- */
-(function () {
-  var INDEX_URL = '/news/news-index.json';
-  var MAX_ITEMS = 5;
-
-  function byTicker(items, ticker) {
-    var out = [];
-    for (var i = 0; i < items.length; i++) {
-      if (items[i].tickers && items[i].tickers.indexOf(ticker) !== -1) out.push(items[i]);
-    }
-    return out.slice(0, MAX_ITEMS);
-  }
-
-  function fmtDate(d) {
-    if (!d) return '';
-    var parts = d.split('-');
-    return parts.length === 3 ? parts[1] + '/' + parts[2] : d;
-  }
-
-  function render(container, articles) {
-    var ticker = container.getAttribute('data-ticker') || '';
-    if (!articles.length) {
-      container.style.display = 'none';
-      return;
-    }
-    var html =
-      '<div class="arm-inner">' +
-      '<div class="arm-head">' +
-      '<span class="arm-label">関連するニュース・号外</span>' +
-      '<span class="arm-sub">' + ticker + ' に言及された記事</span>' +
-      '</div>' +
-      '<ul class="arm-list">';
-    for (var i = 0; i < articles.length; i++) {
-      var a = articles[i];
-      var kind = a.kind === 'extra' ? '号外' : 'ニュース';
-      html +=
-        '<li class="arm-item">' +
-        '<a class="arm-link" href="' + a.url + '">' +
-        '<span class="arm-kind arm-kind-' + a.kind + '">' + kind + '</span>' +
-        '<span class="arm-date">' + fmtDate(a.date) + '</span>' +
-        '<span class="arm-title">' + (a.title || '(タイトル未取得)') + '</span>' +
-        '</a>' +
-        '</li>';
-    }
-    html += '</ul><div class="arm-foot"><a href="https://atlas-financials.jp/news/">すべてのニュースを見る →</a></div></div>';
-    container.innerHTML = html;
-  }
-
-  var css =
-    '.atlas-related-morning{background:#0F1829;border:1px solid rgba(184,145,42,.2);border-radius:10px;padding:24px 28px;margin:32px 0;font-family:"Noto Sans JP",sans-serif}' +
-    '.atlas-related-morning .arm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,.15);gap:12px;flex-wrap:wrap}' +
-    '.atlas-related-morning .arm-label{color:#D4A843;font-size:12px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}' +
-    '.atlas-related-morning .arm-sub{color:#8b949e;font-size:11px}' +
-    '.atlas-related-morning .arm-list{list-style:none;margin:0;padding:0}' +
-    '.atlas-related-morning .arm-item{border-bottom:1px dashed rgba(184,145,42,.08)}' +
-    '.atlas-related-morning .arm-item:last-child{border-bottom:none}' +
-    '.atlas-related-morning .arm-link{display:grid;grid-template-columns:52px 54px 1fr;gap:12px;align-items:center;padding:10px 0;text-decoration:none;color:#e6edf3;font-size:13px;transition:color .15s}' +
-    '.atlas-related-morning .arm-link:hover{color:#D4A843}' +
-    '.atlas-related-morning .arm-kind{font-size:10px;letter-spacing:.08em;padding:2px 6px;border-radius:3px;text-align:center;font-weight:700}' +
-    '.atlas-related-morning .arm-kind-morning{background:rgba(184,145,42,.15);color:#D4A843}' +
-    '.atlas-related-morning .arm-kind-extra{background:rgba(139,32,32,.25);color:#f85149}' +
-    '.atlas-related-morning .arm-date{color:#8b949e;font-family:Inter,monospace;font-size:11px;letter-spacing:.04em}' +
-    '.atlas-related-morning .arm-title{line-height:1.45}' +
-    '.atlas-related-morning .arm-foot{margin-top:14px;text-align:right;font-size:11px}' +
-    '.atlas-related-morning .arm-foot a{color:#8b949e;text-decoration:none;letter-spacing:.05em}' +
-    '.atlas-related-morning .arm-foot a:hover{color:#D4A843}' +
-    '@media(max-width:600px){.atlas-related-morning{padding:18px 16px}.atlas-related-morning .arm-link{grid-template-columns:44px 44px 1fr;gap:8px;font-size:12px}}' +
-    'html[data-theme="light"] .atlas-related-morning{background:#FDFCFA;border-color:rgba(26,37,64,.15)}' +
-    'html[data-theme="light"] .atlas-related-morning .arm-link{color:#1A2540}' +
-    'html[data-theme="light"] .atlas-related-morning .arm-label{color:#8a6c1f}';
-  var style = document.createElement('style');
-  style.textContent = css;
-  (document.head || document.documentElement).appendChild(style);
-
-  function init() {
-    var containers = document.querySelectorAll('.atlas-related-morning[data-ticker]');
-    if (!containers.length) return;
-    fetch(INDEX_URL, { cache: 'default' })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (items) {
-        for (var i = 0; i < containers.length; i++) {
-          var c = containers[i];
-          var t = c.getAttribute('data-ticker');
-          render(c, byTicker(items, t));
-        }
-      })
-      .catch(function () {
-        for (var i = 0; i < containers.length; i++) containers[i].style.display = 'none';
-      });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
-  } else {
-    init();
-  }
+(function(){
+  var INDEX_URL='/news/news-index.json';var MAX_ITEMS=5;
+  function byTicker(items,ticker){var out=[];for(var i=0;i<items.length;i++){if(items[i].tickers&&items[i].tickers.indexOf(ticker)!==-1)out.push(items[i]);}return out.slice(0,MAX_ITEMS);}
+  function fmtDate(d){if(!d)return '';var parts=d.split('-');return parts.length===3?parts[1]+'/'+parts[2]:d;}
+  function render(container,articles){var ticker=container.getAttribute('data-ticker')||'';if(!articles.length){container.style.display='none';return;}var html='<div class="arm-inner"><div class="arm-head"><span class="arm-label">関連するニュース・号外</span><span class="arm-sub">'+ticker+' に言及された記事</span></div><ul class="arm-list">';for(var i=0;i<articles.length;i++){var a=articles[i];var kind=a.kind==='extra'?'号外':'ニュース';html+='<li class="arm-item"><a class="arm-link" href="'+a.url+'"><span class="arm-kind arm-kind-'+a.kind+'">'+kind+'</span><span class="arm-date">'+fmtDate(a.date)+'</span><span class="arm-title">'+(a.title||'(タイトル未取得)')+'</span></a></li>';}html+='</ul><div class="arm-foot"><a href="https://atlas-financials.jp/news/">すべてのニュースを見る →</a></div></div>';container.innerHTML=html;}
+  var css='.atlas-related-morning{background:#0F1829;border:1px solid rgba(184,145,42,.2);border-radius:10px;padding:24px 28px;margin:32px 0;font-family:"Noto Sans JP",sans-serif}.atlas-related-morning .arm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,.15);gap:12px;flex-wrap:wrap}.atlas-related-morning .arm-label{color:#D4A843;font-size:12px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}.atlas-related-morning .arm-sub{color:#8b949e;font-size:11px}.atlas-related-morning .arm-list{list-style:none;margin:0;padding:0}.atlas-related-morning .arm-item{border-bottom:1px dashed rgba(184,145,42,.08)}.atlas-related-morning .arm-item:last-child{border-bottom:none}.atlas-related-morning .arm-link{display:grid;grid-template-columns:52px 54px 1fr;gap:12px;align-items:center;padding:10px 0;text-decoration:none;color:#e6edf3;font-size:13px;transition:color .15s}.atlas-related-morning .arm-link:hover{color:#D4A843}.atlas-related-morning .arm-kind{font-size:10px;letter-spacing:.08em;padding:2px 6px;border-radius:3px;text-align:center;font-weight:700}.atlas-related-morning .arm-kind-morning{background:rgba(184,145,42,.15);color:#D4A843}.atlas-related-morning .arm-kind-extra{background:rgba(139,32,32,.25);color:#f85149}.atlas-related-morning .arm-date{color:#8b949e;font-family:Inter,monospace;font-size:11px;letter-spacing:.04em}.atlas-related-morning .arm-title{line-height:1.45}.atlas-related-morning .arm-foot{margin-top:14px;text-align:right;font-size:11px}.atlas-related-morning .arm-foot a{color:#8b949e;text-decoration:none;letter-spacing:.05em}.atlas-related-morning .arm-foot a:hover{color:#D4A843}@media(max-width:600px){.atlas-related-morning{padding:18px 16px}.atlas-related-morning .arm-link{grid-template-columns:44px 44px 1fr;gap:8px;font-size:12px}}html[data-theme="light"] .atlas-related-morning{background:#FDFCFA;border-color:rgba(26,37,64,.15)}html[data-theme="light"] .atlas-related-morning .arm-link{color:#1A2540}html[data-theme="light"] .atlas-related-morning .arm-label{color:#8a6c1f}';
+  var style=document.createElement('style');style.textContent=css;(document.head||document.documentElement).appendChild(style);
+  function init(){var containers=document.querySelectorAll('.atlas-related-morning[data-ticker]');if(!containers.length)return;fetch(INDEX_URL,{cache:'default'}).then(function(r){return r.ok?r.json():[];}).then(function(items){for(var i=0;i<containers.length;i++){var c=containers[i];render(c,byTicker(items,c.getAttribute('data-ticker')));}}).catch(function(){for(var i=0;i<containers.length;i++)containers[i].style.display='none';});}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init,{once:true});}else{init();}
 })();
-
 </script>
-<!-- /ATLAS-RELATED-MORNING -->
+
 <!-- ATLAS-PAYWALL-SCRIPT -->
 <script>
-/*!
- * Atlas Paywall — Phase 1 (client-side MVP)
- *
- * 各ページの <meta name="atlas-access" content='{"kind":"...","...":...}'> を読み、
- * 非会員に対して overlay または truncate を表示する。
- *
- * kind:
- *   - "morning"  : date (YYYY-MM-DD) を持つ。今日/昨日なら free、それ以外は gated
- *   - "extra"    : 常に truncate（本文文字数の1/3だけ無料公開）
- *   - "special"  : 常に gated（冒頭プレビュー以外は非表示）
- *   - "report"   : ticker + isLatest。flagship かつ latest なら free、それ以外は gated
- *
- * 会員判定:
- *   - cookie `atlas_session` 無し → ゲスト（free制限あり）
- *   - cookie あり → /api/me を fetch。plan_expires_at > now なら Pro（制限なし）
- *
- * デバッグ:
- *   - URLに ?atlas-debug=pro  → 強制Pro扱い
- *   - URLに ?atlas-debug=free → 強制Free扱い
- */
-(function () {
-  var FLAGSHIP = { NVDA: 1, GOOGL: 1, TSLA: 1, MSFT: 1, META: 1, AMZN: 1, AAPL: 1 };
-  var MORNING_FREE_DAYS = 2;       // today + yesterday = 2 calendar days
-  var EXTRA_FREE_FRACTION = 1 / 3; // 号外: 本文文字数の1/3
-
-  function readAccess() {
-    var meta = document.querySelector('meta[name="atlas-access"]');
-    if (!meta) return null;
-    try { return JSON.parse(meta.getAttribute('content') || '{}'); }
-    catch (e) { return null; }
-  }
-
-  function daysAgoJST(ymd) {
-    // ymd: "2026-04-15". Compare JST midnight to JST midnight.
-    if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return Infinity;
-    var parts = ymd.split('-').map(Number);
-    var pubUTC = Date.UTC(parts[0], parts[1] - 1, parts[2]);
-    var now = new Date();
-    // JST = UTC+9. Midnight JST today = today's UTC date at 15:00 prev day in UTC.
-    var jstNow = new Date(now.getTime() + 9 * 3600 * 1000);
-    var jstToday = Date.UTC(jstNow.getUTCFullYear(), jstNow.getUTCMonth(), jstNow.getUTCDate());
-    return Math.floor((jstToday - pubUTC) / 86400000);
-  }
-
-  function resolveStatus(cfg) {
-    if (!cfg || !cfg.kind) return 'full';
-    if (cfg.kind === 'morning') {
-      var diff = daysAgoJST(cfg.date);
-      return diff < MORNING_FREE_DAYS ? 'full' : 'gated';
-    }
-    if (cfg.kind === 'extra') return 'truncate';
-    if (cfg.kind === 'special') return 'gated';
-    if (cfg.kind === 'report') {
-      if (cfg.isLatest && FLAGSHIP[cfg.ticker]) return 'full';
-      return 'gated';
-    }
-    return 'full';
-  }
-
-  function hasSession() {
-    return document.cookie.split(';').some(function (c) { return /^\s*atlas_session=/.test(c); });
-  }
-
-  function getDebugOverride() {
-    var m = location.search.match(/[?&]atlas-debug=(pro|free)/);
-    return m ? m[1] : null;
-  }
-
-  function checkPro() {
-    return new Promise(function (resolve) {
-      var dbg = getDebugOverride();
-      if (dbg === 'pro') return resolve(true);
-      if (dbg === 'free') return resolve(false);
-      if (!hasSession()) return resolve(false);
-      var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
-      if (ctrl) setTimeout(function () { try { ctrl.abort(); } catch(e){} }, 3000);
-      fetch('/api/me', { credentials: 'include', signal: ctrl ? ctrl.signal : undefined })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (data) {
-          if (!data || !data.user) return resolve(false);
-          // plan が 'pro' 以外は Pro 非会員
-          if (data.user.plan !== 'pro') return resolve(false);
-          // plan_expires_at が null → 解約予約無し = Pro継続中
-          var exp = data.user.plan_expires_at;
-          if (!exp) return resolve(true);
-          // 期限あり → 期限前なら Pro 有効
-          resolve(new Date(exp) > new Date());
-        })
-        .catch(function () { resolve(false); });
-    });
-  }
-
-  // === UI helpers ===
-  var BASE_CSS =
-    '.atlas-paywall-card{background:linear-gradient(135deg,#1A2540 0%,#0F1829 100%);border:1px solid rgba(184,145,42,.3);border-radius:12px;padding:36px 32px;margin:32px auto;max-width:600px;text-align:center;font-family:"Noto Sans JP",sans-serif;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.35)}' +
-    '.atlas-paywall-card .apw-kicker{color:#D4A843;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;font-weight:700}' +
-    '.atlas-paywall-card .apw-ttl{font-family:"Shippori Mincho B1",serif;font-size:22px;font-weight:700;line-height:1.45;margin-bottom:14px;color:#fff}' +
-    '.atlas-paywall-card .apw-desc{font-size:13px;line-height:1.85;color:rgba(255,255,255,.75);margin-bottom:24px}' +
-    '.atlas-paywall-card .apw-price{display:inline-block;background:rgba(184,145,42,.1);border:1px solid rgba(184,145,42,.35);border-radius:8px;padding:10px 18px;margin-bottom:20px;color:#D4A843;font-size:13px;font-weight:600;letter-spacing:.03em}' +
-    '.atlas-paywall-card .apw-cta{display:inline-block;background:#B8912A;color:#0F1829;text-decoration:none;padding:13px 32px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.04em;transition:background .15s}' +
-    '.atlas-paywall-card .apw-cta:hover{background:#D4A843}' +
-    '.atlas-paywall-card .apw-alt{display:block;margin-top:14px;color:rgba(255,255,255,.45);font-size:11px;text-decoration:none}' +
-    '.atlas-paywall-card .apw-alt:hover{color:#D4A843}' +
-    '.atlas-paywall-fade{position:relative;height:160px;margin-top:-160px;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,rgba(13,17,23,.6) 55%,rgba(13,17,23,.98) 100%)}' +
-    '.atlas-paywall-gated-hide{display:none!important}' +
-    '.atlas-paywall-preview-wrap{position:relative;max-height:320px;overflow:hidden}' +
-    '.atlas-paywall-preview-wrap::after{content:"";position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent 0%,rgba(13,17,23,.6) 50%,rgba(13,17,23,.98) 100%);pointer-events:none}' +
-    'html[data-theme="light"] .atlas-paywall-card{background:linear-gradient(135deg,#FDFCFA 0%,#F5F2EC 100%);color:#1A2540;border-color:rgba(26,37,64,.15)}' +
-    'html[data-theme="light"] .atlas-paywall-card .apw-ttl{color:#1A2540}' +
-    'html[data-theme="light"] .atlas-paywall-card .apw-desc{color:#4A5568}' +
-    'html[data-theme="light"] .atlas-paywall-card .apw-price{background:rgba(184,145,42,.08);color:#8a6c1f;border-color:rgba(184,145,42,.25)}' +
-    'html[data-theme="light"] .atlas-paywall-fade{background:linear-gradient(to bottom,transparent 0%,rgba(245,242,236,.6) 55%,rgba(245,242,236,.98) 100%)}' +
-    'html[data-theme="light"] .atlas-paywall-preview-wrap::after{background:linear-gradient(to bottom,transparent 0%,rgba(245,242,236,.6) 50%,rgba(245,242,236,.98) 100%)}';
-
-  function ensureCss() {
-    if (document.getElementById('atlas-paywall-css')) return;
-    var s = document.createElement('style');
-    s.id = 'atlas-paywall-css';
-    s.textContent = BASE_CSS;
-    document.head.appendChild(s);
-  }
-
-  function buildCard(opts) {
-    var url = '/login?redirect=' + encodeURIComponent(location.pathname + location.search);
-    var div = document.createElement('div');
-    div.className = 'atlas-paywall-card';
-    div.setAttribute('data-atlas-paywall', opts.kind);
-    div.innerHTML =
-      '<div class="apw-kicker">' + (opts.kicker || 'Atlas 会員限定') + '</div>' +
-      '<div class="apw-ttl">' + opts.title + '</div>' +
-      '<div class="apw-desc">' + opts.desc + '</div>' +
-      '<div class="apw-price">月額 ¥980（税込）・いつでも解約可能</div><br>' +
-      '<a class="apw-cta" href="' + url + '">会員登録して続きを読む</a>' +
-      '<a class="apw-alt" href="/login?redirect=' + encodeURIComponent(location.pathname + location.search) + '">すでに会員の方はログイン →</a>';
-    return div;
-  }
-
-  function findArticleBody() {
-    var selectors = [
-      'main.main',
-      'main.atlas-article-body',
-      'article',
-      'main',
-      '.container',
-      'body'
-    ];
-    for (var i = 0; i < selectors.length; i++) {
-      var el = document.querySelector(selectors[i]);
-      if (el) return el;
-    }
-    return document.body;
-  }
-
-  // Truncate body to N fraction of total text, insert paywall card.
-  function applyTruncate(cfg) {
-    ensureCss();
-    var body = findArticleBody();
-    // Find block-level content containers (direct children + deep)
-    // We walk through direct children and compute cumulative text length.
-    var children = Array.prototype.slice.call(body.children);
-    var totalLen = body.textContent.replace(/\s+/g, '').length;
-    if (!totalLen) return;
-    var target = Math.floor(totalLen * EXTRA_FREE_FRACTION);
-    var cum = 0, cutIdx = -1;
-    for (var i = 0; i < children.length; i++) {
-      var el = children[i];
-      // Skip header/nav/footer/script/style
-      var tag = el.tagName;
-      if (tag === 'HEADER' || tag === 'NAV' || tag === 'FOOTER' || tag === 'SCRIPT' || tag === 'STYLE') continue;
-      if (el.classList && (el.classList.contains('atlas-nav') || el.classList.contains('site-header') || el.id === 'tocNav')) continue;
-      var l = el.textContent.replace(/\s+/g, '').length;
-      if (cum + l >= target && cum > 0) { cutIdx = i; break; }
-      cum += l;
-    }
-    if (cutIdx < 0) return; // content too short to truncate meaningfully
-    var card = buildCard({
-      kind: 'extra',
-      kicker: 'Atlas 会員限定 — 号外',
-      title: 'この先は Atlas 会員限定です。',
-      desc: '号外記事の続き（残り約 ' + Math.round((1 - EXTRA_FREE_FRACTION) * 100) + '%）は有料会員向けコンテンツです。<br>市場の重要イベントを深掘りするAtlas独自の分析を、ぜひお楽しみください。'
-    });
-    // Add fade overlay before hiding rest
-    var fade = document.createElement('div');
-    fade.className = 'atlas-paywall-fade';
-    var cutElement = children[cutIdx];
-    cutElement.parentNode.insertBefore(fade, cutElement);
-    cutElement.parentNode.insertBefore(card, cutElement);
-    // Hide remaining children
-    for (var j = cutIdx; j < children.length; j++) {
-      var c = children[j];
-      var ctag = c.tagName;
-      if (ctag === 'FOOTER' || ctag === 'SCRIPT' || ctag === 'STYLE') continue;
-      if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav'))) continue;
-      c.classList.add('atlas-paywall-gated-hide');
-    }
-  }
-
-  // Full gate: show minimal preview (hero/intro) + paywall card covering rest.
-  function applyGate(cfg) {
-    ensureCss();
-    var body = findArticleBody();
-    // Preserve first 1-2 obvious "intro" elements (header + first section/paragraph)
-    // Hide everything else in the main content area.
-    var children = Array.prototype.slice.call(body.children);
-    var kept = 0, maxKeep = 2;
-    var insertAt = null;
-    for (var i = 0; i < children.length; i++) {
-      var el = children[i];
-      var tag = el.tagName;
-      if (tag === 'HEADER' || tag === 'NAV' || tag === 'FOOTER' || tag === 'SCRIPT' || tag === 'STYLE') continue;
-      if (el.classList && (el.classList.contains('atlas-nav') || el.classList.contains('site-header'))) continue;
-      if (kept < maxKeep) { kept++; continue; }
-      // This is where we insert the paywall, and hide from here
-      insertAt = el;
-      break;
-    }
-    var titles = {
-      morning: { kicker: 'Atlas 会員限定 — 過去の朝刊', title: 'この朝刊は Atlas 会員限定です。', desc: '当日・前日の朝刊は無料でご覧いただけますが、過去のアーカイブをお読みいただくには会員登録が必要です。<br>米国市場の動きを毎朝定点観測し、意思決定の土台に。' },
-      special: { kicker: 'Atlas 会員限定 — 特集', title: 'この特集記事は Atlas 会員限定です。', desc: '財務・戦略・マクロ経済の観点から編集部が深掘りした長編分析記事です。<br>会員登録で、すべての特集をお楽しみいただけます。' },
-      report: { kicker: 'Atlas 会員限定 — 決算分析', title: 'このレポートは Atlas 会員限定です。', desc: '主要7銘柄（NVDA/GOOGL/TSLA/MSFT/META/AMZN/AAPL）の直近四半期は無料でご覧いただけますが、<br>過去四半期や他の銘柄レポートをお読みいただくには会員登録が必要です。' }
-    };
-    var info = titles[cfg.kind] || { kicker: 'Atlas 会員限定', title: 'この記事は Atlas 会員限定です。', desc: '続きをお読みいただくには会員登録が必要です。' };
-    var card = buildCard({ kind: cfg.kind, kicker: info.kicker, title: info.title, desc: info.desc });
-    if (insertAt) {
-      // Wrap kept preview in max-height wrapper for fade effect
-      // Simpler: just insert card before insertAt, and hide everything after
-      insertAt.parentNode.insertBefore(card, insertAt);
-      for (var k = 0; k < children.length; k++) {
-        var c = children[k];
-        if (c === card) continue;
-        var idx = Array.prototype.indexOf.call(c.parentNode.children, c);
-        var cardIdx = Array.prototype.indexOf.call(card.parentNode.children, card);
-        if (idx <= cardIdx) continue; // keep before card
-        var ctag = c.tagName;
-        if (ctag === 'FOOTER' || ctag === 'SCRIPT' || ctag === 'STYLE') continue;
-        if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav'))) continue;
-        c.classList.add('atlas-paywall-gated-hide');
-      }
-    } else {
-      // No content to preview; just append card to body
-      body.appendChild(card);
-    }
-  }
-
-  function main() {
-    var cfg = readAccess();
-    var status = resolveStatus(cfg);
-    if (status === 'full') return;
-    checkPro().then(function (isPro) {
-      if (isPro) return;
-      if (status === 'truncate') applyTruncate(cfg);
-      else if (status === 'gated') applyGate(cfg);
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', main, { once: true });
-  } else {
-    main();
-  }
+(function(){
+  var FLAGSHIP={NVDA:1,GOOGL:1,TSLA:1,MSFT:1,META:1,AMZN:1,AAPL:1,AVGO:1,ASML:1,ORCL:1,JPM:1,BAC:1,GS:1,MS:1,C:1,NFLX:1,TSM:1,ADBE:1,DDOG:1,WMT:1,BABA:1,COST:1,LLY:1,OKTA:1,TM:1};var MORNING_FREE_DAYS=2;var EXTRA_FREE_FRACTION=1/3;
+  function readAccess(){var meta=document.querySelector('meta[name="atlas-access"]');if(!meta)return null;try{return JSON.parse(meta.getAttribute('content')||'{}');}catch(e){return null;}}
+  function daysAgoJST(ymd){if(!ymd||!/^\d{4}-\d{2}-\d{2}$/.test(ymd))return Infinity;var parts=ymd.split('-').map(Number);var pubUTC=Date.UTC(parts[0],parts[1]-1,parts[2]);var now=new Date();var jstNow=new Date(now.getTime()+9*3600*1000);var jstToday=Date.UTC(jstNow.getUTCFullYear(),jstNow.getUTCMonth(),jstNow.getUTCDate());return Math.floor((jstToday-pubUTC)/86400000);}
+  function resolveStatus(cfg){if(!cfg||!cfg.kind)return'full';if(cfg.kind==='morning'){return daysAgoJST(cfg.date)<MORNING_FREE_DAYS?'full':'gated';}if(cfg.kind==='extra')return'truncate';if(cfg.kind==='special')return'gated';if(cfg.kind==='report'){if(cfg.isLatest&&FLAGSHIP[cfg.ticker])return'full';return'gated';}return'full';}
+  function hasSession(){return document.cookie.split(';').some(function(c){return/^\s*atlas_session=/.test(c);});}
+  function getDebugOverride(){var m=location.search.match(/[?&]atlas-debug=(pro|free)/);return m?m[1]:null;}
+  function checkPro(){return new Promise(function(resolve){var dbg=getDebugOverride();if(dbg==='pro')return resolve(true);if(document.cookie.split(';').some(function(c){return /^\s*atlas_admin=/.test(c)}))return resolve(true);if(dbg==='free')return resolve(false);if(!hasSession())return resolve(false);var ctrl=typeof AbortController!=='undefined'?new AbortController():null;if(ctrl)setTimeout(function(){try{ctrl.abort();}catch(e){}},3000);fetch('/api/me',{credentials:'include',signal:ctrl?ctrl.signal:undefined}).then(function(r){return r.ok?r.json():null;}).then(function(data){if(!data||!data.user)return resolve(false);if(data.user.plan!=='pro')return resolve(false);var exp=data.user.plan_expires_at;if(!exp)return resolve(true);resolve(new Date(exp)>new Date());}).catch(function(){resolve(false);});});}
+  var BASE_CSS='.atlas-paywall-card{background:linear-gradient(135deg,#1A2540 0%,#0F1829 100%);border:1px solid rgba(184,145,42,.3);border-radius:12px;padding:36px 32px;margin:32px auto;max-width:600px;text-align:center;font-family:"Noto Sans JP",sans-serif;color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.35)}.atlas-paywall-card .apw-kicker{color:#D4A843;font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;font-weight:700}.atlas-paywall-card .apw-ttl{font-family:"Shippori Mincho B1",serif;font-size:22px;font-weight:700;line-height:1.45;margin-bottom:14px;color:#fff}.atlas-paywall-card .apw-desc{font-size:13px;line-height:1.85;color:rgba(255,255,255,.75);margin-bottom:24px}.atlas-paywall-card .apw-price{display:inline-block;background:rgba(184,145,42,.1);border:1px solid rgba(184,145,42,.35);border-radius:8px;padding:10px 18px;margin-bottom:20px;color:#D4A843;font-size:13px;font-weight:600;letter-spacing:.03em}.atlas-paywall-card .apw-cta{display:inline-block;background:#B8912A;color:#0F1829;text-decoration:none;padding:13px 32px;border-radius:8px;font-weight:700;font-size:14px;letter-spacing:.04em;transition:background .15s}.atlas-paywall-card .apw-cta:hover{background:#D4A843}.atlas-paywall-card .apw-alt{display:block;margin-top:14px;color:rgba(255,255,255,.45);font-size:11px;text-decoration:none}.atlas-paywall-card .apw-alt:hover{color:#D4A843}.atlas-paywall-fade{position:relative;height:160px;margin-top:-160px;pointer-events:none;background:linear-gradient(to bottom,transparent 0%,rgba(13,17,23,.6) 55%,rgba(13,17,23,.98) 100%)}.atlas-paywall-gated-hide{display:none!important}html[data-theme="light"] .atlas-paywall-card{background:linear-gradient(135deg,#FDFCFA 0%,#F5F2EC 100%);color:#1A2540;border-color:rgba(26,37,64,.15)}html[data-theme="light"] .atlas-paywall-card .apw-ttl{color:#1A2540}html[data-theme="light"] .atlas-paywall-card .apw-desc{color:#4A5568}html[data-theme="light"] .atlas-paywall-fade{background:linear-gradient(to bottom,transparent 0%,rgba(245,242,236,.6) 55%,rgba(245,242,236,.98) 100%)}';
+  function ensureCss(){if(document.getElementById('atlas-paywall-css'))return;var s=document.createElement('style');s.id='atlas-paywall-css';s.textContent=BASE_CSS;document.head.appendChild(s);}
+  function buildCard(opts){var url='/login?redirect='+encodeURIComponent(location.pathname+location.search);var div=document.createElement('div');div.className='atlas-paywall-card';div.setAttribute('data-atlas-paywall',opts.kind);div.innerHTML='<div class="apw-kicker">'+(opts.kicker||'Atlas 会員限定')+'</div><div class="apw-ttl">'+opts.title+'</div><div class="apw-desc">'+opts.desc+'</div><div class="apw-price">月額 ¥980（税込）・いつでも解約可能</div><br><a class="apw-cta" href="'+url+'">会員登録して続きを読む</a><a class="apw-alt" href="/login?redirect='+encodeURIComponent(location.pathname+location.search)+'">すでに会員の方はログイン →</a>';return div;}
+  function findArticleBody(){var selectors=['main.main','main.atlas-article-body','article','main','.container','body'];for(var i=0;i<selectors.length;i++){var el=document.querySelector(selectors[i]);if(el)return el;}return document.body;}
+  function applyGate(cfg){ensureCss();var body=findArticleBody();var children=Array.prototype.slice.call(body.children);var kept=0,maxKeep=2,insertAt=null;for(var i=0;i<children.length;i++){var el=children[i];var tag=el.tagName;if(tag==='HEADER'||tag==='NAV'||tag==='FOOTER'||tag==='SCRIPT'||tag==='STYLE')continue;if(el.classList&&(el.classList.contains('atlas-nav')||el.classList.contains('site-header')))continue;if(kept<maxKeep){kept++;continue;}insertAt=el;break;}var titles={report:{kicker:'Atlas 会員限定 — 決算分析',title:'このレポートは Atlas 会員限定です。',desc:'主要7銘柄（NVDA/GOOGL/TSLA/MSFT/META/AMZN/AAPL）の直近四半期は無料でご覧いただけますが、<br>過去四半期や他の銘柄レポートをお読みいただくには会員登録が必要です。'}};var info=titles[cfg.kind]||{kicker:'Atlas 会員限定',title:'この記事は Atlas 会員限定です。',desc:'続きをお読みいただくには会員登録が必要です。'};var card=buildCard({kind:cfg.kind,kicker:info.kicker,title:info.title,desc:info.desc});if(insertAt){insertAt.parentNode.insertBefore(card,insertAt);for(var k=0;k<children.length;k++){var c=children[k];if(c===card)continue;var idx=Array.prototype.indexOf.call(c.parentNode.children,c);var cardIdx=Array.prototype.indexOf.call(card.parentNode.children,card);if(idx<=cardIdx)continue;var ctag=c.tagName;if(ctag==='FOOTER'||ctag==='SCRIPT'||ctag==='STYLE')continue;if(c.classList&&(c.classList.contains('atlas-related-morning')||c.classList.contains('atlas-nav')))continue;c.classList.add('atlas-paywall-gated-hide');}}else{body.appendChild(card);}}
+  function main(){var cfg=readAccess();var status=resolveStatus(cfg);if(status==='full')return;checkPro().then(function(isPro){if(isPro)return;if(status==='gated')applyGate(cfg);});}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',main,{once:true});}else{main();}
 })();
-
 </script>
 <!-- /ATLAS-PAYWALL-SCRIPT -->
 </body>
