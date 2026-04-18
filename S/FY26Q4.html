@@ -1523,9 +1523,9 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 </section>
 
 <div class="footer">
-  U&I株倶楽部｜NVIDIA FY26Q4 決算分析レポート｜2026年3月7日作成｜Powered by Claude
+  U&I株倶楽部｜SentinelOne FY26Q4 決算分析レポート｜2026年4月16日作成｜Powered by Claude
   <div class="footer-id">
-    NVDA ｜ FY26Q4 ｜ Atlas Quarterly
+    S ｜ FY26Q4 ｜ Atlas Quarterly
   </div>
 </div>
 
@@ -1547,6 +1547,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span>利益率トレンド</span></a></li>
       <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span>セグメント別売上</span></a></li>
       <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span>キャッシュフロー</span></a></li>
+      <li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span>SaaS KPI</span></a></li>
       <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span>テクニカル分析</span></a></li>
       <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span>経営陣コメント</span></a></li>
       <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span>リスク・カタリスト</span></a></li>
@@ -1890,19 +1891,19 @@ new Chart(document.getElementById('marginChart'),{
   data:{
     labels:quarters,
     datasets:[
-      {label:'Non-GAAP粗利益率 (%)',data:[75.7,74.6,73.5,72.8,75.1,73.6,75.2],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
-      {label:'Non-GAAP営業利益率 (%)',data:[68.6,66.8,65.4,64.9,66.5,65.2,67.7],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
-      {label:'EBITDAマージン（推定, %）',data:[70.0,68.5,67.0,66.5,68.0,66.8,68.0],borderColor:'#F0E6C8',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
+      {label:'Non-GAAP粗利益率 (%)',data:[79,79,79,78,79,78,78],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
+      {label:'Non-GAAP営業利益率 (%)',data:[-3,-2,1,1,3,7,6],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
+      {label:'FCFマージン（推定, %）',data:[-8,-6,-4,-2,2,4,5],borderColor:'#F0E6C8',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
-      title:{display:true,text:'Non-GAAP 粗利益率 / 営業利益率 / EBITDA推移',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
+      title:{display:true,text:'Non-GAAP 粗利益率 / 営業利益率 / FCFマージン推移',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
       legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:55,max:80},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:-15,max:90},x:{grid:{display:false}}}
   }
 });
 
@@ -1910,10 +1911,10 @@ new Chart(document.getElementById('marginChart'),{
 new Chart(document.getElementById('segChart'),{
   type:'doughnut',
   data:{
-    labels:['データセンター','ゲーミング','ProViz','自動車&ロボ','OEM&他'],
+    labels:['エンドポイント','Data/AI SIEM','Cloud Security','Identity + Purple AI'],
     datasets:[{
-      data:[91.5,5.4,1.9,0.9,0.3],
-      backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8','#6E7A8C'],
+      data:[58,12,18,12],
+      backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],
       borderColor:'#0F1829',
       borderWidth:2,
       hoverOffset:8
@@ -1932,9 +1933,9 @@ new Chart(document.getElementById('segChart'),{
 new Chart(document.getElementById('geoChart'),{
   type:'doughnut',
   data:{
-    labels:['米国','台湾','中国','その他'],
+    labels:['北米','EMEA','APAC'],
     datasets:[{
-      data:[69.3,19.6,9.1,2.0],
+      data:[68,22,10],
       backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],
       borderColor:'#0F1829',
       borderWidth:2,
