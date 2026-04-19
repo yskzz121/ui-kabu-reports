@@ -5,37 +5,74 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>PayPay (PAYP) IPO分析レポート 2026</title>
 <link rel="icon" type="image/png" href="../favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 159.0, date: '2026/4/19', fmt: 'cjk-ja' };</script>
 <style>
-:root{--bg:#0d1117;--card:#161b22;--border:#21262d;--border2:#30363d;--text:#e6edf3;--text-sub:#8b949e;--text-dim:#6e7681;--blue:#58a6ff;--blue-bg:rgba(88,166,255,0.15);--blue-border:rgba(88,166,255,0.3);--green:#2ea043;--green-bg:rgba(46,160,67,0.15);--red:#f85149;--red-bg:rgba(248,81,73,0.15);--yellow:#d29922;--purple:#bc8cff;--paypay-red:#FF0033}
+:root{
+  --bg:#0F1829;
+  --card:#1A2540;
+  --card-hover:#243158;
+  --border:rgba(184,145,42,0.18);
+  --border2:rgba(184,145,42,0.35);
+  --border-strong:rgba(184,145,42,0.35);
+  --t1:#F5F2EC;
+  --t2:#A8B0BC;
+  --t3:#6E7A8C;
+  --text:#F5F2EC;
+  --text-sub:#A8B0BC;
+  --text-dim:#6E7A8C;
+  --gold:#B8912A;
+  --gold2:#D4A843;
+  --gold-pale:#F0E6C8;
+  --navy:#1A2540;
+  --navy-deep:#0F1829;
+  --navy-mid:#243158;
+  --paper:#F5F2EC;
+  --ink:#0F0E0C;
+  --alert:#8B2020;
+  --beat:#2ecc71;
+  --muted:#8B949E;
+  --blue:#D4A843;
+  --blue-bg:rgba(184,145,42,0.12);
+  --blue-border:rgba(184,145,42,0.3);
+  --green:#2ecc71;
+  --green-bg:rgba(46,204,113,0.12);
+  --red:#8B2020;
+  --red-bg:rgba(139,32,32,0.15);
+  --yellow:#D4A843;
+  --purple:#D4A843;
+  --paypay-red:#D4A843;
+  --border-neutral:#30363d;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.section-title,.score-label{font-family:'Shippori Mincho B1','Noto Sans JP',serif;font-weight:700}
+.num,.kpi-val,.price-val,.card .value,.val-price,.tbl th{font-family:'Inter','Noto Sans JP',sans-serif}
 .container{max-width:1200px;margin:0 auto;padding:20px}
-h1,h2,h3{font-weight:700}
 
 /* Header */
-.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,0,51,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,0.06) 0%,transparent 60%)}
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
 .header-content{position:relative;z-index:1}
 .header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
 .header .subtitle{color:var(--text-sub);font-size:1.1em}
 .header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0;border-radius:8px}
-.ticker-badge{display:inline-block;background:rgba(255,0,51,0.15);border:1px solid rgba(255,0,51,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--paypay-red);margin-bottom:12px;letter-spacing:1px;font-weight:700}
-.ipo-badge{display:inline-block;background:var(--green-bg);border:1px solid rgba(46,160,67,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--green);letter-spacing:1px;font-weight:700}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);margin-bottom:12px;letter-spacing:1px;font-weight:600;font-family:'Inter',sans-serif}
+.ipo-badge{display:inline-block;background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-weight:600;font-family:'Inter',sans-serif}
 
 /* Score Banner */
-.score-banner{background:linear-gradient(135deg,#1a2332,#0d2137);border:1px solid #1f6feb;border-radius:16px;padding:30px;text-align:center;margin:24px 0}
+.score-banner{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px;text-align:center;margin:24px 0}
 .score-big{font-size:4.5em;line-height:1}
-.score-label{font-size:1.8rem;font-weight:900;color:var(--blue);margin-top:8px}
+.score-label{font-size:1.8rem;font-weight:900;color:var(--gold2);margin-top:8px}
 .score-desc{font-size:1rem;color:var(--text-sub);margin-top:4px}
-.score-comment{font-size:0.95rem;color:#c9d1d9;margin-top:12px;padding:10px 20px;background:rgba(88,166,255,0.1);border-radius:8px;display:inline-block;text-align:left;max-width:800px}
+.score-comment{font-size:0.95rem;color:var(--t2);margin-top:12px;padding:10px 20px;background:rgba(184,145,42,0.08);border-radius:8px;display:inline-block;text-align:left;max-width:800px}
 
 /* Section */
 .section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;margin:20px 0}
-.section-title{font-size:1.3rem;color:var(--blue);border-left:4px solid #1f6feb;padding-left:12px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title{font-size:1.3rem;color:var(--gold2);border-left:4px solid var(--gold);padding-left:12px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .section-icon{font-size:1.2em}
 
 /* Cards Grid */
@@ -53,9 +90,9 @@ canvas{max-height:320px}
 
 /* Table */
 .tbl{width:100%;border-collapse:collapse;font-size:0.9rem}
-.tbl th{background:rgba(22,27,34,0.9);color:var(--blue);padding:10px 12px;text-align:left;border-bottom:1px solid var(--border2);font-weight:500}
+.tbl th{background:rgba(26,37,64,0.9);color:var(--gold2);padding:10px 12px;text-align:left;border-bottom:1px solid var(--border2);font-weight:600;font-family:'Inter','Noto Sans JP',sans-serif}
 .tbl td{padding:10px 12px;border-bottom:1px solid var(--border)}
-.tbl tr:hover{background:#1c2128}
+.tbl tr:hover{background:var(--card-hover)}
 .tbl .right{text-align:right}
 
 /* Segment Bar */
@@ -64,10 +101,10 @@ canvas{max-height:320px}
 
 /* Valuation Cards */
 .val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.val-card{border-radius:12px;padding:24px;text-align:center}
-.val-card.low{background:linear-gradient(135deg,#0d2818,#132f1e);border:1px solid #238636}
-.val-card.mid{background:linear-gradient(135deg,#151d2b,#1a2332);border:1px solid #1f6feb}
-.val-card.high{background:linear-gradient(135deg,#2a1520,#301a24);border:1px solid #da3633}
+.val-card{border-radius:12px;padding:24px;text-align:center;background:var(--card);border:1px solid var(--border)}
+.val-card.low{background:var(--card);border:1px solid var(--border)}
+.val-card.mid{background:var(--card);border:1px solid var(--border)}
+.val-card.high{background:var(--card);border:1px solid var(--border)}
 .val-card .val-label{font-size:0.85rem;font-weight:700;margin-bottom:8px}
 .val-card .val-price{font-size:2rem;font-weight:900}
 .val-card .val-detail{font-size:0.8rem;color:var(--text-sub);margin-top:8px}
@@ -75,9 +112,9 @@ canvas{max-height:320px}
 .val-card .val-judge{font-size:0.85rem;margin-top:4px;padding:4px 12px;border-radius:20px;display:inline-block}
 
 /* Comment Box */
-.comment-box{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px}
-.comment-box .speaker{font-weight:700;color:var(--blue);margin-bottom:6px;font-size:0.9rem}
-.comment-box .quote{color:#c9d1d9;font-size:0.9rem;line-height:1.7;border-left:3px solid var(--border2);padding-left:12px}
+.comment-box{background:rgba(26,37,64,0.5);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:12px}
+.comment-box .speaker{font-weight:700;color:var(--gold2);margin-bottom:6px;font-size:0.9rem}
+.comment-box .quote{color:var(--t2);font-size:0.9rem;line-height:1.7;border-left:3px solid var(--border2);padding-left:12px}
 
 /* Risk/Catalyst */
 .rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -151,7 +188,7 @@ canvas{max-height:320px}
 .toc-nav{display:none}
 @media(max-width:768px){
   .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
-  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:var(--paypay-red);color:#fff;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
   .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -159,14 +196,51 @@ canvas{max-height:320px}
   .toc-list li{border-bottom:1px solid #21262d}
   .toc-list li:last-child{border-bottom:none}
   .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:#e6edf3;text-decoration:none;font-size:.85rem;transition:background .15s}
-  .toc-list a:hover,.toc-list a:active{background:rgba(255,0,51,.1)}
+  .toc-list a:hover,.toc-list a:active{background:rgba(184,145,42,.1)}
   .toc-list .toc-icon{font-size:1.1em;flex-shrink:0;width:24px;text-align:center}
   .toc-list .toc-label{flex:1}
   .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
   .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
-  .toc-expand-all button:active{background:var(--paypay-red);color:#fff}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
   body{padding-bottom:60px!important}
 }
+/* Header v1.3 rh-* */
+.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
+.rh-inner{position:relative;z-index:1}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
+.rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
+.rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
+@media(max-width:768px){
+  .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
+  .rh-inner{order:1;width:100%}
+  .rh .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .rh-logo-row{gap:12px;margin-bottom:10px}
+  .rh-logo{height:44px;max-width:180px}
+  .rh-ticker{font-size:11px;padding:4px 12px}
+}
+/* Floating Tools */
+.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;transition:all .15s;font-weight:600}
+.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
+.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
+.currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.currency-toggle .cur-inactive{color:inherit;opacity:.55}
+.currency-toggle .cur-sep{opacity:.4;margin:0 1px;font-weight:400}
+/* Portal Link */
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+/* Light Theme */
+html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
+html[data-theme="light"] .section,.card,.score-banner{background:#FDFCFA!important;border-color:rgba(26,37,64,0.12)!important}
+html[data-theme="light"] .header,.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
+html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15)}
+html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:rgba(26,37,64,0.15)!important;color:#B8912A!important}
 </style>
 <!-- ATLAS-PAYWALL-META -->
 <meta name="atlas-access" content='{"kind":"report","ticker":"PAYP","isLatest":false}'>
@@ -448,24 +522,25 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- ATLAS-QUARTERLY-BAND-END -->
 <div class="container">
 
-<!-- Header -->
-<div class="header">
-  <div class="header-content">
-    <div class="header-logo-row">
-      <img class="report-header-logo" src="../logos/PAYP.svg" alt="PAYP" style="border-radius:8px">
-      <div class="ticker-badge">NASDAQ: PAYP</div>
+<!-- REPORT HEADER v1.3 -->
+<header class="rh header">
+  <div class="ov-wrap" style="position:absolute;top:14px;right:18px;z-index:2"></div>
+  <div class="rh-inner header-content">
+    <div class="rh-logo-row header-logo-row">
+      <img class="rh-logo report-header-logo" src="../logos/PAYP.svg" alt="PAYP">
+      <div class="rh-ticker ticker-badge">NASDAQ: PAYP</div>
       <div class="ipo-badge">IPO 2026.03.12</div>
     </div>
     <h1>PayPay Corporation IPO分析</h1>
-    <div class="subtitle">NASDAQ新規上場（米国預託証券・ADS）</div>
-    <div class="date">上場日: 2026年3月12日 ｜ レポート作成: 2026年3月14日</div>
+    <div class="rh-sub subtitle">NASDAQ新規上場（米国預託証券・ADS）</div>
+    <div class="rh-date date">上場日: 2026年3月12日 ｜ レポート作成: 2026年3月14日</div>
   </div>
-</div>
+</header>
 
 <!-- 1. Score Banner -->
 <div class="score-banner">
-  <div class="score-big">📈</div>
-  <div class="score-label">スコア 4／5　良いIPO</div>
+  <div class="score-big" style="font-family:'Inter',sans-serif;color:var(--gold2)">4</div>
+  <div class="score-label">良いIPO</div>
   <div class="score-desc">IPO初日+19%で好調デビュー ＋ 高成長・高収益性 ＋ ARK Invest即日参入</div>
   <div class="score-comment">
     売上¥278.5B（9M、+26% YoY）・純利益$750M（12M）で黒字上場。PER 18.3倍は成長フィンテックとして妥当。
@@ -477,7 +552,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 2. Key Metrics -->
 <div class="section">
-  <h2 class="section-title"><span class="section-icon">📊</span> Key Metrics</h2>
+  <h2 class="section-title">Key Metrics</h2>
   <div class="metrics-grid">
     <div class="card">
       <div class="label">売上高（TTM）</div>
@@ -524,7 +599,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 3. Revenue / Profitability Chart -->
 <div class="section" id="sec-revenue" data-accordion>
-  <h2 class="section-title"><span class="section-icon">📊</span> 売上高・利益推移</h2>
+  <h2 class="section-title">売上高・利益推移</h2>
   <div class="section-body">
     <div class="chart-row">
       <div class="chart-container">
@@ -551,7 +626,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 4. IPO Details -->
 <div class="section" id="sec-consensus" data-accordion>
-  <h2 class="section-title"><span class="section-icon">🎯</span> IPO詳細・株価パフォーマンス</h2>
+  <h2 class="section-title">IPO詳細・株価パフォーマンス</h2>
   <div class="section-body">
     <div class="two-col">
       <div>
@@ -591,7 +666,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 5. Margin Trends -->
 <div class="section" id="sec-margin" data-accordion>
-  <h2 class="section-title"><span class="section-icon">📈</span> 利益率・収益性トレンド</h2>
+  <h2 class="section-title">利益率・収益性トレンド</h2>
   <div class="section-body">
     <div class="metrics-grid">
       <div class="card">
@@ -623,7 +698,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 6. Cash Flow -->
 <div class="section" id="sec-cashflow" data-accordion>
-  <h2 class="section-title"><span class="section-icon">💰</span> キャッシュフロー</h2>
+  <h2 class="section-title">キャッシュフロー</h2>
   <div class="section-body">
     <div class="metrics-grid">
       <div class="card">
@@ -648,7 +723,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
     </div>
     <div class="comment-box" style="margin-top:16px">
-      <div class="speaker">💡 キャッシュフロー注記</div>
+      <div class="speaker">キャッシュフロー注記</div>
       <div class="quote">PayPayは金融事業（銀行・証券）を含むため、キャッシュフロー構造は一般的なフィンテック企業と異なります。預金残高（¥2.98T）やローン（¥2.33T）がバランスシートに含まれ、営業CFには金融事業の資金フローが反映されています。FY2025で営業CFが黒字転換（前年度の▲¥194.7Mから+¥155.85Mへ）し、収益基盤が安定してきたことを示しています。</div>
     </div>
   </div>
@@ -656,12 +731,12 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 7. Segments -->
 <div class="section" id="sec-segment" data-accordion>
-  <h2 class="section-title"><span class="section-icon">🏢</span> 部門別・事業構成</h2>
+  <h2 class="section-title">部門別・事業構成</h2>
   <div class="section-body">
     <h3 style="color:var(--blue);font-size:1rem;margin-bottom:12px">2セグメント構成</h3>
     <div class="seg-bar">
-      <div style="width:40%;background:#1f6feb">決済 ~40%</div>
-      <div style="width:60%;background:var(--paypay-red)">金融サービス ~60%</div>
+      <div style="width:40%;background:#5C7395">決済 ~40%</div>
+      <div style="width:60%;background:#B8912A">金融サービス ~60%</div>
     </div>
     <div class="two-col" style="margin-top:16px">
       <div class="card">
@@ -693,7 +768,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 8. Users & Market -->
 <div class="section" id="sec-geo" data-accordion>
-  <h2 class="section-title"><span class="section-icon">👥</span> ユーザー・市場ポジション</h2>
+  <h2 class="section-title">ユーザー・市場ポジション</h2>
   <div class="section-body">
     <div class="metrics-grid">
       <div class="card">
@@ -743,7 +818,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 9. Company Overview -->
 <div class="section" id="sec-overview" data-accordion>
-  <h2 class="section-title"><span class="section-icon">🏢</span> 企業概要・ビジネスモデル</h2>
+  <h2 class="section-title">企業概要・ビジネスモデル</h2>
   <div class="section-body">
     <div class="overview-grid">
       <div class="overview-item"><div class="ov-label">設立</div><div class="ov-value">2018年6月</div></div>
@@ -756,11 +831,11 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="overview-item"><div class="ov-label">市場ポジション</div><div class="ov-value" style="color:var(--green)">日本最大のモバイル決済サービス（QRコード決済シェア約66%）</div></div>
     </div>
     <div class="comment-box" style="margin-top:16px">
-      <div class="speaker">🎯 スーパーアプリ戦略</div>
+      <div class="speaker">スーパーアプリ戦略</div>
       <div class="quote">PayPayはAlipay / WeChat Payをモデルとした「スーパーアプリ」を目指し、決済を起点に銀行（PayPay銀行）・証券（PayPay証券）・保険（PayPayほけん）・クレジットカード（PayPayカード）を統合。日本版「金融プラットフォーム」として、ユーザーの金融ライフサイクル全体を取り込む戦略を推進中。</div>
     </div>
     <div class="comment-box">
-      <div class="speaker">🌏 なぜ米国NASDAQ上場か</div>
+      <div class="speaker">なぜ米国NASDAQ上場か</div>
       <div class="quote">
         ①バリュエーション最大化（米国市場はフィンテックに高評価）、②グローバル投資家へのアクセス、③Arm上場成功に続くSoftBankGの米国IPO戦略、④Visa提携に伴う米国市場進出の布石、⑤PayPal・Block等と同じ土俵での比較可能性。親会社（SoftBank / LINEヤフー）が既に東証上場しているため、差別化の観点からも合理的。
       </div>
@@ -770,7 +845,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 10. Technical Analysis -->
 <div class="section" id="sec-technical" data-accordion>
-  <h2 class="section-title"><span class="section-icon">📉</span> テクニカル分析</h2>
+  <h2 class="section-title">テクニカル分析</h2>
   <div class="section-body">
     <div class="comment-box" style="border-color:var(--yellow)">
       <div class="speaker" style="color:var(--yellow)">⚠️ IPO直後のため通常のテクニカル分析は限定的</div>
@@ -844,10 +919,10 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 11. Management Comments -->
 <div class="section" id="sec-mgmt" data-accordion>
-  <h2 class="section-title"><span class="section-icon">💬</span> 経営陣コメント・Visa提携</h2>
+  <h2 class="section-title">経営陣コメント・Visa提携</h2>
   <div class="section-body">
     <div class="comment-box">
-      <div class="speaker">🤝 Visa戦略提携（2026年2月12日発表）</div>
+      <div class="speaker">Visa戦略提携（2026年2月12日発表）</div>
       <div class="quote">
         PayPayとVisaは、グローバルおよび国内の決済イノベーションを推進する戦略的パートナーシップ契約を締結。<br><br>
         <strong>主要内容:</strong><br>
@@ -857,14 +932,14 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
     </div>
     <div class="comment-box">
-      <div class="speaker">📣 IPOロードショー・経営陣メッセージ</div>
+      <div class="speaker">IPOロードショー・経営陣メッセージ</div>
       <div class="quote">
         <strong>成長戦略:</strong> 「決済に特化したプラットフォームから包括的な金融サービスプラットフォームへの転換」を推進。日本国内での「スーパーアプリ」エコシステムの深化と、Visa提携を軸とした国際展開が二本柱。<br><br>
         <strong>資金使途:</strong> IPO調達資金$880Mは、①国内金融サービスエコシステムの拡充、②米国市場進出のための技術・マーケティング投資、③戦略的M&A機会の追求に充当予定。
       </div>
     </div>
     <div class="comment-box">
-      <div class="speaker">🏛️ SoftBank孫正義会長</div>
+      <div class="speaker">SoftBank孫正義会長</div>
       <div class="quote">
         PayPayはソフトバンクグループのAI・フィンテック戦略における中核企業の一つ。Armに続く米国市場での成功事例として位置づけ。IPO後もソフトバンクGは支配株主として経営に関与し続ける方針。
       </div>
@@ -874,7 +949,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 12. Risk / Catalyst -->
 <div class="section" id="sec-risk" data-accordion>
-  <h2 class="section-title"><span class="section-icon">⚡</span> リスク・カタリスト</h2>
+  <h2 class="section-title">リスク・カタリスト</h2>
   <div class="section-body">
     <div class="rc-grid">
       <div>
@@ -911,7 +986,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 13. Competitor Valuation Comparison -->
 <div class="section" id="sec-compare" data-accordion>
-  <h2 class="section-title"><span class="section-icon">🔄</span> グローバル競合バリュエーション比較</h2>
+  <h2 class="section-title">グローバル競合バリュエーション比較</h2>
   <div class="section-body">
     <table class="tbl">
       <thead>
@@ -941,7 +1016,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </tbody>
     </table>
     <div class="comment-box" style="margin-top:16px">
-      <div class="speaker">📊 バリュエーション解釈</div>
+      <div class="speaker">バリュエーション解釈</div>
       <div class="quote">
         PayPayのPSR 6.2xはPayPal（2.3x）やBlock（1.3x）より高いが、Grab（5.4x）やAdyen（25x）と比較すると中間的な水準。
         PER 18.3xは成長フィンテックとしては割安な部類。売上成長率+26%・EPS成長率+232%を考慮すると、PEGレシオは0.08と極めて低い。
@@ -953,33 +1028,33 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 14. Valuation -->
 <div class="section" id="sec-valuation" data-accordion>
-  <h2 class="section-title"><span class="section-icon">💎</span> バリュエーション（想定株価 3パターン）</h2>
+  <h2 class="section-title">バリュエーション（想定株価 3パターン）</h2>
   <div class="section-body">
     <div class="val-cards">
       <div class="val-card low">
-        <div class="val-label green">LOW（保守的）</div>
-        <div class="val-price green">$17.40</div>
+        <div class="val-label" style="color:var(--t2);font-size:.85rem;font-weight:700;margin-bottom:8px">LOW — 保守的</div>
+        <div class="val-price" style="font-size:2rem;font-weight:900;color:var(--t1);font-family:'Inter',sans-serif">$17.40</div>
         <div class="val-detail">EPS $1.16 × PER 15x<br>日本市場のみ・成長鈍化シナリオ</div>
-        <div class="val-gap red">現在株価比 -17.7%</div>
-        <div class="val-judge" style="background:var(--red-bg);color:var(--red)">やや割高</div>
+        <div class="val-gap" style="color:var(--alert);font-size:.95rem;font-weight:700;margin-top:8px">現在株価比 -17.7%</div>
+        <div class="val-judge" style="background:rgba(139,32,32,0.15);color:var(--alert);font-size:.85rem;margin-top:4px;padding:4px 12px;border-radius:20px;display:inline-block">やや割高</div>
       </div>
       <div class="val-card mid">
-        <div class="val-label blue">MID（基本）</div>
-        <div class="val-price blue">$23.20</div>
+        <div class="val-label" style="color:var(--gold2);font-size:.85rem;font-weight:700;margin-bottom:8px">MID — 基本</div>
+        <div class="val-price" style="font-size:2rem;font-weight:900;color:var(--t1);font-family:'Inter',sans-serif">$23.20</div>
         <div class="val-detail">EPS $1.16 × PER 20x<br>現状成長率維持シナリオ</div>
-        <div class="val-gap green">現在株価比 +9.7%</div>
-        <div class="val-judge" style="background:var(--green-bg);color:var(--green)">適正</div>
+        <div class="val-gap" style="color:var(--beat);font-size:.95rem;font-weight:700;margin-top:8px">現在株価比 +9.7%</div>
+        <div class="val-judge" style="background:rgba(46,204,113,0.12);color:var(--beat);font-size:.85rem;margin-top:4px;padding:4px 12px;border-radius:20px;display:inline-block">適正</div>
       </div>
       <div class="val-card high">
-        <div class="val-label red">HIGH（楽観的）</div>
-        <div class="val-price" style="color:var(--purple)">$32.48</div>
+        <div class="val-label" style="color:var(--t2);font-size:.85rem;font-weight:700;margin-bottom:8px">HIGH — 楽観的</div>
+        <div class="val-price" style="font-size:2rem;font-weight:900;color:var(--t1);font-family:'Inter',sans-serif">$32.48</div>
         <div class="val-detail">EPS $1.16 × PER 28x<br>米国展開成功・マルチプル拡張シナリオ</div>
-        <div class="val-gap green">現在株価比 +53.6%</div>
-        <div class="val-judge" style="background:var(--green-bg);color:var(--green)">割安</div>
+        <div class="val-gap" style="color:var(--beat);font-size:.95rem;font-weight:700;margin-top:8px">現在株価比 +53.6%</div>
+        <div class="val-judge" style="background:rgba(46,204,113,0.12);color:var(--beat);font-size:.85rem;margin-top:4px;padding:4px 12px;border-radius:20px;display:inline-block">割安</div>
       </div>
     </div>
     <div class="comment-box" style="margin-top:16px">
-      <div class="speaker">📐 算出根拠</div>
+      <div class="speaker">算出根拠</div>
       <div class="quote">
         <strong>EPS:</strong> $1.16（直近12ヶ月実績ベース）<br>
         <strong>LOW PER 15x:</strong> 日本市場の成長鈍化・SoftBank支配ディスカウントを織り込んだ保守的評価<br>
@@ -1110,6 +1185,13 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 </div><!-- /container -->
 
 <!-- Portal Link -->
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
+<!-- Floating Tools -->
+<div class="atlas-floating-tools">
+  <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
+  <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
+</div>
 <!-- TOC Navigation (mobile) -->
 <nav class="toc-nav" id="tocNav">
   <div class="toc-menu" id="tocMenu">
@@ -1146,8 +1228,8 @@ new Chart(document.getElementById('revenueChart'),{
     datasets:[{
       label:'売上高（¥B）',
       data:[211.5,233.0,299.1,278.5],
-      backgroundColor:['rgba(88,166,255,0.5)','rgba(88,166,255,0.6)','rgba(88,166,255,0.8)','rgba(88,166,255,0.9)'],
-      borderColor:'#58a6ff',
+      backgroundColor:['rgba(184,145,42,0.5)','rgba(184,145,42,0.6)','rgba(184,145,42,0.8)','rgba(184,145,42,0.9)'],
+      borderColor:'#D4A843',
       borderWidth:1,
       borderRadius:6
     }]
@@ -1155,12 +1237,12 @@ new Chart(document.getElementById('revenueChart'),{
   options:{
     responsive:true,
     plugins:{
-      title:{display:true,text:'売上高推移（¥B）',color:'#e6edf3',font:{size:14,family:'Noto Sans JP'}},
+      title:{display:true,text:'売上高推移（¥B）',color:'#F5F2EC',font:{size:14,family:'Noto Sans JP'}},
       legend:{display:false}
     },
     scales:{
-      y:{ticks:{color:'#8b949e',callback:function(v){return '¥'+v+'B'}},grid:{color:'rgba(48,54,61,0.3)'}},
-      x:{ticks:{color:'#8b949e'},grid:{display:false}}
+      y:{ticks:{color:'#A8B0BC',callback:function(v){return '¥'+v+'B'}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{ticks:{color:'#A8B0BC'},grid:{display:false}}
     }
   }
 });
@@ -1173,8 +1255,8 @@ new Chart(document.getElementById('ebitdaChart'),{
     datasets:[{
       label:'EBITDA / 営業利益（¥B）',
       data:[9.8,45.6,35.5,61.0],
-      backgroundColor:['rgba(46,160,67,0.4)','rgba(46,160,67,0.6)','rgba(46,160,67,0.75)','rgba(46,160,67,0.9)'],
-      borderColor:'#2ea043',
+      backgroundColor:['rgba(46,204,113,0.4)','rgba(46,204,113,0.6)','rgba(46,204,113,0.75)','rgba(46,204,113,0.9)'],
+      borderColor:'#2ecc71',
       borderWidth:1,
       borderRadius:6
     }]
@@ -1182,12 +1264,12 @@ new Chart(document.getElementById('ebitdaChart'),{
   options:{
     responsive:true,
     plugins:{
-      title:{display:true,text:'EBITDA / 営業利益推移（¥B）',color:'#e6edf3',font:{size:14,family:'Noto Sans JP'}},
+      title:{display:true,text:'EBITDA / 営業利益推移（¥B）',color:'#F5F2EC',font:{size:14,family:'Noto Sans JP'}},
       legend:{display:false}
     },
     scales:{
-      y:{ticks:{color:'#8b949e',callback:function(v){return '¥'+v+'B'}},grid:{color:'rgba(48,54,61,0.3)'}},
-      x:{ticks:{color:'#8b949e'},grid:{display:false}}
+      y:{ticks:{color:'#A8B0BC',callback:function(v){return '¥'+v+'B'}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{ticks:{color:'#A8B0BC'},grid:{display:false}}
     }
   }
 });
@@ -1201,7 +1283,7 @@ new Chart(document.getElementById('marginChart'),{
       label:'EPS（¥）',
       data:[48.2,159.8],
       backgroundColor:['rgba(139,148,158,0.5)','rgba(46,160,67,0.8)'],
-      borderColor:['#8b949e','#2ea043'],
+      borderColor:['#8b949e','#2ecc71'],
       borderWidth:1,
       borderRadius:6
     }]
@@ -1209,12 +1291,12 @@ new Chart(document.getElementById('marginChart'),{
   options:{
     responsive:true,
     plugins:{
-      title:{display:true,text:'EPS比較（¥/株）— YoY +232%',color:'#e6edf3',font:{size:14,family:'Noto Sans JP'}},
+      title:{display:true,text:'EPS比較（¥/株）— YoY +232%',color:'#F5F2EC',font:{size:14,family:'Noto Sans JP'}},
       legend:{display:false}
     },
     scales:{
-      y:{ticks:{color:'#8b949e',callback:function(v){return '¥'+v}},grid:{color:'rgba(48,54,61,0.3)'}},
-      x:{ticks:{color:'#8b949e'},grid:{display:false}}
+      y:{ticks:{color:'#A8B0BC',callback:function(v){return '¥'+v}},grid:{color:'rgba(48,54,61,0.3)'}},
+      x:{ticks:{color:'#A8B0BC'},grid:{display:false}}
     }
   }
 });
@@ -1226,16 +1308,16 @@ new Chart(document.getElementById('shareChart'),{
     labels:['PayPay','楽天ペイ','d払い','au PAY','その他'],
     datasets:[{
       data:[56,27,21,14,12],
-      backgroundColor:['#FF0033','#BF0000','#1f6feb','#FF6600','#30363d'],
-      borderColor:'#0d1117',
+      backgroundColor:['#D4A843','#B8912A','#5C7395','#8B7A3F','#3A4A6A'],
+      borderColor:'#0F1829',
       borderWidth:3
     }]
   },
   options:{
     responsive:true,
     plugins:{
-      title:{display:true,text:'QRコード決済 利用シェア（2025年）',color:'#e6edf3',font:{size:14,family:'Noto Sans JP'}},
-      legend:{position:'bottom',labels:{color:'#e6edf3',font:{family:'Noto Sans JP'},padding:16}}
+      title:{display:true,text:'QRコード決済 利用シェア（2025年）',color:'#F5F2EC',font:{size:14,family:'Noto Sans JP'}},
+      legend:{position:'bottom',labels:{color:'#F5F2EC',font:{family:'Noto Sans JP'},padding:16}}
     }
   }
 });
@@ -1554,5 +1636,109 @@ function toggleAllSections(expand){
 
 </script>
 <!-- /ATLAS-PAYWALL-SCRIPT -->
+<script>
+// Theme Toggle
+(function(){
+  var html=document.documentElement;
+  var KEY='atlas-theme';
+  function applyTheme(t){
+    if(t==='light')html.setAttribute('data-theme','light');
+    else html.removeAttribute('data-theme');
+    document.querySelectorAll('.theme-toggle-btn').forEach(function(b){
+      b.textContent=(t==='light')?'🌙':'☀️';
+      b.title=(t==='light')?'ダークモードに切替':'ライトモードに切替';
+    });
+  }
+  var saved=localStorage.getItem(KEY)||'dark';
+  applyTheme(saved);
+  window.toggleAtlasTheme=function(){
+    var cur=localStorage.getItem(KEY)||'dark';
+    var next=cur==='dark'?'light':'dark';
+    localStorage.setItem(KEY,next);
+    applyTheme(next);
+  };
+})();
+
+// Currency Toggle
+(function(){
+  var KEY='atlas-currency';
+  var FX=window.ATLAS_FX||{rate:159.0,date:'2026/4/19'};
+  var mode=localStorage.getItem(KEY)||'usd';
+  var initialized=false;
+
+  function fmt(usd_num,orig){
+    var v=usd_num*FX.rate;
+    if(orig.match(/[TB]$/i)){
+      var u=orig.slice(-1).toUpperCase();
+      if(u==='T')v=v*1000;
+      if(v>=10000)return '¥'+(v/10000).toFixed(1)+'兆';
+      if(v>=100)return '¥'+(v/100).toFixed(0)+'億';
+      return '¥'+v.toFixed(0)+'億';
+    }
+    if(usd_num<100) return '¥'+Math.round(v)+'';
+    if(v>=10000) return '¥'+(v/10000).toFixed(1)+'兆';
+    if(v>=100) return '¥'+(v/100).toFixed(0)+'億';
+    return '¥'+v.toFixed(0);
+  }
+
+  function initSpans(){
+    if(initialized)return;
+    initialized=true;
+    document.querySelectorAll('body *:not(script):not(style)').forEach(function(el){
+      if(el.closest('.no-currency'))return;
+      var cn=el.childNodes;
+      for(var i=cn.length-1;i>=0;i--){
+        var n=cn[i];
+        if(n.nodeType!==3)continue;
+        var t=n.textContent;
+        var re=/\$(\d+(?:\.\d+)?)\s*([TtBbMmKk])?/g;
+        var m;var last=0;var frag=document.createDocumentFragment();var changed=false;
+        while((m=re.exec(t))!==null){
+          if(m.index>last)frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+          var sp=document.createElement('span');
+          sp.className='cur-val';
+          sp.setAttribute('data-usd',m[1]);
+          sp.setAttribute('data-sfx',m[2]||'');
+          sp.textContent=m[0];
+          frag.appendChild(sp);
+          last=m.index+m[0].length;
+          changed=true;
+        }
+        if(changed){
+          if(last<t.length)frag.appendChild(document.createTextNode(t.slice(last)));
+          el.replaceChild(frag,n);
+        }
+      }
+    });
+  }
+
+  function apply(m){
+    document.querySelectorAll('.cur-val').forEach(function(sp){
+      var usd=parseFloat(sp.getAttribute('data-usd'));
+      var sfx=sp.getAttribute('data-sfx');
+      if(m==='jpy'){sp.textContent=fmt(usd,'$'+usd+(sfx||''));sp.classList.add('jpy-mode');}
+      else{sp.textContent='$'+sp.getAttribute('data-usd')+(sfx||'');sp.classList.remove('jpy-mode');}
+    });
+    document.querySelectorAll('.currency-toggle').forEach(function(b){
+      b.classList.toggle('jpy-mode',m==='jpy');
+      var active=b.querySelector('.cur-active');
+      var inactive=b.querySelector('.cur-inactive');
+      if(active&&inactive){active.textContent=m==='jpy'?'¥':'$';inactive.textContent=m==='jpy'?'$':'¥';}
+      b.title=m==='jpy'?'円表示中（レート: '+FX.rate+'円/$、'+FX.date+'）':'レート: '+FX.rate+'円/$、'+FX.date;
+    });
+  }
+
+  window.toggleCurrency=function(){
+    initSpans();
+    mode=mode==='usd'?'jpy':'usd';
+    localStorage.setItem(KEY,mode);
+    apply(mode);
+  };
+
+  if(mode==='jpy'){
+    document.addEventListener('DOMContentLoaded',function(){initSpans();apply('jpy');});
+  }
+})();
+</script>
 </body>
 </html>

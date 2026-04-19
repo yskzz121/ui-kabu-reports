@@ -5,41 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>TSLA Tesla 納車・生産・在庫トラッカー（2023–2026）</title>
 <link rel="icon" type="image/png" href="../favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 159.0, date: '2026/4/19', fmt: 'cjk-ja' };</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#0d1117;--card:#161b22;--border:#30363d;
-  --text:#e6edf3;--text-sub:#8b949e;--text-dim:#6e7681;
-  --gold:#B8912A;--gold-light:#D4A843;--gold-bg:rgba(184,145,42,0.12);
-  --navy:#1A2540;--paper:#F5F2EC;
-  --green:#3fb950;--red:#ff7b72;--blue:#58a6ff;--purple:#bc8cff;--orange:#f0883e;
-  --green-bg:rgba(63,185,80,0.12);--red-bg:rgba(255,123,114,0.12);
-  --blue-bg:rgba(88,166,255,0.12);
+  --bg:#0F1829;--card:#1A2540;--border:rgba(184,145,42,0.18);
+  --border-strong:rgba(184,145,42,0.35);
+  --t1:#F5F2EC;--t2:#A8B0BC;--t3:#6E7A8C;
+  --text:#F5F2EC;--text-sub:#A8B0BC;--text-dim:#6E7A8C;
+  --gold:#B8912A;--gold2:#D4A843;--gold-light:#D4A843;--gold-pale:#F0E6C8;
+  --gold-bg:rgba(184,145,42,0.12);
+  --navy:#1A2540;--navy-deep:#0F1829;--paper:#F5F2EC;
+  --ink:#0F0E0C;--alert:#8B2020;--beat:#2ecc71;--muted:#8B949E;
+  --green:#2ecc71;--red:#8B2020;--blue:#5C7395;--purple:#bc8cff;--orange:#f0883e;
+  --green-bg:rgba(46,204,113,0.12);--red-bg:rgba(139,32,32,0.12);
+  --blue-bg:rgba(92,115,149,0.12);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.section-title,.chart-title{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.insight,.insight-body{font-family:'Noto Serif JP',serif;font-weight:400}
 
-/* Header */
-.header{
-  background:linear-gradient(135deg, #1a2332 0%, #1A2540 50%, #0F1829 100%);
-  border-bottom:1px solid rgba(184,145,42,0.15);
-  padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;
-  border-radius:16px 16px 0 0;
-}
-.header::before{
-  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-  background:radial-gradient(ellipse at 30% 50%, rgba(184,145,42,0.08) 0%, transparent 60%),
-             radial-gradient(ellipse at 70% 50%, rgba(184,145,42,0.06) 0%, transparent 60%);
-}
+/* Header v1.3 (.rh-*) */
+.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
+.rh-inner{position:relative;z-index:1}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
+.rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
+.rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
+.extra-badge{display:inline-block;background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.28);border-radius:8px;padding:4px 14px;font-size:12px;color:var(--gold2);letter-spacing:1px;margin-left:8px;font-family:'Inter',sans-serif}
+/* Overview Dropdown */
+.ov-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
+.ov-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
+.ov-btn .chev{transition:transform .25s}
+/* Legacy aliases (keep existing class refs working) */
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
 .header-content{position:relative;z-index:1}
-.header h1{font-family:'Shippori Mincho B1',serif;font-size:2.2em;font-weight:800;margin-bottom:4px;color:var(--text)}
-.header .subtitle{color:var(--text-sub);font-size:1.1em;font-family:'Noto Sans JP',sans-serif}
-.header .date{color:var(--text-sub);font-size:0.85em;margin-top:8px}
-.header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
-.report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
-.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold);margin-bottom:12px;letter-spacing:1px;font-family:'Inter',sans-serif}
-.extra-badge{display:inline-block;background:rgba(188,140,255,0.15);border:1px solid rgba(188,140,255,0.3);border-radius:8px;padding:4px 14px;font-size:12px;color:var(--purple);letter-spacing:1px;margin-left:8px;font-family:'Inter',sans-serif}
+.header h1{font-size:2rem;font-weight:800;margin-bottom:4px}
+.header .subtitle{color:var(--t2);font-size:1.05em}
+.header .date{color:var(--t3);font-size:.8em;margin-top:8px;font-family:'Inter',sans-serif}
+.header-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.report-header-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
 
 /* Sections */
 .section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:24px}
@@ -70,12 +82,9 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .tbl .highlight{background:rgba(255,123,114,0.08)}
 
 /* Insight boxes */
-.insight{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:18px 22px;font-size:.88rem;line-height:1.9;color:var(--text-sub);margin-bottom:14px}
+.insight{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 22px;font-size:.88rem;line-height:1.9;color:var(--text-sub);margin-bottom:14px;font-family:'Noto Serif JP',serif}
 .insight strong{color:var(--text)}
 .insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.insight.red{border-left-color:var(--red)}
-.insight.green{border-left-color:var(--green)}
-.insight.blue{border-left-color:var(--blue)}
 
 /* Footer */
 .footer{text-align:center;padding:32px 20px;border-top:1px solid var(--border);margin-top:40px;color:var(--text-dim);font-size:.75rem;line-height:1.8}
@@ -428,18 +437,19 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:18px;width:auto;opacity:.9;vertical-align:middle;max-width:180px">
 </div>
 <!-- ATLAS-QUARTERLY-BAND-END -->
-<!-- Header -->
-<div class="header">
-  <div class="header-content">
-    <div class="header-logo-row">
-      <img class="report-header-logo" src="../logos/TSLA.svg" alt="TSLA">
-      <div><div class="ticker-badge">NASDAQ: TSLA</div><span class="extra-badge">EXTRA</span></div>
+<!-- Header v1.3 -->
+<header class="rh">
+  <div class="ov-wrap"></div>
+  <div class="rh-inner">
+    <div class="rh-logo-row">
+      <img class="rh-logo" src="../logos/TSLA.svg" alt="TSLA">
+      <div class="rh-ticker">NASDAQ: TSLA<span class="extra-badge">EXTRA</span></div>
     </div>
     <h1>Tesla 納車・生産・在庫トラッカー</h1>
-    <div class="subtitle">13四半期の推移（Q1 2023 – Q1 2026）</div>
-    <div class="date">データ更新: 2026年4月4日 ｜ 次回決算発表: 2026年4月22日（予定）</div>
+    <div class="rh-sub">13四半期の推移（Q1 2023 – Q1 2026）</div>
+    <div class="rh-date">データ更新: 2026年4月4日 ｜ 次回決算発表: 2026年4月22日（予定）</div>
   </div>
-</div>
+</header>
 
 <!-- Key Metrics: Latest Quarter -->
 <div style="margin-top:24px">
@@ -469,7 +479,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Chart: Production vs Deliveries -->
 <div class="section" id="sec-prod-del" data-accordion>
-  <div class="section-title"><span class="section-icon">📊</span> 生産台数 vs 納車台数（13四半期推移）</div>
+  <div class="section-title"> 生産台数 vs 納車台数（13四半期推移）</div>
   <div class="section-body">
     <div class="chart-box">
       <div class="chart-wrap">
@@ -484,7 +494,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Chart: Cumulative Inventory -->
 <div class="section" id="sec-inventory" data-accordion>
-  <div class="section-title"><span class="section-icon">📦</span> 推定在庫総量の推移</div>
+  <div class="section-title"> 推定在庫総量の推移</div>
   <div class="section-body">
     <div class="chart-box">
       <div class="chart-wrap">
@@ -509,7 +519,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Annual Summary -->
 <div class="section" id="sec-annual" data-accordion>
-  <div class="section-title"><span class="section-icon">📅</span> 年間サマリー</div>
+  <div class="section-title"> 年間サマリー</div>
   <div class="section-body">
     <div class="annual-grid">
       <div class="annual-card">
@@ -551,7 +561,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Full Data Table -->
 <div class="section" id="sec-table" data-accordion>
-  <div class="section-title"><span class="section-icon">📋</span> 四半期データ一覧</div>
+  <div class="section-title"> 四半期データ一覧</div>
   <div class="section-body">
     <div class="tbl-wrap">
       <table class="tbl">
@@ -639,7 +649,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Energy Storage Chart -->
 <div class="section" id="sec-energy" data-accordion>
-  <div class="section-title"><span class="section-icon">⚡</span> エネルギー貯蔵導入量（GWh）</div>
+  <div class="section-title"> エネルギー貯蔵導入量（GWh）</div>
   <div class="section-body">
     <div class="chart-box">
       <div class="chart-wrap" style="height:300px">
@@ -654,7 +664,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Model Breakdown -->
 <div class="section" id="sec-model" data-accordion>
-  <div class="section-title"><span class="section-icon">🚗</span> モデル別納車内訳（直近5四半期）</div>
+  <div class="section-title"> モデル別納車内訳（直近5四半期）</div>
   <div class="section-body">
     <div class="chart-box">
       <div class="chart-wrap" style="height:320px">
@@ -683,7 +693,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Demand Patterns -->
 <div class="section" id="sec-pattern" data-accordion>
-  <div class="section-title"><span class="section-icon">🔍</span> 需要パターン分析</div>
+  <div class="section-title"> 需要パターン分析</div>
   <div class="section-body">
     <div class="chart-box">
       <div class="chart-title">四半期別 納車台数ヒートマップ</div>
@@ -704,7 +714,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- TradingView -->
 <div class="section" id="sec-technical" data-accordion>
-  <div class="section-title"><span class="section-icon">📈</span> 株価チャート</div>
+  <div class="section-title"> 株価チャート</div>
   <div class="section-body">
     <div style="text-align:center;margin-bottom:12px">
       <span style="font-size:.85rem;color:var(--text-sub)">現在株価: <strong style="color:var(--text);font-family:'Playfair Display',serif;font-size:1.1rem">$360.59</strong></span>
@@ -750,7 +760,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Financial Deep Dive -->
 <div class="section" id="sec-financial" data-accordion>
-  <div class="section-title"><span class="section-icon">🔬</span> 在庫増加が示す経営の構造変化</div>
+  <div class="section-title"> 在庫増加が示す経営の構造変化</div>
   <div class="section-body">
 
     <!-- Revenue & EPS charts side by side -->
@@ -1065,8 +1075,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- Chart.js Scripts -->
 <script>
 // Common config
-Chart.defaults.color = '#8b949e';
-Chart.defaults.borderColor = '#30363d';
+Chart.defaults.color = '#A8B0BC';
+Chart.defaults.borderColor = 'rgba(184,145,42,0.18)';
 Chart.defaults.font.family = "'Inter','Noto Sans JP',sans-serif";
 
 var labels = ['Q1\'23','Q2\'23','Q3\'23','Q4\'23','Q1\'24','Q2\'24','Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25','Q1\'26'];
@@ -1080,7 +1090,7 @@ new Chart(document.getElementById('chartProdDel'),{
   data:{
     labels:labels,
     datasets:[
-      {label:'生産台数',data:production,backgroundColor:'rgba(88,166,255,0.7)',borderColor:'rgba(88,166,255,1)',borderWidth:1,borderRadius:4},
+      {label:'生産台数',data:production,backgroundColor:'rgba(92,115,149,0.7)',borderColor:'rgba(92,115,149,1)',borderWidth:1,borderRadius:4},
       {label:'納車台数',data:deliveries,backgroundColor:'rgba(184,145,42,0.7)',borderColor:'rgba(184,145,42,1)',borderWidth:1,borderRadius:4}
     ]
   },

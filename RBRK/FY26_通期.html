@@ -5,34 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rubrik (RBRK) FY2026 通期決算分析</title>
 <link rel="icon" type="image/png" href="../favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{
-  --bg:#0d1117;--card:#161b22;--border:#21262d;--border-light:#30363d;
-  --text:#e6edf3;--text-sub:#8b949e;--text-dim:#6e7681;
-  --green:#2ea043;--green-bg:rgba(46,160,67,.12);--green-border:rgba(46,160,67,.3);
-  --red:#f85149;--red-bg:rgba(248,81,73,.12);--red-border:rgba(248,81,73,.3);
-  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.12);--blue-border:rgba(88,166,255,.3);
-  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.12);--purple-border:rgba(188,140,255,.3);
-  --orange:#f0883e;--orange-bg:rgba(240,136,62,.12);--orange-border:rgba(240,136,62,.3);
-  --yellow:#e3b341;
+  --bg:#0F1829;--card:#1A2540;--border:rgba(184,145,42,0.18);--border-light:rgba(184,145,42,0.35);
+  --text:#F5F2EC;--text-sub:#A8B0BC;--text-dim:#6E7A8C;
+  --t1:#F5F2EC;--t2:#A8B0BC;--t3:#6E7A8C;
+  --gold:#B8912A;--gold2:#D4A843;--gold-pale:#F0E6C8;
+  --navy:#1A2540;--navy-deep:#0F1829;--navy-mid:#243158;
+  --paper:#F5F2EC;--ink:#0F0E0C;
+  --alert:#8B2020;--beat:#2ecc71;--muted:#8B949E;
+  --green:#2ecc71;--green-bg:rgba(46,204,113,.12);--green-border:rgba(46,204,113,.3);
+  --red:#8B2020;--red-bg:rgba(139,32,32,.12);--red-border:rgba(139,32,32,.3);
+  --blue:#D4A843;--blue-bg:rgba(184,145,42,.12);--blue-border:rgba(184,145,42,.3);
+  --purple:#F0E6C8;--purple-bg:rgba(240,230,200,.06);--purple-border:rgba(240,230,200,.2);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:0}
+h1,h2,h3,.section-title,.score-label{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.num,.metric-value,.val-card .val-price,.score-big,.timeline-q,.guide-value,.tbl th{font-family:'Inter','Noto Sans JP',sans-serif}
 .container{max-width:1200px;margin:0 auto;padding:24px}
 
 /* Header */
-.header{background:linear-gradient(135deg,#1a2332 0%,#0d1117 50%,#1a1a2e 100%);border-bottom:1px solid #21262d;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(88,166,255,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(46,160,67,.06) 0%,transparent 60%)}
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border-bottom:1px solid var(--border);padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,.06) 0%,transparent 60%)}
 .header-content{position:relative;z-index:1}
 .header h1{font-size:2.2em;font-weight:900;margin-bottom:4px}
 .header .subtitle{color:var(--text-sub);font-size:1.1em}
 .header .date{color:var(--text-sub);font-size:.85em;margin-top:8px}
 .header-logo-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px}
 .report-header-logo{height:48px;width:auto;max-width:180px;object-fit:contain;vertical-align:middle;margin-right:12px;opacity:.9;flex-shrink:0}
-.ticker-badge{display:inline-block;background:rgba(88,166,255,.15);border:1px solid rgba(88,166,255,.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--blue);margin-bottom:12px;letter-spacing:1px}
-.annual-badge{display:inline-block;background:rgba(188,140,255,.15);border:1px solid rgba(188,140,255,.3);border-radius:8px;padding:4px 14px;font-size:13px;color:var(--purple);margin-left:8px;letter-spacing:1px;font-weight:700}
+.ticker-badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:14px;color:var(--gold2);margin-bottom:12px;letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.annual-badge{display:inline-block;background:rgba(184,145,42,0.10);border:1px solid rgba(184,145,42,0.25);border-radius:8px;padding:4px 14px;font-size:13px;color:var(--gold-pale);margin-left:8px;letter-spacing:1px;font-weight:700}
+
+/* Header v1.3 (.rh) */
+.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
+.rh-inner{position:relative;z-index:1}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em;color:var(--t1)}
+.rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
+.rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
+.ov-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
+.ov-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
+.ov-btn .chev{transition:transform .25s}
+.ov-btn.open .chev{transform:rotate(180deg)}
+@media(max-width:768px){
+  .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
+  .rh-inner{order:1;width:100%}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .rh-logo-row{gap:12px;margin-bottom:10px}
+  .rh-logo{height:44px;max-width:180px}
+  .rh-ticker{font-size:11px;padding:4px 12px}
+}
 
 /* Sections */
 .section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;margin-bottom:20px;position:relative}
@@ -54,14 +84,14 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 /* Metric cards */
 .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .metric-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;transition:border-color .2s}
-.metric-card:hover{border-color:var(--blue)}
+.metric-card:hover{border-color:var(--gold2)}
 .metric-label{font-size:.75em;color:var(--text-sub);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
 .metric-value{font-size:1.35em;font-weight:900;margin-bottom:2px}
 .metric-sub{font-size:.78em;font-weight:500}
 .metric-yoy{font-size:.72em;color:var(--text-dim);margin-top:2px}
 .positive{color:var(--green)}
 .negative{color:var(--red)}
-.neutral{color:var(--blue)}
+.neutral{color:var(--t1)}
 
 /* Charts */
 .chart-container{position:relative;height:340px;margin:16px 0}
@@ -75,7 +105,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .tbl th{background:var(--border);font-weight:700;text-align:center;color:var(--text-sub);font-size:.8em}
 .tbl td:first-child{text-align:left;font-weight:500}
 .tbl tr:nth-child(even){background:rgba(22,27,34,.5)}
-.tbl tr:last-child{font-weight:700;background:rgba(88,166,255,.06)}
+.tbl tr:last-child{font-weight:700;background:rgba(184,145,42,.06)}
 .tbl .beat{color:var(--green);font-weight:700}
 .tbl .miss{color:var(--red);font-weight:700}
 
@@ -84,25 +114,19 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 
 /* Risk / Catalyst */
 .rc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.rc-card{background:var(--bg);border-radius:10px;padding:20px;border:1px solid var(--border)}
-.rc-card h3{font-size:1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.rc-card{background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border)}
+.rc-card h3{font-size:1em;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;color:var(--t1)}
 .rc-card ul{list-style:none;padding:0}
 .rc-card li{padding:6px 0;border-bottom:1px solid var(--border);font-size:.85em;line-height:1.6;display:flex;gap:8px}
 .rc-card li:last-child{border-bottom:none}
 .rc-card li::before{content:'';flex-shrink:0}
-.risk-card li::before{content:'⚠️'}
-.catalyst-card li::before{content:'🚀'}
+.risk-card li::before{content:'—';color:var(--alert);font-weight:700}
+.catalyst-card li::before{content:'●';color:var(--gold2)}
 
 /* Valuation cards */
 .val-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
-.val-card{border-radius:12px;padding:20px;text-align:center;border:1px solid}
-.val-card.low{background:rgba(46,160,67,.06);border-color:var(--green-border)}
-.val-card.mid{background:rgba(88,166,255,.06);border-color:var(--blue-border)}
-.val-card.high{background:rgba(188,140,255,.06);border-color:var(--purple-border)}
-.val-card .val-scenario{font-size:.8em;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-.val-card.low .val-scenario{color:var(--green)}
-.val-card.mid .val-scenario{color:var(--blue)}
-.val-card.high .val-scenario{color:var(--purple)}
+.val-card{border-radius:12px;padding:20px;text-align:center;border:1px solid var(--border);background:var(--card)}
+.val-card .val-scenario{font-size:.8em;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:var(--gold2)}
 .val-card .val-price{font-size:2em;font-weight:900;margin-bottom:4px}
 .val-card .val-detail{font-size:.78em;color:var(--text-sub);line-height:1.6}
 .val-verdict{text-align:center;margin-top:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}
@@ -118,8 +142,8 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .timeline{position:relative;padding-left:28px}
 .timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--border)}
 .timeline-item{position:relative;margin-bottom:24px}
-.timeline-dot{position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2px solid var(--card)}
-.timeline-q{font-size:.85em;font-weight:700;color:var(--blue);margin-bottom:4px}
+.timeline-dot{position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--gold2);border:2px solid var(--card)}
+.timeline-q{font-size:.85em;font-weight:700;color:var(--gold2);margin-bottom:4px}
 .timeline-text{font-size:.88em;color:var(--text-sub);line-height:1.7}
 
 /* SaaS badge */
@@ -128,7 +152,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 /* Overview grid */
 .overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .overview-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px}
-.overview-card h3{font-size:.9em;font-weight:700;color:var(--blue);margin-bottom:10px}
+.overview-card h3{font-size:.9em;font-weight:700;color:var(--gold2);margin-bottom:10px}
 .overview-card ul{list-style:none;padding:0}
 .overview-card li{font-size:.84em;padding:4px 0;color:var(--text-sub);line-height:1.6}
 .overview-card li strong{color:var(--text)}
@@ -141,11 +165,11 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .tech-item:last-child{border-bottom:none}
 
 /* Mgmt quotes */
-.mgmt-quote{background:var(--bg);border-left:3px solid var(--blue);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:14px;font-size:.88em;line-height:1.8;color:var(--text-sub)}
-.mgmt-quote .mgmt-name{font-weight:700;color:var(--blue);font-size:.82em;margin-bottom:6px}
+.mgmt-quote{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:14px;font-size:.88em;line-height:1.8;color:var(--text-sub)}
+.mgmt-quote .mgmt-name{font-weight:700;color:var(--gold2);font-size:.82em;margin-bottom:6px}
 
 /* P/L section */
-.pl-highlight{background:rgba(88,166,255,.06);border:1px solid var(--blue-border);border-radius:8px;padding:4px 10px;font-weight:700}
+.pl-highlight{background:rgba(184,145,42,.06);border:1px solid var(--gold);border-radius:8px;padding:4px 10px;font-weight:700}
 
 /* TradingView */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px auto;text-align:center}
@@ -163,7 +187,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .toc-nav{display:none}
 @media(max-width:768px){
   .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid #30363d;box-shadow:0 -2px 12px rgba(0,0,0,.4)}
-  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#58a6ff;color:#0d1117;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.9rem}
   .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
   .toc-menu.open{max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -176,7 +200,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
   .toc-list .toc-label{flex:1}
   .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid #21262d}
   .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.75rem;padding:4px 14px;border-radius:6px;border:1px solid rgba(184,145,42,0.2);background:transparent;color:#8b949e;cursor:pointer}
-  .toc-expand-all button:active{background:#58a6ff;color:#0d1117}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
   body{padding-bottom:60px!important}
 }
 
@@ -218,7 +242,7 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
   .section-title,.section-header{font-size:1rem}
 }
 </style>
-  <script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 158.82, date: '2026/4/15', fmt: 'cjk-ja' };</script>
+  <script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 159.0, date: '2026/4/19', fmt: 'cjk-ja' };</script>
 <!-- ATLAS-PAYWALL-META -->
 <meta name="atlas-access" content='{"kind":"report","ticker":"RBRK","isLatest":false}'>
 <!-- /ATLAS-PAYWALL-META -->
@@ -497,37 +521,28 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:18px;width:auto;opacity:.9;vertical-align:middle;max-width:180px">
 </div>
 <!-- ATLAS-QUARTERLY-BAND-END -->
-<!-- Atlas Currency Toggle (floating, top-right) -->
-<style>
-.atlas-floating-currency{position:fixed;top:16px;right:16px;z-index:999;background:rgba(26,37,64,.9);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.2);backdrop-filter:blur(6px)}
-.currency-toggle{background:none;border:1px solid rgba(255,255,255,0.12);cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;line-height:1;letter-spacing:.3px;color:rgba(255,255,255,0.85);transition:all .15s;display:inline-flex;align-items:center;gap:2px}
-.currency-toggle:hover{opacity:.85;border-color:rgba(184,145,42,0.4)}
-.currency-toggle .cur-active{color:#D4A843;font-weight:800}
-.currency-toggle .cur-inactive{color:inherit;opacity:.55}
-.currency-toggle .cur-sep{opacity:.4;margin:0 1px;font-weight:400}
-.currency-toggle.jpy-mode{border-color:rgba(184,145,42,0.45);background:rgba(184,145,42,0.08)}
-.cur-val{transition:color .2s}
-.cur-val.jpy-mode{color:#D4A843}
-</style>
+<!-- Atlas Floating Tools (currency + theme) are defined in Phase A V1 block below -->
 <div class="atlas-floating-tools">
   <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
   <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
 </div>
 
 
-<!-- Header -->
-<div class="header">
-  <div class="header-content">
-    <div class="header-logo-row">
-      <img class="report-header-logo" src="../logos/RBRK.svg" alt="RBRK">
-      <div class="ticker-badge">NYSE: RBRK</div>
-      <div class="annual-badge">通期レポート</div>
-    </div>
-    <h1>Rubrik, Inc. FY2026 通期決算分析</h1>
-    <div class="subtitle">FY2026 通期（年間）決算分析（2025年2月1日〜2026年1月31日）</div>
-    <div class="date">発表日: 2026年3月12日 ｜ レポート作成: 2026年3月13日</div>
+<!-- Report Header v1.3 -->
+<header class="rh">
+  <div class="ov-wrap">
+    <button class="ov-btn" id="ovBtn" onclick="toggleOverview()">企業概要 <span class="chev">▼</span></button>
   </div>
-</div>
+  <div class="rh-inner">
+    <div class="rh-logo-row">
+      <img class="rh-logo" src="../logos/RBRK.svg" alt="RBRK">
+      <div class="rh-ticker">NYSE: RBRK</div>
+    </div>
+    <h1>Rubrik, Inc.</h1>
+    <div class="rh-sub">FY2026 通期決算分析（Annual Report）</div>
+    <div class="rh-date">発表日 2026.03.12 ｜ Atlas Quarterly <span style="display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:6px;padding:2px 10px;font-size:12px;color:var(--gold2);margin-left:8px;letter-spacing:.5px;font-family:'Inter',sans-serif">通期レポート</span></div>
+  </div>
+</header>
 
 <div class="container">
 
@@ -537,14 +552,14 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <div class="section" id="sec-annual-score">
   <div class="score-container">
     <div class="score-big" style="color:var(--green)">4</div>
-    <div class="score-label">📈 良い決算</div>
+    <div class="score-label">良い決算</div>
     <div class="score-desc">全4四半期でスコア4を維持。年間を通じて売上+48%成長、Non-GAAPマージン大幅改善、FCF黒字化（$237.8M）を達成した優良な1年。Non-GAAP EPSは-$0.01とほぼブレークイーブンに到達。</div>
     <table class="q-score-table">
       <tr><th>四半期</th><th>スコア</th><th>評価</th></tr>
-      <tr><td>Q1 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>📈 良い決算</td></tr>
-      <tr><td>Q2 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>📈 良い決算</td></tr>
-      <tr><td>Q3 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>📈 良い決算</td></tr>
-      <tr><td>Q4 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>📈 良い決算</td></tr>
+      <tr><td>Q1 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>良い決算</td></tr>
+      <tr><td>Q2 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>良い決算</td></tr>
+      <tr><td>Q3 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>良い決算</td></tr>
+      <tr><td>Q4 FY26</td><td style="font-size:1.2em;font-weight:900;color:var(--green)">4</td><td>良い決算</td></tr>
     </table>
   </div>
 </div>
@@ -553,7 +568,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 2: 年間Key Metrics -->
 <!-- ============================================ -->
 <div class="section" id="sec-annual-metrics">
-  <div class="section-title"><span class="section-icon">📊</span> FY2026 年間Key Metrics</div>
+  <div class="section-title">FY2026 年間Key Metrics</div>
   <div class="metrics-grid">
     <div class="metric-card">
       <div class="metric-label">年間売上高</div>
@@ -634,7 +649,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 3: 四半期別業績推移 -->
 <!-- ============================================ -->
 <div class="section" id="sec-quarterly-trend" data-accordion>
-  <div class="section-title"><span class="section-icon">📊</span> 四半期別業績推移</div>
+  <div class="section-title">四半期別業績推移</div>
   <div class="section-body">
 
     <div class="chart-row">
@@ -674,7 +689,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 4: 利益率改善トレンド -->
 <!-- ============================================ -->
 <div class="section" id="sec-margin" data-accordion>
-  <div class="section-title"><span class="section-icon">📈</span> 利益率改善トレンド</div>
+  <div class="section-title">利益率改善トレンド</div>
   <div class="section-body">
     <div class="chart-wrap">
       <h3>マージン推移（四半期別）</h3>
@@ -696,7 +711,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 5: 通期損益計算書 -->
 <!-- ============================================ -->
 <div class="section" id="sec-pl" data-accordion>
-  <div class="section-title"><span class="section-icon">📋</span> 通期損益計算書（P/L）</div>
+  <div class="section-title">通期損益計算書（P/L）</div>
   <div class="section-body">
     <table class="tbl">
       <tr><th>項目</th><th>FY2026</th><th>FY2025</th><th>YoY変化</th></tr>
@@ -723,7 +738,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 6: キャッシュフロー -->
 <!-- ============================================ -->
 <div class="section" id="sec-cashflow" data-accordion>
-  <div class="section-title"><span class="section-icon">💰</span> キャッシュフロー年間推移</div>
+  <div class="section-title">キャッシュフロー年間推移</div>
   <div class="section-body">
     <div class="chart-row">
       <div class="chart-wrap">
@@ -763,7 +778,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 7: SaaS KPI -->
 <!-- ============================================ -->
 <div class="section" id="sec-saas" data-accordion>
-  <div class="section-title"><span class="section-icon">☁️</span> SaaS KPI 年間推移</div>
+  <div class="section-title">SaaS KPI 年間推移</div>
   <div class="section-body">
     <div class="chart-wrap">
       <h3>Subscription ARR推移（四半期別）</h3>
@@ -808,7 +823,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 8: 企業概要 -->
 <!-- ============================================ -->
 <div class="section" id="sec-overview" data-accordion>
-  <div class="section-title"><span class="section-icon">🏢</span> 企業概要</div>
+  <div class="section-title">企業概要</div>
   <div class="section-body">
     <div class="overview-grid">
       <div class="overview-card">
@@ -859,7 +874,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 9: テクニカル分析 -->
 <!-- ============================================ -->
 <div class="section" id="sec-technical" data-accordion>
-  <div class="section-title"><span class="section-icon">📉</span> テクニカル分析</div>
+  <div class="section-title">テクニカル分析</div>
   <div class="section-body">
     <div class="tradingview-widget-container">
       <div class="tradingview-widget-container__widget"></div>
@@ -899,7 +914,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
     <div class="tech-grid" style="margin-top:20px">
       <div class="tech-card">
-        <h3>🔍 価格水準</h3>
+        <h3> 価格水準</h3>
         <div class="tech-item"><span>現在株価（AH 3/12）</span><span style="font-weight:700">$56.30</span></div>
         <div class="tech-item"><span>52週高値</span><span style="color:var(--green)">$103.00 (2025/6/2)</span></div>
         <div class="tech-item"><span>52週安値</span><span style="color:var(--red)">$46.36</span></div>
@@ -912,12 +927,12 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         <div class="tech-item"><span>クロス状況</span><span style="color:var(--red)">デッドクロス形成中</span></div>
       </div>
       <div class="tech-card">
-        <h3>📊 オシレーター</h3>
+        <h3> オシレーター</h3>
         <div class="tech-item"><span>RSI (14日)</span><span style="color:var(--orange)">~40（やや売られすぎ接近）</span></div>
         <div class="tech-item"><span>MACD</span><span style="color:var(--red)">弱気シグナル</span></div>
       </div>
       <div class="tech-card">
-        <h3>🎯 サポート / レジスタンス</h3>
+        <h3> サポート / レジスタンス</h3>
         <div class="tech-item"><span>サポート①</span><span style="color:var(--green)">$46.36</span></div>
         <div class="tech-item"><span>サポート②</span><span style="color:var(--green)">$50.00</span></div>
         <div class="tech-item"><span>レジスタンス①</span><span style="color:var(--red)">$60.02 (50SMA)</span></div>
@@ -935,7 +950,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 10: 年間ハイライト -->
 <!-- ============================================ -->
 <div class="section" id="sec-highlights" data-accordion>
-  <div class="section-title"><span class="section-icon">🏆</span> FY2026 年間ハイライト・マイルストーン</div>
+  <div class="section-title">FY2026 年間ハイライト・マイルストーン</div>
   <div class="section-body">
     <div class="timeline">
       <div class="timeline-item">
@@ -970,7 +985,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 11: 経営陣コメント年間総括 -->
 <!-- ============================================ -->
 <div class="section" id="sec-mgmt" data-accordion>
-  <div class="section-title"><span class="section-icon">🎤</span> 経営陣コメント 年間総括</div>
+  <div class="section-title">経営陣コメント 年間総括</div>
   <div class="section-body">
     <div class="mgmt-quote">
       <div class="mgmt-name">CEO Bipul Sinha</div>
@@ -995,11 +1010,11 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 12: リスク・カタリスト -->
 <!-- ============================================ -->
 <div class="section" id="sec-risk" data-accordion>
-  <div class="section-title"><span class="section-icon">⚡</span> リスク・カタリスト 年間総括</div>
+  <div class="section-title">リスク・カタリスト 年間総括</div>
   <div class="section-body">
     <div class="rc-grid">
       <div class="rc-card risk-card">
-        <h3><span style="color:var(--red)">⚠️</span> リスク要因</h3>
+        <h3>リスク要因</h3>
         <ul>
           <li>ARR成長率の減速傾向（38%→36%→34%→34%→ガイダンス26%）</li>
           <li>GAAP大幅赤字継続（-$345M営業損失、-$349M純損失）</li>
@@ -1012,7 +1027,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         </ul>
       </div>
       <div class="rc-card catalyst-card">
-        <h3><span style="color:var(--green)">🚀</span> カタリスト</h3>
+        <h3>カタリスト</h3>
         <ul>
           <li>Rubrik Agent Cloud GA → AIセキュリティ新市場への参入</li>
           <li>FedRAMP認証取得推進 → 公共セクター大型案件</li>
@@ -1032,7 +1047,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 13: バリュエーション -->
 <!-- ============================================ -->
 <div class="section" id="sec-valuation" data-accordion>
-  <div class="section-title"><span class="section-icon">💎</span> バリュエーション（PSR方式）</div>
+  <div class="section-title">バリュエーション（PSR方式）</div>
   <div class="section-body">
     <div style="text-align:center;margin-bottom:16px;font-size:.82em;color:var(--text-sub)">
       計算方式: PSR（Price-to-Sales Ratio）— GAAP赤字のため｜発行済株式: 197.5M株｜現在株価: $56.30
@@ -1080,7 +1095,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 14: FY2027 ガイダンス -->
 <!-- ============================================ -->
 <div class="section" id="sec-guidance" data-accordion>
-  <div class="section-title"><span class="section-icon">🔮</span> FY2027 ガイダンス</div>
+  <div class="section-title">FY2027 ガイダンス</div>
   <div class="section-body">
     <div class="guide-grid">
       <div class="guide-card">
@@ -1120,7 +1135,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- SECTION 15: 10-K開示状況 -->
 <!-- ============================================ -->
 <div class="section" id="sec-10k" data-accordion>
-  <div class="section-title"><span class="section-icon">📄</span> 10-K（年次報告書）開示状況</div>
+  <div class="section-title">10-K（年次報告書）開示状況</div>
   <div class="section-body">
     <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px;font-size:.88em;color:var(--text-sub);line-height:1.8">
       <p>10-K（年次報告書）はFY2026年度末（2026年1月31日）から60日以内にSECへ提出予定。</p>
@@ -1150,19 +1165,19 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
     </div>
     <ul class="toc-list">
-      <li><a href="#sec-quarterly-trend" onclick="tocJump('sec-quarterly-trend')"><span class="toc-icon">📊</span><span class="toc-label">四半期別業績推移</span></a></li>
-      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon">📈</span><span class="toc-label">利益率改善トレンド</span></a></li>
-      <li><a href="#sec-pl" onclick="tocJump('sec-pl')"><span class="toc-icon">📋</span><span class="toc-label">通期損益計算書</span></a></li>
-      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon">💰</span><span class="toc-label">キャッシュフロー</span></a></li>
-      <li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon">☁️</span><span class="toc-label">SaaS KPI</span></a></li>
-      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon">🏢</span><span class="toc-label">企業概要</span></a></li>
-      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon">📉</span><span class="toc-label">テクニカル分析</span></a></li>
-      <li><a href="#sec-highlights" onclick="tocJump('sec-highlights')"><span class="toc-icon">🏆</span><span class="toc-label">年間ハイライト</span></a></li>
-      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon">🎤</span><span class="toc-label">経営陣コメント</span></a></li>
-      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon">⚡</span><span class="toc-label">リスク・カタリスト</span></a></li>
-      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon">💎</span><span class="toc-label">バリュエーション</span></a></li>
-      <li><a href="#sec-guidance" onclick="tocJump('sec-guidance')"><span class="toc-icon">🔮</span><span class="toc-label">FY2027ガイダンス</span></a></li>
-      <li><a href="#sec-10k" onclick="tocJump('sec-10k')"><span class="toc-icon">📄</span><span class="toc-label">10-K開示状況</span></a></li>
+      <li><a href="#sec-quarterly-trend" onclick="tocJump('sec-quarterly-trend')"><span class="toc-icon"></span><span class="toc-label">四半期別業績推移</span></a></li>
+      <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon"></span><span class="toc-label">利益率改善トレンド</span></a></li>
+      <li><a href="#sec-pl" onclick="tocJump('sec-pl')"><span class="toc-icon"></span><span class="toc-label">通期損益計算書</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon"></span><span class="toc-label">キャッシュフロー</span></a></li>
+      <li><a href="#sec-saas" onclick="tocJump('sec-saas')"><span class="toc-icon"></span><span class="toc-label">SaaS KPI</span></a></li>
+      <li><a href="#sec-overview" onclick="tocJump('sec-overview')"><span class="toc-icon"></span><span class="toc-label">企業概要</span></a></li>
+      <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon"></span><span class="toc-label">テクニカル分析</span></a></li>
+      <li><a href="#sec-highlights" onclick="tocJump('sec-highlights')"><span class="toc-icon"></span><span class="toc-label">年間ハイライト</span></a></li>
+      <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon"></span><span class="toc-label">経営陣コメント</span></a></li>
+      <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon"></span><span class="toc-label">リスク・カタリスト</span></a></li>
+      <li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon"></span><span class="toc-label">バリュエーション</span></a></li>
+      <li><a href="#sec-guidance" onclick="tocJump('sec-guidance')"><span class="toc-icon"></span><span class="toc-label">FY2027ガイダンス</span></a></li>
+      <li><a href="#sec-10k" onclick="tocJump('sec-10k')"><span class="toc-icon"></span><span class="toc-label">10-K開示状況</span></a></li>
     </ul>
   </div>
 </nav>
@@ -1257,31 +1272,31 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         {
           label: 'GAAP粗利益率',
           data: [78.3, 80.0, 80.8, 81.5],
-          borderColor: '#58a6ff',
-          backgroundColor: 'rgba(88,166,255,0.1)',
+          borderColor: '#D4A843',
+          backgroundColor: 'rgba(212,168,67,0.1)',
           tension: 0.3,
           pointRadius: 5,
-          pointBackgroundColor: '#58a6ff',
+          pointBackgroundColor: '#D4A843',
           fill: false
         },
         {
           label: 'Non-GAAP粗利益率',
           data: [80.0, 82.0, 82.7, 83.7],
-          borderColor: '#2ea043',
-          backgroundColor: 'rgba(46,160,67,0.1)',
+          borderColor: '#2ecc71',
+          backgroundColor: 'rgba(46,204,113,0.1)',
           tension: 0.3,
           pointRadius: 5,
-          pointBackgroundColor: '#2ea043',
+          pointBackgroundColor: '#2ecc71',
           fill: false
         },
         {
           label: 'Sub Contribution Margin',
           data: [8.0, 9.5, 10.3, 11.6],
-          borderColor: '#bc8cff',
-          backgroundColor: 'rgba(188,140,255,0.1)',
+          borderColor: '#F0E6C8',
+          backgroundColor: 'rgba(240,230,200,0.1)',
           tension: 0.3,
           pointRadius: 5,
-          pointBackgroundColor: '#bc8cff',
+          pointBackgroundColor: '#F0E6C8',
           fill: false
         }
       ]
@@ -2098,5 +2113,12 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
 
 </script>
 <!-- /ATLAS-PAYWALL-SCRIPT -->
+<style>
+.portal-link{position:fixed;top:16px;left:16px;z-index:999;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;background:#1A2540;border:1px solid rgba(184,145,42,0.2);color:#D4A843;text-decoration:none;font-size:.78rem;font-weight:500;font-family:"Noto Sans JP",sans-serif;transition:all .15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.portal-link:hover{background:#B8912A;color:#0F1829;border-color:#B8912A}
+.portal-link svg{flex-shrink:0}
+</style>
+<a class="portal-link" href="https://atlas-financials.jp/reports/">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>ポータル</a>
 </body>
 </html>
