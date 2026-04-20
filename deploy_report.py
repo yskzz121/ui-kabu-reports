@@ -105,6 +105,7 @@ def extract_sector_from_report(ticker):
     return None
 
 SECTOR_MAP = {
+    "ABT":   "ヘルスケア",
     "ACN":   "ITサービス",
     "ADBE":  "SaaS・ソフトウェア",
     "ADI":   "半導体",
