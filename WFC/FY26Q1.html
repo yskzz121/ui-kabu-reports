@@ -71,11 +71,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -307,6 +324,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -671,15 +695,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Wells Fargo &amp; Company</strong>（NYSE: WFC）は1852年創業、本社カリフォルニア州サンフランシスコ。米国第4位の資産規模を持つ総合金融機関で、従業員約21.9万人、35州以上に4,700超の支店・12,000超のATMを展開。<strong>Charlie Scharf</strong> がCEO（2019年就任）、CFOは <strong>Mike Santomassimo</strong>。Consumer Banking &amp; Lending / Commercial Banking / Corporate &amp; Investment Banking / Wealth &amp; Investment Management の4セグメント構造。2018年より連邦準備制度（Fed）から1.95兆ドルの資産上限（Asset Cap）が課されていたが、<strong>2025年に解除</strong>され、本格的な成長加速フェーズに入っている。時価総額は約2,500億ドル（2026/4/14時点）。</p>
+  <h2>企業概要 — Wells Fargo &amp; Company</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1852年（Henry Wells・William Fargo 共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンフランシスコ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Charles Scharf（2019年10月就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: WFC</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>金融 / 分散型銀行サービス</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / S&P 100（主要指数構成銘柄）</dd></dl>
+    <dl class="ov-grid-item"><dt>総資産規模</dt><dd>約1.9兆ドル（米国第3〜4位の大手銀行）</dd></dl>
+    <dl class="ov-grid-item"><dt>顧客基盤</dt><dd>米国の3世帯に1世帯が取引（リテール顧客6,000万人超）</dd></dl>
+  </div>
+
+  <p>Wells Fargoは米国を代表する<strong>総合金融サービス銀行</strong>。Consumer Banking・Commercial Banking・Corporate and Investment Banking・Wealth & Investment Managementの4セグメントで運営。2018年に偽口座問題で連邦準備制度から資産上限（アセットキャップ）を課されたが2025年6月に解除、財務体質の改善と業容拡大の新局面に入った。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Consumer Banking & Lending（約40%）</strong> — 個人向け預金・住宅ローン・自動車ローン・クレジットカード。全米支店網が集客の柱</li>
+          <li><strong>Commercial Banking & CIB（約35%）</strong> — 中堅〜大企業向け融資・トレジャリー管理・M&A助言・資本市場サービス</li>
+          <li><strong>Wealth & Investment Management（約25%）</strong> — Wells Fargo Advisorsによる富裕層向け資産管理・ブローカレッジ・信託</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>純利子収益（NII、約50%）</strong> — 預金・貸付金の金利差収益が主体。長短金利差（イールドカーブ）の形状に収益が強く連動</li>
+          <li><strong>非利子収益（フィー収益、約50%）</strong> — 投資銀行手数料・資産管理報酬・住宅ローン組成手数料・カード加盟店手数料・トレジャリーマネジメント</li>
+          <li>課金基準: <strong>融資残高×スプレッド＋AUM×手数料率</strong>。景気サイクルで変動するが4セグメント分散で安定化</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>米国最大級のリテール預金基盤と支店網</strong> — 約4,900支店と優良な低コスト預金（core deposits）は競合が短期再現不可能な構造的優位。預金調達コストの低さが貸出収益力の源泉</li>
+      <li><strong>住宅ローン市場の長年の指導的地位</strong> — 住宅ローン組成・サービシング残高で業界屈指の規模を誇り、規模の経済によるコスト優位と顧客関係の深さが競合参入を困難にする</li>
+      <li><strong>米国中堅企業向けコマーシャルバンキングの支配的ポジション</strong> — 中規模企業（ミドルマーケット）向け貸付・トレジャリー管理で深い顧客関係を構築。乗り換えコストが高く長期継続率が高い</li>
+      <li><strong>規模に基づく規制上の参入障壁</strong> — $1.9兆資産規模のSIFI（Too-Big-to-Fail）ステータスは厳格な規制コストを伴う一方、監督体制の整備と信用力が機関投資家の信頼を担保</li>
+      <li><strong>アセットキャップ解除後の潜在成長余力</strong> — 2025年6月の制約撤廃により貸出・資本市場・IB事業の拡大が解禁。構造改革完了による業績改善と株主還元拡大への期待がバリュエーション支持要因</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>JPMorgan Chase</strong></td><td>JPM</td><td>~$750B</td><td>全セグメントで業界首位。IB・資産管理・リテール全てにおいてベンチマークとなる最大競合</td></tr>
+        <tr><td><strong>Bank of America</strong></td><td>BAC</td><td>~$300B</td><td>リテール・WM・IBで直接競合。デジタル採用率・Merrill Lynch統合で優位性をアピール</td></tr>
+        <tr><td><strong>Citigroup</strong></td><td>C</td><td>~$130B</td><td>グローバル法人・トレジャリーで重複。自社も大規模組織再編中でWFCと並んでターンアラウンドが注目</td></tr>
+        <tr><td><strong>U.S. Bancorp</strong></td><td>USB</td><td>~$60B</td><td>中西部・西部の地域銀行最大手。リテール・コマーシャルで地盤が重複する準大手競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">1852年設立</span>
-    <span class="tag">CA州サンフランシスコ本社</span>
-    <span class="tag">従業員 219,000人</span>
-    <span class="tag">4セグメント構造</span>
-    <span class="tag">資産上限 2025年解除済み</span>
-    <span class="tag">時価総額 ~$250B</span>
+    <span class="tag">大手総合銀行</span>
+    <span class="tag">リテールバンキング</span>
+    <span class="tag">住宅ローン</span>
+    <span class="tag">商業銀行</span>
+    <span class="tag">資産管理</span>
+    <span class="tag">NYSE: WFC</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">アセットキャップ解除</span>
   </div>
 </div>
 

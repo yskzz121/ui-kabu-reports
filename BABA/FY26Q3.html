@@ -37,11 +37,28 @@ h1,h2,h3,.sec3-title,.l1-score-label{font-family:'Shippori Mincho B1','Noto Sans
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ── Layer Eyebrow ── */
 .layer-eyebrow{font-size:10px;letter-spacing:.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -258,6 +275,13 @@ h1,h2,h3,.sec3-title,.l1-score-label{font-family:'Shippori Mincho B1','Noto Sans
 /* === TOC Nav === */
 .toc-nav,.toc-toggle{display:none}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
   .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.85rem}
@@ -648,13 +672,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Alibaba Group Holding Limited — 企業概要</h2>
-  <p><strong>設立:</strong> 1999年 ／ <strong>本社:</strong> 中国・浙江省杭州市 ／ <strong>CEO:</strong> Eddie Wu（呉泳銘）／ <strong>会長:</strong> Joe Tsai（蔡崇信）</p>
-  <p><strong>上場:</strong> NYSE（ADR, BABA）・HKEX（9988）｜ 1 ADS = 8普通株 ｜ <strong>従業員:</strong> 約126,661名</p>
-  <p><strong>主要ビジネス:</strong> Taobao / Tmall（中国最大EC基盤）、Alibaba Cloud（中国クラウドシェア36%, No.1）、AliExpress / Lazada / Trendyol（国際EC）、Cainiao（スマート物流）、Qwen / 通義千問（AIモデル）</p>
-  <p><strong>戦略フォーカス:</strong> 3年3,800億元（~$530億）のAI・クラウドインフラ投資、5年で AI・Cloud $1,000億売上目標、Qwen オープンソース戦略でMAU 3億人超</p>
+  <h2>企業概要 — Alibaba Group Holding Limited</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1999年6月（浙江省杭州市）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>中国・浙江省杭州市（登記地：ケイマン諸島）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Eddie Wu（2023年就任、創業18人のひとり）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: BABA / HKEX: 9988（2014年NYSE上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>一般消費財・サービス / 広域小売業（EC）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>MSCI China・ハンセン指数（香港）・FTSE Emerging Markets</dd></dl>
+    <dl class="ov-grid-item"><dt>アクティブ消費者数</dt><dd>中国国内EC：約9億人超（年間）</dd></dl>
+    <dl class="ov-grid-item"><dt>Alibaba Cloud顧客数</dt><dd>数百万社超、中国クラウド市場シェア首位</dd></dl>
+  </div>
+
+  <p>Alibaba Groupは中国最大のEC・クラウド・デジタルインフラ企業。<strong>Taobao（C2C）・Tmall（B2C）を擁する中国コマース</strong>が売上の約65%を占め、Alibaba Cloud（AIクラウド）・国際デジタルコマース（AliExpress・Lazada・Trendyol）・Cainiao物流・飲食メディアの6事業群に再編。2023年以降は<strong>生成AI・Qwenモデル</strong>とクラウドインフラへの大規模投資（今後3年でRMB3,800億以上）で第2の成長エンジンを構築中。中国テクノロジー消費エコシステムのアンカー企業。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>中国コマース（Taobao・Tmall Group、~65%）</strong> — 中国最大C2C/B2Cマーケットプレイス、広告収入・コミッション・会員制Tmall Supermarketを含む</li>
+          <li><strong>Alibaba Cloud / Cloud Intelligence Group（~14%見込み）</strong> — IaaS/PaaS・Qwen大規模言語モデル・DingTalk（企業SaaS）、中国クラウド市場首位</li>
+          <li><strong>国際デジタルコマース（AliExpress・Lazada・Trendyol、~15%）</strong> — 欧州・東南アジア・トルコでのクロスボーダーEC、成長率最速セグメント</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>マーケットプレイス広告・コミッション（中核）</strong> — 出品者向けスポンサー広告・トランザクション手数料が中国コマース収益の大半、景気連動性あり</li>
+          <li><strong>クラウド従量課金＋AIサービス</strong> — Alibaba Cloud は従量・サブスク併用、Qwen APIでAI収益化加速中。毎四半期二桁成長が続くセグメント</li>
+          <li><strong>物流・飲食・エンタメ等（Cainiao・Ele.me・Youku）</strong> — エコシステム内の付加価値を高めるアンシラリー事業、単体採算より全体GTV最大化を目的</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>中国EC基盤としてのネットワーク効果</strong> — 9億超の消費者と数百万の出品者が形成する両面市場は代替困難、Taobao・Tmallは中国オンライン購買の「当たり前」として定着</li>
+      <li><strong>Alipay（Ant Group）との決済エコシステム連携</strong> — 購買・決済・信用スコアリングが一体化し、消費者とマーチャントのロックインを深める金融インフラ</li>
+      <li><strong>Cainiao物流ネットワークの規模</strong> — 中国全土と国際を結ぶ物流網をECと一体的に運用、配送速度・コストで後発を寄せ付けない規模の経済</li>
+      <li><strong>クラウド先行者利益とQwenのオープンソース戦略</strong> — 中国クラウド市場首位の顧客基盤を持ちながら、Qwen3をオープンソース公開してAIエコシステムの中心に位置づけ</li>
+      <li><strong>データ資産の圧倒的蓄積</strong> — EC・決済・物流・クラウドを跨ぐ消費者行動データは競合が再現不能な固有資産、ターゲティング精度と商品推薦に直結</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>PDD Holdings（拼多多）</strong></td><td>PDD</td><td>~$170B</td><td>農村・低価格帯ECで急成長、Taobaoの価格競争力を脅かす最大内部競合</td></tr>
+        <tr><td><strong>JD.com（京東）</strong></td><td>JD</td><td>~$50B</td><td>家電・ブランド品B2C・自社物流でTmallと直接競合、品質重視顧客層を争奪</td></tr>
+        <tr><td><strong>ByteDance（TikTok Shop）</strong></td><td>非公開</td><td>~$300B</td><td>抖音（Douyin）EC（ライブコマース）で購買行動を変革、新世代消費者を獲得中</td></tr>
+        <tr><td><strong>Tencent（腾讯）</strong></td><td>TCEHY</td><td>~$520B</td><td>WeChatミニプログラムECで決済・SNS基盤からEC浸食、クラウドでも競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">中国最大EC</span><span class="tag">クラウドNo.1</span><span class="tag">AI投資フェーズ</span><span class="tag">NYSE/HKEX</span><span class="tag">AI Infra</span>
+    <span class="tag">中国EC / Taobao・Tmall</span>
+    <span class="tag">Alibaba Cloud</span>
+    <span class="tag">生成AI（Qwen）</span>
+    <span class="tag">クロスボーダーEC</span>
+    <span class="tag">デジタル決済エコシステム</span>
+    <span class="tag">中国テクノロジー</span>
+    <span class="tag">NYSE: BABA</span>
+    <span class="tag">HKEX: 9988</span>
   </div>
 </div>
 

@@ -71,11 +71,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -288,6 +305,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -748,16 +772,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Oracle Corporation</strong>（NYSE: ORCL）は、世界最大級のエンタープライズソフトウェア企業。1977年にLarry Ellison、Bob Miner、Ed Oatesが共同創業。米テキサス州オースティン本社。現在は <strong>Safra Catz（CEO）</strong> と <strong>Larry Ellison（会長兼CTO）</strong> の体制で経営。時価総額は約<span class="no-currency">$430B</span>。従業員数約16万人。</p>
-  <p>ビジネスモデルはエンタープライズデータベース・クラウドインフラ（OCI）・クラウドアプリ（SaaS）・ソフトウェアライセンスの多層構造。Oracle Cloud Infrastructure（OCI）はAI/MLワークロード向けに急成長中で、AWS/Azure/GCP上でも稼働する<strong>マルチクラウド戦略</strong>を展開。Cerner買収によるヘルスケアITも主力事業。RPO（受注残）は$553Bと過去最高を記録。</p>
+  <h2>企業概要 — Oracle Corporation</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1977年（カリフォルニア州サンタクララ）、現在はテキサス州オースティン本社</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>テキサス州オースティン</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Clay Magouyrk / Mike Sicilia（共同CEO、2025年9月就任）/ Larry Ellison 会長 兼 CTO</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: ORCL</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / アプリケーションソフトウェア</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / Fortune 500（世界売上上位20社圏内）</dd></dl>
+    <dl class="ov-grid-item"><dt>クラウドリージョン数</dt><dd>世界100超のクラウドリージョン（競合を大幅に上回る展開速度）</dd></dl>
+    <dl class="ov-grid-item"><dt>時価総額概算</dt><dd>~$500B（2026年初頭時点）</dd></dl>
+  </div>
+
+  <p>Oracleは1977年創業の世界最大級のエンタープライズソフトウェア企業。<strong>リレーショナルデータベース管理システム（RDBMS）</strong>分野での数十年に及ぶ支配的地位を基盤に、クラウドERP（Fusion Cloud / NetSuite）・自律型データベース・OCI（Oracle Cloud Infrastructure）へと事業をシフト中。法人向けDB市場での深い顧客関係と移行コストを武器に、AI時代のインフラ企業として急成長しており、特にOCI IaaSは直近で前年比70%超の成長を記録している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Cloud Services & License Support（~77%）', 'detail': '<strong>OCI（IaaS）+ Fusion Cloud ERP/HCM/SCM + NetSuite（SMB ERP）+ Autonomous Database</strong>。クラウド移行加速でサブスク比率が急上昇し主力収益源に'}</li>
+          <li>{'name': 'Cloud License & On-Premises License（~10%）', 'detail': '<strong>Oracle Database（オンプレ）</strong>ライセンス販売。既存大口顧客のOCI移行前橋渡し。BYOL（Bring Your Own License）でクラウドへの継続性を担保'}</li>
+          <li>{'name': 'Hardware / Services（~13%）', 'detail': '<strong>Oracle Exadata</strong>（データベース専用エンジニアドシステム）、コンサルティング・導入支援サービス。エンタープライズの基幹系システム基盤として継続的な需要'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'item': 'サブスクリプション（クラウド中心）', 'detail': 'クラウド移行に伴い<strong>サブスク比率約77%超</strong>に到達。ADB（自律型DB）・Fusion ERP・NetSuiteが複数年契約を牽引しNRRが安定'}</li>
+          <li>{'item': 'ライセンス更新・サポート収益', 'detail': '既存オンプレ顧客の年次サポート費用。<strong>解約率が極めて低く</strong>安定した反復収益として機能。クラウド移行促進のクロスセル起点'}</li>
+          <li>{'item': 'OCI IaaS成長（急拡大）', 'detail': 'OCI IaaS売上がYoY+84%（FY26Q3）で急成長。GPUクラスタ需要取り込みにより<strong>FY27通年売上 ~$90B</strong>のガイダンスを発表'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>データベース依存の超高スイッチングコスト</strong> — 大企業の基幹系DB・ERPがOracle前提で構築されており、移行コスト・リスクが極大。Fortune 500の多くがOracle DBを40年以上継続利用し、競合への切替は事実上の多年度プロジェクトを要する</li>
+      <li><strong>マルチクラウド展開による生態系防衛</strong> — Oracle Database@Azure・Oracle@AWSにより、顧客がAzureやAWSを選んでもOracle DBを利用継続できる構造を構築。競合インフラを「流通チャネル」に転換する巧みな戦略</li>
+      <li><strong>Autonomous Database（自律型DB）の技術的先行</strong> — AIによる自動パッチ・チューニング・スケーリングを実現したADBは競合にない独自機能。DBaaS市場でのコスト優位と運用工数削減が既存顧客の移行先としてOCIを優位に立たせる</li>
+      <li><strong>Fusion ERP + OCI の水平統合による粘着性</strong> — クラウドERP（Fusion / NetSuite）とOCIインフラを一体提供することで、顧客の業務データ・ワークフローがOracle基盤に深く統合。単独製品よりも離脱コストが大幅に上昇</li>
+      <li><strong>AIデータセンター需要への乗り換え</strong> — Starlgate（OpenAI）などAI超大規模プロジェクトのインフラ受託により、既存DBビジネスとは別のAI IaaS成長軌道を獲得。100超のクラウドリージョン展開速度が競合優位</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Microsoft（Azure / SQL Server）</strong></td><td>MSFT</td><td>~$3T</td><td>Azure SQL / Cosmos DBでクラウドDB市場を競合。Oracle Database@Azureとの提携関係を維持しつつ、ERP（Dynamics 365）でFusion Cloudと直接競合</td></tr>
+        <tr><td><strong>AWS（Amazon RDS / Aurora）</strong></td><td>AMZN</td><td>~$2.3T</td><td>Amazon Aurora PostgreSQL / MySQL互換でオンプレDB移行を促進。IaaS市場シェア首位（~30%）でOCIの最大競合。2026年4月に相互接続協定締結</td></tr>
+        <tr><td><strong>SAP</strong></td><td>SAP</td><td>~$280B</td><td>ERP市場（S/4HANA Cloud）で世界最大シェア。FusionとNetSuiteに対する最大のエンタープライズERP競合企業。欧州大企業では強固な顧客基盤</td></tr>
+        <tr><td><strong>Salesforce</strong></td><td>CRM</td><td>~$250B</td><td>CRM・PaaSでOracle Cloudと競合。Hyperforce基盤のSalesforce Platformがアプリ領域でFusion拡張を牽引する中堅企業に訴求</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">1977年設立</span>
-    <span class="tag">DB市場No.1</span>
-    <span class="tag">OCI +84% YoY</span>
-    <span class="tag">RPO $553B</span>
-    <span class="tag">時価総額 <span class="no-currency">$430B</span></span>
-    <span class="tag">マルチクラウド</span>
+    <span class="tag">エンタープライズDB</span>
+    <span class="tag">OCI / クラウドインフラ</span>
+    <span class="tag">Fusion ERP</span>
+    <span class="tag">NetSuite</span>
+    <span class="tag">Autonomous Database</span>
+    <span class="tag">AI インフラ</span>
+    <span class="tag">NYSE: ORCL</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

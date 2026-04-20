@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -363,6 +380,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -774,23 +798,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 dropdown -->
 <div class="ov-drop" id="ovDrop">
-  <h2>V.F. Corporation — 企業概要</h2>
-  <p>V.F. Corporationはアパレル・フットウェアのグローバルブランドポートフォリオ企業。The North Face（アウトドアウェア）、Vans（スケートカルチャー）、Timberland（アウトドアフットウェア）、Dickies（ワークウェア）の4ブランドを中核に展開。構造改革中でバランスシート改善・Vans再建が最重要課題。</p>
+  <h2>企業概要 — V.F. Corporation</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1899年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">コロラド州デンバー</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Bracken Darrell</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約 23,000名</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場市場</div><div class="ov-val">NYSE</div></div>
-    <div class="ov-item"><div class="ov-lbl">セクター</div><div class="ov-val">消費財 / アパレル</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1899年（John Barbey創業、旧社名 Vanity Fair Mills）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>コロラド州デンバー</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Bracken Darrell（2023年6月就任、元Logitech CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: VFC</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>一般消費財 / アパレル・アクセサリー・高級品</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500（構成銘柄）</dd></dl>
+    <dl class="ov-grid-item"><dt>主要ブランド数</dt><dd>12ブランド超（The North Face・Vans・Timberland・Smartwool等）</dd></dl>
+    <dl class="ov-grid-item"><dt>販売チャネル</dt><dd>直営店・DTC（EC含む）・卸売・アウトレットの多チャネル展開</dd></dl>
   </div>
+
+  <p>V.F. Corporationは<strong>The North Face・Vans・Timberland</strong>を中核に持つ世界有数のアウトドア・アクティブ・ワークウェアブランド持株会社。Outdoor（TNF等）・Active（Vans等）・Work（Dickies等）の3セグメントで展開し、DTC比率の拡大によるマージン改善を進める。高債務とVans不振を抱えながら構造改革の途上にある。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>The North Face（売上の約40%）</strong> — アウトドアアパレル・フットウェア・バッグ。プレミアム山岳・都市兼用ポジションで世界的ブランド認知</li>
+          <li><strong>Vans（売上の約25%）</strong> — スケート・ストリートカルチャー発祥のフットウェア・アパレル。若年層支持は高いが近年売上減少が継続</li>
+          <li><strong>Timberland・その他（約35%）</strong> — Timberland（ブーツ・アウトドア）、Dickies（ワークウェア）、Smartwool・Icebreaker（ベースレイヤー）等</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>卸売（Wholesale、約55%）</strong> — 百貨店・スポーツ量販店・アウトドア専門店向けBtoBチャネルが主体</li>
+          <li><strong>DTC（直販、約45%）</strong> — 直営店およびEC（ブランド公式サイト・楽天等）。DTCは粗利率が卸売比で10〜15pt高く戦略的に拡大中</li>
+          <li>課金基準: <strong>商品単価×販売数量</strong>。季節性が高くQ3（北半球秋冬）に売上・利益が集中する構造</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>The North Face・Vansの強固なブランド資産</strong> — 数十年の歴史と文化的文脈を持つブランドは短期構築不可。アウトドア・ストリートの各コミュニティにおける象徴的地位が価格プレミアムを支える</li>
+      <li><strong>グローバル多ブランドポートフォリオによるリスク分散</strong> — 12ブランド超を保有し、特定カテゴリ不振を他ブランドで補完可能。地域・チャネル・天候リスクを分散する構造的強み</li>
+      <li><strong>DTC拡大による顧客直接関係の構築</strong> — EC・直営店比率向上で消費者データ取得・CRM強化が可能。ブランド体験の統制とロイヤルティプログラムが再購買率を高める</li>
+      <li><strong>サステナビリティ戦略による優良顧客吸引</strong> — TNFのCircular Design・TimberlandのRegreENなど環境取り組みが若年富裕層の購買意向を強化。ESGブランドプレミアムが価格帯維持に寄与</li>
+      <li><strong>アウトドア・ワークウェアでの技術・機能性先行</strong> — GORE-TEX連携・防臭ウール技術（Smartwool/Icebreaker）・ワーク安全規格認定など機能差別化が競合ブランドへの切替を抑制</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Columbia Sportswear</strong></td><td>COLM</td><td>~$3B</td><td>アウトドアアパレルで直接競合。北米・アジアで価格帯が重複しTNFの下位代替となるリスク</td></tr>
+        <tr><td><strong>Nike</strong></td><td>NKE</td><td>~$90B</td><td>スポーツ・ストリートでVansのシェアを侵食。Jordan・Nike SBがスケート文化圏でも存在感</td></tr>
+        <tr><td><strong>PVH Corp.</strong></td><td>PVH</td><td>~$4B</td><td>Calvin Klein・Tommy Hilfigerを持つ持株会社。ライフスタイルアパレル全般で競合</td></tr>
+        <tr><td><strong>Hanesbrands</strong></td><td>HBI</td><td>~$2B</td><td>Champion等でアクティブウェア領域に参入。ワークウェアではDickiesの競合となる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
+    <span class="tag">アパレル持株会社</span>
     <span class="tag">The North Face</span>
     <span class="tag">Vans</span>
     <span class="tag">Timberland</span>
-    <span class="tag">Dickies</span>
-    <span class="tag">構造改革</span>
-    <span class="tag">ブランドポートフォリオ</span>
+    <span class="tag">アウトドア・アクティブ</span>
+    <span class="tag">DTC拡大</span>
+    <span class="tag">NYSE: VFC</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

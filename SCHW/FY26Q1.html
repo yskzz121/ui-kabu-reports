@@ -73,11 +73,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -309,6 +326,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -728,15 +752,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Charles Schwab Corporation</strong>（NYSE: SCHW）は1971年創業、本社テキサス州ウェストレイク。米国最大級のリテール証券・資産運用・銀行の複合金融サービス企業。<strong>顧客預かり資産（Client Assets）$11.77兆</strong>、アクティブ口座3,910万件超。収益の三本柱は：①スイープ預金運用による<strong>Net Interest Revenue（NII）</strong>、②自社ETF・投資顧問サービスの<strong>Asset Management &amp; Administration Fees</strong>、③株式・オプション取引手数料の<strong>Trading Revenue</strong>。2020〜2024年のTD Ameritrade統合を完了し、規模・テクノロジー・Wealth Managementの強化局面へ。<strong>Rick Wurster</strong>が代表執行役社長（President）、<strong>Mike Verdeschi</strong>がCFO。従業員約3.4万人。時価総額は約<span class="no-currency">$182B</span>（2026/4/16時点）。</p>
+  <h2>企業概要 — The Charles Schwab Corporation</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1971年（Charles R. 'Chuck' Schwab が創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>テキサス州ウェストレイク（2021年移転）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Rick Wurster（2025年1月就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: SCHW</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>金融 / 資本市場（証券・資産管理）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / S&P 100</dd></dl>
+    <dl class="ov-grid-item"><dt>顧客資産規模</dt><dd>預かり資産~$9.5T超、アクティブ口座4,000万超</dd></dl>
+    <dl class="ov-grid-item"><dt>時価総額概算</dt><dd>~$120–140B（大型金融株）</dd></dl>
+  </div>
+
+  <p>Charles Schwabは1975年の手数料自由化に際していち早くディスカウントブローカレッジを確立した米国最大の公開証券会社。2020年のTD Ameritrade統合（約$260億）を経て独立系RIA（登録投資顧問）向け資産管理・カストディアン業務での圧倒的シェアを持つ。<strong>セルフ型取引・マネージドアカウント・RIAカストディ・銀行・資産管理</strong>を一体提供する「垂直統合型金融プラットフォーム」として機能し、ゼロ手数料化後の収益構造を金利収入と資産管理フィーに転換している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>リテール証券・セルフ投資（~45%）</strong> — ゼロ手数料株式取引・ETF・オプション。thinkorswimトレーディングプラットフォームをTD Ameritrade買収で獲得し先進的取引ツールを提供</li>
+          <li><strong>RIAカストディ（Schwab Advisor Services）</strong> — 独立系登録投資顧問向けの資産預かり・執行・レポーティング支援。米国RIA市場の50%超シェアを持ち競合の追随を困難にする</li>
+          <li><strong>資産管理・ウェルスマネジメント（~30%）</strong> — Schwab Intelligent Portfolios（ロボアドバイザー）・Schwab Wealth Advisory（フィー型対面）・Schwab ETFシリーズ。低コスト設計で自社プロダクトへの誘導を図る</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>純金利収益（~50–55%）</strong> — 顧客キャッシュスウィープ（MMF移行前の残高）・マージンローン・住宅ローンから得る金利収入。金利環境に強く連動するが、2022–2023年の急利上げ後は顧客の高金利商品への「キャッシュソーティング」で一時減収</li>
+          <li><strong>資産管理フィー・カストディフィー（~25–30%）</strong> — マネージドアカウント残高に連動するフィー収入。金利非依存で安定。預かり資産増加とともに線形的に成長する持続的収益源</li>
+          <li><strong>取引手数料・その他（~15–20%）</strong> — オプション取引手数料（$0.65/契約）・PFOF収益・口座サービス手数料。ゼロ手数料化後も残る収益構造で補完的役割を果たす</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>TD Ameritrade統合による規模の経済と固定費分散</strong> — $9.5T超の預かり資産は規模の経済により1口座あたりコストを最低水準に抑制。後発が同等コスト構造を実現するには数十年と巨額投資が必要</li>
+      <li><strong>RIAカストディ市場の寡占構造</strong> — Schwab Advisor Servicesは米国独立系RIA市場でシェア50%超を保持。RIAが顧客資産の移管を求める際のデフォルト先として機能し、顧客基盤が自己強化型に拡大</li>
+      <li><strong>銀行免許によるバランスシート活用</strong> — Schwab Bankが保有する銀行免許を通じ、顧客キャッシュをFDIC保護付スウィープで集め低コスト資金調達が可能。ノンバンク競合（Fidelity）にはない構造的収益源</li>
+      <li><strong>thinkorswimによるアクティブトレーダーの囲い込み</strong> — 買収したTD Ameritrade由来の高機能取引プラットフォームは機能・コミュニティともに競合が模倣困難な粘着性を持つ</li>
+      <li><strong>ブランドの歴史と信頼性</strong> — 50年超の歴史と「顧客ファースト」のブランドイメージが、特に大規模資産を持つ40–70代投資家層の根強い支持を確保</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fidelity Investments</strong></td><td>非公開（非上場）</td><td>—</td><td>最大の直接競合。預かり資産・口座数でSchwabと拮抗。ゼロ手数料・独自ファンドで個人投資家向け激しく競合。RIAカストディはSchwab統合後に大差をつけられた</td></tr>
+        <tr><td><strong>Morgan Stanley（E*TRADE含む）</strong></td><td>MS</td><td>~$180B</td><td>E*TRADE買収でリテール証券に参入。Schwabのセルフ投資顧客層と重複。ウェルスマネジメント上位層ではSchwabより優位</td></tr>
+        <tr><td><strong>Interactive Brokers</strong></td><td>IBKR</td><td>~$60B</td><td>アクティブトレーダー・機関投資家・国際取引特化。最低コスト・最多商品数でthinkorswimと競合するがリテール大衆向けブランドではSchwabが圧倒</td></tr>
+        <tr><td><strong>Robinhood Markets</strong></td><td>HOOD</td><td>~$20–25B</td><td>スマホネイティブのミレニアル・Z世代向けアプリ。ゲーミフィケーションとUIで若年層を獲得。Schwabの既存顧客層（40–70代）とは世代が異なる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">1971年設立</span>
-    <span class="tag">TX（ウェストレイク）本社</span>
-    <span class="tag">従業員 34,000人+</span>
-    <span class="tag">Client Assets $11.77T</span>
-    <span class="tag">Ameritrade統合完了</span>
-    <span class="tag">時価総額 <span class="no-currency">$182B</span></span>
+    <span class="tag">金融サービス</span>
+    <span class="tag">証券・ブローカレッジ</span>
+    <span class="tag">RIAカストディ</span>
+    <span class="tag">資産管理</span>
+    <span class="tag">ウェルスマネジメント</span>
+    <span class="tag">NYSE: SCHW</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">配当成長株</span>
   </div>
 </div>
 

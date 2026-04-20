@@ -355,3 +355,58 @@ grep -nE '\$[0-9,]+(\.\d+)?[-〜～][0-9,]+(\.\d+)?[BMTK]?' {FILE}.html
 # マッチ0件が正常
 ```
 
+
+
+============================================================
+ov-drop 企業概要カード (2026-04-21 確定 / 全レポート統一仕様)
+============================================================
+**配置**: atlas-nav 直下、Layer I 直前。`<div class="ov-drop" id="ovDrop">` で囲む。
+**トリガー**: ヘッダーの「企業概要 ▼」ボタン (`ov-btn`) で `toggleOverview()` → `.open` クラス付与で展開。
+**設計思想**: 時期依存データ（時価総額・PER・株価・スコア等）は含めず、**企業の恒常的な情報**のみで構成する。
+
+**必須6パート（順序厳守、省略不可）**:
+
+1. **h2 見出し**: `企業概要 — {会社名}`
+2. **Identity Grid** (`.ov-grid` / `.ov-grid-item` dt/dd, 8項目)
+   - 設立 / 本社 / CEO / 上場市場 / GICS分類 / 指数採用 / 顧客数 or 規模指標 / 業界特有指標
+3. **Narrative** (`<p>`, 1段落)
+   - 事業内容・プロダクト・差別化要素を凝縮して1段落
+4. **事業モデル** (`.ov-section` > `.ov-biz-grid` > `.ov-biz-block` × 2)
+   - プロダクトライン（3項目、売上構成比付）
+   - 収益モデル（3項目、サブスク比率・NRR・課金基準等）
+5. **Competitive Moat** (`.ov-section` > `.ov-moat`, 5項目)
+   - 競争優位性を持つ理由を5つの箇条書き（ネットワーク効果・切替コスト・規模の経済・規制障壁・先行者利益等）
+6. **Key Rivals** (`.ov-section` > `.ov-rivals` table, 4社)
+   - 企業名 / ティッカー / 時価総額 / ポジション・脅威
+
+最後に `.tags`（8タグ前後）で締める。
+
+**禁止事項**:
+- Hero KPI Strip（時価総額・PER・FCFマージン等）の埋込 — 時期依存のため別セクションで扱う
+- Atlas編集部の見立て・今見るべきポイント Top 3 — 時期依存・スコア関連で別セクション扱い
+- CEO 顔写真・企業ヘッダー画像 — 著作権リスクで使用しない
+
+**必須CSS**（全レポート共通、`.ov-drop .tag` の後に追加）:
+```css
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
+```
+`.ov-drop.open` の `max-height` は **2600px** に拡張。
+モバイル用（@media max-width:768px）: `.ov-biz-grid{grid-template-columns:1fr}` + `.ov-rivals thead{display:none}` + テーブル縦積み対応。
+
+**リファレンス実装**: `~/ui-kabu-reports/OKTA/FY2026Q4.html` L881-957 (2026-04-21 確定版)

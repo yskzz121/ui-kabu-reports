@@ -39,11 +39,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 /* Layer eyebrow */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
 /* L1 */
@@ -249,6 +266,13 @@ html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme=
 html[data-theme="light"] .l1{background:linear-gradient(180deg,rgba(184,145,42,.05) 0%,rgba(245,242,236,.8) 100%)}
 /* Responsive */
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -611,17 +635,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Super Micro Computer, Inc.（Supermicro）企業概要</h2>
-  <p><strong>設立:</strong> 1993年 ｜ <strong>本社:</strong> カリフォルニア州サンノゼ ｜ <strong>CEO:</strong> Charles Liang（創業者・筆頭株主）｜ <strong>従業員:</strong> 約6,238名</p>
-  <p>AIデータセンター向け高性能サーバー・ストレージ・液冷（DLC）ソリューションの設計・製造・販売。NVIDIA GPUを搭載したAIサーバーが売上の90%超を占める。独自の「Building Block」設計哲学により競合比3〜6ヶ月早い新製品投入が強み。DLC（Direct Liquid Cooling）技術においても業界リーダーポジションを確立。2025年中には会計遅延・SEC調査・内部統制問題が続発し、株価が高値比-75%超まで下落したが、FY26Q2で記録的売上を達成し信頼回復局面に入った。</p>
-  <p><strong>主要競合:</strong> Dell Technologies、HPE、Lenovo、Inspur ｜ <strong>競争優位性:</strong> タイムトゥマーケット速度、NVIDIA・Intel・AMDとの深い協力関係、DLC技術特許、DCBBS（Data Center Building Block Solution）</p>
+  <h2>企業概要 — Super Micro Computer, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1993年（カリフォルニア州法人設立）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンノゼ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Charles Liang（共同創業者・会長兼務）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: SMCI（2007年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / テクノロジー・ハードウェア・ストレージ・周辺機器</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / NASDAQ-100（2024年採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>主要顧客</dt><dd>超大規模クラウド・AI研究機関・エンタープライズデータセンター</dd></dl>
+    <dl class="ov-grid-item"><dt>製品展開数</dt><dd>1,000機種超のサーバー・ストレージ製品ラインナップ</dd></dl>
+  </div>
+
+  <p>Super Micro Computerは<strong>高性能・省電力サーバーのODM/ODMベンダー</strong>として1993年に創業。AIブームを受けてGPUサーバー・DLC（液冷）対応ラックの需要が急増し、収益のおよそ<strong>90%がAI GPUプラットフォーム</strong>から生まれる構造に変化した。Building Block Solutions（BBS）思想のもと、CPU・GPU・ストレージ・冷却を顧客ニーズに合わせて柔軟に組み合わせる設計思想が強みで、NVIDIAやAMDの最新チップへの対応速度でDell・HPEを上回る。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>AIサーバー・GPUシステム（~90%）</strong> — NVIDIA H100/H200/GB200対応NVL36/72ラック、AMD Instinct搭載システム。液冷DLC対応でデータセンター電力効率を最大40%向上</li>
+          <li><strong>ストレージ・エッジサーバー（~8%）</strong> — All-NVMe JBOFストレージ、MicroCloudシリーズ（1Uに24ノード集積）、5G MEC向けエッジシステム</li>
+          <li><strong>マザーボード・周辺機器・サービス（~2%）</strong> — OEM向けカスタムマザーボード、SuperBlade、サーバー管理ソフト（BMC/IPMI）、ラック統合サービス</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>直販・大口顧客契約（主軸）</strong> — 超大規模クラウド・AIスタートアップへの直接販売。設計～納品まで一貫対応でリードタイム短縮</li>
+          <li><strong>VAR/SI経由販売</strong> — 付加価値再販業者・システムインテグレーター経由でエンタープライズ市場を補完</li>
+          <li><strong>OEM受託製造</strong> — 自社ブランド外のカスタム設計・製造。顧客ハードウェア要件に応じた少量多品種対応</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>AIサーバー製品化速度の優位</strong> — NVIDIAの新チップ発表から出荷まで競合比3〜6ヶ月早い製品サイクル。Building Block Solutions設計がカスタム対応を加速</li>
+      <li><strong>液冷（DLC）技術の先行展開</strong> — データセンターの電力密度上昇に対応するDirect Liquid Coolingを早期量産化、AI GPU稼働密度の高い顧客に不可欠</li>
+      <li><strong>創業者主導の垂直統合R&amp;D</strong> — マザーボード設計から筐体・電源まで内製比率が高く、設計変更への対応速度とコスト構造で受注競争力を維持</li>
+      <li><strong>製品ラインナップの広さ（規模の経済）</strong> — 1,000機種超の構成で超大規模からエッジまで対応。共通コンポーネント設計による調達コスト低減</li>
+      <li><strong>サンノゼ製造拠点の地政学的優位</strong> — 米国内生産拠点を保有しFedRAMP・政府調達要件を満たしやすく、中国製サーバー規制の追い風を受ける構造</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dell Technologies</strong></td><td>DELL</td><td>~$50B</td><td>AIサーバー市場で最大の競合。PowerEdgeシリーズとサービスバンドル力で大企業・政府案件を取り込む</td></tr>
+        <tr><td><strong>Hewlett Packard Enterprise</strong></td><td>HPE</td><td>~$17B</td><td>ProLiantサーバーとHybrid Cloud（GreenLake）でエンタープライズ市場を押さえる。AI分野ではSMCIより後発</td></tr>
+        <tr><td><strong>Quanta Computer</strong></td><td>2382.TW</td><td>~$25B</td><td>台湾ODMの最大手。超大規模クラウド向けホワイトボックスサーバーでSMCIと直接競合</td></tr>
+        <tr><td><strong>Lenovo（联想）</strong></td><td>0992.HK</td><td>~$12B</td><td>ThinkSystem/ThinkAgilityシリーズでグローバルサーバー市場2位。アジア・欧州で強い商流</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">AIサーバー</span>
+    <span class="tag">GPUシステム</span>
     <span class="tag">液冷（DLC）</span>
     <span class="tag">データセンター</span>
-    <span class="tag">NVIDIA パートナー</span>
-    <span class="tag">Blackwell対応</span>
-    <span class="tag">DCBBS</span>
+    <span class="tag">NASDAQ: SMCI</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">NASDAQ-100</span>
+    <span class="tag">Building Block Solutions</span>
   </div>
 </div>
 

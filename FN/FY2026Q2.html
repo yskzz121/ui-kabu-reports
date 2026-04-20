@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -363,6 +380,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -775,26 +799,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Fabrinet — 企業概要</h2>
-  <p><strong>Fabrinet</strong>はケイマン諸島登記・タイ（バンコク近郊）に主要製造拠点を持つ精密光学・電子機器の受託製造（EMS）企業。光トランシーバー、光モジュール、レーザー部品、電子機械アセンブリの高精度受託製造を行い、800G/1.6Tトランシーバー、Co-Packaged Optics（CPO）、光回路スイッチ（OCS）などAI/データセンター向け次世代技術にも対応。主要顧客はCisco、Lumentum、Coherent（旧II-VI）、NVIDIA/AWS等。</p>
+  <h2>企業概要 — Fabrinet</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Seamus Grady</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">バンコク、タイ</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約16,500名</div></div>
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1999年</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場</div><div class="ov-val">NYSE: FN</div></div>
-    <div class="ov-item"><div class="ov-lbl">会計年度末</div><div class="ov-val">6月末</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">$18.8B（発表時）</div></div>
-    <div class="ov-item"><div class="ov-lbl">事業モデル</div><div class="ov-val">精密EMS（受託製造）</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1999年（David T. Mitchell 創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>タイ・パトゥムターニー県（登記地: ケイマン諸島）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Seamus Grady（2025年10月就任、前任 Mitchell 会長退任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: FN</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 電子機器製造サービス（EMS）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 400 MidCap / Russell 1000</dd></dl>
+    <dl class="ov-grid-item"><dt>売上構成（光通信）</dt><dd>売上の約76%が光通信向け（テレコム・データコム・DCI）</dd></dl>
+    <dl class="ov-grid-item"><dt>主要顧客集中度</dt><dd>NVIDIA 単独で売上の約35%、Cisco が次点で10%超</dd></dl>
   </div>
+
+  <p>Fabrinetは光パッケージング・精密光電子機器の受託製造（EMS）に特化したグローバルメーカー。タイを主力拠点に米国・中国・イスラエルで事業展開し、AIデータセンター向け800G/1.6T高速光トランシーバー、シリコンフォトニクス、医療レーザー、産業機器など高複雑度製品を超精密製造。NVIDIAやCiscoをはじめとする大手テクノロジー顧客のサプライチェーン基盤として不可欠な存在。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': '光通信製品（~76%）', 'desc': '<strong>テレコム・DCI・データコム</strong>向け光トランシーバー・光モジュールの受託製造。AIデータセンターの帯域拡大需要を直接取り込む主力ライン。'}</li>
+          <li>{'name': '非光通信製品（~24%）', 'desc': '<strong>産業用レーザー・医療機器・自動車センサー</strong>向け精密電子・電気機械製品。安定した多様化収益源として機能。'}</li>
+          <li>{'name': 'HPC新カテゴリ（新設）', 'desc': '<strong>高性能コンピューティング（HPC）</strong>向け製品ラインを2026年度より新設。AIアクセラレータ周辺部品の製造受注拡大を反映。'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '受託製造サービス（100%）', 'desc': '<strong>設計から量産まで一貫した純粋受託モデル</strong>。顧客が設計・IP保持、Fabrinetが製造のみを担う形態で、顧客の設計エンジニアと密接に共同作業する。'}</li>
+          <li>{'name': '長期顧客契約', 'desc': '<strong>高スイッチングコストを背景とした深い顧客統合</strong>。製品ライン移管には1〜2年かかるため、契約更新率は極めて高く安定的な量産受注を確保。'}</li>
+          <li>{'name': '課金基準：製造量ベース', 'desc': '<strong>ユニット数量×製品複雑度</strong>に基づく従量課金。AIデータセンター拡大による光トランシーバー需要急増が直接的な増収ドライバーとなる。'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>光学ラボ技術と量産規模の融合</strong> — フォトニクス・光パッケージング領域での希少な精密技術知見と、タイ主力キャンパスでの大規模量産能力を両立。後発参入が極めて困難な複合優位性。</li>
+      <li><strong>顧客エンジニアとの深い共同開発統合</strong> — 製品設計段階から製造工程を共同設計するため、製品移管コストが1〜2年分の開発コストに相当。実質的なロックイン効果。</li>
+      <li><strong>中国外製造拠点の地政学的希少価値</strong> — タイ主力拠点は米中デカップリング環境で西側ハイパースケーラーの「非中国サプライチェーン」需要に応え、代替困難なポジションを確立。</li>
+      <li><strong>NVIDIAとの戦略的パートナーシップ</strong> — 売上の約35%を占めるNVIDIA向け製造は、AIデータセンター設備投資拡大の直接的受益構造。Blackwellシリーズ等次世代製品の量産受注も継続。</li>
+      <li><strong>FY2025年売上 ~$40億超の実績規模</strong> — スケールメリットによる設備・人材投資余力が品質水準を維持し、競合の中小EMSが追いつけない品質・納期管理体制を構築。</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Coherent Corp.</strong></td><td>COHR</td><td>~$100億</td><td>光通信コンポーネントの垂直統合メーカー。製造内製化により競合関係と顧客関係が混在する二面性を持つ。</td></tr>
+        <tr><td><strong>Lumentum Holdings</strong></td><td>LITE</td><td>~$40億</td><td>光トランシーバー・VCSEL大手。Fabrinetへの製造委託も行う一方、一部製品は内製化し競合関係。</td></tr>
+        <tr><td><strong>Jabil Inc.</strong></td><td>JBL</td><td>~$200億</td><td>大手総合EMS。光通信特化ではないが規模の経済で一部領域で競合。高複雑度精密製品では技術劣位。</td></tr>
+        <tr><td><strong>Hon Hai / Foxconn</strong></td><td>2317.TW</td><td>~$650億</td><td>世界最大のEMS。AIサーバー組み立てに注力しているが、光学精密領域ではFabrinetが技術的優位を保つ。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">精密光学製造</span>
-    <span class="tag">光トランシーバー</span>
-    <span class="tag">800G / 1.6T</span>
-    <span class="tag">Co-Packaged Optics</span>
-    <span class="tag">HPC / AIインフラ</span>
+    <span class="tag">EMS / 受託製造</span>
+    <span class="tag">光通信トランシーバー</span>
+    <span class="tag">AIデータセンター</span>
+    <span class="tag">シリコンフォトニクス</span>
     <span class="tag">タイ製造拠点</span>
-    <span class="tag">受託製造（EMS）</span>
+    <span class="tag">NVIDIA サプライチェーン</span>
+    <span class="tag">NYSE: FN</span>
+    <span class="tag">S&P 400 MidCap</span>
   </div>
 </div>
 

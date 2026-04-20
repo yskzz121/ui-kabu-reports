@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -380,6 +397,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -843,17 +867,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Amazon.com（NASDAQ: AMZN）</strong>は1994年ジェフ・ベゾスにより創業、ワシントン州シアトルに本社を置く世界最大級のテクノロジー・Eコマース企業。オンライン小売（北米・国際）、AWS（クラウドコンピューティング）、デジタル広告、Prime会員サービス、デバイス（Alexa/Echo/Ring）、Prime Video、Whole Foods（食品小売）、Project Kuiper（衛星通信）を展開。</p>
-  <p>CEO: <strong>Andy Jassy</strong>（2021年就任）。従業員数約150万人。米国Eコマース市場シェア約35.7%、クラウド市場シェア約32%で首位。2025年通期売上 <span class="no-currency">$716.9B</span>。時価総額約 <span class="no-currency">$2.28T</span>。</p>
+  <h2>企業概要 — Amazon.com, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1994年（ワシントン州ベルビュー）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ワシントン州シアトル</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Andy Jassy（2021年就任、AWS創設者）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: AMZN（1997年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>一般消費財・サービス / 広域小売業</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500・NASDAQ-100・ダウ平均（2024年採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>Prime会員数</dt><dd>2億人超（世界）</dd></dl>
+    <dl class="ov-grid-item"><dt>AWSクラウドシェア</dt><dd>約28%（世界首位）</dd></dl>
+  </div>
+
+  <p>Amazonは電子商取引・クラウドコンピューティング・デジタル広告・AIを中核とする世界最大級のテクノロジー企業。Online Store／Third-Party Services／AWS／Advertising／Subscriptions（Prime）の5軸で収益を分散し、<strong>AWSが全社営業利益の大半を稼ぐ構造</strong>を持つ。物流・フルフィルメント網を自前で構築し、Fulfillment by Amazon（FBA）でサードパーティ出品者を取り込む独自エコシステムが競合との決定的差別化要因となっている。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Amazon Web Services（AWS、~17%売上・営業利益の約6割）</strong> — IaaS/PaaS/AIサービス、世界200超AZを展開するクラウド首位基盤</li>
+          <li><strong>オンラインストア＋Third-Party Services（~52%）</strong> — 直販EC・マーケットプレイス手数料・FBA物流費で構成、プライムと一体化</li>
+          <li><strong>広告サービス（~9%）</strong> — スポンサー広告・DSP等、年間$70B規模に迫る第3の収益柱、利益率が高い</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>クラウド（AWS）</strong> — 従量課金SaaS/IaaS、長期コミットメント契約（EDP）によりNRR高水準・解約コスト大</li>
+          <li><strong>マーケットプレイス手数料＋FBA</strong> — 出品手数料（売上の約15%）＋物流代行・保管費、規模拡大で単価逓減</li>
+          <li><strong>サブスクリプション（Prime）</strong> — 年間$139（米国）の定額制、動画・音楽・配送無料を束ね解約防止・購買頻度向上に寄与</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>AWSの技術的先行と顧客粘着性</strong> — 2006年からのクラウド黎明期参入で圧倒的な機能数・実績・エコシステムを構築、移行コストが極めて高い</li>
+      <li><strong>物流・フルフィルメント網の規模の経済</strong> — 独自航空貨物・ラストマイル配送網を内製化、競合が追随困難なコスト優位を確立</li>
+      <li><strong>Primeエコシステムの囲い込み</strong> — Prime会員は非会員の2倍超の購買頻度、動画・音楽・配送を束ねた解約防止構造が顧客生涯価値を最大化</li>
+      <li><strong>広告事業の参入障壁</strong> — 購買意向の高い検索データと購買履歴データを掛け合わせたターゲティングはGoogle/Metaにない独自資産</li>
+      <li><strong>AIインフラの垂直統合</strong> — 自社AIチップ（Trainium/Inferentia）・Bedrockプラットフォーム・Alexa/Kindleなど全スタック内製化で他社依存を排除</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Microsoft</strong></td><td>MSFT</td><td>~$3T</td><td>AzureがAWSに次ぐクラウド2位、M365バンドルとOpenAI連携で企業向けに猛追</td></tr>
+        <tr><td><strong>Alphabet（Google）</strong></td><td>GOOGL</td><td>~$2T</td><td>Google CloudがAWS3位追撃、検索広告でAmazon広告と市場争奪</td></tr>
+        <tr><td><strong>Walmart</strong></td><td>WMT</td><td>~$750B</td><td>米EC2位・実店舗1位、Walmart+でPrimeに対抗。食品・日用品で最大の小売競合</td></tr>
+        <tr><td><strong>Alibaba</strong></td><td>BABA</td><td>~$270B</td><td>中国EC最大手・Alibabaクラウド、AWSの中国・アジア展開の直接競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">Eコマース</span>
-    <span class="tag">AWS クラウド</span>
+    <span class="tag">EC / マーケットプレイス</span>
+    <span class="tag">クラウド（AWS）</span>
     <span class="tag">デジタル広告</span>
-    <span class="tag">Prime会員 2.4億人</span>
-    <span class="tag">AI / カスタムチップ</span>
-    <span class="tag">物流ネットワーク</span>
-    <span class="tag">時価総額 <span class="no-currency">$2.28T</span></span>
+    <span class="tag">Prime サブスクリプション</span>
+    <span class="tag">AIインフラ</span>
+    <span class="tag">物流・フルフィルメント</span>
+    <span class="tag">NASDAQ: AMZN</span>
+    <span class="tag">ダウ平均構成銘柄</span>
   </div>
 </div>
 

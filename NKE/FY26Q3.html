@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -371,6 +388,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -782,28 +806,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>Nike, Inc.は1964年創業（旧Blue Ribbon Sports）、オレゴン州ビーバートン本社の世界最大スポーツウェア企業。NIKE・Jordan・Converseの3ブランドでグローバルNo.1シェア（約14.1%）を誇る。ホールセール（卸売）とNIKE Direct（DTC）の二軸で展開し、FY2025のホールセール回帰戦略が進行中。</p>
+  <h2>企業概要 — NIKE, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Elliott Hill（2024年10月就任）</div></div>
-    <div class="ov-item"><div class="ov-lbl">CFO</div><div class="ov-val">Matt Friend</div></div>
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1964年（Blue Ribbon Sports）</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">オレゴン州ビーバートン</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約77,800人</div></div>
-    <div class="ov-item"><div class="ov-lbl">セクター</div><div class="ov-val">Consumer Discretionary</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">$76.1B</div></div>
-    <div class="ov-item"><div class="ov-lbl">配当利回り</div><div class="ov-val">約3.1%</div></div>
-    <div class="ov-item"><div class="ov-lbl">PER (Trailing)</div><div class="ov-val">約28〜30x</div></div>
-    <div class="ov-item"><div class="ov-lbl">PER (Forward)</div><div class="ov-val">約25〜28x</div></div>
-    <div class="ov-item"><div class="ov-lbl">収益モデル</div><div class="ov-val">ホールセール + Nike Direct (DTC)</div></div>
-    <div class="ov-item"><div class="ov-lbl">市場シェア</div><div class="ov-val">グローバルNo.1（約14.1%）</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1964年（Blue Ribbon Sportsとして創業・1971年にNIKE Inc.へ改称）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>オレゴン州ビーバートン近郊（World Headquarters campus）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Elliott Hill（2024年10月就任・元NIKEベテラン幹部、John Donahoe後任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: NKE（1980年上場・クラスB株）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>一般消費財 / テキスタイル・アパレル・高級品（Consumer Discretionary）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Dow Jones 30（2013年採用・Alcoa入替）/ MSCI USA</dd></dl>
+    <dl class="ov-grid-item"><dt>年間売上高</dt><dd>~$46.3B（FY2025・フットウェア66%・アパレル29%）</dd></dl>
+    <dl class="ov-grid-item"><dt>ブランドポートフォリオ</dt><dd>NIKE・Jordan Brand・Converse（3ブランド体制）</dd></dl>
   </div>
+
+  <p>NIKEは世界最大のスポーツフットウェア・アパレルブランドで、Jordan BrandとConverseを傘下に持つ。<strong>FY2025売上$46.3B</strong>はAdidas・UA・Pumaを大きく上回る圧倒的な市場支配力を示す。2024年10月就任のElliott Hill CEOのもと、過度なDTC偏重からホールセール復権へ戦略を修正し、<strong>ブランドエクイティと正価販売の再構築</strong>に経営資源を集中。スポーツパフォーマンス・ライフスタイルの双方でグローバル消費者との接点を維持する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'フットウェア（~66%）', 'desc': 'ランニング・バスケットボール（Jordan Brand）・サッカー・トレーニング等。FY2025 ~$31B。Air Max・Air Force 1・Dunk等ライフスタイルモデルも収益の柱'}</li>
+          <li>{'name': 'アパレル（~29%）', 'desc': 'ウェア・ジャージ・アウターウェア等。FY2025 ~$15.3B。DRI-FIT・NIKE Pro等テクノロジーライン、およびNike Sportswear（ライフスタイル）に大別'}</li>
+          <li>{'name': '機器・その他（~5%）', 'desc': 'ボール・バッグ・ソックス・アクセサリー等。Converse（オールスター等）はNIKE Brandとは別の独立ブランドとして海外ライセンス展開も含め運営'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': 'ホールセール（卸売チャネル）', 'desc': 'Foot Locker・JD Sports・セレクトショップ等の小売パートナー経由の販売。DTC強化後に一時縮小したが、Elliott Hill体制でリテールパートナーとの関係を再構築中'}</li>
+          <li>{'name': 'NIKE Direct（直販）', 'desc': 'NIKE.com・SNKRS・NIKE App・直営店（NIKE House of Innovation等）からの直接販売。FY2025は前年比減少傾向だが高粗利・顧客データ取得の主要チャネル'}</li>
+          <li>{'name': 'Jordan Brand・Converse・ライセンス', 'desc': 'Jordan Brandは北米バスケカルチャーの象徴的存在で高利益率。Converseはグローバルライセンス含め独立運営。両ブランドがNIKE全体粗利を押し上げる'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>世界最強クラスのブランドエクイティ</strong> — Swooshロゴ・Jordanブランドは運動能力・文化・ライフスタイルを象徴するアイコン。価格プレミアムと再購入率の高さが収益の基盤であり、広告投資効率が競合を大きく上回る</li>
+      <li><strong>Jordan Brand・Converse による複数ブランドポートフォリオ</strong> — バスケットボール（Jordan）・ヘリテージカジュアル（Converse）・スポーツパフォーマンス（NIKE）を各セグメントで独立展開し、異なる顧客層を取り込む構造</li>
+      <li><strong>アスリート・スポーツ団体との長期独占契約</strong> — LeBron James・Cristiano Ronaldo・NFL・NBAとの長期スポンサー契約がブランド露出を継続的に確保。契約ポートフォリオの再現困難性が参入障壁を形成</li>
+      <li><strong>世界最大のスポーツウェア製造・サプライチェーン</strong> — 東南アジア中心の多国籍サプライチェーンで規模の経済を実現。材料調達から製造・物流まで最適化された体制は中小競合が短期に模倣不可能</li>
+      <li><strong>デジタルプラットフォームと会員データ（1億人超のNIKE会員）</strong> — NIKE App・SNKRS・Training Clubの会員基盤がパーソナライズドマーケティングと限定商品抽選に活用され、顧客エンゲージメントとブランドコミュニティを強化</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Adidas</strong></td><td>ADS.DE</td><td>~$45B</td><td>世界2位のスポーツブランド。Yeezyブランド終了後の収益インパクトからの回復途上。Samba等クラシックモデル復活でライフスタイル分野でNIKEに対抗</td></tr>
+        <tr><td><strong>Under Armour</strong></td><td>UA</td><td>~$4B</td><td>北米パフォーマンスアパレルで競合。FY2025売上$5.2B（前年比-9%）と縮小傾向。ブランド再構築中で市場シェアはNIKEの約1/10以下</td></tr>
+        <tr><td><strong>On Holding</strong></td><td>ONON</td><td>~$22B</td><td>スイス発のランニングシューズブランド。プレミアムポジションで急成長中。ロジャー・フェデラーが共同オーナーで富裕層・走り好き層へのブランド浸透が速い</td></tr>
+        <tr><td><strong>Deckers（HOKA・UGG）</strong></td><td>DECK</td><td>~$20B</td><td>HOKAがランニング・トレイルランカテゴリで急拡大しNIKEのランニングシェアを侵食中。UGGとの複合でアパレルも拡大。ニッチ特化型の高成長脅威</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">Consumer Discretionary</span>
     <span class="tag">スポーツウェア</span>
-    <span class="tag">グローバルブランド</span>
-    <span class="tag">ホールセール回帰</span>
-    <span class="tag">ターンアラウンド進行中</span>
+    <span class="tag">アパレル・フットウェア</span>
+    <span class="tag">Jordan Brand</span>
+    <span class="tag">NYSE: NKE</span>
+    <span class="tag">一般消費財セクター</span>
+    <span class="tag">Dow Jones 30</span>
+    <span class="tag">ブランドエクイティ</span>
+    <span class="tag">DTC</span>
   </div>
 </div>
 

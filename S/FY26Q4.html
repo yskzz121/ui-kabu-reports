@@ -165,11 +165,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -486,6 +503,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -959,15 +983,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>SentinelOne, Inc. — 企業概要</h2>
-  <p><strong>設立:</strong> 2013年（イスラエル・テルアビブ発祥）｜ <strong>本社:</strong> Mountain View, CA ｜ <strong>上場:</strong> NYSE: S（2021年6月）</p>
-  <p><strong>CEO:</strong> Tomer Weingarten（共同創業者）｜ <strong>Interim CFO:</strong> Barry Padgett（2026年3月〜）｜ <strong>従業員数:</strong> 約2,400名</p>
-  <p>AIネイティブなサイバーセキュリティプラットフォーム「Singularity Platform」を提供。エンドポイント・クラウド・アイデンティティを統合保護するXDR（Extended Detection & Response）をSaaSモデルで展開。デバイス数ベースのサブスクリプション課金が主な収益源。</p>
-  <p><strong>主要製品:</strong> Singularity Endpoint / Cloud Security / Identity Threat Detection / Purple AI（自律型AI脅威ハンティング）/ Singularity Data Lake（AI SIEM）。Purple AI Q4アタッチ率 50%超、Data Solutions ARR $130M超。</p>
-  <p><strong>競合:</strong> CrowdStrike（CRWD）— エンドポイント市場リーダー ｜ Microsoft Defender/Sentinel — プラットフォーム統合 ｜ Palo Alto Networks — SASE/XSIAM ｜ Zscaler — ゼロトラストネットワーク</p>
-  <p><strong>市場:</strong> TAM $100B超（AI時代のセキュリティ市場）。FY2026通年売上 $1.001B（初の$1B突破）。ARR $1.119B（+22% YoY）。</p>
+  <h2>企業概要 — SentinelOne, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2013年（Tomer Weingarten・Almog Cohen・Udi Shamir 共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州マウンテンビュー</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Tomer Weingarten（共同創業者・CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: S（2021年6月 IPO、調達$1.2B）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / システムソフトウェア（サイバーセキュリティ）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&P 500 未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>ARR規模</dt><dd>~$900M–$1B 水準（FY2026時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>時価総額概算</dt><dd>~$15–20B（中型サイバーセキュリティ）</dd></dl>
+  </div>
+
+  <p>SentinelOneはAIネイティブのエンドポイント・セキュリティ企業。エンドポイント（EDR/EPP）を起点にクラウドワークロード・ID・ネットワーク・脅威インテリジェンスまでをカバーする<strong>Singularity Platform</strong>を展開。機械学習による自律的な脅威検知・対応（SOAR相当機能を内包）が特徴で、人手による分析を最小化する「Autonomous SOC」の実現を目指す。CrowdStrikeの2024年大規模障害後に競合置き換え機会が生じ、シェア拡大を狙う局面にある。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Singularity Endpoint（EDR/EPP）</strong> — PC・サーバー・モバイル向けのAI自律型エンドポイント保護。リアルタイム検知・隔離・ロールバックを単一エージェントで実行するコア製品</li>
+          <li><strong>Singularity Cloud（CWPP/CSPM）</strong> — コンテナ・Kubernetes・VM・サーバーレスを対象とするクラウドワークロード保護。DevSecOps統合でシフトレフトセキュリティを実現</li>
+          <li><strong>Singularity Data Lake / AI SIEM</strong> — 全セキュリティログを一元蓄積する独自データレイク。AIによる相関分析・脅威ハンティングを提供し、SIEMの置き換えを狙う高成長ライン</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>サブスクリプション主体（~95%超）</strong> — エンドポイント数・モジュール数に基づく年間ライセンス。初期導入後にXDR・Identity・Cloudモジュールを追加するLand and Expand戦略</li>
+          <li><strong>プロフェッショナルサービス・MDR</strong> — 導入支援・脅威ハンティング代行・マネージドセキュリティ（Vigilance MDR）。サブスク契約維持を補完する付加価値サービス</li>
+          <li><strong>Lenovo OEMアライアンス</strong> — LenovoのPCに標準バンドルされるPreインストール提供。3,000万エンドポイントへの新規アクセスルートで将来ARRの積み上げを期待</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>AIエンジンの学習データ優位（Purple AI）</strong> — 数億エンドポイントから収集した脅威データを継続学習するAIは、導入規模が大きいほど検知精度が向上するスケール依存の優位性</li>
+      <li><strong>エージェントレス・シングルエージェント設計</strong> — 複数製品を束ねるプラットフォームと異なり、単一軽量エージェントで全機能を提供。運用負荷の低さと展開速度が評価される</li>
+      <li><strong>Singularity Data Lakeによるロックイン</strong> — 全セキュリティログをSentinelOneのデータ基盤に集約することで、過去データ・カスタムルールの移行コストが年々増大する</li>
+      <li><strong>独立系ベンダーとしての信頼</strong> — Microsoft・CrowdStrikeとは無関係のピュアプレイサイバー企業として、特定エコシステムへの依存を避けたい企業の採用優先候補になりやすい</li>
+      <li><strong>Identity Security（PingSafe統合）</strong> — 買収したPingSafeによりIAM・クラウドIDP保護を強化。エンドポイント+IDという攻撃ベクター横断のカバレッジが選定理由として増加中</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CrowdStrike Holdings</strong></td><td>CRWD</td><td>~$90–110B</td><td>最大の直接競合。Falcon Platformで先行しARR$4B超。2024年大規模障害後の信頼回復局面でSentinelOneがシェア獲得機会を享受</td></tr>
+        <tr><td><strong>Microsoft（Defender for Endpoint）</strong></td><td>MSFT</td><td>~$3T</td><td>M365・Azureバンドルでコスト優位。SMB・中堅市場でSentinelOneと価格競争。独立系セキュリティ要件を持つ大企業では劣後</td></tr>
+        <tr><td><strong>Palo Alto Networks（Cortex XDR）</strong></td><td>PANW</td><td>~$120B</td><td>ネットワークセキュリティ起点のプラットフォーム化で拡張。Prisma Cloud・SIEM統合で競合。エンドポイント単体では後発</td></tr>
+        <tr><td><strong>Trellix（旧McAfee Enterprise+FireEye）</strong></td><td>非公開</td><td>—（Symphony Technology Group傘下）</td><td>既存大企業顧客のレガシー置き換えターゲット。SentinelOneにとって最も獲得しやすい競合顧客プール</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">SaaS</span><span class="tag">サイバーセキュリティ</span><span class="tag">AI / ML</span><span class="tag">XDR / EDR</span><span class="tag">Purple AI</span><span class="tag">Zero Trust</span><span class="tag">Cloud Security</span>
+    <span class="tag">サイバーセキュリティ</span>
+    <span class="tag">EDR / XDR</span>
+    <span class="tag">AIネイティブ</span>
+    <span class="tag">クラウドセキュリティ</span>
+    <span class="tag">SaaS / サブスクリプション</span>
+    <span class="tag">NYSE: S</span>
+    <span class="tag">Singularity Platform</span>
+    <span class="tag">Russell 1000</span>
   </div>
 </div>
 

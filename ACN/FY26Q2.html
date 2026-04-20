@@ -67,11 +67,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -362,6 +379,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -834,16 +858,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Accenture plc 企業概要</h2>
-  <p><strong>Accenture</strong>は1989年設立（旧Andersen Consulting）、ダブリン本社のグローバルITコンサルティング・テクノロジーサービス企業。約786,000人の従業員を擁し、120カ国以上でFortune Global 500の大多数を顧客とする。コンサルティング（49%）とマネージドサービス（51%）の二本柱で収益を構成し、Industry X・Song・Strategy &amp; Consulting・Technology・Operationsの5サービスラインを展開。AI関連投資に強みを持ち、Databricksとの協業でAI部門25,000人体制を構築している。</p>
-  <p>CEO: Julie Sweet。競合はDeloitte、IBM Consulting、TCS、Infosys、Cognizant、Capgemini。FY26Q2売上 $18.0B、受注額 $22.1B（Q2記録更新）。時価総額 約$120B（2026年3月時点）。稼働率93%（前年91%）、DSO 46日（前年48日）改善。</p>
+  <h2>企業概要 — Accenture plc</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1989年（Andersen Consulting として）、2001年に現社名へ</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>アイルランド・ダブリン（登記）/ 運営本部：米国ニューヨーク</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Julie Sweet（2019年就任、2021年会長兼任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: ACN（2001年 IPO、2011年 S&P 500 採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / ITコンサルティング・サービス</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Fortune Global 500</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約779,000人（FY2025）</dd></dl>
+    <dl class="ov-grid-item"><dt>年間売上規模</dt><dd>約 $69.7B（FY2025）</dd></dl>
+  </div>
+
+  <p>Accentureは戦略コンサルティング・テクノロジー実装・業務アウトソーシングをグローバルに提供する世界最大級のプロフェッショナルサービス企業。120カ国以上で展開し、GenerativeAI・クラウド・サイバーセキュリティを軸とした大規模デジタル変革を企業・政府に提供。FY2025に年商 $70B 近くを達成し、生成AI関連受注は急拡大している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Reinvention Services（Strategy・Consulting・Song・Operations）</strong> — 2025年改編の統合ビジネスユニット、業界別DX戦略から業務変革まで包括支援</li>
+          <li><strong>テクノロジーサービス（~55%）</strong> — システム統合・クラウドマイグレーション・AIソリューション実装・セキュリティが収益の主柱</li>
+          <li><strong>マネージドサービス・BPO</strong> — 長期アウトソーシング契約でITインフラ・業務プロセスを受託、安定的なリカーリング収益源</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>フィーベースのプロジェクト契約</strong> — 時間工数（T&M）または固定価格で請求、大型案件は数億ドル規模の多年度契約が中心</li>
+          <li><strong>長期マネージドサービス契約</strong> — ITアウトソーシング・BPOは5〜10年の複数年契約が多く、収益の安定性と予見可能性を高める</li>
+          <li><strong>生成AI・クラウド専門サービス</strong> — 高付加価値領域へシフト中、AIを活用した業務再設計（「Reinvention」）への需要が急増</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>779,000人規模の専門人材と知識DB</strong> — 業種・技術・地域を横断するスケールは単一企業では複製困難で、大型案件受注の前提となる</li>
+      <li><strong>顧客への深い組込みと高い切替コスト</strong> — 基幹システム統合・長期BPOは入れ替えに数年・数百億円の移行コストがかかり、継続契約率が高い</li>
+      <li><strong>120カ国超のグローバル納品能力</strong> — 多国籍企業が求めるワンストップ・グローバル対応が可能で、地場企業との差別化要因</li>
+      <li><strong>業界特化のナレッジと認定資格</strong> — 金融・製造・ライフサイエンス等の深い業種知識と主要クラウドプロバイダー最高位パートナー認定</li>
+      <li><strong>M&A戦略による能力拡充の速度</strong> — 年間数十件の小型買収でAI・セキュリティ等の専門能力を迅速に内製化、競合との差を拡大</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>IBM Consulting</strong></td><td>IBM</td><td>~$220B</td><td>AIコンサル・ハイブリッドクラウド実装で競合、政府・金融が重複顧客層</td></tr>
+        <tr><td><strong>Deloitte（非上場）</strong></td><td>—</td><td>—</td><td>戦略・テクノロジーコンサル全領域で最大の競合、監査・税務の強みも有する</td></tr>
+        <tr><td><strong>Infosys</strong></td><td>INFY</td><td>~$75B</td><td>テクノロジー実装・BPOで価格競争力を持つインド系大手、Accentureの主要競合</td></tr>
+        <tr><td><strong>Capgemini</strong></td><td>CAP（EPA）</td><td>~$20B</td><td>欧州ITサービス最大手、SAP実装・製造業デジタル化でアジア・欧州市場で競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">ITコンサルティング</span>
-    <span class="tag">マネージドサービス</span>
-    <span class="tag">AI / GenAI</span>
-    <span class="tag">クラウド移行</span>
-    <span class="tag">DX推進</span>
+    <span class="tag">デジタル変革</span>
+    <span class="tag">生成AI導入</span>
+    <span class="tag">クラウドサービス</span>
+    <span class="tag">BPO / アウトソーシング</span>
     <span class="tag">NYSE: ACN</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">グローバルプロフェッショナルサービス</span>
   </div>
 </div>
 

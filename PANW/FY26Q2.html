@@ -54,11 +54,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ── Layer I ── */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -298,6 +315,13 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 /* ── TOC Nav ── */
 .toc-nav,.toc-toggle{display:none}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
   .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
   .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.85rem}
@@ -816,17 +840,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p><strong>Palo Alto Networks（PANW）</strong>は2005年設立、カリフォルニア州サンタクララ本社のサイバーセキュリティ企業。CEO は Nikesh Arora（2018年就任）。従業員数は約15,000名（2026年1月時点）。</p>
-  <p><strong>ビジネスモデル:</strong> ネットワークセキュリティ（NGFWハードウェア/ソフトウェア）、クラウドセキュリティ（Prisma Cloud）、AIを活用したSOCプラットフォーム（XSIAM/Cortex）の3軸を中心に、エンタープライズ向けサブスクリプション＋サポート収益（売上の約77%）とプロダクト収益（約23%）で構成。</p>
-  <p><strong>主要戦略: Platformization</strong> — 複数のポイントソリューションを統合して自社プラットフォームに集約させる戦略。顧客の無償または割引提供（consolidation）で関係深化→NRR 119%の高い拡大収益を実現。</p>
+  <h2>企業概要 — Palo Alto Networks, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2005年（イスラエル出身エンジニア Nir Zuk が Check Point 退社後に創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンタクララ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Nikesh Arora（2018年就任 / 元Google・SoftBank幹部）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: PANW（2012年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / システムソフトウェア（サイバーセキュリティ）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500（2023年6月採用）/ NASDAQ-100</dd></dl>
+    <dl class="ov-grid-item"><dt>顧客数</dt><dd>80,000社超（150カ国以上）</dd></dl>
+    <dl class="ov-grid-item"><dt>ARR目標（FY2030）</dt><dd>~$20B（Platformization戦略による中長期目標）</dd></dl>
+  </div>
+
+  <p>Palo Alto Networksは<strong>ネットワークセキュリティ・クラウドセキュリティ・セキュリティ運用</strong>を単一プラットフォームに統合する「AIサイバーセキュリティOS」企業。<strong>Strata（ネットワーク）・Prisma（クラウド）・Cortex（SOC/XDR）</strong>の3本柱を持ち、Platformization戦略により複数のポイントソリューションを統合・廃棄させるコンソリデーションを推進。Cortex XSIAMは1日15ペタバイトのテレメトリを処理し、平均MDR対応時間を数日→数分に短縮、1顧客ARR100万ドル超を実現している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Strata（ネットワークセキュリティ / ~40%）', 'detail': '<strong>次世代ファイアウォール（NGFW）・SASE・SD-WAN・Prisma Access</strong>。ハードウェアアプライアンスからクラウド型SASEへの移行を進め、SASEセグメントARRがYoY+34%成長'}</li>
+          <li>{'name': 'Prisma Cloud（クラウドセキュリティ / ~25%）', 'detail': '<strong>CNAPP（Cloud Native Application Protection Platform）・AI Runtime Security（Prisma AIRS）</strong>。マルチクラウドのコード・インフラ・ランタイムを統合保護。AIモデル・エージェントのスキャン・テストにも対応'}</li>
+          <li>{'name': 'Cortex（SOC・XDR / ~35%）', 'detail': '<strong>Cortex XSIAM（AI-nativeセキュリティ運用プラットフォーム）・XDR・XSOAR・Xpanse</strong>。1日15PBテレメトリ処理、MeanTimeToRespond大幅短縮。SOC近代化のリファレンス実装として採用急増'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'item': 'サブスクリプション＆サポート（主力 ~75%）', 'detail': 'クラウド型サブスク・ソフトウェアサポートが売上の大半。Platformization移行顧客の複数製品統合により<strong>顧客あたりARRが拡大傾向</strong>。NRR高水準維持'}</li>
+          <li>{'item': '製品（NGFW ハードウェア / ~15%）', 'detail': '従来型NGFWアプライアンス。クラウド化に伴い比率は低下傾向だが、大規模エンタープライズやOT/ICS環境では継続需要。ハードウェアがクラウドサブスクへの入口となる'}</li>
+          <li>{'item': 'プロフェッショナルサービス（~10%）', 'detail': 'SOC移行・Prisma/Cortex実装支援・Unit42（脅威インテリジェンス・インシデントレスポンス）。<strong>Unit42は独自脅威情報フィード</strong>としてブランド価値を持ち、付加収益源'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>3プラットフォーム統合による顧客ロックイン</strong> — Strata・Prisma・Cortexを一体運用する企業は個別移行コストが極大化。Forresterの調査で統合プラットフォーム採用顧客は<strong>セキュリティ管理工数50%減</strong>を報告し、競合への乗り換え動機が大幅に低下</li>
+      <li><strong>Cortex XSIAMのデータ規模効果</strong> — 1日15ペタバイトのテレメトリ処理で学習・検出精度が継続改善。データ量が多いほどAIモデルが強化される正のフィードバックループが形成されており、後発はこのデータ優位を追いつけない</li>
+      <li><strong>Unit 42 脅威インテリジェンスの先行優位</strong> — 世界最大規模のサイバーセキュリティ調査チームUnit 42が最新脅威情報をリアルタイムで全プラットフォームに反映。独自の脅威フィードが製品品質の差異化要素となり、特に政府・金融セクターで高評価</li>
+      <li><strong>SASEの規模と展開速度</strong> — Prisma AccessをベースとするSASEはYoY+34%成長で業界最速規模。一度SASE基盤を選択すると全社VPN・ファイアウォール・DLPが統合されるため、移行には全社ネットワーク再設計が必要となり切替コストが高い</li>
+      <li><strong>AIエージェント・AIモデル保護への先行投資</strong> — Prisma AIRSによるAIモデルスキャン・ランタイム保護は競合にほぼ存在しない新領域。企業のAI導入加速とともにAIセキュリティ予算が新設される中で、先行ポジションが市場拡大を取り込む</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CrowdStrike</strong></td><td>CRWD</td><td>~$90B</td><td>エンドポイント・クラウドセキュリティ（Falcon）で最大の直接競合。XDR/SOC領域でXSIAMとの競合が激化。Falcon FlexバンドルがPlatformizationと類似のコンソリデーション戦略を展開</td></tr>
+        <tr><td><strong>Fortinet</strong></td><td>FTNT</td><td>~$70B</td><td>中堅市場・価格競争力でNGFWシェアを維持。ハードウェアコスト優位が中小企業向け市場でPANWを脅かす。クラウド移行ペースは遅いが既存設置ベースが堅固</td></tr>
+        <tr><td><strong>Microsoft（Sentinel）</strong></td><td>MSFT</td><td>~$3T</td><td>Microsoft Sentinel / Defender XDRがM365バンドルで企業SIEM/XDRに浸透。既存IT投資との統合コスト優位が中堅企業でのCortex採用を阻む最大の間接競合</td></tr>
+        <tr><td><strong>Check Point Software</strong></td><td>CHKP</td><td>~$20B</td><td>NGFW市場の老舗。Harmony（エンドポイント）・CloudGuardで競合。PANWの旧来市場を守る守備的ポジション。成長率は低くPlatformization競争には追いついていない</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">Cybersecurity</span>
-    <span class="tag">SASE</span>
-    <span class="tag">XSIAM / Cortex</span>
+    <span class="tag">サイバーセキュリティ</span>
+    <span class="tag">Platformization戦略</span>
+    <span class="tag">SASE / NGFW</span>
+    <span class="tag">Cortex XSIAM</span>
     <span class="tag">Prisma Cloud</span>
+    <span class="tag">AIセキュリティ</span>
     <span class="tag">NASDAQ: PANW</span>
-    <span class="tag">時価総額 ~$110B</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

@@ -70,11 +70,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -391,6 +408,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -869,16 +893,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Taiwan Semiconductor Manufacturing Company（TSMC）</strong>（NYSE: TSM）は、世界最大の半導体受託製造（ファウンドリ）企業。1987年設立、台湾・新竹本社。CEOはC.C. Wei（魏哲家）、従業員数は約83,000名、時価総額は約<span class="no-currency">$1.9T</span>（ADR換算）。</p>
-  <p>ビジネスモデルは純粋ファウンドリ — 自社ブランド半導体を持たず、顧客設計の半導体を製造するのみ。先端プロセス（N3/N5/N7）で市場シェア <strong>9割超</strong>を占め、NVIDIA・Apple・AMD・Broadcom・MediaTek・Qualcommなど業界トップ企業を主要顧客とする。技術リーダーシップによるプレミアム価格設定と、圧倒的な生産キャパシティがモートを形成。</p>
+  <h2>企業概要 — Taiwan Semiconductor Manufacturing Company Limited（TSMC）</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1987年（張忠謀〈Morris Chang〉 創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>台湾・新竹サイエンスパーク</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>魏哲家（C. C. Wei、2018年就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>台湾証券取引所: 2330 / NYSE: TSM（ADR、1997年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体・半導体製造装置</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>MSCI Taiwan / S&amp;P 500 ADR対象外（外国株ADR）/ SOX指数</dd></dl>
+    <dl class="ov-grid-item"><dt>主要顧客</dt><dd>Apple・NVIDIA・AMD・Qualcomm・Broadcom（上位5社で売上の約60%）</dd></dl>
+    <dl class="ov-grid-item"><dt>世界市場シェア</dt><dd>ピュアプレイ・ファウンドリ市場の約67%（断トツ首位）</dd></dl>
+  </div>
+
+  <p>TSMCは<strong>世界最大の半導体受託製造（ファウンドリ）企業</strong>であり、最先端プロセス（2nm/3nm/5nm）から成熟ノードまで一貫して受託製造する。AppleやNVIDIAが自社設計チップをTSMCに発注する「ファブレス＋ファウンドリ」モデルの根幹を担い、<strong>AI半導体需要の爆発的拡大</strong>を背景にCoWoS先進パッケージング・HBM統合需要が急増。台湾・米国・日本・欧州への製造地理的多様化も進行中。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>先進ノード（~65%）</strong> — 2nm（N2、2025年量産開始）・3nm（N3）・5nm（N5）プロセス。AI GPU・スマートフォンSoC・HPC向けが主力。価格決定力が最も高いセグメント</li>
+          <li><strong>特殊・成熟ノード（~25%）</strong> — 7nm〜28nmプロセス。車載・産業機器・IoT・RF向け。需要サイクル変動が大きいが高安定キャッシュフロー源</li>
+          <li><strong>先進パッケージング（CoWoS / InFO）（~10%）</strong> — チップレット統合に不可欠なCoWoS（Chip-on-Wafer-on-Substrate）。2025年CoWoS収益は約$9.6Bに達し、AI加速器の事実上の必須工程として寡占</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>ウェハー受託製造収入（主軸）</strong> — プロセスノード・ウェハー枚数に基づく従量課金。先進ノードほど単価が高く、AI需要で3nm/5nm稼働率が逼迫。強い価格改定力を保有</li>
+          <li><strong>先進パッケージング・テスト収入</strong> — CoWoS・InFO・SoIC等の後工程サービス収入。2025年以降NVIDIAを中心に複数年先まで予約済みで視界良好な受注残</li>
+          <li><strong>マスク・エンジニアリングサービス収入</strong> — 設計支援・プロセス共同開発・IP ライセンス。顧客との深い技術連携が長期契約継続率を高め、切り替え障壁を構造化</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>先端ノードの技術的参入障壁（物理的限界への近接）</strong> — 3nm以下では製造ノウハウの蓄積年数と設備投資規模が決定的。Intelは量産遅延、Samsungは歩留まり問題が続き、追随が極めて困難</li>
+      <li><strong>CoWoS先進パッケージングの寡占</strong> — NVIDIA GB200等AIアクセラレーターに不可欠なCoWoSはTSMCのみが量産規模を保有。2026年以降も受注が数年先まで逼迫し代替なし</li>
+      <li><strong>顧客設計エコシステムとの深い共進化</strong> — AppleのA/Mチップ・NVIDIAのH/B/Gシリーズ・AMD EPYCはいずれもTSMCプロセスを前提に設計。顧客の次世代製品自体がTSMC依存で設計される構造</li>
+      <li><strong>圧倒的な資本投下力（年間$300B超の設備投資計画）</strong> — 2025〜2029年の5年間に$1000億ドル超の投資計画を発表。この規模の資本動員は競合が単独で追随不可能</li>
+      <li><strong>地政学的不可欠性（シリコンシールド）</strong> — 世界の先端半導体の約3分の2を製造する事実が、主要国政府にとって「台湾有事の抑止力」として機能し、政府支援・補助金を引き寄せる独自のレジリエンスを形成</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Samsung Foundry</strong></td><td>005930.KS</td><td>~$200B（Samsung Electronics全体）</td><td>3nm以下で唯一競合できる存在だが歩留まり問題が継続。市場シェアは8%以下に低下</td></tr>
+        <tr><td><strong>Intel Foundry（IFS）</strong></td><td>INTC</td><td>~$90B</td><td>Intel 18A/14Aで外販ファウンドリ参入を目指すが、量産実績・顧客信頼の獲得は道半ば</td></tr>
+        <tr><td><strong>GlobalFoundries</strong></td><td>GFS</td><td>~$15B</td><td>成熟ノード（12nm以上）に特化したニッチファウンドリ。先端競争には参加せず棲み分け状態</td></tr>
+        <tr><td><strong>SMIC（中芯国際）</strong></td><td>0981.HK</td><td>~$15B</td><td>中国国内市場向け7nm以下を目指すが米輸出規制でEUV不使用。当面の先端競合にはならない</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">世界最大ファウンドリ</span>
-    <span class="tag">先端プロセス シェア90%+</span>
-    <span class="tag">AI半導体の基盤</span>
-    <span class="tag">1987年設立</span>
-    <span class="tag">従業員83,000名</span>
-    <span class="tag">時価総額 <span class="no-currency">$1.9T</span></span>
+    <span class="tag">半導体</span>
+    <span class="tag">ファウンドリ（受託製造）</span>
+    <span class="tag">先端プロセス（2nm/3nm）</span>
+    <span class="tag">AIチップ</span>
+    <span class="tag">CoWoS（先進パッケージング）</span>
+    <span class="tag">NYSE: TSM ADR</span>
+    <span class="tag">台湾証券取引所: 2330</span>
+    <span class="tag">シリコンシールド</span>
   </div>
 </div>
 

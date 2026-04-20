@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -393,6 +410,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -881,16 +905,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Netflix, Inc.</strong>（NASDAQ: NFLX）は、世界最大のサブスクリプション動画配信（SVOD）事業者。1997年に Reed Hastings と Marc Randolph が共同創業、米カリフォルニア州 Los Gatos 本社。現在は <strong>Ted Sarandos（コンテンツ/マーケ/法務/広報）</strong> と <strong>Greg Peters（プロダクト/技術/広告/人事/財務/ゲーム）</strong> の共同CEO体制で経営。時価総額は約<span class="no-currency">$422B</span>。創業者 Reed Hastings 会長は2026年6月の株主総会をもって取締役会を退任予定（29年間の関与に幕）。</p>
-  <p>ビジネスモデルは月額サブスクリプション（Basic with Ads / Standard / Premium の多層プラン）をコアに、2022年開始の<strong>広告付き（AVOD）プラン</strong>（月間アクティブ視聴者 <strong>190M</strong>、広告主4,000社超）、モバイル+クラウド<strong>ゲーム</strong>（約90タイトル）、<strong>ライブイベント</strong>（NFL・WWE Raw・ボクシング・FIFA 女子W杯 2027/2031 独占）を積層。190カ国超で展開、有料会員は2025年末で325M超（以降は四半期開示停止）。2030年までに時価総額 <span class="no-currency">$1T</span>・売上 <span class="no-currency">$80B</span>・営業益 <span class="no-currency">$30B</span> を掲げる長期ビジョンを保持。</p>
+  <h2>企業概要 — Netflix, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1997年8月（Reed Hastings・Marc RandolphがカリフォルニアでDVD郵送レンタルとして創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州ロスガトス</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Ted Sarandos・Greg Peters（共同CEO体制。Sarandosがコンテンツ、Petersがプロダクト・テクノロジー・広告を担当）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: NFLX（2002年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>通信サービス / エンターテインメント（Entertainment）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / NASDAQ-100 / MSCI USA（S&P 500内大型グロース銘柄）</dd></dl>
+    <dl class="ov-grid-item"><dt>会員数</dt><dd>~3.25億人（世界最大の有料ストリーミングサービス）</dd></dl>
+    <dl class="ov-grid-item"><dt>年間コンテンツ投資</dt><dd>~$18B（制作・ライセンス合計）、自社制作比率が上昇中</dd></dl>
+  </div>
+
+  <p>Netflixはグローバル最大の有料ストリーミングプラットフォーム。<strong>2025年通年売上$45.2B（前年比+16%）</strong>・営業利益率29.5%と過去最高水準を更新し、スポーツライブ（NFL・WWE・FIFA）を取り込んだ総合エンターテインメント企業への進化を加速中。広告付きプラン会員の急拡大（MAV 1.9億人超）と自社開発の広告テクプラットフォームにより、2026年の広告収益は約$3Bと前年比2倍が見込まれる。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'ストリーミング購読（~93%）', 'desc': 'スタンダード（広告付き）・スタンダード・プレミアムの3層プラン。広告付きプランが新規会員の入口として急成長。4地域すべてで二桁成長を達成'}</li>
+          <li>{'name': '広告事業（成長軸）', 'desc': '2025年に自社広告テクプラットフォームを構築。生成AI広告を2026年全AVOD市場に展開。広告主4,000社超、2026年広告収益~$3Bへ倍増見通し'}</li>
+          <li>{'name': 'ライブ・スポーツ・ゲーム（拡張中）', 'desc': 'NFLクリスマス・WWE Raw($5B/10年)・FIFA女子W杯2027/2031独占・ボクシングなど。Netflix Gamesもモバイル市場でタイトル拡充中'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '月次/年次サブスクリプション収益', 'desc': '会員数×月額単価が基本構造。価格改定（米・スペイン等）と広告付き低価格プランの組み合わせで、ARPU維持と会員数拡大を両立する二段構え'}</li>
+          <li>{'name': '広告収益（CPM課金）', 'desc': '自社広告テクプラットフォームによる動画広告のCPM型収益。コンテキスト・視聴者属性に基づくターゲティングで高単価を実現。2026年に本格収益貢献段階へ'}</li>
+          <li>{'name': 'IP・ライセンス・マーチャンダイジング（副収入）', 'desc': 'ストレンジャーシングス等人気IPの二次利用・グッズ。コンテンツ費用をIP資産に転化することで長期的な収益化サイクルを構築'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>3.25億会員のネットワーク効果と推薦エンジン</strong> — 膨大な視聴データが独自推薦アルゴリズムを強化し、エンゲージメントを高め解約を抑制。データ蓄積のアドバンテージは時間とともに拡大</li>
+      <li><strong>年間$18Bのコンテンツ投資による独占IP</strong> — ストレンジャーシングス・スクイッドゲーム等のグローバルIPは代替不可能で、プラットフォーム固有のコンテンツが加入動機になる強固な差別化要因</li>
+      <li><strong>190か国以上の配信インフラと現地化能力</strong> — 多言語字幕・吹き替え・地域特化コンテンツ投資を組み合わせた国際展開力。地域プレイヤーが模倣しにくいグローバルスケール優位を持つ</li>
+      <li><strong>自社広告テクプラットフォームによるデータ活用</strong> — ファーストパーティ視聴データを広告ターゲティングに直結し、クッキーレス時代にも高CPMを維持。競合OTTにはない直接的な広告主関係を構築</li>
+      <li><strong>スポーツライブ拡充による解約障壁の強化</strong> — NFL・WWE・FIFA等ライブコンテンツの独占権獲得で、プラットフォームの「なくてはならない感」を高め、競合への乗り換えコストが上昇</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Amazon Prime Video（Amazon）</strong></td><td>AMZN</td><td>~$2.2T</td><td>米国ストリーミング市場シェア22%で最大規模。Primeバンドル・NFL TNFでリーチ拡大。コンテンツ投資規模はNetflixと同等。最大の直接ライバル</td></tr>
+        <tr><td><strong>Walt Disney（Disney+・Hulu）</strong></td><td>DIS</td><td>~$200B</td><td>Marvel・Star Wars・Pixar等の超強力IPを保有。Hulu統合で複合プラットフォーム化。ライブスポーツ（ESPN）でNetflixの新戦略と真正面衝突</td></tr>
+        <tr><td><strong>Max（Warner Bros. Discovery）</strong></td><td>WBD</td><td>~$20B</td><td>HBO・DC・Warner IPを持つ高品質コンテンツ基盤。Paramount合併検討など再編が続く。Netflixとのコンテンツライセンス交渉でも対峙</td></tr>
+        <tr><td><strong>YouTube（Alphabet）</strong></td><td>GOOGL</td><td>~$1.9T</td><td>無料・広告モデルで月間20億人超リーチ。YouTube TV・YouTubePremiumで有料領域にも進出。若年層視聴時間の争奪でNetflixの最大の非直接競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">世界最大 SVOD</span>
-    <span class="tag">1997年設立</span>
-    <span class="tag">190カ国展開</span>
-    <span class="tag">会員 325M+（2025末）</span>
-    <span class="tag">AVOD MAV 190M</span>
-    <span class="tag">時価総額 <span class="no-currency">$422B</span></span>
+    <span class="tag">ストリーミング</span>
+    <span class="tag">エンターテインメント</span>
+    <span class="tag">広告AVOD</span>
+    <span class="tag">NASDAQ: NFLX</span>
+    <span class="tag">通信サービスセクター</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">ライブスポーツ</span>
+    <span class="tag">グローバルIP</span>
   </div>
 </div>
 

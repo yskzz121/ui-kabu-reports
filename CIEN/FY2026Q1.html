@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -363,6 +380,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -774,27 +798,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 dropdown -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Ciena Corporation — 企業概要</h2>
-  <p>Cienaはメリーランド州ハノーバーに本社を置く光ネットワーキング機器・ソフトウェアの世界的リーダー。独自の<strong>WaveLogic</strong>コヒーレント光DSP技術を核に、通信事業者・クラウドプロバイダー・ケーブルオペレーター・政府機関向けに高速光伝送システムを提供する。AIトレーニングクラスタのスケーリングに不可欠な光接続インフラとして、ハイパースケーラー3社がCienaソリューションを採用中。</p>
-  <p>主力製品はWaveserver（DCI向け）、Reconfigurable Line System（RLS）、次世代のVesta 206.4T CPO（Co-Packaged Optics）、HyperRail等。Blue Planetは自動化・オーケストレーションソフトウェアプラットフォーム。</p>
+  <h2>企業概要 — Ciena Corporation</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1992年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">メリーランド州ハノーバー</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Gary Smith</div></div>
-    <div class="ov-item"><div class="ov-lbl">CFO</div><div class="ov-val">Mark Graff</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約 8,500名</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">約 $47.7B（2026年3月）</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場市場</div><div class="ov-val">NYSE</div></div>
-    <div class="ov-item"><div class="ov-lbl">会計年度末</div><div class="ov-val">10月末</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1992年（HydraLiteとして創業、1994年にCienaに改称）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>メリーランド州ハノーバー</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Gary Smith（社長兼CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: CIEN</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 通信機器</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P MidCap 400</dd></dl>
+    <dl class="ov-grid-item"><dt>売上高規模</dt><dd>約48億ドル（2025年度実績）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約9,000人以上</dd></dl>
   </div>
+
+  <p>シエナは光通信ネットワーク機器・ソフトウェア・サービスの専業企業。通信事業者・クラウド大手・政府機関向けに超高速光トランスポートシステムを提供し、北米市場シェアはライバルと合わせ約80%を独占する。自社開発の<strong>WaveLogicコヒーレント光技術</strong>（最新世代WL6eは業界初1.6Tb/s）が核心的差別化源泉であり、AI・クラウドデータ爆増で拡大する超大容量ネットワーク需要の恩恵を直接受けるポジションにある。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Networking Platforms（売上比約75%）</strong> — 6500 Packet-Optical Platform・Waveserverなどの光伝送・ルーティング・スイッチング装置。WaveLogicシリコンが性能上の差異化を生む</li>
+          <li><strong>Blue Planet Automation Software（売上比約10%）</strong> — ネットワーク自動化・オーケストレーション・分析のSaaSプラットフォーム。ソフトウェア比率拡大が中長期の利益率改善ドライバー</li>
+          <li><strong>Global Services（売上比約15%）</strong> — ネットワーク設計・導入・保守・マネージドサービス。高粘着性の継続収益。機器販売後のリカーリング収益源として機能</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>ハードウェア機器販売（~65%）</strong> — 光トランスポート・スイッチング装置の単発売上。通信事業者・ハイパースケーラーの設備投資サイクルに大きく依存</li>
+          <li><strong>ソフトウェア・SaaS（~10%）</strong> — Blue Planet自動化ソフトウェアのライセンス・サブスクリプション。利益率が高くリカーリング性が強いため増収の質向上に貢献</li>
+          <li><strong>サービス・保守（~25%）</strong> — 導入支援・保守契約・マネージドサービス。顧客装置の稼働に不可欠なため解約率が低く、安定した収益ベースを形成</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>WaveLogic自社設計ASICの技術的優位</strong> — 業界初1.6Tb/s（WL6e）を実現するコヒーレント光チップを自社開発。外部調達ベンダーより速い世代更新が顧客の乗り換えを阻む</li>
+      <li><strong>光通信専業の深い技術集積</strong> — 創業30年以上の光ネットワーク専業史。AT&T・Verizon・Deutsche Telekom等の主要通信事業者と長期関係。垂直統合的な開発体制が模倣困難</li>
+      <li><strong>Huawei排除の地政学的追い風</strong> — 欧米・日本・インドでのHuawei締め出し政策が進行。非Huaweiの最大手プレーヤーとして地政学的代替需要を独占的に取り込むポジション</li>
+      <li><strong>AIインフラ拡大との直接連動</strong> — ハイパースケーラーのAIデータセンター間・長距離相互接続網の大規模増強がシエナの主力製品カテゴリに直結。構造的需要拡大フェーズに入る</li>
+      <li><strong>北米光通信市場での事実上の複占</strong> — Nokia-Infinera合併後、西側市場は「シエナ vs Nokia/Infinera」の実質2強体制に移行。価格競争激化リスクを抑える寡占構造</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nokia（旧Infinera統合後）</strong></td><td>NOK</td><td>~$200億</td><td>2025年にInfineraを買収し西側市場で最大の直接競合に。23億ドル規模の統合体でシエナへの最大脅威</td></tr>
+        <tr><td><strong>Huawei Technologies</strong></td><td>非上場</td><td>—</td><td>光伝送市場でグローバルシェア約33%。欧米・日本では排除が進むが新興市場・中国では圧倒的競合</td></tr>
+        <tr><td><strong>Cisco Systems</strong></td><td>CSCO</td><td>~$2,000億</td><td>ルーティング・スイッチング領域で競合。光コヒーレント分野はシエナに劣るが総合ネットワークポートフォリオが脅威</td></tr>
+        <tr><td><strong>Infinera（Nokia傘下）</strong></td><td>Nokia傘下</td><td>—</td><td>買収前は光通信専業ライバル。Nokia統合によりリソース・顧客基盤が強化され競争力が増す</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">光ネットワーキング</span>
-    <span class="tag">コヒーレント光DSP</span>
-    <span class="tag">WaveLogic</span>
-    <span class="tag">データセンター相互接続</span>
-    <span class="tag">AIインフラ接続</span>
-    <span class="tag">ハイパースケーラー向け</span>
-    <span class="tag">Blue Platform自動化</span>
+    <span class="tag">光通信ネットワーク</span>
+    <span class="tag">WaveLogicコヒーレント光</span>
+    <span class="tag">通信機器</span>
+    <span class="tag">AIインフラ</span>
+    <span class="tag">Blue Planetソフトウェア</span>
+    <span class="tag">5G / クラウドバックボーン</span>
+    <span class="tag">NYSE: CIEN</span>
+    <span class="tag">S&P MidCap 400</span>
   </div>
 </div>
 

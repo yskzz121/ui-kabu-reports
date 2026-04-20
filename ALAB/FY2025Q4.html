@@ -70,7 +70,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -79,6 +79,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -366,6 +383,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -773,23 +797,80 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
   <h2>企業概要 — Astera Labs, Inc.</h2>
-  <p><strong>Astera Labs（ALAB）</strong>は2017年設立、カリフォルニア州Santa Clara本社のファブレス半導体企業。AIデータセンター・クラウドインフラ向けのインテリジェント・コネクティビティ半導体を設計・販売する。PCIe/CXLスマートリタイマー（Aries）、イーサネットスマートケーブルモジュール（Taurus）、スマートファブリックスイッチ（Scorpio）、CXLメモリコントローラ（Leo）など、GPU/AIアクセラレータ間の高速接続ソリューションを提供。2024年3月にNASDAQ上場。COSMOSソフトウェアプラットフォームによるリアルタイム接続管理も展開。</p>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">2017年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">Santa Clara, CA</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Jitendra Mohan（共同創業者）</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約756名</div></div>
-    <div class="ov-item"><div class="ov-lbl">主要顧客</div><div class="ov-val">Google, AWS, Microsoft, Meta（ハイパースケーラー）</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場日</div><div class="ov-val">2024年3月（NASDAQ）</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2017年（Jitendra Mohan・Sanjay Gajendra・Casey Morrison 共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンノゼ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Jitendra Mohan（共同創業者）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: ALAB（2024年3月 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体・半導体製造装置</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&P 500 未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>対応接続規格</dt><dd>PCIe 5.0/6.0・CXL・Ethernet 800G</dd></dl>
+    <dl class="ov-grid-item"><dt>FY2025 年間売上</dt><dd>約 $852.5M（前年比 +115%）</dd></dl>
   </div>
+
+  <p>Astera Labsはクラウド・AI インフラ向け高速コネクティビティ半導体を設計するファブレス企業。PCIeリタイマー（Aries）・CXLメモリコントローラ（Leo）・Ethernet AEC（Taurus）・AI ファブリックスイッチ（Scorpio）の4製品ラインと管理ソフトCOSMOSを統合したプラットフォームとして、AI ラック全体のデータ伝送を最適化する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Scorpio ファブリックスイッチ（急成長中）</strong> — AIラック内の全対全通信を管理するスマートスイッチ、Scorpio X が最大製品ラインに成長見込み</li>
+          <li><strong>Aries PCIe リタイマー</strong> — PCIe 5.0/6.0 信号整形の業界標準的存在、AI アクセラレータ搭載サーバーに必須の部品として採用拡大</li>
+          <li><strong>Leo CXL メモリコントローラ / Taurus Ethernet AEC</strong> — CXL でGPUのメモリ制約を緩和、Taurus で短距離800G Ethernet を低コスト・低消費電力で実現</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>製品販売主体（ファブレスモデル）</strong> — TSMCなど外部ファウンドリで製造、クラウド大手のサーバー調達サイクルに連動した一括・大量発注が収益の主軸</li>
+          <li><strong>プラットフォーム拡大によるウォレットシェア向上</strong> — 1台のAIサーバーあたりリタイマー数個（数十ドル）からScorpio スイッチ（数百ドル）への単価上昇戦略</li>
+          <li><strong>COSMOS ソフトウェア付帯</strong> — リアルタイム診断・フリートマネジメントSWを製品に同梱、クラウド運用コスト削減訴求でエンタープライズ採用を加速</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>PCIe リタイマー市場での先行者利益</strong> — Aries は主要AIアクセラレータサーバーのデファクト部品として採用済み、後発が設計込み込みを覆すには長い認証期間が必要</li>
+      <li><strong>PCIe・CXL・Ethernet の3規格を単一ベンダーでカバー</strong> — AIラックの全レイヤーを一社で供給できる強みは顧客の部品調達を簡素化し、競合の単品攻撃を防ぐ</li>
+      <li><strong>COSMOSソフトウェアによるデータロックイン</strong> — フリートレベルの診断・遠隔管理ソフトが運用に組み込まれると、ハードウェア入れ替えのコストが非常に高くなる</li>
+      <li><strong>AI インフラ設計サイクルへの早期組み込み</strong> — 大手クラウドプロバイダーの次世代サーバー設計段階から共同開発、ロードマップに組み込まれた後発排除が事実上困難</li>
+      <li><strong>高い純利益率と R&D 再投資能力</strong> — 非GAAP粗利率75%超・営業利益率約42%（Q3 2025）の高収益構造が次世代規格（PCIe 6.0・CXL 3.0）への先行開発を支える</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Broadcom</strong></td><td>AVGO</td><td>~$900B</td><td>データセンタースイッチング最大手、PCIeスイッチロードマップ加速でScorpioと競合</td></tr>
+        <tr><td><strong>Marvell Technology</strong></td><td>MRVL</td><td>~$60B</td><td>CXLコントローラ「Structera」ラインでLeoと直接競合、カスタムASIC力が強み</td></tr>
+        <tr><td><strong>Texas Instruments</strong></td><td>TXN</td><td>~$190B</td><td>PCIeリタイマーの既存サプライヤーとして一部セグメントでAriesと競合</td></tr>
+        <tr><td><strong>Microchip Technology</strong></td><td>MCHP</td><td>~$30B</td><td>PCIe/CXL周辺IC分野で一部重複、車載・産業向けからデータセンター参入を狙う</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">ファブレス半導体</span>
-    <span class="tag">AIインフラ</span>
+    <span class="tag">AIインフラ半導体</span>
     <span class="tag">PCIe / CXL</span>
-    <span class="tag">スマートファブリックスイッチ</span>
+    <span class="tag">ファブリックスイッチ</span>
+    <span class="tag">Scorpio / Aries</span>
     <span class="tag">データセンター接続</span>
-    <span class="tag">NVLink Fusion</span>
-    <span class="tag">UALink</span>
+    <span class="tag">NASDAQ: ALAB</span>
+    <span class="tag">ファブレス半導体</span>
+    <span class="tag">クラウドインフラ</span>
   </div>
 </div>
 

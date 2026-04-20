@@ -56,11 +56,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* Layer I */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -277,6 +294,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 /* Mobile */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:30px 16px 24px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -681,17 +705,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>DocuSign, Inc.</h2>
-  <p>2003年設立、サンフランシスコ拠点。電子署名（eSignature）のグローバルリーダーとして市場シェア40〜56%を保持。CEO Allan Thygesen体制のもと、IAM（Intelligent Agreement Management）プラットフォームへの事業転換を推進中。170万社超・180カ国に導入実績。</p>
-  <p><strong>収益構造:</strong> サブスクリプション97.9% / プロフェッショナルサービス2.1%。主力製品はeSignature・CLM・IAM（Navigator, Maestro, Iris AI）。TAMは eSignature+CLM $50B → IAM拡張で $135B へ拡大見込み。</p>
-  <p><strong>競合:</strong> Adobe Sign（11%）、PandaDoc（10%）、Dropbox Sign。AI契約エージェントで差別化を図る。</p>
+  <h2>企業概要 — Docusign, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2003年（Court Lorenzini・Tom Gonser・Eric Ranftがサンフランシスコで創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンフランシスコ（221 Main Street）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Allan Thygesen（2022年就任、Google出身・IAMプラットフォーム転換を主導）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: DOCU（2018年4月 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / アプリケーションソフトウェア（Application Software）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000採用（S&P 500は未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>顧客数</dt><dd>1.7百万社超（IAMプラットフォーム採用顧客25,000社超）</dd></dl>
+    <dl class="ov-grid-item"><dt>合意書処理実績</dt><dd>累計200億件以上の同意済み合意書データを保有・AI学習に活用</dd></dl>
+  </div>
+
+  <p>Docusignは世界最大の電子署名プラットフォーム企業から、<strong>インテリジェント合意管理（IAM）</strong>へと進化するSaaS企業。電子署名が「作成・署名・完了」で終わっていた時代を刷新し、契約の準備・交渉・履行・更新までのライフサイクル全体をAIで自動化するIAMプラットフォームを構築中。200億件の合意書データを独自学習したAIモデルが競合比15ptの精度優位を誇り、エンタープライズ向けの契約業務改革基盤として再定義されつつある。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'eSignature（主力、ARRの約90%）', 'detail': '世界シェア首位の電子署名。10億ユーザー・170万顧客が利用し、Salesforce・SAP・Microsoft等1,000以上のシステムと統合。NRR 102%の安定基盤'}</li>
+          <li>{'name': 'Intelligent Agreement Management（IAM）プラットフォーム', 'detail': 'eSignatureを超えてCLM・Document Generation・AI契約分析を統合したプラットフォーム。ARR比率が1年で2%→11%に拡大し、FY27目標18%。$350M+ ARRを突破'}</li>
+          <li>{'name': 'CLM（Contract Lifecycle Management）・Document Generation', 'detail': '契約条件の交渉・起草・管理・更新を自動化するワークフロー製品群。大企業の法務・調達・営業部門のシステムとして定着を狙い、単価引き上げのレバー'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': 'サブスクリプション主体（売上の約97%）', 'detail': '年次・複数年契約のSaaSモデル。eSignatureの高い更新率（NRR 102%）を土台にIAMアップセルで客単価引き上げを推進中'}</li>
+          <li>{'name': 'IAMへのプラットフォーム拡張による単価向上', 'detail': 'IAM契約はeSignature単体比で大幅に高単価。エンタープライズでの導入率（クロージング率50%超）が加速しており、収益ミックス改善に直結'}</li>
+          <li>{'name': 'プロフェッショナルサービス（~3%）', 'detail': '大企業向け導入支援・カスタム連携構築。単体採算よりもエンタープライズアカウントの深耕・継続率向上に貢献する役割'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>200億件の合意書データによるAI精度優位</strong> — 独自データで学習したAIモデルが汎用モデル比15pt以上の精度優位を保持。競合はこのデータ資産を短期間では複製不可能</li>
+      <li><strong>世界首位のeSignatureブランドと顧客信頼性</strong> — 「電子署名＝Docusign」の認知が法務・金融・医療等の厳格な業界でも採用を促進。170万顧客・10億ユーザーの慣性が継続利用を固定化</li>
+      <li><strong>1,000以上の統合エコシステム（Salesforce・SAP・Microsoft等）</strong> — 既存のCRM・ERP・HRシステムへの深い組み込みが解約コストを極めて高くし、更新率・アップセル余地の両方を支える</li>
+      <li><strong>eSignatureからIAMへのプラットフォームシフト</strong> — 電子署名という参入コストの低い市場を超え、契約管理の全工程をAIで統合する高付加価値プラットフォームへと差別化の軸を移行中</li>
+      <li><strong>エンタープライズ法務・調達・営業部門への深い業務浸透</strong> — 法的拘束力のある契約書管理という業務クリティカルな用途で使われるため、IT予算削減局面でも解約が起きにくい高い必須性</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Adobe（Acrobat Sign）</strong></td><td>ADBE</td><td>~$160B</td><td>Acrobatブランド認知とDocument Cloudとの統合でeSignatureに参入。Creative Suite顧客への同梱販売が脅威で中小企業市場を中心に拮抗</td></tr>
+        <tr><td><strong>Salesforce（Einstein Agreements）</strong></td><td>CRM</td><td>~$170B</td><td>Salesforce内蔵CLM機能の強化がエンタープライズ市場でDocusignのIAM戦略と直接衝突。CRM統合先として最大パートナー兼最大競合</td></tr>
+        <tr><td><strong>Ironclad / Icertis</strong></td><td>非公開</td><td>—</td><td>CLM特化型スタートアップ。エンタープライズ法務向けの専門性でDocusignのIAM拡張と正面衝突。ベンチャー資金が競合格差を縮小中</td></tr>
+        <tr><td><strong>Microsoft（Word+Teams連携）</strong></td><td>MSFT</td><td>~$3T</td><td>Microsoft 365内での電子署名・契約管理機能強化がSMB市場での代替圧力。Teams・Word統合による「十分に機能する」代替ソリューション</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
+    <span class="tag">SaaS</span>
+    <span class="tag">電子署名</span>
+    <span class="tag">IAM / 合意管理</span>
+    <span class="tag">CLM</span>
+    <span class="tag">契約AI</span>
     <span class="tag">NASDAQ: DOCU</span>
-    <span class="tag">SaaS / e-Signature</span>
-    <span class="tag">IAM Platform</span>
-    <span class="tag">CEO: Allan Thygesen</span>
-    <span class="tag">従業員: ~6,838人</span>
-    <span class="tag">時価総額: ~$9.6B</span>
+    <span class="tag">Russell 1000</span>
+    <span class="tag">情報技術・ソフトウェア</span>
   </div>
 </div>
 

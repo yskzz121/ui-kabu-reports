@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -300,6 +317,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -744,17 +768,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>The Goldman Sachs Group, Inc.</strong>（NYSE: GS）は世界最大級の投資銀行・証券会社。1869年にニューヨークで Marcus Goldman により創業。本社はニューヨーク、CEO は David Solomon、従業員数は約46,000名。時価総額は約<span class="no-currency">$282B</span>（株価 $907.80 ベース）。M&amp;Aアドバイザリー・株式/債券引受で世界トップクラスのブランドを持ち、機関投資家向けマーケッツ事業（FICC / Equities）、アセット&amp;ウェルス・マネジメント、プラットフォーム・ソリューションズの3事業ラインで構成。</p>
-  <p>3セグメント体制: ①Global Banking &amp; Markets（IB手数料・FICC・Equities・トレーディング）、②Asset &amp; Wealth Management（AUM・プライベートバンキング・オルタナティブ投資）、③Platform Solutions（消費者プラットフォーム・トランザクションバンキング）。主要競合: Morgan Stanley、JPMorgan Chase、Bank of America、Citigroup。Private Credit事業は $300B 目標で拡大中、M&amp;A League Table は 2026年Q1 で首位を獲得。</p>
+  <h2>企業概要 — The Goldman Sachs Group, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1869年（Marcus Goldman 創業 / 法人化 1882年）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ニューヨーク州ニューヨーク市（200 West Street）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>David Solomon（2018年〜、前任 Lloyd Blankfein）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: GS（1999年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>金融 / 資本市場（Capital Markets）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / ダウ工業株30種（DJIA）/ Russell 1000</dd></dl>
+    <dl class="ov-grid-item"><dt>2025年純収益</dt><dd>約$582億（YoY 増収・Asset &amp; Wealth Management が牽引）</dd></dl>
+    <dl class="ov-grid-item"><dt>運用資産（AUM）</dt><dd>Asset &amp; Wealth Management 部門でAUM約$3兆超</dd></dl>
+  </div>
+
+  <p>Goldman Sachsは1869年創業のグローバル投資銀行・金融サービスグループ。Global Banking &amp; Markets（GBM）、Asset &amp; Wealth Management（AWM）、Platform Solutionsの3セグメントを軸に、機関投資家・富裕層・企業・政府を顧客とする。資本市場での圧倒的ブランドと情報ネットワーク、プライベートクレジット・プライベートエクイティを含むオルタナティブ資産管理への戦略的シフトで長期的な収益多様化を推進。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Global Banking &amp; Markets（~60%）', 'desc': '<strong>投資銀行（M&amp;A助言・引受）・FICC・株式トレーディング・プライムブローカレッジ</strong>。世界トップ級のM&amp;A・ECMアドバイザリーフランチャイズ。'}</li>
+          <li>{'name': 'Asset &amp; Wealth Management（~28%）', 'desc': '<strong>機関投資家向けAM・超富裕層プライベートバンク・オルタナティブ投資</strong>。管理手数料主体の安定収益へのシフトが進行中。'}</li>
+          <li>{'name': 'Platform Solutions（~12%）', 'desc': '<strong>Apple Card / GreenSky（個人ローン）等のフィンテック・消費者金融プラットフォーム</strong>。一部事業は戦略見直し・縮小中。'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': 'トレーディング収益（~40%）', 'desc': '<strong>FICC・株式のプリンシパルトレーディング・マーケットメイク</strong>。市場ボラティリティ連動性が高く業績の変動要因だが、規模とリスク管理力が参入障壁。'}</li>
+          <li>{'name': '投資銀行手数料（~15%）', 'desc': '<strong>M&amp;A助言・株式引受（IPO/SPO）・デット引受</strong>に対するフィー収入。M&amp;Aサイクル回復期に大幅な増収余地を保有。'}</li>
+          <li>{'name': '管理手数料・業績報酬（~28%）', 'desc': '<strong>AUM比例の管理報酬＋キャリーフィー</strong>。オルタナティブAUM拡大戦略により安定フィー比率を長期的に引き上げる方針。'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>グローバル投資銀行フランチャイズとブランド力</strong> — 150年超の歴史に裏打ちされたM&amp;A・引受案件での優先選択地位。顧客の取締役会・CFOレベルへの深い関係性資産は短期間で構築不可能。</li>
+      <li><strong>情報ネットワークとプロプライエタリ・データ優位</strong> — 世界最大規模の資本市場取引執行から蓄積されるデータ・フローは価格形成・リスク判断における他社比較優位を生む。</li>
+      <li><strong>優秀人材の集積とカルチャー</strong> — ゴールドマン出身者が金融・政界・規制当局の要職に就くことで、採用・評判・規制関係のサイクルが自己強化。</li>
+      <li><strong>オルタナティブ資産管理への戦略的シフト</strong> — プライベートクレジット・インフラ・不動産へのALM拡大は管理フィーを安定化。市場変動に対するP&amp;Lの耐性が高まりバリュエーション評価が改善中。</li>
+      <li><strong>規制関係と資本調達コスト優位</strong> — SIFI（システム上重要な金融機関）指定は規制コストを伴うが、対顧客信頼性・政府調達・安定調達コストにおいて中小競合への参入障壁を構成。</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>JPMorgan Chase</strong></td><td>JPM</td><td>~$7,500億</td><td>世界最大の金融機関。リテール・投資銀行・AM の総合力でGSを上回る規模を持つ最大の競合。</td></tr>
+        <tr><td><strong>Morgan Stanley</strong></td><td>MS</td><td>~$2,300億</td><td>ウェルスマネジメント・資産管理に強く、$5兆超のクライアント資産でGSのAWM部門と直接競合。</td></tr>
+        <tr><td><strong>Blackstone</strong></td><td>BX</td><td>~$1,600億</td><td>プライベートエクイティ・クレジット・不動産でのオルタナティブAUM首位。GS AWMの戦略的拡大対象領域で競合激化。</td></tr>
+        <tr><td><strong>Evercore</strong></td><td>EVR</td><td>~$100億</td><td>独立系投資銀行として大型M&amp;A案件での助言競争が激しい。買収リスク不在のアドバイザリーブティックとして高評価。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">投資銀行 #1（M&amp;A）</span>
-    <span class="tag">Equities 過去最高</span>
-    <span class="tag">ROE 19.8%</span>
-    <span class="tag">ROTE 21.3%</span>
-    <span class="tag">時価総額 $282B</span>
-    <span class="tag">BV/Share $361.19</span>
-    <span class="tag">従業員 46,000名</span>
+    <span class="tag">投資銀行</span>
+    <span class="tag">資本市場</span>
+    <span class="tag">M&A アドバイザリー</span>
+    <span class="tag">Asset & Wealth Management</span>
+    <span class="tag">プライベートクレジット</span>
+    <span class="tag">DJIA 採用銘柄</span>
+    <span class="tag">NYSE: GS</span>
+    <span class="tag">金融セクター</span>
   </div>
 </div>
 

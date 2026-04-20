@@ -30,7 +30,14 @@ canvas{max-height:320px}
 .data-table tr:hover{background:#1c2128}
 .data-table .right{text-align:right}
 .footer{text-align:center;padding:30px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;margin-top:40px}
-@media(max-width:768px){body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
+@media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
 @media(max-width:480px){.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}.section-title,.section-header{font-size:1rem}}
 .section[data-accordion],.sec3[data-accordion]{position:relative}
 .section[data-accordion] .section-title,.sec3[data-accordion] .sec3-title{cursor:pointer;user-select:none;padding-right:36px}
@@ -76,11 +83,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* Layer I */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -616,11 +640,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>イーライリリー・アンド・カンパニー（Eli Lilly and Company）は1876年創業、米国インディアナ州インディアナポリス本社の世界的製薬企業。CEO: David A. Ricks（2017年〜）、従業員数 約4.4万人。時価総額 約$940B（2026年3月時点）。</p>
-  <p>主力製品はGLP-1受容体作動薬のMounjaro（2型糖尿病）とZepbound（肥満）で、両製品がFY2025の成長を牽引。腫瘍（Verzenio）、免疫（Omvoh）、神経科学（Kisunla）にも多角化。経口GLP-1薬Orforglipronを2026年Q2に発売予定。</p>
+  <h2>企業概要 — Eli Lilly and Company</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1876年（Eli Lilly 氏がインディアナ州で創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>インディアナ州インディアナポリス（世界18か国にオフィス）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>David A. Ricks（会長兼CEO、2017年就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: LLY</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>ヘルスケア（Health Care） / 医薬品（Pharmaceuticals）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500・Russell 1000・MSCI World</dd></dl>
+    <dl class="ov-grid-item"><dt>年間売上規模</dt><dd>約$655億（2025年通期）／2026年ガイダンス $800〜830億</dd></dl>
+    <dl class="ov-grid-item"><dt>主要治療領域</dt><dd>糖尿病・肥満（インクレチン）/ 腫瘍 / 免疫 / 神経科学の4領域</dd></dl>
+  </div>
+
+  <p>Eli Lilly and Company は<strong>世界最大の医薬品企業の一社</strong>。GLP-1受容体作動薬の<strong>Mounjaro（2型糖尿病）</strong>と<strong>Zepbound（肥満）</strong>が2025年に合計約$365億の売上を記録し、全社売上の過半数を占める。乳がん治療薬 Verzenio・アルツハイマー治療薬 Kisunla など多角的なパイプラインも育成しており、<strong>経口GLP-1薬 orforglipron</strong> の上市に向けた次フェーズにある。肥満・糖尿病市場の長期成長期待から時価総額は一時$1兆を超えた。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>インクレチン製剤（~56%）</strong> — Mounjaro（tirzepatide、2型糖尿病）および Zepbound（肥満）。2025年合算売上$365億。次世代経口薬 orforglipron が FDA審査中</li>
+          <li><strong>腫瘍・免疫（~25%）</strong> — Verzenio（乳がん CDK4/6阻害）・Taltz（IL-17A）・Olumiant（JAK）。高い維持処方率で安定収益を形成</li>
+          <li><strong>神経科学・その他（~19%）</strong> — Kisunla（アルツハイマー、amyloid-β抗体）・Jardiance（SGLT2阻害）ほか。パイプライン多様化のコア</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>製品売上中心モデル（~95%）</strong> — 特許製品の高薬価・グローバル展開が収益源。ブロックバスターへの集中度が高くピーク時の利益率は極めて高い</li>
+          <li><strong>製造・供給投資の拡大</strong> — GLP-1需要急増に対応するため製造能力を大規模増強中。インディアナ・ノースカロライナ・ドイツ・アイルランドで新工場建設</li>
+          <li><strong>ロイヤリティ・ライセンス（~5%）</strong> — 旧製品・提携先へのライセンス収益。Humalog などの成熟ブランドも安定貢献</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>GLP-1領域の先行技術優位</strong> — tirzepatide（デュアルGIP/GLP-1）はノボノルディスク Wegovy に対して体重減少効果で優位（-20.2% vs -13.7%）。分子構造特許が参入障壁を構築</li>
+      <li><strong>大規模R&Dパイプライン</strong> — 年間研究開発費$100億超。糖尿病・肥満・腫瘍・神経科学にまたがる100以上の試験が進行中で単一製品リスクを分散</li>
+      <li><strong>世界最大規模の医薬品製造・流通網</strong> — 自社工場による垂直統合型製造とコールドチェーン物流ネットワークがスケールの経済を生む</li>
+      <li><strong>医師・患者エコシステムとのリレーション</strong> — 150年超の歴史と信頼。肥満医学会・糖尿病学会等との長期コラボレーションがブランドロイヤリティを強化</li>
+      <li><strong>規制・臨床データによる参入障壁</strong> — FDA承認・EMA承認プロセスで蓄積された大規模RCTデータは後発品が再現できない資産。バイオシミラー参入まで特許期間中は独占維持</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Novo Nordisk</strong></td><td>NVO</td><td>~$280B</td><td>GLP-1最大ライバル。Ozempic/Wegovy で先行するが Zepbound との体重減少差でシェアを失いつつある。脅威度：最高</td></tr>
+        <tr><td><strong>AstraZeneca</strong></td><td>AZN</td><td>~$250B</td><td>腫瘍・SGLT2（Farxiga）で競合。oncologyパイプラインは業界最大級。脅威度：中～高</td></tr>
+        <tr><td><strong>Pfizer</strong></td><td>PFE</td><td>~$150B</td><td>肥満薬パイプライン強化中（Metsera買収）。既存の腫瘍・感染症ラインでも競合。脅威度：中（肥満領域は将来的に高まる可能性）</td></tr>
+        <tr><td><strong>Roche</strong></td><td>ROG</td><td>~$240B</td><td>腫瘍（Herceptin等）・神経科学で競合。GLP-1領域への参入も準備中。脅威度：中</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">NYSE: LLY</span><span class="tag">製薬・バイオテク</span><span class="tag">GLP-1リーダー</span><span class="tag">S&amp;P 500</span><span class="tag">配当継続</span>
+    <span class="tag">医薬品</span>
+    <span class="tag">GLP-1</span>
+    <span class="tag">肥満治療</span>
+    <span class="tag">糖尿病</span>
+    <span class="tag">腫瘍</span>
+    <span class="tag">NYSE: LLY</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">ブロックバスター</span>
   </div>
 </div>
 

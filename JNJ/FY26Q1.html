@@ -30,7 +30,14 @@ canvas{max-height:320px}
 .data-table tr:hover{background:#1c2128}
 .data-table .right{text-align:right}
 .footer{text-align:center;padding:30px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;margin-top:40px}
-@media(max-width:768px){body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
+@media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
 @media(max-width:480px){.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}.section-title,.section-header{font-size:1rem}}
 .section[data-accordion],.sec3[data-accordion]{position:relative}
 .section[data-accordion] .section-title,.sec3[data-accordion] .sec3-title{cursor:pointer;user-select:none;padding-right:36px}
@@ -76,11 +83,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* Layer I */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -616,11 +640,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>ジョンソン・エンド・ジョンソン（Johnson &amp; Johnson）は1886年創業、米国ニュージャージー州ニューブランズウィック本社の世界最大級のヘルスケア企業。CEO: Joaquin Duato（2022年〜）、CFO: Joseph Wolk、従業員数 約13万人。時価総額 約$575B（2026年4月時点）。</p>
-  <p>2023年にコンシューマー部門（Kenvue）を分離し、現在は「Innovative Medicine（革新的医薬品）」と「MedTech（医療機器）」の2セグメント体制。Innovative Medicineの主力は血液がん治療薬Darzalex（$4B/四半期）、CAR-T細胞療法Carvykti、免疫疾患治療薬Tremfya、治療抵抗性うつ病Spravato等。MedTechはShockwave Medical・電気生理学製品が牽引。64年連続増配の「配当貴族」銘柄。</p>
+  <h2>企業概要 — Johnson &amp;amp; Johnson</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1886年（Robert Wood Johnson ら3兄弟創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ニュージャージー州ニューブランズウィック</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Joaquin Duato（2022年〜）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: JNJ</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>ヘルスケア / 医薬品（Pharmaceuticals）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / ダウ工業株30種（DJIA）/ Russell 1000 Value</dd></dl>
+    <dl class="ov-grid-item"><dt>2025年通期売上</dt><dd>Innovative Medicine ~$604億 + MedTech ~$338億（計 ~$942億）</dd></dl>
+    <dl class="ov-grid-item"><dt>R&amp;D パイプライン</dt><dd>2025年に51承認・32申請・17フェーズIII陽性読み出しを達成</dd></dl>
+  </div>
+
+  <p>Johnson &amp; Johnsonは1886年創業の世界最大級の医療・製薬複合企業。2023年の消費者健康部門（Kenvue）スピンオフにより、<strong>Innovative Medicine（製薬）と MedTech（医療機器）の2セグメント</strong>に集中特化。DARZALEX（多発性骨髄腫）・STELARA（免疫疾患）・CARVYKTI（CAR-T）等の大型医薬品と整形外科・外科ロボティクス・電気生理学分野での医療機器を基盤に、140年以上の科学的知見と世界規模の販売網で持続的成長を実現。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Innovative Medicine（~64%）', 'desc': '<strong>腫瘍学・免疫疾患・神経科学・心肺代謝・感染症</strong>向け医薬品ポートフォリオ。DARZALEX年間$140億超・STELARA・CARVYKTIが牽引する処方薬主体ビジネス。'}</li>
+          <li>{'name': 'MedTech（~36%）', 'desc': '<strong>整形外科（DePuy Synthes）・外科（Ethicon）・心臓電気生理（EP）・眼科（Vision）</strong>。外科ロボティクス・モバイルセラピー等の高付加価値医療機器を幅広く展開。'}</li>
+          <li>{'name': 'Research &amp; Pipeline', 'desc': '<strong>年間R&amp;D投資$150億超</strong>。多重骨髄腫・前立腺がん・自己免疫疾患を中心に複数のPhase III試験が進行中。「社史上最強のパイプライン」と経営陣が評価。'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '処方薬販売（~64%）', 'desc': '<strong>医師・病院への直販＋PBM/保険会社経由</strong>。特許保護期間中は高マージン。DARZALEX等のバイオ医薬品はバイオシミラーへの移行が遅く特許崖リスクが相対的に低い。'}</li>
+          <li>{'name': '医療機器販売（~36%）', 'desc': '<strong>病院・外科センターへの直販＋ディストリビューター経由</strong>。消耗品・インプラント・機器のバンドル販売で顧客の切替コストが高い。'}</li>
+          <li>{'name': 'ライセンス・マイルストーン収益', 'desc': '<strong>共同開発・ライセンスアウト契約に基づく一時収益</strong>。製薬業界特有の契約型収益が利益安定化に寄与するケースも。'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>製薬×医療機器の統合ポートフォリオによる交渉力</strong> — 腫瘍内科・整形外科・手術室の各専門科に製薬と機器を同時提供する複合提案力は、単品特化の競合が模倣困難な関係構築優位を生む。</li>
+      <li><strong>DARZALEX・CARVYKTIの大型バイオ医薬品特許護城河</strong> — DARZALEX年間$140億超・22%成長、CARVYKTI（CAR-T細胞療法）は次世代免疫腫瘍学の先行ポジション。バイオシミラー参入障壁が高く長期的なキャッシュフロー源。</li>
+      <li><strong>世界最大級のR&amp;D投資規模（年間~$150億超）</strong> — パイプラインの厚みが特許崖リスクをオフセット。2025年だけで51承認・17Phase III陽性読み出しという実績が持続的イノベーション力を証明。</li>
+      <li><strong>140年超のブランドと規制当局との関係資産</strong> — FDAをはじめ世界各国規制機関との長年の協働実績は申請承認プロセスでの信頼蓄積を形成。新規参入者が短期間で複製不可能な無形資産。</li>
+      <li><strong>米国内製造への$550億投資コミットメントによる供給安定性</strong> — 先進医療100%の国内生産体制確立を目指す戦略投資はサプライチェーン安全保障を強化し、競合比2〜3%のマージン優位を中長期的に生み出す見通し。</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AbbVie</strong></td><td>ABBV</td><td>~$3,200億</td><td>HUMIRA後継薬（Skyrizi・Rinvoq）で免疫疾患領域でJNJのStelara/Tremfya群と直接競合。フランチャイズ再構築力が高い。</td></tr>
+        <tr><td><strong>Merck &amp; Co.</strong></td><td>MRK</td><td>~$2,000億</td><td>KEYTRUDA（オンコロジー）で腫瘍学領域の覇者。JNJのDARZALEXとは異なる固形がん治療で補完的競合関係。</td></tr>
+        <tr><td><strong>Medtronic</strong></td><td>MDT</td><td>~$1,100億</td><td>医療機器世界首位。心臓血管・脊椎・糖尿病管理でJNJ MedTechと広範に競合。外科ロボティクスでも開発競争中。</td></tr>
+        <tr><td><strong>Eli Lilly</strong></td><td>LLY</td><td>~$7,000億</td><td>GLP-1肥満薬（Mounjaro/Zepbound）の爆発的成長で時価総額ではJNJを大きく上回る。糖尿病・代謝疾患での成長速度が最大の外部圧力。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">NYSE: JNJ</span><span class="tag">ヘルスケア複合</span><span class="tag">配当貴族</span><span class="tag">S&amp;P 500</span><span class="tag">Dow Jones 30</span>
+    <span class="tag">製薬 / バイオ医薬品</span>
+    <span class="tag">医療機器 / MedTech</span>
+    <span class="tag">腫瘍学 / DARZALEX</span>
+    <span class="tag">DJIA 採用銘柄</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">NYSE: JNJ</span>
+    <span class="tag">ヘルスケアセクター</span>
+    <span class="tag">Kenvue スピンオフ後集中特化</span>
   </div>
 </div>
 

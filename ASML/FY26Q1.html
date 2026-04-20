@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -364,6 +381,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -828,16 +852,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>ASML Holding N.V.</strong>（NASDAQ: ASML）は、世界で唯一EUV（極端紫外線）リソグラフィ装置を製造・供給する半導体製造装置のグローバルリーダー。1984年設立、オランダ・フェルトホーフェン本社。CEOはChristophe Fouquet。従業員数は約44,000名、時価総額は約<span class="no-currency">$598B</span>規模。</p>
-  <p>ビジネスモデルは、①<strong>System sales</strong>（EUV/DUVリソグラフィ装置の新品・中古販売）と②<strong>Installed Base Management</strong>（保守・アップグレード・サービス。高マージンのリカーリング収益）の2本柱。主要顧客はTSMC、Samsung、Intel、SK Hynix、Micronで、先端ロジック・メモリ製造のキーイネーブラー。EUV装置は競合不在、DUV領域も圧倒的シェアを保有。</p>
+  <h2>企業概要 — ASML Holding N.V.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1984年（ASM Lithographyとして設立）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>オランダ・ヴェルトホーフェン（アイントホーフェン近郊）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Christophe Fouquet（2024年就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: ASML（ADS）/ Euronext Amsterdam: ASML</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体製造装置</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>NASDAQ-100・AEX・Euro Stoxx 50・MSCI World</dd></dl>
+    <dl class="ov-grid-item"><dt>システム累積設置数</dt><dd>5,300台超（EUV + DUV）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約44,000人（60拠点以上）</dd></dl>
+  </div>
+
+  <p>ASMLはEUV（極端紫外線）リソグラフィ装置の<strong>世界唯一のサプライヤー</strong>として、先端半導体製造に不可欠なインフラを独占供給するオランダのハイテク企業。TSMC・Samsung・Intelなど世界の主要ファウンドリ・IDMに装置を供給し、EUVなしには2nm以下の先端チップ製造は不可能。累計R&D投資€100億超と16,000件超の特許ポートフォリオが参入障壁を構造化しており、<strong>装置販売（~80%）とサービス・フィールドオプション（~20%）</strong>の組み合わせで安定した収益構造を維持する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>EUV（極端紫外線）リソグラフィ（世界シェア100%）</strong> — 2nm/3nm以下の先端ロジック・メモリ製造に必須、High-NA EUVで次世代製造ノードをリード</li>
+          <li><strong>DUV（深紫外線）リソグラフィ（~80%超シェア）</strong> — ArF/KrFベースの成熟ノード向け、台数ベースでEUVを上回る主力量産ライン</li>
+          <li><strong>サービス・フィールドオプション（~20%売上）</strong> — 装置保守・アップグレード・ソフトウェア更新の長期保守契約、高粗利・経常収益</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>システム販売（~80%）</strong> — 1台当たり€2億超（EUV）の高額一品受注、顧客とのロードマップ共同開発で複数年バックログを形成</li>
+          <li><strong>サービス・フィールドオプション（~20%）</strong> — 設置済み5,300台超を対象とする保守契約・アップグレード、景気変動に対する安定緩衝機能</li>
+          <li><strong>High-NA EUV（次世代）</strong> — Intel・TSMC向けに展開中、1台当たり€3億超と見込まれる最高付加価値製品で単価上昇トレンドを牽引</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>EUV装置の事実上の独占供給</strong> — 40年に及ぶ技術蓄積と€100億超のR&D投資、競合（Nikon・Canon）がEUVを商業化できず代替手段が存在しない</li>
+      <li><strong>Carl Zeiss SMT との排他的光学系パートナーシップ</strong> — EUVに必要な特殊ミラー・光学部品をZeiss SMTが独占供給、ASMLが24.9%株式保有で関係を固定化</li>
+      <li><strong>16,000件超の特許ポートフォリオと累積学習曲線</strong> — 装置・ソフト・プロセス統合の知的財産の厚みが参入障壁を多層化</li>
+      <li><strong>顧客ロードマップへの深い統合</strong> — TSMC/Samsung/Intelのノード開発は事実上ASMLとの共同設計、装置交換コストが極めて高く置き換えが困難</li>
+      <li><strong>Cymer買収による光源内製化</strong> — EUV光源（レーザープラズマ）を買収（2013年）で完全内製化し、競合他社がサプライチェーンから参入する経路を封鎖</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nikon</strong></td><td>7731（東証）</td><td>~$5B</td><td>ArF液浸DUVで競合するが、EUV商業化に失敗。成熟ノード向けに注力</td></tr>
+        <tr><td><strong>Canon</strong></td><td>7751（東証）</td><td>~$28B</td><td>ナノインプリント技術（NIL）で次世代リソグラフィに挑戦するが量産実績は限定的</td></tr>
+        <tr><td><strong>Applied Materials</strong></td><td>AMAT</td><td>~$130B</td><td>成膜・エッチング装置分野でASMLと間接競合、装置予算の奪い合い</td></tr>
+        <tr><td><strong>Lam Research</strong></td><td>LRCX</td><td>~$85B</td><td>エッチング・堆積装置で工程間競合、半導体製造フロー全体の予算配分で対峙</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">EUV独占供給</span>
-    <span class="tag">半導体装置リーダー</span>
-    <span class="tag">AI CAPEX受益</span>
-    <span class="tag">1984年設立</span>
-    <span class="tag">従業員44,000名</span>
-    <span class="tag">時価総額 <span class="no-currency">$598B</span></span>
+    <span class="tag">リソグラフィ装置</span>
+    <span class="tag">EUV独占</span>
+    <span class="tag">半導体製造装置</span>
+    <span class="tag">AI半導体インフラ</span>
+    <span class="tag">ハードウェアモノポリー</span>
+    <span class="tag">NASDAQ: ASML</span>
+    <span class="tag">Euronext Amsterdam</span>
+    <span class="tag">Euro Stoxx 50</span>
   </div>
 </div>
 

@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -363,6 +380,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -774,24 +798,80 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 dropdown -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Rubrik, Inc. — 企業概要</h2>
-  <p>Rubrikはサイバーレジリエンスを専門とするクラウドデータ管理プラットフォーム企業。Zero Trust Data Securityを標榜し、ランサムウェア対策・データ保護・AIセキュリティを一元化。エンタープライズ顧客のデータを守る純粋サブスクリプション型SaaS企業。2024年4月NYSE上場（IPO価格 $32）。</p>
+  <h2>企業概要 — Rubrik, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">2014年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">カリフォルニア州パロアルト</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Bipul Sinha（共同創業者）</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約 3,500名</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">約 $11.5B</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場市場</div><div class="ov-val">NYSE</div></div>
-    <div class="ov-item"><div class="ov-lbl">主要顧客</div><div class="ov-val">Fortune 500の100社以上</div></div>
-    <div class="ov-item"><div class="ov-lbl">TAM</div><div class="ov-val">サイバーレジリエンス市場 $400B+</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2014年1月（Bipul Sinha他3名が共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州パロアルト</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Bipul Sinha（共同創業者、2014年就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: RBRK（2024年4月 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / システムソフトウェア</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&P 500 未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>ARR規模</dt><dd>~$1.35B（FY2026時点、サブスクリプション主体）</dd></dl>
+    <dl class="ov-grid-item"><dt>時価総額概算</dt><dd>~$15–18B（中型テックグロース）</dd></dl>
   </div>
+
+  <p>Rubrikはデータセキュリティ・サイバーレジリエンスに特化したクラウドネイティブ企業。ランサムウェア攻撃・内部脅威・データ破損に対し、<strong>バックアップ・リカバリ・脅威検知・データ可観測性</strong>を統合プラットフォーム「Rubrik Security Cloud」で提供する。クラウド・オンプレ・SaaSを問わず企業データを保護し、サイバー攻撃後の迅速な復旧（サイバーリカバリー）を武器に従来型バックアップベンダーからの置き換えを加速している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Rubrik Security Cloud（コアプラットフォーム）</strong> — データ保護・脅威アナリティクス・ランサムウェア検知・データポスチャー管理を統合提供。SaaS型サブスクリプションで課金</li>
+          <li><strong>Ransomware Investigation & Recovery</strong> — 感染範囲の特定・クリーンポイントへの自動ロールバック・フォレンジクス支援。CISO・インシデントレスポンスチーム向けの高付加価値機能</li>
+          <li><strong>Cloud & SaaS Protection</strong> — AWS・Azure・GCP上のワークロード、Microsoft 365・Salesforceなどのクラウドアプリケーションデータを対象とした保護と可視化</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>サブスクリプション主体（~90%超）</strong> — Rubrik Security CloudのARRベース課金。NRR120%超を維持しながら既存顧客からのアップセルが成長を牽引</li>
+          <li><strong>アプライアンス（漸減）</strong> — ハードウェア一体型のオンプレ製品。クラウド移行に伴いサブスクへの移行が進行中</li>
+          <li><strong>プロフェッショナルサービス</strong> — 導入支援・トレーニング・インシデント対応支援。本体サブスク契約に付随する補完的収益源</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>セキュリティとバックアップの統合プラットフォームによる切替コスト</strong> — データ保護インフラはミッションクリティカルで、複数年かけて構築されたポリシー・ワークフローの移行コストが極めて高い</li>
+      <li><strong>不変バックアップアーキテクチャ（Zero Trust Data Security）</strong> — 攻撃者が侵入してもバックアップデータを改ざん・削除できない設計。競合が後付けで模倣困難な構造的優位</li>
+      <li><strong>AIを活用したデータ脅威アナリティクス</strong> — 大量のバックアップデータを学習したAIがランサムウェアの異常を早期検知。データ資産が増えるほど検知精度が上がる正のフィードバックループ</li>
+      <li><strong>Microsoft / AWS / Googleとの戦略的パートナーシップ</strong> — 主要クラウドベンダーとの深い統合により、クラウドネイティブ移行の文脈で優先的に選定される流通優位</li>
+      <li><strong>規制環境の追い風（NIS2・DORA等）</strong> — EU圏でのサイバーレジリエンス規制強化が義務的導入需要を創出。規制準拠のユースケースとして選定されやすいポジションを確立</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cohesity</strong></td><td>非公開（2026年IPO検討）</td><td>~$17B（評価額）</td><td>Veritas統合後の最大直接競合。規模では上回るが統合リスクを抱え、RubrikはモダンなUIと純粋クラウドネイティブ設計で対抗</td></tr>
+        <tr><td><strong>Veeam Software</strong></td><td>非公開</td><td>—</td><td>VMware・仮想化環境のバックアップで世界最大規模の顧客基盤。欧州に強く、ソフトウェア定義型の柔軟性で中堅企業に浸透</td></tr>
+        <tr><td><strong>Commvault Systems</strong></td><td>CVLT</td><td>~$5B</td><td>SaaS版Metallicで近代化を進める老舗競合。幅広いレガシー対応が強みだが成長速度でRubrikに劣後</td></tr>
+        <tr><td><strong>Dell Technologies（PowerProtect）</strong></td><td>DELL</td><td>~$60B</td><td>ハードウェアバンドルでの提案力が強み。既存Dellインフラ顧客の維持に徹するが、クラウドネイティブ転換では遅れ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">データ保護</span>
+    <span class="tag">データセキュリティ</span>
     <span class="tag">サイバーレジリエンス</span>
-    <span class="tag">クラウドセキュリティ</span>
     <span class="tag">ランサムウェア対策</span>
-    <span class="tag">AIセキュリティ</span>
+    <span class="tag">クラウドネイティブ</span>
+    <span class="tag">SaaS / サブスクリプション</span>
+    <span class="tag">NYSE: RBRK</span>
+    <span class="tag">Russell 1000</span>
     <span class="tag">Zero Trust</span>
   </div>
 </div>

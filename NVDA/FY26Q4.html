@@ -165,11 +165,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -486,6 +503,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -959,7 +983,82 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
+  <h2>企業概要 — NVIDIA Corporation</h2>
 
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1993年（カリフォルニア州サンノゼ / デニーズの一角で創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンタクララ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Jensen Huang（ジェンスン・ファン）— 共同創業者、創業以来CEO継続</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: NVDA（1999年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / Dow Jones Industrial Average（2024年11月採用）/ NASDAQ-100</dd></dl>
+    <dl class="ov-grid-item"><dt>GPU市場シェア</dt><dd>離散GPU市場の約90%超を占め、AIトレーニング用チップの事実上の標準</dd></dl>
+    <dl class="ov-grid-item"><dt>時価総額概算</dt><dd>~$3.5兆（2026年初頭時点、世界最大規模の公開企業）</dd></dl>
+  </div>
+
+  <p>NVIDIAはGPU（グラフィックス処理装置）の設計・開発を核とする半導体企業。かつてはゲーム用グラフィックスチップの専業メーカーだったが、<strong>CUDA並列計算プラットフォーム</strong>の普及によりAIトレーニング・データセンター向け計算加速の標準基盤へと変貌を遂げた。Data Centerセグメントが売上の約88%を占め、HopperおよびBlackwellアーキテクチャのH100・H200・B200が超大規模クラウドや政府機関の生成AIインフラを支えている。CUDA上に構築された4,000以上の最適化モデルと膨大な開発者エコシステムが参入障壁を形成する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Data Center（~88%）', 'detail': '<strong>Hopper / Blackwell アーキテクチャ GPU</strong>（H100・H200・B200・GB200 NVL）+ DGX システム + NVLink / InfiniBand ネットワーク。生成AIトレーニング・推論の最優先プラットフォーム'}</li>
+          <li>{'name': 'Gaming（~9%）', 'detail': '<strong>GeForce RTX シリーズ</strong>（コンシューマー向けGPU）+ DLSS / RTX技術。デスクトップ・ノートPC向け。AI PCへのシフトで長期需要が継続'}</li>
+          <li>{'name': 'Professional Visualization / Automotive（~3%）', 'detail': '<strong>NVIDIA Omniverse / Drive</strong>（自動運転プラットフォーム）+ Quadro系。自動運転・ロボティクス・デジタルツインに向けた次世代収益源'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'item': 'サブスクリプション・ソフトウェア', 'detail': 'CUDA エコシステム、NVIDIA AI Enterprise、DGX Cloud など<strong>ソフトウェア/クラウドサービス比率が拡大</strong>中。ハードウェア販売との複合収益モデルへ移行'}</li>
+          <li>{'item': 'ハードウェア販売（主力）', 'detail': 'GPU・SoC・DGXシステムの直接販売。TSMC製造・HBM3Eメモリ搭載で<strong>1枚当たり平均単価が急騰</strong>（H100: ~$3万超）'}</li>
+          <li>{'item': 'NRR（ネット収益維持率）と粘着性', 'detail': 'クラウドハイパースケーラー（AWS・Azure・GCP）との<strong>長期供給契約・MSA</strong>が繰り返し収益を下支え。CUDA依存がスイッチングコストを極大化'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>CUDAエコシステムの不可替性</strong> — 2006年から2万人超のエンジニアが積み上げたCUDA最適化ライブラリ（cuDNN・NCCL等）はAI研究の共通言語。学術・産業の両面で「CUDA前提」の技術スタックが定着し、後発が同水準のエコシステムを構築するには十数年を要する</li>
+      <li><strong>TSMC最先端パッケージング容量の優先確保</strong> — CoWoS（Chip-on-Wafer-on-Substrate）先端パッケージング枠をNVIDIAが優先確保。この製造能力制約がAMDや独自チップ勢に対する供給面の参入障壁を形成している</li>
+      <li><strong>NVLinkによるスケールアウトネットワーク効果</strong> — GPU間相互接続技術NVLinkとNVSwitch（GB200 NVL72）により、単一クラスターで72GPU・最大規模のAI計算が可能。この規模要件がNVIDIAプラットフォームへのロックインを深化させる</li>
+      <li><strong>ソフトウェアスタックの垂直統合</strong> — CUDA → cuDNN / NCCL → TensorRT / Triton → NeMo / Merlin までAIパイプライン全体をNVIDIAが最適化。競合GPUは同等ソフトウェア性能を出せず、実効性能で大差が開く</li>
+      <li><strong>ブランドと研究コミュニティへの先行浸透</strong> — Transformerなど主要AI論文の実験インフラが全てNVIDIA GPUで行われ、4,000以上の最適化モデルが蓄積。新世代モデルもNVIDIA上でまず動作し、他プラットフォームへの移植は二次的作業になる</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>AMD</strong></td><td>AMD</td><td>~$230B</td><td>Instinct MI300X/MI350でData Center GPUに挑戦。ソフトウェアエコシステム（ROCm）の成熟度でCUDAに大きく劣るが、コスト競争力で中堅クラウドへの侵食を試みる</td></tr>
+        <tr><td><strong>Intel</strong></td><td>INTC</td><td>~$90B</td><td>Gaudi3 AIアクセラレータを投入するも市場シェアは限定的。CPUビジネスの防衛が優先で、GPU戦略は後手に回っている</td></tr>
+        <tr><td><strong>Broadcom</strong></td><td>AVGO</td><td>~$800B</td><td>Google・Meta向けカスタムAI ASIC（TPU・MTIA）の設計受託で台頭。ハイパースケーラー独自チップ化の推進役として中長期的にNVIDIA依存を希薄化させる可能性</td></tr>
+        <tr><td><strong>Google（TPU）</strong></td><td>GOOGL</td><td>~$2T</td><td>内製TPU v5をCloud上で提供し、自社モデルのトレーニング需要をNVIDIAから内製化。外販比率は低いが、超大規模AIトレーニング市場での代替圧力となる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
+  <div class="tags">
+    <span class="tag">GPU / AI半導体</span>
+    <span class="tag">データセンター</span>
+    <span class="tag">CUDA エコシステム</span>
+    <span class="tag">生成AI インフラ</span>
+    <span class="tag">Blackwell アーキテクチャ</span>
+    <span class="tag">自動運転 / Robotics</span>
+    <span class="tag">NASDAQ: NVDA</span>
+    <span class="tag">S&P 500 / DJIA</span>
+  </div>
 </div>
 
 <div class="layer-eyebrow">Layer I — Executive Summary</div>

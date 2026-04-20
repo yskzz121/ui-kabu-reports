@@ -57,11 +57,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ── Layer Eyebrow ── */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -281,6 +298,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 /* ── Mobile Responsive ── */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -668,11 +692,80 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
   <h2>企業概要 — Micron Technology, Inc.</h2>
-  <p>1978年創業、アイダホ州ボイシ本社。世界最大級のメモリ半導体メーカーとして、DRAM・NAND型フラッシュメモリ・SSDを製造・販売する。Samsung、SK Hynixと並ぶ「Big Three」の一角で、唯一の米国系メモリメーカー。CEO: Sanjay Mehrotra（2017年就任）。従業員数: 約53,000人。</p>
-  <p>収益構造はDRAM（約79%）とNAND（約20%）の2本柱。2025年12月にCrucialブランド終了・コンシューマー市場撤退を発表し、データセンター・エンタープライズ特化へ転換。HBM（High Bandwidth Memory）がAI需要の主要ドライバーとなっており、HBM TAMは2025年の約$35Bから2028年に約$100Bへ成長する見込み。</p>
-  <p>CHIPS法補助金受給対象企業として、Idaho Fab 1（2027年初ウェハー）、Idaho Fab 2（2026年着工）、ニューヨーク州工場（2030年以降）への総額$200B超の米国内投資をコミット。FY2026 CapEx約$20Bを計画。</p>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1978年（アイダホ州ボイシで創業、米国唯一の主要メモリメーカー）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>アイダホ州ボイシ（製造拠点はバーモント・バージニア・日本・台湾・シンガポール等）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Sanjay Mehrotra（2017年就任・President兼Chairman、元SanDisk CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: MU（1984年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体（Semiconductors）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / NASDAQ-100 / Philadelphia Semiconductor Index（SOX）</dd></dl>
+    <dl class="ov-grid-item"><dt>DRAM市場シェア</dt><dd>世界3位（Samsung・SK Hynix に次ぐ）、HBM市場シェア~21%（2025年）</dd></dl>
+    <dl class="ov-grid-item"><dt>CHIPS法補助金</dt><dd>米CHIPS法に基づく政府補助 ~$6.4B 確定（国内製造拡大を推進）</dd></dl>
+  </div>
+
+  <p>Micron Technologyは世界3大メモリメーカーの一角を占める米国唯一の大手DRAM・NAND半導体メーカー。AI向け高帯域幅メモリ（HBM）の急拡大で収益体質が大きく変化しており、FY2025通年でDRAM売上が前年比+69%と急成長。<strong>HBM3Eの競合比~30%の電力効率優位</strong>と2026年カレンダー年分のHBM供給量の完全契約済が示す通り、AIインフラサイクルの主要受益企業として存在感を高めている。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'DRAM（~75%）', 'desc': 'DDR5・LPDDR5・HBM3E等。データセンター向けが56%超、HBMはFY2025 Q4時点で$2B/四半期に達しAI需要を直接取り込む。2026年はHBM4が主力へ'}</li>
+          <li>{'name': 'NAND・SSD（~20%）', 'desc': 'NAND型フラッシュメモリおよびSSD（企業向け・コンシューマー向け）。FY2025 Q1で前年比+22%。クラウド・ゲーミング需要が下支え'}</li>
+          <li>{'name': 'その他（NOR・新製品等）（~5%）', 'desc': 'NORフラッシュ（自動車・産業向け）、CXL対応メモリ、新世代Storage製品。長期的に自動車・エッジAI向けを成長軸に位置づけ'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '製品売上（半導体デバイス）', 'desc': 'DRAM・NANDチップ・SSD製品の直接販売が中心。市況により価格変動が大きいが、HBM等プレミアム製品の比率拡大でASP（平均販売単価）が上昇傾向'}</li>
+          <li>{'name': '長期供給契約（LTA）', 'desc': '主要超大規模クラウド・AI顧客との複数年数量契約。2026年分のHBM供給量は既に完売済で、収益可視性が過去より大幅に改善'}</li>
+          <li>{'name': '設備投資連動型コスト構造', 'desc': '製造装置への大規模投資と歩留まり改善が利益率を左右。CHIPS法補助金$6.4Bを活用した国内製造拡大で中長期的なコスト競争力を強化中'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>「3社寡占」による構造的高参入障壁</strong> — Samsung・SK Hynix・MicronがDRAM世界市場の~95%・HBM市場の100%を独占。製造技術・設備投資規模が事実上の参入障壁となり新規参入は実質不可能</li>
+      <li><strong>HBM3Eの電力効率優位（競合比~30%低消費電力）</strong> — AI GPU冷却制約が深刻化する中、消費電力の少なさが設計採用の決定要因に。超大規模データセンター向けに電力コスト削減価値を訴求</li>
+      <li><strong>米国唯一の主要メモリメーカーとしての地政学的価値</strong> — CHIPS法補助金$6.4Bが示す通り、米国政府がサプライチェーン安保上必須として支援。顧客企業も「中国リスク分散」でMicronを優先調達する動機が強まる</li>
+      <li><strong>HBM供給の長期契約による収益可視性</strong> — 2026年カレンダー年分のHBM供給はすでに完売済。AI加速器向け需要の急増でサプライヤー優位が持続し、価格決定力が過去より大幅に向上</li>
+      <li><strong>製造プロセス技術の内製化と累積特許</strong> — TSV（Through Silicon Via）・EUV露光・積層技術の独自開発で製造コスト削減と高性能化を両立。数十年にわたる特許・製造ノウハウの蓄積が後発への壁を形成</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Samsung Electronics（メモリ部門）</strong></td><td>005930.KS</td><td>~$250B</td><td>DRAMとNANDの世界最大手で最大の競合。HBM市場ではHBM3E品質問題で一時後退したが、2026年HBM4で再攻勢をかける</td></tr>
+        <tr><td><strong>SK Hynix</strong></td><td>000660.KS</td><td>~$80B</td><td>HBM市場シェア~53-62%を誇る現状のトップサプライヤー。NVIDIAの一次仕入先としてHBM3E/HBM4で先行。Micronとの差別化が焦点</td></tr>
+        <tr><td><strong>NVIDIA（顧客兼競合）</strong></td><td>NVDA</td><td>~$2.8T</td><td>HBMの最大需要家かつ半導体設計競合。独自メモリ戦略や購買力でMicronへの価格交渉力を持ち、供給条件を左右する重要顧客</td></tr>
+        <tr><td><strong>Western Digital / Kioxia</strong></td><td>WDC</td><td>~$20B</td><td>NAND・SSD分野での直接競合。HBMは非参入だが企業向けSSD市場でシェアを争う。Kioxia合併協議の動向がNAND市場構造に影響</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">半導体</span><span class="tag">DRAM</span><span class="tag">NAND</span><span class="tag">HBM</span><span class="tag">AI・データセンター</span><span class="tag">CHIPS法</span><span class="tag">時価総額 ~$88B</span>
+    <span class="tag">半導体</span>
+    <span class="tag">DRAM / NAND</span>
+    <span class="tag">HBM（高帯域幅メモリ）</span>
+    <span class="tag">NASDAQ: MU</span>
+    <span class="tag">AIインフラ</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">SOX指数</span>
+    <span class="tag">CHIPS法</span>
   </div>
 </div>
 

@@ -41,11 +41,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 /* Layer I */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
 .l1{background:linear-gradient(180deg,rgba(184,145,42,.06) 0%,rgba(36,49,88,.1) 100%);border:1px solid var(--border);border-radius:16px;padding:40px 32px 32px;margin-bottom:40px;display:flex;flex-direction:column;gap:26px}
@@ -209,6 +226,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 /* Mobile */
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important;padding-bottom:60px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -590,17 +614,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Costco Wholesale Corporation 企業概要</h2>
-  <p>1983年設立、ワシントン州イサクア本社。世界最大の会員制倉庫型卸売クラブチェーン。低マージン・高回転モデルで年間売上約$2800億を誇り、会員フィー収入（約$7B/年）が利益の中核を担う独自のビジネスモデル。</p>
-  <p>会員数: <strong>有料会員 8,210万人 / カード保有者 1億4,720万人</strong>。世界924店舗（米国634 / 海外290）を運営。CEO: Ron Vachris（2024年就任）。従業員数: 約31万8,000人。</p>
+  <h2>企業概要 — Costco Wholesale Corporation</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1983年（シアトルに第1号店開設）／1993年 Price Clubと合併</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ワシントン州イサクア</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Ron Vachris（2024年1月就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: COST</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>生活必需品 / 量販店</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / NASDAQ-100</dd></dl>
+    <dl class="ov-grid-item"><dt>会員数</dt><dd>1億3,200万カード保有者（7,340万世帯、2024年時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>会員更新率</dt><dd>米・カナダ 約92.9%（業界最高水準）</dd></dl>
+  </div>
+
+  <p>コストコは会員制倉庫型量販店の世界最大手。会員費という「定額課金」で利益基盤を確保しながら、商品はほぼ原価で販売するという独自のビジネスモデルを持つ。取り扱いSKUを約4,000品目に絞り込み、大量仕入れ・最小マークアップで<strong>「高品質×低価格」</strong>を実現。プライベートブランド「Kirkland Signature」は年間販売額約700億ドル規模に成長し、顧客を繰り返し店舗に引き付けるリテンション装置として機能している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>食品・日用品（売上比約40%）</strong> — 生鮮食品・加工食品・酒類・日用品。大容量パックの優良価格が会員の定期訪問動機。バイヤーの目利きで選ばれた4,000 SKUが核心</li>
+          <li><strong>ハードライン・ソフトライン・電子機器（売上比約35%）</strong> — 家電・家具・衣類・宝飾・自動車用品まで幅広く展開。限定タイムセール的な品揃え変動が「宝探し体験」を演出</li>
+          <li><strong>Kirkland Signatureプライベートブランド（売上比約28%）</strong> — コストコ最大の差別化資産。販売額は年間約700億ドル規模。高品質・低価格でナショナルブランドに対抗し、顧客粘着性の最大要因</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>商品販売（~98%）</strong> — 食品・衣料・電子機器等の直販。低マージン（売上総利益率約13%）で運営し、価格競争力を維持することで会員を惹きつける仕組み</li>
+          <li><strong>会員費（~2%、利益インパクトは最大）</strong> — 年会費60〜120ドル（Gold Star／Executive）。営業利益の約75%以上を会員費が占める。更新率93%が安定した高マージン収益を保証</li>
+          <li><strong>付帯サービス（ガソリン・薬局・旅行等）</strong> — 会員特典として格安提供。来店頻度を高め、会員費の「お得感」を醸成して更新率を支える補完的収益</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>会員費モデルによる独自の収益構造</strong> — 商品はほぼ原価販売で顧客を惹きつけ、利益は高粘着の会員費から得る。92.9%更新率が示す圧倒的な顧客ロイヤルティ</li>
+      <li><strong>Kirkland Signatureブランドの競争優位</strong> — 年販約700億ドルのPBブランドが顧客の乗り換えを防ぐ最大の引力。他の量販店では完全に複製不可能な固有資産</li>
+      <li><strong>規模の経済による仕入れ交渉力</strong> — 1倉庫年間平均売上2億8,500万ドルはSam's Clubの2倍超。大量一括購入で仕入原価を業界最低水準に抑え、価格競争力を生む</li>
+      <li><strong>SKU絞り込みによる物流・在庫効率</strong> — 約4,000 SKUに限定することで商品の回転率を最大化し、廃棄・保管コストを最小化。競合スーパーの1/10の品目数で高効率運営</li>
+      <li><strong>国際展開と会員基盤の複合的拡大</strong> — 日本・韓国・台湾・英国等での成功実績と132百万カード保有者のエコシステムが、新規倉庫開設のたびに既存会員を自然に送客する効果</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Sam's Club（Walmart傘下）</strong></td><td>WMT</td><td>~$6,000億</td><td>約600店舗・年商約920億ドル。Walmartのサプライチェーン活用と自動化投資で追随。会員更新率・店舗当たり売上でコストコに劣る</td></tr>
+        <tr><td><strong>BJ's Wholesale Club</strong></td><td>BJ</td><td>~$90億</td><td>米国東海岸特化の倉庫型量販店。広いSKU数・食料品クーポンで差別化するが全国規模・プライベートブランド力でコストコに大差</td></tr>
+        <tr><td><strong>Amazon</strong></td><td>AMZN</td><td>~$2兆</td><td>Amazon Prime会員制モデルがコストコのメンバーシップ概念と間接競合。EC利便性・配送速度で脅威だが実店舗の価値は代替不能</td></tr>
+        <tr><td><strong>Target / Walmart</strong></td><td>TGT / WMT</td><td>—</td><td>大型ディスカウントストアとしてコストコと食品・日用品で競合。会員費モデルの欠如により価格訴求力でコストコには及ばない</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">設立: 1983年</span>
-    <span class="tag">本社: イサクア, WA</span>
-    <span class="tag">CEO: Ron Vachris</span>
-    <span class="tag">従業員: 31.8万人</span>
-    <span class="tag">店舗数: 924</span>
-    <span class="tag">時価総額: ~$447B</span>
-    <span class="tag">更新率: 89.7%（US&CA 92.1%）</span>
+    <span class="tag">会員制量販店</span>
+    <span class="tag">Kirkland Signature</span>
+    <span class="tag">倉庫型小売</span>
+    <span class="tag">生活必需品</span>
+    <span class="tag">メンバーシップモデル</span>
+    <span class="tag">プライベートブランド</span>
+    <span class="tag">NASDAQ: COST</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

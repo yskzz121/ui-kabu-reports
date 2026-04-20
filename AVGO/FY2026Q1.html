@@ -71,11 +71,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -303,6 +320,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 
 /* Mobile */
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .chart-split{grid-template-columns:1fr;gap:20px;padding:20px}
   .chart-split-viz{height:220px}
   .val-gauge{padding:36px 28px 56px}
@@ -739,17 +763,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Broadcom Inc.（NASDAQ: AVGO）</strong>は、半導体ソリューションとインフラストラクチャソフトウェアの2大セグメントを持つグローバルテクノロジー企業。半導体部門ではネットワーキングASIC（Tomahawk/Jericho）、カスタムAIアクセラレータ（XPU）、ワイヤレスIC（Apple向けRF/Wi-Fi）、ストレージコントローラ等を設計。2023年11月にVMwareを約$610Bで買収し、インフラSW部門を大幅拡充。</p>
-  <p>CEO: <strong>Hock Tan</strong>、CFO: <strong>Kirsten Spears</strong>。時価総額は約<span class="no-currency">$1.6T</span>で世界有数のテック企業。Google・Meta・ByteDance向けカスタムAIチップ（XPU）が新たな成長ドライバーとなり、2027年にはAI関連SAMが$60〜$90Bに拡大する見通し。</p>
+  <h2>企業概要 — Broadcom Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>現法人格：2018年（Avago Technologies → Broadcom Inc.、法人移転）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州パロアルト</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Hock Tan（2006年就任、M&A戦略の立案者）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: AVGO</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体・半導体製造装置</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500・NASDAQ-100・S&P 500 IT・Russell 1000</dd></dl>
+    <dl class="ov-grid-item"><dt>半導体顧客数</dt><dd>主要ハイパースケーラー6社（Apple・Google等）含む大手集中型</dd></dl>
+    <dl class="ov-grid-item"><dt>VMware顧客基盤</dt><dd>Fortune 500の約9割がVMware製品を利用</dd></dl>
+  </div>
+
+  <p>Broadcomは<strong>半導体ソリューション（~58%）とインフラソフトウェア（~42%）</strong>の2セグメントで構成される多角的テクノロジー企業。ネットワーキング・ストレージ・ブロードバンド向けカスタムASICやイーサネットスイッチを半導体部門で展開し、2023年に完了した<strong>VMware買収（$61B）</strong>によりクラウドインフラソフトウェアの巨人へと変貌。AIアクセラレータ向けカスタムXPU（Google TPU等の設計受託）でNVIDIAに次ぐポジションを狙う。時価総額は$1T超（2024年達成）のメガキャップ半導体企業。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>カスタム半導体（XPU）・ネットワーキングASIC（~40%）</strong> — Googleとの共同設計TPUなどハイパースケーラー向けAIアクセラレータ、Tomahawkイーサネットスイッチ</li>
+          <li><strong>VMware Cloud Foundation（~30%）</strong> — プライベートクラウド・仮想化基盤、VMware買収後にサブスク移行加速中</li>
+          <li><strong>ブロードバンド・ストレージ・ワイヤレス半導体（~28%）</strong> — Wi-Fi/Bluetooth SoC（Apple向け）、光ストレージHBA、ケーブルモデムチップ</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>半導体ロイヤリティ＋長期供給契約</strong> — ハイパースケーラーとの複数年カスタムチップ契約、設計受託で高単価・安定バックログ</li>
+          <li><strong>VMwareサブスクリプション転換</strong> — VMwareの永続ライセンスをVCF年間サブスクへ移行推進、ARR急拡大フェーズ。高い粗利率（~60%超）</li>
+          <li><strong>保守・サポートサービス</strong> — インフラソフト・半導体製品の保守、長期エンタープライズ契約による経常収益</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>カスタムASIC設計の技術的差別化とハイパースケーラーとの共同開発関係</strong> — Google/Meta/Appleとの深い設計統合が参入障壁を形成、競合が同じポジションに入れない</li>
+      <li><strong>VMware = プライベートクラウドのデファクトOS</strong> — Fortune 500の約9割が利用、仮想化基盤の置き換えコストは数年・数百億規模で事実上の移行不可能性</li>
+      <li><strong>Hock Tan流M&Aによる連続的な規模拡大</strong> — CA Technologies・Symantec企業部門・VMwareと大型買収を繰り返し、共通コスト削減と製品束ね効果を最大化</li>
+      <li><strong>半導体ポートフォリオの多様性</strong> — 特定市場（AI/ネットワーク/ストレージ/ブロードバンド）に跨る製品群が単一市場依存リスクを分散</li>
+      <li><strong>高粗利率構造（60%超）の持続性</strong> — fabless設計＋ソフトウェア比率上昇で資産軽量高収益モデルが定着、フリーキャッシュフロー創出力が突出</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>NVIDIA</strong></td><td>NVDA</td><td>~$3T</td><td>GPU/AIアクセラレータで圧倒的首位、BroadcomのカスタムXPU戦略の最大の競合</td></tr>
+        <tr><td><strong>Marvell Technology</strong></td><td>MRVL</td><td>~$60B</td><td>データインフラ半導体・カスタムASICでBroadcomと直接競合</td></tr>
+        <tr><td><strong>Intel</strong></td><td>INTC</td><td>~$90B</td><td>イーサネットスイッチ・ストレージ・カスタムチップで競合、シェアを失いつつある</td></tr>
+        <tr><td><strong>Nutanix</strong></td><td>NTNX</td><td>~$20B</td><td>VMwareからの代替先として台頭するHCI（ハイパーコンバージド）ソフトウェアベンダー</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">半導体（ファブレス）</span>
-    <span class="tag">カスタムAIアクセラレータ</span>
-    <span class="tag">ネットワーキングASIC</span>
-    <span class="tag">VMware / インフラSW</span>
-    <span class="tag">ワイヤレスIC</span>
-    <span class="tag">ストレージ</span>
-    <span class="tag">ハイパースケーラー向け</span>
+    <span class="tag">半導体 / カスタムASIC</span>
+    <span class="tag">AIアクセラレータ（XPU）</span>
+    <span class="tag">VMware / クラウドインフラ</span>
+    <span class="tag">ネットワーキングチップ</span>
+    <span class="tag">fabless</span>
+    <span class="tag">M&A成長戦略</span>
+    <span class="tag">NASDAQ: AVGO</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

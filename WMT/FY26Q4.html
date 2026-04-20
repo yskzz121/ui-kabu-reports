@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -288,6 +305,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -756,16 +780,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Walmart Inc.</strong>（NYSE: WMT）は、世界最大の小売企業。1962年に Sam Walton がアーカンソー州で創業。2026年2月より <strong>John Furner</strong> が CEO に就任（前任 Doug McMillon）。従業員数は約210万人、19カ国で10,900超の店舗を展開し、週間来客数は約2.8億人。時価総額は約<span class="no-currency">$1.01T</span>。</p>
-  <p>ビジネスモデルは「Everyday Low Price（EDLP）」を基盤とした店舗小売をコアに、eコマース（全体の23%）、広告プラットフォーム（<strong>Walmart Connect</strong>: 米国+41%成長）、メンバーシップ（Walmart+・Sam's Club）、マーケットプレイス、フルフィルメントサービスを積層。近年は高マージンのデジタル事業が急成長し、テック企業としての再評価が進行中。</p>
+  <h2>企業概要 — Walmart Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1962年（Sam Walton創業、アーカンソー州ロジャース1号店）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>アーカンソー州ベントンビル</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>John Furner（2026年2月就任、Doug McMillon後任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: WMT（2025年12月NYSE→NASDAQ移転）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>生活必需品 / フードリテール・ハイパーマーケット</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Dow Jones工業株平均（DJIA）</dd></dl>
+    <dl class="ov-grid-item"><dt>店舗・会員数</dt><dd>世界1万店超・Walmart+ 会員数拡大中 / Sam's Club 600店超</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約210万人（世界最大級の民間雇用主）</dd></dl>
+  </div>
+
+  <p>Walmartは<strong>世界最大の小売業者</strong>。Walmart U.S.・Walmart International・Sam's Clubの3セグメントで約6,800億ドルの年商を誇り、食料品が売上の約60%を占める。EDLP（毎日低価格）戦略と物流密度、広告・Walmart+会員の高マージン収益源育成により、単純な小売から<strong>テック・データ駆動型リテールエコシステム</strong>への転換を進めている。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Walmart U.S.（売上の約65%）</strong> — 約4,600店舗のスーパーセンター・ディスカウント店。食料品・日用品・電化製品・衣料を幅広く取扱い、EC売上も急拡大</li>
+          <li><strong>Sam's Club U.S.（約10%）</strong> — 年会費制倉庫型会員店舗。600超店舗と会員データを活用したリテールメディア（MAP）が高マージン収益源</li>
+          <li><strong>Walmart International（約25%）</strong> — メキシコ（Walmex）・中国・カナダ・インド（Flipkart）等で運営。新興市場成長を取込む</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>商品販売（約95%）</strong> — 食料品・日用品・一般商品の薄利多売。EDLP戦略で高回転・大量販売を実現しトータルマージンを確保</li>
+          <li><strong>会員・サービス収益（約3%）</strong> — Sam's Club年会費・Walmart+月額サブスクリプション。高い粗利率で全体マージン底上げに貢献</li>
+          <li><strong>広告収益（Walmart Connect / MAP、約2%以上）</strong> — 年60億ドル超のリテールメディア広告。ファーストパーティ購買データ活用で高単価を実現し急成長中</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>米国人の90%が10マイル圏内に在住するという物理的密度</strong> — ラストマイル配送・グロサリーピックアップを競合が再現不可能なコストで実現。Amazonに対する実店舗起点の配送競争優位</li>
+      <li><strong>EDLP戦略を支える購買規模と仕入交渉力</strong> — 年間$6,800億の売上規模がサプライヤーへの価格交渉力を生み、コスト優位が低価格維持と利益確保を両立させる好循環</li>
+      <li><strong>食料品集客力によるトラフィック生成と高頻度購買</strong> — 週次〜隔週の食料品購買が来店頻度を担保し、一般商品・EC・金融サービスへのクロスセル機会を構造的に生む</li>
+      <li><strong>Walmart Connect（リテールメディア）の購買データ優位</strong> — 実購買行動に基づくファーストパーティデータは広告効果測定精度でデジタル媒体と差別化。高マージンの広告事業が急拡大</li>
+      <li><strong>Walmart+会員とSupply Chain自動化による顧客ロック</strong> — 会員制で購買頻度・単価が向上し、自動化倉庫（Alphabot等）による即日配送能力強化がAmazon Prime対抗策として機能</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Amazon</strong></td><td>AMZN</td><td>~$2T</td><td>EC・ラストマイル配送でWalmartの最大脅威。Whole Foods・Amazonフレッシュでグロサリー侵食も試みる</td></tr>
+        <tr><td><strong>Costco Wholesale</strong></td><td>COST</td><td>~$400B</td><td>会員制倉庫型でSam's Clubと直接競合。会員更新率95%超の顧客ロイヤルティは業界最高水準</td></tr>
+        <tr><td><strong>Target</strong></td><td>TGT</td><td>~$40B</td><td>一般商品・ブランドアパレルで重複。都市部・郊外の中所得層でWalmartと顧客を取り合う</td></tr>
+        <tr><td><strong>Kroger</strong></td><td>KR</td><td>~$45B</td><td>食料品専業最大手。Walmartスーパーセンターと食料品売場で直接競合し、西部・中西部で地盤重複</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">世界最大の小売企業</span>
-    <span class="tag">1962年設立</span>
-    <span class="tag">19カ国 10,900+ 店舗</span>
-    <span class="tag">年商 $713B</span>
-    <span class="tag">eComm 23%</span>
-    <span class="tag">時価総額 <span class="no-currency">$1.01T</span></span>
+    <span class="tag">世界最大小売</span>
+    <span class="tag">EDLP戦略</span>
+    <span class="tag">食料品・スーパーセンター</span>
+    <span class="tag">Sam's Club</span>
+    <span class="tag">Walmart+会員制</span>
+    <span class="tag">リテールメディア</span>
+    <span class="tag">NASDAQ: WMT</span>
+    <span class="tag">DJIA構成銘柄</span>
   </div>
 </div>
 

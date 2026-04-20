@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -363,6 +380,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -774,22 +798,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 dropdown -->
 <div class="ov-drop" id="ovDrop">
-  <h2>UiPath Inc. — 企業概要</h2>
-  <p>UiPathはエンタープライズ向けRPA（ロボティック・プロセス・オートメーション）およびAgentic AIオートメーションプラットフォームのグローバルリーダー。繰り返し業務の自動化から、AIエージェントを活用した高度なワークフロー自動化まで一元提供。2021年4月NYSE上場。</p>
+  <h2>企業概要 — UiPath, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">2005年（ルーマニア発）</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">ニューヨーク州ニューヨーク</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Daniel Dines（共同創業者）</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約 4,000名</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">約 $6.6B</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場市場</div><div class="ov-val">NYSE</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2005年（ルーマニア・ブカレスト創業 / 2012年にRPAソフト事業に転換）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ニューヨーク州ニューヨーク（One Vanderbilt Avenue）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Daniel Dines（ダニエル・ダインズ）— 共同創業者、創業以来CEO継続</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: PATH（2021年4月 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / アプリケーションソフトウェア（エンタープライズオートメーション）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P MidCap 400（2026年1月採用）/ Russell 1000</dd></dl>
+    <dl class="ov-grid-item"><dt>総顧客数</dt><dd>10,000社超（Fortune 500の大半が採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>ARR（FY2026）</dt><dd>~$1.85B（前年比+11%）、$1M超ARR顧客が拡大中</dd></dl>
   </div>
+
+  <p>UiPathはRPA（ロボティック・プロセス・オートメーション）市場の先駆者から、<strong>AIエージェントと協調するAgenticオートメーション・オーケストレーション基盤</strong>へと進化を遂げた企業。MaestroオーケストレーションレイヤーによりAIエージェント・ソフトウェアロボット・人間の協調ワークフローを統合管理する。10,000社超の既存顧客が保有するボット資産とプロセス知識データベースが、新世代AIエージェント展開の起点となりRPA投資の延長線上で採用される構造を持つ。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'UiPath Platform（コア / ~70%）', 'detail': '<strong>Studio（開発）・Orchestrator（管理）・Robots（実行）</strong>の三位一体RPA基盤。コンピュータビジョン技術によりAPIなし画面操作の自動化が可能。大規模テナント管理で他社を圧倒する実績'}</li>
+          <li>{'name': 'Agentic Automation（成長領域 / ~20%）', 'detail': '<strong>Maestroオーケストレーター + AI Agents</strong>。LLMベースのAIエージェントとRPAロボットを並列管理。マルチエージェント・マルチベンダー対応のオープンアーキテクチャが差別化要素'}</li>
+          <li>{'name': 'Process Intelligence / Test Suite（~10%）', 'detail': '<strong>Process Mining・Task Mining・Test Automation</strong>。業務プロセスの自動発見・ROI計測・自動テストを提供。自動化対象の発掘から実装・検証までのライフサイクル完結'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'item': 'サブスクリプション（主力 ~85%）', 'detail': '年間・複数年サブスクが主体。ライセンス・クラウド消費型の<strong>ハイブリッドモデル</strong>に移行中。FY26の総売上$1.61B（YoY+13%）、Non-GAAP営業利益率~30%に改善'}</li>
+          <li>{'item': 'Per-Agent / 消費課金（新興）', 'detail': '旧「ロボット単位」課金から<strong>エージェント数・消費量ベース</strong>課金へ移行中。AIエージェント普及でNRRが再拡大する可能性があり、次の成長レバーとして期待'}</li>
+          <li>{'item': 'プロフェッショナルサービス（~15%）', 'detail': 'RPA構築・マイグレーション・COE（センターオブエクセレンス）支援。大規模展開（テナント5万ボット超）には専門導入支援が必要で収益機会が継続'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>10,000社のボット資産と業務知識の累積</strong> — 既存顧客が展開済みのボット・プロセスデータが、新AIエージェント導入時の学習データ・設計テンプレートになる。この蓄積は競合乗り換え時に失われる企業固有の無形資産</li>
+      <li><strong>コンピュータビジョンによるUIオートメーションの独自技術</strong> — APIなしでもアプリ画面を視覚認識して操作する技術はUiPath創業期からの中核特許。レガシーシステムを多数保有する大企業・金融・公共機関での代替不可能性が高い</li>
+      <li><strong>マルチLLM・マルチベンダーのオープンアーキテクチャ</strong> — 特定LLMに依存しないMaestroが、顧客の選択肢を広げつつUiPathをオーケストレーション標準に位置づける。プラットフォームとしての中立性がロックインを和らげながらも中心性を保持</li>
+      <li><strong>エンタープライズガバナンス・コンプライアンス対応の深さ</strong> — SOC2・FedRAMP・GDPR等の規制認証と、ロールベースアクセス・監査ログ・バージョン管理が大規模統制環境に不可欠。金融・医療・政府顧客での参入障壁を構造化</li>
+      <li><strong>$1M超ARR顧客コホートの拡大による参照販売力</strong> — Fortune 500の主要顧客が導入実績を持ち、横展開・アップセルの説得力が競合より圧倒的に高い。既存ロボット投資を守るために新製品採用が自然発生する経済合理性</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Microsoft Power Automate</strong></td><td>MSFT</td><td>~$3T</td><td>M365バンドルでRPA機能を無償提供に近い形で展開。SMB～中堅企業でのUiPath侵食リスクが最大。Copilot Studioがエージェント領域でも競合</td></tr>
+        <tr><td><strong>ServiceNow</strong></td><td>NOW</td><td>~$200B</td><td>ITSM・ワークフロー自動化でのNow Platformが大企業のデジタル変革予算を競合。ITOps・HR・財務領域でUiPath Platfromのユースケースと重複</td></tr>
+        <tr><td><strong>Automation Anywhere</strong></td><td>非公開</td><td>—</td><td>RPA直接競合の最大手。Automationenのクラウドネイティブ戦略でエンタープライズを攻略。IPO前段階で資金調達済み。AARI（AIエージェント）でもUiPathに肉薄</td></tr>
+        <tr><td><strong>Salesforce Agentforce</strong></td><td>CRM</td><td>~$250B</td><td>CRM中心のAIエージェントプラットフォーム。Sales/Service/Marketingのフロントオフィス自動化でMaestroと競合。既存Salesforce顧客への抱き合わせが脅威</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">RPA</span>
-    <span class="tag">Agentic AI</span>
-    <span class="tag">ワークフロー自動化</span>
+    <span class="tag">RPA / エンタープライズオートメーション</span>
+    <span class="tag">AIエージェント</span>
+    <span class="tag">Maestro オーケストレーション</span>
+    <span class="tag">Agentic Automation</span>
+    <span class="tag">Process Mining</span>
     <span class="tag">エンタープライズSaaS</span>
-    <span class="tag">AIオートメーション</span>
+    <span class="tag">NYSE: PATH</span>
+    <span class="tag">S&P MidCap 400</span>
   </div>
 </div>
 

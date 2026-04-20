@@ -52,11 +52,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 .ov-grid{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:.85rem;margin-bottom:12px}
 .ov-grid .lbl{color:var(--t3);font-weight:500;white-space:nowrap}
 .ov-grid .val{color:var(--t1)}
@@ -318,6 +335,13 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 /* Mobile */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important;padding-bottom:60px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -686,27 +710,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Reddit, Inc. — 企業概要</h2>
+  <h2>企業概要 — Reddit, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <span class="lbl">正式名称</span><span class="val">Reddit, Inc.</span>
-    <span class="lbl">設立</span><span class="val">2005年（Steve Huffman &amp; Alexis Ohanian）</span>
-    <span class="lbl">本社</span><span class="val">サンフランシスコ, カリフォルニア州</span>
-    <span class="lbl">CEO</span><span class="val">Steve Huffman（共同創業者）</span>
-    <span class="lbl">CFO</span><span class="val">Drew Vollero</span>
-    <span class="lbl">上場</span><span class="val">2024年3月 NYSE（IPO価格 $34）</span>
-    <span class="lbl">時価総額</span><span class="val">約$182億（2026年2月時点、$135/株）</span>
-    <span class="lbl">従業員数</span><span class="val">約2,000名</span>
-    <span class="lbl">セクター</span><span class="val">テクノロジー / ソーシャルメディア・プラットフォーム</span>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2005年6月（Steve Huffman・Alexis Ohanian が共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンフランシスコ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Steve Huffman（共同創業者・CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: RDDT（2024年3月 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>コミュニケーション・サービス / インタラクティブメディア</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&P 500 未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>ユーザー規模</dt><dd>月間アクティブユーザー~13億人超（2026年初時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>コミュニティ数</dt><dd>サブレディット10万以上のアクティブコミュニティ</dd></dl>
   </div>
-  <p><strong>事業概要:</strong> 世界最大級のコミュニティ型ソーシャルメディアプラットフォーム。「サブレディット」と呼ばれるトピック別コミュニティを通じた議論プラットフォームとして「インターネットのフロントページ」を自称。DAU 1.21億人、WAU 4.71億人を擁する。</p>
-  <p><strong>収益モデル:</strong> 売上の約94%がデジタル広告収入（プロモーテッドポスト等のネイティブ広告）。残り約6%はAIデータライセンス（Google・OpenAI等との契約）とReddit Premiumサブスクリプション。</p>
+
+  <p>Redditは「フロントページ・オブ・ザ・インターネット」として知られる最大級のオープンコミュニティプラットフォーム。10万を超えるサブレディット（テーマ別掲示板）でユーザーが生成した<strong>リアルな議論・口コミ・専門知識</strong>が蓄積され、他のSNSとは異なるニッチ深掘り型の場所を形成する。広告収益を主軸に、AIデータライセンス（OpenAI・Google等との契約）を新たな成長柱として育てており、ソーシャルメディアとナレッジプラットフォームの双方で独自地位を持つ。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Redditプラットフォーム（無料）</strong> — PC・スマートフォンアプリで提供するコア掲示板サービス。投稿・コメント・投票・アワード機能でコミュニティエンゲージメントを促進</li>
+          <li><strong>Reddit Premium / コイン</strong> — 月額サブスクリプションによる広告非表示・限定バッジ・プレミアムアクセス。直接課金による補完収益</li>
+          <li><strong>データライセンス（Data API）</strong> — AIモデル学習・検索エンジン統合向けに過去20年分のコメント・投稿データを提供。OpenAI・Google等との多年間契約で安定的ライセンス収益を創出</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>広告収益（~90%超）</strong> — スポンサード投稿・ディスプレイ広告・動画広告。ログインユーザーの趣味・関心に基づく高精度ターゲティングがCPM・CTRを押し上げ、広告主への訴求力を形成</li>
+          <li><strong>AIデータライセンス（~数%・成長中）</strong> — LLM学習・AI検索向けのコーパス提供。Google・OpenAI等との長期契約で予見可能な収益。AIブームの恩恵を直接享受できる数少ないSNS</li>
+          <li><strong>Premium・その他（~数%）</strong> — Reddit Premiumサブスクリプション、ショッピング機能、仮想アイテム等。現状規模は小さいが多角化の余地</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>20年分のユーザー生成コンテンツ資産</strong> — 他サービスでは再現不可能な深さ・量のQ&Aスレッド・レビュー・ニッチ議論が蓄積。Google検索でもRedditスレッドが上位表示される検索優位</li>
+      <li><strong>コミュニティのネットワーク効果</strong> — 各サブレディットの専門モデレーターと長期参加者が新規流入を評価・醸成するサイクルが既存コミュニティの質を維持し、後発プラットフォームの追随を困難にする</li>
+      <li><strong>匿名性・率直性という差別化文化</strong> — 実名SNSと異なり本音の投稿が多く、製品レビュー・投資・健康等で「リアルな情報源」として信頼される独自ポジション</li>
+      <li><strong>AIデータの希少性と参入障壁</strong> — 2000年代からの多様なテキストデータは現在AI学習用データとして最高級の希少資産。新規プラットフォームが同等のコーパスを形成するには数十年かかる</li>
+      <li><strong>コミュニティロック効果</strong> — 特定のサブレディット（r/AskReddit等）で形成されたミームや文化的なアイデンティティが「別プラットフォームへの移住」への心理的障壁を生む</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Meta Platforms（Facebook Groups）</strong></td><td>META</td><td>~$1.4T</td><td>実名グループ機能でコミュニティ形成を試みるが、匿名性・ニッチ深掘り文化でRedditとは異なる層を対象。規模は圧倒的に大きい</td></tr>
+        <tr><td><strong>X（旧Twitter）</strong></td><td>非公開</td><td>—（Elon Musk所有）</td><td>リアルタイム議論という点で重複するが、スレッド形式の深掘りコミュニティという特性ではRedditが優位。X Premiumでの課金モデルは類似の方向性</td></tr>
+        <tr><td><strong>Discord</strong></td><td>非公開</td><td>~$15B（評価額）</td><td>クローズドなコミュニティ構築で補完的関係にあるが、ゲーム・クリエイター向けのサーバー文化でRedditサブレディットの一部と競合</td></tr>
+        <tr><td><strong>Quora</strong></td><td>非公開</td><td>—</td><td>Q&A形式のナレッジプラットフォームとして一部ユーザー層が重複。専門家回答に強みを持つが規模・文化的影響力ではRedditに劣後</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">コミュニティプラットフォーム</span>
-    <span class="tag">デジタル広告</span>
+    <span class="tag">ソーシャルメディア</span>
+    <span class="tag">UGCコンテンツ</span>
     <span class="tag">AIデータライセンス</span>
-    <span class="tag">Reddit Answers（AI検索）</span>
-    <span class="tag">Reddit Max Campaigns</span>
-    <span class="tag">Reddit Premium</span>
+    <span class="tag">デジタル広告</span>
+    <span class="tag">NYSE: RDDT</span>
+    <span class="tag">Russell 1000</span>
+    <span class="tag">インタラクティブメディア</span>
   </div>
 </div>
 

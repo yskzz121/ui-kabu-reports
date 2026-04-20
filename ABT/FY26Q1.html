@@ -30,7 +30,14 @@ canvas{max-height:320px}
 .data-table tr:hover{background:#1c2128}
 .data-table .right{text-align:right}
 .footer{text-align:center;padding:30px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;margin-top:40px}
-@media(max-width:768px){body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
+@media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
 @media(max-width:480px){.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}.section-title,.section-header{font-size:1rem}}
 .section[data-accordion],.sec3[data-accordion]{position:relative}
 .section[data-accordion] .section-title,.sec3[data-accordion] .sec3-title{cursor:pointer;user-select:none;padding-right:36px}
@@ -77,11 +84,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* Layer I */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -618,11 +642,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>アボット・ラボラトリーズ（Abbott Laboratories）は1888年創業、米国イリノイ州アボットパーク本社の多角化ヘルスケア企業。CEO: Robert Ford（2020年〜）、CFO: Philip Boudjouk、従業員数 約10万人。時価総額 約$168B（2026年4月時点）。ダウ工業株30種（Dow Jones 30）構成銘柄。</p>
-  <p>4セグメント構成：(1) <strong>Nutrition</strong>（栄養製品: Similac・Ensure・Glucerna・PediaSure等）、(2) <strong>Diagnostics</strong>（診断: コア実験室・分子・POC・血液スクリーニング + 2026年3月にExact Sciences買収でがん診断を追加）、(3) <strong>Established Pharmaceuticals (EPD)</strong>（新興国向けブランドジェネリック）、(4) <strong>Medical Devices</strong>（最大成長ドライバー: 心血管デバイス・FreeStyle Libre CGM・神経調節・構造心臓病・電気生理学・末梢血管）。54年連続増配の「配当王」銘柄。</p>
+  <h2>企業概要 — Abbott Laboratories</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1888年（イリノイ州シカゴ郊外）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>イリノイ州アボットパーク</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Robert B. Ford（2020年就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: ABT（1929年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>ヘルスケア / ヘルスケア機器・サプライ</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Dividend Kings（連続増配54年）</dd></dl>
+    <dl class="ov-grid-item"><dt>事業展開国数</dt><dd>160カ国以上</dd></dl>
+    <dl class="ov-grid-item"><dt>年間売上規模</dt><dd>約 $42B（FY2024）</dd></dl>
+  </div>
+
+  <p>Abbottは医療機器・診断・栄養・後発医薬品の4セグメントを持つグローバルヘルスケア企業。持続血糖測定器FreeStyle Libreや心臓デバイスMitraClipなど市場トップ製品群を有し、160カ国超に展開。1888年創業から連続増配54年を誇るDividend Kingとして財務規律でも知られる。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>医療機器（~45%）</strong> — 心臓デバイス・神経調節・電気生理・FreeStyle Libre（CGM）等、成長牽引の最大セグメント</li>
+          <li><strong>診断製品（~22%）</strong> — 検査装置Alinity・POC診断・分子診断。装置設置＋消耗品の「レザー&ブレード」モデル</li>
+          <li><strong>栄養製品（~20%）</strong> — Similac（乳幼児栄養）・Ensure（成人栄養）。新興国需要が安定成長の柱</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>消耗品・リカーリング収益主体</strong> — 診断機器は長期契約で設置、センサー・試薬・消耗品で継続収益を確保する構造</li>
+          <li><strong>医療機器の手技連動課金</strong> — ステント・カテーテルは手術件数に連動、高齢化需要で長期安定的に拡大</li>
+          <li><strong>後発薬（~12%）</strong> — 新興国向けブランド後発医薬品、為替リスクはあるが分散効果と高マージンを両立</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>FDA・CE等の規制承認バリア</strong> — 医療機器・診断薬の上市には数年・数億ドル規模の臨床試験と承認取得が必須で参入障壁が極めて高い</li>
+      <li><strong>FreeStyle Libreの患者固定化</strong> — 持続血糖測定プラットフォームで世界首位、センサー消費量による高い切替コストとエコシステムロックイン</li>
+      <li><strong>診断機器の「レザー&ブレード」構造</strong> — Alinityシステムを病院・検査室に設置し長期契約、消耗品・試薬で高い繰り返し収益を確保</li>
+      <li><strong>160カ国超のグローバル販売網</strong> — 新興国医療インフラへの深い浸透と政府・病院との長期関係は後発参入者が短期間に複製困難</li>
+      <li><strong>54年連続増配の財務規律</strong> — Dividend Kingとして資本配分の信頼性が高く、長期機関投資家の安定保有が株価の下値を支える</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Johnson & Johnson MedTech</strong></td><td>JNJ</td><td>~$380B</td><td>手術ロボット・整形外科・外科分野で競合、診断領域は撤退済み</td></tr>
+        <tr><td><strong>Medtronic</strong></td><td>MDT</td><td>~$110B</td><td>心臓デバイス・CGM（Guardian）でABT医療機器部門と直接競合</td></tr>
+        <tr><td><strong>Danaher</strong></td><td>DHR</td><td>~$160B</td><td>生命科学・診断機器分野で競合。Beckman Coulter等で検査室市場を争う</td></tr>
+        <tr><td><strong>Roche</strong></td><td>ROG（SIX）</td><td>~$250B</td><td>診断部門で世界最大、POC診断・分子診断でABT診断部門と激しく競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">NYSE: ABT</span><span class="tag">多角化ヘルスケア</span><span class="tag">配当王</span><span class="tag">S&amp;P 500</span><span class="tag">Dow Jones 30</span><span class="tag">FreeStyle Libre</span><span class="tag">Exact Sciences買収</span>
+    <span class="tag">ヘルスケア機器</span>
+    <span class="tag">診断薬</span>
+    <span class="tag">CGM / FreeStyle Libre</span>
+    <span class="tag">Dividend King</span>
+    <span class="tag">連続増配54年</span>
+    <span class="tag">NYSE: ABT</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">グローバル医療</span>
   </div>
 </div>
 

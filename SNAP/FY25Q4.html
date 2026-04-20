@@ -165,11 +165,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -486,6 +503,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -959,17 +983,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>Snap Inc.（旧 Snapchat Inc.）は2011年に設立された米国のカメラ・SNS企業。主力サービス「Snapchat」は写真・動画を中心としたメッセージングアプリで、特に18〜34歳のGen Z/ミレニアル世代に強い。2025年Q4時点でMAU 946Mを擁する。</p>
-  <p>収益の約87%は広告収入（特にブランド広告・SMB向け）で占め、残りはSnapchat+サブスクリプション（2024年末から急成長）が構成する。2026年はARグラス「Specs」の一般消費者向け発売を計画中。</p>
-  <p><strong>CEO:</strong> Evan Spiegel（共同創業者）｜<strong>本社:</strong> サンタモニカ、カリフォルニア州｜<strong>従業員数:</strong> 約5,300名（2026年4月レイオフ後）｜<strong>上場:</strong> NYSE: SNAP（2017年3月）</p>
+  <h2>企業概要 — Snap Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2011年9月（デラウェア州法人）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンタモニカ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Evan Spiegel（共同創業者）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: SNAP（2017年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>コミュニケーション・サービス / インタラクティブ・メディア</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&amp;P 500 未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>DAU</dt><dd>約4.6億人（2025年時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>MAU</dt><dd>約9.3億人（2025年Q2）</dd></dl>
+  </div>
+
+  <p>Snap Inc.は<strong>カメラを起点とした視覚コミュニケーションプラットフォーム</strong>を運営する。旗艦アプリSnapchatは消えるメッセージ・ARレンズ・Discover・Spotlightを統合し、特に若年層（Z世代・ミレニアル）の日常コミュニケーションに深く根付く。広告収入が収益の<strong>98%超</strong>を占め、直接反応型広告とブランド広告が主軸。ARメガネ「Spectacles」やBitmoji、Snap Mapといる付帯製品でプラットフォーム拡張を図る。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Snapchat（コア）</strong> — 消えるメッセージ・ストーリーズ・Spotlight（ショート動画）・Discover（メディア）・Snap Mapを統合したカメラファーストSNS。DAU約4.6億人</li>
+          <li><strong>Snapchat+（サブスクリプション）</strong> — 月額課金のプレミアム機能プラン。独自バッジ・優先ランキング・実験的機能へのアクセスを提供。有料会員数は急拡大中</li>
+          <li><strong>Spectacles / AR Platform</strong> — 次世代ARメガネ（Spectacles）と開発者向けLens Studio。ARレンズは月間3億人超が使用し、広告主向けAR体験の基盤を形成</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>広告収入（~98%）</strong> — スナップアド（動画広告）・Sponsored AR Lenses・コレクションアドで構成。直接反応型が主軸、ブランド広告は若年層リーチで差別化</li>
+          <li><strong>Snapchat+サブスクリプション（~2%）</strong> — 月額課金プラン。非広告収入の育成を進める段階で、長期的な収益多様化の核として位置付け</li>
+          <li><strong>その他（ハードウェア・ライセンス）</strong> — Spectacles販売、Bitmoji技術ライセンス。現状は収益への寄与は軽微だが将来のAR収益基盤を構築中</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>Z世代・若年層への圧倒的浸透</strong> — 米国13〜34歳の90%超がSnapchatを利用。この年齢層へのリーチは広告主にとって代替困難で、CPM単価の下支えに寄与</li>
+      <li><strong>エフェメラル（消えるコンテンツ）の先行者優位</strong> — 2011年の消えるメッセージ発明以来、プライバシー重視のコミュニケーション文化を形成。Instagramが模倣するも定着済みユーザー離反は限定的</li>
+      <li><strong>ARレンズ・Lens Studioのエコシステム</strong> — 開発者が作成したARレンズが数百万本超。コンテンツ量と品質が自己強化し、競合が単独で追いつけない規模のARライブラリを保有</li>
+      <li><strong>Bitmoji統合によるデジタルアイデンティティ</strong> — 数億人が使用するアバターブランド。LINE・Fortnite等外部プラットフォームでも稼動し、Snap生態系への接着剤として機能</li>
+      <li><strong>Snap Map・位置情報機能の独自性</strong> — 友人の位置共有とローカルコンテンツ発見を融合したSnapMapは他社SNSが未実装の独自体験。地域広告への応用余地が大きい</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Meta（Instagram / Reels）</strong></td><td>META</td><td>~$1.4T</td><td>Stories・Reels・ダイレクトメッセージでSnapと直接競合。ユーザー規模と広告収益力で圧倒的差</td></tr>
+        <tr><td><strong>TikTok（ByteDance）</strong></td><td>非公開</td><td>—</td><td>ショート動画でSnapのSpotlightと真正面から競合。Z世代の可処分時間を奪う最大の脅威</td></tr>
+        <tr><td><strong>Alphabet（YouTube Shorts）</strong></td><td>GOOGL</td><td>~$2T</td><td>YouTube ShortsとGoogle広告ネットワークでブランド広告・直接反応広告の両面で競合</td></tr>
+        <tr><td><strong>Pinterest</strong></td><td>PINS</td><td>~$14B</td><td>ビジュアルディスカバリーと広告において部分的に競合。女性・ミレニアル層では類似ユーザーベース</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">ソーシャルメディア</span>
-    <span class="tag">モバイル広告</span>
-    <span class="tag">AR/XR</span>
-    <span class="tag">Gen Z</span>
-    <span class="tag">サブスクリプション</span>
-    <span class="tag">Specs（ARグラス）</span>
+    <span class="tag">SNS</span>
+    <span class="tag">AR / 拡張現実</span>
+    <span class="tag">デジタル広告</span>
+    <span class="tag">Z世代</span>
+    <span class="tag">Snapchat</span>
+    <span class="tag">消えるコンテンツ</span>
+    <span class="tag">NYSE: SNAP</span>
+    <span class="tag">モバイルファースト</span>
   </div>
 </div>
 

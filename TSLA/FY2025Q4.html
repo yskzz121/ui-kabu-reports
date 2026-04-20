@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -287,6 +304,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -751,16 +775,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Tesla, Inc.</strong>（NASDAQ: TSLA）は2003年設立のEV・クリーンエネルギー企業。電気自動車（Model 3/Y/S/X/Cybertruck）の設計・製造・販売に加え、エネルギー貯蔵（Megapack/Powerwall）、太陽光発電、FSD（Full Self-Driving）自動運転ソフトウェア、Optimusヒューマノイドロボットを展開。世界6拠点（フリーモント、テキサス、上海、ベルリン、ネバダ、ニューヨーク）で生産。CEO: Elon Musk。時価総額は約<span class="no-currency">$1.53T</span>。</p>
-  <p>FY2025通期納車台数 約169万台。エネルギー貯蔵展開量46.7GWh（前年比+49%）。競合: BYD、Rivian、Lucid、GM/Ford/VW等の伝統メーカーEV部門。BYDは売上高でTeslaを上回る$118.2B。</p>
+  <h2>企業概要 — Tesla, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2003年7月（マーティン・エバーハード / マーク・タルペニング 創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>テキサス州オースティン</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Elon Musk（2008年就任、共同創業者として関与）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: TSLA（2010年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>一般消費財 / 自動車</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / NASDAQ-100 / Russell 1000</dd></dl>
+    <dl class="ov-grid-item"><dt>生産拠点（Gigafactory）</dt><dd>テキサス・ネバダ・上海・ベルリン・ニューヨーク（計6拠点）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約10万人（2024年末時点）</dd></dl>
+  </div>
+
+  <p>Teslaは<strong>電気自動車・エネルギー貯蔵・太陽光発電</strong>を垂直統合で設計・製造・販売するテクノロジー企業。Model 3/YがEV量販市場をリードし、Cybertruck・Semi・Roadsterで拡張する。自動車販売（~79%）の他に<strong>エネルギー貯蔵（Megapack/Powerwall）が~10%</strong>に急成長、サービス・ソフトウェア（FSD・保険・充電）が~11%を占める3本柱を形成。Autopi lotとFSD（Full Self-Driving）で自律走行ソフトウェアライセンスへの転換も進める。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>自動車（~79%）</strong> — Model S/X（プレミアム）・Model 3/Y（量販）・Cybertruck・Semi。BEV専業で世界累計600万台超を販売。直販+スーパーチャージャーネットワーク（60,000基超）が差別化</li>
+          <li><strong>エネルギー生成・貯蔵（~10%）</strong> — 家庭用Powerwall・産業用Megapack（グリッドスケール蓄電池）・SolarRoof。2024年にエネルギー貯蔵出荷量+114% YoY と最速成長セグメント</li>
+          <li><strong>サービス・その他（~11%）</strong> — FSD（完全自動運転）ソフトウェア・Tesla Insurance・Supercharger開放収益・中古車・車両整備。リカーリング比率拡大を戦略的に推進</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>車両販売収入（主軸）</strong> — BEV新車の直接販売。ディーラー不使用の直販モデルにより利益率をコントロール。価格改定を機動的に行うダイナミックプライシング戦略</li>
+          <li><strong>エネルギー製品販売・設置</strong> — Megapack・Powerwall・SolarRoofの製品販売。電力網安定化需要急増で受注残が積み上がる高成長セグメント</li>
+          <li><strong>ソフトウェア・サービス・充電収益</strong> — FSDライセンス（一括/サブスク）・OTAアップデート・Supercharger非Tesla開放・保険料。高利益率のリカーリング収益基盤を構築中</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>Superchargerネットワーク（60,000基超）の物理的参入障壁</strong> — 競合他社も採用するNACS規格の事実上の標準設定者。ネットワーク外部性が拡大するほど他社BEVユーザーを取り込み生態系が強化される</li>
+      <li><strong>ソフトウェア・OTAアップデートによる継続的価値向上</strong> — 購入後も機能追加が可能な「スマートフォン型自動車」設計。FSD・Autopilotの反復学習データがリアルワールドマイル数で競合を圧倒</li>
+      <li><strong>垂直統合製造（Gigafactory）によるコスト競争力</strong> — バッテリーセル・パワートレイン・ソフトウェアを内製化し、自動車業界で最も高い電動化コスト効率を実現</li>
+      <li><strong>ブランドとEV先行者優位</strong> — 「テスラを買う＝EVを買う」という等式が消費者に定着。CEOのメディア影響力とブランドエクイティが広告費ゼロの認知形成を支える</li>
+      <li><strong>エネルギー事業（Megapack）の再生可能インフラ需要取込み</strong> — グリッドスケール蓄電池の世界トップシェア。電力インフラ更新需要は自動車販売と独立した複数年規模の受注ビジビリティを提供</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>BYD（比亜迪）</strong></td><td>1211.HK</td><td>~$110B</td><td>中国市場でTeslaを販売台数で上回る。低価格PHEVとBEVの両輪でグローバル拡大中の最大競合</td></tr>
+        <tr><td><strong>Volkswagen Group</strong></td><td>VOW3.DE</td><td>~$60B</td><td>ID.4/ID.Buzzでリテールプレミアムを取りにいく。欧州市場でModel Yと真正面から競合</td></tr>
+        <tr><td><strong>Waymo（Alphabet傘下）</strong></td><td>GOOGL</td><td>~$2T（親会社）</td><td>自律走行タクシー（Robotaxi）市場でFSDと競合する潜在的最大ライバル。商業展開は先行している</td></tr>
+        <tr><td><strong>Rivian</strong></td><td>RIVN</td><td>~$15B</td><td>ピックアップ・バン市場でCybertruck・Semiと競合。AmazonとのLLDP（大型配送バン）契約で商業EVに特化</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">EV / 電気自動車</span>
-    <span class="tag">エネルギー貯蔵</span>
-    <span class="tag">FSD / 自動運転</span>
-    <span class="tag">Robotaxi</span>
-    <span class="tag">Optimus ロボット</span>
-    <span class="tag">Megapack</span>
+    <span class="tag">電気自動車（EV）</span>
+    <span class="tag">自動運転（FSD）</span>
+    <span class="tag">エネルギー貯蔵（Megapack）</span>
+    <span class="tag">Supercharger</span>
+    <span class="tag">NASDAQ: TSLA</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">NASDAQ-100</span>
+    <span class="tag">垂直統合製造</span>
   </div>
 </div>
 

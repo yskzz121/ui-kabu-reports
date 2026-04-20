@@ -70,7 +70,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -79,6 +79,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -380,6 +397,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -788,23 +812,80 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
   <h2>企業概要 — Samsara Inc.</h2>
-  <p><strong>Samsara</strong>は2015年設立のConnected Operations Cloudプロバイダー。車両テレマティクス・ビデオベース安全管理・ルート最適化・機器モニタリング・コンプライアンス管理を統合したIoTプラットフォームを提供。運送・物流・建設・公共セクター・食品飲料などの物理オペレーション企業のDXを支援する。</p>
-  <p>G2フリートマネジメント部門で連続首位（顧客満足スコア99/100）。CEO: Sanjit Biswas（共同創業者）。主要競合: Geotab、Verizon Connect、Trimble、Motive、Lytx。本社: San Francisco, CA。</p>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立年</div><div class="ov-val">2015年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">San Francisco, CA</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Sanjit Biswas</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場</div><div class="ov-val">NYSE: IOT（2021年12月）</div></div>
-    <div class="ov-item"><div class="ov-lbl">ARR（FY2026Q4）</div><div class="ov-val">$1.89B</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額（発表日前後）</div><div class="ov-val">〜$18.3B</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2015年（Sanjit Biswas・John Bicket 共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンフランシスコ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Sanjit Biswas（共同創業者・CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: IOT（2021年12月 IPO、$805M調達）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / ソフトウェア（インフラストラクチャ）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&amp;P 500 未採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>ARR（年間経常収益）</dt><dd>~$15億（YoY +32%成長）/ $100K+ ARR 顧客 約3,000社</dd></dl>
+    <dl class="ov-grid-item"><dt>データ収集規模</dt><dd>年間14兆件超のフィジカル・オペレーションデータを収集・処理</dd></dl>
   </div>
+
+  <p>Samsaraは物理オペレーション向けConnected Operations Cloud（接続型運用クラウド）のパイオニア。輸送・ロジスティクス・建設・製造・公共インフラなどの実物資産を持つ企業に、AIカメラ・GPS追跡センサー・IoTデバイスとクラウドソフトウェアをワンプラットフォームで提供。安全性・燃料効率・コンプライアンス管理を統合し、顧客1組織あたり平均$200万超のROIを実証。サブスク比率約98%の高収益体質を誇る。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Vehicle Telematics &amp; Fleet Management', 'desc': '<strong>GPSリアルタイム追跡・ルーティング・燃料管理・EV充電計画・予防保全</strong>。フリートオペレーターのコスト削減と稼働率向上を直接支援する中核製品。'}</li>
+          <li>{'name': 'AI-Powered Video Safety（ダッシュカム）', 'desc': '<strong>AIドライブカム（前後方・車内）による事故防止・運転行動スコアリング</strong>。事故削減率70%超を報告し、保険コスト低減効果で顧客ROIの主要ドライバーに。'}</li>
+          <li>{'name': 'Industrial IoT &amp; Equipment Monitoring', 'desc': '<strong>建設機械・工場設備・冷蔵庫チェーン等の環境センサー監視</strong>。非稼働資産のデジタル化を支援しConnected Operations Cloudのデータソース多様化に貢献。'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': 'サブスクリプション（~98%）', 'desc': '<strong>ARR ~$15億・YoY +32%</strong>。ハードウェア（センサー/カメラ）は低マージンで提供し、高マージンSaaSサブスクで長期LTVを最大化する「ハードウェア・インセンティブ化」モデル。'}</li>
+          <li>{'name': '課金基準：資産数×モジュール', 'desc': '<strong>管理車両・機器台数ベースのシート課金＋機能モジュール追加</strong>。安全・コンプライアンス・ワークフロー等のアドオンが1契約あたり収益を引き上げるアップセル構造。'}</li>
+          <li>{'name': 'プロフェッショナルサービス（~2%）', 'desc': '<strong>導入支援・システムインテグレーション</strong>。ハードウェア展開規模が大きな大企業向けに、初期セットアップ収益も発生する。'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>年間14兆件データによるAIモデルの自己学習優位</strong> — 物理オペレーション特化型の大規模データ蓄積はモデル精度を継続的に向上させ、競合が追いつけないデータネットワーク効果を生む。</li>
+      <li><strong>フルスタック（ハード＋ソフト＋AI）統合プラットフォーム</strong> — センサー・カメラから分析SaaSまで一元提供するため、導入後の置き換えコストが高く運用フローへの深い統合がロックインを形成。</li>
+      <li><strong>規制・コンプライアンス対応の不可欠性</strong> — 米国ELD（電子ロギングデバイス）義務化など輸送規制要件への対応がSamsaraで完結。規制起点のスイッチングコストが解約率を低位に維持。</li>
+      <li><strong>顧客ROI実証による強固なネットリテンション</strong> — 顧客1社あたり平均$200万超のROIを定量的に可視化。G2等の顧客満足度ランキングで業界首位（スコア99）を維持し、参照顧客効果が新規獲得を加速。</li>
+      <li><strong>Meraki共同創業者チームによる製品実行力</strong> — Cisco Merakiを創業しエンタープライズネットワーキングを変革した実績チームが、物理オペレーションのデジタル化という同規模の市場機会に再挑戦する先行者優位。</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Motive（非上場）</strong></td><td>非上場</td><td>~$90億（評価額）</td><td>フリート管理・AI安全機能でSamsaraに最も近いポジション。G2スコア95で接近しており直接競合として最大の脅威。</td></tr>
+        <tr><td><strong>Verizon Connect</strong></td><td>VZ（親会社）</td><td>—</td><td>Verizonの通信バックボーンを活用したフリートテレマティクス。大企業顧客基盤が強いが製品革新スピードで劣後。</td></tr>
+        <tr><td><strong>Geotab（非上場）</strong></td><td>非上場</td><td>—（非公開）</td><td>カナダ発の老舗フリートテレマティクス。オープンAPIエコシステムで政府・自治体顧客に強み。G2スコア50でSamsara比劣後。</td></tr>
+        <tr><td><strong>Lytx（非上場）</strong></td><td>非上場</td><td>~$30億（評価額）</td><td>ビデオ安全特化の競合。AI安全機能に絞った尖った製品だが、Samsaraの統合プラットフォームに対してスコープが限定的。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">SaaS / IoT</span>
+    <span class="tag">IoT / Connected Operations</span>
     <span class="tag">フリート管理</span>
-    <span class="tag">ビデオ安全</span>
-    <span class="tag">テレマティクス</span>
-    <span class="tag">AIエージェント</span>
-    <span class="tag">Connected Operations</span>
+    <span class="tag">AI安全カメラ</span>
+    <span class="tag">SaaS / 物理オペレーション</span>
+    <span class="tag">ティッカー：NYSE: IOT</span>
+    <span class="tag">ARR $15億超</span>
+    <span class="tag">Russell 1000</span>
+    <span class="tag">情報技術 / インフラソフト</span>
   </div>
 </div>
 

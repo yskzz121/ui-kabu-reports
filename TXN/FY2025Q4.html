@@ -68,7 +68,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -77,6 +77,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -219,6 +236,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -623,25 +647,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要 dropdown -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Texas Instruments Incorporated — 企業概要</h2>
-  <p>テキサス・インスツルメンツ（TI）は、アナログ半導体と組込みプロセッサを中心とする世界最大級の半導体メーカー。産業・自動車向けを主力市場とし、100,000以上の製品を80,000社以上の顧客に提供する。自社製造（fab）を持つ垂直統合モデルにより、長期にわたり高い利益率とキャッシュフロー創出力を維持している。</p>
+  <h2>企業概要 — Texas Instruments Incorporated</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1951年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">Dallas, TX（米国）</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Haviv Ilan</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約 32,000名</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額（当時）</div><div class="ov-val">約 $175B</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場市場</div><div class="ov-val">NASDAQ</div></div>
-    <div class="ov-item"><div class="ov-lbl">主力セグメント</div><div class="ov-val">Analog / Embedded Processing</div></div>
-    <div class="ov-item"><div class="ov-lbl">主要エンドマーケット</div><div class="ov-val">産業・自動車・パーソナルエレクトロニクス</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1951年（前身: Geophysical Service Inc. 1930年創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>テキサス州ダラス</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Haviv Ilan（2023年就任 / 2026年より会長兼任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: TXN</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体・半導体製造装置</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Dow Jones工業株平均（DJIA）</dd></dl>
+    <dl class="ov-grid-item"><dt>製品点数</dt><dd>アナログ製品8万点超、サポート期間10〜15年</dd></dl>
+    <dl class="ov-grid-item"><dt>工場形態</dt><dd>垂直統合型（ウェーハ製造〜テストまで自社一貫）</dd></dl>
   </div>
+
+  <p>Texas Instruments（TI）は<strong>アナログ半導体と組み込みプロセッサ</strong>を主力とする世界最大級の半導体メーカー。産業機器・自動車向けが売上の約70%を占め、10〜15年の長期製品サイクルが特徴。自社工場による垂直統合で高い粗利率（約58%）を維持しながら、8万点超の製品ポートフォリオと低価格・大量供給力で世界シェア約20%を誇る。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>アナログ半導体（売上の約75%）</strong> — 電源管理IC・信号処理チップ・増幅器。産業・自動車・通信インフラ向けに幅広く供給</li>
+          <li><strong>組み込みプロセッサ（約15%）</strong> — マイコン（MCU）・DSP。Arm系SitaraおよびC2000シリーズが主軸</li>
+          <li><strong>その他（DLP・教育機器、約10%）</strong> — 映像投影用DLPチップ、グラフィング電卓（TI-84等）の教育機器</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>製品販売（ほぼ100%）</strong> — ライセンスではなく半導体デバイス販売が主体。長期供給契約が在庫変動を緩和</li>
+          <li><strong>シェアドウェアハウス経由流通</strong> — 代理店・直販併用。Tistore.com含む直販比率が近年上昇し粗利改善に寄与</li>
+          <li>課金基準: <strong>単品単価×数量</strong>。長サイクル製品ゆえ価格下落が緩やかで安定収益構造</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>垂直統合製造による供給安定・コスト優位</strong> — TSMC非依存の自社300mmウェーハ工場（RFAB2等）を持ち、サプライチェーン混乱耐性が高く競合比で高い粗利率を維持</li>
+      <li><strong>8万点超の広大な製品ポートフォリオ</strong> — 顧客は1社で産業・自動車・通信の全アナログ需要を調達可能。設計込みのロックインが発生し競合への切替が困難</li>
+      <li><strong>産業・自動車向け長期製品ライフサイクル</strong> — 同一チップを10〜15年供給し、顧客の再設計コストを極大化。後発参入が価格競争ではなく認定コストで抑制される</li>
+      <li><strong>グローバル流通網と設計リソース</strong> — 40万社超の顧客基盤とTI.comによる直販・大規模在庫拠点。小ロット・短納期対応力が中小産業顧客の信頼を固める</li>
+      <li><strong>アナログ市場シェア約20%という規模の経済</strong> — 生産量が多いほど固定費が薄まり、競合（ADI・STM・Infineon）比で高い利益率を享受。スケールそのものが参入障壁</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Analog Devices</strong></td><td>ADI</td><td>~$90B</td><td>アナログ・精密測定で双璧。粗利率はほぼ同水準。産業・医療分野で真っ向競合</td></tr>
+        <tr><td><strong>STMicroelectronics</strong></td><td>STM</td><td>~$20B</td><td>マイコン・パワー半導体で重複。欧州自動車向けに強く、TIの組み込みセグと競合</td></tr>
+        <tr><td><strong>Infineon Technologies</strong></td><td>IFNNY</td><td>~$25B</td><td>車載パワー半導体・IGBTで先行。自動車電動化分野でTIと直接競合</td></tr>
+        <tr><td><strong>NXP Semiconductors</strong></td><td>NXPI</td><td>~$45B</td><td>車載MCU・ネットワーク処理で強固な地位。ADAS・V2X領域でTI組み込みと競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">アナログ半導体</span>
-    <span class="tag">組込みプロセッサ</span>
-    <span class="tag">産業向け</span>
-    <span class="tag">自動車向け</span>
-    <span class="tag">CHIPS Act対応</span>
-    <span class="tag">増配21年連続</span>
+    <span class="tag">組み込みプロセッサ</span>
+    <span class="tag">垂直統合製造</span>
+    <span class="tag">産業・自動車向け</span>
+    <span class="tag">NASDAQ: TXN</span>
+    <span class="tag">DJIA構成銘柄</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">高粗利半導体</span>
   </div>
 </div>
 

@@ -405,11 +405,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -726,6 +743,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .stack-wrap{padding:16px 20px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
@@ -1199,66 +1223,82 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
+  <h2>企業概要 — Alphabet Inc.</h2>
 
-<div class="overview-grid">
-<div>
-<div class="overview-item">
-<span class="overview-label">設立</span>
-<span class="overview-value">2015年（Google: 1998年）</span>
-</div>
-<div class="overview-item">
-<span class="overview-label">本社</span>
-<span class="overview-value">Mountain View, California</span>
-</div>
-<div class="overview-item">
-<span class="overview-label">CEO</span>
-<span class="overview-value">Sundar Pichai</span>
-</div>
-<div class="overview-item">
-<span class="overview-label">従業員数</span>
-<span class="overview-value">約187,000人</span>
-</div>
-</div>
-<div>
-<div class="overview-item">
-<span class="overview-label">収益構造</span>
-<span class="overview-value">デジタル広告（55%）、クラウド（16%）、サブスク・デバイス（12%）、ネットワーク（7%）、その他</span>
-</div>
-<div class="overview-item">
-<span class="overview-label">主要プロダクト</span>
-<span class="overview-value">Google Search, YouTube, Google Cloud, Android, Chrome, Pixel, Gemini AI, Waymo</span>
-</div>
-<div class="overview-item">
-<span class="overview-label">競合</span>
-<span class="overview-value">Microsoft（Azure/Bing）, Amazon（AWS）, Meta（広告）, Apple（デバイス/サービス）</span>
-</div>
-<div class="overview-item">
-<span class="overview-label">クラウド市場シェア</span>
-<span class="overview-value">約13%（AWS 30% / Azure 23% / GCP 13%）</span>
-</div>
-</div>
-</div>
-<div style="margin-top:16px;">
-<div class="metric-label">主要KPI</div>
-<div class="metrics-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:8px;">
-<div class="metric-card">
-<div class="metric-label">Gemini MAU</div>
-<div class="metric-value" style="font-size:1.4em;">7.5億人</div>
-<div class="metric-change positive">前Q: 6.5億人</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">Cloud バックログ</div>
-<div class="metric-value" style="font-size:1.4em;">$240B</div>
-<div class="metric-change positive">+55% QoQ</div>
-</div>
-<div class="metric-card">
-<div class="metric-label">有料サブスク数</div>
-<div class="metric-value" style="font-size:1.4em;">3.25億+</div>
-<div class="metric-change neutral">YouTube Premium/Music等</div>
-</div>
-</div>
-</div>
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>Google 1998年創業 / Alphabet 持株会社化 2015年10月</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州マウンテンビュー（Googleplex）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Sundar Pichai（Alphabet &amp; Google CEO、2019年〜）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: GOOGL（Class A）/ GOOG（Class C）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>コミュニケーション・サービス / インタラクティブメディア &amp; サービス</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / Nasdaq-100 / Russell 1000 Growth</dd></dl>
+    <dl class="ov-grid-item"><dt>検索クエリ数</dt><dd>年間5兆件超・世界検索市場シェア約90%を維持</dd></dl>
+    <dl class="ov-grid-item"><dt>Google Cloud 年間売上</dt><dd>2025年通年で~$680億超・YoY +約30%成長継続</dd></dl>
+  </div>
 
+  <p>Alphabetはインターネット検索・広告・クラウド・AIを中核とする世界最大規模のテクノロジーコングロマリット。Google Search・YouTube・Google Cloud・Android・Chromeという5大プラットフォームを擁し、2025年通年売上は初めて$4,000億を突破。Gemini AIモデルをSearch・Cloud・Workspaceに統合展開し、AIインフラ垂直統合（TPU自社設計）でMicrosoftとAWSに対抗する全スタックAI戦略を加速。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'Google Services（~88%）', 'desc': '<strong>Google Search広告・YouTube広告・Google Network・Subscriptions・Pixel/Nest</strong>で構成。Search単体でグループ売上の約55%を占める広告収入基盤。'}</li>
+          <li>{'name': 'Google Cloud（~12%）', 'desc': '<strong>Google Cloud Platform（GCP）・Google Workspace</strong>のIaaS/PaaS/SaaSサービス。2025年通期で年率30%超成長、企業AI需要を主ドライバーに急拡大。'}</li>
+          <li>{'name': 'Other Bets（新興事業）', 'desc': '<strong>Waymo（自動運転）・Verily（ライフサイエンス）・DeepMind（AI研究）</strong>等の長期投資事業群。売上は軽微だが将来成長オプションを保有。'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '広告収入（~75%）', 'desc': '<strong>検索連動型広告・YouTube動画広告</strong>が主軸。広告主の入札単価はマクロ環境連動性があるが、検索クエリ増加と広告フォーマット多様化で構造的成長が続く。'}</li>
+          <li>{'name': 'クラウド（~12%）', 'desc': '<strong>従量課金型IaaS+SaaSサブスクリプション</strong>の混合モデル。エンタープライズAIソリューション需要拡大でGCP成長率がグループ全体を上回る。'}</li>
+          <li>{'name': 'YouTube Premium / Play Store等', 'desc': '<strong>サブスクリプション課金・プラットフォーム手数料</strong>による安定収益。YouTube Music/Premiumは1億超加入者で着実拡大。'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>検索 90%超シェアによる広告エコシステムの独占</strong> — 年間5兆件超のクエリデータが広告アルゴリズムを自己強化。検索ユーザーと広告主の双方向ネットワーク効果が参入障壁を構造化。</li>
+      <li><strong>Android/Chrome によるモバイル・ブラウザ基盤支配</strong> — 世界スマートフォン市場シェア約70%のAndroidと、PC/モバイルブラウザシェア首位のChromeがサービス利用の入口を掌握。</li>
+      <li><strong>TPU自社設計による垂直統合AIインフラ</strong> — Ironwood TPUv7により自社AIワークロードをNVIDIAへの依存なく稼働。コスト競争力と供給安定性でCloud顧客にも価値提供。</li>
+      <li><strong>YouTube の動画広告・コンテンツ・AI学習データ独占</strong> — 2025年通年YouTube売上$600億超。テレビ視聴時間でも首位級を記録し、広告主の予算移行先として確固たる地位を確立。</li>
+      <li><strong>DeepMind/Geminiによる先端AI研究の先行アドバンテージ</strong> — AlphaFold・Gemini Ultra等の研究成果がCloud製品・Search AIに直結。自社研究機関保有は持続的イノベーションの源泉。</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Microsoft</strong></td><td>MSFT</td><td>~$3兆</td><td>Azure+OpenAI提携でCloud・AI検索（Copilot/Bing）の両面から挑戦。Copilot SearchはGoogle Searchの最大の構造的脅威。</td></tr>
+        <tr><td><strong>Amazon</strong></td><td>AMZN</td><td>~$2.3兆</td><td>AWS はCloud市場シェア約30%で首位。広告事業も急成長中でGoogle Network 広告と競合。</td></tr>
+        <tr><td><strong>Meta Platforms</strong></td><td>META</td><td>~$1.5兆</td><td>SNS広告予算の争奪戦が激化。Reel/Instagram広告はYouTube動画広告と直接競合するエンゲージメント指標戦。</td></tr>
+        <tr><td><strong>OpenAI（非上場）</strong></td><td>—</td><td>~$3,000億（評価額）</td><td>ChatGPTによる検索行動変容がGoogle Searchの中長期的な利用率低下リスク。マイクロソフトとの提携で企業向けAI普及を加速。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
+  <div class="tags">
+    <span class="tag">Big Tech</span>
+    <span class="tag">デジタル広告</span>
+    <span class="tag">Google Cloud / GCP</span>
+    <span class="tag">AI / Gemini</span>
+    <span class="tag">Android / YouTube</span>
+    <span class="tag">NASDAQ: GOOGL</span>
+    <span class="tag">S&P 500 / Nasdaq-100</span>
+    <span class="tag">コミュニケーション・サービス</span>
+  </div>
 </div>
 
 <div class="layer-eyebrow">Layer I — Executive Summary</div>

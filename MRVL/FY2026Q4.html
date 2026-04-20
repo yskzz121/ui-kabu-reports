@@ -56,11 +56,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ── Layer I ── */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -280,6 +297,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 /* Mobile */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:30px 16px 24px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -678,16 +702,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- ── 企業概要ドロップダウン ── -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p><strong>Marvell Technology</strong>（NASDAQ: MRVL）は半導体設計の大手ファブレス企業。データセンター向けカスタムシリコン（XPU）、光接続（DSP・PAM4・CPO）、ネットワーキングスイッチ、ストレージコントローラ等を提供。AI/MLインフラの急成長を背景に、ハイパースケーラー向けカスタムAIチップとインターコネクト技術で急成長中。</p>
-  <p>主要顧客はAmazon、Microsoft、Google、Metaの米国ハイパースケーラー4社。FY2026にカスタムシリコン事業が$1.5Bに成長。Celestial AI（CPO）・XConn買収でAIスケールアップネットワーキングを強化。CEO: Matt Murphy。競合: Broadcom（AVGO）、AMD、Intel。従業員数: 約5,900人。本社: バミューダ（オペレーション: カリフォルニア州サンタクララ）。</p>
+  <h2>企業概要 — Marvell Technology, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1995年（Sehat Sutardja・Weili Dai・Pantas Sutardja が創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>デラウェア州ウィルミントン（登記）/ 実質的本社機能はカリフォルニア州サンタクララ）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Matthew J. (Matt) Murphy（会長兼CEO、2016年就任）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: MRVL</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術（Information Technology） / 半導体・半導体製造装置（Semiconductors）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500・NASDAQ-100・Russell 1000</dd></dl>
+    <dl class="ov-grid-item"><dt>年間売上規模</dt><dd>約$82億（FY2026、2026年1月期）</dd></dl>
+    <dl class="ov-grid-item"><dt>データセンター比率</dt><dd>データセンター向けが全売上の~75%（FY2026）</dd></dl>
+  </div>
+
+  <p>Marvell Technology はデータインフラ向け半導体ソリューションに特化した<strong>ファブレス半導体企業</strong>。AIクラウドインフラの急拡大を背景に、<strong>カスタムAIアクセラレータ（ASIC）</strong>・光学DSP・イーサネットスイッチングなどをハイパースケーラー4社（AWS・Google・Microsoft・Meta）に供給。FY2026 の年間売上は+42%増の$82億、データセンター収益は+88% YoY と急拡大。NvidiaのGPU一極集中を補完するカスタムシリコン需要でポジションを拡大している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>データセンター（~75%）</strong> — カスタムAI ASICおよびXPU・光学DSP・高速イーサネットスイッチ（Teralynx）・PAM4光トランシーバ。ハイパースケーラー向け長期複数世代契約を締結</li>
+          <li><strong>キャリア・エンタープライズネットワーク（~15%）</strong> — 5G基地局向けASIC・エンタープライズスイッチ・NIC。通信インフラの次世代化でAI推論エッジ接続需要を取込む</li>
+          <li><strong>その他（ストレージ・コンシューマー等、~10%）</strong> — HDD/SSDコントローラ・自動車向けイーサネット（88Q）。ストレージはAIデータ蓄積ニーズで底堅い回復</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>カスタムシリコン（ASIC）長期契約モデル</strong> — ハイパースケーラーと複数世代・複数年の開発・供給契約を締結。特定顧客の設計開発費（NRE）が前払いされ、量産フェーズで製品売上が立つ高可視性モデル</li>
+          <li><strong>標準品（IPベース）と受託設計の混在</strong> — 光学DSP・イーサネットスイッチは汎用型の標準品として複数顧客に展開。カスタムASICとのコンプリメンタリー販売でハイパースケーラー内シェアを拡大</li>
+          <li><strong>高付加価値・高グロスマージン構造</strong> — ファブレスモデルによりTSMC等に製造委託。FY2026 非GAAP粗利益率~60%を維持し、設計知財の差別化でコモディティ化を回避</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>ハイパースケーラーとの深い共同設計関係</strong> — 顧客のアーキテクチャ要求に合わせたフルカスタムASICを開発する能力は数年間の技術蓄積を要し、後発参入が事実上困難</li>
+      <li><strong>光学接続技術の優位</strong> — DSP（デジタル信号処理）と光トランシーバを組み合わせた超高速・低電力の光学接続はAIクラスタ内のデータ転送ボトルネックを解消する核心技術</li>
+      <li><strong>クロスセル可能な技術ポートフォリオ</strong> — AI ASIC・ネットワーキング・ストレージを同一顧客に提案できるため、データセンター内での採用製品数（TAM）が拡張しやすい</li>
+      <li><strong>AWSとの5年複数世代契約</strong> — カスタムAIアクセラレータ・光学DSP・DCI・イーサネットスイッチを含む包括契約はMarvellを AWS インフラの恒常的なパートナーとして固定化</li>
+      <li><strong>TSMCとの先端プロセス優先確保</strong> — 高い受注規模がTSMC 3nm/2nm の製造枠確保を後押し。先端プロセスへのアクセスが競合との性能・電力効率差を維持させる</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Broadcom</strong></td><td>AVGO</td><td>~$1.9T</td><td>カスタムASICで最大のライバル（Google TPU・Apple SiP等を供給）。ネットワーキングICでも全面競合。脅威度：最高</td></tr>
+        <tr><td><strong>Nvidia</strong></td><td>NVDA</td><td>~$2.6T</td><td>カスタムASIC需要の前提を作るGPU市場の支配者。Marvellとは補完関係だがAI推論向けGPUはカスタムASICの代替需要を削る可能性。脅威度：中（間接的）</td></tr>
+        <tr><td><strong>AMD</strong></td><td>AMD</td><td>~$170B</td><td>Instinct GPU・EPYC CPU でハイパースケーラーに展開。ネットワーキングASICへの参入拡大が潜在的な競合。脅威度：中</td></tr>
+        <tr><td><strong>Intel</strong></td><td>INTC</td><td>~$90B</td><td>ネットワーキングIC（イーサネット）・カスタムファウンドリ（IFS）でMarvellの顧客獲得を狙う。ただし競争力の回復途上で当面の影響は限定的。脅威度：低～中</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">半導体</span>
-    <span class="tag">カスタムシリコン (XPU)</span>
-    <span class="tag">光接続 / CPO</span>
-    <span class="tag">AIインフラ</span>
+    <span class="tag">カスタムASIC</span>
     <span class="tag">データセンター</span>
-    <span class="tag">ネットワーキング</span>
+    <span class="tag">AIインフラ</span>
+    <span class="tag">光学DSP</span>
+    <span class="tag">NASDAQ: MRVL</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">ファブレス</span>
   </div>
 </div>
 

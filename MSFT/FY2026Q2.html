@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -294,6 +311,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -770,16 +794,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Microsoft Corporation</strong>（NASDAQ: MSFT）は世界最大級のテクノロジー企業。Azure（クラウド）、Microsoft 365（SaaS）、Windows、LinkedIn、GitHub、Dynamics 365、Bing/Search、Xbox等を展開。OpenAIへの戦略的投資を通じてAI基盤を構築し、Copilot/エージェンティックAIで全製品にAI機能を統合中。CEO: Satya Nadella。時価総額<span class="no-currency">$3.0T</span>。</p>
-  <p>Microsoft Cloud売上は史上初の$50Bを突破。M365 Copilot有料シート1,500万、GitHub Copilot 470万サブスクライバー。競合: AWS（Amazon）、Google Cloud、Salesforce、Oracle。</p>
+  <h2>企業概要 — Microsoft Corporation</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1975年（Bill Gates・Paul Allenがアルバカーキで創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ワシントン州レドモンド（Redmond Campus）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Satya Nadella（2014年就任・Chairman兼任、クラウド転換を主導）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: MSFT（1986年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / ソフトウェア（Systems Software）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Dow Jones 30 / NASDAQ-100 / MSCI World</dd></dl>
+    <dl class="ov-grid-item"><dt>クラウド年間売上</dt><dd>Microsoft Cloud ~$169B（FY2025・前年比+23%）</dd></dl>
+    <dl class="ov-grid-item"><dt>Azure年間売上</dt><dd>Azure & 他クラウドサービス ~$75B（FY2025・前年比+34%）</dd></dl>
+  </div>
+
+  <p>Microsoftはクラウド・AI・生産性ソフトを軸とする世界最大級のテクノロジー企業。FY2025通年売上は<strong>~$245B</strong>に達し、Azure成長率+34%・クラウド収益$169Bで業界2位のクラウド事業者の地位を固める。OpenAIへの大規模投資・Copilot統合でエンタープライズAI商用化を最速で進め、Windows・Office・Xbox・LinkedIn・Dynamics・Azureに至る多層エコシステムが強力な参入障壁を形成する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'インテリジェントクラウド（~35%）', 'desc': 'Azure・SQL Server・Windows Server・GitHubほか。FY2025 $29.9B（+26% YoY）。生成AI需要でデータセンターキャパシティ拡張が急務'}</li>
+          <li>{'name': 'プロダクティビティ＆ビジネスプロセス（~35%）', 'desc': 'Microsoft 365（商用・個人）・Teams・LinkedIn・Dynamics 365。FY2025 $33.1B（+16% YoY）。Copilot統合による単価引き上げが進行中'}</li>
+          <li>{'name': 'モアパーソナルコンピューティング（~30%）', 'desc': 'Windows OEM・Surface・Xbox・Bing Search・Gaming。FY2025 $13.5B（+9% YoY）。ActivisionBlizzard統合でゲーム収益が拡大'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': 'サブスクリプション・クラウド（~70%）', 'desc': 'Microsoft 365・Azure・Dynamics・Copilot等の月次/年次SaaSおよびPaaS/IaaSが主力。高いNRRと企業ロックインで安定拡大'}</li>
+          <li>{'name': 'ライセンス・OEM収益（~20%）', 'desc': 'Windows OS・Office永続ライセンス・Surface端末など。クラウド移行に伴い比率低下も、エンタープライズ大型契約は依然重要'}</li>
+          <li>{'name': '広告・ゲーミング・その他（~10%）', 'desc': 'Bing・LinkedIn広告、Xbox Game Pass・Activision Blizzardゲーム販売。多角化収益源として安定した成長を継続'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>Office・Windows・Azureのエコシステム一体性</strong> — 企業顧客がMicrosoft製品を全面採用するほど切替コストが指数的に上昇。Active Directory・Entra IDが全認証の要となり、移行は実質困難</li>
+      <li><strong>OpenAIへの戦略的投資とCopilot統合による先行者利益</strong> — 生成AIを全製品ラインに組み込み、競合比で最速のエンタープライズAI商用化を実現。Copilot有償ライセンスが単価を大幅押し上げ</li>
+      <li><strong>グローバルデータセンターネットワークと規制対応</strong> — 60超のリージョンを持つAzureが、データ主権・GDPR・金融規制への地域対応で競合を上回る。政府・防衛向けクラウドでも最大手</li>
+      <li><strong>LinkedIn・Dynamics・GitHubによる垂直統合</strong> — 採用（LinkedIn）・ERP/CRM（Dynamics）・開発者（GitHub）を横断的にカバー。データシナジーがAI精度を高め、競合単体では代替困難</li>
+      <li><strong>長期エンタープライズ契約（EA）と高い更新率</strong> — Enterprise Agreement・Microsoft Customer Agreementによる3年超の大型契約が収益の可視性を高め、景気変動耐性が強い安定収益基盤を構築</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Amazon Web Services（Amazon）</strong></td><td>AMZN</td><td>~$2.2T</td><td>クラウドIaaS/PaaSで世界首位。マーケットシェア31%超でAzureを上回る。AI基盤モデル（Bedrock・Trainium）でも対抗を強化中</td></tr>
+        <tr><td><strong>Alphabet（Google Cloud）</strong></td><td>GOOGL</td><td>~$1.9T</td><td>クラウド3位だが成長率首位。Geminiモデル・TPU独自チップで生成AI基盤を整備。Workspace対Microsoft 365の競争が最前線</td></tr>
+        <tr><td><strong>Salesforce</strong></td><td>CRM</td><td>~$270B</td><td>CRM・ERP・マーケティングSaaSで重複。AgentforceでAIエージェント市場に参入し、Dynamics 365・Copilot Studioと直接競合</td></tr>
+        <tr><td><strong>ServiceNow</strong></td><td>NOW</td><td>~$220B</td><td>ITSMからエンタープライズワークフロー全体へ拡張。CopilotとNowAssistが競合。大企業内でのプラットフォーム支配権を争う</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">クラウド (Azure)</span>
-    <span class="tag">SaaS (M365)</span>
+    <span class="tag">クラウド</span>
     <span class="tag">AI / Copilot</span>
-    <span class="tag">エージェンティックAI</span>
-    <span class="tag">エンタープライズ</span>
-    <span class="tag">ゲーミング</span>
+    <span class="tag">生産性SaaS</span>
+    <span class="tag">NASDAQ: MSFT</span>
+    <span class="tag">情報技術セクター</span>
+    <span class="tag">Dow Jones 30</span>
+    <span class="tag">Azure</span>
+    <span class="tag">エンタープライズソフトウェア</span>
   </div>
 </div>
 

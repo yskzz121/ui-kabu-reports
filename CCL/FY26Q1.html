@@ -70,7 +70,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -79,6 +79,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -366,6 +383,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -776,24 +800,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>Carnival Corporation &amp; plcは世界最大のクルーズ会社。9ブランド・約94隻・272,460バースを擁し、世界クルーズ市場シェア約41%を占める。北米・豪州（NAA）セグメントと欧州セグメントの2本柱で運営。PROPEL戦略のもとFY2029にROIC 16%超・EPS +50%成長を目標に掲げる。</p>
+  <h2>企業概要 — Carnival Corporation &amp; plc</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1972年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">Miami, Florida（米国）</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Josh Weinstein</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員</div><div class="ov-val">約160,000人（150カ国以上）</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場</div><div class="ov-val">NYSE: CCL / LSE: CCL</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">約$334億</div></div>
-    <div class="ov-item"><div class="ov-lbl">船舶数</div><div class="ov-val">約94隻（272,460バース）</div></div>
-    <div class="ov-item"><div class="ov-lbl">市場シェア</div><div class="ov-val">約41%（世界最大）</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1972年（Carnival Cruise Lineとして創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>フロリダ州ドーラル（米）／サウサンプトン（英）の二重上場構造</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Josh Weinstein（社長兼CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: CCL / LSE: CCL（二重上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>一般消費財・サービス / ホテル・リゾート・クルーズ</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500</dd></dl>
+    <dl class="ov-grid-item"><dt>船隊規模</dt><dd>94隻・総収容27万2,460バース（2025年末時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>ブランド数</dt><dd>9ブランド（Carnival・プリンセス・キュナード・P&O・コスタ他）</dd></dl>
   </div>
+
+  <p>カーニバル・コーポレーションは世界最大のクルーズ会社。北米大衆向けのCarnival Cruise Lineから英国伝統のCunard、アジア・豪州向けP&Oまで9ブランドを擁し、グローバル市場シェア約42%を保持する。船舶建造・寄港地交渉・調達のスケールメリットを活かした<strong>垂直統合型のバケーション・プラットフォーム</strong>として機能し、パンデミック後の旅行需要回復でキャパシティ稼働率の正常化と船上消費拡大が収益回復の両輪となっている。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Carnival Cruise Line・Princess Cruises（売上比約50%）</strong> — 北米市場向け主力ブランド。大衆価格帯からプレミアムまでカバーし、最大の乗客数と航路網を持つ</li>
+          <li><strong>AIDA・Costa・P&O（売上比約30%）</strong> — 欧州・アジア・豪州市場向けブランド群。欧州市場でのローカル認知度と地域特化航路が強み</li>
+          <li><strong>Holland America・Cunard・Seabourn（売上比約20%）</strong> — プレミアム・ラグジュアリーセグメント。高客単価・高リピート率で収益性が相対的に高い</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>チケット収益（~60%）</strong> — 乗客からのクルーズ代金。稼働率・単価（PCDs）・寄港地・季節性に連動。キャパシティ拡大と値上げが主な成長ドライバー</li>
+          <li><strong>船上消費・その他（~40%）</strong> — 飲食・スパ・カジノ・ショア・エクスカーション等のオンボード支出。チケット収益より高マージンで、収益性改善の鍵</li>
+          <li><strong>港湾・旅行代理店手数料（内包）</strong> — 乗船前ホテル・航空手配・デジタル付加サービス。プリンセスの「Ocean Medallion」等テクノロジー活用で船上外収益も拡大</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>世界最大の船隊・スケールによる調達コスト優位</strong> — 94隻規模が燃料・食料・寄港地交渉で業界最低コストを実現。新造船の建造コストも規模が分散効果を生む</li>
+      <li><strong>9ブランドによる多セグメント・多地域カバレッジ</strong> — 大衆からラグジュアリー、北米から欧亜まで単一グループで対応。競合が1〜2ブランドしか持てない中、顧客一生涯を囲む戦略</li>
+      <li><strong>グローバル市場シェア42%の規模の経済</strong> — 船上エンタメ・食材・テクノロジー等の一括調達で単価を圧下。規模を背景に新造船建造交渉でも有利な条件を引き出す</li>
+      <li><strong>寄港地・港湾インフラへの長期投資</strong> — 専用桟橋・プライベートアイランド（バハマ、ジャマイカ等）の開発で競合が簡単に複製できない寄港地資産を蓄積</li>
+      <li><strong>顧客ロイヤルティとリピート需要</strong> — 各ブランドのリワードプログラムとクルーズ体験の独自性がリピート率を高め、顧客獲得コストを低減するブランドエコシステムを形成</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Royal Caribbean Group</strong></td><td>RCL</td><td>~$700億</td><td>グローバル市場シェア約31%。大型革新船・プレミアム体験で客単価向上。近年カーニバルとの差が縮小傾向</td></tr>
+        <tr><td><strong>Norwegian Cruise Line Holdings</strong></td><td>NCLH</td><td>~$90億</td><td>市場シェア約15%。フリースタイルクルーズコンセプトで差別化。規模・港湾交渉力でカーニバルに劣る</td></tr>
+        <tr><td><strong>MSC Cruises</strong></td><td>非公開</td><td>—</td><td>市場シェア約8%。10年で船腹量を3倍に拡大し急成長中。欧州・新興市場で攻勢をかける最注目の脅威</td></tr>
+        <tr><td><strong>Disney Cruise Line</strong></td><td>DIS（親会社）</td><td>—（Disney）</td><td>プレミアムファミリー向けニッチ特化。IPブランド価値で高単価を維持するが規模は小さく直接競合は限定的</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">クルーズ運営</span>
+    <span class="tag">クルーズ</span>
+    <span class="tag">レジャー・旅行</span>
+    <span class="tag">ホスピタリティ</span>
+    <span class="tag">多ブランド戦略</span>
+    <span class="tag">船舶・海運</span>
+    <span class="tag">一般消費財</span>
     <span class="tag">NYSE: CCL</span>
-    <span class="tag">Consumer Discretionary</span>
-    <span class="tag">9ブランド</span>
-    <span class="tag">PROPEL戦略</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

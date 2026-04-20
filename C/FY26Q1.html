@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -367,6 +384,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -807,16 +831,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Citigroup Inc.</strong>（NYSE: C）は1812年創業、ニューヨーク本社のグローバル金融サービス企業。160超の国・地域で約22万9,000人の従業員を抱え、現CEO <strong>Jane Fraser</strong>（2021年就任、大手米銀初の女性CEO）のもとで大規模な組織再編・事業整理を進行中。2023年末に <strong>5-Business Operating Model</strong>（Services / Markets / Banking / Wealth / US Personal Banking）を稼働開始し、Banamex（メキシコ消費者部門）IPO準備を2026年後半に予定。時価総額は約<span class="no-currency">$240B</span>。</p>
+  <h2>企業概要 — Citigroup Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1812年（City Bank of New York 創立）／現シティグループは1998年 Citicorp・Travelers 合併で発足</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ニューヨーク州ニューヨーク市</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Jane Fraser（2021年就任、ウォール街大手銀行初の女性CEO）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: C</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>金融 / 多角的銀行</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / ダウ工業株30種</dd></dl>
+    <dl class="ov-grid-item"><dt>事業展開国数</dt><dd>95カ国以上で金融サービスを提供</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約22万9,000人（全世界）</dd></dl>
+  </div>
+
+  <p>シティグループは米国最大の国際銀行のひとつ。Services（TTS・証券サービス）、Markets（トレーディング）、Banking（投資銀行）、U.S. Personal Banking（クレジットカード・リテール）、Wealth（富裕層向け）の5セグメントで構成される。<strong>95カ国以上に及ぶグローバルネットワーク</strong>と国際送金・貿易金融インフラは他行が容易に複製できない差別化資産であり、多国籍企業・政府・機関投資家の基幹決済基盤として機能している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Services（TTS・証券サービス、売上比約27%）</strong> — 国際企業向け財務管理・貿易金融・カストディ。95カ国ネットワークが参入障壁。金利上昇局面で特に収益拡大</li>
+          <li><strong>Markets（トレーディング、売上比約27%）</strong> — 固定収益・為替・株式のマーケットメイクと顧客フロー。市場ボラティリティが高い局面で収益が膨らむ構造</li>
+          <li><strong>U.S. Personal Banking（売上比約28%）</strong> — Citi Branded Cardsを中核とした米国最大級クレジットカード事業。高利率・高リワードの消費者向け金融サービス</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>純金利収益（~55%）</strong> — 貸出・カード・証券の利息収入が主軸。金利環境と信用コストが大きく影響するサイクル依存型収益</li>
+          <li><strong>手数料・サービス収益（~30%）</strong> — 投資銀行フィー・トレーディング・TTSサービス料・カストディ報酬。比較的景気中立な安定収益ベース</li>
+          <li><strong>Wealth・その他（~15%）</strong> — 富裕層向け投資助言・ファンド管理・プライベートバンキング。AUM連動報酬が中長期の増収ドライバー</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>95カ国規模の国際決済インフラ</strong> — 多国籍企業が必要とする国際送金・貿易金融を単一プラットフォームで提供。競合が一朝一夕に構築できないグローバル配管</li>
+      <li><strong>米国最大級クレジットカード事業の顧客粘着性</strong> — Citi Branded Cardsの厚い顧客基盤・ロイヤルティ体系が乗り換えコストを高め、安定したリカーリング収益を生む</li>
+      <li><strong>規制・ライセンスの参入障壁</strong> — 主要国での銀行免許・AML規制対応体制の構築には莫大なコストと時間が必要。新規参入者には実質的な壁</li>
+      <li><strong>ブランドと機関投資家ネットワーク</strong> — 数十年の顧客リレーションシップが案件フローを生む。大型M&A・債券引受でリピート受注が継続</li>
+      <li><strong>テクノロジー近代化による効率向上</strong> — Jane Fraser主導のTransformation計画でコア基幹系・データ基盤を刷新中。完了後は競合比でコスト構造が改善する見通し</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>JPMorgan Chase</strong></td><td>JPM</td><td>~$7,000億</td><td>米最大銀行。投資銀行・リテール・資産運用でトップシェア。財務力・ブランドで全セグメントで競合</td></tr>
+        <tr><td><strong>Bank of America</strong></td><td>BAC</td><td>~$3,500億</td><td>リテール・中堅企業金融で強固。メリルリンチ統合でウェルスマネジメントも強化</td></tr>
+        <tr><td><strong>Goldman Sachs</strong></td><td>GS</td><td>~$2,000億</td><td>投資銀行・マーケット部門で重複。プライベートクレジット拡大でMarketsでも圧力</td></tr>
+        <tr><td><strong>HSBC Holdings</strong></td><td>HSBC</td><td>~$2,000億</td><td>アジア・欧州の国際事業でシティの国際ネットワークと直接競合。TTS・トレードファイナンスで脅威</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">1812年設立</span>
-    <span class="tag">160カ国+展開</span>
-    <span class="tag">CEO: Jane Fraser</span>
-    <span class="tag">従業員 229,000人</span>
-    <span class="tag">5-Business Model</span>
-    <span class="tag">Banamex IPO準備中</span>
-    <span class="tag">時価総額 <span class="no-currency">~$240B</span></span>
+    <span class="tag">グローバル銀行</span>
+    <span class="tag">投資銀行</span>
+    <span class="tag">クレジットカード</span>
+    <span class="tag">トレジャリー・トレードソリューション</span>
+    <span class="tag">ウェルスマネジメント</span>
+    <span class="tag">多角的銀行</span>
+    <span class="tag">NYSE: C</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

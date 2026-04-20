@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -75,6 +75,38 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-grid-item dt{font-size:.72rem;color:var(--t3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:'Inter',sans-serif;margin-bottom:3px}
 .ov-grid-item dd{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+/* Premium Overview Sections */
+.ov-hero-kpi{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin:18px 0 22px;padding:16px 12px;background:linear-gradient(90deg,rgba(184,145,42,0.07) 0%,rgba(184,145,42,0.02) 100%);border:1px solid rgba(184,145,42,0.22);border-radius:10px}
+.ov-kpi{text-align:center;padding:2px 6px;border-right:1px solid rgba(184,145,42,0.12)}
+.ov-kpi:last-child{border-right:none}
+.ov-kpi-lbl{font-family:'Inter',sans-serif;font-size:.62rem;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;font-weight:600;white-space:nowrap}
+.ov-kpi-val{font-family:'Inter',sans-serif;font-size:1.05rem;color:var(--gold2);font-weight:800;letter-spacing:.01em;line-height:1.15}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
+.ov-editorial{margin-top:22px;padding:18px 22px;background:rgba(184,145,42,0.05);border-left:3px solid var(--gold2);border-radius:0 8px 8px 0}
+.ov-editorial p{font-size:.9rem;color:var(--t1);line-height:1.95;margin:0;font-family:'Noto Serif JP',serif}
+.ov-editorial strong{color:var(--gold2);font-weight:600}
+.ov-focus{margin-top:14px;padding-top:12px;border-top:1px dashed rgba(184,145,42,0.18)}
+.ov-focus h4{font-size:.78rem;color:var(--gold2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase;font-family:'Inter',sans-serif}
+.ov-focus-list{padding-left:22px;margin:0;list-style:decimal}
+.ov-focus-list li{font-size:.88rem;color:var(--t1);padding:5px 0;font-family:'Noto Sans JP',sans-serif;line-height:1.75}
+.ov-focus-list li::marker{color:var(--gold2);font-weight:700}
+.ov-focus-list li strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -365,6 +397,16 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-hero-kpi{grid-template-columns:repeat(2,1fr);gap:4px 0;padding:12px 8px}
+  .ov-kpi{border-right:none;border-bottom:1px solid rgba(184,145,42,0.1);padding:8px 4px}
+  .ov-kpi:nth-last-child(-n+2){border-bottom:none}
+  .ov-kpi-val{font-size:.95rem}
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -838,18 +880,71 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
   <h2>企業概要 — Okta, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
     <dl class="ov-grid-item"><dt>設立</dt><dd>2009年</dd></dl>
     <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンフランシスコ</dd></dl>
     <dl class="ov-grid-item"><dt>CEO</dt><dd>Todd McKinnon（共同創業者）</dd></dl>
     <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: OKTA（2017年 IPO）</dd></dl>
-    <dl class="ov-grid-item"><dt>時価総額</dt><dd>約$14B（2026年3月時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / システムソフトウェア</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>Russell 1000（S&amp;P 500 未採用）</dd></dl>
     <dl class="ov-grid-item"><dt>総顧客数</dt><dd>20,000社超 / $100K+ ACV 5,100社</dd></dl>
-    <dl class="ov-grid-item"><dt>FY26通期売上</dt><dd>$2.92B / ARR $3.00B</dd></dl>
     <dl class="ov-grid-item"><dt>アプリ統合数</dt><dd>7,000以上</dd></dl>
   </div>
+
   <p>Oktaはクラウドネイティブ・アイデンティティ管理（IAM）プラットフォーム企業。Workforce Identity Cloud（SSO・MFA・Identity Governance・Privileged Access）とCustomer Identity Cloud（旧Auth0、Auth0 for AI Agents）の2製品ラインを展開。従業員・顧客・AIエージェントのあらゆるアイデンティティを一元管理し、ゼロトラストセキュリティの基盤を提供する。</p>
-  <p>主要製品: OIG（Okta Identity Governance、2,000社以上導入）/ Okta Privileged Access / Device Access / Auth0 for AI Agents / Okta for AI Agents。競合: Microsoft Entra、CrowdStrike Identity、CyberArk、Ping Identity。</p>
+
+  <!-- Part 3: 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Workforce Identity Cloud（~65%）</strong> — 従業員向けSSO・MFA・OIG・Privileged Access・Device Access</li>
+          <li><strong>Customer Identity Cloud（~35%）</strong> — 旧Auth0、B2C/B2Bアプリ向けID基盤、Auth0 for AI Agents</li>
+          <li><strong>新製品群</strong> — OIG / ISPM / ITP / Okta for AI Agents（Q4ブッキング 30%・契約アップリフト +40%）</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>サブスクリプション主体（~97%）</strong> — 年/3年契約混在、NRR 106-108%</li>
+          <li><strong>プロフェッショナルサービス（~3%）</strong> — 導入支援・カスタム実装</li>
+          <li>課金基準: <strong>シート数 × モジュール数</strong>。AIエージェント向けは新コネクションベース課金</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 4: Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>7,000+ アプリ統合のネットワーク効果</strong> — 統合数が多いほど顧客の切替コストが指数的に上昇、後発参入障壁が構造化</li>
+      <li><strong>ゼロトラストの中核基盤としての不可欠性</strong> — IDは全社IT認証の制御面、削除・置換が極めて困難でアップセル耐性が高い</li>
+      <li><strong>FedRAMP High / ISO 27001 / SOC 2 等の認定</strong> — 政府・防衛・金融規制業界への参入障壁を構築、Microsoftに対する独立系優位</li>
+      <li><strong>Auth0買収による二面市場支配</strong> — Workforce（従業員ID）とCustomer（顧客ID）両市場を単一ベンダーで提供、クロスセル余地大</li>
+      <li><strong>AIエージェントID管理の先行ポジション</strong> — 91%の企業がAIエージェント利用も10%のみガバナンス戦略、先行者利益を取りにいく構造</li>
+    </ul>
+  </div>
+
+  <!-- Part 6: Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Microsoft Entra ID</strong></td><td>MSFT</td><td>~$3T</td><td>M365 バンドルでSMB・中堅市場を侵食、最大脅威</td></tr>
+        <tr><td><strong>CrowdStrike Identity Protection</strong></td><td>CRWD</td><td>~$110B</td><td>ITP（Identity Threat Protection）領域で急拡大</td></tr>
+        <tr><td><strong>CyberArk Software</strong></td><td>CYBR</td><td>~$18B</td><td>特権アクセス（PAM）で先行、Palo Alto が買収予定</td></tr>
+        <tr><td><strong>Ping Identity</strong></td><td>非公開</td><td>—</td><td>Thoma Bravo 傘下、エンタープライズ既存顧客基盤</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">SaaS</span>
     <span class="tag">IAM / ID管理</span>
@@ -858,6 +953,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <span class="tag">Identity Governance</span>
     <span class="tag">Customer Identity (Auth0)</span>
     <span class="tag">NASDAQ: OKTA</span>
+    <span class="tag">Russell 1000</span>
   </div>
 </div>
 

@@ -71,11 +71,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -340,6 +357,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -750,17 +774,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Morgan Stanley</strong>（NYSE: MS）は1935年設立の米国大手総合金融グループ。本社ニューヨーク。CEO は <strong>Ted Pick</strong>（2024年1月就任、James Gorman後任）。従業員数は約80,000人。Institutional Securities（投資銀行・トレーディング）、Wealth Management（リテール証券・資産運用）、Investment Management の3セグメント構造で、クライアント資産は合計 <span class="no-currency">$9T</span> 超（$10T+ を目指す）。時価総額は約 <span class="no-currency">$296B</span>。</p>
-  <p>ビジネスモデルは、Institutional Securities が M&A アドバイザリー・ECM/DCM 引受・株式/FICC トレーディングで手数料・トレーディング収益を稼ぎ、Wealth Management が $2.8T 超の AUM からフィーベース収益を安定的に創出。E*TRADE 買収（2020年）・Eaton Vance 買収（2021年）で Wealth/IM を大幅強化し、フィーベース収益比率を高めた。</p>
+  <h2>企業概要 — Morgan Stanley</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1935年（Henry S. Morgan・Harold Stanley らが設立）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ニューヨーク州ニューヨーク市（タイムズスクエア周辺）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Ted Pick（2024年1月就任・Chairman兼任、前Co-President）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: MS（1986年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>金融 / 資本市場（Capital Markets）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / Russell 1000 / MSCI USA</dd></dl>
+    <dl class="ov-grid-item"><dt>運用資産残高</dt><dd>ウェルス＋インベストメント管理 合計 ~$9.3兆（2025年末）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約80,000名、42か国以上に拠点展開</dd></dl>
+  </div>
+
+  <p>Morgan Stanleyは投資銀行・機関投資家向けサービスと世界最大級のウェルスマネジメント事業を併せ持つ総合金融グループ。2025年通年売上は<strong>$70.6B（前年比+14%）</strong>と過去最高を更新し、ウェルスマネジメント部門が<strong>$31.8B</strong>の記録的収益を達成。M&A・ECM・DCM・エクイティトレーディングの三位一体で機関投資家をカバーしつつ、$9.3兆の顧客資産基盤を持つウェルス事業が安定収益の柱として機能する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'ウェルスマネジメント（~45%）', 'desc': '富裕層・超富裕層向けFA・投資顧問・バンキング。FY2025収益$31.8B、PTA利益率31%と過去最高。プライベートクレジット・プレIPO市場へも拡充中'}</li>
+          <li>{'name': '機関向け証券（~40%）', 'desc': '投資銀行（M&A・ECM・DCM）、エクイティ・フィクストインカムトレーディング、リサーチ。Q1 2026 IBバンキング収益YoY +47%で躍進'}</li>
+          <li>{'name': 'インベストメントマネジメント（~15%）', 'dd': '機関投資家・年金・ファンド向け資産運用。運用資産は$1.7T超、代替投資・プライベートエクイティ分野を成長軸に据える'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '手数料・フィー収入（サービス料）', 'desc': 'ウェルス部門のアドバイザリー費・IB手数料が主軸。市場変動に依存しにくいフィーベース収益比率を高める戦略を推進'}</li>
+          <li>{'name': 'トレーディング・インタレスト収益', 'desc': 'エクイティ・FICC（金利・クレジット・通貨等）のマーケットメイクと自己勘定取引。市場ボラティリティ拡大時に増益しやすい構造'}</li>
+          <li>{'name': 'NII（純利息収入）・バンキング', 'desc': 'ウェルス顧客への融資・担保ローン・スウィープ預金由来のNII。金利上昇局面で厚みを増し、フィー収益と相補関係'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>$9.3兆の顧客資産基盤による収益安定性</strong> — ウェルスマネジメントのスイッチングコストが高く、顧客離反率が極めて低い。長期フィーベース収益が景気サイクルを緩衝する</li>
+      <li><strong>投資銀行ブランドと人材ネットワーク</strong> — 世界トップクラスのIBランキングを維持。ディール情報・人脈・格付けが強化し合い、後発参入が難しい信頼資産を形成</li>
+      <li><strong>EquityZen買収によるプライベートマーケット展開</strong> — プレIPO二次市場プラットフォームを統合し、富裕層顧客にパブリック市場だけでなくプライベートエクイティへのアクセスを提供</li>
+      <li><strong>AIを活用したウェルスアドバイザー支援</strong> — 生成AIによるリアルタイムリサーチ合成・クライアント提案スクリプト生成で、アドバイザー生産性を向上。テクノロジー投資が差別化要因に</li>
+      <li><strong>規制資本と格付けによる調達コスト優位</strong> — 大手金融機関に課される自己資本規制をクリアした信用格付けが、機関顧客・カウンターパーティからの信頼を裏付け、小規模競合との差別化を実現</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Goldman Sachs</strong></td><td>GS</td><td>~$200B</td><td>IB・トレーディングで最大のライバル。ウェルスマネジメント規模ではMSに及ばないが、M&A・FICC・ヘッジファンド向けプライムブローカレッジで伯仲</td></tr>
+        <tr><td><strong>JPMorgan Chase</strong></td><td>JPM</td><td>~$750B</td><td>預金・融資・IB・資産管理を網羅する総合銀行最大手。規模・資本力・顧客基盤で業界首位。M&A顧問料・固定収益でMSを上回る局面も</td></tr>
+        <tr><td><strong>Bank of America</strong></td><td>BAC</td><td>~$340B</td><td>メリルリンチ部門でウェルスマネジメントが重複。個人富裕層・中堅法人向けに競合。デジタルバンキング基盤の強化でリテール領域でも圧力</td></tr>
+        <tr><td><strong>Charles Schwab</strong></td><td>SCHW</td><td>~$150B</td><td>低コスト個人投資家プラットフォームからウェルスマネジメントへ上昇。富裕層・マス富裕層市場でMSの顧客を狙う。Ameritrade統合後の規模拡大が脅威</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">1935年設立</span>
-    <span class="tag">NY本社</span>
-    <span class="tag">CEO: Ted Pick</span>
-    <span class="tag">従業員 ~80,000</span>
-    <span class="tag">時価総額 <span class="no-currency">~$296B</span></span>
-    <span class="tag">クライアント資産 $9T+</span>
-    <span class="tag">3セグメント</span>
+    <span class="tag">投資銀行</span>
+    <span class="tag">ウェルスマネジメント</span>
+    <span class="tag">資本市場</span>
+    <span class="tag">NYSE: MS</span>
+    <span class="tag">金融セクター</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">プライベートクレジット</span>
+    <span class="tag">AI金融サービス</span>
   </div>
 </div>
 

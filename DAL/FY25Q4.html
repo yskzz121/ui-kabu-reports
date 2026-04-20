@@ -67,7 +67,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -76,6 +76,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -369,6 +386,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -780,24 +804,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要ドロップダウン -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Delta Air Lines — 企業概要</h2>
-  <p>Delta Air Lines, Inc.（NYSE: DAL）は1925年創業、ジョージア州アトランタに本社を置く米国最大級の国際航空会社。プレミアム客室・AmEx提携カード・SkyMiles ロイヤルティプログラムを三位一体で展開し、業界最高水準の利益率と財務規律を誇る。</p>
+  <h2>企業概要 — Delta Air Lines, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><span class="ov-lbl">設立</span><span class="ov-val">1925年（Huff Daland Dusters）</span></div>
-    <div class="ov-item"><span class="ov-lbl">本社</span><span class="ov-val">ジョージア州アトランタ</span></div>
-    <div class="ov-item"><span class="ov-lbl">CEO</span><span class="ov-val">Ed Bastian（2016年〜）</span></div>
-    <div class="ov-item"><span class="ov-lbl">従業員数</span><span class="ov-val">100,000人超</span></div>
-    <div class="ov-item"><span class="ov-lbl">機材数</span><span class="ov-val">1,292機（メインライン 975 + リージョナル 317）</span></div>
-    <div class="ov-item"><span class="ov-lbl">アライアンス</span><span class="ov-val">SkyTeam（創設メンバー）</span></div>
-    <div class="ov-item"><span class="ov-lbl">時価総額</span><span class="ov-val">約$24B（2026年1月時点）</span></div>
-    <div class="ov-item"><span class="ov-lbl">主要ハブ</span><span class="ov-val">ATL・JFK・LAX・DTW・MSP・SLC・SEA・BOS</span></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1930年（デルタ・エア・コーポレーションとして設立、1945年に現社名へ改称）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ジョージア州アトランタ（ハーツフィールド・ジャクソン国際空港隣接）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Ed Bastian（2016年就任、デルタ生え抜きの財務・戦略担当出身）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: DAL（2007年 再上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>資本財・サービス / 旅客航空（Passenger Airlines）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / ダウ・ジョーンズ工業株30種（DJIA）採用</dd></dl>
+    <dl class="ov-grid-item"><dt>運航規模</dt><dd>ピーク時1日最大約5,000便・就航地290都市超・6大陸をカバー</dd></dl>
+    <dl class="ov-grid-item"><dt>ロイヤルティ会員数</dt><dd>SkyMilesメンバー1億人超、AmexコブランドカードはQ毎約$2B貢献</dd></dl>
   </div>
+
+  <p>デルタ航空は米国最大級の国際・国内航空会社で、プレミアム収益とSkyMilesロイヤルティプログラムを二本柱に据えた収益多角化モデルを追求する。アメリカン・エキスプレスとの独占コブランド提携が安定的な手数料収入を創出し、自社MRO子会社「Delta TechOps」が他社機整備で追加収益を獲得。<strong>プレミアムキャビン収益がメインキャビンを上回る見通し</strong>（2027年）など、単なる輸送業から高付加価値旅行体験企業へのシフトを鮮明にしている。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': '旅客輸送（国内・国際）', 'detail': '売上の大宗を占めるコアセグメント。プレミアムキャビン（ファースト・デルタワン・Comfort+）が収益牽引役で全体売上比率~57%をプレミアム+ロイヤルティが占める'}</li>
+          <li>{'name': 'SkyMilesロイヤルティ・AmexパートナーシップP', 'detail': 'AmexコブランドカードによるマイレージP購入が四半期約$2Bを安定供給。世界最高評価のロイヤルティプログラムと称され、顧客生涯価値の中核'}</li>
+          <li>{'name': '貨物・MRO（Delta TechOps）・リファイナリー', 'detail': '貨物輸送、自社精製所（モンロー・エナジー）によるジェット燃料調達コスト管理、他航空会社向け機体整備（MRO）の3事業で補完収益を確保'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': 'チケット販売（旅客収入）主体', 'detail': 'ファーバサード・ダイナミックプライシングによる収益最大化。プレミアム座席需要は景気耐性が高く、近年一貫してメインキャビンを上回る成長率'}</li>
+          <li>{'name': 'ロイヤルティ・コブランド手数料収入', 'detail': 'AmexへのSkyMilesマイル販売が安定収益源。クレジットカード会員1人あたり貢献度が拡大中で、景気後退時でも比較的安定'}</li>
+          <li>{'name': '副事業（貨物・MRO・精製）', 'detail': '全体の10%程度。燃料コストヘッジとしての精製所、航空産業全体向けMROが収益の安定化に貢献'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>アトランタ・ニューヨーク等の主要ハブ独占的地位</strong> — 米国最多路線・スロット規制空港での圧倒的プレゼンスにより新規参入が構造的に困難</li>
+      <li><strong>SkyMilesロイヤルティ×Amexの二重ループ</strong> — 世界最高評価のマイルプログラムと独占コブランド契約がブランド囲い込みを強化し、他社への乗り換え障壁を形成</li>
+      <li><strong>プレミアムサービスへの先行投資</strong> — ファーストクラス・ビジネスクラス比率の引き上げと機内Wi-Fi・エンタメ刷新により客単価向上、LCCとの差別化を拡大</li>
+      <li><strong>Delta TechOps（MRO）の産業インフラ化</strong> — 自社整備能力が安全性とコスト管理を両立し、他社への外販でも収益化。規模なしには維持困難な設備投資が参入障壁</li>
+      <li><strong>業界最高水準のオンタイム率とNPS</strong> — 主要航空会社中ネット・プロモーター・スコア首位、運航信頼性の高さがコーポレート旅客・高単価旅客の固定化に直結</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>United Airlines Holdings</strong></td><td>UAL</td><td>~$33B</td><td>国際長距離・スターアライアンス基盤で覇権争い。ユナイテッドは近年プレミアム戦略でデルタを直接追跡する最大のライバル</td></tr>
+        <tr><td><strong>American Airlines Group</strong></td><td>AAL</td><td>~$8B</td><td>国内路線・ラテンアメリカで競合。財務体質の弱さが露呈しており直接脅威は低下傾向だが路線重複は大きい</td></tr>
+        <tr><td><strong>Southwest Airlines</strong></td><td>LUV</td><td>~$21B</td><td>LCC大手として国内短距離で競合。ポイント制ロイヤルティと乗り継ぎなし路線モデルが差別化で対抗軸となる</td></tr>
+        <tr><td><strong>Lufthansa / IAG / Air France-KLM</strong></td><td>非上場（NYSE ADRなし）</td><td>各社~$10-15B相当</td><td>大西洋・欧州路線でスカイチームの盟友でありながら間接競合。コードシェアで協調しつつ直行便市場で価格競争も発生</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">航空輸送</span>
-    <span class="tag">プレミアム戦略</span>
-    <span class="tag">AmEx提携</span>
-    <span class="tag">SkyTeam</span>
+    <span class="tag">航空・旅客輸送</span>
+    <span class="tag">ロイヤルティプログラム</span>
+    <span class="tag">プレミアム航空</span>
+    <span class="tag">SkyMiles</span>
     <span class="tag">NYSE: DAL</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">DJIA採用</span>
+    <span class="tag">資本財・サービス</span>
   </div>
 </div>
 

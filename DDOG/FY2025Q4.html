@@ -71,11 +71,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -300,6 +317,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -766,18 +790,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Datadog, Inc.</strong>（NASDAQ: DDOG）は2010年設立のクラウドネイティブ向け統合モニタリング・セキュリティプラットフォームを提供するSaaS企業。Infrastructure Monitoring、APM、Log Management、Cloud SIEM、LLM Observability、Database Monitoring等20以上の製品を統合プラットフォームとして提供し、1,000以上のインテグレーションに対応。</p>
-  <p>Gartner Magic Quadrant for Observability Platformsで4年連続リーダーに選出。顧客数32,700社、$100K+ARR顧客4,310社、$1M+ARR顧客603社。CEO: <strong>Olivier Pomel</strong>（共同創業者）。本社: ニューヨーク。競合: Splunk（Cisco統合）、New Relic、Dynatrace、Elastic、Grafana Labs。時価総額約<span class="no-currency">$45B</span>。</p>
+  <h2>企業概要 — Datadog, Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2010年（Olivier PomelとAlexis Lê-Quôcがニューヨークで共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>ニューヨーク州ニューヨーク市（マンハッタン、620 8th Avenue）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Olivier Pomel（共同創業者、Ecole Centrale Paris出身）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NASDAQ: DDOG（2019年9月 IPO、調達額$648M）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / アプリケーションソフトウェア（Application Software）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500採用（2025年7月編入）/ NASDAQ-100採用</dd></dl>
+    <dl class="ov-grid-item"><dt>顧客数</dt><dd>47,000社超（$100K+ ARR顧客4,500社超、多製品利用率84%）</dd></dl>
+    <dl class="ov-grid-item"><dt>製品モジュール数</dt><dd>25以上の統合観測・セキュリティ製品（6製品以上利用顧客が全体の33%）</dd></dl>
+  </div>
+
+  <p>Datadogはクラウドネイティブのオブザービリティおよびセキュリティプラットフォームを提供するSaaS企業。インフラ監視・APM・ログ管理・セキュリティを単一エージェントで統合し、<strong>「シングルペイン・オブ・グラス」</strong>でクラウド全体を可視化する。消費量ベースの課金モデルにより顧客のクラウド拡張と自社収益が連動。LLMオブザービリティやAIセキュリティなどAI時代に不可欠な製品群を相次いで投入し、AIネイティブ企業の主要監視基盤として急速に地位を固めている。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'コアオブザービリティ（Infrastructure・APM・Log Management）', 'detail': '全体売上の約88%を占めるコア製品群。クラウドホスト・コンテナ・サーバーレス環境の統合監視とエンド・ツー・エンドのトランザクション追跡を提供'}</li>
+          <li>{'name': 'クラウドセキュリティ（Cloud SIEM・CSPM・ASM）', 'detail': '最速成長セグメント。観測エージェントにセキュリティ検知を統合し、脅威のリアルタイム検出とコンプライアンス対応を単一プラットフォームで実現'}</li>
+          <li>{'name': 'AI/LLMオブザービリティ・プラットフォーム拡張', 'detail': '2024年開始のLLMオブザービリティ（ハルシネーション・レイテンシ・コスト監視）とA/Bテスト基盤「Experiments」等のAI時代向け新製品群'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '消費量ベースサブスクリプション（主軸）', 'detail': 'ホスト数・データ量・機能モジュール数に応じた従量課金。顧客のクラウド利用拡大と自社売上が連動し、NRRが継続的に110-130%圏で推移'}</li>
+          <li>{'name': 'マルチプロダクト拡張によるアップセル', 'detail': '2製品以上利用顧客が84%・6製品以上が33%と高い。製品追加のたびに解約困難度が上昇し、Net Dollar Retentionが業界トップクラス'}</li>
+          <li>{'name': 'エンタープライズ契約・コミットメントディール', 'detail': '大企業向けに年次コミットメント型の割引契約も提供。エンタープライズ顧客の占有率拡大が単価上昇・予見可能収益の改善に寄与'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>25以上の統合製品によるプラットフォーム・スティッキネス</strong> — 単一エージェント展開で多製品を利用するほど解約コストが指数的上昇、競合への切替が事実上困難</li>
+      <li><strong>クラウド消費と連動する収益構造</strong> — 顧客のクラウドワークロード拡張が直接Datadogの収益増に結びつく従量課金モデルが、成長の自動加速装置として機能</li>
+      <li><strong>AIネイティブ監視での先行者優位</strong> — LLMオブザービリティ・AIセキュリティを早期投入し、AIエージェント企業の主要監視プラットフォームとして標準化が進行中</li>
+      <li><strong>47,000社の顧客基盤とデータネットワーク効果</strong> — 大規模トレリメトリデータを蓄積したAIモデルの精度向上ループが後発の再現を困難にする</li>
+      <li><strong>クラウドベンダー非依存のマルチクラウド戦略</strong> — AWS・Azure・GCP全対応で特定ベンダーに依存しない中立性が大企業IT部門の選定基準で優位に働く</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Dynatrace</strong></td><td>DT</td><td>~$11B</td><td>エンタープライズ自動化観測で競合。AIオートメーション（Davis AI）に強みを持ち、大規模オンプレ移行案件でDatadogと直接競合</td></tr>
+        <tr><td><strong>Cisco（Splunk統合後）</strong></td><td>CSCO</td><td>~$220B</td><td>$28Bで買収したSplunkのログ分析・SIEMとCiscoのネットワーク基盤を統合。セキュリティ×観測の融合で包括的に脅威</td></tr>
+        <tr><td><strong>Elastic</strong></td><td>ESTC</td><td>~$6B</td><td>オープンソースElasticsearchベースのログ・検索プラットフォーム。コスト意識の高い中堅企業でDatadogのログ管理製品と競合</td></tr>
+        <tr><td><strong>Grafana Labs / New Relic（非公開）</strong></td><td>非公開</td><td>—</td><td>Grafanaはオープンソース観測で急拡大、New RelicはFrancisco Partners傘下で低コスト路線。スタートアップ・コスト重視企業層に浸透</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">SaaS</span>
-    <span class="tag">オブザーバビリティ</span>
-    <span class="tag">クラウドモニタリング</span>
-    <span class="tag">APM</span>
-    <span class="tag">Cloud SIEM</span>
-    <span class="tag">LLM Observability</span>
-    <span class="tag">AI-Native</span>
-    <span class="tag">2010年設立</span>
+    <span class="tag">クラウド観測</span>
+    <span class="tag">APM / オブザービリティ</span>
+    <span class="tag">クラウドセキュリティ</span>
+    <span class="tag">AIオブザービリティ</span>
+    <span class="tag">消費量課金モデル</span>
+    <span class="tag">NASDAQ: DDOG</span>
+    <span class="tag">S&P 500</span>
   </div>
 </div>
 

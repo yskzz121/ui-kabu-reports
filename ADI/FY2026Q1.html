@@ -70,7 +70,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -79,6 +79,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -366,6 +383,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -769,26 +793,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- ===== 企業概要 ===== -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p><strong>Analog Devices（ADI）</strong>は1965年設立、マサチューセッツ州ウィルミントン本社の世界有数のアナログ・混合信号（ミックスドシグナル）半導体メーカー。データ変換（ADC/DAC）、信号処理IC、パワーマネジメント、RF/マイクロ波ICを設計・製造し、産業機器・自動車（ADAS/電動化）・通信インフラ（5G/データセンター）・航空宇宙・防衛・ヘルスケアなど多様な最終市場に供給する。2021年8月にMaxim Integratedを約210億ドルで買収し電源管理・インターフェース製品群を大幅に拡充。</p>
+  <h2>企業概要 — Analog Devices, Inc.</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><div class="ov-lbl">設立</div><div class="ov-val">1965年</div></div>
-    <div class="ov-item"><div class="ov-lbl">本社</div><div class="ov-val">Wilmington, MA, USA</div></div>
-    <div class="ov-item"><div class="ov-lbl">CEO</div><div class="ov-val">Vincent Roche</div></div>
-    <div class="ov-item"><div class="ov-lbl">CFO</div><div class="ov-val">Richard Puccio</div></div>
-    <div class="ov-item"><div class="ov-lbl">従業員数</div><div class="ov-val">約24,500名</div></div>
-    <div class="ov-item"><div class="ov-lbl">時価総額</div><div class="ov-val">$155.8B</div></div>
-    <div class="ov-item"><div class="ov-lbl">上場市場</div><div class="ov-val">NASDAQ: ADI</div></div>
-    <div class="ov-item"><div class="ov-lbl">会計年度末</div><div class="ov-val">10月末（11月第1土曜日）</div></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1965年（Ray Stata・Matthew Lorber 共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>マサチューセッツ州ウィルミントン</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Vincent Roche（CEO兼会長）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: ADI</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体・半導体製造装置</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / NASDAQ-100</dd></dl>
+    <dl class="ov-grid-item"><dt>エンジニア数</dt><dd>約10,000人超（Maxim統合後）</dd></dl>
+    <dl class="ov-grid-item"><dt>年間売上規模</dt><dd>約 $11.0B（FY2025）</dd></dl>
   </div>
+
+  <p>Analog Devicesはアナログ・ミックスドシグナル・DSP半導体の世界的リーダー。産業機器・自動車・通信・ヘルスケア向けに高精度データコンバータ・アンプ・RF ICを提供し、2021年のMaxim Integrated買収でTexas Instrumentsと並ぶアナログ半導体二強に成長。インテリジェントエッジでの物理−デジタル変換を担う基盤ICサプライヤーとして不可欠な存在。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>産業向け（~47%）</strong> — 工場オートメーション・計測・ヘルスケア機器向け高精度アナログIC。設計込み込み後の長い製品寿命が特徴</li>
+          <li><strong>自動車向け（~30%）</strong> — ADAS・BMS・車載イーサネット・レーダー向けSiP、EVシフトによる搭載増加が追い風</li>
+          <li><strong>通信・コンシューマ（~23%）</strong> — 5Gインフラ向けRF/マイクロ波IC、データセンター電源、オーディオIC等</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>設計込み込み（デザインイン）モデル</strong> — 顧客製品への設計採用後は数年〜10年以上継続発注が続く高粘着型モデル、製品ライフサイクルが長い</li>
+          <li><strong>直販＋代理店ハイブリッド</strong> — 大手OEMとの直接長期契約と代理店経由の小口を組み合わせ、産業・車載の安定収益を確保</li>
+          <li><strong>高精度・ニッチ品で高マージン維持</strong> — 汎用品ではなく高付加価値特定用途品に集中、粗利率は高水準を維持しR&D再投資の原資</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>アナログ設計の「暗黙知」バリア</strong> — アナログICはデジタルと異なり経験則に基づく設計ノウハウが必要で、熟練エンジニアの蓄積が後発参入を阻む</li>
+      <li><strong>デザインイン後の極めて高い切替コスト</strong> — 製品に組み込まれた後の部品変更は再設計・再認証が必要で経済的に割に合わず、長期継続受注を生む</li>
+      <li><strong>Maxim統合による製品ポートフォリオの深化</strong> — 2021年$21B買収で電源管理・IoT向け機能が加わり、一社で顧客の要求を広くカバーできる競合優位を確立</li>
+      <li><strong>高精度コンバータ・RF分野での技術的先行</strong> — データコンバータ市場の上位シェアを長年保持、競合が同等性能に追いつくまでに数世代の開発期間が必要</li>
+      <li><strong>顧客の長い設計サイクルへの深い組み込み</strong> — 産業・車載顧客との多年度共同開発で製品ロードマップに組み込まれ、早期からの関係が後発参入の機会を閉じる</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Texas Instruments</strong></td><td>TXN</td><td>~$190B</td><td>アナログ半導体首位、300mmウェハコスト優位でADIと全セグメントで競合</td></tr>
+        <tr><td><strong>Infineon Technologies</strong></td><td>IFX（XETRA）</td><td>~$35B</td><td>パワー半導体・SiC・車載センサー領域でADI自動車セグメントと競合</td></tr>
+        <tr><td><strong>NXP Semiconductors</strong></td><td>NXPI</td><td>~$50B</td><td>車載MCU・レーダー・混在信号ICでADIと自動車・産業市場で競合</td></tr>
+        <tr><td><strong>STMicroelectronics</strong></td><td>STM</td><td>~$20B</td><td>MEMS・センサー・産業用パワーICで欧州・アジア市場においてADIと競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
     <span class="tag">アナログ半導体</span>
-    <span class="tag">混合信号IC</span>
-    <span class="tag">パワーマネジメント</span>
-    <span class="tag">産業機器</span>
-    <span class="tag">自動車 (ADAS/EV)</span>
-    <span class="tag">5G・データセンター</span>
-    <span class="tag">航空宇宙・防衛</span>
+    <span class="tag">ミックスドシグナル</span>
+    <span class="tag">産業用IC</span>
+    <span class="tag">自動車電装</span>
+    <span class="tag">データコンバータ</span>
+    <span class="tag">NASDAQ: ADI</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">インテリジェントエッジ</span>
   </div>
 </div>
 

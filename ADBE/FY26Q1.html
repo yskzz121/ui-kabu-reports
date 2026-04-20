@@ -72,11 +72,28 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -356,6 +373,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   .panel-merge .chart-split{padding:20px 20px 16px}
   .panel-merge .val-gauge{padding:30px 20px 40px}
   .panel-merge .val-reminder{padding:16px 20px 18px}
@@ -818,16 +842,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>Company Overview — 企業概要</h2>
-  <p><strong>Adobe Inc.</strong>（NASDAQ: ADBE）は、クリエイティブソフトウェア・デジタルマーケティングの世界的リーダー。1982年設立、米カリフォルニア州 San Jose 本社。<strong>Shantanu Narayen</strong>（CEO退任発表、後任選定中）が18年間CEOを務め、取締役会長に留まる予定。時価総額は約<span class="no-currency">$111.6B</span>、従業員数約31,360人。</p>
-  <p>ビジネスモデルはSaaSサブスクリプション中心のクラウドプラットフォーム。デジタルメディア（Creative Cloud, Document Cloud）とデジタルエクスペリエンス（Experience Platform）の2本柱。FY2026から新セグメント体制（Creative & Marketing Professionals / Business Professionals & Consumers）へ移行。AI戦略では <strong>Adobe Firefly</strong>（累計65億アセット生成）を中核に、25以上のパートナーモデルを統合。</p>
+  <h2>企業概要 — Adobe Inc.</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1982年（John Warnock・Charles Geschke 共同創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンノゼ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Shantanu Narayen（後継者決定後に移行予定、2026年3月発表）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: ADBE（1986年上場）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / アプリケーションソフトウェア</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / NASDAQ-100</dd></dl>
+    <dl class="ov-grid-item"><dt>Creative Cloud 契約者数</dt><dd>約3,700万人（FY2024）</dd></dl>
+    <dl class="ov-grid-item"><dt>Digital Media ARR</dt><dd>約 $18.1B（FY2024）</dd></dl>
+  </div>
+
+  <p>Adobeはクリエイティブ・ドキュメント・マーケティング技術の3クラウドを擁するソフトウェア企業。Photoshop・Illustrator・Premiere Proなど業界標準ツール群をサブスク提供し、企業向けはExperience Cloudで顧客体験管理を支援。生成AI「Adobe Firefly」をネイティブ統合し、ARRへの貢献は既に $5B超に達している。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>Digital Media（Creative+Document Cloud、~75%）</strong> — Photoshop・Illustrator・Acrobat・Firefly等の業界標準ツール群、ARR $18.1B</li>
+          <li><strong>Digital Experience（Experience Cloud、~25%）</strong> — 企業向けマーケティング分析・CDP・パーソナライゼーション、エンタープライズ契約中心</li>
+          <li><strong>Adobe Firefly・生成AI製品群</strong> — 商用利用ライセンス済み学習データで安全な生成AI、AIクレジット課金で新たな収益軸を形成中</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>サブスクリプション主体（~97%）</strong> — 個人・チーム・エンタープライズの階層プランで課金、ARRベースで収益の予見可能性が高い</li>
+          <li><strong>AIクレジット課金（拡大中）</strong> — Fireflyを使った生成AI機能は上位プランへのアップグレードまたは追加クレジット購入を促進</li>
+          <li><strong>プロフェッショナルサービス・その他（~3%）</strong> — Experience Cloud導入支援・カスタム実装が付随するが、SaaS比率の高さが強み</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>業界標準ファイル形式による深い切替コスト</strong> — .PSD・.AI・.PDF等の業界標準フォーマットは制作ワークフロー全体に埋め込まれ、代替製品への移行コストが極めて高い</li>
+      <li><strong>プロクリエイターの圧倒的ブランド認知</strong> — プロクリエイターの99%が認知、Creative Cloud市場シェア~58%で競合をほぼ寄せ付けない地位を確立</li>
+      <li><strong>Behance + 50Mコミュニティのネットワーク効果</strong> — ポートフォリオプラットフォームBehanceが5,000万人超のクリエイターを囲い込み、エコシステム離脱を抑制</li>
+      <li><strong>Fireflyの商用安全性による企業参入障壁</strong> — ライセンス済みデータのみで学習した生成AIはB2B調達の安全基準を満たし、競合他社との差別化点となる</li>
+      <li><strong>統合3クラウドのクロスセル・アップセル構造</strong> — Creative→Document→Experience Cloudとデータが循環し、企業の全デジタルコンテンツライフサイクルをAdobe内で完結させる</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Salesforce</strong></td><td>CRM</td><td>~$250B</td><td>Experience Cloud（マーケ分析・CDP）領域でMarketing CloudとAI活用で競合</td></tr>
+        <tr><td><strong>Canva（非上場）</strong></td><td>—</td><td>—</td><td>SMB・ノンプロ向け簡易デザインで急成長、Creative Cloudの裾野市場を侵食</td></tr>
+        <tr><td><strong>Figma（非上場）</strong></td><td>—</td><td>~$12B相当</td><td>UI/UXデザイン協働ツールで急成長、Adobe買収提案が規制当局に阻まれ競合継続</td></tr>
+        <tr><td><strong>Microsoft</strong></td><td>MSFT</td><td>~$3T</td><td>Copilot統合OfficeとDesignerで一部クリエイティブ領域に参入、Teamsとの統合が脅威</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">1982年設立</span>
-    <span class="tag">SaaS / サブスク</span>
-    <span class="tag">ARR $26.06B</span>
-    <span class="tag">時価総額 <span class="no-currency">~$111.6B</span></span>
-    <span class="tag">Firefly 65億アセット</span>
-    <span class="tag">AI-First ARR 3倍成長</span>
+    <span class="tag">SaaS</span>
+    <span class="tag">クリエイティブソフトウェア</span>
+    <span class="tag">生成AI / Firefly</span>
+    <span class="tag">Creative Cloud</span>
+    <span class="tag">Experience Cloud</span>
+    <span class="tag">NASDAQ: ADBE</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">デジタルメディア</span>
   </div>
 </div>
 

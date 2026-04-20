@@ -68,7 +68,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
-.ov-drop.open{max-height:1500px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px}
@@ -77,6 +77,23 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop .ov-val{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
 
 /* ══════════════════════════════════════════
    LAYER I — EXECUTIVE SUMMARY
@@ -373,6 +390,13 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+
   body{padding:12px!important}
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
@@ -785,24 +809,81 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Overview Dropdown -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要</h2>
-  <p>FedEx Corporation（NYSE: FDX）は世界最大の物流企業の一つ。1971年創業、テネシー州メンフィス本社。航空・陸上・国際輸送を統合した"one FedEx"戦略のもと、DRIVE変革プログラムで大規模なコスト構造改革を推進中。FedEx Freightの独立スピンオフ（2026年6月予定）も注目材料。</p>
+  <h2>企業概要 — FedEx Corporation</h2>
+
+  <!-- Identity Grid -->
   <div class="ov-grid">
-    <div class="ov-item"><span class="ov-lbl">設立</span><span class="ov-val">1971年</span></div>
-    <div class="ov-item"><span class="ov-lbl">本社</span><span class="ov-val">Memphis, Tennessee</span></div>
-    <div class="ov-item"><span class="ov-lbl">CEO</span><span class="ov-val">Raj Subramaniam</span></div>
-    <div class="ov-item"><span class="ov-lbl">従業員数</span><span class="ov-val">約44万人</span></div>
-    <div class="ov-item"><span class="ov-lbl">主要事業</span><span class="ov-val">輸送・eコマース・ビジネスサービス</span></div>
-    <div class="ov-item"><span class="ov-lbl">時価総額</span><span class="ov-val">約$83.7B</span></div>
-    <div class="ov-item"><span class="ov-lbl">上場市場</span><span class="ov-val">NYSE</span></div>
-    <div class="ov-item"><span class="ov-lbl">競合</span><span class="ov-val">UPS、Amazon Logistics、DHL、USPS</span></div>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1971年（Frederick W. Smithが設立、1973年4月17日に本格運航開始）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>テネシー州メンフィス（メンフィス国際空港隣接の世界最大の航空貨物ハブ）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Raj Subramaniam（2022年6月就任、創業者Fred Smith退任後を継承）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: FDX（1978年 IPO）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>資本財・サービス / 航空貨物・物流（Air Freight & Logistics）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&P 500 / ダウ・ジョーンズ運輸平均（DJTA）採用</dd></dl>
+    <dl class="ov-grid-item"><dt>1日取扱量</dt><dd>世界約1,700万個（ピーク時はEコマース需要で1,900万個超）</dd></dl>
+    <dl class="ov-grid-item"><dt>ネットワーク規模</dt><dd>220以上の国・地域をカバー、世界最大規模の航空貨物ネットワーク</dd></dl>
   </div>
+
+  <p>FedExは世界最大の航空貨物・宅配物流ネットワークを運営するグローバル物流企業。DRIVEプログラムによるExpressとGroundネットワークの統合・コスト削減を推進する一方、FedEx Freightの独立上場（2026年中期予定）でコアParcel事業への集中を図る。<strong>1日最大1,900万個を220カ国超に届ける</strong>インフラ規模と時間指定配達の信頼性が企業顧客の基幹物流として定着しており、競合が数十年かけても複製困難な物理ネットワーク資産を保有する。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li>{'name': 'FedEx Express（売上の~55%）', 'detail': '航空+陸路の統合ネットワークで翌日・翌々日配達を全米・国際提供。法人向け時間指定サービスが最高単価帯。航空機662機・世界最大の民間航空貨物隊を保有'}</li>
+          <li>{'name': 'FedEx Ground / Home Delivery（~35%）', 'detail': '地上配達ネットワーク。Eコマース拡大の主要受益セグメント。FedEx SmartPost廃止後はHome Deliveryに統合し宅配効率を改善'}</li>
+          <li>{'name': 'FedEx Freight（~10%、スピンオフ予定）', 'detail': 'LTL（混載）貨物トラック輸送。2026年中期の独立上場を発表済みで、分離後はコアParcel事業の収益性・資本効率が向上する見込み'}</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li>{'name': '企業向け時間指定配達の高単価モデル', 'detail': '翌日・翌々日の確実配達に対して法人顧客がプレミアムを支払う。医療品・半導体・文書等の時間価値が高い荷物で高単価を維持'}</li>
+          <li>{'name': 'Eコマース宅配需要の恒常的拡大取り込み', 'detail': 'B2C宅配需要の成長が直接Groundセグメントの増収に直結。ショッパー向け柔軟配達オプション（リダイレクト・保管）で差別化'}</li>
+          <li>{'name': 'DRIVEによるネットワーク統合・コスト削減効果', 'detail': 'ExpressとGroundの統合で施設・輸送コストを大幅削減。2025-2026年で合計$40億以上の年間コスト削減目標を設定済み'}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>世界最大の民間航空貨物ネットワーク（航空機662機）</strong> — 数百億ドル規模の設備投資と数十年の運航実績で構築したインフラは後発者が短期間で複製不可能な物理的参入障壁</li>
+      <li><strong>220カ国超の国際配送ネットワークと通関ノウハウ</strong> — 各国税関・通関規制への深い知見と地域パートナー網が国際急送の信頼性を担保し、DHL以外には匹敵困難なグローバルリーチ</li>
+      <li><strong>「翌日配達の信頼性」ブランドの企業顧客への浸透</strong> — 医療・法律・金融・製造業の基幹物流として組み込まれ、切替コストが高い。SLA（サービス水準契約）ベースの長期契約がベースロードを形成</li>
+      <li><strong>DRIVEによるネットワーク統合後のコスト競争力</strong> — ExpressとGround統合で輸送距離の短縮・積載効率の向上が進み、UPSとの収益性格差を縮小する構造改革が進行中</li>
+      <li><strong>Freight分離後の焦点絞り込みによる資本効率向上</strong> — LTLトラック事業の独立上場でParcel事業に資本・経営資源を集中。スリム化後の資本利益率・FCF創出力の改善が見込まれる</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>United Parcel Service</strong></td><td>UPS</td><td>~$88B</td><td>最直接の宅配競合。Groundネットワークで全米を覆いFDXと顧客を奪い合う。営業利益率はUPSが高く、FDXはDRIVEで格差縮小を目指す</td></tr>
+        <tr><td><strong>DHL（Deutsche Post傘下）</strong></td><td>DPW（FRA）</td><td>~$45B（親会社）</td><td>欧州・新興国の国際物流でFDXを上回るシェア。米国外の国際急送市場で最大の競合であり、FDXの国際事業拡大の壁</td></tr>
+        <tr><td><strong>Amazon Logistics</strong></td><td>AMZN</td><td>~$1.9T</td><td>自社荷物の70%超を内製化後に第三者向け配送「Amazon Shipping」を拡大中。2024年米国最大宅配業者となり、FDXの国内Eコマース需要を直接侵食</td></tr>
+        <tr><td><strong>XPO Logistics / Old Dominion</strong></td><td>XPO / ODFL</td><td>~$16B / ~$35B</td><td>FedEx Freightのスピンオフ後は、LTL市場でXPO・OLDFと直接競合するが、Parcelコア事業ではなく関連市場での競合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
   <div class="tags">
-    <span class="tag">物流</span>
-    <span class="tag">eコマース</span>
-    <span class="tag">DRIVE変革</span>
-    <span class="tag">Network 2.0</span>
-    <span class="tag">Freight スピンオフ</span>
+    <span class="tag">物流・宅配</span>
+    <span class="tag">航空貨物</span>
+    <span class="tag">グローバル物流</span>
+    <span class="tag">Eコマース物流</span>
+    <span class="tag">NYSE: FDX</span>
+    <span class="tag">S&P 500</span>
+    <span class="tag">DJTA採用</span>
+    <span class="tag">資本財・サービス</span>
   </div>
 </div>
 
