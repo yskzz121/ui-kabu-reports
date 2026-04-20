@@ -1604,7 +1604,7 @@ function toggleAllSections(expand){
       var c = children[j];
       var ctag = c.tagName;
       if (ctag === 'FOOTER' || ctag === 'SCRIPT' || ctag === 'STYLE') continue;
-      if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav'))) continue;
+      if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav') || c.classList.contains('atlas-floating-currency'))) continue;
       c.classList.add('atlas-paywall-gated-hide');
     }
   }
@@ -1647,7 +1647,7 @@ function toggleAllSections(expand){
         if (idx <= cardIdx) continue; // keep before card
         var ctag = c.tagName;
         if (ctag === 'FOOTER' || ctag === 'SCRIPT' || ctag === 'STYLE') continue;
-        if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav'))) continue;
+        if (c.classList && (c.classList.contains('atlas-related-morning') || c.classList.contains('atlas-nav') || c.classList.contains('atlas-floating-currency'))) continue;
         c.classList.add('atlas-paywall-gated-hide');
       }
     } else {
