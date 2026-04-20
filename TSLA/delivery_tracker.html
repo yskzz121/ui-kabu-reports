@@ -713,7 +713,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 </div>
 
 <!-- TradingView -->
-<div class="section" id="sec-technical" data-accordion>
+<div class="section no-currency" id="sec-technical" data-accordion>
   <div class="section-title"> 株価チャート</div>
   <div class="section-body">
     <div style="text-align:center;margin-bottom:12px">
@@ -1676,5 +1676,173 @@ function toggleAllSections(expand){
 
 </script>
 <!-- /ATLAS-PAYWALL-SCRIPT -->
+
+<!-- Atlas Currency Toggle (floating, top-right) -->
+<style>
+.atlas-floating-currency{position:fixed;top:16px;right:16px;z-index:999;background:rgba(26,37,64,.9);border:1px solid rgba(184,145,42,0.2);border-radius:8px;padding:2px;box-shadow:0 2px 8px rgba(0,0,0,.2);backdrop-filter:blur(6px)}
+.currency-toggle{background:none;border:1px solid rgba(255,255,255,0.12);cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;line-height:1;letter-spacing:.3px;color:rgba(255,255,255,0.85);transition:all .15s;display:inline-flex;align-items:center;gap:2px}
+.currency-toggle:hover{opacity:.85;border-color:rgba(184,145,42,0.4)}
+.currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.currency-toggle .cur-inactive{color:inherit;opacity:.55}
+.currency-toggle .cur-sep{opacity:.4;margin:0 1px;font-weight:400}
+.currency-toggle.jpy-mode{border-color:rgba(184,145,42,0.45);background:rgba(184,145,42,0.08)}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode{color:#D4A843}
+</style>
+<div class="atlas-floating-currency"><button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button></div>
+<script>
+(function(){
+  if(window.__ATLAS_CURRENCY_LOADED) return;
+  window.__ATLAS_CURRENCY_LOADED = true;
+  var FX = window.ATLAS_FX;
+  if(!FX || !FX.code || FX.code === 'USD'){
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.currency-toggle').forEach(function(b){ b.style.display = 'none'; });
+    });
+    window.toggleCurrency = function(){};
+    return;
+  }
+  if(!FX.code) FX.code = 'JPY';
+  if(!FX.symbol) FX.symbol = '¥';
+  if(!FX.fmt) FX.fmt = 'cjk-ja';
+  if(!FX.eur_usd) FX.eur_usd = 1.10;
+  var localKey = 'atlas-currency';
+  var currencyMode = localStorage.getItem(localKey) || 'USD';
+  if(currencyMode !== 'USD' && currencyMode !== FX.code) currencyMode = FX.code;
+  var CJK_UNITS = {'万':1e4,'萬':1e4,'만':1e4,'億':1e8,'억':1e8,'兆':1e12,'조':1e12};
+  var TBMK_UNITS = {'K':1e3,'M':1e6,'B':1e9,'T':1e12};
+  function toBillionsPair(rawUsd){
+    if(rawUsd >= 1e12) return {num:rawUsd/1e12,unit:'T'};
+    if(rawUsd >= 1e9) return {num:rawUsd/1e9,unit:'B'};
+    if(rawUsd >= 1e6) return {num:rawUsd/1e6,unit:'M'};
+    if(rawUsd >= 1e3) return {num:rawUsd/1e3,unit:'K'};
+    return {num:rawUsd,unit:''};
+  }
+  function fmtLocal(num, unit){
+    var usd_b = unit==='T'?num*1000:unit==='B'?num:unit==='M'?num/1000:unit==='K'?num/1e6:null;
+    if(FX.fmt === 'cjk-ja'){
+      if(usd_b !== null){
+        var jpy_b = usd_b * FX.rate;
+        if(jpy_b >= 1000) return FX.symbol + (jpy_b/1000).toFixed(2) + '兆';
+        if(jpy_b >= 1) return FX.symbol + (jpy_b*10).toFixed(0) + '億';
+        return FX.symbol + (jpy_b*1000).toFixed(0) + '百万';
+      }
+      var jpy = num * FX.rate;
+      if(jpy >= 10000) return FX.symbol + (jpy/10000).toFixed(2) + '万';
+      return FX.symbol + Math.round(jpy).toLocaleString();
+    }
+    return FX.symbol + Math.round(num * FX.rate).toLocaleString();
+  }
+  var CURRENCY_RE = new RegExp(
+    '\\$(\\d+(?:,\\d{3})*(?:\\.\\d+)?)\\s*([TBMK])?(?![\\w%])' +
+    '|€(\\d+(?:,\\d{3})*(?:\\.\\d+)?)\\s*([TBMK])?(?![\\w%])' +
+    '|(\\d+(?:,\\d{3})*(?:\\.\\d+)?)\\s*([万億兆萬억조만])?\\s*(ドル|美元|달러)' +
+    '|(\\d+(?:,\\d{3})*(?:\\.\\d+)?)\\s*([万億兆萬억조만])?\\s*ユーロ',
+    'g'
+  );
+  function hasCurrency(s){
+    return s.indexOf('$')>=0 || s.indexOf('€')>=0 ||
+           s.indexOf('ドル')>=0 || s.indexOf('美元')>=0 ||
+           s.indexOf('달러')>=0 || s.indexOf('ユーロ')>=0;
+  }
+  var WRAP_DONE = false;
+  function wrapCurrencyValues(){
+    if(WRAP_DONE) return; WRAP_DONE = true;
+    var skipTags = {SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
+    var skipClasses = ['portal-link','currency-toggle','theme-toggle','font-scale-btn','lang-switch','lang-menu','toc-toggle','toc-list','tradingview-widget-container','no-currency','nav-hamburger','overview-toggle-btn','market-panels'];
+    function shouldSkip(node){
+      var p = node.parentNode;
+      while(p && p !== document.body){
+        if(skipTags[p.tagName]) return true;
+        if(p.classList){
+          for(var i=0;i<skipClasses.length;i++) if(p.classList.contains(skipClasses[i])) return true;
+        }
+        p = p.parentNode;
+      }
+      return false;
+    }
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [], n;
+    while((n = walker.nextNode())){
+      if(n.nodeValue && hasCurrency(n.nodeValue) && !shouldSkip(n)) nodes.push(n);
+    }
+    nodes.forEach(function(node){
+      var text = node.nodeValue;
+      CURRENCY_RE.lastIndex = 0;
+      if(!CURRENCY_RE.test(text)) return;
+      CURRENCY_RE.lastIndex = 0;
+      var frag = document.createDocumentFragment();
+      var lastIdx = 0, m;
+      while((m = CURRENCY_RE.exec(text)) !== null){
+        if(m.index > lastIdx) frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
+        var rawUsd = 0;
+        if(m[1]){ rawUsd = parseFloat(m[1].replace(/,/g,'')) * (TBMK_UNITS[m[2]] || 1); }
+        else if(m[3]){ rawUsd = parseFloat(m[3].replace(/,/g,'')) * (TBMK_UNITS[m[4]] || 1) * FX.eur_usd; }
+        else if(m[5]){ rawUsd = parseFloat(m[5].replace(/,/g,'')) * (CJK_UNITS[m[6]] || 1); }
+        else if(m[8]){ rawUsd = parseFloat(m[8].replace(/,/g,'')) * (CJK_UNITS[m[9]] || 1) * FX.eur_usd; }
+        var pair = toBillionsPair(rawUsd);
+        var span = document.createElement('span');
+        span.className = 'cur-val';
+        span.setAttribute('data-usd', pair.num);
+        span.setAttribute('data-unit', pair.unit);
+        span.setAttribute('data-orig', m[0]);
+        span.textContent = m[0];
+        frag.appendChild(span);
+        lastIdx = m.index + m[0].length;
+      }
+      if(lastIdx < text.length) frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function applyCurrency(mode){
+    document.querySelectorAll('.cur-val').forEach(function(el){
+      if(mode !== 'USD'){
+        var usd = parseFloat(el.getAttribute('data-usd'));
+        var unit = el.getAttribute('data-unit') || '';
+        el.textContent = fmtLocal(usd, unit);
+        el.classList.add('local-mode','jpy-mode');
+      } else {
+        el.textContent = el.getAttribute('data-orig');
+        el.classList.remove('local-mode','jpy-mode');
+      }
+    });
+    document.querySelectorAll('.currency-toggle').forEach(function(btn){
+      var act = btn.querySelector('.cur-active');
+      var inact = btn.querySelector('.cur-inactive');
+      if(!act || !inact) return;
+      if(mode !== 'USD'){
+        btn.classList.add('local-mode','jpy-mode');
+        act.textContent = FX.symbol; inact.textContent = '$';
+        btn.title = FX.code + '表示中（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
+      } else {
+        btn.classList.remove('local-mode','jpy-mode');
+        act.textContent = '$'; inact.textContent = FX.symbol;
+        btn.title = 'USD ⇄ ' + FX.code + ' 切替（レート: 1$ = ' + FX.rate + ' ' + FX.code + '、' + FX.date + '）';
+      }
+    });
+  }
+  function initButtons(){
+    document.querySelectorAll('.currency-toggle').forEach(function(btn){
+      var inact = btn.querySelector('.cur-inactive');
+      if(inact && inact.textContent === '¥') inact.textContent = FX.symbol;
+    });
+  }
+  window.toggleCurrency = function(){
+    wrapCurrencyValues();
+    currencyMode = currencyMode === 'USD' ? FX.code : 'USD';
+    localStorage.setItem(localKey, currencyMode);
+    applyCurrency(currencyMode);
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    initButtons();
+    if(currencyMode !== 'USD'){
+      wrapCurrencyValues();
+      applyCurrency(currencyMode);
+    } else {
+      applyCurrency('USD');
+    }
+  });
+})();
+</script>
 </body>
 </html>
