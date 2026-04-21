@@ -62,6 +62,8 @@ h1,h2,h3,.sec3-title,.l1-score-label{font-family:'Shippori Mincho B1','Noto Sans
 .ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
 .ov-rivals tbody tr:last-child td{border-bottom:none}
 .ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
+.ov-close-btn{display:block;width:100%;margin-top:22px;padding:14px;background:rgba(184,145,42,0.08);border:1px solid rgba(184,145,42,0.25);border-radius:8px;color:var(--gold2);font-family:'Inter','Noto Sans JP',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .2s}
+.ov-close-btn:hover{background:rgba(184,145,42,0.16);border-color:rgba(184,145,42,0.45);color:var(--paper)}
 
 /* ── Layer Eyebrow ── */
 .layer-eyebrow{font-size:10px;letter-spacing:.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -752,6 +754,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <span class="tag">NYSE: BABA</span>
     <span class="tag">HKEX: 9988</span>
   </div>
+
+  <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
 </div>
 
 <div class="layer-eyebrow">Layer I — Executive Summary</div>
@@ -1458,11 +1462,15 @@ btn.textContent=isExpanded?'さらに表示 ▼':'折りたたむ ▲';
 }
 
 // === toggleOverview ===
-function toggleOverview(){
-var d=document.getElementById('ovDrop');var b=document.getElementById('ovBtn');
-if(!d)return;
-var open=d.classList.toggle('open');
-if(b){var ch=b.querySelector('.chev');if(ch)ch.textContent=open?'▲':'▼';}
+function toggleOverview() {
+  var drop = document.getElementById('ovDrop');
+  var btn = document.getElementById('ovBtn');
+  if (!drop || !btn) return;
+  var isOpen = drop.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  if (!isOpen) {
+    btn.scrollIntoView({behavior:'smooth', block:'start'});
+  }
 }
 
 // === TOC ===

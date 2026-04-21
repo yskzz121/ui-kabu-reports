@@ -109,6 +109,8 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
 .ov-rivals tbody tr:last-child td{border-bottom:none}
 .ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
+.ov-close-btn{display:block;width:100%;margin-top:22px;padding:14px;background:rgba(184,145,42,0.08);border:1px solid rgba(184,145,42,0.25);border-radius:8px;color:var(--gold2);font-family:'Inter','Noto Sans JP',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .2s}
+.ov-close-btn:hover{background:rgba(184,145,42,0.16);border-color:rgba(184,145,42,0.45);color:var(--paper)}
 
 /* Layer I */
 .layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
@@ -720,6 +722,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <span class="tag">S&amp;P 500</span>
     <span class="tag">ブロックバスター</span>
   </div>
+
+  <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
 </div>
 
 <div class="layer-eyebrow">Layer I — Executive Summary</div>
@@ -1356,7 +1360,16 @@ function toggleToc(){var menu=document.getElementById('tocMenu');var btn=documen
 function tocJump(id){var sec=document.getElementById(id);if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}}
 function toggleAllSections(expand){document.querySelectorAll('[data-accordion]').forEach(function(sec){if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');});}
 // Overview
-function toggleOverview(){var dd=document.getElementById('ovDrop');var btn=document.getElementById('ovBtn');if(!dd||!btn)return;dd.classList.toggle('open');btn.classList.toggle('open');}
+function toggleOverview() {
+  var drop = document.getElementById('ovDrop');
+  var btn = document.getElementById('ovBtn');
+  if (!drop || !btn) return;
+  var isOpen = drop.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  if (!isOpen) {
+    btn.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
 // Risk accordion
 function toggleRisk(btn){var card=btn.closest('.risk-card');if(!card)return;card.classList.toggle('expanded');var lbl=btn.querySelector('.lbl');if(lbl){var hiddenCount=card.querySelectorAll('.risk-more li').length;lbl.textContent=card.classList.contains('expanded')?'閉じる':'さらに'+hiddenCount+'件を表示';}}
 </script>
