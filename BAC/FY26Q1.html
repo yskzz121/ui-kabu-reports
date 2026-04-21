@@ -77,6 +77,9 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
 .ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+.ov-grid-item dt{font-size:.72rem;color:var(--t3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:'Inter',sans-serif;margin-bottom:3px}
+.ov-grid-item dd{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif}
 .ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
 .ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
 .ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -324,6 +327,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
    Mobile Responsive
 ═══════════════════════════════════════════ */
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .ov-grid{grid-template-columns:1fr}
 @media(max-width:768px){
   .ov-biz-grid{grid-template-columns:1fr;gap:16px}
   .ov-rivals{font-size:.78rem}
