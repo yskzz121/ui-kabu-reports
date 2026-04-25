@@ -1,3 +1,0 @@
-file '/Users/yskzz121/ui-kabu-reports/TXN/audio_work_FY2026Q1/00_opening.mp3'
-file '/Users/yskzz121/ui-kabu-reports/TXN/audio_work_FY2026Q1/01_highlights.mp3'
-file '/Users/yskzz121/ui-kabu-reports/TXN/audio_work_FY2026Q1/02_closing.mp3'
