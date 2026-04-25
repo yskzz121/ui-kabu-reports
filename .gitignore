@@ -1,0 +1,11 @@
+# Atlas Quarterly 内部作業ディレクトリ（TTS生成、ミックス中間ファイル等）
+**/audio_work_*/
+
+# 共有アセット（BGM ソース音源、容量大、ローカルのみ）
+_assets/
+
+# テスト用ラジオ MP3 (本番は <PERIOD>-radio.mp3 のみ)
+**/*-radio-test*.mp3
+
+# OS
+.DS_Store

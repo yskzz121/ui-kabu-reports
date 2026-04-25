@@ -1,0 +1,65 @@
+{
+  "date": "2026-04-23",
+  "ticker": "INTC",
+  "period": "Q1_2026",
+  "total_ms": 393458,
+  "total_label": "6:33",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "ジングル＋タイトルコール",
+      "start_ms": 0,
+      "end_ms": 6026,
+      "start_label": "0:00"
+    },
+    {
+      "id": "opening",
+      "title": "オープニング",
+      "start_ms": 6026,
+      "end_ms": 35594,
+      "start_label": "0:06"
+    },
+    {
+      "id": "highlights",
+      "title": "決算ハイライト",
+      "start_ms": 35594,
+      "end_ms": 129698,
+      "start_label": "0:35"
+    },
+    {
+      "id": "segments",
+      "title": "セグメント別",
+      "start_ms": 129698,
+      "end_ms": 190274,
+      "start_label": "2:09"
+    },
+    {
+      "id": "guidance",
+      "title": "ガイダンス",
+      "start_ms": 190274,
+      "end_ms": 234698,
+      "start_label": "3:10"
+    },
+    {
+      "id": "valuation",
+      "title": "バリュエーション",
+      "start_ms": 234698,
+      "end_ms": 294194,
+      "start_label": "3:54"
+    },
+    {
+      "id": "risks",
+      "title": "リスク・カタリスト",
+      "start_ms": 294194,
+      "end_ms": 352058,
+      "start_label": "4:54"
+    },
+    {
+      "id": "closing",
+      "title": "クロージング",
+      "start_ms": 352058,
+      "end_ms": 393458,
+      "start_label": "5:52"
+    }
+  ]
+}
