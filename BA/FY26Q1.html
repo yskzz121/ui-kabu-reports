@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Boeing (BA) FY26Q1 決算分析レポート</title>
+<link rel="icon" type="image/png" href="../logos/BA-favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>window.ATLAS_FX = { code: 'JPY', symbol: '¥', rate: 159.00, date: '2026/4/15', fmt: 'cjk-ja' };</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.section{margin:32px 0}
+.section-title{font-size:1.3rem;color:#D4A843;border-left:4px solid #1f6feb;padding-left:12px;margin-bottom:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:20px}
+.card .label{font-size:0.8rem;color:#8b949e;margin-bottom:4px}
+.card .value{font-size:1.5rem;font-weight:700}
+.card .sub{font-size:0.8rem;margin-top:4px}
+.green{color:#2ea043}.red{color:#f85149}.blue{color:#D4A843}.yellow{color:#d29922}.gray{color:#8b949e}
+.card-wide{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
+.chart-container{background:#1A2540;border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:16px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+canvas{max-height:320px}
+.data-table{width:100%;border-collapse:collapse;font-size:0.9rem}
+.data-table th{background:#1A2540;color:#D4A843;padding:10px 12px;text-align:left;border-bottom:1px solid #30363d;font-weight:500}
+.data-table td{padding:10px 12px;border-bottom:1px solid #21262d}
+.data-table tr:hover{background:#1c2128}
+.data-table .right{text-align:right}
+.footer{text-align:center;padding:30px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;margin-top:40px}
+  .ov-grid{grid-template-columns:1fr}
+@media(max-width:768px){
+  .ov-biz-grid{grid-template-columns:1fr;gap:16px}
+  .ov-rivals{font-size:.78rem}
+  .ov-rivals thead{display:none}
+  .ov-rivals tbody td{display:block;padding:3px 12px}
+  .ov-rivals tbody td:first-child{padding-top:10px;font-weight:700;color:var(--gold2)}
+  .ov-rivals tbody td:last-child{padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,0.1)}
+body{padding:12px!important}.container{padding:12px}.grid,.metrics-grid{grid-template-columns:1fr 1fr}.val-grid,.val-cards,.risk-grid{grid-template-columns:1fr}.chart-wrap,.chart-container{height:250px}.section{padding:20px 16px}.card-grid{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.rc-grid{grid-template-columns:1fr}.saas-grid{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr!important}.chart-row{grid-template-columns:1fr!important}.overview-grid{grid-template-columns:1fr!important}.tech-grid{grid-template-columns:1fr!important}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.compare-table,.tech-table,.tbl{font-size:.78rem}}
+@media(max-width:480px){.grid,.metrics-grid,.card-grid,.saas-grid{grid-template-columns:1fr!important}.chart-row,.overview-grid,.tech-grid{grid-template-columns:1fr!important}.section-title,.section-header{font-size:1rem}}
+.section[data-accordion],.sec3[data-accordion]{position:relative}
+.section[data-accordion] .section-title,.sec3[data-accordion] .sec3-title{cursor:pointer;user-select:none;padding-right:36px}
+.section[data-accordion] .section-title::after,.sec3[data-accordion] .sec3-title::after{content:'▼';position:absolute;right:6px;top:16px;font-size:.65em;color:var(--t3,#8b949e);transition:transform .25s}
+.section[data-accordion].collapsed .section-title::after,.sec3[data-accordion].collapsed .sec3-title::after{transform:rotate(-90deg)}
+.section[data-accordion] .section-body,.sec3[data-accordion] .sec3-body{overflow:visible;transition:max-height .35s ease,opacity .25s ease;max-height:5000px;opacity:1}
+.section[data-accordion].collapsing .section-body,.sec3[data-accordion].collapsing .sec3-body{overflow:hidden}
+.section[data-accordion].collapsed .section-body,.sec3[data-accordion].collapsed .sec3-body{max-height:0;overflow:hidden;opacity:0;margin:0;padding:0}
+@media(max-width:768px){body{padding-bottom:60px!important}}
+
+/* ══ Atlas Quarterly Design System v2 ══ */
+:root{
+  --bg:#0F1829;--card:#1A2540;--card-hover:#243158;
+  --border:rgba(184,145,42,0.18);--border-strong:rgba(184,145,42,0.35);
+  --t1:#F5F2EC;--t2:#A8B0BC;--t3:#6E7A8C;
+  --gold:#B8912A;--gold2:#D4A843;--gold-pale:#F0E6C8;
+  --navy:#1A2540;--navy-deep:#0F1829;--navy-mid:#243158;
+  --paper:#F5F2EC;--ink:#0F0E0C;--alert:#8B2020;--beat:#2ecc71;--muted:#8B949E;
+  /* Legacy aliases */
+  --bg-primary:var(--bg);--bg-card:var(--card);--bg-card-alt:var(--card-hover);
+  --text-primary:var(--t1);--text-secondary:var(--t2);--text-muted:var(--t3);
+  --green-light:var(--beat);--red-light:var(--alert);
+}
+
+body{background:var(--bg);color:var(--t1);line-height:1.7;padding:20px;max-width:1200px;margin:0 auto;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B1','Noto Sans JP',serif}
+.num,.kpi-val,.price-val,.score-num,.cardx-val,.metric-val,.val-price,.tbl th{font-family:'Inter','Noto Sans JP',sans-serif}
+.insight-body,.mgmt-body{font-family:'Noto Serif JP',serif;font-weight:400}
+
+/* Header */
+.rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
+.rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
+.rh-inner{position:relative;z-index:1}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
+.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
+.rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
+.rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
+.rh .rh-date{color:var(--t3);font-size:.8em;margin-top:6px;font-family:'Inter',sans-serif;letter-spacing:.05em}
+.ov-wrap{position:absolute;top:14px;right:18px;z-index:2;display:flex;gap:6px;align-items:center}
+.ov-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
+.ov-btn .chev{transition:transform .25s}
+.ov-btn.open .chev{transform:rotate(180deg)}
+.ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
+.ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
+.ov-drop p{font-size:.9rem;color:var(--t2);line-height:1.95;margin-bottom:10px;font-family:'Noto Serif JP',serif}
+.ov-drop .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.ov-drop .tag{font-size:.7rem;padding:3px 11px;border-radius:20px;background:rgba(184,145,42,.12);color:var(--gold2);border:1px solid rgba(184,145,42,.25);font-family:'Inter',sans-serif}
+.ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+.ov-grid-item dt{font-size:.72rem;color:var(--t3);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:'Inter',sans-serif;margin-bottom:3px}
+.ov-grid-item dd{font-size:.9rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif}
+.ov-section{margin-top:20px;padding-top:18px;border-top:1px solid rgba(184,145,42,0.14)}
+.ov-section-title{font-family:'Shippori Mincho B1',serif;font-size:.96rem;color:var(--gold2);font-weight:700;margin-bottom:12px;letter-spacing:.02em}
+.ov-biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ov-biz-block h4{font-size:.78rem;color:var(--t2);font-weight:700;margin-bottom:10px;letter-spacing:.04em;font-family:'Inter','Noto Sans JP',sans-serif;text-transform:uppercase}
+.ov-list{list-style:none;padding:0;margin:0}
+.ov-list li{font-size:.86rem;color:var(--t1);padding:5px 0 5px 16px;position:relative;line-height:1.72;font-family:'Noto Sans JP',sans-serif}
+.ov-list li::before{content:'●';position:absolute;left:0;top:7px;color:var(--gold2);font-size:.55rem}
+.ov-list li strong,.ov-moat li strong{color:var(--gold2);font-weight:700}
+.ov-moat{list-style:none;padding:0;margin:0}
+.ov-moat li{font-size:.88rem;color:var(--t1);padding:10px 0 10px 22px;position:relative;line-height:1.8;border-bottom:1px dashed rgba(184,145,42,0.1);font-family:'Noto Sans JP',sans-serif}
+.ov-moat li:last-child{border-bottom:none}
+.ov-moat li::before{content:'◆';position:absolute;left:0;top:11px;color:var(--gold2);font-size:.7rem}
+.ov-rivals{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px}
+.ov-rivals thead th{text-align:left;padding:9px 12px;color:var(--t3);font-weight:600;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(184,145,42,0.2);font-family:'Inter',sans-serif}
+.ov-rivals tbody td{padding:10px 12px;color:var(--t1);border-bottom:1px solid rgba(184,145,42,0.08);font-family:'Noto Sans JP',sans-serif;vertical-align:top}
+.ov-rivals tbody tr:last-child td{border-bottom:none}
+.ov-rivals tbody td strong{color:var(--gold2);font-weight:700}
+.ov-close-btn{display:block;width:100%;margin-top:22px;padding:14px;background:rgba(184,145,42,0.08);border:1px solid rgba(184,145,42,0.25);border-radius:8px;color:var(--gold2);font-family:'Inter','Noto Sans JP',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .2s}
+.ov-close-btn:hover{background:rgba(184,145,42,0.16);border-color:rgba(184,145,42,0.45);color:var(--paper)}
+
+/* Layer I */
+.layer-eyebrow{font-size:10px;letter-spacing:0.38em;color:var(--gold2);text-transform:uppercase;text-align:center;margin:4px 0 10px;font-family:'Inter',sans-serif;font-weight:600;opacity:.7}
+.l1{background:linear-gradient(180deg,rgba(184,145,42,.06) 0%,rgba(36,49,88,.1) 100%);border:1px solid var(--border);border-radius:16px;padding:40px 32px 32px;margin-bottom:40px;display:flex;flex-direction:column;gap:26px}
+.l1-score{display:flex;justify-content:center}
+.l1-score-badge{display:inline-flex;align-items:baseline;gap:16px;background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px 32px}
+.l1-score-num{font-size:2.6rem;font-weight:900;color:var(--gold2);line-height:1;font-family:'Inter',sans-serif}
+.l1-score-label{font-size:1.1rem;font-weight:700;color:var(--gold2);font-family:'Shippori Mincho B1',serif}
+.l1-score-badge.score-high{animation:score-shimmer 3s ease-in-out infinite}
+.l1-score-badge.score-high .l1-score-num,.l1-score-badge.score-high .l1-score-label{animation:score-text-glow 3s ease-in-out infinite}
+@keyframes score-shimmer{0%,100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}40%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}60%{border-color:#D4A843;box-shadow:0 0 18px rgba(212,168,67,.35),0 0 40px rgba(184,145,42,.12)}100%{border-color:var(--gold);box-shadow:0 0 0 rgba(184,145,42,0)}}
+@keyframes score-text-glow{0%,100%{text-shadow:0 0 0 transparent}40%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}60%{text-shadow:0 0 12px rgba(212,168,67,.5),0 0 24px rgba(184,145,42,.2)}}
+.l1-consensus{background:rgba(15,24,41,0.42);border:1px solid var(--border);border-radius:10px;padding:20px 24px 8px}
+.l1-consensus-head{font-family:'Inter',sans-serif;font-size:.7rem;color:var(--gold2);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:16px;text-align:center}
+.l1-consensus-tbl{width:100%;border-collapse:collapse}
+.l1-consensus-tbl th,.l1-consensus-tbl td{padding:12px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:middle}
+.l1-consensus-tbl th{font-family:'Inter',sans-serif;font-size:.64rem;color:var(--t3);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.l1-consensus-tbl td{font-size:.92rem;font-family:'Inter',sans-serif}
+.l1-consensus-tbl td.lbl{color:var(--t2);font-family:'Noto Sans JP',sans-serif;font-weight:500}
+.l1-consensus-tbl td.cn{color:var(--t2)}
+.l1-consensus-tbl td.val{color:var(--t1);font-weight:700}
+.l1-consensus-tbl td.beat{color:var(--beat);font-weight:700;white-space:nowrap}
+.l1-consensus-tbl td.neu{color:var(--t2);font-weight:600;white-space:nowrap}
+.l1-consensus-tbl tr:last-child td{border-bottom:none}
+.l1-notes{padding:2px 4px 2px 16px;border-left:2px solid var(--border-strong)}
+.l1-notes-head{font-family:'Inter',sans-serif;font-size:.66rem;color:var(--gold2);letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+.l1-note{font-family:'Noto Serif JP',serif;font-size:.9rem;color:var(--t1);line-height:1.95;padding:3px 0;font-weight:400}
+.l1-note strong{color:var(--gold2);font-weight:600}
+.l1-price{display:grid;grid-template-columns:repeat(3,1fr);background:rgba(15,24,41,0.3);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.l1-price-cell{padding:16px 18px;text-align:center;border-right:1px solid var(--border)}
+.l1-price-cell:last-child{border-right:none}
+.l1-price-cell .lbl{font-size:.64rem;letter-spacing:.12em;color:var(--t3);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif;font-weight:600}
+.l1-price-cell .val{font-size:1.2rem;font-weight:700;font-family:'Inter',sans-serif;color:var(--t1)}
+
+/* Beat lamp */
+.beat-lamp{display:inline-block;width:10px;height:10px;border-radius:50%;background:#2ecc71;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4);animation:pulse-green 1.5s ease-in-out infinite;vertical-align:middle;margin-right:6px}
+@keyframes pulse-green{0%,100%{opacity:1;box-shadow:0 0 8px #2ecc71,0 0 16px rgba(46,204,113,.4)}50%{opacity:.5;box-shadow:0 0 4px #2ecc71,0 0 8px rgba(46,204,113,.2)}}
+.beat-text{color:var(--gold2);font-weight:700;letter-spacing:.5px;animation:glow-gold 2.5s ease-in-out infinite;font-family:'Inter',sans-serif;font-size:.82em}
+@keyframes glow-gold{0%,100%{opacity:1;text-shadow:0 0 8px rgba(212,168,67,.6)}50%{opacity:.6;text-shadow:0 0 4px rgba(212,168,67,.3)}}
+
+/* Layer II */
+.section{margin-bottom:36px}
+.section-title{font-size:1.15rem;font-weight:700;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;color:var(--t1);letter-spacing:.01em}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.metric-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px 22px;display:flex;flex-direction:column}
+.metric-lbl{font-size:.88rem;font-weight:700;color:var(--t1);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;line-height:1.35}
+.metric-val{font-size:1.75rem;font-weight:800;line-height:1.15;text-align:center;padding:4px 0}
+.metric-sub{font-size:.78rem;color:var(--t2);margin-top:8px;font-family:'Noto Sans JP',sans-serif;line-height:1.6;text-align:center}
+.delta{display:block;font-size:.76rem;color:var(--t2);margin-top:10px;line-height:1.7;font-family:'Inter',sans-serif;text-align:center}
+.delta .pct{font-weight:700}
+.delta .pct.pos{color:var(--beat)}
+.delta .pct.neg{color:var(--alert)}
+.pos{color:var(--beat)}.neg{color:var(--alert)}.gold{color:var(--gold2)}.neu{color:var(--t1)}
+.insight{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 24px;margin-bottom:12px}
+.insight-body{font-family:'Noto Serif JP',serif;font-size:.95rem;color:var(--t1);line-height:1.95;font-weight:400}
+.insight-body strong{color:var(--gold2);font-weight:600}
+.chart-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px}
+.chart-wrap{position:relative;height:300px}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* Boundary */
+.boundary{display:flex;align-items:center;justify-content:center;gap:24px;margin:72px 0 56px;padding:10px 0}
+.boundary-line{flex:0 0 120px;max-width:120px;height:1px;background:var(--border-strong)}
+.boundary-mark{font-family:'Shippori Mincho B1',serif;font-size:2rem;color:var(--gold);font-weight:700}
+
+/* Layer III */
+.sec3{margin-bottom:32px}
+.sec3-title{font-family:'Inter',sans-serif;font-size:1.09rem;font-weight:700;color:var(--t1);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:20px;letter-spacing:.06em;display:flex;align-items:baseline;gap:10px}
+.sec3-title .jp{font-family:'Noto Sans JP',sans-serif;font-size:.85em;color:var(--t2);font-weight:500;letter-spacing:.02em}
+.cardx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.cardx{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px 18px;display:flex;flex-direction:column}
+.cardx-lbl{font-size:.82rem;font-weight:700;color:var(--t1);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);font-family:'Noto Sans JP',sans-serif;display:flex;align-items:center;gap:6px;line-height:1.35}
+.cardx-val{font-size:1.4rem;font-weight:800;line-height:1.15;text-align:center;padding:4px 0}
+.cardx-sub{font-size:.76rem;color:var(--t2);margin-top:6px;font-family:'Noto Sans JP',sans-serif;line-height:1.55;text-align:center}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:12px}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{color:var(--t3);font-weight:500;font-size:.7rem;text-transform:uppercase;letter-spacing:.5px;font-family:'Inter',sans-serif}
+.tbl td{color:var(--t2);font-family:'Noto Sans JP',sans-serif}
+.tbl tr:hover td{background:rgba(184,145,42,.04)}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.risk-card h4{font-size:.9rem;font-weight:700;margin-bottom:12px;color:var(--gold2);font-family:'Noto Sans JP',sans-serif;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.risk-card ul{list-style:none;padding:0}
+.risk-card li{font-size:.82rem;color:var(--t2);padding:6px 0;border-bottom:1px solid rgba(184,145,42,.08);line-height:1.7;font-family:'Noto Serif JP',serif}
+.risk-card li:last-child{border-bottom:none}
+.risk-card li::before{content:'—';margin-right:8px;color:var(--gold)}
+.risk-card ul.risk-top li{color:var(--t1);font-weight:600;font-size:.9rem;line-height:1.8;padding:8px 0}
+.risk-card ul.risk-top li::before{content:'●';font-size:.7em;margin-right:10px;color:var(--gold2)}
+.risk-card ul.risk-top li:last-child{border-bottom:1px solid rgba(184,145,42,.08)}
+.risk-card ul.risk-more{max-height:0;overflow:hidden;opacity:0;transition:max-height .4s ease,opacity .25s ease,margin .3s ease;margin:0}
+.risk-card.expanded ul.risk-more{max-height:800px;opacity:1;margin-top:0}
+.risk-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--gold2);font-family:'Noto Sans JP','Inter',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:border-color .2s,background .2s;width:100%}
+.risk-toggle:hover{border-color:var(--gold2);background:rgba(184,145,42,.06)}
+.risk-toggle .chev{display:inline-block;font-size:.7em;transition:transform .3s ease}
+.risk-card.expanded .risk-toggle .chev{transform:rotate(-180deg)}
+.pullq{position:relative;padding:30px 36px 24px;margin-bottom:18px;border-left:2px solid var(--border-strong)}
+.pullq::before{content:'\201C';position:absolute;top:6px;left:16px;font-family:'Shippori Mincho B1',serif;font-size:4.5rem;color:var(--gold);line-height:1;opacity:.28;pointer-events:none}
+.pullq-body{font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--t1);line-height:2;padding-left:44px;margin-bottom:14px;font-weight:300}
+.pullq-body strong{color:var(--gold2);font-weight:600}
+.pullq-attr{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);text-align:right;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding-right:6px}
+.pullq-attr .role{color:var(--t3);font-weight:500;text-transform:none;margin-left:8px;letter-spacing:.02em;font-family:'Noto Sans JP',sans-serif}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.val-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center}
+.val-scn{font-size:.72rem;font-weight:700;letter-spacing:1.5px;color:var(--gold2);margin-bottom:8px;font-family:'Inter',sans-serif}
+.val-price{font-size:1.9rem;font-weight:900;color:var(--t1);margin-bottom:6px;font-family:'Inter',sans-serif}
+.val-detail{font-size:.74rem;color:var(--t2);line-height:1.5;font-family:'Noto Sans JP',sans-serif}
+.val-gap{font-size:.82rem;font-weight:700;margin-top:8px;font-family:'Inter',sans-serif}
+.ntm-calc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;text-align:center}
+.ntm-row{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;gap:14px;align-items:center;max-width:820px;margin:0 auto 18px}
+.ntm-cell{text-align:center}
+.ntm-lbl{font-size:.7rem;letter-spacing:.1em;color:var(--t3);text-transform:uppercase;margin-bottom:6px;font-family:'Inter',sans-serif}
+.ntm-val{font-family:'Inter',sans-serif;font-size:1.65rem;font-weight:700;color:var(--t1)}
+.ntm-val.goal{font-size:2.4rem;font-weight:900;color:var(--gold2)}
+.ntm-sub{font-size:.7rem;color:var(--t3);margin-top:3px;font-family:'Noto Sans JP',sans-serif}
+.ntm-op{font-size:1.4rem;color:var(--gold2);font-weight:700}
+.ntm-foot{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.ntm-foot-cell{text-align:center}
+.ntm-foot-cell .lbl{font-size:.72rem;color:var(--t3);margin-bottom:2px;font-family:'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.ntm-foot-cell .val{font-size:1.15rem;font-weight:700;font-family:'Inter',sans-serif}
+.cmp-tbl{width:100%;border-collapse:collapse;font-size:.85rem}
+.cmp-tbl th,.cmp-tbl td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.cmp-tbl th{color:var(--t3);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;font-family:'Inter',sans-serif;font-weight:600}
+.cmp-tbl td{color:var(--t2);font-family:'Inter',sans-serif}
+#sec-compare .cmp-tbl{font-size:.98rem}
+#sec-compare .cmp-tbl th{font-size:.81rem}
+#sec-compare .cmp-tbl th,#sec-compare .cmp-tbl td{padding:13px 16px}
+#sec-compare .cmp-tbl td.pos{color:var(--beat);font-weight:700}
+#sec-compare .cmp-tbl td.neg{color:var(--alert);font-weight:700}
+#sec-compare .cmp-tbl td.neu{color:var(--t1);font-weight:600}
+.chart-split{display:grid;grid-template-columns:minmax(240px,1fr) 1.1fr;gap:28px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px 28px;margin-bottom:18px}
+.chart-split-viz{position:relative;height:260px}
+.chart-split-list{display:flex;flex-direction:column;gap:2px}
+.chart-split-item{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.chart-split-item:last-child{border-bottom:none}
+.csi-sw{width:12px;height:12px;border-radius:2px}
+.csi-lbl{font-size:.86rem;color:var(--t1);font-family:'Noto Sans JP',sans-serif;font-weight:500;line-height:1.4}
+.csi-sub{display:block;font-size:.72rem;color:var(--t3);font-weight:400;margin-top:1px}
+.csi-pct{font-family:'Inter',sans-serif;font-weight:700;color:var(--gold2);font-size:1rem}
+.panel-merge{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:18px;overflow:hidden}
+.panel-merge .chart-split{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:26px 28px 20px}
+.panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
+.panel-merge-divider{height:1px;background:var(--border);margin:0 28px}
+.margin-tiles-row{display:grid;grid-template-columns:repeat(4,1fr);padding:24px 0}
+.margin-tile{padding:8px 22px;border-right:1px solid var(--border);text-align:center;display:flex;flex-direction:column;justify-content:center}
+.margin-tile:last-child{border-right:none}
+.margin-tile-lbl{font-size:.8rem;color:var(--t1);margin-bottom:8px;font-family:'Noto Sans JP',sans-serif;font-weight:700}
+.margin-tile-val{font-family:'Inter','Noto Sans JP',sans-serif;font-size:2rem;font-weight:800;line-height:1;margin-bottom:6px}
+.margin-tile-sub{font-size:.7rem;color:var(--t2);font-family:'Noto Sans JP',sans-serif;line-height:1.5}
+.margin-chart-area{padding:18px 24px 26px}
+.margin-chart-area .chart-wrap{height:280px}
+.val-gauge{margin-top:20px;padding:40px 40px 56px;background:var(--card);border:1px solid var(--border);border-radius:14px;position:relative}
+.val-gauge-title{font-family:'Inter',sans-serif;font-size:.72rem;color:var(--gold2);font-weight:700;margin-bottom:36px;text-align:center;letter-spacing:.14em;text-transform:uppercase}
+.val-gauge-track{position:relative;height:6px;background:linear-gradient(90deg,rgba(139,32,32,0.3) 0%,rgba(184,145,42,0.3) 50%,rgba(63,185,80,0.35) 100%);border-radius:3px;margin:0 10px}
+.val-gauge-mark{position:absolute;top:-4px;width:2px;height:14px;background:rgba(184,145,42,0.55);transform:translateX(-1px)}
+.val-gauge-mark .lbl{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:.66rem;color:var(--t3);white-space:nowrap;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.val-gauge-mark .amt{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;color:var(--t1);white-space:nowrap}
+.val-gauge-current{position:absolute;top:-12px;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:13px solid var(--gold2);transform:translateX(-9px);filter:drop-shadow(0 0 6px rgba(212,168,67,0.45))}
+.val-gauge-current .cur-label{position:absolute;top:-40px;left:50%;transform:translateX(-50%);background:var(--gold2);color:var(--navy-deep);padding:4px 12px;border-radius:5px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:800;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.val-gauge-current .cur-label::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--gold2)}
+.val-reminder{background:rgba(184,145,42,0.05);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-top:16px;font-family:'Noto Serif JP',serif;font-size:.82rem;color:var(--t2);line-height:1.9}
+.val-reminder strong{color:var(--gold2);font-weight:600}
+.footer{text-align:center;padding:40px 20px 24px;border-top:1px solid var(--border);margin-top:48px;color:var(--t3)}
+.footer p{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:2;color:var(--t2);max-width:640px;margin:0 auto}
+.footer .footer-id{margin-top:14px;font-family:'Inter',sans-serif;font-size:.72rem;color:var(--t3);letter-spacing:.05em}
+
+/* TOC Nav */
+.toc-nav,.toc-toggle{display:none}
+@media(max-width:768px){
+  .toc-nav{display:block;position:fixed;bottom:0;left:0;right:0;z-index:998;background:#1A2540;border-top:1px solid var(--border);box-shadow:0 -2px 12px rgba(0,0,0,.3)}
+  .toc-toggle{position:fixed;bottom:16px;right:16px;z-index:999;width:48px;height:48px;border-radius:50%;background:#B8912A;color:#0F1829;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
+  .toc-toggle.open{border-radius:12px 12px 0 0;bottom:0;right:0;left:0;width:100%;height:44px;font-size:.85rem}
+  .toc-menu{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .toc-menu.open{max-height:62vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .toc-list{list-style:none;padding:8px 0;margin:0}
+  .toc-list li{border-bottom:1px solid rgba(184,145,42,0.08)}
+  .toc-list li:last-child{border-bottom:none}
+  .toc-list a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:var(--t1);text-decoration:none;font-size:.84rem}
+  .toc-list a:active{background:rgba(184,145,42,.12)}
+  .toc-expand-all{display:flex;justify-content:center;gap:12px;padding:10px 16px;border-bottom:1px solid rgba(184,145,42,0.1)}
+  .toc-expand-all button{font-family:'Noto Sans JP',sans-serif;font-size:.72rem;padding:4px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--t2);cursor:pointer}
+  .toc-expand-all button:active{background:#B8912A;color:#0F1829}
+}
+/* Atlas Floating Tools */
+.atlas-floating-tools{position:fixed;top:16px;right:16px;z-index:999;display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:rgba(26,37,64,.92);border:1px solid rgba(184,145,42,0.2);box-shadow:0 2px 8px rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.atlas-floating-tools .currency-toggle,.atlas-floating-tools .theme-toggle-btn{background:transparent;border:1px solid rgba(255,255,255,0.18);cursor:pointer;padding:5px 9px;border-radius:6px;color:rgba(255,255,255,0.78);font-size:12px;line-height:1;display:inline-flex;align-items:center;justify-content:center;height:28px;font-family:'Inter','Noto Sans JP',sans-serif;font-weight:600}
+.atlas-floating-tools .currency-toggle:hover,.atlas-floating-tools .theme-toggle-btn:hover{border-color:rgba(184,145,42,0.55);color:#D4A843;background:rgba(184,145,42,0.08)}
+.atlas-floating-tools .currency-toggle .cur-active{color:#D4A843;font-weight:800}
+.atlas-floating-tools .currency-toggle .cur-inactive{color:inherit;opacity:.5}
+.atlas-floating-tools .currency-toggle .cur-sep{opacity:.35;margin:0 1px}
+.atlas-floating-tools .currency-toggle.jpy-mode,.atlas-floating-tools .currency-toggle.local-mode{border-color:rgba(184,145,42,0.6);background:rgba(184,145,42,0.12)}
+.atlas-floating-tools .theme-toggle-btn{font-size:14px;min-width:32px}
+.cur-val{transition:color .2s}
+.cur-val.jpy-mode,.cur-val.local-mode{color:#D4A843;font-weight:700}
+/* Light Theme */
+html[data-theme="light"]{--bg:#F5F2EC;--card:#FDFCFA;--card-hover:#ECE8DF;--border:rgba(26,37,64,0.12);--border-strong:rgba(26,37,64,0.25);--t1:#1A2540;--t2:#4A5568;--t3:#718096}
+html[data-theme="light"] body{background:#F5F2EC!important;color:#1A2540!important}
+html[data-theme="light"] .rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%)!important}
+html[data-theme="light"] .rh h1,html[data-theme="light"] .rh *{color:#F5F2EC!important}
+html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);border-color:rgba(26,37,64,0.15)}
+html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
+html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:rgba(26,37,64,0.15)!important;color:#B8912A!important}
+html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .risk-card,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important}
+/* Mobile responsive additions */
+@media(max-width:768px){
+  .rh{padding:30px 16px 24px}
+  .rh-inner{order:1;width:100%}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center;display:flex}
+  .rh h1{font-size:1.35rem;margin:14px 0 6px}
+  .l1{padding:28px 18px 22px;gap:20px}
+  .l1-score-num{font-size:2.2rem}
+  .l1-score-label{font-size:1rem}
+  .l1-score-badge{padding:12px 22px;gap:12px}
+  .l1-price{grid-template-columns:1fr}
+  .l1-price-cell{border-right:none;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline}
+  .l1-price-cell:last-child{border-bottom:none}
+  .metrics-grid,.cardx-grid{grid-template-columns:1fr 1fr}
+  .val-grid,.risk-grid{grid-template-columns:1fr}
+  .chart-row{grid-template-columns:1fr!important}
+  .chart-split{grid-template-columns:1fr;gap:20px;padding:20px}
+  .chart-split-viz{height:220px}
+  .margin-tiles-row{grid-template-columns:repeat(2,1fr)}
+  .margin-tile{border-bottom:1px solid var(--border)}
+  .pullq{padding:26px 20px 22px}
+  .pullq-body{padding-left:30px;font-size:.94rem}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .boundary{margin:48px 0 36px}
+  .ntm-row{grid-template-columns:1fr;gap:8px}
+  .ntm-op{display:none}
+  .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+@media(max-width:480px){
+  .metrics-grid,.cardx-grid{grid-template-columns:1fr!important}
+  .rh h1{font-size:1.15rem}
+}
+</style>
+<meta name="atlas-access" content='{"kind":"report","ticker":"BA","isLatest":true}'>
+</head>
+<body>
+<!-- ATLAS-NAV-START -->
+<header class="atlas-nav" data-atlas-nav>
+  <div class="atlas-nav-inner">
+    <a href="https://atlas-financials.jp/" class="atlas-nav-brand" aria-label="Atlas ホーム">
+      <span class="atlas-nav-logo">Atlas<span class="atlas-nav-dot">.</span></span>
+      <span class="atlas-nav-tag">U.S. Market Intelligence</span>
+    </a>
+    <nav class="atlas-nav-links" aria-label="グローバルナビ">
+      <a href="https://atlas-financials.jp/" data-path="/">ホーム</a>
+      <a href="https://atlas-financials.jp/news/" data-path="/news/">ニュース</a>
+      <a href="https://atlas-financials.jp/reports/" data-path="/reports/">決算分析</a>
+      <a href="https://atlas-financials.jp/news/glossary/" data-path="/news/glossary/">経済辞書</a>
+      <a href="https://atlas-financials.jp/reports/faq.html" data-path="/reports/faq.html">FAQ</a>
+      <a href="https://atlas-financials.jp/login" class="atlas-nav-login-link" data-atlas-login-cta>ログイン</a>
+      <a href="https://atlas-financials.jp/signup" class="atlas-nav-cta" data-atlas-signup-cta>無料ではじめる</a>
+      <div class="atlas-nav-user" data-atlas-nav-user style="display:none">
+        <button class="atlas-nav-avatar-btn" type="button" aria-expanded="false" aria-haspopup="menu" data-atlas-nav-user-btn>
+          <span class="atlas-nav-avatar" data-atlas-nav-avatar>?</span>
+          <span class="atlas-nav-username" data-atlas-nav-username></span>
+          <span class="atlas-nav-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="atlas-nav-menu" role="menu" data-atlas-nav-menu aria-hidden="true">
+          <div class="atlas-nav-menu-head">
+            <div class="atlas-nav-menu-name" data-atlas-nav-menu-name></div>
+            <div class="atlas-nav-menu-email" data-atlas-nav-menu-email></div>
+            <span class="atlas-nav-menu-plan" data-atlas-nav-menu-plan></span>
+          </div>
+          <a href="https://atlas-financials.jp/account" role="menuitem">マイページ</a>
+          <button type="button" role="menuitem" data-atlas-logout>ログアウト</button>
+        </div>
+      </div>
+    </nav>
+    <button class="atlas-nav-burger" aria-label="メニューを開く" aria-expanded="false" data-atlas-nav-burger>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="atlas-nav-drawer" data-atlas-nav-drawer aria-hidden="true">
+    <div class="atlas-nav-drawer-user" data-atlas-nav-drawer-user style="display:none">
+      <span class="atlas-nav-avatar" data-atlas-nav-avatar-m>?</span>
+      <div>
+        <div class="atlas-nav-drawer-name" data-atlas-nav-drawer-name></div>
+        <div class="atlas-nav-drawer-email" data-atlas-nav-drawer-email></div>
+      </div>
+    </div>
+    <a href="https://atlas-financials.jp/">ホーム</a>
+    <a href="https://atlas-financials.jp/news/">ニュース</a>
+    <a href="https://atlas-financials.jp/reports/">決算分析</a>
+    <a href="https://atlas-financials.jp/news/glossary/">経済辞書</a>
+    <a href="https://atlas-financials.jp/reports/faq.html">FAQ</a>
+    <a href="https://atlas-financials.jp/account" data-atlas-drawer-account style="display:none">マイページ</a>
+    <a href="https://atlas-financials.jp/login" data-atlas-drawer-login>ログイン</a>
+    <a href="https://atlas-financials.jp/signup" data-atlas-drawer-signup style="background:rgba(184,145,42,.14)">無料ではじめる</a>
+    <button type="button" data-atlas-drawer-logout style="display:none;background:none;border:none;color:#D4A843;padding:14px 24px;text-align:left;font-family:inherit;font-size:14px;cursor:pointer;width:100%">ログアウト</button>
+  </div>
+</header>
+<style>
+.atlas-nav{position:sticky;top:0;z-index:200;background:rgba(15,24,41,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,145,42,0.18);font-family:'Noto Sans JP',sans-serif}
+.atlas-nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.atlas-nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
+.atlas-nav-logo{font-family:'Playfair Display','Shippori Mincho B1',serif;font-size:22px;font-weight:700;letter-spacing:.04em;line-height:1}
+.atlas-nav-dot{color:#D4A843}
+.atlas-nav-tag{font-size:10px;color:rgba(212,168,67,.6);letter-spacing:.08em;white-space:nowrap}
+.atlas-nav-links{display:flex;gap:22px;align-items:center}
+.atlas-nav-links > a{font-size:13px;color:#D4A843;text-decoration:none;padding:6px 2px;border-bottom:2px solid transparent;transition:border-color .15s,color .15s;white-space:nowrap}
+.atlas-nav-links > a:hover{color:#fff;border-bottom-color:rgba(212,168,67,.5)}
+.atlas-nav-links > a.active{color:#fff;border-bottom-color:#D4A843}
+.atlas-nav-links > a.atlas-nav-cta{background:#B8912A;color:#0F1829;padding:7px 14px;border-radius:6px;font-weight:600;border:none}
+.atlas-nav-links > a.atlas-nav-cta:hover{background:#D4A843;border-bottom:none;color:#0F1829}
+.atlas-nav-links > a.atlas-nav-login-link{color:#D4A843;font-weight:500}
+.atlas-nav-links > a.atlas-nav-login-link:hover{color:#fff;border-bottom-color:rgba(212,168,67,.5)}
+/* User widget */
+.atlas-nav-user{position:relative;display:flex}
+.atlas-nav-avatar-btn{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(212,168,67,.2);border-radius:24px;padding:4px 12px 4px 4px;cursor:pointer;font-family:inherit;transition:border-color .15s,background .15s}
+.atlas-nav-avatar-btn:hover{border-color:#D4A843;background:rgba(184,145,42,.08)}
+.atlas-nav-avatar{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#1A2540;color:#fff;font-weight:700;font-size:13px;letter-spacing:0;flex-shrink:0;font-family:'Inter','Noto Sans JP',sans-serif}
+.atlas-nav-username{color:#D4A843;font-size:13px;font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-caret{color:rgba(212,168,67,.6);font-size:10px}
+.atlas-nav-menu{position:absolute;top:calc(100% + 8px);right:0;background:rgba(15,24,41,0.98);backdrop-filter:blur(12px);border:1px solid rgba(184,145,42,.2);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.35);min-width:240px;padding:14px 0 6px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .15s,transform .15s,visibility .15s}
+.atlas-nav-menu.open{opacity:1;visibility:visible;transform:translateY(0)}
+.atlas-nav-menu-head{padding:0 16px 12px;border-bottom:1px solid rgba(184,145,42,.12);margin-bottom:6px}
+.atlas-nav-menu-name{color:#fff;font-size:14px;font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-menu-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atlas-nav-menu-plan{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.atlas-nav-menu-plan.plan-pro{background:rgba(184,145,42,.15);color:#D4A843;border:1px solid rgba(184,145,42,.35)}
+.atlas-nav-menu-plan.plan-free{background:rgba(139,148,158,.15);color:#8b949e;border:1px solid rgba(139,148,158,.3)}
+.atlas-nav-menu a,.atlas-nav-menu button{display:block;padding:9px 16px;color:#D4A843;text-decoration:none;font-size:13px;background:transparent;border:none;width:100%;text-align:left;cursor:pointer;font-family:inherit;transition:background .12s,color .12s}
+.atlas-nav-menu a:hover,.atlas-nav-menu button:hover{background:rgba(184,145,42,.08);color:#fff}
+/* Burger / Drawer */
+.atlas-nav-burger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:4px}
+.atlas-nav-burger span{display:block;width:22px;height:2px;background:#D4A843;transition:all .2s}
+.atlas-nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.atlas-nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.atlas-nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.atlas-nav-drawer{display:none;flex-direction:column;background:rgba(15,24,41,0.98);border-top:1px solid rgba(184,145,42,.18);padding:12px 0}
+.atlas-nav-drawer.open{display:flex}
+.atlas-nav-drawer-user{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid rgba(184,145,42,.12);margin-bottom:6px}
+.atlas-nav-drawer-name{color:#fff;font-size:14px;font-weight:700;line-height:1.3}
+.atlas-nav-drawer-email{color:rgba(255,255,255,.5);font-size:11px;font-family:'Inter',monospace;line-height:1.3}
+.atlas-nav-drawer > a,.atlas-nav-drawer > button{padding:14px 24px;color:#D4A843;text-decoration:none;font-size:14px;border-bottom:1px solid rgba(184,145,42,.08)}
+.atlas-nav-drawer > a:last-of-type,.atlas-nav-drawer > button:last-of-type{border-bottom:none}
+.atlas-nav-drawer > a.active{color:#fff;background:rgba(184,145,42,.08)}
+@media(max-width:820px){
+  .atlas-nav-links{display:none}
+  .atlas-nav-burger{display:flex}
+  .atlas-nav-tag{display:none}
+  .atlas-nav-inner{padding:0 16px;height:52px}
+  .atlas-nav-logo{font-size:19px}
+}
+/* Light theme override */
+html[data-theme="light"] .atlas-nav{background:rgba(245,242,236,.96);border-bottom-color:rgba(26,37,64,.12)}
+html[data-theme="light"] .atlas-nav-brand{color:#1A2540}
+html[data-theme="light"] .atlas-nav-links > a{color:#1A2540}
+html[data-theme="light"] .atlas-nav-links > a.active{color:#B8912A;border-bottom-color:#B8912A}
+html[data-theme="light"] .atlas-nav-drawer{background:rgba(253,252,250,.98)}
+html[data-theme="light"] .atlas-nav-drawer > a,html[data-theme="light"] .atlas-nav-drawer > button{color:#1A2540}
+html[data-theme="light"] .atlas-nav-menu{background:rgba(253,252,250,.98)}
+html[data-theme="light"] .atlas-nav-menu-name{color:#1A2540}
+html[data-theme="light"] .atlas-nav-menu-email{color:#718096}
+html[data-theme="light"] .atlas-nav-menu a,html[data-theme="light"] .atlas-nav-menu button{color:#1A2540}
+html[data-theme="light"] .atlas-nav-menu a:hover,html[data-theme="light"] .atlas-nav-menu button:hover{color:#B8912A}
+html[data-theme="light"] .atlas-nav-username{color:#1A2540}
+</style>
+<script>
+(function(){
+  var nav = document.querySelector('[data-atlas-nav]');
+  if(!nav) return;
+
+  // Active state for data-path links
+  var path = location.pathname.replace(/\/$/, '') || '/';
+  var links = nav.querySelectorAll('a[data-path]');
+  var bestMatch = null, bestLen = -1;
+  links.forEach(function(a){
+    var p = a.getAttribute('data-path').replace(/\/$/, '') || '/';
+    if(path === p || (p !== '/' && path.indexOf(p) === 0)){
+      if(p.length > bestLen){ bestMatch = a; bestLen = p.length; }
+    }
+  });
+  if(bestMatch){ bestMatch.classList.add('active'); }
+
+  // Burger toggle
+  var burger = nav.querySelector('[data-atlas-nav-burger]');
+  var drawer = nav.querySelector('[data-atlas-nav-drawer]');
+  if(burger && drawer){
+    burger.addEventListener('click', function(){
+      var open = drawer.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+  }
+
+  // Read atlas_user hint cookie (non-HttpOnly)
+  function readUserHint(){
+    var m = document.cookie.match(/(?:^|;\s*)atlas_user=([^;]+)/);
+    if(!m) return null;
+    try { return JSON.parse(decodeURIComponent(m[1])); } catch(e) { return null; }
+  }
+  function avatarColor(seed){
+    seed = seed || '';
+    var h = 0;
+    for(var i=0;i<seed.length;i++){ h = (h*31 + seed.charCodeAt(i)) | 0; }
+    return 'hsl(' + (Math.abs(h) % 360) + ', 42%, 40%)';
+  }
+  function firstChar(s){
+    s = (s || '').trim();
+    return s ? s.charAt(0).toUpperCase() : '?';
+  }
+
+  var user = readUserHint();
+  var loginCta = nav.querySelector('[data-atlas-login-cta]');
+  var signupCta = nav.querySelector('[data-atlas-signup-cta]');
+  var userWidget = nav.querySelector('[data-atlas-nav-user]');
+  var drawerUserBox = nav.querySelector('[data-atlas-nav-drawer-user]');
+  var drawerLogin = nav.querySelector('[data-atlas-drawer-login]');
+  var drawerSignup = nav.querySelector('[data-atlas-drawer-signup]');
+  var drawerAccount = nav.querySelector('[data-atlas-drawer-account]');
+  var drawerLogout = nav.querySelector('[data-atlas-drawer-logout]');
+
+  function applyUser(u){
+    if(!u){
+      if(loginCta) loginCta.style.display = '';
+      if(signupCta) signupCta.style.display = '';
+      if(userWidget) userWidget.style.display = 'none';
+      if(drawerUserBox) drawerUserBox.style.display = 'none';
+      if(drawerLogin) drawerLogin.style.display = '';
+      if(drawerSignup) drawerSignup.style.display = '';
+      if(drawerAccount) drawerAccount.style.display = 'none';
+      if(drawerLogout) drawerLogout.style.display = 'none';
+      return;
+    }
+    // Desktop widget
+    if(loginCta) loginCta.style.display = 'none';
+    if(signupCta) signupCta.style.display = 'none';
+    if(drawerSignup) drawerSignup.style.display = 'none';
+    if(userWidget) userWidget.style.display = 'flex';
+    var nameEl = nav.querySelector('[data-atlas-nav-username]');
+    var avEl = nav.querySelector('[data-atlas-nav-avatar]');
+    var mName = nav.querySelector('[data-atlas-nav-menu-name]');
+    var mEmail = nav.querySelector('[data-atlas-nav-menu-email]');
+    var mPlan = nav.querySelector('[data-atlas-nav-menu-plan]');
+    var avColor = avatarColor(u.e || u.n || '');
+    if(nameEl) nameEl.textContent = u.n || '';
+    if(avEl){ avEl.textContent = firstChar(u.n); avEl.style.background = avColor; }
+    if(mName) mName.textContent = u.n || '';
+    if(mEmail) mEmail.textContent = u.e || '';
+    if(mPlan){
+      if(u.p === 'pro'){ mPlan.textContent = 'Pro 会員'; mPlan.className = 'atlas-nav-menu-plan plan-pro'; }
+      else { mPlan.textContent = 'Free'; mPlan.className = 'atlas-nav-menu-plan plan-free'; }
+    }
+    // Drawer
+    if(drawerUserBox) drawerUserBox.style.display = 'flex';
+    var dName = nav.querySelector('[data-atlas-nav-drawer-name]');
+    var dEmail = nav.querySelector('[data-atlas-nav-drawer-email]');
+    var avM = nav.querySelector('[data-atlas-nav-avatar-m]');
+    if(dName) dName.textContent = u.n || '';
+    if(dEmail) dEmail.textContent = u.e || '';
+    if(avM){ avM.textContent = firstChar(u.n); avM.style.background = avColor; }
+    if(drawerLogin) drawerLogin.style.display = 'none';
+    if(drawerAccount) drawerAccount.style.display = '';
+    if(drawerLogout) drawerLogout.style.display = 'block';
+  }
+  applyUser(user);
+
+  // Dropdown toggle
+  var userBtn = nav.querySelector('[data-atlas-nav-user-btn]');
+  var menu = nav.querySelector('[data-atlas-nav-menu]');
+  if(userBtn && menu){
+    userBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = menu.classList.toggle('open');
+      userBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+    document.addEventListener('click', function(e){
+      if(!menu.contains(e.target) && !userBtn.contains(e.target)){
+        menu.classList.remove('open');
+        userBtn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  // Logout handler (both desktop menu + drawer button)
+  function doLogout(e){
+    if(e) e.preventDefault();
+    fetch('/auth/logout', { method: 'POST', credentials: 'include', redirect: 'manual' })
+      .finally(function(){
+        document.cookie = 'atlas_user=; Max-Age=0; Path=/; SameSite=Lax';
+        location.href = '/';
+      });
+  }
+  nav.querySelectorAll('[data-atlas-logout],[data-atlas-drawer-logout]').forEach(function(b){
+    b.addEventListener('click', doLogout);
+  });
+
+  // Freshen hint cookie silently via /api/me if we don't have one but might be logged in
+  if(!user){
+    fetch('/api/me', { credentials: 'include' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if(data && data.user){
+          applyUser({ n: data.user.nickname || (data.user.email||'').split('@')[0], p: data.user.plan, e: data.user.email });
+        }
+      })
+      .catch(function(){});
+  }
+})();
+</script>
+<!-- ATLAS-NAV-END -->
+<!-- ATLAS-QUARTERLY-BAND-START -->
+<div class="atlas-quarterly-band" style="background:#0F1829;border-bottom:1px solid rgba(184,145,42,.15);padding:10px 16px;text-align:center;position:relative;z-index:10">
+  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:18px;width:auto;opacity:.9;vertical-align:middle;max-width:180px">
+</div>
+<!-- ATLAS-QUARTERLY-BAND-END -->
+
+<div class="atlas-floating-tools">
+  <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
+  <button class="theme-toggle-btn" aria-label="テーマ切替" onclick="toggleAtlasTheme()" title="テーマ切替">🌙</button>
+</div>
+
+<!-- Header -->
+<header class="rh">
+  <div class="ov-wrap">
+    <button class="ov-btn" id="ovBtn" onclick="toggleOverview()">企業概要 <span class="chev">▼</span></button>
+  </div>
+  <div class="rh-inner">
+    <div class="rh-logo-row">
+      <img class="rh-logo" src="../logos/BA-header.png" alt="Boeing">
+      <div class="rh-ticker">NYSE: BA</div>
+    </div>
+    <h1>Boeing 決算分析</h1>
+    <div class="rh-sub">FY2026 Q1（2026年1月〜3月期）</div>
+    <div class="rh-date">決算発表日: 2026年4月22日 ｜ 対象期間: 2026年1月〜3月 ｜ Atlas Quarterly</div>
+  </div>
+</header>
+
+<!-- 企業概要（折りたたみ） -->
+<div class="ov-drop" id="ovDrop">
+  <h2>企業概要 — Boeing Company</h2>
+
+  <!-- Identity Grid -->
+  <div class="ov-grid">
+    <dl class="ov-grid-item"><dt>創業</dt><dd>1916年（Pacific Aero Products として創業）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>米国バージニア州 Arlington（主要製造：ワシントン州レントン・エバレット、サウスカロライナ州ノースチャールストン）</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Kelly Ortberg（2024-08 就任、前任 Dave Calhoun）</dd></dl>
+    <dl class="ov-grid-item"><dt>CFO</dt><dd>Jay Malave（2025-12 就任、前任 Brian West）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: BA</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>Industrials / Aerospace &amp; Defense</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / ダウ工業株30種（DJIA）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約 152,000 人（2025年末）</dd></dl>
+  </div>
+
+  <p>Boeing は 1916 年創業、世界最大級の航空宇宙・防衛企業。<strong>Commercial Airplanes（BCA）</strong>で 737／767／777／787 を、<strong>Defense, Space &amp; Security（BDS）</strong>で F-15EX／KC-46／Apache／T-7A／Starliner／SLS を、<strong>Global Services（BGS）</strong>で保守・訓練・サプライチェーンサービスを展開。2019 年の MAX 墜落事故、COVID、2020 年 787 生産停止、2024 年 1 月の Alaska Airlines ドアプラグ事故、2024 年秋の IAM 機械工組合ストライキ（57 日間）と 5 年連続の危機を経て、2024-08 に Kelly Ortberg CEO が就任。2025 年に Spirit AeroSystems 再買収と DOJ 和解（$1.1B）を進め、Q1 2026 決算で<strong>ターンアラウンドが本物である定量的証拠</strong>を初めて提示した。</p>
+
+  <!-- 事業モデル -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">事業モデル · Business Model</h3>
+    <div class="ov-biz-grid">
+      <div class="ov-biz-block">
+        <h4>プロダクトライン</h4>
+        <ul class="ov-list">
+          <li><strong>BCA / Commercial Airplanes（~41%）</strong> — <strong>737・767・777・787 商業機</strong>。Q1 2026 は 114 機の 737 MAX、15 機の 787、8 機の 777、6 機の 767 で合計 143 機を納入し 7 年ぶりに Airbus を逆転。バックログ $575.6B（6,100+ 機）。</li>
+          <li><strong>BDS / Defense, Space &amp; Security（~34%）</strong> — <strong>F-15EX・KC-46 Pegasus・Apache・T-7A・Starliner・SLS・VC-25B</strong>。主要固定価格契約で累計損失 $8B+ を抱えるが、Q1 2026 は Iran 戦争を背景に営業利益 +50% と急回復。バックログ $85.8B（過去最高）。</li>
+          <li><strong>BGS / Global Services（~24%）</strong> — <strong>商業・防衛機の保守・訓練・サプライチェーン・デジタル</strong>。3 セグメント中最高の営業利益率 18.1%、安定収益源。バックログ $33.0B（過去最高）。</li>
+        </ul>
+      </div>
+      <div class="ov-biz-block">
+        <h4>収益モデル</h4>
+        <ul class="ov-list">
+          <li><strong>機体引渡時収益（BCA 大部分）</strong> — <strong>機体本体売上＋エンジン／内装オプション＋スペア</strong>。受注から引き渡しまで数年〜十数年、引渡時にマイルストーン一括計上。生産レート（月産）が FCF の核心変数。</li>
+          <li><strong>固定価格契約（BDS 一部）</strong> — <strong>KC-46・VC-25B・T-7A・Starliner 等</strong>。コスト超過は原則自社負担で累積損失拡大リスク。Iran 紛争等で防衛需要が膨らめば追加受注機会。</li>
+          <li><strong>サービス／ライフサイクル収益（BGS）</strong> — <strong>保守契約・部品供給・訓練・デジタルソリューション</strong>。納入機体の稼働が続く限り継続する粘着型収益で、マージン構造が最も高い。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Competitive Moat -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
+    <ul class="ov-moat">
+      <li><strong>業界デュオポリー（Boeing vs Airbus）</strong> — 民間大型機市場は実質 2 社独占。100 席以上のワイドボディ・ナローボディで代替供給者は COMAC C919 のみ、成熟市場への参入障壁は資本・型式証明・認証・サプライチェーンで極めて高い。</li>
+      <li><strong>バックログ $694.7B（10 年分）の収益可視性</strong> — 受注残は全セグメント過去最高。BCA $575.6B / BDS $85.8B / BGS $33.0B。Southwest・Ryanair・Delta・United 等の大口顧客のロック構造で、生産率引き上げさえ成功すれば売上は確定的。</li>
+      <li><strong>Spirit AeroSystems 再買収（2025 完了）による垂直統合</strong> — 737 MAX 胴体・787 部品の最大サプライヤーを内部化し、品質管理・手直し工数を劇的に改善（Q1 2026 実績：737 手直し -20%、787 -25%）。</li>
+      <li><strong>防衛・宇宙（BDS）の戦略性</strong> — 米空軍・海軍・NASA の主要調達先。F-15EX・KC-46・SLS はプログラム規模で代替不能。KC-46 累計損失 $8B は過去の十字架だが、新規受注は固定価格排除の交渉軸を獲得。</li>
+      <li><strong>アフターマーケット（BGS）の循環収益</strong> — 納入済 16,000+ 機の保守・部品供給・訓練を独占的に提供。稼働機齢とともに収益が積み上がる構造で、景気・新造需要変動にも強靭な利益基盤。</li>
+    </ul>
+  </div>
+
+  <!-- Key Rivals -->
+  <div class="ov-section">
+    <h3 class="ov-section-title">Key Rivals · 主要競合</h3>
+    <table class="ov-rivals">
+      <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Airbus SE</strong></td><td>EADSY</td><td>~$1,800億</td><td>欧州の最大競合。A320neo ファミリーで 737 MAX と直接競争、A350 はワイドボディで 787/777X に対抗。2019 年以降 Boeing を納入機数で上回っていたが、Q1 2026 で 7 年ぶりに逆転された。</td></tr>
+        <tr><td><strong>RTX Corporation</strong></td><td>RTX</td><td>~$1,820億</td><td>Raytheon＋Collins Aerospace＋Pratt &amp; Whitney。防衛（Raytheon ミサイル）と商業航空エンジン（GTF）で競合。Boeing 機体には一部 PW エンジンが搭載。</td></tr>
+        <tr><td><strong>Lockheed Martin</strong></td><td>LMT</td><td>~$1,050億</td><td>F-35・F-22 で戦闘機市場では優位。Boeing BDS の F-15EX は旧世代 4.5 世代機として並立、次期戦闘機（NGAD）で競合関係。</td></tr>
+        <tr><td><strong>COMAC (非上場)</strong></td><td>—</td><td>中国国有</td><td>C919 はナローボディ市場への中国参入。中国向け 737 MAX 受注の約 740 機がリプレースされるリスク。ただし世界的認証（FAA/EASA）未取得で国際線利用は限定的。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tags -->
+  <div class="tags">
+    <span class="tag">Aerospace &amp; Defense</span>
+    <span class="tag">737 MAX / 787 Dreamliner</span>
+    <span class="tag">Commercial / Defense / Services</span>
+    <span class="tag">DJIA 採用銘柄</span>
+    <span class="tag">S&amp;P 500</span>
+    <span class="tag">NYSE: BA</span>
+    <span class="tag">産業（Industrials）セクター</span>
+    <span class="tag">Ortberg CEO / ターンアラウンド期</span>
+  </div>
+
+  <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
+</div>
+
+<div class="layer-eyebrow">Layer I — Executive Summary</div>
+<section class="l1">
+  <div class="l1-score">
+    <div class="l1-score-badge score-high">
+      <span class="l1-score-num">4</span>
+      <span class="l1-score-label">強い決算</span>
+    </div>
+  </div>
+  <!-- スコア根拠: Core EPS -$0.20 vs 予想 -$0.70（損失 71% 縮小）、FCF -$1.5B vs 予想 -$2.3B（$886M 上振れ）、売上 $22.2B（+14% YoY / 予想 +1.7-2.9% ビート）、商業機 143 機で 7 年ぶり Airbus 逆転、バックログ $694.7B 過去最高、FY26 FCF +$1-3B ガイダンス維持。ただし BCA 営業赤字 -6.1% 継続、D/C 88.7% の財務レバレッジ、中国関税リスク、KC-46 固定価格損失など下振れ要因残存のため「5」ではなく「4」。 -->
+
+  <div class="l1-consensus">
+    <div class="l1-consensus-head">Consensus vs 実績（FY2026 Q1）</div>
+    <table class="l1-consensus-tbl">
+      <thead>
+        <tr><th>項目</th><th>コンセンサス</th><th>実績</th><th>ビート率</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lbl">売上高 / Revenue</td>
+          <td class="cn">$21.78B</td>
+          <td class="val">$22.22B</td>
+          <td class="beat"><span class="beat-lamp"></span>+2.0% <span class="beat-text">ビート（YoY +14%）</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Core EPS（非 GAAP）</td>
+          <td class="cn">-$0.70</td>
+          <td class="val">-$0.20</td>
+          <td class="beat"><span class="beat-lamp"></span>損失 71% 縮小 <span class="beat-text">大幅ビート</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Q2 2026 売上ガイダンス</td>
+          <td class="cn">約 $24B（アナリスト平均）</td>
+          <td class="val">未提示（FY26 通年ガイダンス維持）</td>
+          <td class="beat"><span class="beat-text">—（会社は四半期ガイダンス非提供）</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="l1-notes">
+    <div class="l1-notes-head">Today's Points · 今四半期の特筆点</div>
+    <div class="l1-note"><strong>Core EPS -$0.20</strong>。コンセンサス -$0.70 に対し<strong>損失を 71% 縮小</strong>、2024 年以降最大級のサプライズビート。FCF も -$1.45B で予想 -$2.34B を <strong>$886M 上振れ</strong>、<strong>ターンアラウンドの定量証拠</strong>が揃った。</div>
+    <div class="l1-note"><strong>商業機 143 機納入</strong>（YoY +10%）で 2019 年 Q1 以来<strong>7 年ぶりに Airbus（114 機）を逆転</strong>。売上 $22.2B（+14% YoY）、バックログ <strong>$694.7B（全セグメント過去最高）</strong>で 10 年分の受注残を積み上げ。</div>
+    <div class="l1-note"><strong>FY26 FCF ガイダンス +$1B〜+$3B（プラス転換）</strong>を維持、長期目標 $10B を CEO Ortberg が「十分に達成可能」と明言。737 MAX 月産 42→47（夏）→52（Everett North Line 稼働後）ロードマップで FCF $10B 到達の核心条件が揃う。株価は <strong>+5.53%</strong>、出来高 2.26-2.85 倍で反応。</div>
+  </div>
+
+  <div class="l1-price no-currency">
+    <div class="l1-price-cell">
+      <div class="lbl">現在株価（4月22日終値）</div>
+      <div class="val">$231.28</div>
+    </div>
+    <div class="l1-price-cell">
+      <div class="lbl">52週レンジ</div>
+      <div class="val">$169.00 – $254.35</div>
+    </div>
+    <div class="l1-price-cell">
+      <div class="lbl">決算後反応</div>
+      <div class="val" style="color:var(--beat)">+5.53%</div>
+    </div>
+  </div>
+</section>
+
+<div class="layer-eyebrow">Layer II — 決算の全体像</div>
+
+<!-- Key Metrics -->
+<section class="section" data-accordion id="sec-metrics">
+  <div class="section-title">Key Metrics</div>
+  <div class="section-body">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-lbl">売上高</div>
+        <div class="metric-val gold">$22.22B</div>
+        <div class="metric-sub">Q1 2026 実績（YoY +14.0%）</div>
+        <div class="delta"><span class="pct pos">YoY +14.0%</span> <span class="pct pos">vs コンセ +2.0%</span><span class="prior">前年同期 $19.50B / コンセ $21.78B</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Core EPS（非 GAAP）</div>
+        <div class="metric-val pos">-$0.20</div>
+        <div class="metric-sub">希薄化後1株当たり（損失 71% 縮小）</div>
+        <div class="delta"><span class="pct pos">YoY +59% 損失縮小</span> <span class="pct pos">vs コンセ +71%</span><span class="prior">前年同期 -$0.49 / コンセ -$0.70</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl" style="color:var(--gold2)">商業機納入数</div>
+        <div class="metric-val gold">143 機</div>
+        <div class="metric-sub" style="color:var(--gold-pale)">Q1 2026（Airbus 114 機を 7 年ぶり逆転）</div>
+        <div class="delta"><span class="pct pos">YoY +10.0%</span> <span class="pct pos">vs Airbus +25 機</span><span class="prior">737 MAX 114 / 787 15 / 777 8 / 767 6 機</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">営業利益 / 営業利益率</div>
+        <div class="metric-val neu">$448M / 2.0%</div>
+        <div class="metric-sub">前年比小幅縮小（BCA 赤字継続）</div>
+        <div class="delta"><span class="pct neg">利益率 YoY -40bps</span><span class="prior">Q1 2025 $461M (2.4%) ／ BDS +50% が BCA 赤字を一部相殺</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">バックログ（Q1 末）</div>
+        <div class="metric-val pos">$694.7B</div>
+        <div class="metric-sub">全セグメント過去最高（10 年分の受注残）</div>
+        <div class="delta"><span class="pct pos">BCA +25% YoY</span><span class="prior">BCA $575.6B / BDS $85.8B / BGS $33.0B</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">フリーキャッシュフロー</div>
+        <div class="metric-val pos">-$1.45B</div>
+        <div class="metric-sub">YoY +36% 改善（予想 -$2.34B を $886M 上振れ）</div>
+        <div class="delta"><span class="pct pos">FCF YoY +36%</span><span class="prior">営業CF -$179M（YoY +89% 改善）／Capex -$1,275M</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Revenue & EPS Charts -->
+<section class="section" data-accordion id="sec-revenue">
+  <div class="section-title">売上高 / EPS 直近7四半期推移</div>
+  <div class="section-body">
+    <div class="chart-row">
+      <div class="chart-box"><div class="chart-wrap"><canvas id="revenueChart"></canvas></div></div>
+      <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Margin -->
+<section class="section" data-accordion id="sec-margin">
+  <div class="section-title">利益率トレンド</div>
+  <div class="section-body">
+    <div class="panel-merge">
+      <div class="margin-tiles-row">
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">BCA 営業利益率</div>
+          <div class="margin-tile-val neg">-6.1%</div>
+          <div class="margin-tile-sub">前年同期 -6.6% / YoY +50bps 改善（黒字化は 2027 中頃見込み）</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">BDS 営業利益率</div>
+          <div class="margin-tile-val pos">3.1%</div>
+          <div class="margin-tile-sub">前年同期 2.5% / YoY +60bps（Iran 紛争で防衛需要膨らむ）</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">BGS 営業利益率</div>
+          <div class="margin-tile-val pos">18.1%</div>
+          <div class="margin-tile-sub">3 セグメント中最高、アフターマーケット安定</div>
+        </div>
+        <div class="margin-tile">
+          <div class="margin-tile-lbl">売上総利益率</div>
+          <div class="margin-tile-val neu">11.5%</div>
+          <div class="margin-tile-sub">前年同期 12.4% / YoY -90bps（Spirit 統合コスト影響）</div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="margin-chart-area">
+        <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="boundary"><div class="boundary-line"></div><div class="boundary-mark">II</div><div class="boundary-line"></div></div>
+<div class="layer-eyebrow">Layer III — Granular Analysis</div>
+
+<!-- 損益ブレイクダウン (BA固有) -->
+<section class="sec3" data-accordion id="sec-expense">
+  <div class="sec3-title">P&amp;L Breakdown <span class="jp">· 損益ブレイクダウン（Q1 2026）</span></div>
+  <div class="sec3-body">
+    <table class="tbl">
+      <thead><tr><th>項目</th><th>Q1 2026</th><th>Q1 2025</th><th>YoY変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td style="font-weight:700;color:var(--beat)">$22,217M</td><td>$19,496M</td><td class="pos" style="font-weight:700">+14.0%</td></tr>
+        <tr><td>製品売上</td><td>$18,998M</td><td>$16,147M</td><td class="pos">+17.7%</td></tr>
+        <tr><td>サービス売上</td><td>$3,219M</td><td>$3,349M</td><td class="neg">-3.9%</td></tr>
+        <tr><td>売上総利益</td><td>$2,546M</td><td>$2,417M</td><td class="pos">+5.3%</td></tr>
+        <tr><td>売上総利益率</td><td>11.5%</td><td>12.4%</td><td class="neg">-90bps</td></tr>
+        <tr><td>営業利益（連結）</td><td>$448M</td><td>$461M</td><td class="neg">-2.8%</td></tr>
+        <tr><td>営業利益率</td><td>2.0%</td><td>2.4%</td><td class="neg">-40bps</td></tr>
+        <tr><td>コア営業利益（非 GAAP）</td><td>$293M</td><td>未確認</td><td>—</td></tr>
+        <tr><td>支払利息（純）</td><td>-$616M</td><td>-$708M</td><td class="pos">-13.0%（負債削減効果）</td></tr>
+        <tr><td>GAAP 希薄化 EPS</td><td style="font-weight:700;color:var(--beat)">-$0.11</td><td>-$0.16</td><td class="pos" style="font-weight:700">+31% 損失縮小</td></tr>
+        <tr><td style="font-weight:700;color:var(--t1)">Core EPS（非 GAAP）</td><td style="font-weight:700;color:var(--beat)">-$0.20</td><td>-$0.49</td><td class="pos" style="font-weight:700">+59% 損失縮小（コンセ -$0.70 比 +71%）</td></tr>
+      </tbody>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">Boeing は赤字企業だが、Q1 2026 は<strong>損失幅が顕著に縮小</strong>。売上 $22.22B は +14.0% YoY でコンセ比 +2.0% 上振れ、<strong>商業機 143 機納入</strong>（Airbus 114 機を 7 年ぶり逆転）が主要ドライバー。売上総利益率は 11.5% と前年比 -90bps だが、これは Spirit AeroSystems 統合コスト（通年 $1B 想定）の前倒し計上が主因。営業利益 $448M（2.0%）は前年比小幅縮小だが、セグメント別では <strong>BDS が +50%（$233M）と急回復</strong>、<strong>BGS が 18.1% マージン維持</strong>で BCA の赤字を一部相殺した構図。<strong>Core EPS -$0.20 はコンセ -$0.70 を 71% 上回る</strong>大幅ビートで、2024 年以降最大級のサプライズ。支払利息は -$616M（YoY -13%）で、Q1 に $6.95B の借入返済を実行した負債削減効果が早速現れている。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Segment: BCA + BDS + BGS 構成比 (BA固有) -->
+<section class="sec3" data-accordion id="sec-product">
+  <div class="sec3-title">Segment Mix <span class="jp">· セグメント別売上構成（Q1 2026）</span></div>
+  <div class="sec3-body">
+    <div class="panel-merge">
+      <div class="chart-split">
+        <div class="chart-split-viz"><canvas id="segChart"></canvas></div>
+        <div class="chart-split-list">
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#D4A843"></div>
+            <div><div class="csi-lbl">BCA（Commercial Airplanes）</div><div class="csi-sub">$9,203M / YoY +13.0% / 営業損失 -$563M / マージン -6.1%（+50bps 改善） / 143 機納入</div></div>
+            <div class="csi-pct">41.4%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#5C7395"></div>
+            <div><div class="csi-lbl">BDS（Defense, Space &amp; Security）</div><div class="csi-sub">$7,599M / YoY +20.6% / 営業利益 $233M / マージン 3.1%（+60bps） / Iran 紛争で防衛需要増</div></div>
+            <div class="csi-pct">34.2%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#B8912A"></div>
+            <div><div class="csi-lbl">BGS（Global Services）</div><div class="csi-sub">$5,370M / YoY +6.1% / 営業利益 $971M / マージン 18.1%（最高セグメント）</div></div>
+            <div class="csi-pct">24.2%</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#F0E6C8"></div>
+            <div><div class="csi-lbl">消去・本社</div><div class="csi-sub">$45M / 営業損失 -$193M（本社管理費・セグメント間消去）</div></div>
+            <div class="csi-pct">0.2%</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body">BCA が <strong>$9.20B / 構成比 41%</strong> で最大セグメント。737 MAX 114 機、787 15 機、777 8 機、767 6 機の計 143 機納入で売上 +13% YoY、<strong>Airbus 114 機を 7 年ぶりに逆転</strong>。ただし営業損失 -$563M（-6.1%）は Spirit AeroSystems 統合コストが圧迫し、黒字化は 2027 中頃見込み。BDS は <strong>売上 +20.6% / 営業利益 +50%</strong> と急回復、Iran 紛争を背景とした防衛需要膨張と <strong>KC-46 Pegasus 15 機引き渡し完了</strong>（累積損失 $8B の十字架は残るが追加損失なし）が寄与。BGS はアフターマーケット安定で <strong>営業利益率 18.1%</strong> と 3 セグメント中最高、納入済 16,000+ 機の保守・訓練・部品供給で粘着型収益を維持。連結合計は $22.22B（+14.0%）で、<strong>3 セグメントすべてが増収・改善</strong>という「回復が本物である」定量証拠。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Aircraft Deliveries 内訳 (BA固有) -->
+<section class="sec3" data-accordion id="sec-medtech">
+  <div class="sec3-title">Aircraft Deliveries <span class="jp">· 機種別納入内訳（Q1 2026）</span></div>
+  <div class="sec3-body">
+    <div class="panel-merge">
+      <div class="chart-split">
+        <div class="chart-split-viz"><canvas id="medtechChart"></canvas></div>
+        <div class="chart-split-list">
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#D4A843"></div>
+            <div><div class="csi-lbl">737 MAX（ナローボディ主力）</div><div class="csi-sub">114 機納入、全体の 80% / 月産 42 機で安定化、2026 夏 47 機 → Everett North Line で 52 機へ</div></div>
+            <div class="csi-pct">114 機</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#5C7395"></div>
+            <div><div class="csi-lbl">787 Dreamliner（ワイドボディ）</div><div class="csi-sub">15 機納入 / 月産 8 機 → 2026 後半 10 機 → 中期 14 機 / 手直し工数 -25%</div></div>
+            <div class="csi-pct">15 機</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#B8912A"></div>
+            <div><div class="csi-lbl">777（含 777F 貨物機）</div><div class="csi-sub">8 機納入 / 777X 初号機は 2027 Lufthansa 向け納入予定、GE9X エンジン修正中</div></div>
+            <div class="csi-pct">8 機</div>
+          </div>
+          <div class="chart-split-item">
+            <div class="csi-sw" style="background:#F0E6C8"></div>
+            <div><div class="csi-lbl">767（貨物・KC-46 ベース）</div><div class="csi-sub">6 機納入 / KC-46 Pegasus 空中給油機のプラットフォーム</div></div>
+            <div class="csi-pct">6 機</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-body">Q1 2026 商業機納入は <strong>143 機（YoY +10%、Airbus 114 機を 7 年ぶり逆転）</strong>。737 MAX 114 機が全体の 80% を占め、月産 42 機で安定化したのが最大の功績。CEO Ortberg は「737 プログラムは 42 機/月で安定、在庫からの最後の 737 MAX も納入完了。通年 500 機引き渡し目標の軌道」と発言。787 は 15 機で月産 8 機 → 2026 後半 10 機 → 中期 14 機へのランプアップが進行中、手直し工数は <strong>YoY -25% 改善</strong>と品質指標も好転。777 は 8 機、最大の注目は 2027 Lufthansa 向け 777X 初納入で、GE9X エンジン修正中だが Phase 4A 認証取得済み。Q1 Net Orders は 140 機（Delta 787-10 30 機、Aviation Capital 737 MAX 50 機、Air India 737 MAX 20 機等）で、バックログ BCA $575.6B（6,100+ 機、YoY +25%）を維持。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Production Rate & Backlog (BA固有) -->
+<section class="sec3" data-accordion id="sec-geo">
+  <div class="sec3-title">Production &amp; Backlog <span class="jp">· 生産レート・受注残（Q1 2026 末）</span></div>
+  <div class="sec3-body">
+    <table class="tbl">
+      <thead><tr><th>機種</th><th>現在レート</th><th>次の節目</th><th>最終目標</th><th>バックログ機数</th></tr></thead>
+      <tbody>
+        <tr><td><strong>737 MAX（ナローボディ）</strong></td><td>42 機/月</td><td>47 機/月（2026 夏）</td><td>52 機/月（Everett North Line 稼働後）</td><td>4,368 機</td></tr>
+        <tr><td><strong>787 Dreamliner（ワイドボディ）</strong></td><td>8 機/月</td><td>10 機/月（2026 後半）</td><td>14 機/月（中期）</td><td>1,059 機</td></tr>
+        <tr><td>777（含 777F・777X）</td><td>認証試験中</td><td>777X Phase 4A 取得済</td><td>初号機納入 2027 年（Lufthansa）</td><td>606 機</td></tr>
+        <tr><td>767（含 KC-46）</td><td>継続生産</td><td>—</td><td>—</td><td>94 機</td></tr>
+        <tr><td>737-7（Southwest 向け）</td><td>生産中</td><td>認証 2026/8</td><td>初号機納入 2027 年</td><td>—（737 MAX に含む）</td></tr>
+        <tr><td>737-10（大型 MAX）</td><td>生産中</td><td>TIA Phase 2 取得、認証 Q3 2026</td><td>初号機納入 2027 年</td><td>—（737 MAX に含む）</td></tr>
+      </tbody>
+    </table>
+    <div class="cardx-grid" style="margin-top:16px">
+      <div class="cardx">
+        <div class="cardx-lbl">BCA バックログ</div>
+        <div class="cardx-val gold">$575.6B</div>
+        <div class="cardx-sub">6,100+ 機 / YoY +25%（過去最高）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">BDS バックログ</div>
+        <div class="cardx-val gold">$85.8B</div>
+        <div class="cardx-sub">過去最高 / Iran 紛争で追加受注機会</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">BGS バックログ</div>
+        <div class="cardx-val gold">$33.0B</div>
+        <div class="cardx-sub">過去最高 / アフターマーケット安定</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">総バックログ</div>
+        <div class="cardx-val gold">$694.7B</div>
+        <div class="cardx-sub">全セグメント過去最高 / 約 10 年分の受注残</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">Boeing の収益可視性は<strong>バックログ $694.7B</strong>（約 10 年分の売上規模）で極めて高い。BCA は 737 が 4,368 機、787 が 1,059 機、777 が 606 機で計 6,100+ 機の受注残、YoY +25% 増。Q1 単独でも Delta 787-10 30 機、Aviation Capital 737 MAX 50 機、Air India 737 MAX 20 機等、計 140 機の Net Orders を獲得。<strong>最大の変数は生産レート（月産）</strong>で、737 MAX が 42 → 47（2026 夏）→ 52（Everett North Line）、787 が 8 → 10 → 14 という段階的ランプアップを成功させられるかが FCF $10B 目標到達の核心。認証・品質管理・サプライチェーンの 3 本柱が揃えば、この巨大バックログが順次キャッシュフロー化する構造。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FY2026 Guidance (BA固有・FCF ガイダンス) -->
+<section class="sec3" data-accordion id="sec-annual">
+  <div class="sec3-title">FY2026 Guidance <span class="jp">· 通期2026年ガイダンス（FCF プラス転換）</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx">
+        <div class="cardx-lbl">FY2026 FCF（通年）</div>
+        <div class="cardx-val gold">+$1B 〜 +$3B</div>
+        <div class="cardx-sub">FY2025 -$1.9B からプラス転換 / CEO「最大 $3B に到達可能」</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">737 通年納入数</div>
+        <div class="cardx-val pos">約 500 機</div>
+        <div class="cardx-sub">Ortberg「通年 500 機引き渡し目標の軌道」</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">737 MAX 月産レート</div>
+        <div class="cardx-val pos">42 → 47 → 52 機</div>
+        <div class="cardx-sub">2026 夏 47 機 / Everett North Line 稼働後 52 機</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">787 月産レート</div>
+        <div class="cardx-val neu">8 → 10 機</div>
+        <div class="cardx-sub">2026 後半 10 機 / 中期 14 機</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">787 通年納入数</div>
+        <div class="cardx-val neu">90 〜 100 機</div>
+        <div class="cardx-sub">月産引き上げに伴い段階的に増加</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">長期 FCF 目標</div>
+        <div class="cardx-val gold">$10B</div>
+        <div class="cardx-sub">CEO「十分に達成可能、次の 10 年はさらなる成長」</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">会社は通年 FCF ガイダンスを <strong>+$1B〜+$3B（プラス転換）</strong>で維持。Q1 実績 -$1.5B は予想 -$2.34B を +$886M 上回る大幅サプライズで、年間プラス転換の道筋が見えた。CEO Ortberg は CNBC で「<strong>フリーキャッシュフローは今年最大 $3B に達する可能性がある</strong>」「<strong>$10B の FCF は十分に達成可能で、次の 10 年にはさらなる成長が見込める</strong>」と発言。CFO Malave は<strong>Q2 FCF 見通し「低 $100M 台の流出」</strong>（つまり H2 急回復シナリオ）を提示、H2 で $2B〜$4B のプラス CF 創出が通年ガイダンス達成の条件。DOJ 刑事罰 $1.1B の支払いは H2 2026 に予定され一時的に FCF を圧迫するが、既に計上済み。FY2026 EPS コンセは $0.03（StockAnalysis）〜$1.87（Zacks）と大きく分散、FY2027 は $4.68 と黒字化本格期を市場は見ている。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Cash Flow (BA固有) -->
+<section class="sec3" data-accordion id="sec-cashflow">
+  <div class="sec3-title">Cash Flow &amp; Capital Return <span class="jp">· キャッシュフロー・資本政策（Q1 2026）</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx">
+        <div class="cardx-lbl">営業CF（Q1 2026）</div>
+        <div class="cardx-val pos">-$179M</div>
+        <div class="cardx-sub">YoY +89% 改善（Q1 2025 -$1,616M） / 通年プラス転換への軌道</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">FCF（Q1 2026）</div>
+        <div class="cardx-val pos">-$1.45B</div>
+        <div class="cardx-sub">予想 -$2.34B を +$886M 上振れ / YoY +36% 改善</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">Capex（設備投資）</div>
+        <div class="cardx-val neu">-$1.28B</div>
+        <div class="cardx-sub">YoY +89%（生産ランプアップに伴う投資増）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">Q1 配当支払</div>
+        <div class="cardx-val neu">停止中</div>
+        <div class="cardx-sub">普通株配当は 2020 年以降未払（優先株のみ $86M）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">Q1 自社株買い</div>
+        <div class="cardx-val neu">$0</div>
+        <div class="cardx-sub">負債削減優先のため未実施</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">Q1 借入返済</div>
+        <div class="cardx-val pos">-$6.95B</div>
+        <div class="cardx-sub">短期債を大型返済、有利子負債 $54.1B → $47.2B へ</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">現金・投資（期末）</div>
+        <div class="cardx-val neu">$20.9B</div>
+        <div class="cardx-sub">現金 $9.44B + 短期有価証券 $11.46B / 信用枠 $10.0B 未使用</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">Debt-to-Capital</div>
+        <div class="cardx-val neu">88.7%</div>
+        <div class="cardx-sub">2025 年末 90.8% から改善 / 依然高水準</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body">Q1 2026 の FCF は <strong>-$1.45B</strong>で、予想 -$2.34B を <strong>$886M 上振れ</strong>。営業CF は -$179M（YoY +89% 改善）と純利益-運転資本の改善が明確。Capex は生産ランプアップに伴い $1.28B（YoY +89%）と増加だが、手直し工数削減（737 -20%、787 -25%）で効率化進行。<strong>資本政策の核心は負債削減</strong>：Q1 単独で <strong>$6.95B の借入返済</strong>を実行、有利子負債は 2025 年末 $54.1B から $47.2B へ <strong>$6.9B 削減</strong>。Debt-to-Capital は 90.8% → 88.7% に改善したが、依然高水準（株主資本 $6B に対し有利子負債 $47B）で財務健全化は途上。CFO Malave は資本配分の優先順位を「①負債削減、②投資、③株主還元」と明示しており、配当再開・自社株買いは早くても 2027 年以降と見られる。FY26 通年 FCF +$1B〜+$3B、長期 $10B の道筋が定着すれば財務柔軟性は段階的に回復。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Technical (BA固有) -->
+<section class="sec3" data-accordion id="sec-technical">
+  <div class="sec3-title">Technical <span class="jp">· テクニカル分析</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid">
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">現在株価（4月22日終値）</div>
+        <div class="cardx-val pos">$231.28</div>
+        <div class="cardx-sub">+$12.12／+5.53%／日中レンジ $221.22 – $232.60</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">52週レンジ</div>
+        <div class="cardx-val neu">$169.00 – $254.35</div>
+        <div class="cardx-sub">安値 2025-04-24 から +36.85% / 高値 2026-01-27 から -9.07%</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">時価総額</div>
+        <div class="cardx-val neu"><span class="no-currency">$181.75B</span></div>
+        <div class="cardx-sub">発行済 785.84M 株 × $231.28 / Float 753.97M 株</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">RSI（14日）</div>
+        <div class="cardx-val pos">62.33</div>
+        <div class="cardx-sub">中立〜やや強気（50-70 ゾーン、過熱感なし）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">MACD（12,26）</div>
+        <div class="cardx-val pos">+2.11</div>
+        <div class="cardx-sub">ポジティブ / 決算前後に強気クロス拡大</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">SMA 50日 / 200日</div>
+        <div class="cardx-val pos">$218.84 / $219.54</div>
+        <div class="cardx-sub">株価は全 MA の上 / SMA50・200 ほぼ同水準、GC 寸前</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">ATR（14日）</div>
+        <div class="cardx-val neu"><span class="no-currency">$7.26（3.14%）</span></div>
+        <div class="cardx-sub">平均的ボラティリティ / Beta 1.13-1.20</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">出来高（4/22）</div>
+        <div class="cardx-val pos">15.49M 株</div>
+        <div class="cardx-sub">20日平均 6.98M の 2.26-2.85 倍（強い買い圧力）</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">サポート / レジスタンス</div>
+        <div class="cardx-val neu">S $224.13 / R $235.51</div>
+        <div class="cardx-sub">Fib 61.8% $221.75 強サポート / 52週高 $254.35 最大壁</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">総合判定（短期 / 中期 / 長期）</div>
+        <div class="cardx-val gold">やや強気 / 強気 / 強気</div>
+        <div class="cardx-sub">Moving Averages Strong Buy / GC 寸前 / Stoch 過買い接近で短期調整リスク</div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "autosize": false,
+          "width": 1100,
+          "height": 750,
+          "symbol": "NYSE:BA",
+          "interval": "D",
+          "timezone": "Asia/Tokyo",
+          "theme": "dark",
+          "style": "1",
+          "locale": "ja",
+          "backgroundColor": "rgba(13, 17, 23, 1)",
+          "gridColor": "rgba(48, 54, 61, 0.3)",
+          "range": "6M",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": true,
+          "calendar": false,
+          "hide_volume_indicator": false,
+          "withdateranges": true,
+          "support_host": "https://www.tradingview.com",
+          "studies": ["MASimple@tv-basicstudies","MAExp@tv-basicstudies"],
+          "studies_overrides": {"moving average.length": 50,"moving average exponential.length": 200}
+        }
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Management -->
+<section class="sec3" data-accordion id="sec-mgmt">
+  <div class="sec3-title">Management <span class="jp">· 経営陣コメント</span></div>
+  <div class="sec3-body">
+    <div class="pullq">
+      <div class="pullq-body"><strong>すべてのシステムは順調</strong>だ。顧客との信頼を取り戻し、<strong>生産レートを引き上げて</strong>おり、<strong>通年でプラスのキャッシュフロー</strong>を生み出す軌道に乗っている。</div>
+      <div class="pullq-attr">Kelly Ortberg<span class="role">/ CEO — ターンアラウンド進捗 / FCF 通年見通し（CNBC Squawk on the Street, 2026-04-22）</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">737 プログラムは月産 <strong>42 機</strong>のレートで安定した。四半期中に在庫からの最後の 737 MAX も納入した。<strong>今年 500 機の引き渡し目標の軌道</strong>に乗っている。</div>
+      <div class="pullq-attr">Kelly Ortberg<span class="role">/ CEO — 737 MAX 生産正常化 / 通年納入目標（Q1 2026 Earnings Call）</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">月産 <strong>47 機超</strong>への増産をサポートするため、<strong>Everett 北ラインの新設</strong>を準備している。42 機からの引き上げは<strong>今夏中に完了</strong>する計画だ。</div>
+      <div class="pullq-attr">Kelly Ortberg<span class="role">/ CEO — 737 MAX 生産能力拡張（Q1 2026 Earnings Call）</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">四半期の FCF は <strong>$15 億の使用（マイナス）</strong>だったが、<strong>予想を大幅に上回る</strong>結果だ。今年は FCF <strong>$10〜$30 億のプラス</strong>を引き続き見込んでいる。</div>
+      <div class="pullq-attr">Jay Malave<span class="role">/ CFO — FCF 改善 / 通年ガイダンス維持（Q1 2026 Earnings Call）</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">737 生産は月産 42 機で安定化し、チームは<strong>最終組立の手直し工数を約 20% 削減</strong>した。787 では、手直し工数が 2025 年 Q1 比で <strong>25% 以上改善</strong>した。</div>
+      <div class="pullq-attr">Jay Malave<span class="role">/ CFO — 生産効率 / 品質改善（Q1 2026 Earnings Call）</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Risk & Catalyst -->
+<section class="sec3" data-accordion id="sec-risk">
+  <div class="sec3-title">Risk &amp; Catalyst <span class="jp">· リスク・注目ポイント / カタリスト</span></div>
+  <div class="sec3-body">
+    <div class="risk-grid">
+      <div class="risk-card">
+        <h4>Positive Catalysts</h4>
+        <ul class="risk-top">
+          <li>Q1 Core EPS -$0.20（予想 -$0.70）で損失を <strong>71% 縮小</strong> — FCF $886M 上振れと合わせ、2024 年以降最大級のターンアラウンド証拠</li>
+          <li>バックログ <strong>$694.7B 過去最高</strong>（BCA $575.6B・BDS $85.8B・BGS $33.0B） — 10 年分の受注残で収益可視性極めて高</li>
+          <li>737 MAX 月産 <strong>42→47→52 機</strong>ロードマップ — 2026 夏に 47、Everett North Line 稼働で 52。FCF $10B 目標への核心</li>
+        </ul>
+        <ul class="risk-more">
+          <li>商業機納入 143 機で <strong>7 年ぶり Airbus 逆転</strong>（114 機） — 競争力回復の象徴、需要側の需給逼迫で Boeing 側に発注が戻る構図</li>
+          <li>FY26 FCF 通年 <strong>+$1B〜+$3B ガイダンス維持</strong>、長期 $10B 目標を CEO が「十分に達成可能」と明言 — 株主還元再開の前提</li>
+          <li>Q1 に <strong>有利子負債 $6.9B 削減</strong>（$54.1B → $47.2B） — D/C 比率 90.8%→88.7%、支払利息 -13% で財務健全化が定量的に進行</li>
+          <li>BlackRock +44.55%・FMR +21.3% の大手機関増ポジション — Capital Research -71.8% の売りを差し引いてもネット買い越し</li>
+          <li>手直し工数 <strong>737 -20% / 787 -25% 削減</strong> — Spirit AeroSystems 統合効果が品質指標で定量的に発現</li>
+        </ul>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
+      </div>
+      <div class="risk-card">
+        <h4>Risk Factors</h4>
+        <ul class="risk-top">
+          <li>中国関税再燃リスク — 2025 年 4 月の 145% 関税で引渡し停止経験。<strong>中国向け約 740 機（BL の 12%）</strong>が地政学リスクに晒される</li>
+          <li>BCA は依然赤字 <strong>-$563M（-6.1%）</strong> — Spirit 統合コスト $1B（通年）が圧迫、黒字化は 2027 中頃見込み</li>
+          <li>Debt-to-Capital <strong>88.7%</strong> の極端な負債依存 — 株主資本 $6B に対し有利子負債 $47B、2027 年の $4B 追加満期で財務柔軟性限定的</li>
+        </ul>
+        <ul class="risk-more">
+          <li>KC-46 累計損失 <strong>$8B 超</strong> — 固定価格契約損失が BDS マージン 3.1% を圧迫。VC-25B（Air Force One）も $2.3B 累計損失</li>
+          <li>737-7/737-10 認証遅延リスク — FAA プロセスが長引けば Southwest/Ryanair の 400 機超引き渡しに支障</li>
+          <li>777X 6 年遅延・GE9X エンジン修正中 — 当初 2020 就航 → 2027 初納入へ。GE9X 耐久性問題再発で 2027 スケジュールも揺らぐリスク</li>
+          <li>株主資本比率 <strong>3.6%</strong> の脆弱性 — 総資産 $164B に対し株主資本 $6B、追加損失で債務超過へ逆戻りリスク</li>
+          <li>DOJ 刑事罰 <strong>$1.1B 支払い</strong>（2026 H2 予定） — 計上済みだが FCF へ一時的影響、和解違反時は追加訴追リスク継続</li>
+        </ul>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QoQ Compare -->
+<section class="sec3" data-accordion id="sec-compare">
+  <div class="sec3-title">QoQ Compare <span class="jp">· 前四半期（Q4 2025）との比較</span></div>
+  <div class="sec3-body">
+    <table class="cmp-tbl">
+      <thead><tr><th>指標</th><th>Q4 2025</th><th>Q1 2026</th><th>変化</th></tr></thead>
+      <tbody>
+        <tr><td>売上高</td><td>$23.9B</td><td>$22.2B</td><td class="neu">-7.1% QoQ（季節性） / YoY +14.0%</td></tr>
+        <tr><td>GAAP Diluted EPS</td><td>$10.23（DAS 売却益 $9.6B 込）</td><td>-$0.11</td><td class="neu">一時益剥落 / 継続事業では +31% 損失縮小</td></tr>
+        <tr><td>Core EPS（非 GAAP）</td><td>一時益除く参考値</td><td>-$0.20（予想 -$0.70 比 +71%）</td><td class="pos">↑ 大幅損失縮小</td></tr>
+        <tr><td>BCA 営業利益率</td><td>赤字継続</td><td>-6.1%（YoY +50bps）</td><td class="pos">↑ 損失幅縮小</td></tr>
+        <tr><td>BDS 営業利益</td><td>参考値なし</td><td>$233M（マージン 3.1%）</td><td class="pos">↑ YoY +50%</td></tr>
+        <tr><td>BGS マージン</td><td>参考値なし</td><td>18.1%</td><td class="pos">↑ 3 セグメント中最高</td></tr>
+        <tr><td>商業機納入</td><td>参考値なし</td><td>143 機（Airbus 114 機逆転）</td><td class="pos">↑ 7 年ぶり競争力回復</td></tr>
+        <tr><td>バックログ合計</td><td>過去最高水準</td><td>$694.7B</td><td class="pos">↑ 全セグメント過去最高更新</td></tr>
+        <tr><td>有利子負債</td><td>$54.1B（2025/12 末）</td><td>$47.2B</td><td class="pos">-$6.9B 削減（Q1 に $6.95B 返済）</td></tr>
+        <tr><td>Debt-to-Capital</td><td>90.8%</td><td>88.7%</td><td class="pos">-2.1pt 改善</td></tr>
+        <tr><td>FY26 FCF ガイダンス</td><td>$3-5B（旧計画）</td><td>+$1B〜+$3B（維持）</td><td class="neu">現実的水準へ調整済 / 維持</td></tr>
+        <tr><td>株価反応（発表後）</td><td>約 +1%</td><td>+5.53%</td><td class="pos">↑↑</td></tr>
+        <tr><td><strong>総合評価スコア</strong></td><td><strong>3 ⏸</strong>（一時益込みだが依然過渡期）</td><td><strong>4 📈</strong>（強い決算）</td><td class="pos"><strong>+1 段階 ↑</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body"><strong>トレンド方向: 本格回復 ↑</strong> — Q4 2025 は DAS（Digital Aviation Solutions）売却益 $9.6B で GAAP EPS が $10.23 と跳ねたが、継続事業ベースでは過渡期の決算だった。Q1 2026 では一時益剥落後も <strong>Core EPS -$0.20（予想 -$0.70 比 +71%）</strong>の大幅ビート、<strong>商業機 143 機で Airbus を 7 年ぶり逆転</strong>、<strong>バックログ $694.7B 過去最高</strong>、<strong>有利子負債 $6.9B 削減</strong>など、構造的な回復指標が揃う。BCA の営業赤字 -6.1% は縮小継続、BDS は +50%、BGS は 18.1% マージン維持と 3 セグメントすべてで改善。FCF ガイダンス +$1B〜+$3B 維持と CEO「$10B 達成可能」発言で長期ビジョンも追認。ただし中国関税再燃・KC-46/VC-25B 固定価格損失・D/C 88.7% の財務レバレッジ・777X 認証スケジュールなど下振れ要因が残存し、Q2 以降も確認期間が続く。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Market Data / Analysts (BA固有 sec-market) -->
+<section class="sec3" data-accordion id="sec-market">
+  <div class="sec3-title">Market Data <span class="jp">· 株価・市場センチメント</span></div>
+  <div class="sec3-body">
+    <div class="cardx-grid no-currency">
+      <div class="cardx">
+        <div class="cardx-lbl">アナリスト評価</div>
+        <div class="cardx-val gold">Overweight / 強気寄り</div>
+        <div class="cardx-sub">Strong Buy/Buy 21 / Overweight 4 / Hold 5 / Sell 1（計約 31）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">アナリスト目標株価（平均）</div>
+        <div class="cardx-val pos">$256</div>
+        <div class="cardx-sub">現在株価 $231.28 比 +10.8%アップサイド / 高値 $298 / 安値 $140</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">配当利回り</div>
+        <div class="cardx-val neu">停止中</div>
+        <div class="cardx-sub">2020 年以降普通株配当未払 / 優先株のみ / 負債削減優先の方針</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">Forward PER（FY27E）</div>
+        <div class="cardx-val neu">49.4x</div>
+        <div class="cardx-sub">FY27 コンセ EPS $4.68（FY26 はほぼゼロ） / 黒字化本格期 2027</div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body"><strong>決算前後の主要アナリストアクション 5 件</strong>：Jefferies（Buy、$290 → <strong>$295</strong>、2026-02-02）／Tigress Financial（Buy、$275 → <strong>$290</strong>、2026-03-19）／Citigroup（Buy、$290 → <strong>$256</strong>、2026-04-02、関税懸念で引下げ）／Wells Fargo（<strong>Overweight 新規</strong>、$250、2026-04-01）／Susquehanna（Buy、$285 維持、決算翌日確認）。Bernstein が $298 で最高、Morgan Stanley は Equal Weight $245 と慎重派も存在。Core EPS -$0.20（対予想 -$0.70 = +71%）は <strong>2024 年以降最大級のサプライズ</strong>で複数社の見直しトリガーに。<strong>機関投資家保有比率 73.58%</strong>、BlackRock +44.55%・FMR +21.3% の増ポジションで機関ポジションは強気バイアス。Short Float 1.69-2.12%（極めて低い）、Put/Call 中立で市場のコンビクションは徐々に強気に傾いている。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Valuation -->
+<section class="sec3" data-accordion id="sec-valuation">
+  <div class="sec3-title">Valuation <span class="jp">· 想定株価 3パターン</span></div>
+  <div class="sec3-body">
+    <div class="val-grid no-currency">
+      <div class="val-card">
+        <div class="val-scn">LOW — 保守的</div>
+        <div class="val-price">$198</div>
+        <div class="val-detail">FCF ガイダンス下限 $1B 達成のみ<br>関税再燃・認証遅延でランプアップ停滞</div>
+        <div class="val-gap neg">現在株価比 -14.4% / 下値目途（安値 $140 派の最大リスク）</div>
+      </div>
+      <div class="val-card">
+        <div class="val-scn">MID — 基本</div>
+        <div class="val-price">$256</div>
+        <div class="val-detail">FCF ガイダンス中央値 $2B 達成<br>アナリスト平均 PT とも整合（Citi $256, Wells Fargo $250）</div>
+        <div class="val-gap pos">現在株価比 +10.7% / 適正</div>
+      </div>
+      <div class="val-card">
+        <div class="val-scn">HIGH — 楽観的</div>
+        <div class="val-price">$298</div>
+        <div class="val-detail">FCF $3B 達成・737 月産 47 機到達<br>Bernstein 最高目標、中国関税解消シナリオ</div>
+        <div class="val-gap pos">現在株価比 +28.8% / 上値余地大</div>
+      </div>
+    </div>
+
+    <!-- NTM calc (BA: FCF-based) -->
+    <div class="ntm-calc no-currency" style="margin-top:18px">
+      <div class="ntm-row">
+        <div class="ntm-cell"><div class="ntm-lbl">FY2026 FCF ガイダンス（中央値）</div><div class="ntm-val">$2.0B</div><div class="ntm-sub">会社公式レンジ +$1B〜+$3B の中央値</div></div>
+        <div class="ntm-op">×</div>
+        <div class="ntm-cell"><div class="ntm-lbl">P/FCF 想定（回復期）</div><div class="ntm-val">90x</div><div class="ntm-sub">回復初年度で倍率高 / 長期 $10B 達成時には 18-20x 水準へ</div></div>
+        <div class="ntm-op">=</div>
+        <div class="ntm-cell"><div class="ntm-lbl">NTM Fair Value（12ヶ月先）</div><div class="ntm-val goal">$229</div><div class="ntm-sub">現在株価 $231.28 とほぼ合致 / 既に織り込み済み</div></div>
+      </div>
+      <div class="ntm-foot">
+        <div class="ntm-foot-cell"><div class="lbl">Forward PER（FY27E）</div><div class="val">49.4x</div></div>
+        <div class="ntm-foot-cell"><div class="lbl">PSR（Price-to-Sales）</div><div class="val">~1.8x</div></div>
+        <div class="ntm-foot-cell"><div class="lbl">EV/EBITDA（推計）</div><div class="val">33x</div></div>
+        <div class="ntm-foot-cell"><div class="lbl">判定（MID乖離率）</div><div class="val" style="color:var(--beat)">+10.7% / 適正〜やや割安</div></div>
+      </div>
+    </div>
+
+    <!-- Gauge -->
+    <div class="val-gauge no-currency" style="margin-top:18px">
+      <div class="val-gauge-title">Price Position · 現在株価の位置</div>
+      <div class="val-gauge-track">
+        <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$198</div></div>
+        <div class="val-gauge-mark" style="left:58.0%"><div class="lbl">MID</div><div class="amt">$256</div></div>
+        <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$298</div></div>
+        <!-- 現在株価 $231.28 → (231.28-198)/(298-198) = 33.28/100 = 33.3% -->
+        <div class="val-gauge-current" style="left:33.3%"><div class="cur-label">現在 $231.28</div></div>
+      </div>
+    </div>
+
+    <div class="val-reminder">
+      <strong>判定: MID 到達途中（LOW 寄り）</strong>（MID 乖離率 +10.7%）— Boeing は赤字企業のため伝統的な PER 評価では分母が歪む。FCF ガイダンスを軸にした P/FCF モデルでは、MID $256（FCF $2B × P/FCF 90x）が基準。現在株価 $231 は MID への余地 +10.7%、アナリスト平均 PT $256 と完全整合。HIGH シナリオ $298（+28.8%）への到達には、①FY2026 FCF $3B 達成、②737 月産 47 機の計画通り実現、③中国関税リスクの解消 — の 3 条件が必要。<br><br><strong>注意喚起</strong>: 赤字企業の評価は FCF ランプアップの確度次第で大きく振れる。長期 FCF $10B 目標に到達すれば（18-20x P/FCF で）株価 <strong>$200-250/FCF×10 = $2,000〜$2,500B 時価総額</strong>相当だが、これは 2028-2030 年頃のシナリオ。Q1 2026 は「回復が本物」の定量証拠だが、BCA 赤字解消（2027 中頃見込み）・D/C 88.7% の財務レバレッジ改善・中国関税・KC-46/VC-25B 固定価格損失終結が段階的に進むたびに、P/FCF が拡張する軌道が基本線。
+    </div>
+  </div>
+</section>
+
+<!-- Related Morning News -->
+<div class="atlas-related-morning" data-ticker="BA"></div>
+<script>
+(function(){
+  var INDEX_URL='/news/news-index.json';var MAX_ITEMS=5;
+  function byTicker(items,ticker){var out=[];for(var i=0;i<items.length;i++){if(items[i].tickers&&items[i].tickers.indexOf(ticker)!==-1)out.push(items[i]);}return out.slice(0,MAX_ITEMS);}
+  function fmtDate(d){if(!d)return'';var parts=d.split('-');return parts.length===3?parts[1]+'/'+parts[2]:d;}
+  function render(container,articles){var ticker=container.getAttribute('data-ticker')||'';if(!articles.length){container.style.display='none';return;}
+    var html='<div class="arm-inner"><div class="arm-head"><span class="arm-label">関連するニュース・号外</span><span class="arm-sub">'+ticker+' に言及された記事</span></div><ul class="arm-list">';
+    for(var i=0;i<articles.length;i++){var a=articles[i];var kind=a.kind==='extra'?'号外':'ニュース';html+='<li class="arm-item"><a class="arm-link" href="'+a.url+'"><span class="arm-kind arm-kind-'+a.kind+'">'+kind+'</span><span class="arm-date">'+fmtDate(a.date)+'</span><span class="arm-title">'+(a.title||'(タイトル未取得)')+'</span></a></li>';}
+    html+='</ul><div class="arm-foot"><a href="https://atlas-financials.jp/news/">すべてのニュースを見る →</a></div></div>';container.innerHTML=html;}
+  var css='.atlas-related-morning{background:#0F1829;border:1px solid rgba(184,145,42,.2);border-radius:10px;padding:24px 28px;margin:32px 0;font-family:"Noto Sans JP",sans-serif}.atlas-related-morning .arm-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,145,42,.15);gap:12px;flex-wrap:wrap}.atlas-related-morning .arm-label{color:#D4A843;font-size:12px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}.atlas-related-morning .arm-sub{color:#8b949e;font-size:11px}.atlas-related-morning .arm-list{list-style:none;margin:0;padding:0}.atlas-related-morning .arm-item{border-bottom:1px dashed rgba(184,145,42,.08)}.atlas-related-morning .arm-item:last-child{border-bottom:none}.atlas-related-morning .arm-link{display:grid;grid-template-columns:52px 54px 1fr;gap:12px;align-items:center;padding:10px 0;text-decoration:none;color:#e6edf3;font-size:13px;transition:color .15s}.atlas-related-morning .arm-link:hover{color:#D4A843}.atlas-related-morning .arm-kind{font-size:10px;letter-spacing:.08em;padding:2px 6px;border-radius:3px;text-align:center;font-weight:700}.atlas-related-morning .arm-kind-morning{background:rgba(184,145,42,.15);color:#D4A843}.atlas-related-morning .arm-kind-extra{background:rgba(139,32,32,.25);color:#f85149}.atlas-related-morning .arm-date{color:#8b949e;font-family:Inter,monospace;font-size:11px}.atlas-related-morning .arm-title{line-height:1.45}.atlas-related-morning .arm-foot{margin-top:14px;text-align:right;font-size:11px}.atlas-related-morning .arm-foot a{color:#8b949e;text-decoration:none}.atlas-related-morning .arm-foot a:hover{color:#D4A843}';
+  var style=document.createElement('style');style.textContent=css;(document.head||document.documentElement).appendChild(style);
+  function init(){var containers=document.querySelectorAll('.atlas-related-morning[data-ticker]');if(!containers.length)return;fetch(INDEX_URL,{cache:'default'}).then(function(r){return r.ok?r.json():[];}).then(function(items){for(var i=0;i<containers.length;i++){var c=containers[i];var t=c.getAttribute('data-ticker');render(c,byTicker(items,t));}}).catch(function(){for(var i=0;i<containers.length;i++)containers[i].style.display='none';});}
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init,{once:true});}else{init();}
+})();
+</script>
+
+<footer class="footer">
+  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:22px;width:auto;max-width:200px;opacity:.9;display:block;margin:0 auto 18px">
+  <p>本レポートは <strong>Atlas編集部</strong> が公開情報（Boeing IR、プレスリリース、決算カンファレンスコール、10-Q、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。数値・見通しは発表当時の情報に基づいており、将来の結果を保証するものではありません。</p>
+  <div class="footer-id">BA / FY26 Q1 · 発行 2026-04-23 · Atlas Quarterly — U.S. Market Intelligence</div>
+</footer>
+
+<!-- Portal Link -->
+<!-- TOC Navigation (mobile) -->
+<nav class="toc-nav" id="tocNav">
+<div class="toc-menu" id="tocMenu">
+<div class="toc-expand-all">
+  <button onclick="toggleAllSections(true)">すべて展開</button>
+  <button onclick="toggleAllSections(false)">すべて折りたたむ</button>
+</div>
+<ul class="toc-list">
+<li><a href="#sec-metrics" onclick="tocJump('sec-metrics')"><span class="toc-icon" style="width:24px;text-align:center">K</span><span class="toc-label">Key Metrics</span></a></li>
+<li><a href="#sec-revenue" onclick="tocJump('sec-revenue')"><span class="toc-icon" style="width:24px;text-align:center">R</span><span class="toc-label">売上高 / EPS 7四半期推移</span></a></li>
+<li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span class="toc-icon" style="width:24px;text-align:center">M</span><span class="toc-label">利益率トレンド</span></a></li>
+<li><a href="#sec-expense" onclick="tocJump('sec-expense')"><span class="toc-icon" style="width:24px;text-align:center">E</span><span class="toc-label">損益ブレイクダウン</span></a></li>
+<li><a href="#sec-product" onclick="tocJump('sec-product')"><span class="toc-icon" style="width:24px;text-align:center">P</span><span class="toc-label">セグメント別売上構成</span></a></li>
+<li><a href="#sec-medtech" onclick="tocJump('sec-medtech')"><span class="toc-icon" style="width:24px;text-align:center">U</span><span class="toc-label">機種別納入内訳</span></a></li>
+<li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span class="toc-icon" style="width:24px;text-align:center">G</span><span class="toc-label">生産レート・受注残</span></a></li>
+<li><a href="#sec-annual" onclick="tocJump('sec-annual')"><span class="toc-icon" style="width:24px;text-align:center">A</span><span class="toc-label">FY2026 ガイダンス</span></a></li>
+<li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span class="toc-icon" style="width:24px;text-align:center">C</span><span class="toc-label">キャッシュフロー</span></a></li>
+<li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span class="toc-icon" style="width:24px;text-align:center">T</span><span class="toc-label">テクニカル分析</span></a></li>
+<li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span class="toc-icon" style="width:24px;text-align:center">Q</span><span class="toc-label">経営陣コメント</span></a></li>
+<li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span class="toc-icon" style="width:24px;text-align:center">!</span><span class="toc-label">リスク・カタリスト</span></a></li>
+<li><a href="#sec-compare" onclick="tocJump('sec-compare')"><span class="toc-icon" style="width:24px;text-align:center">~</span><span class="toc-label">前回比較</span></a></li>
+<li><a href="#sec-market" onclick="tocJump('sec-market')"><span class="toc-icon" style="width:24px;text-align:center">S</span><span class="toc-label">市場センチメント</span></a></li>
+<li><a href="#sec-valuation" onclick="tocJump('sec-valuation')"><span class="toc-icon" style="width:24px;text-align:center">V</span><span class="toc-label">バリュエーション</span></a></li>
+</ul>
+</div>
+</nav>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()">☰</button>
+
+<script>
+// Accordion
+var touchStartY=0,touchStartX=0,touchStartTime=0;
+function toggleAccordion(sec){
+  if(!sec)return;
+  var isCollapsed=sec.classList.contains('collapsed');
+  if(isCollapsed){sec.classList.remove('collapsed');sec.classList.add('collapsing');var body=sec.querySelector('.section-body,.sec3-body');var onEnd=function(){sec.classList.remove('collapsing');if(body)body.removeEventListener('transitionend',onEnd);};if(body)body.addEventListener('transitionend',onEnd);setTimeout(function(){sec.classList.remove('collapsing');},400);}
+  else{sec.classList.add('collapsing','collapsed');var body2=sec.querySelector('.section-body,.sec3-body');var onEnd2=function(){sec.classList.remove('collapsing');if(body2)body2.removeEventListener('transitionend',onEnd2);};if(body2)body2.addEventListener('transitionend',onEnd2);setTimeout(function(){sec.classList.remove('collapsing');},400);}
+}
+document.querySelectorAll('[data-accordion] .section-title,[data-accordion] .sec3-title').forEach(function(title){
+  title.addEventListener('touchstart',function(e){touchStartY=e.touches[0].clientY;touchStartX=e.touches[0].clientX;touchStartTime=Date.now();},{passive:true});
+  title.addEventListener('touchend',function(e){var dy=Math.abs(e.changedTouches[0].clientY-touchStartY);var dx=Math.abs(e.changedTouches[0].clientX-touchStartX);var dt=Date.now()-touchStartTime;if(dy<10&&dx<10&&dt<300){e.preventDefault();toggleAccordion(this.closest('[data-accordion]'));}});
+  title.addEventListener('click',function(e){if(e.sourceCapabilities&&e.sourceCapabilities.firesTouchEvents)return;if(window.matchMedia('(pointer:fine)').matches){toggleAccordion(this.closest('[data-accordion]'));}});
+});
+(function(){if(window.innerWidth<=768){document.querySelectorAll('[data-accordion]').forEach(function(sec){sec.classList.add('collapsed');});}})();
+// TOC
+function toggleToc(){var menu=document.getElementById('tocMenu');var btn=document.getElementById('tocToggle');menu.classList.toggle('open');btn.classList.toggle('open');btn.textContent=menu.classList.contains('open')?'✕ セクション':'☰';}
+function tocJump(id){var sec=document.getElementById(id);if(sec){sec.classList.remove('collapsed');toggleToc();setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'start'});},100);}}
+function toggleAllSections(expand){document.querySelectorAll('[data-accordion]').forEach(function(sec){if(expand)sec.classList.remove('collapsed');else sec.classList.add('collapsed');});}
+// Overview
+function toggleOverview() {
+  var drop = document.getElementById('ovDrop');
+  var btn = document.getElementById('ovBtn');
+  if (!drop || !btn) return;
+  var isOpen = drop.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  if (!isOpen) {
+    btn.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+// Risk accordion
+function toggleRisk(btn){var card=btn.closest('.risk-card');if(!card)return;card.classList.toggle('expanded');var lbl=btn.querySelector('.lbl');if(lbl){var hiddenCount=card.querySelectorAll('.risk-more li').length;lbl.textContent=card.classList.contains('expanded')?'閉じる':'さらに'+hiddenCount+'件を表示';}}
+</script>
+
+<!-- Currency Toggle -->
+<script>
+(function(){
+  if(window.__ATLAS_CURRENCY_LOADED)return;window.__ATLAS_CURRENCY_LOADED=true;
+  var FX=window.ATLAS_FX;
+  if(!FX||!FX.code||FX.code==='USD'){document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('.currency-toggle').forEach(function(b){b.style.display='none';});});window.toggleCurrency=function(){};return;}
+  if(!FX.symbol)FX.symbol='¥';if(!FX.fmt)FX.fmt='cjk-ja';
+  var localKey='atlas-currency';var currencyMode=localStorage.getItem(localKey)||'USD';
+  if(currencyMode!=='USD'&&currencyMode!==FX.code)currencyMode=FX.code;
+  function fmtLocal(amt,unit){
+    var amt_b=unit==='T'?amt*1000:unit==='B'?amt:unit==='M'?amt/1000:unit==='K'?amt/1e6:null;
+    if(FX.fmt==='cjk-ja'){if(amt_b!==null){var jpy_b=amt_b*FX.rate;if(jpy_b>=1000)return FX.symbol+(jpy_b/1000).toFixed(2)+'兆';if(jpy_b>=1)return FX.symbol+(jpy_b*10).toFixed(0)+'億';return FX.symbol+(jpy_b*1000).toFixed(0)+'百万';}var jpy=amt*FX.rate;if(jpy>=10000)return FX.symbol+(jpy/10000).toFixed(2)+'万';return FX.symbol+Math.round(jpy).toLocaleString();}
+    return FX.symbol+Math.round(amt*FX.rate).toLocaleString();
+  }
+  var WRAP_DONE=false;
+  function wrapCurrencyValues(){
+    if(WRAP_DONE)return;WRAP_DONE=true;
+    var re=/\$(\d+(?:,\d{3})*(?:\.\d+)?)\s*([TBMK])?(?![\w%])/g;
+    var skipTags={SCRIPT:1,STYLE:1,NOSCRIPT:1,BUTTON:1,A:1};
+    var skipClasses=['portal-link','currency-toggle','theme-toggle-btn','toc-toggle','toc-list','tradingview-widget-container','no-currency','ov-btn'];
+    function shouldSkip(node){var p=node.parentNode;while(p&&p!==document.body){if(skipTags[p.tagName])return true;if(p.classList){for(var i=0;i<skipClasses.length;i++)if(p.classList.contains(skipClasses[i]))return true;}p=p.parentNode;}return false;}
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null,false);
+    var nodes=[],n;while((n=walker.nextNode())){if(n.nodeValue&&n.nodeValue.indexOf('$')>=0&&!shouldSkip(n))nodes.push(n);}
+    nodes.forEach(function(node){var text=node.nodeValue;if(!re.test(text))return;re.lastIndex=0;var frag=document.createDocumentFragment();var lastIdx=0,m;while((m=re.exec(text))!==null){if(m.index>lastIdx)frag.appendChild(document.createTextNode(text.slice(lastIdx,m.index)));var num=parseFloat(m[1].replace(/,/g,''));var unit=m[2]||'';var span=document.createElement('span');span.className='cur-val';span.setAttribute('data-usd',num);span.setAttribute('data-unit',unit);span.setAttribute('data-orig',m[0]);span.textContent=m[0];frag.appendChild(span);lastIdx=m.index+m[0].length;}if(lastIdx<text.length)frag.appendChild(document.createTextNode(text.slice(lastIdx)));node.parentNode.replaceChild(frag,node);});
+  }
+  function applyCurrency(mode){
+    document.querySelectorAll('.cur-val').forEach(function(el){if(mode!=='USD'){var usd=parseFloat(el.getAttribute('data-usd'));var unit=el.getAttribute('data-unit')||'';el.textContent=fmtLocal(usd,unit);el.classList.add('local-mode','jpy-mode');}else{el.textContent=el.getAttribute('data-orig');el.classList.remove('local-mode','jpy-mode');}});
+    document.querySelectorAll('.currency-toggle').forEach(function(btn){var act=btn.querySelector('.cur-active');var inact=btn.querySelector('.cur-inactive');if(!act||!inact)return;if(mode!=='USD'){btn.classList.add('local-mode','jpy-mode');act.textContent=FX.symbol;inact.textContent='$';btn.title=FX.code+'表示中（レート: 1$ = '+FX.rate+' '+FX.code+'、'+FX.date+'）';}else{btn.classList.remove('local-mode','jpy-mode');act.textContent='$';inact.textContent=FX.symbol;btn.title='USD ⇄ '+FX.code+' 切替（レート: 1$ = '+FX.rate+' '+FX.code+'、'+FX.date+'）';}});
+  }
+  function initButtons(){document.querySelectorAll('.currency-toggle').forEach(function(btn){var inact=btn.querySelector('.cur-inactive');if(inact&&inact.textContent==='¥')inact.textContent=FX.symbol;});}
+  window.toggleCurrency=function(){wrapCurrencyValues();currencyMode=currencyMode==='USD'?FX.code:'USD';localStorage.setItem(localKey,currencyMode);applyCurrency(currencyMode);};
+  document.addEventListener('DOMContentLoaded',function(){initButtons();if(currencyMode!=='USD'){wrapCurrencyValues();applyCurrency(currencyMode);}else{applyCurrency('USD');}});
+})();
+</script>
+
+<!-- Theme Toggle -->
+<script>
+(function(){
+  var html=document.documentElement;var KEY='atlas-theme';
+  function applyTheme(t){if(t==='light'){html.setAttribute('data-theme','light');}else{html.removeAttribute('data-theme');}document.querySelectorAll('.theme-toggle-btn').forEach(function(b){b.textContent=(t==='light')?'🌙':'☀️';b.title=(t==='light')?'ダークモードに切替':'ライトモードに切替';});}
+  var saved=localStorage.getItem(KEY)||'dark';applyTheme(saved);
+  window.toggleAtlasTheme=function(){var cur=localStorage.getItem(KEY)||'dark';var next=cur==='dark'?'light':'dark';localStorage.setItem(KEY,next);applyTheme(next);};
+})();
+</script>
+
+<script>
+// Chart.js
+const chartFont={family:'Inter',size:12};
+Chart.defaults.color='#A8B0BC';Chart.defaults.font=chartFont;
+const gridOpt={color:'rgba(184,145,42,0.08)'};
+// Boeing Q3'24 以降の四半期推移（Q3'24-Q4'24 はストライキ影響、Q2-Q4'25 は推計値含む）
+const quarters=['Q3\'24','Q4\'24','Q1\'25','Q2\'25','Q3\'25','Q4\'25','Q1\'26'];
+const revenues=[17900,15200,19496,22750,23400,23900,22217];
+const epsNonGAAP=[-10.44,-5.90,-0.49,-0.90,-0.40,-0.30,-0.20];  // Core EPS (Q4'25 GAAPは DAS 売却益 $10.23 含むが Core で表示)
+
+new Chart(document.getElementById('revenueChart'),{
+  type:'bar',
+  data:{labels:quarters,datasets:[{label:'売上高 ($M)',data:revenues,backgroundColor:revenues.map((v,i)=>i===revenues.length-1?'rgba(184,145,42,0.85)':'rgba(184,145,42,0.35)'),borderColor:'#B8912A',borderWidth:1,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+(ctx.raw/1000).toFixed(2)+'B'}},title:{display:true,text:'売上高推移（$B）— Q3-Q4\'24 はIAMストライキ影響',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'B'},beginAtZero:false,min:12000},x:{grid:{display:false}}}}
+});
+
+new Chart(document.getElementById('epsChart'),{
+  type:'bar',
+  data:{labels:quarters,datasets:[{label:'Core EPS ($)',data:epsNonGAAP,backgroundColor:epsNonGAAP.map((v,i)=>i===epsNonGAAP.length-1?'rgba(184,145,42,0.85)':'rgba(184,145,42,0.35)'),borderColor:'#B8912A',borderWidth:1,borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'$'+ctx.raw.toFixed(2)}},title:{display:true,text:'Core EPS 推移（$、負値は赤字）— 損失縮小トレンド',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)},beginAtZero:true},x:{grid:{display:false}}}}
+});
+
+// 営業利益率トレンド（BCA・BDS・BGS）
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{labels:quarters,datasets:[
+    {label:'BCA 営業利益率 (%)',data:[-32.0,-20.0,-6.6,-3.5,-1.0,-4.0,-6.1],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843',borderWidth:2.5},
+    {label:'BDS 営業利益率 (%)',data:[-8.0,-5.0,2.5,2.8,3.0,2.8,3.1],borderColor:'#5C7395',backgroundColor:'rgba(92,115,149,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#5C7395',borderWidth:2.5},
+    {label:'BGS 営業利益率 (%)',data:[17.5,17.8,17.9,18.0,18.2,18.1,18.1],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A',borderWidth:2.5}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},title:{display:true,text:'セグメント別営業利益率推移（BGS 安定 / BCA 赤字縮小 / BDS +50%）',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}},scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:-35,max:25},x:{grid:{display:false}}}}
+});
+
+// Segment Donut — BA 3 セグメント
+new Chart(document.getElementById('segChart'),{
+  type:'doughnut',
+  data:{labels:['BCA（Commercial Airplanes）','BDS（Defense, Space & Security）','BGS（Global Services）','消去・本社'],datasets:[{data:[41.4,34.2,24.2,0.2],backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],borderColor:'#0F1829',borderWidth:2,hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}}}
+});
+
+// Aircraft Deliveries Donut（Q1 2026 機種別納入内訳）
+new Chart(document.getElementById('medtechChart'),{
+  type:'doughnut',
+  data:{labels:['737 MAX','787 Dreamliner','777（777F 含）','767'],datasets:[{data:[114,15,8,6],backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],borderColor:'#0F1829',borderWidth:2,hoverOffset:8}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+' 機 ('+(ctx.parsed/143*100).toFixed(1)+'%)'}}}}
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+{
+  "ticker": "TXN",
+  "period": "FY2026Q1",
+  "total_ms": 518980,
+  "total_label": "8:38",
+  "chapters": [
+    {
+      "id": "intro",
+      "title": "ジングル＋タイトルコール",
+      "start_ms": 0,
+      "end_ms": 6026,
+      "start_label": "0:00"
+    },
+    {
+      "id": "opening",
+      "title": "オープニング",
+      "start_ms": 6026,
+      "end_ms": 48938,
+      "start_label": "0:06"
+    },
+    {
+      "id": "highlights",
+      "title": "決算ハイライト",
+      "start_ms": 48938,
+      "end_ms": 140810,
+      "start_label": "0:48"
+    },
+    {
+      "id": "segments",
+      "title": "セグメント別動向",
+      "start_ms": 140810,
+      "end_ms": 221426,
+      "start_label": "2:20"
+    },
+    {
+      "id": "guidance",
+      "title": "ガイダンス",
+      "start_ms": 221426,
+      "end_ms": 278114,
+      "start_label": "3:41"
+    },
+    {
+      "id": "valuation",
+      "title": "バリュエーション",
+      "start_ms": 278114,
+      "end_ms": 369074,
+      "start_label": "4:38"
+    },
+    {
+      "id": "risks",
+      "title": "リスクとカタリスト",
+      "start_ms": 369074,
+      "end_ms": 449210,
+      "start_label": "6:09"
+    },
+    {
+      "id": "closing",
+      "title": "クロージング",
+      "start_ms": 449210,
+      "end_ms": 519002,
+      "start_label": "7:29"
+    }
+  ]
+}

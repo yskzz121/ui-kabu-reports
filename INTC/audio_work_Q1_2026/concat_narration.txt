@@ -1,0 +1,7 @@
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/00_opening.mp3'
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/01_highlights.mp3'
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/02_segments.mp3'
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/03_guidance.mp3'
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/04_valuation.mp3'
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/05_risks.mp3'
+file '/Users/yskzz121/ui-kabu-reports/INTC/audio_work_Q1_2026/06_closing.mp3'
