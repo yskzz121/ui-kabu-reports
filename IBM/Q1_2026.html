@@ -652,10 +652,17 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 </style>
 <meta name="atlas-access" content='{"kind":"report","ticker":"IBM","isLatest":true}'>
 <script>
-// snippet 由来の 300w ロゴを 1200w に置換（仕様: morning-news.md §491）
+// snippet 由来ロゴを絶対URL+1200w化（仕様: morning-news.md §491）
+// ローカル file:// 開き時でも CDN から取得できるよう絶対URLに正規化
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('.atlas-nav .atlas-nav-logo, .atlas-quarterly-band img').forEach(function(img){
-    if(img.src.indexOf('-300w.png')>-1) img.src=img.src.replace('-300w.png','-1200w.png');
+    var fileName = img.src.split('/').pop();
+    if(fileName.indexOf('-300w.png')>-1) fileName = fileName.replace('-300w.png','-1200w.png');
+    if(fileName.indexOf('atlas-master-type')===0){
+      img.src = 'https://atlas-financials.jp/logos/' + fileName;
+    } else if(fileName.indexOf('atlas-quarterly-type')===0){
+      img.src = 'https://atlas-financials.jp/reports/logos/' + fileName;
+    }
   });
 });
 </script>
