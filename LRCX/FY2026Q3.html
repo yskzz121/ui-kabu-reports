@@ -649,8 +649,32 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 [data-theme="light"] .radio-player{background:linear-gradient(160deg,#F5F2EC 0%,#EAE6DA 100%);border-color:rgba(26,37,64,0.1);--rp-text:#1A2540;--rp-sub:rgba(26,37,64,0.55);--rp-track:rgba(26,37,64,0.15);--rp-thumb:#1A2540}
 [data-theme="light"] .radio-ctl-play{background:#1A2540;color:#F5F2EC}
 [data-theme="light"] .radio-speed-btn.active{background:rgba(26,37,64,0.12)}
+
+/* Atlas Quarterly: snippet 由来ロゴを仕様（morning-news.md §491）と同期して上書き */
+/* 1) ヘッダー左上 atlas-nav-logo: 仕様 1200w + 68px / mobile 48px */
+.atlas-nav .atlas-nav-logo{height:68px!important;filter:brightness(1.1)!important}
+@media(max-width:767px){.atlas-nav .atlas-nav-logo{height:48px!important}}
+/* 2) ATLAS-QUARTERLY-BAND ロゴ: フッターと同サイズ（height:176px / max-width:1600px） */
+.atlas-quarterly-band{padding:5px 16px!important}
+.atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
+@media(max-width:740px){.atlas-quarterly-band img{height:88px!important;max-width:800px!important}}
 </style>
 <meta name="atlas-access" content='{"kind":"report","ticker":"LRCX","isLatest":true}'>
+<script>
+// snippet 由来ロゴを絶対URL+1200w化（仕様: morning-news.md §491）
+// ローカル file:// 開き時でも CDN から取得できるよう絶対URLに正規化
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.atlas-nav .atlas-nav-logo, .atlas-quarterly-band img').forEach(function(img){
+    var fileName = img.src.split('/').pop();
+    if(fileName.indexOf('-300w.png')>-1) fileName = fileName.replace('-300w.png','-1200w.png');
+    if(fileName.indexOf('atlas-master-type')===0){
+      img.src = 'https://atlas-financials.jp/logos/' + fileName;
+    } else if(fileName.indexOf('atlas-quarterly-type')===0){
+      img.src = 'https://atlas-financials.jp/reports/logos/' + fileName;
+    }
+  });
+});
+</script>
 </head>
 <body>
 
@@ -1859,7 +1883,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Footer -->
 <footer class="footer">
-  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-1200w.png" alt="Atlas Quarterly" style="height:66px;width:auto;max-width:600px;opacity:.95;display:block;margin:-12px auto 6px">
+  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-1200w.png" alt="Atlas Quarterly" style="height:176px;width:auto;max-width:1600px;opacity:.9;display:block;margin:0 auto 18px">
   <p>本レポートは <strong>Atlas編集部</strong> が公開情報（Lam Research Corporation IR、プレスリリース、Q3 FY2026 決算カンファレンスコール、SEC 10-Q、SEMI 公式予測、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。数値・見通しは発表当時の情報に基づいており、将来の結果を保証するものではありません。</p>
   <div class="footer-id">LRCX / FY26 Q3 · 発行 2026-04-27 · Atlas Quarterly — U.S. Market Intelligence</div>
 </footer>

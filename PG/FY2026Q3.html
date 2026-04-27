@@ -646,6 +646,8 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 /* 1) ヘッダー左上 atlas-nav-logo: 仕様 1200w + 68px / mobile 48px */
 .atlas-nav .atlas-nav-logo{height:68px!important;filter:brightness(1.1)!important}
 @media(max-width:767px){.atlas-nav .atlas-nav-logo{height:48px!important}}
+/* 1b) スマホでラジオプレーヤーを report header の最後に配置（重なり防止） */
+@media(max-width:768px){.rh .radio-player{order:3!important;margin-top:18px!important}}
 /* 2) ATLAS-QUARTERLY-BAND ロゴ: フッターと同サイズ（height:176px / max-width:1600px） */
 .atlas-quarterly-band{padding:5px 16px!important}
 .atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
