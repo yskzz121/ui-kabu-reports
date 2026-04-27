@@ -498,7 +498,7 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
 <header class="atlas-nav" data-atlas-nav>
   <div class="atlas-nav-inner">
     <a href="https://atlas-financials.jp/" class="atlas-nav-brand" aria-label="Atlas ホーム">
-      <span class="atlas-nav-logo">Atlas<span class="atlas-nav-dot">.</span></span>
+      <img class="atlas-nav-logo atlas-nav-logo-dark" src="/logos/atlas-master-type-white-transparent-300w.png" alt="Atlas"><img class="atlas-nav-logo atlas-nav-logo-light" src="/logos/atlas-master-type-navy-transparent-300w.png" alt="Atlas">
       <span class="atlas-nav-tag">U.S. Market Intelligence</span>
     </a>
     <nav class="atlas-nav-links" aria-label="グローバルナビ">
@@ -552,8 +552,11 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
 <style>
 .atlas-nav{position:sticky;top:0;z-index:200;background:rgba(15,24,41,0.96);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,145,42,0.18);font-family:'Noto Sans JP',sans-serif}
 .atlas-nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.atlas-nav-brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
-.atlas-nav-logo{font-family:'Playfair Display','Shippori Mincho B1',serif;font-size:22px;font-weight:700;letter-spacing:.04em;line-height:1}
+.atlas-nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;flex-shrink:0}
+.atlas-nav-logo{height:38px;width:auto;display:block}
+.atlas-nav-logo-light{display:none}
+html[data-theme="light"] .atlas-nav-logo-dark{display:none}
+html[data-theme="light"] .atlas-nav-logo-light{display:block}
 .atlas-nav-dot{color:#D4A843}
 .atlas-nav-tag{font-size:10px;color:rgba(212,168,67,.6);letter-spacing:.08em;white-space:nowrap}
 .atlas-nav-links{display:flex;gap:22px;align-items:center}
@@ -600,7 +603,7 @@ html[data-theme="light"] .portal-link{background:#FDFCFA!important;border-color:
   .atlas-nav-burger{display:flex}
   .atlas-nav-tag{display:none}
   .atlas-nav-inner{padding:0 16px;height:52px}
-  .atlas-nav-logo{font-size:19px}
+  .atlas-nav-logo{height:30px}
 }
 /* Light theme override */
 html[data-theme="light"] .atlas-nav{background:rgba(245,242,236,.96);border-bottom-color:rgba(26,37,64,.12)}
