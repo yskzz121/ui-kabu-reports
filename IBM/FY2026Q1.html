@@ -642,11 +642,23 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 [data-theme="light"] .radio-ctl-play{background:#1A2540;color:#F5F2EC}
 [data-theme="light"] .radio-speed-btn.active{background:rgba(26,37,64,0.12)}
 
-/* Atlas Quarterly nav logo override (snippet 由来 38px に勝つ) */
-.atlas-nav .atlas-nav-logo{height:48px!important;filter:brightness(1.15) contrast(1.1)!important}
-@media(max-width:740px){.atlas-nav .atlas-nav-logo{height:36px!important}}
+/* Atlas Quarterly: snippet 由来ロゴを仕様（morning-news.md §491）と同期して上書き */
+/* 1) ヘッダー左上 atlas-nav-logo: 仕様 1200w + 68px / mobile 48px */
+.atlas-nav .atlas-nav-logo{height:68px!important;filter:brightness(1.1)!important}
+@media(max-width:767px){.atlas-nav .atlas-nav-logo{height:48px!important}}
+/* 2) ATLAS-QUARTERLY-BAND ロゴ: フッターと同サイズ（height:176px / max-width:1600px） */
+.atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
+@media(max-width:740px){.atlas-quarterly-band img{height:88px!important;max-width:800px!important}}
 </style>
 <meta name="atlas-access" content='{"kind":"report","ticker":"IBM","isLatest":true}'>
+<script>
+// snippet 由来の 300w ロゴを 1200w に置換（仕様: morning-news.md §491）
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.atlas-nav .atlas-nav-logo, .atlas-quarterly-band img').forEach(function(img){
+    if(img.src.indexOf('-300w.png')>-1) img.src=img.src.replace('-300w.png','-1200w.png');
+  });
+});
+</script>
 </head>
 <body>
 
