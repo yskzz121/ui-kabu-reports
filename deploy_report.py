@@ -261,13 +261,17 @@ def _get_report_date(ticker, fname):
     優先度: 1) git --diff-filter=A で取得する最初の追加コミット日（バルク編集の影響を受けない）
            2) 通常のgit log
            3) ファイル mtime
+
+    注意: --follow は使わない。cp+Edit で派生した雛形ベースの新規レポートを「リネーム」と
+    誤判定し、雛形の元ファイル追加日（古い日付）を返してしまう罠がある。
     """
     import re
     fpath = os.path.join(REPO_DIR, ticker, fname)
     # 1) 初回追加コミット日（最も堅牢 — バルク編集で書き換えても publish date は保持）
+    #    --follow は付けない（cp+Edit 派生ファイルが元雛形の日付を継承してしまうため）
     try:
         result = subprocess.run(
-            f'git log --diff-filter=A --format="%ai" --follow -- "{ticker}/{fname}"',
+            f'git log --diff-filter=A --format="%ai" -- "{ticker}/{fname}"',
             shell=True, cwd=REPO_DIR, capture_output=True, text=True
         )
         if result.returncode == 0 and result.stdout.strip():
