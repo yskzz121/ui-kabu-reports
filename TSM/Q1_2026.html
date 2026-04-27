@@ -599,8 +599,34 @@ html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);
 html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
 html[data-theme="light"] .l1{background:linear-gradient(180deg,rgba(184,145,42,.05) 0%,rgba(245,242,236,.8) 100%)}
 html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .consensus,html[data-theme="light"] .risk-card,html[data-theme="light"] .mgmt,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
+
+/* Atlas Quarterly: snippet 由来ロゴを仕様（atlas-quarterly-header.md）と同期して上書き */
+/* 1) ヘッダー左上 atlas-nav-logo: 仕様 1200w + 68px / mobile 48px */
+.atlas-nav .atlas-nav-logo{height:68px!important;filter:brightness(1.1)!important}
+@media(max-width:767px){.atlas-nav .atlas-nav-logo{height:48px!important}}
+/* 1b) スマホでラジオプレーヤーを report header の最後に配置（重なり防止） */
+@media(max-width:768px){.rh .radio-player{order:3!important;margin-top:18px!important}}
+/* 2) ATLAS-QUARTERLY-BAND ロゴ: フッターと同サイズ（height:176px / max-width:1600px） */
+.atlas-quarterly-band{padding:5px 16px!important}
+.atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
+@media(max-width:740px){.atlas-quarterly-band img{height:88px!important;max-width:800px!important}}
 </style>
 <meta name="atlas-access" content='{"kind":"report","ticker":"TSM","isLatest":true}'>
+<script>
+// snippet 由来ロゴを絶対URL+1200w化（仕様: atlas-quarterly-header.md §4）
+// ローカル file:// 開き時でも CDN から取得できるよう絶対URLに正規化
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.atlas-nav .atlas-nav-logo, .atlas-quarterly-band img').forEach(function(img){
+    var fileName = img.src.split('/').pop();
+    if(fileName.indexOf('-300w.png')>-1) fileName = fileName.replace('-300w.png','-1200w.png');
+    if(fileName.indexOf('atlas-master-type')===0){
+      img.src = 'https://atlas-financials.jp/logos/' + fileName;
+    } else if(fileName.indexOf('atlas-quarterly-type')===0){
+      img.src = 'https://atlas-financials.jp/reports/logos/' + fileName;
+    }
+  });
+});
+</script>
 </head>
 <body>
 

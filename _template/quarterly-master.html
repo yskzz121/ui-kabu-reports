@@ -3,11 +3,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lam Research (LRCX) Q3 FY2026 決算分析 — Atlas Quarterly</title>
+<title>IBM (NYSE: IBM) Q1 2026 決算分析 — Atlas Quarterly</title>
+<meta name="description" content="IBM Q1 2026、Z17 +48%・Software ARR $24.6B・三重ビートも、ガイダンス据え置きで株価-7.7%。MID Fair Value $275（+19%）。Atlas Quarterly が分析。">
+<meta property="og:title" content="IBM Q1 2026 決算分析 ｜ Atlas Quarterly">
+<meta property="og:description" content="IBM Q1 2026、Z17 +48%・三重ビートも、ガイダンス据え置きで株価-7.7%、MID +19%">
+<meta property="og:type" content="article">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 152.5, date: '2026/4/16', fmt:'cjk-ja' };</script>
+<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 156.5, date: '2026/4/27', fmt:'cjk-ja' };</script>
 <style>
 /* ══════════════════════════════════════════════════
    ATLAS QUARTERLY — Report Design System v2
@@ -69,19 +73,6 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
-/* ── Past Quarters Dropdown ── */
-.pq-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px;position:relative}
-.pq-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
-.pq-btn .chev{transition:transform .25s}
-.pq-btn.open .chev{transform:rotate(180deg)}
-.pq-drop{position:absolute;top:calc(100% + 4px);right:0;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px;display:none;z-index:10;box-shadow:0 6px 24px rgba(0,0,0,0.35)}
-.pq-drop.open{display:block}
-.pq-item{display:block;padding:10px 12px;border-radius:6px;text-decoration:none;color:var(--t1);transition:background .15s}
-.pq-item:hover{background:rgba(184,145,42,0.08)}
-.pq-item .pq-q{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:var(--gold2)}
-.pq-item .pq-meta{display:block;font-size:.72rem;color:var(--t3);margin-top:2px;font-family:'Noto Sans JP',sans-serif}
-.pq-item.current{pointer-events:none;opacity:.55}
-.pq-item.current::after{content:' （表示中）';font-size:.7rem;color:var(--t3)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
 .ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
@@ -132,6 +123,8 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .l1-score-badge{display:inline-flex;align-items:baseline;gap:16px;background:var(--card);border:2px solid var(--gold);border-radius:14px;padding:14px 32px}
 .l1-score-num{font-size:2.6rem;font-weight:900;color:var(--gold2);line-height:1;font-family:'Inter',sans-serif}
 .l1-score-label{font-size:1.1rem;font-weight:700;color:var(--gold2);font-family:'Shippori Mincho B1',serif}
+.l1-price-cell .sub{display:block;font-size:.78rem;color:var(--t2);margin-top:4px;font-family:'Inter',sans-serif}
+.l1-price-cell .sub.pos{color:var(--gold2)}
 /* Score shimmer — score 4+ (良い決算以上) */
 .l1-score-badge.score-high{animation:score-shimmer 3s ease-in-out infinite}
 .l1-score-badge.score-high .l1-score-num,.l1-score-badge.score-high .l1-score-label{animation:score-text-glow 3s ease-in-out infinite}
@@ -427,8 +420,6 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .panel-merge .insight{background:transparent;border:none;border-radius:0;margin-bottom:0;padding:22px 28px 24px}
   .ov-grid{grid-template-columns:1fr}
 @media(max-width:768px){
-  /* モバイルでは単列レイアウト化により企業概要の総高が伸びるため max-height を引き上げ */
-  .ov-drop.open{max-height:6000px!important;padding:22px 18px!important}
   .ov-biz-grid{grid-template-columns:1fr;gap:16px}
   .ov-rivals{font-size:.78rem}
   .ov-rivals thead{display:none}
@@ -522,8 +513,7 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
   /* ヘッダーを縦並び flex 化 — 企業概要ボタンを日付の下（最後）に配置 */
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
-  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center;flex-wrap:wrap}
-  .pq-drop{position:fixed;top:auto;bottom:70px;right:auto;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:340px}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
   .rh h1{font-size:1.35rem;margin:14px 0 6px}
   .rh-logo-row{gap:12px;margin-bottom:10px}
   .rh-logo{height:44px;max-width:180px}
@@ -663,7 +653,7 @@ html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-
 .atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
 @media(max-width:740px){.atlas-quarterly-band img{height:88px!important;max-width:800px!important}}
 </style>
-<meta name="atlas-access" content='{"kind":"report","ticker":"LRCX","isLatest":true}'>
+<meta name="atlas-access" content='{"kind":"report","ticker":"IBM","isLatest":true}'>
 <script>
 // snippet 由来ロゴを絶対URL+1200w化（仕様: morning-news.md §491）
 // ローカル file:// 開き時でも CDN から取得できるよう絶対URLに正規化
@@ -965,40 +955,33 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 ═══════════════════════════════════ -->
 <header class="rh">
   <div class="ov-wrap">
-    <button class="pq-btn" id="pqBtn" onclick="togglePastQuarters()" aria-haspopup="true" aria-expanded="false">過去四半期 <span class="chev">▼</span></button>
-    <div class="pq-drop" id="pqDrop" role="menu">
-      <a class="pq-item current" role="menuitem">
-        <span class="pq-q">FY2026 Q3</span>
-        <span class="pq-meta">2026年1-3月期 ｜ スコア 5</span>
-      </a>
-    </div>
     <button class="ov-btn" id="ovBtn" onclick="toggleOverview()">企業概要 <span class="chev">▼</span></button>
   </div>
   <div class="rh-inner">
     <div class="rh-logo-row">
-      <img class="rh-logo" src="../logos/LRCX-white.png" alt="LRCX">
-      <div class="rh-ticker">NASDAQ: LRCX</div>
+      <img class="rh-logo" src="../logos/IBM.png" alt="IBM">
+      <div class="rh-ticker">NYSE: IBM</div>
     </div>
-    <h1>Lam Research</h1>
-    <div class="rh-sub">Q3 FY2026 決算分析（2026年1-3月期）</div>
+    <h1>International Business Machines</h1>
+    <div class="rh-sub">Q1 2026 決算分析（2026年1-3月期）</div>
     <div class="rh-date">発表日 2026.04.22 ｜ Atlas Quarterly</div>
   </div>
 
-  <div class="radio-player" id="radioPlayer" data-chapters="FY2026Q3-radio-chapters.json">
+  <div class="radio-player" id="radioPlayer" data-chapters="Q1_2026-radio-chapters.json">
     <audio preload="metadata" id="radioAudio">
-      <source src="FY2026Q3-radio.mp3" type="audio/mpeg">
+      <source src="Q1_2026-radio.mp3" type="audio/mpeg">
     </audio>
     <div class="radio-top">
-      <div class="radio-artwork"><span class="radio-artwork-logo">LRCX</span></div>
+      <div class="radio-artwork"><span class="radio-artwork-logo">IBM</span></div>
       <div class="radio-meta">
-        <div class="radio-title-main">Atlas Quarterly · LRCX</div>
-        <div class="radio-subtitle">Q3 FY2026 決算分析</div>
+        <div class="radio-title-main">Atlas Quarterly · IBM</div>
+        <div class="radio-subtitle">Q1 2026 決算分析</div>
         <div class="radio-chapter-now" id="radioChapterNow">読み込み中…</div>
       </div>
     </div>
     <div class="radio-scrubber">
       <input type="range" class="radio-range" id="radioSeek" min="0" max="100" step="0.1" value="0" aria-label="シーク">
-      <div class="radio-time-row"><span id="radioTimeCur">0:00</span><span id="radioTimeRem">-9:28</span></div>
+      <div class="radio-time-row"><span id="radioTimeCur">0:00</span><span id="radioTimeRem">-9:31</span></div>
     </div>
     <div class="radio-controls">
       <button class="radio-ctl" id="radioPrev" aria-label="前のチャプター"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
@@ -1019,7 +1002,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     </div>
   </div>
 </header>
-<script>window.ATLAS_CHAPTERS_DATA = {"ticker":"LRCX","period":"FY2026Q3","total_ms":568540,"total_label":"9:28","chapters":[{"id":"intro","title":"ジングル＋タイトルコール","start_ms":0,"end_ms":6026,"start_label":"0:00"},{"id":"opening","title":"オープニング","start_ms":6026,"end_ms":51410,"start_label":"0:06"},{"id":"highlights","title":"決算ハイライト","start_ms":51410,"end_ms":149954,"start_label":"0:51"},{"id":"segments","title":"セグメント別動向","start_ms":149954,"end_ms":234722,"start_label":"2:29"},{"id":"guidance","title":"ガイダンス","start_ms":234722,"end_ms":302186,"start_label":"3:54"},{"id":"valuation","title":"バリュエーション","start_ms":302186,"end_ms":396914,"start_label":"5:02"},{"id":"risks","title":"リスクとカタリスト","start_ms":396914,"end_ms":492962,"start_label":"6:36"},{"id":"closing","title":"クロージング","start_ms":492962,"end_ms":568562,"start_label":"8:12"}]};</script>
+<script>window.ATLAS_CHAPTERS_DATA = {"ticker":"IBM","period":"Q1_2026","total_ms":571780,"total_label":"9:31","chapters":[{"id":"intro","title":"ジングル＋タイトルコール","start_ms":0,"end_ms":6030,"start_label":"0:00"},{"id":"opening","title":"オープニング","start_ms":6030,"end_ms":59210,"start_label":"0:06"},{"id":"highlights","title":"決算ハイライト","start_ms":59210,"end_ms":132820,"start_label":"0:59"},{"id":"segments","title":"セグメント別動向","start_ms":132820,"end_ms":214420,"start_label":"2:12"},{"id":"guidance","title":"ガイダンス・見通し","start_ms":214420,"end_ms":275330,"start_label":"3:34"},{"id":"valuation","title":"バリュエーション","start_ms":275330,"end_ms":386640,"start_label":"4:35"},{"id":"risks","title":"リスクとカタリスト","start_ms":386640,"end_ms":499490,"start_label":"6:26"},{"id":"closing","title":"クロージング","start_ms":499490,"end_ms":571780,"start_label":"8:19"}]};</script>
 <script>
 (function(){
   var audio=document.getElementById('radioAudio'),now=document.getElementById('radioChapterNow'),player=document.getElementById('radioPlayer'),playBtn=document.getElementById('radioPlay'),playIcon=document.getElementById('radioPlayIcon'),prevBtn=document.getElementById('radioPrev'),nextBtn=document.getElementById('radioNext'),backBtn=document.getElementById('radioBack'),fwdBtn=document.getElementById('radioFwd'),seek=document.getElementById('radioSeek'),timeCur=document.getElementById('radioTimeCur'),timeRem=document.getElementById('radioTimeRem');
@@ -1052,40 +1035,43 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要 — Lam Research Corporation（LRCX）</h2>
+  <h2>企業概要 — International Business Machines Corporation</h2>
 
   <!-- Identity Grid -->
   <div class="ov-grid">
-    <dl class="ov-grid-item"><dt>設立</dt><dd>1980年（カリフォルニア州 創業）</dd></dl>
-    <dl class="ov-grid-item"><dt>本社</dt><dd>米国カリフォルニア州フリーモント</dd></dl>
-    <dl class="ov-grid-item"><dt>CEO</dt><dd>Tim Archer（2018年就任）</dd></dl>
-    <dl class="ov-grid-item"><dt>CFO</dt><dd>Doug Bettinger</dd></dl>
-    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: LRCX（S&amp;P 500・SOX指数採用）</dd></dl>
-    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体製造装置（WFE）</dd></dl>
-    <dl class="ov-grid-item"><dt>主要セグメント</dt><dd>Systems（63.9%）/ CSBG（36.1%）</dd></dl>
-    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約 18,200名（2025年6月時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>1911年（前身 Computing-Tabulating-Recording Company）、1924年に IBM へ改称</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>米国・ニューヨーク州 Armonk</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Arvind Krishna（2020年4月就任、Chairman 兼任）</dd></dl>
+    <dl class="ov-grid-item"><dt>CFO</dt><dd>James (Jim) Kavanaugh</dd></dl>
+    <dl class="ov-grid-item"><dt>上場</dt><dd>NYSE: IBM（S&amp;P 500・Dow 30 構成）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / IT サービス</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / Dow Jones 30 / NOBL（Dividend Aristocrats）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約286,800人（2025年末）</dd></dl>
+    <dl class="ov-grid-item"><dt>時価総額</dt><dd>約$217B（4/27基準）</dd></dl>
+    <dl class="ov-grid-item"><dt>連続増配</dt><dd>30年連続（Dividend Aristocrat、配当利回り約2.9%）</dd></dl>
   </div>
 
-  <p>Lam Research は<strong>半導体製造装置（WFE）でエッチング・薄膜堆積・洗浄分野の世界トップクラス</strong>のIDM（垂直統合型ベンダー）。メモリ（DRAM/NAND）と先端ロジック・ファウンドリ向けの主力プロセス装置を提供し、AI/HBM 時代の DRAM 1Cnm 微細化と 3D NAND 200層超化、先端パッケージング（HBM TSV）の需要を取り込む構造。Q3 FY2026 は<strong>過去最高売上 $5.84B、CSBG 初の $2B 突破、DRAM 売上構成 27% 記録</strong>と全方位で記録更新。経営陣は2026年WFE市場を $135B → <strong>$140B 上振れバイアス</strong>へ上方修正した。</p>
+  <p>IBM は <strong>114年の歴史を持つ世界最大級の IT サービス企業</strong>であり、現在は <strong>ハイブリッドクラウド + エンタープライズ AI</strong> の二本柱で構造転換を完遂しつつあります。Red Hat / OpenShift（ハイブリッドクラウド OS）、watsonx（エンタープライズ AI / Agentic AI プラットフォーム）、IBM Z mainframe（ミッションクリティカル + on-chip Telum AI 推論）の3本柱で差別化。30年連続増配の Dividend Aristocrat として、機関投資家ポートフォリオの「鉄板枠」を形成しています。</p>
 
   <!-- 事業モデル -->
   <div class="ov-section">
     <h3 class="ov-section-title">事業モデル · Business Model</h3>
     <div class="ov-biz-grid">
       <div class="ov-biz-block">
-        <h4>製品ライン</h4>
+        <h4>4セグメント構成（Q1 2026 売上ベース）</h4>
         <ul class="ov-list">
-          <li><strong>Etch（エッチング）</strong> — 世界シェア約35%。誘電体・導体エッチで業界首位級。3D NAND 高層数化・DRAM 1Cノード移行・HBM TSV で需要拡大。Cryo Etch 3.0（極低温エッチ）が競争優位</li>
-          <li><strong>Deposition（薄膜堆積）</strong> — 世界シェア約29%。ALD（Stryker Carbide）・PECVD（Vector DT）・ECD で DRAM/NAND/Logic の重要工程をカバー。HBM 向け TSV Cu plating（SABRE 3D）も主力</li>
-          <li><strong>Cleaning &amp; Other</strong> — 世界シェア約25%。ウェーハ洗浄・先端パッケージング（CoWoS）向けツール群。Aether Dry Resist は HBM 主要顧客で量産採用済</li>
+          <li><strong>Software（44%）</strong> — Red Hat / Automation / Data &amp; AI（watsonx）/ Security / Transaction Processing。ARR <strong>$24.6B（+10% YoY）</strong>。最高粗利率セグメント</li>
+          <li><strong>Consulting（33%）</strong> — Strategy &amp; Tech / Apps &amp; Innovation / Bus. Trans.。GenAI が backlog の約 30% を占める</li>
+          <li><strong>Infrastructure（21%）</strong> — IBM Z mainframe（Z17 サイクル本格化）、Power、Distributed、Infrastructure Support。Q1 で Z 単体 +51% YoY</li>
+          <li><strong>Financing（1%）</strong> — 顧客向けリース・ファイナンス</li>
         </ul>
       </div>
       <div class="ov-biz-block">
-        <h4>収益モデル</h4>
+        <h4>戦略の3本柱 · Three Pillars</h4>
         <ul class="ov-list">
-          <li><strong>Systems（装置販売 63.9%）</strong> — 半導体メーカー（Samsung/SK Hynix/TSMC/Micron/Intel）への前工程装置販売。WFE市場サイクルに連動するが、長期顧客関係で受注の継続性が高い</li>
-          <li><strong>CSBG / Customer Support Business Group（36.1%）</strong> — スペアパーツ・サービス・改良アップグレード・リファービッシュ・スペシャリティ装置。設置ベースに連動し収益安定性が高い「リカーリング型」事業。Q3 で初の四半期 $2B 超え</li>
-          <li><strong>株主還元</strong> — FCF の <strong>85% 以上</strong>を中長期で還元する方針を CFO 明言。Q3 は自社株買い $1.16B＋配当 $326M、TTM 還元 $6.14B</li>
+          <li><strong>Red Hat / OpenShift</strong> — ハイブリッドクラウド OS。マルチクラウド・オンプレミスを統合する事実上の標準。HashiCorp 統合（2025/2 完了）でクラウド自動化の最後のピース獲得</li>
+          <li><strong>watsonx</strong> — エンタープライズ AI / Agentic AI プラットフォーム。GenAI Book of Business <strong>$12.5B 超</strong>（Consulting 80% / Software 20%）、AI Platform 単独で TTM <strong>$1.5B 超</strong></li>
+          <li><strong>IBM Z mainframe（Z17）</strong> — Telum II + Spyre Accelerator で AI 推論 4500億回/日対応。watsonx Code Assistant for Z 採用顧客は MIPS 容量が3倍速で成長</li>
         </ul>
       </div>
     </div>
@@ -1095,11 +1081,11 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="ov-section">
     <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
     <ul class="ov-moat">
-      <li><strong>エッチ・薄膜堆積で寡占的シェアと技術優位</strong> — 世界 etch シェア約35%、deposition 約29%、cleaning 約25%。Applied Materials・Tokyo Electron との3社寡占構造でベンダーロックインが強固</li>
-      <li><strong>HBM/3D NAND 集積度向上の構造的恩恵</strong> — HBM3E→HBM4 でレイヤ数+50%、3D NAND 200層超化、DRAM 1Cノード移行のすべてが LRCX のエッチ・成膜の<strong>process step（工程数）</strong>を増やす方向。AI 時代の最大恩恵企業の一角</li>
-      <li><strong>SK Hynix と $2.3B 多年契約</strong> — HBM3E/HBM4 用 etch ツールで多年間契約締結。HBM 市場シェア62%首位の SK Hynix との戦略連携</li>
-      <li><strong>CSBG の「リカーリング型」収益安定性</strong> — Q3 で初の四半期 $2B 超え、YoY +25%。設置ベース拡大に連動し景気サイクルに対し緩衝役。粗利率も Systems より高い</li>
-      <li><strong>R&amp;D 投資 10% of revenue を維持</strong> — Q3 R&amp;D $583M（売上比 9.98%）。Cryo Etch 3.0・Aether Dry Resist・Stryker Carbide ALD など次世代技術の量産採用が進行中</li>
+      <li><strong>ハイブリッドクラウドの事実上の標準</strong> — Red Hat OpenShift は AWS / Azure / GCP / オンプレすべてで動作。マルチクラウド時代に必須の中立基盤</li>
+      <li><strong>メインフレーム独占</strong> — 世界の主要金融機関の決済 / 与信システムは依然 IBM Z 上で稼働。Z17 + Telum II の AI 推論統合で「レガシー」から「成長エンジン」へ転換</li>
+      <li><strong>エンタープライズ AI の Data Fabric</strong> — Confluent 買収（2026/3/17 完了、$11B）で Apache Kafka 基盤のリアルタイムストリーミング獲得。Red Hat + HashiCorp + Confluent で Agentic AI Stack 完成</li>
+      <li><strong>30年連続増配の信頼資本</strong> — Dividend Aristocrat、配当利回り 2.9%、機関投資家 64% の保有安定性で資本コスト優位</li>
+      <li><strong>114年のエンタープライズ顧客基盤</strong> — Fortune 500 のほぼ全社が顧客、長期契約・スイッチングコスト・データ主権で囲い込み</li>
     </ul>
   </div>
 
@@ -1109,46 +1095,44 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <table class="ov-rivals">
       <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
       <tbody>
-        <tr><td><strong>Applied Materials</strong></td><td>AMAT</td><td>~$170B</td><td>WFE 世界首位。Deposition / Implant / メタライゼーションで直接競合。Etch でも Sym3 Y で参入。Q1 FY26 売上 $7.01B（EPS +75% YoY）</td></tr>
-        <tr><td><strong>ASML</strong></td><td>ASML</td><td>~$320B</td><td>EUV リソグラフィ独占。LRCX の前工程として補完関係だが、WFE 市場の競争。China 比率 36%→19%へ急減（規制影響）</td></tr>
-        <tr><td><strong>Tokyo Electron</strong></td><td>8035.T</td><td>~$110B</td><td>コーター/デベロッパー独占＋ etch 装置一部で競合。Q3 FY26 売上 ¥552B（YoY -15.7%）と LRCX とは対照的な軟調</td></tr>
-        <tr><td><strong>NAURA Technology</strong></td><td>002371.SZ</td><td>~$50B</td><td>中国国産装置首位、世界5位（2025）。中国国産化率 35% 超への上昇を牽引。SMIC 28nmラインで装置の60%超を供給する内製化リスク</td></tr>
+        <tr><td><strong>Microsoft Azure</strong></td><td>MSFT</td><td>~$3.0T</td><td>Azure +39% YoY、ハイブリッドクラウドで競合だが Red Hat OpenShift は Azure 上でも展開、補完関係も</td></tr>
+        <tr><td><strong>Accenture</strong></td><td>ACN</td><td>~$200B</td><td>Consulting 直接競合。Q2 FY26 売上 +7%/+3% cc で IBM Consulting +1% cc を上回り、構造劣後鮮明</td></tr>
+        <tr><td><strong>Oracle</strong></td><td>ORCL</td><td>~$450B</td><td>Q3 FY26 OCI +84%、RPO $553B（+325%）。AI インフラ・クラウドで強敵化</td></tr>
+        <tr><td><strong>SAP</strong></td><td>SAP</td><td>~$300B</td><td>Cloud ERP Suite +23%、ERP / AI 統合で重複領域あり</td></tr>
+        <tr><td><strong>Dell / HPE</strong></td><td>DELL / HPE</td><td>~$80B / $30B</td><td>Infrastructure 競合。Dell AI Server backlog $14.4B が脅威</td></tr>
       </tbody>
     </table>
   </div>
 
   <!-- Tags -->
   <div class="tags">
-    <span class="tag">半導体製造装置（WFE）</span>
-    <span class="tag">Etch / Deposition</span>
-    <span class="tag">HBM / 3D NAND</span>
-    <span class="tag">NASDAQ: LRCX</span>
-    <span class="tag">S&amp;P 500</span>
-    <span class="tag">SOX指数</span>
-    <span class="tag">FCF85%還元方針</span>
-    <span class="tag">SK Hynix 多年契約</span>
+    <span class="tag">情報技術</span>
+    <span class="tag">ハイブリッドクラウド</span>
+    <span class="tag">エンタープライズ AI（watsonx）</span>
+    <span class="tag">Red Hat / OpenShift</span>
+    <span class="tag">IBM Z mainframe（Z17）</span>
+    <span class="tag">NYSE: IBM</span>
+    <span class="tag">S&amp;P 500 / Dow 30</span>
+    <span class="tag">Dividend Aristocrat（30年連続）</span>
   </div>
 
   <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
 </div>
 
-<!-- ══════════════════════════════════
-     LAYER I — EXECUTIVE SUMMARY
-═══════════════════════════════════ -->
 <div class="layer-eyebrow">Layer I — Executive Summary</div>
 <section class="l1">
 
   <!-- Score -->
   <div class="l1-score">
-    <div class="l1-score-badge score-high">
-      <span class="l1-score-num">5</span>
-      <span class="l1-score-label">素晴らしい決算</span>
+    <div class="l1-score-badge score-good">
+      <span class="l1-score-num">4</span>
+      <span class="l1-score-label">良い決算</span>
     </div>
   </div>
 
   <!-- Consensus vs 実績 (統合) -->
   <div class="l1-consensus">
-    <div class="l1-consensus-head">Consensus vs 実績（Q3 FY2026）</div>
+    <div class="l1-consensus-head">Consensus vs 実績（Q1 2026）</div>
     <table class="l1-consensus-tbl">
       <thead>
         <tr>
@@ -1161,27 +1145,27 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <tbody>
         <tr>
           <td class="lbl">売上高 / Revenue（USD）</td>
-          <td class="cn">$5.77B</td>
-          <td class="val">$5.842B</td>
+          <td class="cn">$15.71B</td>
+          <td class="val">$15.92B</td>
           <td class="beat"><span class="beat-lamp"></span>+1.3% <span class="beat-text">ビート</span></td>
         </tr>
         <tr>
-          <td class="lbl">EPS（Non-GAAP, USD）</td>
-          <td class="cn">$1.36</td>
-          <td class="val">$1.47</td>
-          <td class="beat"><span class="beat-lamp"></span>+8.1% <span class="beat-text">ビート</span></td>
+          <td class="lbl">Operating EPS（Non-GAAP）</td>
+          <td class="cn">$1.81</td>
+          <td class="val">$1.91</td>
+          <td class="beat"><span class="beat-lamp"></span>+5.5% <span class="beat-text">ビート</span></td>
         </tr>
         <tr>
-          <td class="lbl">Q4 FY2026 売上ガイダンス中値</td>
-          <td class="cn">$6.08B</td>
-          <td class="val">$6.60B</td>
-          <td class="beat"><span class="beat-lamp"></span>+8.6% <span class="beat-text">上方超過</span></td>
+          <td class="lbl">調整後 EBITDA</td>
+          <td class="cn">$3.54B</td>
+          <td class="val">$4.0B</td>
+          <td class="beat"><span class="beat-lamp"></span>+13% <span class="beat-text">大幅ビート</span></td>
         </tr>
         <tr>
-          <td class="lbl">Q4 FY2026 EPSガイダンス中値</td>
-          <td class="cn">$1.44</td>
-          <td class="val">$1.65</td>
-          <td class="beat"><span class="beat-lamp"></span>+14.6% <span class="beat-text">上方超過</span></td>
+          <td class="lbl">FY2026 通期ガイダンス</td>
+          <td class="cn">売上 FXN +6.4%・EPS $12.51</td>
+          <td class="val">売上 FXN &gt;5%・FCF +$1B 維持</td>
+          <td class="neu">据え置き（市場失望）</td>
         </tr>
       </tbody>
     </table>
@@ -1190,24 +1174,27 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <!-- 特筆点 -->
   <div class="l1-notes">
     <div class="l1-notes-head">Today's Points · 今四半期の特筆点</div>
-    <div class="l1-note">記録尽くし — 売上 <strong>$5.84B</strong>（3期連続記録）/ Non-GAAP EPS <strong>$1.47</strong>（記録）/ CSBG 初の四半期 <strong>$2B</strong> 突破</div>
-    <div class="l1-note">DRAM 売上構成 <strong>27%</strong>（前Q 23%）— 過去最高水準。HBM 需要と DRAM 1Cnm ノード移行が牽引</div>
-    <div class="l1-note">2026 WFE 市場見通しを $135B → <strong>$140B + 上振れバイアス</strong>へ上方修正、Q4 ガイダンスもコンセンサス大幅超過</div>
+    <div class="l1-note">売上 <strong>$15.92B</strong>（YoY +9% / FXN +6%）と Operating EPS <strong>$1.91</strong>（+19% YoY）の三重ビート。Q1 単独 FCF <strong>$2.22B</strong> は <strong>10年で最高の Q1</strong>を記録しました</div>
+    <div class="l1-note">IBM Z mainframe が <strong>+48% FXN</strong>（Z17 サイクル本格化）、Software ARR <strong>$24.6B（+10%）</strong>、GenAI Book of Business <strong>$12.5B 超</strong>と成長エンジンが複数稼働しています</div>
+    <div class="l1-note">通期ガイダンスは据え置き（売上 FXN &gt;5%・FCF +$1B）で上方修正なしを市場が嫌気、株価は決算翌日 <strong>-7.7%</strong> 急落、YTD <strong>-21.7%</strong> と SPY 対比で大幅アンダーパフォームです</div>
   </div>
 
   <!-- 株価 -->
   <div class="l1-price no-currency">
     <div class="l1-price-cell">
-      <div class="lbl">終値（4/24金）</div>
-      <div class="val">$267.78</div>
+      <div class="lbl">終値（4/24）</div>
+      <div class="val">$231.98</div>
+      <div class="sub">決算翌日 -7.7% / YTD -21.7%</div>
     </div>
     <div class="l1-price-cell">
       <div class="lbl">52週レンジ</div>
-      <div class="val">$67.55 – $275.84</div>
+      <div class="val">$220.72 – $324.90</div>
+      <div class="sub">高値乖離 -28.8%</div>
     </div>
     <div class="l1-price-cell">
-      <div class="lbl">決算後反応</div>
-      <div class="val react">4/22 +2.8% → 4/23 -2.6% → 4/24 +3.6%（52週高値更新）</div>
+      <div class="lbl">時価総額 / 配当利回り</div>
+      <div class="val">$217B / 2.9%</div>
+      <div class="sub">30年連続増配（Dividend Aristocrat）</div>
     </div>
   </div>
 </section>
@@ -1223,40 +1210,36 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="metrics-grid">
     <div class="metric-card">
       <div class="metric-lbl">売上高 / Revenue（USD）</div>
-      <div class="metric-val pos">$5.842B</div>
+      <div class="metric-val pos">$15.92B</div>
       <div class="delta">
-        <span class="pct pos">YoY +23.8%</span>
-        <span class="prior">前年同期: $4.72B（記録更新）</span>
-        <span class="pct pos" style="margin-top:4px;display:inline-block">QoQ +9.3%</span>
+        <span class="pct pos">YoY +9.5%</span> <span style="opacity:.7">(+$1.38B)</span>
+        <span class="prior">前年同期: $14.54B</span>
+        <span class="pct" style="margin-top:4px;display:inline-block;color:var(--t2)">FXN +6%</span> <span style="opacity:.7">/ ビート +1.3%</span>
       </div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">EPS（Non-GAAP, Diluted）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">EPS（1株当たり純利益）</span><span class="tip-body">純利益を発行済み株式数で割った値。Non-GAAP は一時要因を除いた経常的な収益力を示す。LRCX 主要開示。</span></span></div>
-      <div class="metric-val pos">$1.47</div>
+      <div class="metric-lbl">Operating EPS（Non-GAAP）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Operating EPS</span><span class="tip-body">IBM 公式の Non-GAAP 指標。買収関連無形資産償却・リストラ費用等を除外した「事業実勢」EPS。</span></span></div>
+      <div class="metric-val pos">$1.91</div>
       <div class="delta">
-        <span class="pct pos">YoY +41.3%</span>
-        <span class="prior">前年同期: $1.04 / 記録水準</span>
-        <span class="prior" style="font-size:.72rem;opacity:.7">GAAP EPS は $1.45</span>
+        <span class="pct pos">YoY +19%</span>
+        <span class="prior">前年同期: $1.60</span>
+        <span class="pct" style="margin-top:4px;display:inline-block;color:var(--t2)">ビート +$0.10</span> <span style="opacity:.7">vs $1.81</span>
       </div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">粗利益率 (Non-GAAP) <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">粗利益率（Gross Margin）</span><span class="tip-body">売上から製造原価を差し引いた利益の割合。WFE装置業界では50%前後がトップティアの目安。</span></span></div>
-      <div class="metric-val pos">49.9%</div>
-      <div class="metric-sub">ガイダンス上限到達 / GAAP 49.8%</div>
+      <div class="metric-lbl">FCF（YTD・10年最高Q1）</div>
+      <div class="metric-val pos">$2.22B</div>
+      <div class="metric-sub">YoY <strong>+13%</strong> / Q1 営業CF $5.17B (+$799M)</div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">営業利益率 (Non-GAAP)</div>
-      <div class="metric-val pos">35.0%</div>
-      <div class="metric-sub">前Q 34.3% から +70bp</div>
+      <div class="metric-lbl">Software ARR <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Annual Recurring Revenue</span><span class="tip-body">年間定期収益。サブスクリプション売上の年換算ベース。SaaS 評価の中核 KPI。</span></span></div>
+      <div class="metric-val gold">$24.6B</div>
+      <div class="metric-sub">YoY <strong>+10%</strong>（高粗利・予測可能性）</div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">FCF (TTM) <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">フリーキャッシュフロー（TTM）</span><span class="tip-body">過去12ヶ月の営業CF - Capex。企業の実質的な現金創出力。LRCX は FCF の 85% 以上を還元する方針。</span></span></div>
-      <div class="metric-val pos">$6.005B</div>
-      <div class="delta">
-        <span class="pct pos">YoY +52.7%</span>
-        <span class="prior">FCFマージン 27.7%</span>
-        <span class="prior" style="font-size:.72rem;opacity:.7">TTM 還元 $6.14B（FCF と同水準）</span>
-      </div>
+      <div class="metric-lbl">配当（30年連続増配）</div>
+      <div class="metric-val gold">$1.69/株</div>
+      <div class="metric-sub">年 $6.76 / 利回り 2.9% / Dividend Aristocrat</div>
     </div>
   </div>
 </section>
@@ -1270,7 +1253,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
     </div>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body">売上高は Q1 FY25 の $4.17B から Q3 FY26 の <strong>$5.84B</strong> まで <strong>+40% の階段状成長</strong>で、3期連続の過去最高更新。GAAP EPS も $0.67 → <strong>$1.45</strong> と +116% 拡大、Q3 Non-GAAP EPS は <strong>$1.47 と記録水準</strong>。Q1 FY26 (Sep25) で踊り場（QoQ ほぼフラット）を経たあと、Q2→Q3 で +9% 加速。AI / HBM / DRAM 1Cnm ノード移行という構造需要が、メモリWFE への投資を底打ちから本格回復へと押し上げました。</div>
+      <div class="insight-body">売上高は Q3 2024 の $14.97B から Q1 2026 の $15.92B まで <strong>緩やかに右肩上がり</strong>（IBM 通例の Q4 季節性ピーク含む）、Operating EPS（Non-GAAP）は同期間で $2.30 → $1.91 と Q1 季節性で減少しますが、YoY ベースでは Q1'25 $1.60 → Q1'26 $1.91 と <strong>+19% 成長</strong>を達成しました。<span style="color:var(--gold2)">※ FY2024 Q4・FY2025 Q2 の Operating EPS は10-Q確定値[10-Q待ち]、Q4 2025 $5.88 は GAAP 混入疑義[要確認]として表示しています。</span></div>
     </div>
   </div>
 </section>
@@ -1282,24 +1265,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="panel-merge">
       <div class="margin-tiles-row">
         <div class="margin-tile">
-          <div class="margin-tile-lbl">粗利益率 (Non-GAAP)</div>
-          <div class="margin-tile-val pos">49.9%</div>
-          <div class="margin-tile-sub">ガイダンス上限到達 / GAAP 49.8%</div>
+          <div class="margin-tile-lbl">Non-GAAP 粗利率</div>
+          <div class="margin-tile-val pos">57.7%</div>
+          <div class="margin-tile-sub">YoY +110bps（GAAP 56.2%、+100bps）</div>
         </div>
         <div class="margin-tile">
-          <div class="margin-tile-lbl">営業利益率 (Non-GAAP)</div>
-          <div class="margin-tile-val pos">35.0%</div>
-          <div class="margin-tile-sub">前Q 34.3% から +70bp / Q4ガイ 36.5%</div>
+          <div class="margin-tile-lbl">Non-GAAP 営業利益率</div>
+          <div class="margin-tile-val pos">13.4%</div>
+          <div class="margin-tile-sub">YoY +140bps（GAAP 8.7%、+80bps）</div>
         </div>
         <div class="margin-tile">
-          <div class="margin-tile-lbl">純利益率 (Non-GAAP)</div>
-          <div class="margin-tile-val gold">31.7%</div>
-          <div class="margin-tile-sub">Non-GAAP 純利益 $1,851M / 売上 $5,842M</div>
+          <div class="margin-tile-lbl">調整後 EBITDA マージン</div>
+          <div class="margin-tile-val pos">25.0%</div>
+          <div class="margin-tile-sub">$4.0B、コンセンサス +13% 大幅ビート</div>
         </div>
         <div class="margin-tile">
-          <div class="margin-tile-lbl">FCFマージン (TTM)</div>
-          <div class="margin-tile-val pos">27.7%</div>
-          <div class="margin-tile-sub">TTM FCF $6.005B / TTM Revenue $21.68B</div>
+          <div class="margin-tile-lbl">Software 構成比</div>
+          <div class="margin-tile-val gold">44%</div>
+          <div class="margin-tile-sub">高粗利セグ拡大が利益率改善の主因</div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
@@ -1315,24 +1298,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="section-title">今回のポイント</div>
   <div class="insight-wrap">
     <div class="insight">
-      <div class="insight-num">01. WFE 2026 見通し $135B → <span class="hl">$140B 上振れバイアス</span>— AI 牽引で全デバイス投資が上方修正</div>
-      <div class="insight-body">CEO Tim Archer は「AI コンピューティング需要の高まりが要求する半導体技術の転換点が、成膜・エッチングの集約度をさらに高めている」と述べ、1月時点ガイダンス $135B から <strong>$140B + 上振れバイアス</strong>に上方修正。SEMI 公式予測の WFE $123B + バックエンド $16B = $139B とも整合し、AI / HBM が引き起こす業界全体のCAPEX 拡大を裏付ける。</div>
+      <div class="insight-num">01. IBM Z mainframe <span class="hl">+48% FXN</span>、Z17 サイクル本格化</div>
+      <div class="insight-body">Infrastructure セグメント全体は <strong>+15% YoY / +12% FXN</strong>、その中で IBM Z 単体は <strong>+51% YoY / +48% FXN</strong> と劇的伸長。2025年6月18日 GA の Z17（Telum II + Spyre Accelerator）が AI 推論 4500億回/日対応で「メインフレーム=レガシー」の常識を覆しました。watsonx Code Assistant for Z 採用顧客は MIPS（処理容量）が <strong>3倍速で成長</strong>。Z サイクルは通常 6-8 四半期続くため、FY2026-27 の継続貢献が見込まれます。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">02. DRAM 売上構成 <span class="hl">27% 過去最高</span>・CSBG 初の <span class="hl">$2.1B 突破</span>— 二つの記録ラッシュ</div>
-      <div class="insight-body">CFO Doug Bettinger は「DRAM は記録的な売上を達成し、システム売上の <strong>27%</strong> を占めた（前 Q 23%）」と説明。HBM 投資加速 + DRAM 1Cnm ノード移行が押し上げ要因。一方 CSBG は <strong>初の四半期 $2.1B</strong>（YoY +25%）と「リカーリング型」事業の安定性を示した。Systems がサイクルに揺れても CSBG が下値を支える構造が確立。</div>
+      <div class="insight-num">02. GenAI Book of Business <span class="hl">$12.5B 超</span>、AI Platform 単独で $1.5B</div>
+      <div class="insight-body">Generative AI 累積受注額は Q4 2025 末時点で <strong>$12.5B 超</strong>、構成は Consulting 約80% / Software 約20%。AI Platform / agent / orchestration（watsonx 中核）単独では TTM <strong>$1.5B 超</strong>、Software ビジネスへの浸透率 25%、Software 全体成長への寄与は年率 +2pt。Consulting backlog の <strong>約30%</strong>が GenAI 関連で、構造的シフトが進行中です。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">03. Q4 FY2026 ガイダンス中値 <span class="hl">売上 $6.6B / EPS $1.65</span>— コンセンサスを売上 +8.6%・EPS +14.6% 大幅超過</div>
-      <div class="insight-body">Q4ガイ中値はコンセンサス（売上 $6.08B / EPS $1.44）を<strong>大幅に上回り</strong>、会社自身が次四半期の加速に強い自信を表明。粗利率 50.5%・営業利益率 36.5% も Q3 から +60〜150bp の改善を示し、ミックス改善 + コスト規律で「2027 年は好調な年」（CFO 発言）に向けた助走を始めている。</div>
+      <div class="insight-num">03. 三重ビート + 10年最高 Q1 FCF <span class="hl">$2.22B</span></div>
+      <div class="insight-body">売上 $15.92B（コンセンサス +1.3% ビート）、Operating EPS $1.91（+5.5% ビート）、調整後 EBITDA $4.0B（+13% 大幅ビート）の三重ビート。Q1 単独 営業CF は $5.17B（YoY +$799M）、FCF YTD $2.22B は <strong>過去10年で最高の Q1 FCF</strong>。Confluent 買収費用 $10.5B 計上にもかかわらず、本業のキャッシュ創出力は健在です。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">04. NAND <strong>Cryo Etch 3.0</strong> 普及加速・3D NAND 変換投資が <span class="hl">2027年末までに前倒し</span></div>
-      <div class="insight-body">CEO Tim Archer は「NAND 変換（HDD→NAND）の投資は前倒しされ、支出の大部分が <strong>2027 年末までに集中</strong>すると現在見込んでいる」と修正発表。Lam の Cryo Etch 3.0 は従来比省エネ 40%・排出 90% 削減で 200層超 QLC NAND の本命。Lam の独占的優位がそのまま売上に直結。</div>
+      <div class="insight-num">04. ガイダンス据え置きで株価 <span class="hl">-7.7%</span>、市場の上方修正期待を裏切る</div>
+      <div class="insight-body">FY2026 通期ガイダンスは売上 FXN <strong>&gt;5%</strong>、FCF <strong>+$1B</strong>（FY25 $12.7B → ~$13.7B 目標）を「維持」。CFO Kavanaugh 氏は「Q1 で一度もガイダンスを上方修正したことはない、90日経過しただけ、マクロ不確実性は90日前より増している」と保守姿勢を示しました。市場は上方修正を織り込んでいたため、決算翌日 -7.7% の急落、YTD は -21.7% と SPY 対比で大幅アンダーパフォームです。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">05. 株主還元 <span class="hl">FCF 85% 以上</span>方針継続 — Q3 自社株買い $1.16B + 配当 $326M、TTM 還元 $6.14B</div>
-      <div class="insight-body">CFO Bettinger は「FCF の少なくとも <strong>85% を中長期で還元する</strong>」と明言。Q3 は自社株買い $800M（市場購入）+ $200M（ASR）+ 配当 $326M に加え、$750M シニアノート償還を実行（FCF $810M に対し還元総額 $1.49B、率 184%）。残自社株買い授権 <strong>$4.3B</strong>。年後半に中長期財務フレームワーク更新を予告。</div>
+      <div class="insight-num">05. Confluent 買収完了（<span class="hl">$11B</span>）、Agentic AI Data Fabric 完成</div>
+      <div class="insight-body">2025年12月8日発表、<strong>2026年3月17日完了</strong>の Confluent 買収（Enterprise Value $11B、$10.5B が Q1 投資CF に計上）が当四半期の最大トピック。Apache Kafka 基盤のリアルタイムデータストリーミングを獲得し、Red Hat（OpenShift）+ HashiCorp（クラウド自動化）+ Confluent（データパイプライン）の三位一体で <strong>Agentic AI Data Fabric</strong> を完成させました。BofA 独自試算では FY26 EPS が $11.98（コンセンサス $12.51 比 -4.2%）まで希薄化する見方もあり、12-18ヶ月の業績圧迫リスクとして警戒される一方、長期的な戦略整合性は高いと評価されています。</div>
     </div>
   </div>
 </section>
@@ -1342,36 +1325,28 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="section-title">ガイダンス・見通し</div>
   <div class="section-body">
 
-    <!-- C. CapEx History Chart -->
-    <div class="chart-box" style="margin-bottom:18px">
-      <div class="chart-wrap" style="height:260px"><canvas id="capexChart"></canvas></div>
+    <div class="cardx" style="margin-bottom:18px">
+      <table class="ov-rivals" style="width:100%">
+        <thead>
+          <tr><th>指標</th><th>FY2026 通期ガイダンス</th><th>前回（Q4 2025）比</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>売上成長（FXN）</td><td>&gt;5%</td><td class="neu">維持</td></tr>
+          <tr><td>Free Cash Flow</td><td>+$1B 増（FY25 $12.7B → ~$13.7B 目標）</td><td class="neu">維持</td></tr>
+          <tr><td>FX 影響</td><td>+0.5 〜 +1.0pt 追い風</td><td class="pos">微改善（前回中立想定）</td></tr>
+          <tr><td>Operating EPS</td><td>非開示（IBM 通例）</td><td class="neu">—</td></tr>
+          <tr><td>株主還元（配当）</td><td>$1.69/株（年 $6.76）</td><td class="pos">30年連続増配</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="grid-2">
-      <div class="metric-card">
-        <div class="metric-lbl">Q4 FY2026 売上ガイダンス</div>
-        <div class="metric-val pos">$6.20B – $7.00B</div>
-        <div class="metric-sub">中値 $6.60B ± $400M / コンセンサス $6.08B を +8.6% 上回る</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-lbl">Q4 FY2026 EPS ガイダンス</div>
-        <div class="metric-val pos">$1.50 – $1.80</div>
-        <div class="metric-sub">中値 $1.65 ± $0.15 / コンセンサス $1.44 を +14.6% 上回る</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-lbl">2026 年 WFE 市場見通し</div>
-        <div class="metric-val gold">$140B + 上振れバイアス</div>
-        <div class="metric-sub">前回（1月）$135B から +$5B 上方修正。SEMI 公式 WFE $123B + バックエンド $16B = $139B と整合</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-lbl">残自社株買い授権</div>
-        <div class="metric-val pos">$4.3B</div>
-        <div class="metric-sub">FCF の <strong>85% 以上</strong>を中長期還元方針継続。年後半に中長期フレームワーク更新予定</div>
-      </div>
+    <div class="insight">
+      <div class="insight-num">市場失望の構造と Q2 への含意</div>
+      <div class="insight-body">CFO Kavanaugh 氏は「Q1 で一度もガイダンスを上方修正したことはない、90日経過しただけ」「マクロ不確実性は90日前より増している」と明言、保守姿勢を示しました。三重ビートの好決算にもかかわらず株価が -7.7% 急落したのは、市場がコンセンサス FY26 EPS $12.51 や TP $297.79（+28.4% アップサイド）を織り込んだ強気ポジションだったためです。BofA 独自試算 EPS $11.98 と公式コンセンサスの差 -4.2% は Confluent 希薄化の影響で、Q2-Q3 の統合進捗で再評価される見込み。投資家は ① Z17 サイクル継続性、② Consulting 反転（vs ACN +3% FXN 劣後解消）、③ Confluent 統合の収益貢献、を Q2 決算（2026/7 発表予定）で確認する必要があります。</div>
     </div>
   </div>
 </section>
-
+</section>
 <!-- ══════════════════════════════════
      BOUNDARY — Roman Numeral II
 ═══════════════════════════════════ -->
@@ -1388,66 +1363,83 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Segments -->
 <section class="sec3" data-accordion id="sec-segment">
-  <div class="sec3-title">Segments <span class="jp">· プラットフォーム別売上構成</span></div>
+  <div class="sec3-title">セグメント別売上構成 <span class="jp">· Segments</span></div>
   <div class="sec3-body">
 
-    <!-- Platform Donut + Node Stacked Bar + Insight — 一体化パネル -->
     <div class="panel-merge">
-    <!-- D. Segment Donut Chart (LRCX) -->
     <div class="chart-split">
       <div class="chart-split-viz"><canvas id="platformChart"></canvas></div>
       <div class="chart-split-list">
         <div class="chart-split-item">
           <div class="csi-sw" style="background:#D4A843"></div>
           <div>
-            <div class="csi-lbl">Systems（装置販売）</div>
-            <div class="csi-sub">$3,730.6M / 半導体メーカー向け前工程装置</div>
+            <div class="csi-lbl">ソフトウェア</div>
+            <div class="csi-sub">Red Hat / watsonx / Automation / Security — 最高粗利</div>
           </div>
-          <div class="csi-pct">63.9%</div>
+          <div class="csi-pct">44%</div>
         </div>
-        <div class="csi-sw" style="background:#B8912A"></div>
         <div class="chart-split-item">
           <div class="csi-sw" style="background:#5C7395"></div>
           <div>
-            <div class="csi-lbl">CSBG（Customer Support Business Group）</div>
-            <div class="csi-sub">$2,110.9M / <strong>初の四半期 $2B 突破</strong>・YoY +25%</div>
+            <div class="csi-lbl">コンサルティング</div>
+            <div class="csi-sub">Strategy &amp; Tech / Apps / Bus. Trans. — GenAI 30%</div>
           </div>
-          <div class="csi-pct">36.1%</div>
+          <div class="csi-pct">33%</div>
+        </div>
+        <div class="chart-split-item">
+          <div class="csi-sw" style="background:#B8912A"></div>
+          <div>
+            <div class="csi-lbl">インフラストラクチャ</div>
+            <div class="csi-sub">IBM Z（+51%） / Power / Distributed</div>
+          </div>
+          <div class="csi-pct">21%</div>
+        </div>
+        <div class="chart-split-item">
+          <div class="csi-sw" style="background:#F0E6C8"></div>
+          <div>
+            <div class="csi-lbl">ファイナンシング</div>
+            <div class="csi-sub">顧客向けリース・ファイナンス</div>
+          </div>
+          <div class="csi-pct">1%</div>
         </div>
       </div>
     </div>
 
     <div class="panel-merge-divider"></div>
-    <!-- E. Systems Mix 100% Stacked Bar -->
+
     <div class="stack-wrap">
-      <div class="stack-title">Systems Revenue Mix · デバイス別構成（Q3 FY2026）</div>
-      <div class="stack-bar">
-        <div class="stack-seg" style="width:54%;background:#D4A843">Foundry 54%</div>
-        <div class="stack-seg" style="width:27%;background:#B8912A;color:#F5F2EC">DRAM 27% ★記録</div>
-        <div class="stack-seg" style="width:12%;background:#5C7395;color:#F5F2EC">NAND 12%</div>
-        <div class="stack-seg" style="width:7%;background:#4A5568;color:#F5F2EC">Logic 7%</div>
-      </div>
+      <div class="stack-title">Q1 セグメント別 売上 / FXN 成長率</div>
+      <table class="cmp-tbl" style="margin-top:8px">
+        <thead>
+          <tr><th>セグメント</th><th>売上 (USD)</th><th>YoY (Reported)</th><th>FXN 成長</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>ソフトウェア</strong></td><td>$7.052B</td><td class="pos">+11.3%</td><td class="pos">+7.9%</td></tr>
+          <tr><td><strong>コンサルティング</strong></td><td>$5.272B</td><td class="pos">+4.0%</td><td class="neu">+0.9%</td></tr>
+          <tr><td><strong>インフラストラクチャ</strong></td><td>$3.326B</td><td class="pos">+15.3%</td><td class="pos">+11.7%</td></tr>
+          <tr><td><strong>ファイナンシング</strong></td><td>$0.220B</td><td class="pos">+14.8%</td><td class="pos">+10.2%</td></tr>
+          <tr><td><strong>合計</strong></td><td><strong>$15.917B</strong></td><td class="pos"><strong>+9%</strong></td><td class="pos"><strong>+6%</strong></td></tr>
+        </tbody>
+      </table>
       <div class="stack-note">
-        <strong>Foundry 54%</strong>（前Q 59% から低下、TSMC/Intel 中心）／ <strong>DRAM 27% は過去最高</strong>（前Q 23% から +4pt、HBM + 1Cnm ノード移行が牽引）／ <strong>NAND 12%</strong>（前Q 11% から +1pt、Cryo Etch 3.0 採用拡大）／ Logic 7%。CFO Bettinger:「DRAM は記録的売上を達成」。
+        <strong>Software サブセグメント FXN 成長</strong>: Hybrid Cloud（Red Hat）<strong>+10%</strong>、Automation +7%、Data &amp; AI <strong>+16%</strong>、Transaction Processing +2%。<strong>Infrastructure サブ FXN</strong>: IBM Z mainframe <strong>+48%</strong>（Z17 サイクル本格化）、Distributed +13%。<span style="color:var(--gold2)">Software サブセグ金額・Consulting 内訳金額は[10-Q待ち]、成長率のみ判明。</span>
       </div>
     </div>
 
     <div class="panel-merge-divider"></div>
     <div class="insight">
-      <div class="insight-body"><strong>Systems vs CSBG の構造的意義:</strong> Systems（装置販売）は WFE サイクルに連動する一方、<strong>CSBG はリカーリング型収益</strong>（スペアパーツ・サービス・改良アップグレード・スペシャリティ装置）で設置ベースに比例して安定成長。CSBG が初の $2B 突破は「装置サイクルが軟化しても下値を支える基盤が拡大した」ことを意味し、Lam の収益の質的改善の象徴。粗利率も Systems より CSBG が高めで、ミックス改善が GM 49.9% → Q4 ガイ 50.5% への押し上げ要因の一つ。</div>
+      <div class="insight-body"><strong>Z17 が業績の主役、Consulting は構造劣後</strong>: Infrastructure +12% FXN は IBM Z 単体 +48% の劇的伸長が牽引、watsonx Code Assistant for Z で MIPS 容量3倍速成長の好循環が始まっています。Software ARR $24.6B（+10%）は Red Hat OpenShift と watsonx の二本柱で安定。一方 <strong>Consulting +0.9% FXN は Accenture Q2 FY26 +3% FXN に明確に劣後</strong>、市場シェア毀損リスクとして警戒材料。GenAI 関連は backlog の30%まで拡大しているものの、既存案件の鈍化が大きく、Q2 での反転確認が次の重要マイルストーンです。</div>
     </div>
     </div>
-    <!-- /panel-merge -->
 
   </div>
 </section>
 
 <!-- Geography -->
 <section class="sec3" data-accordion id="sec-geo">
-  <div class="sec3-title">Geography <span class="jp">· 地域別売上構成</span></div>
+  <div class="sec3-title">地域 <span class="jp">· 地域別売上構成</span></div>
   <div class="sec3-body">
 
-    <!-- F. Geography Donut (unified with insight) -->
     <div class="panel-merge">
       <div class="chart-split">
         <div class="chart-split-viz"><canvas id="geoChart"></canvas></div>
@@ -1455,97 +1447,72 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           <div class="chart-split-item">
             <div class="csi-sw" style="background:#D4A843"></div>
             <div>
-              <div class="csi-lbl">China / 中国</div>
-              <div class="csi-sub">~$1,986M / Q1 43% → Q2 35% → <strong>Q3 34%</strong>、Q4 さらに低下予定</div>
+              <div class="csi-lbl">米州（Americas）</div>
+              <div class="csi-sub">最大市場（売上構成比 約50%・概算）</div>
             </div>
-            <div class="csi-pct">34%</div>
-          </div>
-          <div class="chart-split-item">
-            <div class="csi-sw" style="background:#B8912A"></div>
-            <div>
-              <div class="csi-lbl">Korea / 韓国</div>
-              <div class="csi-sub">~$1,344M / <strong>記録ドル水準</strong>・SK Hynix・Samsung HBM 投資牽引</div>
-            </div>
-            <div class="csi-pct">23%</div>
+            <div class="csi-pct">~50%</div>
           </div>
           <div class="chart-split-item">
             <div class="csi-sw" style="background:#5C7395"></div>
             <div>
-              <div class="csi-lbl">Taiwan / 台湾</div>
-              <div class="csi-sub">~$1,344M / <strong>記録ドル水準</strong>・TSMC N2 / A16 ノード投資</div>
+              <div class="csi-lbl">欧州・中東・アフリカ（EMEA）</div>
+              <div class="csi-sub">中東「数十年で最強」成長（CEO Krishna 発言）</div>
             </div>
-            <div class="csi-pct">23%</div>
+            <div class="csi-pct">~30%</div>
           </div>
           <div class="chart-split-item">
-            <div class="csi-sw" style="background:#F0E6C8"></div>
+            <div class="csi-sw" style="background:#B8912A"></div>
             <div>
-              <div class="csi-lbl">Japan / 日本</div>
-              <div class="csi-sub">~$467M / メモリ関連</div>
+              <div class="csi-lbl">アジア太平洋（APAC）</div>
+              <div class="csi-sub">日本・インド・豪州が中核</div>
             </div>
-            <div class="csi-pct">8%</div>
-          </div>
-          <div class="chart-split-item">
-            <div class="csi-sw" style="background:#718096"></div>
-            <div>
-              <div class="csi-lbl">United States / 米国</div>
-              <div class="csi-sub">~$350M / Intel Foundry / Micron</div>
-            </div>
-            <div class="csi-pct">6%</div>
-          </div>
-          <div class="chart-split-item">
-            <div class="csi-sw" style="background:#8B7A3F"></div>
-            <div>
-              <div class="csi-lbl">SE Asia + Europe</div>
-              <div class="csi-sub">~$351M / 製造ハブ＋欧州研究投資</div>
-            </div>
-            <div class="csi-pct">6%</div>
+            <div class="csi-pct">~20%</div>
           </div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body"><strong>China 比率の構造的低下が進行中</strong> — Q1 FY26 43% → Q2 35% → <strong>Q3 34%</strong> と3四半期連続で低下、CFO Bettinger は「Q4 はこれよりさらに低下」と明言。BIS 規制（HBM 帯域密度規制・50% アフィリエイトルール）の影響で 2026 通年の規制ドラッグは <strong>~$600M</strong> と LRCX 自身が示唆。一方で <strong>Korea / Taiwan が記録ドル水準</strong>に到達し、SK Hynix（HBM 62% シェア）と TSMC（N2 / A16 ノード）の AI 投資が China の穴を埋めて売上記録更新を実現。地理的ミックスが「米中規制リスク → AI 顧客集中」という質的変化を遂げている。</div>
+        <div class="insight-body"><strong>中東が「数十年来」最強の伸び</strong>: CEO Krishna は決算コールで「中東は数年ではなく <strong>数十年で最強の成長</strong>を記録した」と発言、地政学的緊張下でもソブリン AI・政府 DX 需要が顕著。<strong>FX +3pt 追い風</strong>（Q1 reported +9% / FXN +6% の差）が海外比率の高い IBM に追い風となり、通期では <strong>+0.5〜+1.0pt</strong> のテールウィンドが見込まれます。<span style="color:var(--gold2)">地域別売上構成比は概算値（公式 10-Q 確定値[10-Q待ち]）。</span></div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- Cash Flow / CapEx -->
+<!-- Cash Flow & Returns -->
 <section class="sec3" data-accordion id="sec-cashflow">
-  <div class="sec3-title">Cash Flow & CapEx <span class="jp">· キャッシュフロー・設備投資</span></div>
+  <div class="sec3-title">Cash Flow &amp; Returns <span class="jp">· キャッシュフロー・株主還元</span></div>
   <div class="sec3-body">
 
-    <!-- 7Q キャッシュフロー推移チャート + 解説 一体化 -->
     <div class="panel-merge">
       <div class="chart-box" style="background:transparent;border:none;border-radius:0;padding:22px 24px 18px">
         <div class="chart-wrap" style="height:320px"><canvas id="cashflowChart"></canvas></div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body">LRCX の Q3 単体 営業CF は <strong>$1,141M</strong>（YoY -12.8%、QoQ -22.9%）と一見低下していますが、これは<strong>売上急成長に伴う運転資本（DSO 64 日、+5日 QoQ）と棚卸資産再構築</strong>、および $750M シニアノート償還に向けた現金準備による一時要因。Q3 単体 FCF は <strong>$810M</strong>（FCFマージン 13.9%）。<strong>TTM ベースでは FCF $6.005B（+52.7% YoY）、FCFマージン 27.7%</strong> と高水準を維持。CFO Bettinger は「FCF の 85% 以上を中長期還元」を改めて明言し、Q3 単体で還元総額（自社株買い + 配当）<strong>$1,489M</strong>（FCF 比 184%）に加え社債償還 $750M を実行。在庫回転率は 2.9倍と<strong>4年超ぶりの高水準</strong>に改善。</div>
+        <div class="insight-body">IBM の Q1 単独 営業CF は <strong>$5.17B</strong>（YoY +$799M、+18%）、FCF YTD <strong>$2.22B</strong>（YoY +13%）は <strong>過去10年で最高の Q1 FCF</strong>です。Q1 投資CF $-10.49B には <strong>Confluent 買収 $10.5B 計上</strong>が含まれ、財務CF +$2.72B で新規債務調達により補填。FY2026 通期ガイダンスは <strong>FCF +$1B 増</strong>（FY25 $12.7B → ~$13.7B 目標）を維持しました。配当は Q1 で $1.576B（30年連続増配、新配当 <strong>$1.69/株</strong>へ引き上げ）、自社株買いは Q1 で $350M（税源泉徴収分）と限定的。<span style="color:var(--gold2)">Q1 単独自社株買い具体額は[要確認]。</span></div>
       </div>
     </div>
     <div class="cardx-grid">
       <div class="cardx">
-        <div class="cardx-lbl">Q3 営業CF</div>
-        <div class="cardx-val pos">$1,141M</div>
-        <div class="cardx-sub">YoY -12.8% / 売上急成長で運転資本拡大</div>
+        <div class="cardx-lbl">Q1 営業CF</div>
+        <div class="cardx-val pos">$5.17B</div>
+        <div class="cardx-sub">YoY +$799M（+18%）</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">Q3 FCF</div>
-        <div class="cardx-val pos">$810M</div>
-        <div class="cardx-sub">CapEx $332M / TTM FCF <strong>$6.005B</strong></div>
+        <div class="cardx-lbl">Q1 FCF（YTD）</div>
+        <div class="cardx-val pos">$2.22B</div>
+        <div class="cardx-sub"><strong>10年最高 Q1</strong> / YoY +13%</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">Q3 自社株買い + 配当</div>
-        <div class="cardx-val gold">$1,489M</div>
-        <div class="cardx-sub">$1,163M（市場 $800M + ASR $200M）+ 配当 $326M</div>
+        <div class="cardx-lbl">Confluent 買収</div>
+        <div class="cardx-val gold">$10.5B</div>
+        <div class="cardx-sub">2026/3/17 完了、Q1 投資CF 計上</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">株主還元（TTM）</div>
-        <div class="cardx-val gold">$6.138B</div>
-        <div class="cardx-sub">自社株買い $4.897B + 配当 $1.241B</div>
+        <div class="cardx-lbl">配当（30年連続増配）</div>
+        <div class="cardx-val gold">$1.69/株</div>
+        <div class="cardx-sub">年 $6.76 / 利回り 2.9% / Aristocrat</div>
       </div>
     </div>
   </div>
@@ -1557,68 +1524,68 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-body">
     <div class="cardx-grid">
       <div class="cardx no-currency">
-        <div class="cardx-lbl">終値（4/24 金）</div>
-        <div class="cardx-val pos">$267.78</div>
-        <div class="cardx-sub">4/22(発表)$265.55 → 4/23 -2.6% → 4/24 +3.6%（52週高値更新日）</div>
+        <div class="cardx-lbl">終値（4/24）</div>
+        <div class="cardx-val neg">$231.98</div>
+        <div class="cardx-sub">決算翌日 -7.7% / YTD -21.7%</div>
       </div>
       <div class="cardx no-currency">
         <div class="cardx-lbl">52週レンジ</div>
-        <div class="cardx-val neu">$67.55 – $275.84</div>
-        <div class="cardx-sub">52週高値 $275.84（4/24 日中）/ 安値比 +296%</div>
+        <div class="cardx-val neu">$220.72 – $324.90</div>
+        <div class="cardx-sub">高値乖離 -28.8%</div>
       </div>
       <div class="cardx">
         <div class="cardx-lbl">時価総額</div>
-        <div class="cardx-val neu">$334.88B</div>
-        <div class="cardx-sub">発行済 1.25B 株 / 約 33.5 兆円</div>
+        <div class="cardx-val neu">約 <span class="no-currency">$217B</span></div>
+        <div class="cardx-sub">S&amp;P 500 / Dow 30 構成</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">TTM PER</div>
-        <div class="cardx-val neu">50.58×</div>
-        <div class="cardx-sub">stockanalysis.com 実測値</div>
+        <div class="cardx-lbl">RSI（14日）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">RSI</span><span class="tip-body">買われ過ぎ・売られ過ぎ指標。70超で過熱、30以下で売られ過ぎ。</span></span></div>
+        <div class="cardx-val neg">38.96</div>
+        <div class="cardx-sub">弱気ゾーン（40割れ）、売られ過ぎ接近</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">Forward PER（NTM）</div>
-        <div class="cardx-val neu">35.96×</div>
-        <div class="cardx-sub">過去5年 Fwd PER レンジ 12.4 – 35.96×（現在は上限）</div>
+        <div class="cardx-lbl">MACD</div>
+        <div class="cardx-val neg">-5.07 陰転拡大</div>
+        <div class="cardx-sub">シグナル下方、トレンド転換シグナルなし</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">PEG Ratio</div>
-        <div class="cardx-val neu">1.54</div>
-        <div class="cardx-sub">EPS 成長率対比のバリュエーション尺度</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">EV / EBITDA</div>
-        <div class="cardx-val neu">42.54×</div>
-        <div class="cardx-sub">企業価値 $333.86B</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">P/S（売上倍率）</div>
-        <div class="cardx-val neu">15.45×</div>
-        <div class="cardx-sub">P/B 31.64×</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">配当利回り / 年間配当</div>
-        <div class="cardx-val gold">0.39% / $1.04</div>
-        <div class="cardx-sub">配当性向（FCF対比）40% / Q3配当 $326M</div>
+        <div class="cardx-lbl">StochRSI</div>
+        <div class="cardx-val pos">100（過買われ）</div>
+        <div class="cardx-sub">短期バウンス示唆（テクニカルリバウンド）</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">アナリストコンセンサス</div>
-        <div class="cardx-val pos">Strong Buy（25名）</div>
-        <div class="cardx-sub">Strong Buy 11 / Buy 10 / Hold 4 / Sell 0</div>
+        <div class="cardx-lbl">SMA 50日</div>
+        <div class="cardx-val neg">$246.04</div>
+        <div class="cardx-sub">株価下回る -5.7%</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">アナリスト平均目標</div>
-        <div class="cardx-val neu">$260.79</div>
-        <div class="cardx-sub">現値比 -2.6%（既に目標を超過）/ 最高 $385（Susquehanna）</div>
+        <div class="cardx-lbl">SMA 200日</div>
+        <div class="cardx-val neg">$243.99</div>
+        <div class="cardx-sub">株価下回る -4.9%（長期サポート喪失）</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">決算後アナリスト動向</div>
-        <div class="cardx-val pos">14社 目標引上げ</div>
-        <div class="cardx-sub">JPM $315→/BofA $330→/B.Riley $350→/Susquehanna $385→</div>
+        <div class="cardx-lbl">EMA 20/50/200</div>
+        <div class="cardx-val neg">全売りシグナル</div>
+        <div class="cardx-sub">完全デッドアラインメント</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">ADX(14) / 出来高</div>
+        <div class="cardx-val neu">18.95 / 22.2M</div>
+        <div class="cardx-sub">下降優勢 ｜ 4/23 平均比 +327%</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">サポート / レジスタンス</div>
+        <div class="cardx-val neu">S $228 / R $244</div>
+        <div class="cardx-sub">下位S $220.72（52週安値）/ 上位R $279</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">フィボナッチ 23.6%</div>
+        <div class="cardx-val neg">$245.30</div>
+        <div class="cardx-sub">下回る = 高値からの全戻し近い</div>
       </div>
     </div>
     <div class="insight no-currency" style="margin-top:14px">
-      <div class="insight-body"><strong>総合バリュエーション判定: 既に高水準・短期は「ニュース尽くし」</strong> — Fwd PER <strong>35.96×</strong> は過去5年の Fwd PER レンジ 12.4 – 35.96× の<strong>上限</strong>。市場は AI / HBM / WFE 拡大による FY2027 EPS $7.09（YoY +30.7%）を相当程度織り込んでいる。アナリスト平均目標 $260.79 を現値 $267.78 が <strong>+2.6% 超過</strong>するなど、足元は「コンセンサスが追いつくフェーズ」。決算後のアクションは目標引上げラッシュ（14社確認）で構造強気だが、Fwd PER がレンジ上限にあるため短期調整リスクも併存。テクニカル指標（RSI / MACD / 移動平均 / 出来高 / 空売り残等）の最新値は下記 TradingView ライブチャートを参照ください。</div>
+      <div class="insight-body"><strong>総合判定: 弱気（Bearish）</strong> — 全主要 MA（SMA/EMA 20/50/100/200日）を株価が下回る「完全デッドアラインメント」、RSI 38.96 弱気ゾーン、MACD -5.07 陰転拡大、フィボナッチ 23.6%（$245.30）も下回り、52週高値 -28.8% の構造的弱気が継続中。<br><br><strong>短期バウンス余地</strong>: StochRSI 100 が示すテクニカルリバウンドで $240 前後までの戻りは可能、ただし上値は限定的。$244（SMA200）超えなければ戻り売り優勢。<strong>下値リスク</strong>: $220.72（52週安値）→ 心理的節目 $200。<br><br><strong>vs SPY YTD</strong>: IBM -21.68% vs SPY -3〜-5%[要確認] で大幅アンダーパフォーム。XLK が52週高値圏にある中、IBM 単独で乖離拡大、AI テーマでの MSFT/AAPL との競争劣後を市場が織り込んでいる需給構造です。</div>
     </div>
     <div class="chart-box" style="padding:16px;margin-top:16px">
       <div class="tradingview-widget-container">
@@ -1628,7 +1595,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           "autosize": false,
           "width": 1100,
           "height": 680,
-          "symbol": "NASDAQ:LRCX",
+          "symbol": "NYSE:IBM",
           "interval": "D",
           "timezone": "Asia/Tokyo",
           "theme": "dark",
@@ -1647,7 +1614,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           "support_host": "https://www.tradingview.com",
           "studies": [
             "MASimple@tv-basicstudies",
-            "MAExp@tv-basicstudies"
+            "MASimple@tv-basicstudies"
           ],
           "studies_overrides": {
             "moving average.length": 50,
@@ -1665,57 +1632,62 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-title">Management <span class="jp">· 経営陣コメント</span></div>
   <div class="sec3-body">
     <div class="pullq">
-      <div class="pullq-body">「AI コンピューティング需要の高まりが要求する半導体技術の転換点が、<strong>成膜・エッチングの集約度をさらに高めている</strong>。Lam にとって、AI 牽引の需要環境は継続的なアウトパフォーマンスに向けた理想的な状況を作り出している。」</div>
-      <div class="pullq-attr">Tim Archer<span class="role">/ CEO — Q3 FY2026 Earnings Call</span></div>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:6px;font-family:'Noto Serif JP',serif;padding:0 4px">AI 牽引で半導体製造の「process step（工程数）」が増えるという技術的事実を強調。HBM・3D NAND・DRAM 1Cnm のすべてが LRCX の主力工程である成膜・エッチを増やす方向で、AI 時代の構造的恩恵企業の一角であることを示唆。</div>
+      <div class="pullq-body">エンタープライズが <strong>AI を実用化する</strong>のは、彼らの条件で、彼らが選んだモデルで、彼らがコントロールするガバナンスの下で。我々はそれを実現するプラットフォームを構築しています。</div>
+      <div class="pullq-attr">Arvind Krishna<span class="role">/ Chairman &amp; CEO（2020/4 就任） — watsonx ポジショニング</span></div>
     </div>
     <div class="pullq">
-      <div class="pullq-body">「業界がさまざまな制約を解消し続けるなか、2026年の WFE（ウェーハ製造装置）は <strong>1,400 億ドルで、かつ上方バイアスがかかる</strong>と現在は見込んでいる。NAND 変換投資は前倒しされ、支出の大部分が <strong>2027 年末までに集中</strong>すると見込む。」</div>
-      <div class="pullq-attr">Tim Archer<span class="role">/ CEO — Q3 FY2026 Earnings Call</span></div>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:6px;font-family:'Noto Serif JP',serif;padding:0 4px">1月時点 $135B から +$5B への上方修正に加え「上方バイアス」を明言。3D NAND（HDD→NAND 変換）の前倒しもセット発表で、2026〜2027 にかけて Lam 主力市場の構造拡大を示唆。SEMI 公式予測 ($139B) ともほぼ整合。</div>
+      <div class="pullq-body">もし <strong>200億〜300億パラメータのモデル</strong>をメインフレーム上で動かせるなら、<strong>すべての取引</strong>に対して不正検出ができます — 10% のサンプリングではなく。watsonx Code Assistant for Z 採用顧客の MIPS 容量は、<strong>3倍速で成長</strong>しています。</div>
+      <div class="pullq-attr">Arvind Krishna<span class="role">/ CEO — Z17 メインフレーム × AI 推論</span></div>
     </div>
     <div class="pullq">
-      <div class="pullq-body">「DRAM は記録的な売上を達成し、システム売上の <strong>27% を占めた</strong>（12月期の23% から上昇）。我々は <strong>FCF の少なくとも 85% を中長期で還元する</strong>計画を維持する。2027 年は好調な年になりそうな感触だ。」</div>
-      <div class="pullq-attr">Doug Bettinger<span class="role">/ CFO — Q3 FY2026 Earnings Call</span></div>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:6px;font-family:'Noto Serif JP',serif;padding:0 4px">DRAM record と還元方針 (FCF85%) を同時に提示。年後半に中長期財務フレームワーク更新を予告しており、新たな還元目標 / 配当方針が示される可能性。Q4 China 売上の低下も改めて示唆（Q3 34% → Q4 さらに低下）。</div>
+      <div class="pullq-body">中東では、数年ではなく <strong>数十年で最強の成長</strong>を記録しました。</div>
+      <div class="pullq-attr">Arvind Krishna<span class="role">/ CEO — 地政学リスク下の中東成長</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">我々の <strong>AI Platform / agent / orchestration は TTM で $1.5B 超</strong>、年率換算で売上成長への <strong>2pt の寄与</strong>です。GenAI Book of Business は $12.5B を超え、Consulting backlog の約 30% が GenAI 関連です。</div>
+      <div class="pullq-attr">James Kavanaugh<span class="role">/ CFO — GenAI 商業化進捗</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">我々は <strong>Q1 で一度もガイダンスを上方修正したことはない</strong>のです。年初から 90 日しか経っていません。マクロ不確実性は <strong>90 日前と比べて増している</strong>。維持が prudent です。</div>
+      <div class="pullq-attr">James Kavanaugh<span class="role">/ CFO — ガイダンス据え置きの理由</span></div>
     </div>
   </div>
 </section>
 
 <!-- Risk & Catalyst -->
 <section class="sec3" data-accordion id="sec-risk">
-  <div class="sec3-title">Risk & Catalyst <span class="jp">· リスク・注目ポイント / カタリスト</span></div>
+  <div class="sec3-title">Risk &amp; Catalyst <span class="jp">· リスク・注目ポイント / カタリスト</span></div>
   <div class="sec3-body">
     <div class="risk-grid">
       <div class="risk-card">
         <h4>Positive Catalysts</h4>
         <ul class="risk-top">
-          <li>2026 WFE 上方修正 <strong>$140B + 上振れバイアス</strong>（1月 $135B から）— SEMI 予測 $123B + バックエンド $16B = $139B と整合、AI 牽引の業界全体 CAPEX 拡大が継続</li>
-          <li>SK Hynix と <strong>$2.3B 多年契約</strong>（HBM3E/HBM4 etch）— HBM 市場シェア 62% 首位顧客との戦略連携。Advanced Packaging 売上 2026 年 +50% 成長目標</li>
-          <li>DRAM 売上構成 <strong>27% record</strong>（前 Q 23%）— HBM + 1Cnm ノード移行で dielectric deposition SAM が +20% 拡大見込み</li>
+          <li><strong>Z17 メインフレーム本格化</strong> — +48% FXN、watsonx Code Assistant for Z で MIPS 3倍速、Z サイクルは通常 6-8 四半期続く</li>
+          <li><strong>GenAI Book of Business $12.5B+ 拡大加速</strong> — AI Platform $1.5B+、Software 25%浸透、+2pt 年率寄与</li>
+          <li><strong>30年連続増配 + FCF +$1B/年ガイダンス</strong> — Dividend Aristocrat、利回り 2.9%、機関 64% 保有でバリュエーション floor</li>
         </ul>
         <ul class="risk-more">
-          <li>3D NAND 変換投資 <strong>2027年末までに前倒し</strong> — Cryo Etch 3.0（省エネ40%・排出90%減）が 200層超 QLC NAND の本命</li>
-          <li>CSBG 初の四半期 $2B 突破（YoY +25%）— リカーリング型収益が安定基盤として拡大、装置サイクルへの耐性向上</li>
-          <li>株主還元 FCF85% 以上方針継続 — 残自社株買い授権 $4.3B、年後半に中長期フレームワーク更新予告</li>
-          <li>TSMC capex <strong>$52-56B</strong>（2026 上方）+ Intel Foundry 装置発注 +50% — Foundry/Logic（Q3 構成 54%）の継続需要</li>
-          <li>Aether Dry Resist が HBM 主要顧客で <strong>量産採用（production tool of record）</strong>選定済み — 将来的な市場獲得の重要足掛かり</li>
+          <li>Confluent + Red Hat + HashiCorp による Agentic AI Data Fabric 完成</li>
+          <li>watsonx.governance 拡大（EU AI Act 施行で追い風）</li>
+          <li>FX +0.5〜+1.0pt 通期追い風（ドル安基調）</li>
+          <li>Red Hat AI Enterprise（2026/2 発表）の AWS / Azure 横断展開</li>
+          <li>StochRSI 100 短期バウンス余地（$240 前後まで）</li>
         </ul>
         <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
       </div>
       <div class="risk-card">
         <h4>Risk Factors</h4>
         <ul class="risk-top">
-          <li>China 売上 Q1 43% → Q2 35% → <strong>Q3 34%</strong>、Q4 さらに低下予定 — BIS 規制（HBM 帯域密度・50% アフィリエイトルール）の年間ドラッグ <strong>~$600M</strong></li>
-          <li>中国国産装置の台頭 — NAURA 世界5位、中国国産化率 25%→<strong>35%</strong>、etch 国産化 <strong>40% 超</strong>。SMIC 28nm ラインで NAURA 装置が60%超を占有</li>
-          <li>Fwd PER 35.96× は<strong>過去5年レンジ上限</strong> — 現値 $267.78 がアナリスト平均目標 $260.79 を +2.6% 超過、バリュエーション余地は限定的</li>
+          <li><strong>Confluent 希薄化リスク</strong> — BofA 独自 EPS $11.98（コンセンサス $12.51 比 -4.2%）、12-18ヶ月の業績圧迫懸念</li>
+          <li><strong>Consulting 構造劣後</strong> — ACN +3% FXN vs IBM +1% FXN、市場シェア毀損リスク</li>
+          <li><strong>テクニカル弱気継続</strong> — YTD -21.7%、SMA200 完全デッドアラインメント、SPY 大幅劣後</li>
         </ul>
         <ul class="risk-more">
-          <li>Q3 単体 FCF $810M（FCFマージン13.9%）— 売上急成長で運転資本拡大、CFO -12.8% YoY と一見悪化。市場が「質的悪化」と読むリスク</li>
-          <li>装置サイクルの周期性 — カスタマーダウンペイメントが「4年ぶり最低水準」（CFO 言及）、需要急変のシグナル</li>
-          <li>顧客集中リスク — Top 5顧客で売上65%超（Samsung/SK Hynix/TSMC/Micron/Intel）、単一顧客の投資判断変更が直撃</li>
-          <li>米中貿易摩擦エスカレーション — BIS Entity List 拡大継続（2025年に65社超追加）、新規 50% アフィリエイト規制</li>
-          <li>ASML China 36%→19% 急落の波及 — WFE 業界全体の中国依存剥落が予想より早く進む可能性</li>
+          <li>マクロ不確実性増（Kavanaugh CFO 明言）、ガイダンス上方修正なし</li>
+          <li>Trump 半導体 25% 関税の Distributed Infrastructure 波及リスク</li>
+          <li>Oracle OCI +84%、Dell AI Server backlog $14.4B の AI インフラ攻勢</li>
+          <li>watsonx の MSFT Copilot / Google Vertex に対する差別化持続性</li>
+          <li>Q4 2025 Operating EPS $5.88 GAAP 混入疑義（10-K で要確認）</li>
         </ul>
         <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
       </div>
@@ -1725,28 +1697,25 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Compare -->
 <section class="sec3" data-accordion id="sec-compare">
-  <div class="sec3-title">QoQ Compare <span class="jp">· 前回決算（FY2026 Q2）との比較</span></div>
+  <div class="sec3-title">QoQ Compare <span class="jp">· 前回決算（Q4 2025）との比較</span></div>
   <div class="sec3-body">
     <table class="cmp-tbl">
-      <thead><tr><th>指標</th><th>FY2026 Q2 (Dec'25)</th><th>FY2026 Q3 (Mar'26)</th><th>変化</th></tr></thead>
+      <thead><tr><th>指標</th><th>Q4 2025</th><th>Q1 2026</th><th>変化</th></tr></thead>
       <tbody>
-        <tr><td>売上高（USD）</td><td>$5,344.8M</td><td>$5,841.5M</td><td class="pos">+9.3% QoQ / YoY +23.8%</td></tr>
-        <tr><td>Non-GAAP EPS</td><td>~$1.32 推定</td><td>$1.47</td><td class="pos">+11% QoQ（記録水準）</td></tr>
-        <tr><td>粗利益率（Non-GAAP）</td><td>~49.5% 推定</td><td>49.9%</td><td class="pos">+40bp（ガイダンス上限到達）</td></tr>
-        <tr><td>営業利益率（Non-GAAP）</td><td>34.3%</td><td>35.0%</td><td class="pos">+70bp</td></tr>
-        <tr><td>Systems Revenue 構成 — DRAM</td><td>23%</td><td><strong>27% record</strong></td><td class="pos">+4pt 過去最高</td></tr>
-        <tr><td>Systems Revenue 構成 — Foundry</td><td>59%</td><td>54%</td><td class="neu">-5pt（DRAM へシフト）</td></tr>
-        <tr><td>CSBG（カスタマーサポート）</td><td>$1,989M 推定</td><td><strong>$2,111M record</strong></td><td class="pos">初の四半期 $2B 突破</td></tr>
-        <tr><td>China 売上比率</td><td>35%</td><td>34%</td><td class="neu">-1pt（規制影響継続）</td></tr>
-        <tr><td>営業 CF</td><td>$1,480M</td><td>$1,141M</td><td class="neg">-22.9% QoQ（運転資本拡大）</td></tr>
-        <tr><td>FCF</td><td>$1,219M</td><td>$810M</td><td class="neg">-33.5% QoQ（社債償還準備）</td></tr>
-        <tr><td>自社株買い + 配当</td><td>$1,794M</td><td>$1,489M</td><td class="neu">高水準維持（+$750M 社債償還）</td></tr>
-        <tr><td>2026 WFE 見通し</td><td>$135B</td><td><strong>$140B + 上振れバイアス</strong></td><td class="pos">+$5B 上方修正</td></tr>
-        <tr><td>次Q ガイダンス vs コンセンサス</td><td>+5% 程度</td><td>売上 +8.6% / EPS +14.6%</td><td class="pos">大幅改善</td></tr>
+        <tr><td>売上高（USD）</td><td>$19.69B（季節性大型）</td><td>$15.92B</td><td class="neu">-19% QoQ（季節要因）</td></tr>
+        <tr><td>YoY 売上成長</td><td>—</td><td>+9% / FXN +6%</td><td class="pos">FXN 6% 維持</td></tr>
+        <tr><td>Operating EPS</td><td>$5.88 [GAAP混入疑義]</td><td>$1.91</td><td class="neu">季節性減</td></tr>
+        <tr><td>Z mainframe 成長</td><td>Z16 末期</td><td><strong>+48% FXN（Z17本格化）</strong></td><td class="pos">大幅改善↑</td></tr>
+        <tr><td>Software FXN</td><td>—</td><td>+7.9%</td><td class="pos">2桁ペース継続</td></tr>
+        <tr><td>Consulting FXN</td><td>—</td><td>+0.9%</td><td class="neg">鈍化、ACN劣後鮮明↓</td></tr>
+        <tr><td>FCF Q1 (YTD)</td><td>—</td><td><strong>$2.22B（10年最高Q1）</strong></td><td class="pos">+13% YoY↑</td></tr>
+        <tr><td>株価反応</td><td>推定 +5〜+8%（決算後上昇）</td><td><strong>-7.7%</strong></td><td class="neg">大幅悪化↓</td></tr>
+        <tr><td>FY2026 ガイダンス</td><td>初期発表（FCF +$1.5B）</td><td>維持（FCF +$1B に下方の見方）</td><td class="neg">微妙な後退</td></tr>
+        <tr><td>推定スコア</td><td>5（強い決算）</td><td><strong>4</strong></td><td class="neg">-1段階↓</td></tr>
       </tbody>
     </table>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body"><strong>トレンド方向: 質的・量的に加速 ↑↑</strong> — 売上は <strong>3期連続記録</strong>更新（$5.17B → $5.32B → $5.34B → $5.84B）、EPS / GM / OpM すべて Q2 から上昇。注目は Systems Revenue Mix の構造変化（Foundry 59→54%、DRAM 23→27%）で、HBM / 1Cnm 投資の本格化を映す。CSBG が初の四半期 $2B を突破し、リカーリング型基盤の拡大も確認。CF は売上急成長に伴う運転資本と社債償還準備で一時低下したが、TTM ベースでは FCF $6.005B（+52.7% YoY）と力強い。Q4 ガイダンスが大幅超過 + WFE 上方の組み合わせで、市場期待値が「2027 年加速シナリオ」へと一段ステップアップした四半期。</div>
+      <div class="insight-body"><strong>トレンド方向: 中身改善・市場反応悪化のミックス</strong> — Z17 サイクル本格化、Confluent 完了、HashiCorp 統合好調、AI Platform TTM $1.5B 超 など <strong>事業の中身は明確に改善</strong>。一方、Consulting +1% FXN の鈍化（vs ACN +3% FXN）、ガイダンス据え置き（市場期待 vs 実態のギャップ）、株価 -7.7% は前回からの後退。スコアは Q4 の 5「強い決算」から Q1 の 4「良い決算」に -1 段階。<span style="color:var(--gold2)">Q4 2025 Operating EPS $5.88 は GAAP 混入疑義の[要確認]データです。</span></div>
     </div>
   </div>
 </section>
@@ -1758,49 +1727,41 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="val-grid no-currency">
       <div class="val-card">
         <div class="val-scn">LOW — 保守的</div>
-        <div class="val-price">$177</div>
-        <div class="val-detail">NTM EPS $7.09（FY27 コンセンサス）<br>× PER 25x（メモリ装置サイクル底想定）</div>
-        <div class="val-gap neg">現在株価比 -34.0%</div>
+        <div class="val-price">$215.64</div>
+        <div class="val-detail">Operating EPS $11.98（BofA 独自・希薄化反映）<br>× PER 18x（過去レンジ下限・現Trailing 20x より保守）</div>
+        <div class="val-gap neg">現在株価比 -6.7%</div>
       </div>
       <div class="val-card">
         <div class="val-scn">MID — 基本</div>
-        <div class="val-price">$255</div>
-        <div class="val-detail">NTM EPS $7.09（FY27 コンセンサス）<br>× PER 35.96x（現在 Fwd PER / stockanalysis.com 実測値）</div>
-        <div class="val-gap neg">現在株価比 -4.8%（フェアバリュー圏上限）</div>
+        <div class="val-price">$275.22</div>
+        <div class="val-detail">Operating EPS $12.51（コンセンサス FY26）<br>× PER 22x（過去5年平均、10年平均25.97xより保守）</div>
+        <div class="val-gap pos">現在株価比 +18.6%</div>
       </div>
       <div class="val-card">
         <div class="val-scn">HIGH — 楽観的</div>
-        <div class="val-price">$319</div>
-        <div class="val-detail">NTM EPS $7.09（FY27 コンセンサス）<br>× PER 45x（AI 牽引プレミアム拡張）</div>
-        <div class="val-gap pos">現在株価比 +19.1%</div>
+        <div class="val-price">$338.50</div>
+        <div class="val-detail">Operating EPS $13.54（コンセンサス FY27）<br>× PER 25x（過去10年平均近傍）</div>
+        <div class="val-gap pos">現在株価比 +45.9%</div>
       </div>
     </div>
 
-    <!-- 補助メトリクス (Forward PER) -->
-    <div class="cardx-grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-      <div class="cardx"><div class="cardx-lbl">現在 Forward PER（NTM）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Forward PER</span><span class="tip-body">株価を次期EPS予想で割った値。低いほど割安、高いほど割高の目安。成長企業は高めになりやすい。</span></span></div><div class="cardx-val neu">35.96×</div><div class="cardx-sub">出典: stockanalysis.com（2026/4/27 実測値）/ 過去5年レンジ 12.4 - 35.96×（現在は上限）</div></div>
-      <div class="cardx no-currency"><div class="cardx-lbl">アナリスト平均目標</div><div class="cardx-val neu">$260.79</div><div class="cardx-sub">現株価 $267.78 は目標を <strong>-2.6% 超過</strong>。決算後 14社 が目標引上げ（Susquehanna $385 が最高）</div></div>
-    </div>
-
-    <!-- 価格ポジション + 読み解き + 注意喚起 を一体化 -->
     <div class="panel-merge no-currency" style="margin-top:18px">
-      <!-- G. Valuation Price-Position Gauge -->
       <div class="val-gauge">
         <div class="val-gauge-title">Price Position · 現在株価の位置</div>
         <div class="val-gauge-track">
-          <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$177</div></div>
-          <div class="val-gauge-mark" style="left:54.9%"><div class="lbl">MID</div><div class="amt">$255</div></div>
-          <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$319</div></div>
-          <div class="val-gauge-current" style="left:63.9%"><div class="cur-label">現在 $267.78</div></div>
+          <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$215.64</div></div>
+          <div class="val-gauge-mark" style="left:48.49%"><div class="lbl">MID</div><div class="amt">$275.22</div></div>
+          <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$338.50</div></div>
+          <div class="val-gauge-current" style="left:13.32%"><div class="cur-label">現在 $231.98</div></div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body"><strong>読み解き:</strong> MID 想定株価 $255（NTM EPS $7.09 × Fwd PER 35.96× 実測値）に対し、現在株価 $267.78 は <strong>+5.0% のわずかなプレミアム</strong>でフェアバリュー圏上限。High シナリオ $319 の範囲内であり、AI / HBM / WFE 拡大シナリオが順調に進めばさらなる上値余地はあるが、Fwd PER が<strong>過去5年レンジ上限</strong>に到達している点は留意が必要。<br><br>アナリスト平均目標 <strong>$260.79</strong> を現値が +2.6% 超過。決算後 <strong>14社が目標引上げ</strong>（JPM $315→/BofA $330→/B.Riley $350→/Susquehanna $385→）と構造強気。<strong>NTM Fair Value $216</strong>（NTM EPS $7.09 × 過去3年 Fwd PER 平均 30.4×）は現値を -19% 下回る水準で、長期平均マルチプルから見れば「やや割高」だが、AI 構造シフトを反映した「ニューノーマル PER」の議論余地もある。</div>
+        <div class="insight-body"><strong>読み解き：MID $275.22（+18.6%、割安レンジ）</strong> — LOW $215.64 を -6.7% 下回らず、現値はLOW近辺で「悲観プライシング」気味です。HIGH $338.50（+45.9%）は Z17 サイクル継続 + Confluent 統合成功 + Consulting 反転がそろった強気ケース。アナリスト平均TP <strong>$297.79（+28.4%）</strong>と当社 MID $275.22（+18.6%）の中間に位置する妥当ゾーンで、配当利回り <strong>2.9%</strong> を加えた総合リターン期待値は年 +10〜15% 程度です。<br><br>ただし<strong>触媒不足</strong>の側面もあり、次回 Q2 2026 決算（2026/7 発表予定）まで価格再評価の起点が乏しい構造。6-12ヶ月で MID 回帰がメインシナリオ、Confluent 統合進捗と Consulting 反転有無が分水嶺となります。<br><br>テクニカル面では、SMA200 $244 突破が中期トレンド転換の確認条件、フィボナッチ 23.6%（$245.30）と SMA50 $246 の三重収束を抜ければ $260-280 までの戻り余地。下値リスクは $220.72（52週安値）→ $200 です。</div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="val-reminder">
-        <strong>これは判断の道具です、判断そのものではありません。</strong>3シナリオの想定株価は、NTM EPS（FY27 コンセンサス $7.09）と PER から機械的に導出された<strong>考えるための座標</strong>であり、買い推奨・売り推奨ではありません。PER シナリオ（25x / 35.96x / 45x）は MID のみ一次ソース実測値（stockanalysis.com）、LOW / HIGH は半導体装置サイクル経験則からの想定値。読者自身が前提（EPS・PER・シナリオ確率）を吟味した上で、ご自身の判断の一助としてお使いください。
+        <strong>これは判断の道具です、判断そのものではありません。</strong>3シナリオの想定株価は、Operating EPS 予想と過去PERレンジから機械的に導出された<strong>考えるための座標</strong>であり、買い推奨・売り推奨ではありません。読者自身が前提（EPS・PER・シナリオ確率）を吟味した上で、ご自身の判断の一助としてお使いください。
       </div>
     </div>
 
@@ -1812,41 +1773,41 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-title">NTM Fair Value <span class="jp">· NTM想定株価（参考指標）</span></div>
   <div class="sec3-body">
     <div class="insight" style="margin-bottom:18px">
-      <div class="insight-body">NTM EPS <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">NTM（Next Twelve Months）</span><span class="tip-body">向こう12ヶ月間の業績予想。Forward EPS と同じ概念だが、より機動的な指標として使われる。</span></span>（Next Twelve Months = 2026年通期EPS予想）に、過去3年平均Forward PER を掛けた補完的バリュエーション指標。3シナリオ（LOW / MID / HIGH）とは別軸で、長期平均マルチプルに照らした妥当株価を確認します。</div>
+      <div class="insight-body">NTM Operating EPS（Next Twelve Months = FY2027 通期コンセンサス $13.54）に、過去10年平均 Forward PER 25.21x（保守採用 25x）を掛けた補完的バリュエーション指標。3シナリオ（LOW/MID/HIGH）とは別軸で、長期平均マルチプルに照らした妥当株価を確認します。</div>
     </div>
 
     <div class="ntm-calc no-currency">
       <div class="ntm-row">
         <div class="ntm-cell">
-          <div class="ntm-lbl">NTM EPS</div>
-          <div class="ntm-val">$7.09</div>
-          <div class="ntm-sub">FY2027E コンセンサス（YoY +30.7%）</div>
+          <div class="ntm-lbl">NTM Operating EPS</div>
+          <div class="ntm-val">$13.54</div>
+          <div class="ntm-sub">FY2027 通期コンセンサス</div>
         </div>
         <div class="ntm-op">×</div>
         <div class="ntm-cell">
-          <div class="ntm-lbl">過去3年平均 Forward PER</div>
-          <div class="ntm-val">30.4×</div>
-          <div class="ntm-sub">FY24 31.65× / FY25 23.70× / 現在 35.96× の平均</div>
+          <div class="ntm-lbl">過去10年平均 Forward PER</div>
+          <div class="ntm-val">25x</div>
+          <div class="ntm-sub">2016-2025 平均（25.97x の保守採用）</div>
         </div>
         <div class="ntm-op">=</div>
         <div class="ntm-cell">
           <div class="ntm-lbl">想定株価</div>
-          <div class="ntm-val goal">$216</div>
+          <div class="ntm-val goal">$338.50</div>
           <div class="ntm-sub">NTM Fair Value</div>
         </div>
       </div>
       <div class="ntm-foot">
         <div class="ntm-foot-cell">
           <div class="lbl">現株価</div>
-          <div class="val">$267.78</div>
+          <div class="val">$231.98</div>
         </div>
         <div class="ntm-foot-cell">
           <div class="lbl">乖離率</div>
-          <div class="val neg">+24.0%（割高）</div>
+          <div class="val pos">+45.9%</div>
         </div>
         <div class="ntm-foot-cell">
           <div class="lbl">判定</div>
-          <div class="val neg">過去平均から見ればやや割高</div>
+          <div class="val pos">割安（楽観参考）</div>
         </div>
       </div>
     </div>
@@ -1860,27 +1821,40 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="cardx-grid">
       <div class="cardx">
         <div class="cardx-lbl">コンセンサス</div>
-        <div class="cardx-val pos">Strong Buy</div>
-        <div class="cardx-sub">25名 / Strong Buy 11・Buy 10・Hold 4・Sell 0</div>
+        <div class="cardx-val pos">Buy</div>
+        <div class="cardx-sub">Strong Buy 4 / Buy 5 / Hold 5 / Sell 0（14社）</div>
       </div>
       <div class="cardx no-currency">
         <div class="cardx-lbl">平均目標株価</div>
-        <div class="cardx-val neu">$260.79</div>
-        <div class="cardx-sub">現株価 $267.78 は目標を <strong>-2.6% 超過</strong></div>
+        <div class="cardx-val pos">$297.79</div>
+        <div class="cardx-sub">現在株価から +28.4%</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">最高目標 / 最低目標</div>
-        <div class="cardx-val pos">$385 / $115</div>
-        <div class="cardx-sub">Susquehanna $385 / B.Riley $350 が積極派</div>
+        <div class="cardx-lbl">目標株価レンジ</div>
+        <div class="cardx-val neu">$225 – $340</div>
+        <div class="cardx-sub">中央値 $300 / BofA 独自 EPS $11.98</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">決算後アナリスト動向</div>
-        <div class="cardx-val pos">14社 目標引上げ</div>
-        <div class="cardx-sub">JPM $300→$315 / BofA $285→$330 / TD Cowen $290→$340</div>
+        <div class="cardx-lbl">投資判断（総合）</div>
+        <div class="cardx-val gold">Quality + Yield</div>
+        <div class="cardx-sub">配当 2.9% + Z17/AI 成長エンジン稼働</div>
       </div>
     </div>
-    <div class="insight" style="margin-top:14px">
-      <div class="insight-body"><strong>4/22 決算後 24時間以内のアクション総括:</strong> 確認できた 14社すべてが目標株価を引き上げ。最大の引上げは TD Cowen（$290 → $340、+17%）と BofA（$285 → $330、+16%）。Susquehanna $385 が最高、B.Riley $350、Oppenheimer $330 と続く。Hold 系の Barclays も $255 → $275 に引上げ。<strong>明確な格下げや Sell 論調は確認されず</strong>、Wall Street コンセンサスは「2027 年加速シナリオ」を支持する方向に一段ステップアップした模様。</div>
+
+    <div class="cardx" style="margin-top:18px">
+      <div class="cardx-lbl">直近改定（決算前後、4/20 - 4/27）</div>
+      <table class="cmp-tbl" style="margin-top:8px">
+        <thead><tr><th>日付</th><th>アナリスト</th><th>レーティング</th><th>旧 TP</th><th>新 TP</th><th>変化</th></tr></thead>
+        <tbody>
+          <tr><td>4/20</td><td>BofA Securities</td><td>Buy（維持）</td><td>$340</td><td>$300</td><td class="neg">▼$40（決算前）</td></tr>
+          <tr><td>4/20</td><td>Jefferies</td><td>Buy（維持）</td><td>$370</td><td>$320</td><td class="neg">▼$50（決算前）</td></tr>
+          <tr><td>4/22-23</td><td>BMO Capital Markets</td><td>Market Perform</td><td>$290</td><td>$270</td><td class="neg">▼$20</td></tr>
+          <tr><td>4/22-23</td><td>Morgan Stanley</td><td>Equal-Weight</td><td>$215</td><td>$225</td><td class="pos">▲$10</td></tr>
+          <tr><td>4/22-23</td><td>Wedbush</td><td>Outperform</td><td>$340</td><td>$320</td><td class="neg">▼$20</td></tr>
+          <tr><td>4/22-23</td><td>Evercore ISI</td><td>Outperform</td><td>$310</td><td>$310</td><td class="neu">変更なし</td></tr>
+          <tr><td>—</td><td>Goldman Sachs</td><td>Buy</td><td>—</td><td>$350</td><td class="neu">維持</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -1888,10 +1862,9 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- Footer -->
 <footer class="footer">
   <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-1200w.png" alt="Atlas Quarterly" style="height:176px;width:auto;max-width:1600px;opacity:.9;display:block;margin:0 auto 18px">
-  <p>本レポートは <strong>Atlas編集部</strong> が公開情報（Lam Research Corporation IR、プレスリリース、Q3 FY2026 決算カンファレンスコール、SEC 10-Q、SEMI 公式予測、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。数値・見通しは発表当時の情報に基づいており、将来の結果を保証するものではありません。</p>
-  <div class="footer-id">LRCX / FY26 Q3 · 発行 2026-04-27 · Atlas Quarterly — U.S. Market Intelligence</div>
+  <p>本レポートは <strong>Atlas編集部</strong> が公開情報（International Business Machines Corporation IR、プレスリリース、決算カンファレンスコール、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。本レポートは 2026年4月22日公表データに基づく分析であり、Q2 2025 / Q4 2025 Operating EPS や地域別売上構成・Software サブセグメント金額・Consulting 内訳金額など一部数値は[10-Q待ち]としており、2026年5月公表予定の 10-Q による確定値再確認を推奨します。Trump 半導体関税・Iran 紛争等のマクロ環境は流動的で、本レポートのバリュエーションは前提変動により大きく振れる可能性があります。</p>
+  <div class="footer-id">IBM / FY2026 Q1 · 発行 2026-04-27 · Atlas Quarterly — U.S. Market Intelligence</div>
 </footer>
-
 <!-- Atlas Floating Tools (Currency + Theme) -->
 <div class="atlas-floating-tools">
   <button class="currency-toggle" aria-label="通貨切替 USD/JPY" onclick="toggleCurrency()" title="通貨切替 USD⇄JPY"><span class="cur-active">$</span><span class="cur-sep">/</span><span class="cur-inactive">¥</span></button>
@@ -1991,26 +1964,6 @@ function toggleOverview() {
     btn.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
-
-// ── Past Quarters Dropdown ──
-function togglePastQuarters() {
-  var drop = document.getElementById('pqDrop');
-  var btn = document.getElementById('pqBtn');
-  if (!drop || !btn) return;
-  var isOpen = drop.classList.toggle('open');
-  btn.classList.toggle('open', isOpen);
-  btn.setAttribute('aria-expanded', isOpen);
-}
-document.addEventListener('click', function(e){
-  var btn = document.getElementById('pqBtn');
-  var drop = document.getElementById('pqDrop');
-  if (!btn || !drop) return;
-  if (!btn.contains(e.target) && !drop.contains(e.target)) {
-    drop.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-  }
-});
 
 // ── Insight expand/collapse (Layer 2 今回のポイント only) ──
 document.querySelectorAll('.insight-wrap .insight').forEach(function(el){
@@ -2222,15 +2175,15 @@ Chart.defaults.color='#A8B0BC';
 Chart.defaults.font=chartFont;
 const gridOpt={color:'rgba(184,145,42,0.08)'};
 
-// Revenue 7Q ($B) — LRCX
+// Revenue 7Q (USD $B)
 new Chart(document.getElementById('revChart'),{
   type:'bar',
   data:{
-    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[{
       label:'Revenue ($B)',
-      data:[4.168,4.376,4.720,5.171,5.324,5.345,5.842],
-      backgroundColor:['rgba(184,145,42,0.35)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.55)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
+      data:[14.97,17.57,14.54,15.80,16.33,19.69,15.92],
+      backgroundColor:['rgba(184,145,42,0.4)','rgba(184,145,42,0.5)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
       borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
       borderWidth:1,borderRadius:6
     }]
@@ -2239,22 +2192,22 @@ new Chart(document.getElementById('revChart'),{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
-      title:{display:true,text:'Revenue（直近7四半期, $B / 3期連続記録更新）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
-      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(3)+'B'}}
+      title:{display:true,text:'Revenue（直近7四半期, $B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)+'B'}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)+'B'},min:3.8},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(0)+'B'},min:13,max:21},x:{grid:{display:false}}}
   }
 });
 
-// EPS 7Q — LRCX GAAP Diluted EPS (出典: stockanalysis.com)
+// Operating EPS 7Q (USD Non-GAAP)
 new Chart(document.getElementById('epsChart'),{
   type:'bar',
   data:{
-    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[{
-      label:'GAAP Diluted EPS ($)',
-      data:[0.67,0.72,1.03,1.35,1.24,1.26,1.45],
-      backgroundColor:['rgba(36,49,88,0.6)','rgba(36,49,88,0.7)','rgba(36,49,88,0.75)','rgba(36,49,88,0.8)','rgba(184,145,42,0.55)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
+      label:'Operating EPS ($)',
+      data:[2.30,3.93,1.60,2.50,2.65,5.88,1.91],
+      backgroundColor:['rgba(36,49,88,0.7)','rgba(36,49,88,0.75)','rgba(36,49,88,0.6)','rgba(36,49,88,0.65)','rgba(184,145,42,0.65)','rgba(184,145,42,0.6)','rgba(212,168,67,0.85)'],
       borderColor:['#243158','#243158','#243158','#243158','#B8912A','#B8912A','#D4A843'],
       borderWidth:1,borderRadius:6
     }]
@@ -2262,44 +2215,44 @@ new Chart(document.getElementById('epsChart'),{
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      legend:{display:true,labels:{color:'#A8B0BC',font:{size:10,family:'Inter, sans-serif'},boxWidth:10}},
-      title:{display:true,text:'GAAP Diluted EPS（直近7四半期 / Q3 FY26 GAAP $1.45・Non-GAAP $1.47）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
+      legend:{display:false},
+      title:{display:true,text:'Operating EPS（Non-GAAP、直近7Q, $）※Q4 25は要確認',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
       tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(2)},min:0.5},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(2)},min:1.0,max:6.5},x:{grid:{display:false}}}
   }
 });
 
-// Margin trends — LRCX GAAP（出典: stockanalysis.com 実測）
+// Margin trends — Non-GAAP 粗利率 / Non-GAAP 営業利益率 / 調整後 EBITDA マージン
 new Chart(document.getElementById('marginChart'),{
   type:'line',
   data:{
-    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[
-      {label:'粗利益率 (GAAP, %)',data:[47.52,47.37,49.02,50.08,50.43,49.60,49.83],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
-      {label:'営業利益率 (GAAP, %)',data:[29.38,30.48,33.09,33.67,34.35,33.87,35.04],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
-      {label:'純利益率 (GAAP, %)',data:[25.48,27.22,28.19,33.26,29.46,29.82,31.25],borderColor:'#5C7395',backgroundColor:'rgba(92,115,149,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#5C7395'}
+      {label:'Non-GAAP 粗利率 (%)',data:[56.8,57.5,56.6,57.0,57.3,58.0,57.7],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
+      {label:'Non-GAAP 営業利益率 (%)',data:[12.5,21.5,12.0,15.5,15.8,22.5,13.4],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
+      {label:'調整後 EBITDA マージン (%)',data:[23.2,28.5,23.4,24.8,24.9,29.5,25.0],borderColor:'#F0E6C8',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+'%'}},
-      title:{display:true,text:'粗利益率 / 営業利益率 / 純利益率 推移（GAAP, 出典: stockanalysis.com）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
+      title:{display:true,text:'Non-GAAP 粗利率 / 営業利益率 / 調整後 EBITDA マージン推移 ※[要確認]',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
       legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:20,max:55},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:5,max:65},x:{grid:{display:false}}}
   }
 });
 
-// ── D. Segment Donut (LRCX: Systems vs CSBG) ──
+// Segments Donut — Software / Consulting / Infrastructure / Financing
 new Chart(document.getElementById('platformChart'),{
   type:'doughnut',
   data:{
-    labels:['Systems（装置販売）','CSBG（カスタマーサポート）'],
+    labels:['ソフトウェア','コンサルティング','インフラストラクチャ','ファイナンシング'],
     datasets:[{
-      data:[63.9,36.1],
-      backgroundColor:['#D4A843','#5C7395'],
+      data:[44,33,21,1],
+      backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],
       borderColor:'#0F1829',
       borderWidth:2,
       hoverOffset:8
@@ -2309,19 +2262,19 @@ new Chart(document.getElementById('platformChart'),{
     responsive:true,maintainAspectRatio:false,cutout:'62%',
     plugins:{
       legend:{display:false},
-      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}
+      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+'%'}}
     }
   }
 });
 
-// ── F. Geography Donut (LRCX Q3 FY2026) ──
+// Geography Donut — Americas / EMEA / APAC
 new Chart(document.getElementById('geoChart'),{
   type:'doughnut',
   data:{
-    labels:['China','Korea','Taiwan','Japan','United States','SE Asia + Europe'],
+    labels:['米州（Americas）','欧州・中東・アフリカ（EMEA）','アジア太平洋（APAC）'],
     datasets:[{
-      data:[34,23,23,8,6,6],
-      backgroundColor:['#D4A843','#B8912A','#5C7395','#F0E6C8','#718096','#8B7A3F'],
+      data:[50,30,20],
+      backgroundColor:['#D4A843','#5C7395','#B8912A'],
       borderColor:'#0F1829',
       borderWidth:2,
       hoverOffset:8
@@ -2331,50 +2284,22 @@ new Chart(document.getElementById('geoChart'),{
     responsive:true,maintainAspectRatio:false,cutout:'62%',
     plugins:{
       legend:{display:false},
-      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(0)+'%'}}
+      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+'%（概算 [10-Q待ち]）'}}
     }
   }
 });
 
-// ── C. WFE 市場見通し Bar (LRCX 経営陣ガイダンス + SEMI 公式予測) ──
-new Chart(document.getElementById('capexChart'),{
-  type:'bar',
-  data:{
-    labels:['2026 LRCX 旧見通し (1月)','2026 SEMI 公式 (WFE)','2026 SEMI 公式 (Total)','2026 LRCX 上方 (4月)','2027 SEMI 予想 (Total)'],
-    datasets:[
-      {label:'市場規模 ($B)',data:[135,123,139,140,156],backgroundColor:['rgba(184,145,42,0.45)','rgba(92,115,149,0.55)','rgba(92,115,149,0.55)','rgba(212,168,67,0.85)','rgba(92,115,149,0.55)'],borderColor:['#B8912A','#5C7395','#5C7395','#D4A843','#5C7395'],borderWidth:1,borderRadius:4}
-    ]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{
-      legend:{display:false},
-      title:{display:true,text:'2026 WFE 見通し: LRCX 上方修正 $135B → $140B（出典: LRCX IR / SEMI 公式予測）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
-      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y+'B'}}
-    },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'},min:100,max:170},x:{grid:{display:false}}}
-  }
-});
-
-// ── Cash Flow 7Q (LRCX, 出典: 各四半期 press release) ──
+// Cash Flow / Returns mix
 new Chart(document.getElementById('cashflowChart'),{
   type:'bar',
   data:{
-    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    labels:['Q1 営業CF','Q1 FCF (YTD)','Confluent買収','配当 Q1','自社株 Q1','FY26 FCF 目標'],
     datasets:[
       {
-        label:'営業CF ($M)',
-        data:[1569,742,1309,2554,1779,1480,1141],
-        backgroundColor:'#D4A843',
-        borderColor:'#D4A843',
-        borderWidth:1,
-        borderRadius:4
-      },
-      {
-        label:'FCF ($M)',
-        data:[1458,554,1021,2382,1594,1219,810],
-        backgroundColor:'#B8912A',
-        borderColor:'#B8912A',
+        label:'金額 ($B)',
+        data:[5.17,2.22,10.5,1.58,0.35,13.7],
+        backgroundColor:['rgba(212,168,67,0.85)','rgba(184,145,42,0.7)','rgba(92,115,149,0.7)','rgba(212,168,67,0.6)','rgba(184,145,42,0.5)','rgba(240,230,200,0.65)'],
+        borderColor:['#D4A843','#B8912A','#5C7395','#D4A843','#B8912A','#F0E6C8'],
         borderWidth:1,
         borderRadius:4
       }
@@ -2383,13 +2308,13 @@ new Chart(document.getElementById('cashflowChart'),{
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      legend:{display:true,position:'top',align:'end',labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'},boxWidth:12,boxHeight:12,padding:14}},
-      title:{display:true,text:'キャッシュフロー 直近7四半期推移（$M / TTM FCF $6.005B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'},align:'start',padding:{bottom:14}},
-      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toFixed(0)+'M'}}
+      legend:{display:false},
+      title:{display:true,text:'Q1 キャッシュフロー / 株主還元 / FY26 計画（$B）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'},align:'start',padding:{bottom:14}},
+      tooltip:{callbacks:{label:ctx=>ctx.label+': $'+ctx.parsed.y.toFixed(2)+'B'}}
     },
     scales:{
-      y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'M'},min:0},
-      x:{grid:{display:false}}
+      y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'}},
+      x:{grid:{display:false},ticks:{font:{size:10}}}
     }
   }
 });
