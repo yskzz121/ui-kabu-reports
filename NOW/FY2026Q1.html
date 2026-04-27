@@ -58,8 +58,9 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .rh{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);border:1px solid var(--border);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden;border-radius:14px;margin-bottom:32px}
 .rh::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%);pointer-events:none}
 .rh-inner{position:relative;z-index:1}
-.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;margin-bottom:14px}
-.rh-logo{height:56px;width:auto;max-width:220px;object-fit:contain;opacity:.95;flex-shrink:0}
+.rh-logo-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;margin-bottom:14px}
+.rh-logo-row .rh-ticker{margin-top:-32px}
+.rh-logo{height:224px;width:auto;max-width:880px;object-fit:contain;opacity:.95;flex-shrink:0;filter:brightness(0) invert(1)}
 .rh-ticker{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 16px;font-size:13px;color:var(--gold2);letter-spacing:1px;font-family:'Inter',sans-serif;font-weight:600}
 .rh h1{font-size:2rem;font-weight:800;margin:14px 0 6px;letter-spacing:.02em}
 .rh .rh-sub{color:var(--t2);font-size:1.05em;margin-bottom:4px}
@@ -521,8 +522,9 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
   .rh-inner{order:1;width:100%}
   .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
   .rh h1{font-size:1.35rem;margin:14px 0 6px}
-  .rh-logo-row{gap:12px;margin-bottom:10px}
-  .rh-logo{height:44px;max-width:180px}
+  .rh-logo-row{gap:0;margin-bottom:10px}
+  .rh-logo-row .rh-ticker{margin-top:-24px}
+  .rh-logo{height:176px;max-width:90vw}
   .rh-ticker{font-size:11px;padding:4px 12px}
   .l1{padding:28px 18px 22px;gap:20px}
   .l1-score-num{font-size:2.2rem}
@@ -611,8 +613,30 @@ html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);
 html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
 html[data-theme="light"] .l1{background:linear-gradient(180deg,rgba(184,145,42,.05) 0%,rgba(245,242,236,.8) 100%)}
 html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .consensus,html[data-theme="light"] .risk-card,html[data-theme="light"] .mgmt,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
+/* Atlas Quarterly: snippet 由来ロゴを仕様（morning-news.md §491）と同期して上書き */
+/* 1) ヘッダー左上 atlas-nav-logo: 仕様 1200w + 68px / mobile 48px */
+.atlas-nav .atlas-nav-logo{height:68px!important;filter:brightness(1.1)!important}
+@media(max-width:767px){.atlas-nav .atlas-nav-logo{height:48px!important}}
+/* 2) ATLAS-QUARTERLY-BAND ロゴ: フッターと同サイズ（height:176px / max-width:1600px） */
+.atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
+@media(max-width:740px){.atlas-quarterly-band img{height:88px!important;max-width:800px!important}}
 </style>
 <meta name="atlas-access" content='{"kind":"report","ticker":"NOW","isLatest":true}'>
+<script>
+// snippet 由来ロゴを絶対URL+1200w化（仕様: morning-news.md §491）
+// ローカル file:// 開き時でも CDN から取得できるよう絶対URLに正規化
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.atlas-nav .atlas-nav-logo, .atlas-quarterly-band img').forEach(function(img){
+    var fileName = img.src.split('/').pop();
+    if(fileName.indexOf('-300w.png')>-1) fileName = fileName.replace('-300w.png','-1200w.png');
+    if(fileName.indexOf('atlas-master-type')===0){
+      img.src = 'https://atlas-financials.jp/logos/' + fileName;
+    } else if(fileName.indexOf('atlas-quarterly-type')===0){
+      img.src = 'https://atlas-financials.jp/reports/logos/' + fileName;
+    }
+  });
+});
+</script>
 </head>
 <body>
 
@@ -1144,28 +1168,34 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="margin-tiles-row">
         <div class="margin-tile">
           <div class="margin-tile-lbl">サブスク粗利率（Non-GAAP）</div>
-          <div class="margin-tile-val pos">81.5%</div>
-          <div class="margin-tile-sub">SaaS業界トップ水準 / Armis -25bps 影響予想</div>
+          <div class="margin-tile-val neg">81.5%</div>
+          <div class="margin-tile-sub"><strong>FY24 84.5% → FY26ガイ 81.5%（-300bps）</strong>／AI インフラ・hosted 移行が継続圧迫</div>
         </div>
         <div class="margin-tile">
           <div class="margin-tile-lbl">Non-GAAP 営業利益率</div>
           <div class="margin-tile-val pos">32.0%</div>
-          <div class="margin-tile-sub">ガイ31.5%を <strong>+50bps</strong> ビート / YoY +100bps</div>
+          <div class="margin-tile-sub">ガイ31.5%を <strong>+50bps</strong> ビート／FY26ガイ 32%→<strong>31.5%</strong> 下方</div>
         </div>
         <div class="margin-tile">
           <div class="margin-tile-lbl">FCF マージン（Q1）</div>
           <div class="margin-tile-val gold">44%</div>
-          <div class="margin-tile-sub">$1.67B / $3.77B（年契約一括 Q1 季節要因）</div>
+          <div class="margin-tile-sub">$1.67B / $3.77B（年契約一括 Q1 季節要因）／FY26ガイ 36%→<strong>35%</strong></div>
         </div>
         <div class="margin-tile">
           <div class="margin-tile-lbl">Q2 2026 OPM ガイダンス</div>
-          <div class="margin-tile-val neu">26.5%</div>
+          <div class="margin-tile-val neg">26.5%</div>
           <div class="margin-tile-sub">Armis <span class="neg">-125bps</span> Q2 影響 / Q2'25 27.5% から低下</div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
-      <div class="margin-chart-area">
-        <div class="chart-wrap"><canvas id="marginChart"></canvas></div>
+      <div class="chart-row" style="padding:16px 20px">
+        <div class="chart-box"><div class="chart-wrap"><canvas id="grossMarginChart"></canvas></div></div>
+        <div class="chart-box"><div class="chart-wrap"><canvas id="marginChart"></canvas></div></div>
+      </div>
+      <div class="panel-merge-divider"></div>
+      <div class="insight">
+        <div class="insight-num">⚠ 投資家が認識すべき構造的論点 — サブスク粗利率の継続低下</div>
+        <div class="insight-body">ServiceNow の Non-GAAP サブスクリプション粗利率は <strong>FY2024 84.5% → FY2025 約83.5% → FY2026 ガイ 81.5%</strong> と、2年間で <strong>約300bps の構造的低下</strong>を辿っています。これは ServiceNow の最大の長期論点であり、Q1 2026 で市場が嫌気した本質の一つです。<br><br><strong>低下の主因（複合的）:</strong><br>① <strong>AI インフラコスト</strong> — Now Assist・Autonomous Workforce の GPU/コンピュート負荷が原価を膨らませる。SaaS の限界費用が「実質ゼロ」だった構造から、AI 推論で「クエリ単位の変動費」が積み上がる構造へ移行<br>② <strong>Hosted への mix shift</strong> — 自社運用（自前 DC）から AWS/Azure 等のハイパースケーラ・ホスティングへの顧客移行が加速。Q1 2026 単独で<strong>サブスク売上成長率に -150bps の逆風</strong>と CFO が明示。ハイパースケーラへの粗利原価支払いが避けられない構造<br>③ <strong>Armis 買収統合</strong> — OT セキュリティ買収（約$1B）の原価吸収で、FY26 サブスク粗利率に追加 <strong>-25bps</strong> の重し<br><br><strong>投資判断における意味:</strong> ServiceNow は「AI Control Tower」戦略でトップライン成長と AI ACV $1.5B を獲得する一方、その対価としてユニットエコノミクスを犠牲にしている構図です。<strong>「AI が Now Assist 経由で価格上乗せのレバーになる」というブル仮説が成立するためには、収益増加が粗利率低下を上回るペース（=Total gross profit 絶対額の加速）を継続できる必要</strong>があります。Q1 2026 のサブスク粗利<strong>絶対額</strong>は $2.99B（YoY +19%）で、粗利率低下を吸収して伸びていますが、伸び率は売上 +22% から鈍化しています。今後の四半期で粗利率が81.5%を下回り続ければ、市場のマルチプル評価は構造的に切り下がるリスクがあります。</div>
       </div>
     </div>
   </div>
@@ -1519,18 +1549,19 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="risk-card">
         <h4>Risk Factors</h4>
         <ul class="risk-top">
+          <li><strong>サブスク粗利率の構造的低下</strong> — FY24 84.5% → FY26ガイ 81.5%（-300bps）／AI インフラ・hosted 移行・Armis が継続的に圧迫</li>
           <li>Q2 cRPO 成長 cc <strong>+17.3%</strong> ガイダンス — 直前 +19% トレンド割れ／20%台維持の連続性が崩壊</li>
           <li>Armis 買収による通年マージン下方 — OPM 32%→<strong>31.5%</strong>／FCF マージン 36%→<strong>35%</strong></li>
-          <li>中東地域オンプレ案件遅延 <strong>-75bps</strong> Q1 影響／地政学リスクが大型 IT 投資を遅らせる構造</li>
         </ul>
         <ul class="risk-more">
+          <li>中東地域オンプレ案件遅延 <strong>-75bps</strong> Q1 影響／地政学リスクが大型 IT 投資を遅らせる構造</li>
           <li>AI エージェント時代の<strong>シート単価モデル崩壊リスク</strong> — 競合 Salesforce Agentforce・MS Copilot Studio</li>
           <li>米連邦政府ソフトウェア契約の <strong>DOGE 削減逆風</strong>（Stifel が目標株価引き下げ理由として指摘）</li>
           <li>Q2 OPM <strong>26.5%</strong> ガイダンス — Armis 統合で -125bps、四半期ベースで最も逆風が強い</li>
           <li>株価 YTD <strong>-44%</strong> / 52週高値から <strong>-57%</strong>／50日 SMA・200日 SMA を大きく下抜け</li>
           <li>市場マルチプル切り下げ継続 — SaaS 全般の Forward EV/Sales 6.4x → <strong>5.5x</strong>（ポストアーニング）</li>
         </ul>
-        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
+        <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに6件を表示</span><span class="chev">▾</span></button>
       </div>
     </div>
   </div>
@@ -1699,7 +1730,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Footer -->
 <footer class="footer">
-  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:22px;width:auto;max-width:200px;opacity:.9;display:block;margin:0 auto 18px">
+  <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-1200w.png" alt="Atlas Quarterly" style="height:176px;width:auto;max-width:1600px;opacity:.9;display:block;margin:0 auto 18px">
   <p>本レポートは <strong>Atlas編集部</strong> が公開情報（ServiceNow IR、プレスリリース、決算カンファレンスコール、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。数値・見通しは発表当時の情報に基づいており、将来の結果を保証するものではありません。</p>
   <div class="footer-id">NOW / FY26 Q1 · 発行 2026-04-27 · Atlas Quarterly — U.S. Market Intelligence</div>
 </footer>
@@ -2063,25 +2094,46 @@ new Chart(document.getElementById('epsChart'),{
   }
 });
 
-// Margin trends — Sub Gross / Non-GAAP OPM / FCF margin
-new Chart(document.getElementById('marginChart'),{
+// ── サブスク粗利率専用チャート（構造的低下を強調表示するため Y軸 78-86% にズーム）──
+// FY24 84.5% → FY26 ガイ 81.5% の -300bps 低下が視覚的に明瞭になるよう独立表示
+new Chart(document.getElementById('grossMarginChart'),{
   type:'line',
   data:{
-    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26','FY26 ガイ'],
     datasets:[
-      {label:'サブスク粗利率 (Non-GAAP, %)',data:[80.5,81.0,81.0,81.0,81.0,81.0,81.5],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
-      {label:'Non-GAAP 営業利益率 (%)',data:[31.0,30.5,30.7,27.5,31.1,30.5,32.0],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
-      {label:'FCF マージン (%)',data:[22.0,30.0,47.5,15.7,17.0,30.0,44.0],borderColor:'#F0E6C8',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
+      {label:'サブスク粗利率 (Non-GAAP, %)',data:[84.0,83.5,83.5,83.0,82.5,82.0,81.5,81.5],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.15)',fill:true,tension:.3,pointRadius:6,pointBackgroundColor:'#D4A843',borderWidth:3,pointBorderColor:'#0F1829',pointBorderWidth:2}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
-      title:{display:true,text:'サブスク粗利率 / Non-GAAP 営業利益率 / FCF マージン 推移（FCF は Q1 偏重の季節性）',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
+      title:{display:true,text:'サブスク粗利率 (Non-GAAP) — AI/Hosted 移行による構造的低下',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
+      legend:{display:false},
+      annotation:{}
+    },
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%',stepSize:1},min:80,max:85,title:{display:true,text:'%',color:'#A8B0BC'}},x:{grid:{display:false}}}
+  }
+});
+
+// ── 営業利益率 / FCF マージン推移（粗利率と分離して見やすく）──
+new Chart(document.getElementById('marginChart'),{
+  type:'line',
+  data:{
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26','FY26 ガイ'],
+    datasets:[
+      {label:'Non-GAAP 営業利益率 (%)',data:[31.0,30.5,30.7,27.5,31.1,30.5,32.0,31.5],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:5,pointBackgroundColor:'#B8912A',borderWidth:2.5},
+      {label:'FCF マージン (%)',data:[22.0,30.0,47.5,15.7,17.0,30.0,44.0,35.0],borderColor:'#F0E6C8',backgroundColor:'rgba(240,230,200,0.05)',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
+      title:{display:true,text:'Non-GAAP 営業利益率 / FCF マージン (FCF は Q1 偏重の季節性)',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
       legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:10,max:90},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:10,max:55,title:{display:true,text:'%',color:'#A8B0BC'}},x:{grid:{display:false}}}
   }
 });
 
