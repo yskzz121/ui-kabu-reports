@@ -1242,7 +1242,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
     </div>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body">売上高は Q1 FY25 の $4.17B から Q3 FY26 の <strong>$5.84B</strong> まで <strong>+40% の階段状成長</strong>で、3期連続の過去最高更新。Non-GAAP EPS も $0.91 → <strong>$1.47</strong> と +62% 拡大。Q1 FY26 (Sep25) で踊り場（QoQ ほぼフラット）を経たあと、Q2→Q3 で +9% 加速。AI / HBM / DRAM 1Cnm ノード移行という構造需要が、メモリWFE への投資を底打ちから本格回復へと押し上げました。</div>
+      <div class="insight-body">売上高は Q1 FY25 の $4.17B から Q3 FY26 の <strong>$5.84B</strong> まで <strong>+40% の階段状成長</strong>で、3期連続の過去最高更新。GAAP EPS も $0.67 → <strong>$1.45</strong> と +116% 拡大、Q3 Non-GAAP EPS は <strong>$1.47 と記録水準</strong>。Q1 FY26 (Sep25) で踊り場（QoQ ほぼフラット）を経たあと、Q2→Q3 で +9% 加速。AI / HBM / DRAM 1Cnm ノード移行という構造需要が、メモリWFE への投資を底打ちから本格回復へと押し上げました。</div>
     </div>
   </div>
 </section>
@@ -2242,35 +2242,36 @@ new Chart(document.getElementById('epsChart'),{
   }
 });
 
-// Margin trends
+// Margin trends — LRCX GAAP（出典: stockanalysis.com 実測）
 new Chart(document.getElementById('marginChart'),{
   type:'line',
   data:{
-    labels:['Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26'],
+    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
     datasets:[
-      {label:'粗利益率 (%)',data:[59.8,60.0,57.0,57.4,57.6,58.2,58.0],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
-      {label:'営業利益率 (%)',data:[40.4,40.7,32.4,37.0,37.4,38.6,37.5],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'}
+      {label:'粗利益率 (GAAP, %)',data:[47.52,47.37,49.02,50.08,50.43,49.60,49.83],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
+      {label:'営業利益率 (GAAP, %)',data:[29.38,30.48,33.09,33.67,34.35,33.87,35.04],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
+      {label:'純利益率 (GAAP, %)',data:[25.48,27.22,28.19,33.26,29.46,29.82,31.25],borderColor:'#5C7395',backgroundColor:'rgba(92,115,149,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#5C7395'}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
-      title:{display:true,text:'粗利益率 / 営業利益率 推移（GAAP）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+'%'}},
+      title:{display:true,text:'粗利益率 / 営業利益率 / 純利益率 推移（GAAP, 出典: stockanalysis.com）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
       legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:28,max:65},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:20,max:55},x:{grid:{display:false}}}
   }
 });
 
-// ── D. Segment Donut (TXN) ──
+// ── D. Segment Donut (LRCX: Systems vs CSBG) ──
 new Chart(document.getElementById('platformChart'),{
   type:'doughnut',
   data:{
-    labels:['Analog','Embedded Processing','Other'],
+    labels:['Systems（装置販売）','CSBG（カスタマーサポート）'],
     datasets:[{
-      data:[81.3,15.0,3.7],
-      backgroundColor:['#D4A843','#5C7395','#8B7A3F'],
+      data:[63.9,36.1],
+      backgroundColor:['#D4A843','#5C7395'],
       borderColor:'#0F1829',
       borderWidth:2,
       hoverOffset:8
@@ -2285,13 +2286,13 @@ new Chart(document.getElementById('platformChart'),{
   }
 });
 
-// ── F. Geography Donut (TXN FY2025通年参考) ──
+// ── F. Geography Donut (LRCX Q3 FY2026) ──
 new Chart(document.getElementById('geoChart'),{
   type:'doughnut',
   data:{
-    labels:['US','China','EMEA','Asia ex-JP','Japan','Other'],
+    labels:['China','Korea','Taiwan','Japan','United States','SE Asia + Europe'],
     datasets:[{
-      data:[38.3,21.4,21.2,10.7,6.6,1.9],
+      data:[34,23,23,8,6,6],
       backgroundColor:['#D4A843','#B8912A','#5C7395','#F0E6C8','#718096','#8B7A3F'],
       borderColor:'#0F1829',
       borderWidth:2,
@@ -2302,41 +2303,40 @@ new Chart(document.getElementById('geoChart'),{
     responsive:true,maintainAspectRatio:false,cutout:'62%',
     plugins:{
       legend:{display:false},
-      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}
+      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(0)+'%'}}
     }
   }
 });
 
-// ── C. FCF / Capex Bar (TXN) ──
+// ── C. WFE 市場見通し Bar (LRCX 経営陣ガイダンス + SEMI 公式予測) ──
 new Chart(document.getElementById('capexChart'),{
   type:'bar',
   data:{
-    labels:['FY2022','FY2023','FY2024','FY2025','FY2026E'],
+    labels:['2026 LRCX 旧見通し (1月)','2026 SEMI 公式 (WFE)','2026 SEMI 公式 (Total)','2026 LRCX 上方 (4月)','2027 SEMI 予想 (Total)'],
     datasets:[
-      {label:'FCF ($B)',data:[6.5,1.9,1.5,1.7,4.35],backgroundColor:['rgba(184,145,42,0.45)','rgba(184,145,42,0.45)','rgba(184,145,42,0.45)','rgba(184,145,42,0.55)','rgba(212,168,67,0.85)'],borderColor:'#D4A843',borderWidth:1,borderRadius:4},
-      {label:'Capex ($B)',data:[3.7,5.1,5.2,4.7,2.5],backgroundColor:'rgba(92,115,149,0.55)',borderColor:'#5C7395',borderWidth:1,borderRadius:4}
+      {label:'市場規模 ($B)',data:[135,123,139,140,156],backgroundColor:['rgba(184,145,42,0.45)','rgba(92,115,149,0.55)','rgba(92,115,149,0.55)','rgba(212,168,67,0.85)','rgba(92,115,149,0.55)'],borderColor:['#B8912A','#5C7395','#5C7395','#D4A843','#5C7395'],borderWidth:1,borderRadius:4}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      legend:{display:true,position:'top',align:'end',labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'},boxWidth:12,boxHeight:12,padding:14}},
-      title:{display:true,text:'TXN FCF / Capex 推移（$B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
-      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toFixed(2)+'B'+(ctx.dataIndex===4?' (概算/ガイダンス)':'')}}
+      legend:{display:false},
+      title:{display:true,text:'2026 WFE 見通し: LRCX 上方修正 $135B → $140B（出典: LRCX IR / SEMI 公式予測）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y+'B'}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'},min:0},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'},min:100,max:170},x:{grid:{display:false}}}
   }
 });
 
-// ── Cash Flow 7Q (Q1単体は営業CFのみ、投資CF/財務CFは10-Q待ち) ──
+// ── Cash Flow 7Q (LRCX, 出典: 各四半期 press release) ──
 new Chart(document.getElementById('cashflowChart'),{
   type:'bar',
   data:{
-    labels:['Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26'],
+    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
     datasets:[
       {
         label:'営業CF ($M)',
-        data:[1900,1950,1680,1750,1900,2000,1520],
+        data:[1569,742,1309,2554,1779,1480,1141],
         backgroundColor:'#D4A843',
         borderColor:'#D4A843',
         borderWidth:1,
@@ -2344,7 +2344,7 @@ new Chart(document.getElementById('cashflowChart'),{
       },
       {
         label:'FCF ($M)',
-        data:[850,900,750,800,900,950,1399],
+        data:[1458,554,1021,2382,1594,1219,810],
         backgroundColor:'#B8912A',
         borderColor:'#B8912A',
         borderWidth:1,
@@ -2356,7 +2356,7 @@ new Chart(document.getElementById('cashflowChart'),{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       legend:{display:true,position:'top',align:'end',labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'},boxWidth:12,boxHeight:12,padding:14}},
-      title:{display:true,text:'キャッシュフロー 直近7四半期推移（$M）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'},align:'start',padding:{bottom:14}},
+      title:{display:true,text:'キャッシュフロー 直近7四半期推移（$M / TTM FCF $6.005B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'},align:'start',padding:{bottom:14}},
       tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toFixed(0)+'M'}}
     },
     scales:{
