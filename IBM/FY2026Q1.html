@@ -1092,8 +1092,6 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
   <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
 </div>
-  <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
-</div>
 
 <div class="layer-eyebrow">Layer I — Executive Summary</div>
 <section class="l1">
@@ -1339,7 +1337,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Segments -->
 <section class="sec3" data-accordion id="sec-segment">
-  <div class="sec3-title">セグメント <span class="jp">· セグメント別売上構成</span></div>
+  <div class="sec3-title">セグメント別売上構成 <span class="jp">· Segments</span></div>
   <div class="sec3-body">
 
     <div class="panel-merge">
@@ -1349,7 +1347,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         <div class="chart-split-item">
           <div class="csi-sw" style="background:#D4A843"></div>
           <div>
-            <div class="csi-lbl">Software</div>
+            <div class="csi-lbl">ソフトウェア</div>
             <div class="csi-sub">Red Hat / watsonx / Automation / Security — 最高粗利</div>
           </div>
           <div class="csi-pct">44%</div>
@@ -1357,7 +1355,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         <div class="chart-split-item">
           <div class="csi-sw" style="background:#5C7395"></div>
           <div>
-            <div class="csi-lbl">Consulting</div>
+            <div class="csi-lbl">コンサルティング</div>
             <div class="csi-sub">Strategy &amp; Tech / Apps / Bus. Trans. — GenAI 30%</div>
           </div>
           <div class="csi-pct">33%</div>
@@ -1365,7 +1363,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         <div class="chart-split-item">
           <div class="csi-sw" style="background:#B8912A"></div>
           <div>
-            <div class="csi-lbl">Infrastructure</div>
+            <div class="csi-lbl">インフラストラクチャ</div>
             <div class="csi-sub">IBM Z（+51%） / Power / Distributed</div>
           </div>
           <div class="csi-pct">21%</div>
@@ -1373,7 +1371,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         <div class="chart-split-item">
           <div class="csi-sw" style="background:#F0E6C8"></div>
           <div>
-            <div class="csi-lbl">Financing</div>
+            <div class="csi-lbl">ファイナンシング</div>
             <div class="csi-sub">顧客向けリース・ファイナンス</div>
           </div>
           <div class="csi-pct">1%</div>
@@ -1390,10 +1388,10 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           <tr><th>セグメント</th><th>売上 (USD)</th><th>YoY (Reported)</th><th>FXN 成長</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>Software</strong></td><td>$7.052B</td><td class="pos">+11.3%</td><td class="pos">+7.9%</td></tr>
-          <tr><td><strong>Consulting</strong></td><td>$5.272B</td><td class="pos">+4.0%</td><td class="neu">+0.9%</td></tr>
-          <tr><td><strong>Infrastructure</strong></td><td>$3.326B</td><td class="pos">+15.3%</td><td class="pos">+11.7%</td></tr>
-          <tr><td><strong>Financing</strong></td><td>$0.220B</td><td class="pos">+14.8%</td><td class="pos">+10.2%</td></tr>
+          <tr><td><strong>ソフトウェア</strong></td><td>$7.052B</td><td class="pos">+11.3%</td><td class="pos">+7.9%</td></tr>
+          <tr><td><strong>コンサルティング</strong></td><td>$5.272B</td><td class="pos">+4.0%</td><td class="neu">+0.9%</td></tr>
+          <tr><td><strong>インフラストラクチャ</strong></td><td>$3.326B</td><td class="pos">+15.3%</td><td class="pos">+11.7%</td></tr>
+          <tr><td><strong>ファイナンシング</strong></td><td>$0.220B</td><td class="pos">+14.8%</td><td class="pos">+10.2%</td></tr>
           <tr><td><strong>合計</strong></td><td><strong>$15.917B</strong></td><td class="pos"><strong>+9%</strong></td><td class="pos"><strong>+6%</strong></td></tr>
         </tbody>
       </table>
@@ -1719,11 +1717,6 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
         <div class="val-detail">Operating EPS $13.54（コンセンサス FY27）<br>× PER 25x（過去10年平均近傍）</div>
         <div class="val-gap pos">現在株価比 +45.9%</div>
       </div>
-    </div>
-
-    <div class="cardx-grid" style="margin-top:18px;grid-template-columns:minmax(220px,340px) minmax(220px,340px)">
-      <div class="cardx"><div class="cardx-lbl">Forward PER（FY2026E）</div><div class="cardx-val neu">~18.5x</div><div class="cardx-sub">FY26E EPS $12.51 / 現株価 $231.98</div></div>
-      <div class="cardx"><div class="cardx-lbl">Forward PER（FY2027E）</div><div class="cardx-val neu">~17.1x</div><div class="cardx-sub">FY27E EPS $13.54 / 現株価 $231.98</div></div>
     </div>
 
     <div class="panel-merge no-currency" style="margin-top:18px">
@@ -2230,7 +2223,7 @@ new Chart(document.getElementById('marginChart'),{
 new Chart(document.getElementById('platformChart'),{
   type:'doughnut',
   data:{
-    labels:['Software','Consulting','Infrastructure','Financing'],
+    labels:['ソフトウェア','コンサルティング','インフラストラクチャ','ファイナンシング'],
     datasets:[{
       data:[44,33,21,1],
       backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],

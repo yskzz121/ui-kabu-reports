@@ -3,11 +3,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lam Research (LRCX) Q3 FY2026 決算分析 — Atlas Quarterly</title>
-<link rel="icon" type="image/png" href="../favicon.png">
+<title>ServiceNow (NOW) Q1 2026 決算分析 — Atlas Quarterly</title>
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="shortcut icon" type="image/png" href="./favicon.png">
+<link rel="apple-touch-icon" href="./favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 152.5, date: '2026/4/16', fmt:'cjk-ja' };</script>
+<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 159.0, date: '2026/4/24', fmt:'cjk-ja' };</script>
 <style>
 /* ══════════════════════════════════════════════════
    ATLAS QUARTERLY — Report Design System v2
@@ -69,19 +71,6 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .ov-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
 .ov-btn .chev{transition:transform .25s}
 .ov-btn.open .chev{transform:rotate(180deg)}
-/* ── Past Quarters Dropdown ── */
-.pq-btn{background:rgba(184,145,42,0.12);border:1px solid rgba(184,145,42,0.35);color:var(--gold2);font-family:'Noto Sans JP',sans-serif;font-size:.78rem;padding:6px 12px;border-radius:8px;cursor:pointer;letter-spacing:.5px;transition:all .2s;display:inline-flex;align-items:center;gap:6px;position:relative}
-.pq-btn:hover{background:rgba(184,145,42,0.22);color:var(--paper)}
-.pq-btn .chev{transition:transform .25s}
-.pq-btn.open .chev{transform:rotate(180deg)}
-.pq-drop{position:absolute;top:calc(100% + 4px);right:0;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px;display:none;z-index:10;box-shadow:0 6px 24px rgba(0,0,0,0.35)}
-.pq-drop.open{display:block}
-.pq-item{display:block;padding:10px 12px;border-radius:6px;text-decoration:none;color:var(--t1);transition:background .15s}
-.pq-item:hover{background:rgba(184,145,42,0.08)}
-.pq-item .pq-q{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:.92rem;color:var(--gold2)}
-.pq-item .pq-meta{display:block;font-size:.72rem;color:var(--t3);margin-top:2px;font-family:'Noto Sans JP',sans-serif}
-.pq-item.current{pointer-events:none;opacity:.55}
-.pq-item.current::after{content:' （表示中）';font-size:.7rem;color:var(--t3)}
 .ov-drop{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease,margin .3s ease;opacity:0;background:var(--card);border:1px solid var(--border);border-radius:12px}
 .ov-drop.open{max-height:2600px;opacity:1;margin:0 0 32px 0;padding:26px 28px}
 .ov-drop h2{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--gold2)}
@@ -497,7 +486,18 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 @media(max-width:768px){
   .chart-split{grid-template-columns:1fr;gap:20px;padding:20px}
   .chart-split-viz{height:220px}
-  .val-gauge{padding:36px 20px 52px}
+  .val-gauge{padding:36px 28px 56px}
+  .val-gauge-track{margin:0 18px}
+  /* LOW mark (0%) — ラベルを左寄せで見切れ防止 */
+  .val-gauge-mark[style*="left:0%"] .lbl,
+  .val-gauge-mark[style*="left:0%"] .amt{left:0;transform:translateX(-6px);text-align:left}
+  /* HIGH mark (100%) — ラベルを右寄せで見切れ防止 */
+  .val-gauge-mark[style*="left:100%"] .lbl,
+  .val-gauge-mark[style*="left:100%"] .amt{left:auto;right:0;transform:translateX(6px);text-align:right}
+  /* 現在株価バブル — サイズ圧縮 + 最大幅制限でクリップ防止 */
+  .val-gauge-current .cur-label{font-size:.7rem;padding:3px 9px;letter-spacing:.01em;max-width:calc(100vw - 100px)}
+  .val-gauge-mark .lbl{font-size:.6rem}
+  .val-gauge-mark .amt{font-size:.8rem}
   .pullq{padding:26px 20px 22px}
   .pullq::before{font-size:3.5rem;left:8px}
   .pullq-body{padding-left:30px;font-size:.94rem}
@@ -516,12 +516,10 @@ h1,h2,h3,.section-title,.layer-title,.score-label{font-family:'Shippori Mincho B
 .tradingview-widget-container{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 @media(max-width:768px){
   body{padding:12px!important}
-  .rh{padding:30px 16px 24px}
-  /* ヘッダーを縦並び flex 化 — 企業概要ボタンを日付の下（最後）に配置 */
+  /* ヘッダーを縦並び flex 化 — 企業概要ボタンを日付の下（最後）に配置して logo/ticker と被らないようにする */
   .rh{padding:28px 16px 22px;display:flex;flex-direction:column;align-items:stretch}
   .rh-inner{order:1;width:100%}
-  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center;flex-wrap:wrap}
-  .pq-drop{position:fixed;top:auto;bottom:70px;right:auto;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:340px}
+  .ov-wrap{order:2;position:relative;top:auto;right:auto;margin:20px auto 0;justify-content:center;align-self:center}
   .rh h1{font-size:1.35rem;margin:14px 0 6px}
   .rh-logo-row{gap:12px;margin-bottom:10px}
   .rh-logo{height:44px;max-width:180px}
@@ -613,44 +611,8 @@ html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);
 html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
 html[data-theme="light"] .l1{background:linear-gradient(180deg,rgba(184,145,42,.05) 0%,rgba(245,242,236,.8) 100%)}
 html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .consensus,html[data-theme="light"] .risk-card,html[data-theme="light"] .mgmt,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
-
-/* ── Radio Player — Apple Music inspired (Atlas Quarterly) ── */
-.radio-player{--rp-bg:rgba(26,37,64,0.92);--rp-border:rgba(255,255,255,0.08);--rp-text:#F5F2EC;--rp-sub:rgba(245,242,236,0.55);--rp-accent:#D4A843;--rp-track:rgba(245,242,236,0.18);--rp-thumb:#F5F2EC;margin:22px auto 0;width:420px;max-width:92vw;padding:22px 22px 18px;background:linear-gradient(160deg,rgba(40,54,88,0.95) 0%,rgba(20,28,48,0.95) 100%);border:1px solid var(--rp-border);border-radius:18px;box-shadow:0 20px 50px -20px rgba(0,0,0,.6),0 0 0 1px rgba(184,145,42,0.08) inset;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);text-align:left;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Noto Sans JP',sans-serif}
-.radio-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.radio-artwork{width:64px;height:64px;flex-shrink:0;border-radius:10px;background:linear-gradient(135deg,#1A2540 0%,#3a4a7a 50%,#D4A843 100%);position:relative;overflow:hidden;box-shadow:0 8px 20px -6px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
-.radio-artwork::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(245,242,236,0.15) 0%,transparent 60%)}
-.radio-artwork-logo{font-family:'Shippori Mincho B1',serif;font-size:22px;font-weight:800;color:#F5F2EC;letter-spacing:-0.02em;position:relative;z-index:1;text-shadow:0 2px 8px rgba(0,0,0,.4)}
-.radio-meta{flex:1;min-width:0}
-.radio-title-main{font-size:15px;font-weight:700;color:var(--rp-text);line-height:1.3;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.radio-subtitle{font-size:12px;color:var(--rp-sub);font-weight:500;letter-spacing:.01em}
-.radio-chapter-now{font-size:11px;color:var(--rp-accent);font-weight:600;letter-spacing:.02em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.radio-scrubber{margin:4px 0 8px}
-.radio-range{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--rp-track);border-radius:2px;cursor:pointer;outline:none;margin:0;transition:height .15s}
-.radio-range:hover{height:5px}
-.radio-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;background:var(--rp-thumb);box-shadow:0 1px 3px rgba(0,0,0,.4);cursor:pointer}
-.radio-range::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--rp-thumb);border:none;box-shadow:0 1px 3px rgba(0,0,0,.4);cursor:pointer}
-.radio-time-row{display:flex;justify-content:space-between;font-size:10.5px;font-weight:500;color:var(--rp-sub);letter-spacing:.02em;font-variant-numeric:tabular-nums;margin-top:4px}
-.radio-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin:10px 0 8px}
-.radio-ctl{background:transparent;border:none;cursor:pointer;color:var(--rp-text);padding:6px;display:inline-flex;align-items:center;justify-content:center;transition:opacity .15s,transform .1s}
-.radio-ctl:hover{opacity:.75}
-.radio-ctl:active{transform:scale(0.92)}
-.radio-ctl svg{display:block}
-.radio-ctl-skip{position:relative}
-.radio-ctl-skip span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;font-weight:700;color:var(--rp-text);pointer-events:none}
-.radio-ctl-play{width:52px;height:52px;border-radius:50%;background:var(--rp-text);color:#1A2540;box-shadow:0 4px 14px -4px rgba(245,242,236,.4)}
-.radio-ctl-play:hover{opacity:1;transform:scale(1.04)}
-.radio-bottom{display:flex;align-items:center;justify-content:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--rp-border);position:relative}
-.radio-bottom .label{position:absolute;right:calc(50% + 134px + 10px);top:calc(50% + 5px);transform:translateY(-50%);font-size:10px;color:var(--rp-sub);font-weight:600;letter-spacing:.08em;white-space:nowrap;pointer-events:none}
-.radio-speed-row{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:268px;margin:0 auto}
-.radio-speed-btn{font-family:inherit;font-size:11px;font-weight:600;padding:3px 9px;border-radius:14px;border:none;background:transparent;color:var(--rp-sub);cursor:pointer;transition:all .15s;font-variant-numeric:tabular-nums}
-.radio-speed-btn:hover{color:var(--rp-text)}
-.radio-speed-btn.active{background:rgba(245,242,236,0.15);color:var(--rp-text)}
-@media(max-width:480px){.radio-player{width:100%;padding:18px 16px 14px;border-radius:14px}.radio-artwork{width:56px;height:56px}.radio-artwork-logo{font-size:18px}.radio-title-main{font-size:14px}.radio-controls{gap:14px}.radio-ctl-play{width:48px;height:48px}.radio-speed-row{max-width:248px}.radio-bottom .label{right:calc(50% + 124px + 8px);font-size:9px}}
-[data-theme="light"] .radio-player{background:linear-gradient(160deg,#F5F2EC 0%,#EAE6DA 100%);border-color:rgba(26,37,64,0.1);--rp-text:#1A2540;--rp-sub:rgba(26,37,64,0.55);--rp-track:rgba(26,37,64,0.15);--rp-thumb:#1A2540}
-[data-theme="light"] .radio-ctl-play{background:#1A2540;color:#F5F2EC}
-[data-theme="light"] .radio-speed-btn.active{background:rgba(26,37,64,0.12)}
 </style>
-<meta name="atlas-access" content='{"kind":"report","ticker":"LRCX","isLatest":true}'>
+<meta name="atlas-access" content='{"kind":"report","ticker":"NOW","isLatest":true}'>
 </head>
 <body>
 
@@ -937,127 +899,55 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 ═══════════════════════════════════ -->
 <header class="rh">
   <div class="ov-wrap">
-    <button class="pq-btn" id="pqBtn" onclick="togglePastQuarters()" aria-haspopup="true" aria-expanded="false">過去四半期 <span class="chev">▼</span></button>
-    <div class="pq-drop" id="pqDrop" role="menu">
-      <a class="pq-item current" role="menuitem">
-        <span class="pq-q">FY2026 Q3</span>
-        <span class="pq-meta">2026年1-3月期 ｜ スコア 5</span>
-      </a>
-    </div>
     <button class="ov-btn" id="ovBtn" onclick="toggleOverview()">企業概要 <span class="chev">▼</span></button>
   </div>
   <div class="rh-inner">
     <div class="rh-logo-row">
-      <img class="rh-logo" src="../logos/LRCX.png" alt="LRCX">
-      <div class="rh-ticker">NASDAQ: LRCX</div>
+      <img class="rh-logo" src="../logos/NOW-header.png" alt="NOW">
+      <div class="rh-ticker">NYSE: NOW</div>
     </div>
-    <h1>Lam Research</h1>
-    <div class="rh-sub">Q3 FY2026 決算分析（2026年1-3月期）</div>
+    <h1>ServiceNow</h1>
+    <div class="rh-sub">Q1 2026 決算分析（2026年1-3月期）</div>
     <div class="rh-date">発表日 2026.04.22 ｜ Atlas Quarterly</div>
   </div>
-
-  <div class="radio-player" id="radioPlayer" data-chapters="FY2026Q3-radio-chapters.json" style="display:none">
-    <audio preload="metadata" id="radioAudio">
-      <source src="FY2026Q3-radio.mp3" type="audio/mpeg">
-    </audio>
-    <div class="radio-top">
-      <div class="radio-artwork"><span class="radio-artwork-logo">LRCX</span></div>
-      <div class="radio-meta">
-        <div class="radio-title-main">Atlas Quarterly · LRCX</div>
-        <div class="radio-subtitle">Q3 FY2026 決算分析</div>
-        <div class="radio-chapter-now" id="radioChapterNow">読み込み中…</div>
-      </div>
-    </div>
-    <div class="radio-scrubber">
-      <input type="range" class="radio-range" id="radioSeek" min="0" max="100" step="0.1" value="0" aria-label="シーク">
-      <div class="radio-time-row"><span id="radioTimeCur">0:00</span><span id="radioTimeRem">-8:38</span></div>
-    </div>
-    <div class="radio-controls">
-      <button class="radio-ctl" id="radioPrev" aria-label="前のチャプター"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
-      <button class="radio-ctl radio-ctl-skip" id="radioBack" aria-label="10秒戻る"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><span>10</span></button>
-      <button class="radio-ctl radio-ctl-play" id="radioPlay" aria-label="再生／一時停止"><svg id="radioPlayIcon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
-      <button class="radio-ctl radio-ctl-skip" id="radioFwd" aria-label="10秒進む"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span>10</span></button>
-      <button class="radio-ctl" id="radioNext" aria-label="次のチャプター"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
-    </div>
-    <div class="radio-bottom">
-      <span class="label">SPEED</span>
-      <div class="radio-speed-row">
-        <button class="radio-speed-btn" data-rate="0.9">0.9x</button>
-        <button class="radio-speed-btn active" data-rate="1">1x</button>
-        <button class="radio-speed-btn" data-rate="1.2">1.2x</button>
-        <button class="radio-speed-btn" data-rate="1.5">1.5x</button>
-        <button class="radio-speed-btn" data-rate="2">2x</button>
-      </div>
-    </div>
-  </div>
 </header>
-<script>window.ATLAS_CHAPTERS_DATA = null;</script>
-<script>
-(function(){
-  var audio=document.getElementById('radioAudio'),now=document.getElementById('radioChapterNow'),player=document.getElementById('radioPlayer'),playBtn=document.getElementById('radioPlay'),playIcon=document.getElementById('radioPlayIcon'),prevBtn=document.getElementById('radioPrev'),nextBtn=document.getElementById('radioNext'),backBtn=document.getElementById('radioBack'),fwdBtn=document.getElementById('radioFwd'),seek=document.getElementById('radioSeek'),timeCur=document.getElementById('radioTimeCur'),timeRem=document.getElementById('radioTimeRem');
-  if(!audio||!player)return;
-  var chapters=[],seeking=false;
-  var PLAY_ICON='<path d="M8 5v14l11-7z"/>',PAUSE_ICON='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
-  function fmt(s){if(!isFinite(s)||s<0)s=0;var m=Math.floor(s/60),r=Math.floor(s%60);return m+':'+(r<10?'0':'')+r}
-  function fillTrack(){if(!audio.duration)return;var pct=(audio.currentTime/audio.duration)*100;seek.style.background='linear-gradient(to right,var(--rp-accent) 0%,var(--rp-accent) '+pct+'%,var(--rp-track) '+pct+'%,var(--rp-track) 100%)'}
-  function updateTimes(){timeCur.textContent=fmt(audio.currentTime);timeRem.textContent='-'+fmt((audio.duration||0)-audio.currentTime);if(!seeking&&audio.duration)seek.value=(audio.currentTime/audio.duration)*100;fillTrack()}
-  function currentIndex(){var t=audio.currentTime*1000;for(var i=chapters.length-1;i>=0;i--)if(t>=chapters[i].start_ms)return i;return 0}
-  function updateNow(){if(!chapters.length)return;var ch=chapters[currentIndex()];if(ch)now.textContent=ch.title}
-  function initChapters(d){chapters=(d&&d.chapters)||[];updateNow()}
-  if(window.ATLAS_CHAPTERS_DATA){initChapters(window.ATLAS_CHAPTERS_DATA)}
-  else{fetch(player.dataset.chapters).then(function(r){return r.json()}).then(initChapters).catch(function(){if(window.ATLAS_CHAPTERS_DATA)initChapters(window.ATLAS_CHAPTERS_DATA);else now.textContent=''})}
-  audio.addEventListener('loadedmetadata',function(){updateTimes();updateNow()});
-  audio.addEventListener('timeupdate',function(){updateTimes();updateNow()});
-  audio.addEventListener('play',function(){playIcon.innerHTML=PAUSE_ICON});
-  audio.addEventListener('pause',function(){playIcon.innerHTML=PLAY_ICON});
-  audio.addEventListener('ended',function(){playIcon.innerHTML=PLAY_ICON});
-  playBtn.addEventListener('click',function(){if(audio.paused)audio.play();else audio.pause()});
-  seek.addEventListener('input',function(){seeking=true;if(audio.duration){audio.currentTime=(this.value/100)*audio.duration;timeCur.textContent=fmt(audio.currentTime);timeRem.textContent='-'+fmt(audio.duration-audio.currentTime);fillTrack()}});
-  seek.addEventListener('change',function(){seeking=false});
-  prevBtn.addEventListener('click',function(){if(!chapters.length)return;var t=audio.currentTime*1000,idx=currentIndex();if(t-chapters[idx].start_ms<3000&&idx>0)idx--;audio.currentTime=chapters[idx].start_ms/1000;updateNow()});
-  nextBtn.addEventListener('click',function(){if(!chapters.length)return;var idx=Math.min(chapters.length-1,currentIndex()+1);audio.currentTime=chapters[idx].start_ms/1000;updateNow()});
-  backBtn.addEventListener('click',function(){audio.currentTime=Math.max(0,audio.currentTime-10)});
-  fwdBtn.addEventListener('click',function(){audio.currentTime=Math.min(audio.duration||9999,audio.currentTime+10)});
-  document.querySelectorAll('.radio-speed-btn').forEach(function(b){b.addEventListener('click',function(){audio.playbackRate=parseFloat(this.dataset.rate);document.querySelectorAll('.radio-speed-btn').forEach(function(x){x.classList.remove('active')});this.classList.add('active')})});
-})();
-</script>
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
-  <h2>企業概要 — Lam Research Corporation（LRCX）</h2>
+  <h2>企業概要 — ServiceNow, Inc.</h2>
 
   <!-- Identity Grid -->
   <div class="ov-grid">
-    <dl class="ov-grid-item"><dt>設立</dt><dd>1980年（カリフォルニア州 創業）</dd></dl>
-    <dl class="ov-grid-item"><dt>本社</dt><dd>米国カリフォルニア州フリーモント</dd></dl>
-    <dl class="ov-grid-item"><dt>CEO</dt><dd>Tim Archer（2018年就任）</dd></dl>
-    <dl class="ov-grid-item"><dt>CFO</dt><dd>Doug Bettinger</dd></dl>
-    <dl class="ov-grid-item"><dt>上場</dt><dd>NASDAQ: LRCX（S&amp;P 500・SOX指数採用）</dd></dl>
-    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / 半導体製造装置（WFE）</dd></dl>
-    <dl class="ov-grid-item"><dt>主要セグメント</dt><dd>Systems（63.9%）/ CSBG（36.1%）</dd></dl>
-    <dl class="ov-grid-item"><dt>従業員数</dt><dd>約 18,200名（2025年6月時点）</dd></dl>
+    <dl class="ov-grid-item"><dt>設立</dt><dd>2004年（Fred LuddyがカリフォルニアでITサービスマネジメント企業として創業。当初社名は「GlideSoft」）</dd></dl>
+    <dl class="ov-grid-item"><dt>本社</dt><dd>カリフォルニア州サンタクララ</dd></dl>
+    <dl class="ov-grid-item"><dt>CEO</dt><dd>Bill McDermott（2019年就任。元SAP CEO。Co-Founder Fred Luddy は会長兼チーフプロダクトオフィサー）</dd></dl>
+    <dl class="ov-grid-item"><dt>上場市場</dt><dd>NYSE: NOW（2012年上場 / 2025年12月17日に5-for-1株式分割実施）</dd></dl>
+    <dl class="ov-grid-item"><dt>GICS分類</dt><dd>情報技術 / システムソフトウェア（Application Software）</dd></dl>
+    <dl class="ov-grid-item"><dt>指数採用</dt><dd>S&amp;P 500 / Russell 1000 / NASDAQ系の大型グロース銘柄として分類</dd></dl>
+    <dl class="ov-grid-item"><dt>顧客数</dt><dd>~8,800社（Fortune 500の85%以上が採用）</dd></dl>
+    <dl class="ov-grid-item"><dt>従業員数</dt><dd>29,500名超（2026年3月末時点）</dd></dl>
   </div>
 
-  <p>Lam Research は<strong>半導体製造装置（WFE）でエッチング・薄膜堆積・洗浄分野の世界トップクラス</strong>のIDM（垂直統合型ベンダー）。メモリ（DRAM/NAND）と先端ロジック・ファウンドリ向けの主力プロセス装置を提供し、AI/HBM 時代の DRAM 1Cnm 微細化と 3D NAND 200層超化、先端パッケージング（HBM TSV）の需要を取り込む構造。Q3 FY2026 は<strong>過去最高売上 $5.84B、CSBG 初の $2B 突破、DRAM 売上構成 27% 記録</strong>と全方位で記録更新。経営陣は2026年WFE市場を $135B → <strong>$140B 上振れバイアス</strong>へ上方修正した。</p>
+  <p>ServiceNowは「Now Platform」を中核とするエンタープライズワークフロー自動化のSaaSプラットフォーム企業。ITサービスマネジメント（ITSM）から始まり、現在はIT・カスタマーサービス・人事・セキュリティ・財務など全社業務領域で<strong>AIエージェントによる自律ワークフロー</strong>を提供。<strong>2025年通年サブスク売上$12.9B（前年比+20.5% cc）</strong>・FCF $4.6B を達成し、Fortune 500 の85%超を顧客に擁する。同社は自らを「<strong>AI Control Tower for Business Reinvention</strong>」と位置付け、Now Assist（生成AI）と Autonomous Workforce（エージェントAI）で2026年AI関連 ACV 目標を <strong>$1.5B</strong>（従来 $1B から +50% 上方修正）に設定している。</p>
 
   <!-- 事業モデル -->
   <div class="ov-section">
     <h3 class="ov-section-title">事業モデル · Business Model</h3>
     <div class="ov-biz-grid">
       <div class="ov-biz-block">
-        <h4>製品ライン</h4>
+        <h4>プロダクトライン</h4>
         <ul class="ov-list">
-          <li><strong>Etch（エッチング）</strong> — 世界シェア約35%。誘電体・導体エッチで業界首位級。3D NAND 高層数化・DRAM 1Cノード移行・HBM TSV で需要拡大。Cryo Etch 3.0（極低温エッチ）が競争優位</li>
-          <li><strong>Deposition（薄膜堆積）</strong> — 世界シェア約29%。ALD（Stryker Carbide）・PECVD（Vector DT）・ECD で DRAM/NAND/Logic の重要工程をカバー。HBM 向け TSV Cu plating（SABRE 3D）も主力</li>
-          <li><strong>Cleaning &amp; Other</strong> — 世界シェア約25%。ウェーハ洗浄・先端パッケージング（CoWoS）向けツール群。Aether Dry Resist は HBM 主要顧客で量産採用済</li>
+          <li><strong>Now Platform コア（IT・CRM・HR・セキュリティ）（~97%）</strong> — ITSM・CSM・HRSD・SecOps を単一プラットフォームで統合。Pro / Pro Plus / Enterprise の3階層に AI 機能を上位プランで提供する典型的な階段モデル</li>
+          <li><strong>Now Assist（生成AI）／ AI Agents</strong> — Workflow Data Fabric を基盤に LLM 横断の AI 制御層を実装。Now Assist 顧客で ACV $1M 超は前年比 <strong>+130%</strong> 増。2026年 AI 関連 ACV 目標 $1.5B</li>
+          <li><strong>Autonomous Workforce / Industry Solutions</strong> — 業界別パッケージ（金融・通信・製造・公共部門）と GovCloud 提供。Armis（OTセキュリティ）買収で資産可視化を強化中</li>
         </ul>
       </div>
       <div class="ov-biz-block">
         <h4>収益モデル</h4>
         <ul class="ov-list">
-          <li><strong>Systems（装置販売 63.9%）</strong> — 半導体メーカー（Samsung/SK Hynix/TSMC/Micron/Intel）への前工程装置販売。WFE市場サイクルに連動するが、長期顧客関係で受注の継続性が高い</li>
-          <li><strong>CSBG / Customer Support Business Group（36.1%）</strong> — スペアパーツ・サービス・改良アップグレード・リファービッシュ・スペシャリティ装置。設置ベースに連動し収益安定性が高い「リカーリング型」事業。Q3 で初の四半期 $2B 超え</li>
-          <li><strong>株主還元</strong> — FCF の <strong>85% 以上</strong>を中長期で還元する方針を CFO 明言。Q3 は自社株買い $1.16B＋配当 $326M、TTM 還元 $6.14B</li>
+          <li><strong>サブスクリプション課金（売上の~97%）</strong> — 年次/複数年契約・パブリッククラウドSaaS型。更新率 <strong>97%</strong> と業界最高水準。料金は元来「シート単価」だったが、Now Assist 等で <strong>トークン・コネクタ等の従量モデル</strong>を組み合わせたハイブリッド型へ移行（新規取引の50%が非シート型）</li>
+          <li><strong>ランド＆エクスパンド</strong> — ITSM 起点で導入後、CSM・HR・セキュリティへ横展開。Q1 2026 で $5M+ ACV 顧客 <strong>630社（YoY +22%）</strong>、$5M+ NNACV 取引数 16件（YoY +約80%）。NRR を直接開示しないが、cRPO は YoY +21% cc と高成長</li>
+          <li><strong>プロフェッショナルサービス（~3%）</strong> — 導入支援・カスタマイズはパートナー（Accenture・Deloitte・KPMG等）経由が中心。自社サービスは戦略案件のみで、利益貢献より導入加速のレバー</li>
         </ul>
       </div>
     </div>
@@ -1067,11 +957,11 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="ov-section">
     <h3 class="ov-section-title">Competitive Moat · 競争優位性</h3>
     <ul class="ov-moat">
-      <li><strong>エッチ・薄膜堆積で寡占的シェアと技術優位</strong> — 世界 etch シェア約35%、deposition 約29%、cleaning 約25%。Applied Materials・Tokyo Electron との3社寡占構造でベンダーロックインが強固</li>
-      <li><strong>HBM/3D NAND 集積度向上の構造的恩恵</strong> — HBM3E→HBM4 でレイヤ数+50%、3D NAND 200層超化、DRAM 1Cノード移行のすべてが LRCX のエッチ・成膜の<strong>process step（工程数）</strong>を増やす方向。AI 時代の最大恩恵企業の一角</li>
-      <li><strong>SK Hynix と $2.3B 多年契約</strong> — HBM3E/HBM4 用 etch ツールで多年間契約締結。HBM 市場シェア62%首位の SK Hynix との戦略連携</li>
-      <li><strong>CSBG の「リカーリング型」収益安定性</strong> — Q3 で初の四半期 $2B 超え、YoY +25%。設置ベース拡大に連動し景気サイクルに対し緩衝役。粗利率も Systems より高い</li>
-      <li><strong>R&amp;D 投資 10% of revenue を維持</strong> — Q3 R&amp;D $583M（売上比 9.98%）。Cryo Etch 3.0・Aether Dry Resist・Stryker Carbide ALD など次世代技術の量産採用が進行中</li>
+      <li><strong>「System of Action」としてのプラットフォーム独占性</strong> — Salesforce が「System of Engagement」、Workday が「System of Record」を担う中、ServiceNow は<strong>業務オーケストレーション層</strong>を独占。AI 時代でも Sense → Decide → Act の中核に位置し、各 SaaS の上に立つ「コントロールタワー」として代替が極めて困難</li>
+      <li><strong>97%の更新率と $5M+ 顧客 630社のロックイン</strong> — 一度導入されると組織全体の業務プロセスに組み込まれ、移行コストが膨大。CIO 直接の予算決裁ラインを獲得しており、ベンダー入れ替えは事実上 IT 戦略の総入替に近い</li>
+      <li><strong>cRPO $12.64B / RPO $27.7B が示す予測可能性</strong> — 期間契約に基づく繰延収益が3年分以上のキャッシュ流入を保証。SaaS 大手の中でも RPO 規模・成長率 +25% 双方で上位に位置し、景気サイクルへの耐性が高い</li>
+      <li><strong>Now Assist による AI ネイティブ拡張</strong> — 自社プラットフォーム上のデータ・ワークフローを学習材料とする AI 製品で、外部 LLM ベンダーへの依存度が低い。Now Assist 利用 $1M+ ACV 顧客が +130% YoY と急増し、AI を「価格上乗せ」の正当性として活用</li>
+      <li><strong>Fortune 500 の85%以上を顧客とするブランド・調達優位</strong> — 既に最大手企業のスタンダードとなり、追随ベンダーは「ServiceNow 互換」を基準にせざるを得ない。RFP の事実上の出発点となるブランドロックインが新規導入の入り口を支配している</li>
     </ul>
   </div>
 
@@ -1081,24 +971,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <table class="ov-rivals">
       <thead><tr><th>企業</th><th>ティッカー</th><th>時価総額</th><th>ポジション・脅威</th></tr></thead>
       <tbody>
-        <tr><td><strong>Applied Materials</strong></td><td>AMAT</td><td>~$170B</td><td>WFE 世界首位。Deposition / Implant / メタライゼーションで直接競合。Etch でも Sym3 Y で参入。Q1 FY26 売上 $7.01B（EPS +75% YoY）</td></tr>
-        <tr><td><strong>ASML</strong></td><td>ASML</td><td>~$320B</td><td>EUV リソグラフィ独占。LRCX の前工程として補完関係だが、WFE 市場の競争。China 比率 36%→19%へ急減（規制影響）</td></tr>
-        <tr><td><strong>Tokyo Electron</strong></td><td>8035.T</td><td>~$110B</td><td>コーター/デベロッパー独占＋ etch 装置一部で競合。Q3 FY26 売上 ¥552B（YoY -15.7%）と LRCX とは対照的な軟調</td></tr>
-        <tr><td><strong>NAURA Technology</strong></td><td>002371.SZ</td><td>~$50B</td><td>中国国産装置首位、世界5位（2025）。中国国産化率 35% 超への上昇を牽引。SMIC 28nmラインで装置の60%超を供給する内製化リスク</td></tr>
+        <tr><td><strong>Salesforce</strong></td><td>CRM</td><td>~$240B</td><td>CRM の覇者で Agentforce（AIエージェント）を展開。ServiceNow が CSM で侵食、Salesforce は ITSM で逆侵食を試みる構図。<strong>AI エージェント時代の最大の直接競合</strong></td></tr>
+        <tr><td><strong>Microsoft</strong></td><td>MSFT</td><td>~$3.0T</td><td>Dynamics 365 + Power Platform + Copilot で SMB から侵食。Azure バンドル・Copilot Studio によるエージェント自作で「ServiceNow を買わなくて済む」選択肢を増やす最大の脅威</td></tr>
+        <tr><td><strong>Workday</strong></td><td>WDAY</td><td>~$60B</td><td>HR・財務 SaaS の標準。HRSD で ServiceNow と直接競合し、Workday は AI Agents で業務自動化に拡張中。両社の領域重複が拡大</td></tr>
+        <tr><td><strong>Atlassian</strong></td><td>TEAM</td><td>~$50B</td><td>Jira Service Management で ITSM 中堅市場を侵食。価格優位とデベロッパー向け UX で SMB・成長企業に強く、ServiceNow がエンタープライズに集中する隙を突く</td></tr>
       </tbody>
     </table>
   </div>
 
   <!-- Tags -->
   <div class="tags">
-    <span class="tag">半導体製造装置（WFE）</span>
-    <span class="tag">Etch / Deposition</span>
-    <span class="tag">HBM / 3D NAND</span>
-    <span class="tag">NASDAQ: LRCX</span>
+    <span class="tag">エンタープライズSaaS</span>
+    <span class="tag">ワークフロー自動化</span>
+    <span class="tag">AIエージェント</span>
+    <span class="tag">NYSE: NOW</span>
+    <span class="tag">情報技術セクター</span>
     <span class="tag">S&amp;P 500</span>
-    <span class="tag">SOX指数</span>
-    <span class="tag">FCF85%還元方針</span>
-    <span class="tag">SK Hynix 多年契約</span>
+    <span class="tag">ITSM</span>
+    <span class="tag">サブスクリプション</span>
   </div>
 
   <button class="ov-close-btn" onclick="toggleOverview()">▲ 閉じる</button>
@@ -1112,15 +1002,15 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
   <!-- Score -->
   <div class="l1-score">
-    <div class="l1-score-badge score-high">
-      <span class="l1-score-num">5</span>
-      <span class="l1-score-label">素晴らしい決算</span>
+    <div class="l1-score-badge">
+      <span class="l1-score-num">3</span>
+      <span class="l1-score-label">悪くない決算</span>
     </div>
   </div>
 
   <!-- Consensus vs 実績 (統合) -->
   <div class="l1-consensus">
-    <div class="l1-consensus-head">Consensus vs 実績（Q3 FY2026）</div>
+    <div class="l1-consensus-head">Consensus vs 実績（Q1 2026）</div>
     <table class="l1-consensus-tbl">
       <thead>
         <tr>
@@ -1132,28 +1022,28 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </thead>
       <tbody>
         <tr>
-          <td class="lbl">売上高 / Revenue（USD）</td>
-          <td class="cn">$5.77B</td>
-          <td class="val">$5.842B</td>
-          <td class="beat"><span class="beat-lamp"></span>+1.3% <span class="beat-text">ビート</span></td>
+          <td class="lbl">売上高 / Revenue</td>
+          <td class="cn">$3.75B</td>
+          <td class="val">$3.77B</td>
+          <td class="beat"><span class="beat-lamp"></span>+0.6% <span class="beat-text">ビート</span></td>
         </tr>
         <tr>
-          <td class="lbl">EPS（Non-GAAP, USD）</td>
-          <td class="cn">$1.36</td>
-          <td class="val">$1.47</td>
-          <td class="beat"><span class="beat-lamp"></span>+8.1% <span class="beat-text">ビート</span></td>
+          <td class="lbl">サブスク売上 / Subscription Revenue</td>
+          <td class="cn">$3.65B</td>
+          <td class="val">$3.671B</td>
+          <td class="beat"><span class="beat-lamp"></span>+0.6% <span class="beat-text">ビート</span></td>
         </tr>
         <tr>
-          <td class="lbl">Q4 FY2026 売上ガイダンス中値</td>
-          <td class="cn">$6.08B</td>
-          <td class="val">$6.60B</td>
-          <td class="beat"><span class="beat-lamp"></span>+8.6% <span class="beat-text">上方超過</span></td>
+          <td class="lbl">EPS（Diluted, Non-GAAP）</td>
+          <td class="cn">$0.97</td>
+          <td class="val">$0.97</td>
+          <td class="neu">インライン</td>
         </tr>
         <tr>
-          <td class="lbl">Q4 FY2026 EPSガイダンス中値</td>
-          <td class="cn">$1.44</td>
-          <td class="val">$1.65</td>
-          <td class="beat"><span class="beat-lamp"></span>+14.6% <span class="beat-text">上方超過</span></td>
+          <td class="lbl">Q2 cRPO 成長率（cc）ガイダンス</td>
+          <td class="cn">~19%</td>
+          <td class="val">17.3%</td>
+          <td class="neu">-1.7pt ミス</td>
         </tr>
       </tbody>
     </table>
@@ -1162,24 +1052,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <!-- 特筆点 -->
   <div class="l1-notes">
     <div class="l1-notes-head">Today's Points · 今四半期の特筆点</div>
-    <div class="l1-note">記録尽くし — 売上 <strong>$5.84B</strong>（3期連続記録）/ Non-GAAP EPS <strong>$1.47</strong>（記録）/ CSBG 初の四半期 <strong>$2B</strong> 突破</div>
-    <div class="l1-note">DRAM 売上構成 <strong>27%</strong>（前Q 23%）— 過去最高水準。HBM 需要と DRAM 1Cnm ノード移行が牽引</div>
-    <div class="l1-note">2026 WFE 市場見通しを $135B → <strong>$140B + 上振れバイアス</strong>へ上方修正、Q4 ガイダンスもコンセンサス大幅超過</div>
+    <div class="l1-note">サブスク売上 <strong>$3.67B（YoY +22% / cc +19%）</strong>・cRPO <strong>$12.64B（cc +21%）</strong>でガイダンス上限超過 — Now Assist >$1M 顧客 <strong>YoY +130%</strong></div>
+    <div class="l1-note">Q2 cRPO 成長率が <strong>17.3% cc</strong> と直前トレンド（~19%）を下回り、心理的「20%台割れ」リスクを意識 — 翌日 株価 <strong>-15.2%</strong></div>
+    <div class="l1-note">通年サブスク売上ガイ <strong>+$205M 上方修正</strong>するも、Armis 買収影響で OPM 32%→<strong>31.5%</strong>・FCF マージン 36%→<strong>35%</strong>へ下方</div>
   </div>
 
   <!-- 株価 -->
   <div class="l1-price no-currency">
     <div class="l1-price-cell">
-      <div class="lbl">終値（4/24金）</div>
-      <div class="val">$267.78</div>
+      <div class="lbl">現在株価（4/24終値）</div>
+      <div class="val">$90.17</div>
     </div>
     <div class="l1-price-cell">
       <div class="lbl">52週レンジ</div>
-      <div class="val">$67.55 – $275.84</div>
+      <div class="val">$81.24 – $211.48</div>
     </div>
     <div class="l1-price-cell">
-      <div class="lbl">決算後反応</div>
-      <div class="val react">4/22 +2.8% → 4/23 -2.6% → 4/24 +3.6%（52週高値更新）</div>
+      <div class="lbl">決算後反応（4/23）</div>
+      <div class="val" style="color:var(--alert)">通常取引 -15.2%</div>
     </div>
   </div>
 </section>
@@ -1194,40 +1084,39 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="section-title">Key Metrics</div>
   <div class="metrics-grid">
     <div class="metric-card">
-      <div class="metric-lbl">売上高 / Revenue（USD）</div>
-      <div class="metric-val pos">$5.842B</div>
+      <div class="metric-lbl">サブスク売上 / Subscription Revenue</div>
+      <div class="metric-val pos">$3.671B</div>
       <div class="delta">
-        <span class="pct pos">YoY +23.8%</span>
-        <span class="prior">前年同期: $4.72B（記録更新）</span>
-        <span class="pct pos" style="margin-top:4px;display:inline-block">QoQ +9.3%</span>
+        <span class="pct pos">YoY +22.0%</span> <span style="opacity:.7">(cc +19%)</span>
+        <span class="prior">前年同期: $3.005B / 通年ガイ <strong>$15.735-$15.775B</strong>（+$205M 上方）</span>
+        <span class="pct pos" style="margin-top:4px;display:inline-block">中東遅延 -75bps 影響</span>
       </div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">EPS（Non-GAAP, Diluted）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">EPS（1株当たり純利益）</span><span class="tip-body">純利益を発行済み株式数で割った値。Non-GAAP は一時要因を除いた経常的な収益力を示す。LRCX 主要開示。</span></span></div>
-      <div class="metric-val pos">$1.47</div>
+      <div class="metric-lbl">EPS（Diluted, Non-GAAP）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">EPS（1株当たり純利益）</span><span class="tip-body">2025年12月17日の5-for-1株式分割後ベース。Non-GAAP は株式報酬費用・買収関連償却を除外した値で、SaaS業界の標準指標。GAAP EPS $0.45 はコンセンサスを上回るも YoY +2% にとどまる。</span></span></div>
+      <div class="metric-val pos">$0.97</div>
       <div class="delta">
-        <span class="pct pos">YoY +41.3%</span>
-        <span class="prior">前年同期: $1.04 / 記録水準</span>
-        <span class="prior" style="font-size:.72rem;opacity:.7">GAAP EPS は $1.45</span>
+        <span class="pct pos">YoY +20%</span> <span style="opacity:.7">cc 換算</span>
+        <span class="prior">GAAP EPS $0.45（YoY +2%）/ コンセンサス $0.97 と一致</span>
+        <span class="pct pos" style="margin-top:4px;display:inline-block">分割後ベース</span>
       </div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">粗利益率 (Non-GAAP) <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">粗利益率（Gross Margin）</span><span class="tip-body">売上から製造原価を差し引いた利益の割合。WFE装置業界では50%前後がトップティアの目安。</span></span></div>
-      <div class="metric-val pos">49.9%</div>
-      <div class="metric-sub">ガイダンス上限到達 / GAAP 49.8%</div>
+      <div class="metric-lbl">cRPO <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">cRPO（Current Remaining Performance Obligations）</span><span class="tip-body">既に契約済みで今後12ヶ月以内に売上計上される予定の残契約額。SaaS の先行指標として最重要。NOW では成長率の鈍化が市場の最大の懸念ポイント。</span></span></div>
+      <div class="metric-val pos">$12.64B</div>
+      <div class="metric-sub">YoY <strong>+22.5%</strong> / cc <strong>+21%</strong>（ガイ +20.5%超過）<br>Q2 ガイ <strong>cc +17.3%</strong>（直前 +19% トレンド割れ）</div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">営業利益率 (Non-GAAP)</div>
-      <div class="metric-val pos">35.0%</div>
-      <div class="metric-sub">前Q 34.3% から +70bp</div>
+      <div class="metric-lbl">Non-GAAP 営業利益率 <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Non-GAAP 営業利益率</span><span class="tip-body">株式報酬費用・買収関連償却を除いた営業利益率。Q1 2026 は 32% でガイダンス 31.5% を 50bps 上回る。SaaSのベンチマークは「Rule of 40」（成長率＋OPM）= 51 を達成。</span></span></div>
+      <div class="metric-val pos">32.0%</div>
+      <div class="metric-sub">ガイ31.5%を <strong>+50bps</strong> ビート / GAAP OPM 13.5%<br>通年ガイ 32%→<strong>31.5%</strong> 下方（Armis -75bps 影響）</div>
     </div>
     <div class="metric-card">
-      <div class="metric-lbl">FCF (TTM) <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">フリーキャッシュフロー（TTM）</span><span class="tip-body">過去12ヶ月の営業CF - Capex。企業の実質的な現金創出力。LRCX は FCF の 85% 以上を還元する方針。</span></span></div>
-      <div class="metric-val pos">$6.005B</div>
+      <div class="metric-lbl">Free Cash Flow（Q1）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">FCF（フリーキャッシュフロー）</span><span class="tip-body">営業CFから設備投資を除いた自由に使えるキャッシュ。自社株買い・債務返済・M&amp;Aの原資。NOW のFCFは Q1（年間契約一括前払い）が突出して高い季節性を持つ。</span></span></div>
+      <div class="metric-val pos">$1.67B</div>
       <div class="delta">
-        <span class="pct pos">YoY +52.7%</span>
-        <span class="prior">FCFマージン 27.7%</span>
-        <span class="prior" style="font-size:.72rem;opacity:.7">TTM 還元 $6.14B（FCF と同水準）</span>
+        <span class="pct neu">FCF マージン 44%</span> <span style="opacity:.7">(YoY -3.5pt)</span>
+        <span class="prior">FY25 FCF $4.6B / 通年ガイ <strong>マージン 36%→35%</strong>（Armis -200bps）</span>
       </div>
     </div>
   </div>
@@ -1235,14 +1124,14 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- 売上/EPS 7Q 推移 -->
 <section class="section" data-accordion id="sec-revenue">
-  <div class="section-title">売上高 / EPS 直近7四半期推移</div>
+  <div class="section-title">サブスク売上 / Non-GAAP EPS 直近7四半期推移</div>
   <div class="section-body">
     <div class="chart-row">
       <div class="chart-box"><div class="chart-wrap"><canvas id="revChart"></canvas></div></div>
       <div class="chart-box"><div class="chart-wrap"><canvas id="epsChart"></canvas></div></div>
     </div>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body">売上高は Q1 FY25 の $4.17B から Q3 FY26 の <strong>$5.84B</strong> まで <strong>+40% の階段状成長</strong>で、3期連続の過去最高更新。Non-GAAP EPS も $0.91 → <strong>$1.47</strong> と +62% 拡大。Q1 FY26 (Sep25) で踊り場（QoQ ほぼフラット）を経たあと、Q2→Q3 で +9% 加速。AI / HBM / DRAM 1Cnm ノード移行という構造需要が、メモリWFE への投資を底打ちから本格回復へと押し上げました。</div>
+      <div class="insight-body">サブスクリプション売上は Q3 2024 の $2.715B から Q1 2026 の $3.671B まで<strong>7四半期連続の右肩上がり</strong>で、+35% の累積成長を達成。cc 成長率は Q4 2025 の <strong>+19.5%</strong> から Q1 2026 の <strong>+19%</strong>（GAAP +22%）へとほぼ横ばいで、業界平均を大きく上回るスピードを維持しています。Non-GAAP EPS は 2025年12月17日の <strong>5-for-1 株式分割後</strong>ベースで表示し、Q1 2026 は $0.97（YoY +20%）。AI関連 ACV の急増・大型案件 16件（$5M+ NNACV）と、Now Assist >$1M ACV 顧客 +130% YoY が利益成長を牽引しています。但し市場の関心は<strong>Q2 cRPO ガイダンス cc +17.3%</strong>に集中し、20%台維持の連続性が崩れる局面入りを警戒しています。</div>
     </div>
   </div>
 </section>
@@ -1254,24 +1143,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="panel-merge">
       <div class="margin-tiles-row">
         <div class="margin-tile">
-          <div class="margin-tile-lbl">粗利益率 (Non-GAAP)</div>
-          <div class="margin-tile-val pos">49.9%</div>
-          <div class="margin-tile-sub">ガイダンス上限到達 / GAAP 49.8%</div>
+          <div class="margin-tile-lbl">サブスク粗利率（Non-GAAP）</div>
+          <div class="margin-tile-val pos">81.5%</div>
+          <div class="margin-tile-sub">SaaS業界トップ水準 / Armis -25bps 影響予想</div>
         </div>
         <div class="margin-tile">
-          <div class="margin-tile-lbl">営業利益率 (Non-GAAP)</div>
-          <div class="margin-tile-val pos">35.0%</div>
-          <div class="margin-tile-sub">前Q 34.3% から +70bp / Q4ガイ 36.5%</div>
+          <div class="margin-tile-lbl">Non-GAAP 営業利益率</div>
+          <div class="margin-tile-val pos">32.0%</div>
+          <div class="margin-tile-sub">ガイ31.5%を <strong>+50bps</strong> ビート / YoY +100bps</div>
         </div>
         <div class="margin-tile">
-          <div class="margin-tile-lbl">純利益率 (Non-GAAP)</div>
-          <div class="margin-tile-val gold">31.7%</div>
-          <div class="margin-tile-sub">Non-GAAP 純利益 $1,851M / 売上 $5,842M</div>
+          <div class="margin-tile-lbl">FCF マージン（Q1）</div>
+          <div class="margin-tile-val gold">44%</div>
+          <div class="margin-tile-sub">$1.67B / $3.77B（年契約一括 Q1 季節要因）</div>
         </div>
         <div class="margin-tile">
-          <div class="margin-tile-lbl">FCFマージン (TTM)</div>
-          <div class="margin-tile-val pos">27.7%</div>
-          <div class="margin-tile-sub">TTM FCF $6.005B / TTM Revenue $21.68B</div>
+          <div class="margin-tile-lbl">Q2 2026 OPM ガイダンス</div>
+          <div class="margin-tile-val neu">26.5%</div>
+          <div class="margin-tile-sub">Armis <span class="neg">-125bps</span> Q2 影響 / Q2'25 27.5% から低下</div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
@@ -1287,24 +1176,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="section-title">今回のポイント</div>
   <div class="insight-wrap">
     <div class="insight">
-      <div class="insight-num">01. WFE 2026 見通し $135B → <span class="hl">$140B 上振れバイアス</span>— AI 牽引で全デバイス投資が上方修正</div>
-      <div class="insight-body">CEO Tim Archer は「AI コンピューティング需要の高まりが要求する半導体技術の転換点が、成膜・エッチングの集約度をさらに高めている」と述べ、1月時点ガイダンス $135B から <strong>$140B + 上振れバイアス</strong>に上方修正。SEMI 公式予測の WFE $123B + バックエンド $16B = $139B とも整合し、AI / HBM が引き起こす業界全体のCAPEX 拡大を裏付ける。</div>
+      <div class="insight-num">01. Q2 cRPO ガイダンス <span class="hl">cc +17.3%</span> — 心理的「20%台」維持が崩れた瞬間</div>
+      <div class="insight-body">Q1 実績は cRPO $12.64B / cc <strong>+21%（ガイ +20.5% を 50bps 上回るビート）</strong>と十分に堅調。問題は<strong>Q2 ガイダンスの cc +17.3%</strong>で、ServiceNow は過去複数四半期にわたり「ガイ ~19% → 実績 ~20%」というパターンを継続しており、市場は事実上の <strong>20% 維持</strong>を織り込んでいました。+17.3% という数字は、たとえ「ガイダンスは保守的に出す」慣行を踏まえても、実績で 20% を再達成できるか不透明にする水準です。SaaS業界では<strong>cRPO 成長率の20%割れは「トップティアからの陥落」と解釈されやすく</strong>、これが翌日 -15.2% の急落の最大トリガーとなりました。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">02. DRAM 売上構成 <span class="hl">27% 過去最高</span>・CSBG 初の <span class="hl">$2.1B 突破</span>— 二つの記録ラッシュ</div>
-      <div class="insight-body">CFO Doug Bettinger は「DRAM は記録的な売上を達成し、システム売上の <strong>27%</strong> を占めた（前 Q 23%）」と説明。HBM 投資加速 + DRAM 1Cnm ノード移行が押し上げ要因。一方 CSBG は <strong>初の四半期 $2.1B</strong>（YoY +25%）と「リカーリング型」事業の安定性を示した。Systems がサイクルに揺れても CSBG が下値を支える構造が確立。</div>
+      <div class="insight-num">02. Armis 買収による通年マージン下方修正 — OPM <span class="hl">32%→31.5%</span> ／ FCF マージン <span class="hl">36%→35%</span></div>
+      <div class="insight-body">2026年2月発表の<strong>Armis（OTセキュリティ・資産可視化、買収額 約$1B）</strong>統合に伴い、CFO Mastantuono は通年 Non-GAAP 営業利益率を <strong>32% → 31.5%（-50bps）</strong>、FCF マージンを <strong>36% → 35%（-100bps）</strong>へ下方修正。具体的内訳は ①サブスク粗利率 -25bps ②OPM -75bps ③FCF -200bps（オリジナル試算）。Q2 単体では Armis が OPM に <strong>-125bps</strong> 影響と最も大きい四半期になる見込み。「2027年には正常化する」と説明していますが、市場は<strong>「成長鈍化＋利益率低下」のダブルパンチ</strong>として嫌気しました。なお買収自体の戦略意義（OT資産可視化×Now Platform）は経営陣・アナリストとも妥当性を認める論調が中心。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">03. Q4 FY2026 ガイダンス中値 <span class="hl">売上 $6.6B / EPS $1.65</span>— コンセンサスを売上 +8.6%・EPS +14.6% 大幅超過</div>
-      <div class="insight-body">Q4ガイ中値はコンセンサス（売上 $6.08B / EPS $1.44）を<strong>大幅に上回り</strong>、会社自身が次四半期の加速に強い自信を表明。粗利率 50.5%・営業利益率 36.5% も Q3 から +60〜150bp の改善を示し、ミックス改善 + コスト規律で「2027 年は好調な年」（CFO 発言）に向けた助走を始めている。</div>
+      <div class="insight-num">03. 中東紛争による <span class="hl">$5M+ オンプレ案件遅延</span> — Q1 サブスク -75bps の一時要因</div>
+      <div class="insight-body">CFO は決算CCで「<strong>中東地域での大型オンプレミス案件のクロージング遅延</strong>」が Q1 サブスクリプション成長率に <strong>-75bps の一次的逆風</strong>になったと開示。CEO McDermott は「オフィスへの復帰は進んでおり、長期的な株主にとっての懸念にはあたらない」と強調しましたが、ハイティアの IT 投資判断が地政学リスクで先送りされる構造を示唆。後続四半期で取り戻せれば一過性ですが、影響期間が読めない点は織り込み困難要素です。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">04. NAND <strong>Cryo Etch 3.0</strong> 普及加速・3D NAND 変換投資が <span class="hl">2027年末までに前倒し</span></div>
-      <div class="insight-body">CEO Tim Archer は「NAND 変換（HDD→NAND）の投資は前倒しされ、支出の大部分が <strong>2027 年末までに集中</strong>すると現在見込んでいる」と修正発表。Lam の Cryo Etch 3.0 は従来比省エネ 40%・排出 90% 削減で 200層超 QLC NAND の本命。Lam の独占的優位がそのまま売上に直結。</div>
+      <div class="insight-num">04. AI 関連 ACV 目標 <span class="hl">$1B → $1.5B</span> へ +50% 上方修正 — Now Assist >$1M 顧客 <span class="hl">+130% YoY</span></div>
+      <div class="insight-body">経営陣は 2026年通年の AI 関連 ACV 目標を <strong>$1B → $1.5B（+50%）</strong>へ上方修正。これは ServiceNow が「AI Control Tower」戦略の収益貢献を強気に見ている証左で、市場が懸念する<strong>「AIエージェントによるシート単価モデル崩壊」リスクへの最大の反論</strong>になります。Now Assist 顧客で ACV $1M 超の数は <strong>YoY +130%</strong> と急増、ハイブリッド料金（トークン・コネクタ等の従量制）が新規取引の <strong>50%</strong> を占有。生成AI が単なる脅威ではなく、ServiceNow にとって価格上乗せのレバーとして機能していることを示します。McDermott は「ServiceNow ほどの AI 追い風を受けたことはない」とまで発言。</div>
     </div>
     <div class="insight">
-      <div class="insight-num">05. 株主還元 <span class="hl">FCF 85% 以上</span>方針継続 — Q3 自社株買い $1.16B + 配当 $326M、TTM 還元 $6.14B</div>
-      <div class="insight-body">CFO Bettinger は「FCF の少なくとも <strong>85% を中長期で還元する</strong>」と明言。Q3 は自社株買い $800M（市場購入）+ $200M（ASR）+ 配当 $326M に加え、$750M シニアノート償還を実行（FCF $810M に対し還元総額 $1.49B、率 184%）。残自社株買い授権 <strong>$4.3B</strong>。年後半に中長期財務フレームワーク更新を予告。</div>
+      <div class="insight-num">05. 大型案件の質的改善 — $5M+ 取引 <span class="hl">16件（YoY +80%）</span>／純新規ロゴ最大 <span class="hl">$15M+</span></div>
+      <div class="insight-body">$5M+ NNACV 取引は Q1 で <strong>16件（YoY +約80%）</strong>と急増し、うち <strong>5件は $10M+</strong>。さらに ServiceNow 史上「<strong>純新規ロゴ最大の $15M+ 案件</strong>」を獲得しており、ハイティア顧客への食い込みが加速しています。$5M+ ACV の顧客総数は <strong>630社（YoY +22%）</strong>。この大型ロゴ獲得力こそが、cRPO 成長率鈍化の懸念に対して経営陣が示せる最大のカウンター。CFO は「DOGE のコスト削減が逆に当社の効率化提案を後押ししている」と政府部門の追い風にも言及。</div>
     </div>
   </div>
 </section>
@@ -1314,31 +1203,41 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="section-title">ガイダンス・見通し</div>
   <div class="section-body">
 
-    <!-- C. CapEx History Chart -->
+    <!-- コンテンツ投資 履歴チャート -->
     <div class="chart-box" style="margin-bottom:18px">
       <div class="chart-wrap" style="height:260px"><canvas id="capexChart"></canvas></div>
     </div>
 
     <div class="grid-2">
       <div class="metric-card">
-        <div class="metric-lbl">Q4 FY2026 売上ガイダンス</div>
-        <div class="metric-val pos">$6.20B – $7.00B</div>
-        <div class="metric-sub">中値 $6.60B ± $400M / コンセンサス $6.08B を +8.6% 上回る</div>
+        <div class="metric-lbl">Q2 2026 サブスク売上ガイダンス</div>
+        <div class="metric-val pos">$3.815B – $3.820B</div>
+        <div class="metric-sub">YoY <strong>+21〜21.5%（cc）</strong> / コンセンサス $3.82B 付近に整合</div>
       </div>
       <div class="metric-card">
-        <div class="metric-lbl">Q4 FY2026 EPS ガイダンス</div>
-        <div class="metric-val pos">$1.50 – $1.80</div>
-        <div class="metric-sub">中値 $1.65 ± $0.15 / コンセンサス $1.44 を +14.6% 上回る</div>
+        <div class="metric-lbl">Q2 2026 cRPO 成長ガイダンス</div>
+        <div class="metric-val neg">cc +17.3%</div>
+        <div class="metric-sub">直前トレンド <strong>~19% から低下</strong> / 株価急落の主因</div>
       </div>
       <div class="metric-card">
-        <div class="metric-lbl">2026 年 WFE 市場見通し</div>
-        <div class="metric-val gold">$140B + 上振れバイアス</div>
-        <div class="metric-sub">前回（1月）$135B から +$5B 上方修正。SEMI 公式 WFE $123B + バックエンド $16B = $139B と整合</div>
+        <div class="metric-lbl">FY26 サブスク売上ガイダンス</div>
+        <div class="metric-val gold">$15.735B – $15.775B</div>
+        <div class="metric-sub">従来比 <strong>+$205M 上方修正</strong>（cc +20.5〜21%）</div>
       </div>
       <div class="metric-card">
-        <div class="metric-lbl">残自社株買い授権</div>
-        <div class="metric-val pos">$4.3B</div>
-        <div class="metric-sub">FCF の <strong>85% 以上</strong>を中長期還元方針継続。年後半に中長期フレームワーク更新予定</div>
+        <div class="metric-lbl">FY26 Non-GAAP 営業利益率 <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">FY26 営業利益率ガイダンス</span><span class="tip-body">2026年初に示した32%目標から、Armis 買収統合に伴い -50bps 下方修正された。「2027年には正常化する」と説明。</span></span></div>
+        <div class="metric-val neg">31.5%</div>
+        <div class="metric-sub">従来 32% → <strong>-50bps 下方</strong>（Armis -75bps 影響）</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">FY26 FCF マージン</div>
+        <div class="metric-val neg">35%</div>
+        <div class="metric-sub">従来 36% → <strong>-100bps 下方</strong>（Armis -200bps）</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">FY26 AI 関連 ACV 目標</div>
+        <div class="metric-val gold">$1.5B</div>
+        <div class="metric-sub">従来 $1B → <strong>+50% 上方修正</strong>（Now Assist >$1M YoY +130%）</div>
       </div>
     </div>
   </div>
@@ -1358,59 +1257,35 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 ═══════════════════════════════════ -->
 <div class="layer-eyebrow">Layer III — Granular Analysis</div>
 
-<!-- Segments -->
+<!-- Growth Drivers -->
 <section class="sec3" data-accordion id="sec-segment">
-  <div class="sec3-title">Segments <span class="jp">· プラットフォーム別売上構成</span></div>
+  <div class="sec3-title">Growth Drivers <span class="jp">· 成長ドライバー</span></div>
   <div class="sec3-body">
-
-    <!-- Platform Donut + Node Stacked Bar + Insight — 一体化パネル -->
-    <div class="panel-merge">
-    <!-- D. Segment Donut Chart (LRCX) -->
-    <div class="chart-split">
-      <div class="chart-split-viz"><canvas id="platformChart"></canvas></div>
-      <div class="chart-split-list">
-        <div class="chart-split-item">
-          <div class="csi-sw" style="background:#D4A843"></div>
-          <div>
-            <div class="csi-lbl">Systems（装置販売）</div>
-            <div class="csi-sub">$3,730.6M / 半導体メーカー向け前工程装置</div>
-          </div>
-          <div class="csi-pct">63.9%</div>
-        </div>
-        <div class="csi-sw" style="background:#B8912A"></div>
-        <div class="chart-split-item">
-          <div class="csi-sw" style="background:#5C7395"></div>
-          <div>
-            <div class="csi-lbl">CSBG（Customer Support Business Group）</div>
-            <div class="csi-sub">$2,110.9M / <strong>初の四半期 $2B 突破</strong>・YoY +25%</div>
-          </div>
-          <div class="csi-pct">36.1%</div>
-        </div>
+    <div class="cardx-grid">
+      <div class="cardx">
+        <div class="cardx-lbl">Now Assist / AI 関連 ACV <span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Now Assist</span><span class="tip-body">ServiceNow の生成AI製品群。Pro Plus / Enterprise プランの上位機能として展開し、シート単価上昇と新規ハイブリッド料金（トークン・コネクタ等）の両軸で収益化。</span></span></div>
+        <div class="cardx-val gold">$1.5B 目標</div>
+        <div class="cardx-sub">FY26通年 AI ACV 目標、従来 $1B から <strong>+50%</strong> / Now Assist >$1M 顧客 <strong>YoY +130%</strong></div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">大型案件（$5M+ NNACV）</div>
+        <div class="cardx-val gold">16件 / Q1</div>
+        <div class="cardx-sub">YoY <strong>+約80%</strong> / うち $10M+ <strong>5件</strong> / 純新規ロゴ最大 <strong>$15M+</strong>（同社史上最大）</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">$5M+ ACV 顧客数</div>
+        <div class="cardx-val pos">630 社</div>
+        <div class="cardx-sub">YoY <strong>+22%</strong> / 平均 ACV $14.9M / Fortune 500 の 85%+ が ServiceNow ユーザー</div>
+      </div>
+      <div class="cardx">
+        <div class="cardx-lbl">ハイブリッド料金モデル</div>
+        <div class="cardx-val pos">50% 採用</div>
+        <div class="cardx-sub">新規取引の <strong>50%</strong> が非シート型（トークン・コネクタ・コンサンプション）/ AI コモディティ化リスクへの構造的反論</div>
       </div>
     </div>
-
-    <div class="panel-merge-divider"></div>
-    <!-- E. Systems Mix 100% Stacked Bar -->
-    <div class="stack-wrap">
-      <div class="stack-title">Systems Revenue Mix · デバイス別構成（Q3 FY2026）</div>
-      <div class="stack-bar">
-        <div class="stack-seg" style="width:54%;background:#D4A843">Foundry 54%</div>
-        <div class="stack-seg" style="width:27%;background:#B8912A;color:#F5F2EC">DRAM 27% ★記録</div>
-        <div class="stack-seg" style="width:12%;background:#5C7395;color:#F5F2EC">NAND 12%</div>
-        <div class="stack-seg" style="width:7%;background:#4A5568;color:#F5F2EC">Logic 7%</div>
-      </div>
-      <div class="stack-note">
-        <strong>Foundry 54%</strong>（前Q 59% から低下、TSMC/Intel 中心）／ <strong>DRAM 27% は過去最高</strong>（前Q 23% から +4pt、HBM + 1Cnm ノード移行が牽引）／ <strong>NAND 12%</strong>（前Q 11% から +1pt、Cryo Etch 3.0 採用拡大）／ Logic 7%。CFO Bettinger:「DRAM は記録的売上を達成」。
-      </div>
+    <div class="insight" style="margin-top:14px">
+      <div class="insight-body"><strong>構造変化:</strong> ServiceNow の成長エンジンは①<strong>Now Assist（生成AI）の顧客浸透</strong>、②<strong>$5M+ 大型案件の急増</strong>、③<strong>業界別パッケージ・GovCloud（公共部門）の拡張</strong>、④<strong>Armis 買収による OT セキュリティ領域の獲得</strong>の4つの軸で構築されています。CEO Bill McDermott は「ServiceNow ほど AI の追い風を受けたことはない」と表現し、社内自社運用ベンチマークでは<strong>従業員 IT リクエストの 90% が自律的に解決</strong>、AI エージェントは人間より <strong>99% 高速</strong>で案件を処理しているとの実績を提示。<br><br>市場が懸念する「<strong>シート単価モデルが AI エージェントで崩壊する</strong>」シナリオに対しては、ハイブリッド料金（トークン・コネクタ・消費型）が新規取引の <strong>50%</strong> を占めるという構造的シフトで応えています。CFO Mastantuono は「DOGE のコスト削減推進が逆に当社の効率化提案を後押ししている」と政府部門の追い風を強調。一方、サブスク売上の cc 成長率は Q4 +19.5% から Q1 +19% へとわずかに鈍化しており、20%台目前で頭打ちかどうかが今後の焦点になります。</div>
     </div>
-
-    <div class="panel-merge-divider"></div>
-    <div class="insight">
-      <div class="insight-body"><strong>Systems vs CSBG の構造的意義:</strong> Systems（装置販売）は WFE サイクルに連動する一方、<strong>CSBG はリカーリング型収益</strong>（スペアパーツ・サービス・改良アップグレード・スペシャリティ装置）で設置ベースに比例して安定成長。CSBG が初の $2B 突破は「装置サイクルが軟化しても下値を支える基盤が拡大した」ことを意味し、Lam の収益の質的改善の象徴。粗利率も Systems より CSBG が高めで、ミックス改善が GM 49.9% → Q4 ガイ 50.5% への押し上げ要因の一つ。</div>
-    </div>
-    </div>
-    <!-- /panel-merge -->
-
   </div>
 </section>
 
@@ -1419,7 +1294,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-title">Geography <span class="jp">· 地域別売上構成</span></div>
   <div class="sec3-body">
 
-    <!-- F. Geography Donut (unified with insight) -->
+    <!-- Geography Donut (unified with insight) -->
     <div class="panel-merge">
       <div class="chart-split">
         <div class="chart-split-viz"><canvas id="geoChart"></canvas></div>
@@ -1427,65 +1302,41 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           <div class="chart-split-item">
             <div class="csi-sw" style="background:#D4A843"></div>
             <div>
-              <div class="csi-lbl">China / 中国</div>
-              <div class="csi-sub">~$1,986M / Q1 43% → Q2 35% → <strong>Q3 34%</strong>、Q4 さらに低下予定</div>
+              <div class="csi-lbl">North America（米・加）</div>
+              <div class="csi-sub">TTM $8.79B / 構成比63% / DOGE逆風＋効率化提案で耐性</div>
             </div>
-            <div class="csi-pct">34%</div>
-          </div>
-          <div class="chart-split-item">
-            <div class="csi-sw" style="background:#B8912A"></div>
-            <div>
-              <div class="csi-lbl">Korea / 韓国</div>
-              <div class="csi-sub">~$1,344M / <strong>記録ドル水準</strong>・SK Hynix・Samsung HBM 投資牽引</div>
-            </div>
-            <div class="csi-pct">23%</div>
+            <div class="csi-pct">63%</div>
           </div>
           <div class="chart-split-item">
             <div class="csi-sw" style="background:#5C7395"></div>
             <div>
-              <div class="csi-lbl">Taiwan / 台湾</div>
-              <div class="csi-sub">~$1,344M / <strong>記録ドル水準</strong>・TSMC N2 / A16 ノード投資</div>
+              <div class="csi-lbl">EMEA（欧州・中東・アフリカ）</div>
+              <div class="csi-sub">TTM $3.63B / <strong>中東オンプレ案件遅延 -75bps Q1 影響</strong></div>
             </div>
-            <div class="csi-pct">23%</div>
+            <div class="csi-pct">26%</div>
           </div>
           <div class="chart-split-item">
-            <div class="csi-sw" style="background:#F0E6C8"></div>
+            <div class="csi-sw" style="background:#B8912A"></div>
             <div>
-              <div class="csi-lbl">Japan / 日本</div>
-              <div class="csi-sub">~$467M / メモリ関連</div>
+              <div class="csi-lbl">APAC（アジア太平洋）</div>
+              <div class="csi-sub">TTM $1.53B / 公共部門・金融機関の DX 起点 / 日本市場含む</div>
             </div>
-            <div class="csi-pct">8%</div>
-          </div>
-          <div class="chart-split-item">
-            <div class="csi-sw" style="background:#718096"></div>
-            <div>
-              <div class="csi-lbl">United States / 米国</div>
-              <div class="csi-sub">~$350M / Intel Foundry / Micron</div>
-            </div>
-            <div class="csi-pct">6%</div>
-          </div>
-          <div class="chart-split-item">
-            <div class="csi-sw" style="background:#8B7A3F"></div>
-            <div>
-              <div class="csi-lbl">SE Asia + Europe</div>
-              <div class="csi-sub">~$351M / 製造ハブ＋欧州研究投資</div>
-            </div>
-            <div class="csi-pct">6%</div>
+            <div class="csi-pct">11%</div>
           </div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body"><strong>China 比率の構造的低下が進行中</strong> — Q1 FY26 43% → Q2 35% → <strong>Q3 34%</strong> と3四半期連続で低下、CFO Bettinger は「Q4 はこれよりさらに低下」と明言。BIS 規制（HBM 帯域密度規制・50% アフィリエイトルール）の影響で 2026 通年の規制ドラッグは <strong>~$600M</strong> と LRCX 自身が示唆。一方で <strong>Korea / Taiwan が記録ドル水準</strong>に到達し、SK Hynix（HBM 62% シェア）と TSMC（N2 / A16 ノード）の AI 投資が China の穴を埋めて売上記録更新を実現。地理的ミックスが「米中規制リスク → AI 顧客集中」という質的変化を遂げている。</div>
+        <div class="insight-body"><strong>地域構造とリスクポイント:</strong> ServiceNow の TTM 売上構成は <strong>North America 63% / EMEA 26% / APAC 11%</strong> で、北米偏重型。北米では DOGE（政府効率化省）によるソフトウェア契約見直しが逆風視されたものの、CFO Mastantuono は「DOGE のコスト削減推進が ServiceNow の自動化・効率化提案を逆に押し上げている」と強気に発言。一方、<strong>EMEA では今四半期、中東地域で複数の大型オンプレミス案件のクロージングが遅延</strong>し、Q1 サブスクリプション成長率に <strong>-75bps</strong> の一過性の逆風となりました。<br><br>「オフィスへの復帰は進んでおり、長期的な株主にとっての懸念にはあたらない」（McDermott）として一過性と位置付けていますが、地政学リスクが高ティアの IT 投資判断を遅らせる構造は<strong>2026年内で繰り返される可能性</strong>があります。APAC は GovCloud（米連邦・州・地方政府向けのコンプライアンス対応クラウド）展開と相まって、構成比は小さいものの<strong>長期成長余地が最も高い</strong>地域。為替の影響は cc（constant currency）と GAAP の差を見ると概ね 3pt 程度のドル高逆風を含みます。</div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- Cash Flow / CapEx -->
+<!-- Cash Flow & Content Spend -->
 <section class="sec3" data-accordion id="sec-cashflow">
-  <div class="sec3-title">Cash Flow & CapEx <span class="jp">· キャッシュフロー・設備投資</span></div>
+  <div class="sec3-title">Cash Flow & Content Spend <span class="jp">· キャッシュフロー・コンテンツ投資</span></div>
   <div class="sec3-body">
 
     <!-- 7Q キャッシュフロー推移チャート + 解説 一体化 -->
@@ -1495,29 +1346,29 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body">LRCX の Q3 単体 営業CF は <strong>$1,141M</strong>（YoY -12.8%、QoQ -22.9%）と一見低下していますが、これは<strong>売上急成長に伴う運転資本（DSO 64 日、+5日 QoQ）と棚卸資産再構築</strong>、および $750M シニアノート償還に向けた現金準備による一時要因。Q3 単体 FCF は <strong>$810M</strong>（FCFマージン 13.9%）。<strong>TTM ベースでは FCF $6.005B（+52.7% YoY）、FCFマージン 27.7%</strong> と高水準を維持。CFO Bettinger は「FCF の 85% 以上を中長期還元」を改めて明言し、Q3 単体で還元総額（自社株買い + 配当）<strong>$1,489M</strong>（FCF 比 184%）に加え社債償還 $750M を実行。在庫回転率は 2.9倍と<strong>4年超ぶりの高水準</strong>に改善。</div>
+        <div class="insight-body">Q1 2026 の Free Cash Flow は <strong>$1.67B / FCF マージン 44%</strong>。SaaS 企業は Q1（年次契約の前払い受領）が突出して高い季節性を持ちますが、前年比では FCF マージンが <strong>-3.5pt</strong> と圧縮されており、Armis 買収統合費用と <strong>$2.2B / 20.2百万株（分割後）</strong>の積極的な自社株買いが影響しています。<strong>FY25 通年 FCF は $4.6B</strong> をベースに、ServiceNow は通年 FCF マージンガイダンスを 36% → <strong>35%（-100bps）</strong>に下方修正：内訳は Armis 統合関連で <strong>-200bps</strong> の負荷。残存自社株買い授権枠は <strong>$4.2B</strong> で継続。CFO Mastantuono は「資本配分は機動的に対応する。Armis の影響は2027年には正常化する見込み」と説明。財務体質は <strong>現金・有価証券 $11B 超</strong>を保持し、買収余地と自社株買い継続性を両立できる強固な水準にあります。</div>
       </div>
     </div>
     <div class="cardx-grid">
       <div class="cardx">
-        <div class="cardx-lbl">Q3 営業CF</div>
-        <div class="cardx-val pos">$1,141M</div>
-        <div class="cardx-sub">YoY -12.8% / 売上急成長で運転資本拡大</div>
+        <div class="cardx-lbl">Q1 FCF</div>
+        <div class="cardx-val pos">$1.67B</div>
+        <div class="cardx-sub">FCFマージン 44% / YoY -3.5pt</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">Q3 FCF</div>
-        <div class="cardx-val pos">$810M</div>
-        <div class="cardx-sub">CapEx $332M / TTM FCF <strong>$6.005B</strong></div>
+        <div class="cardx-lbl">FY25 通年 FCF（実績）</div>
+        <div class="cardx-val pos">$4.6B</div>
+        <div class="cardx-sub">FY26 マージン目標 <strong>35%</strong>（従来36%→下方）</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">Q3 自社株買い + 配当</div>
-        <div class="cardx-val gold">$1,489M</div>
-        <div class="cardx-sub">$1,163M（市場 $800M + ASR $200M）+ 配当 $326M</div>
+        <div class="cardx-lbl">Q1 自社株買い</div>
+        <div class="cardx-val gold">$2.2B</div>
+        <div class="cardx-sub">20.2 百万株（分割後）/ 残り授権 <strong>$4.2B</strong></div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">株主還元（TTM）</div>
-        <div class="cardx-val gold">$6.138B</div>
-        <div class="cardx-sub">自社株買い $4.897B + 配当 $1.241B</div>
+        <div class="cardx-lbl">現金・有価証券</div>
+        <div class="cardx-val neu">$11B+</div>
+        <div class="cardx-sub">買収余力と自社株買い継続性を両立する水準</div>
       </div>
     </div>
   </div>
@@ -1529,68 +1380,53 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-body">
     <div class="cardx-grid">
       <div class="cardx no-currency">
-        <div class="cardx-lbl">終値（4/24 金）</div>
-        <div class="cardx-val pos">$267.78</div>
-        <div class="cardx-sub">4/22(発表)$265.55 → 4/23 -2.6% → 4/24 +3.6%（52週高値更新日）</div>
+        <div class="cardx-lbl">現在株価（4/24終値）</div>
+        <div class="cardx-val neg">$90.17</div>
+        <div class="cardx-sub">決算翌日 -15.2% 急落 → 翌日 +6.36% リバウンド</div>
       </div>
       <div class="cardx no-currency">
         <div class="cardx-lbl">52週レンジ</div>
-        <div class="cardx-val neu">$67.55 – $275.84</div>
-        <div class="cardx-sub">52週高値 $275.84（4/24 日中）/ 安値比 +296%</div>
+        <div class="cardx-val neu">$81.24 – $211.48</div>
+        <div class="cardx-sub">分割後ベース / 現株価は <strong>52週高値から -57%</strong></div>
       </div>
       <div class="cardx">
         <div class="cardx-lbl">時価総額</div>
-        <div class="cardx-val neu">$334.88B</div>
-        <div class="cardx-sub">発行済 1.25B 株 / 約 33.5 兆円</div>
+        <div class="cardx-val neu"><span class="no-currency">$92.99B</span></div>
+        <div class="cardx-sub">1.03B株（分割後）× $90.17 / YoY <strong>-45.3%</strong></div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">TTM PER</div>
-        <div class="cardx-val neu">50.58×</div>
-        <div class="cardx-sub">stockanalysis.com 実測値</div>
+        <div class="cardx-lbl">RSI（14日）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">RSI（Relative Strength Index）</span><span class="tip-body">買われ過ぎ・売られ過ぎを示す指標。70超で「過熱」、30以下で「売られ過ぎ」の目安。NOW は決算前 50 台中立 → -15% 急落で 30 台売られ過ぎ圏へ → 翌日リバウンドで 40 台。</span></span></div>
+        <div class="cardx-val neu">~40</div>
+        <div class="cardx-sub">決算前中立 → 急落で売られ過ぎ → リバウンド中</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">Forward PER（NTM）</div>
-        <div class="cardx-val neu">35.96×</div>
-        <div class="cardx-sub">過去5年 Fwd PER レンジ 12.4 – 35.96×（現在は上限）</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">PEG Ratio</div>
-        <div class="cardx-val neu">1.54</div>
-        <div class="cardx-sub">EPS 成長率対比のバリュエーション尺度</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">EV / EBITDA</div>
-        <div class="cardx-val neu">42.54×</div>
-        <div class="cardx-sub">企業価値 $333.86B</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">P/S（売上倍率）</div>
-        <div class="cardx-val neu">15.45×</div>
-        <div class="cardx-sub">P/B 31.64×</div>
-      </div>
-      <div class="cardx">
-        <div class="cardx-lbl">配当利回り / 年間配当</div>
-        <div class="cardx-val gold">0.39% / $1.04</div>
-        <div class="cardx-sub">配当性向（FCF対比）40% / Q3配当 $326M</div>
+        <div class="cardx-lbl">MACD</div>
+        <div class="cardx-val neg">弱気継続</div>
+        <div class="cardx-sub">2026年初から下降トレンド、決算でさらに加速</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">アナリストコンセンサス</div>
-        <div class="cardx-val pos">Strong Buy（25名）</div>
-        <div class="cardx-sub">Strong Buy 11 / Buy 10 / Hold 4 / Sell 0</div>
+        <div class="cardx-lbl">SMA 50日</div>
+        <div class="cardx-val neg">~$105.52</div>
+        <div class="cardx-sub">現株価が <strong>大きく下抜け</strong> / 弱気サイン</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">アナリスト平均目標</div>
-        <div class="cardx-val neu">$260.79</div>
-        <div class="cardx-sub">現値比 -2.6%（既に目標を超過）/ 最高 $385（Susquehanna）</div>
+        <div class="cardx-lbl">SMA 200日</div>
+        <div class="cardx-val neg">~$153.68</div>
+        <div class="cardx-sub">長期MAから <strong>-41%</strong> 乖離、長期弱気局面継続</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">決算後アナリスト動向</div>
-        <div class="cardx-val pos">14社 目標引上げ</div>
-        <div class="cardx-sub">JPM $315→/BofA $330→/B.Riley $350→/Susquehanna $385→</div>
+        <div class="cardx-lbl">YTDパフォーマンス</div>
+        <div class="cardx-val neg">-44%</div>
+        <div class="cardx-sub">2026年初から半減級、52週高値からは -57%</div>
+      </div>
+      <div class="cardx no-currency">
+        <div class="cardx-lbl">サポート / レジスタンス</div>
+        <div class="cardx-val neu">S $81 / R $105</div>
+        <div class="cardx-sub">52週安値 $81.24 が直接的サポート / R は 50日SMA</div>
       </div>
     </div>
     <div class="insight no-currency" style="margin-top:14px">
-      <div class="insight-body"><strong>総合バリュエーション判定: 既に高水準・短期は「ニュース尽くし」</strong> — Fwd PER <strong>35.96×</strong> は過去5年の Fwd PER レンジ 12.4 – 35.96× の<strong>上限</strong>。市場は AI / HBM / WFE 拡大による FY2027 EPS $7.09（YoY +30.7%）を相当程度織り込んでいる。アナリスト平均目標 $260.79 を現値 $267.78 が <strong>+2.6% 超過</strong>するなど、足元は「コンセンサスが追いつくフェーズ」。決算後のアクションは目標引上げラッシュ（14社確認）で構造強気だが、Fwd PER がレンジ上限にあるため短期調整リスクも併存。テクニカル指標（RSI / MACD / 移動平均 / 出来高 / 空売り残等）の最新値は下記 TradingView ライブチャートを参照ください。</div>
+      <div class="insight-body"><strong>チャートパターン:</strong> ServiceNow は 2025年12月17日の <strong>5-for-1 株式分割</strong>後、分割換算で 2026年1月に <strong>$211 の 52週高値</strong>を付けた後、SaaS全般の調整（DOGE懸念・AIコモディティ化議論）に巻き込まれて<strong>5ヶ月で半減</strong>。Q1 決算で -15.2% を加えた現在の株価 <strong>$90.17</strong> は、52週安値 <strong>$81.24</strong> から +11% 程度の位置にあり、底入れ判定にはまだ早い水準です。<br><br><strong>総合判定: 弱気（Bearish）但し売られ過ぎ反発局面</strong> — ①50日SMA・200日SMA 双方を大きく下抜けた長期弱気トレンド、②YTD -44% という大幅下落、③決算後の-15.2% ギャップダウン、④Q2 cRPO 17.3% ガイダンスへの市場の織り込み完了が必要、⑤ Armis 統合に伴う通年マージン圧迫 — の5点が重石。一方、<strong>翌日 +6.36%</strong> のリバウンドが入っており、$81 の 52週安値が直接的サポートとして機能するか試される局面。<br><br><strong>短期トレーダー</strong>は $81-$85 ゾーンでの底値確認後の反発狙い、<strong>中長期投資家</strong>はファンダメンタルズ（cRPO $12.64B、AI ACV $1.5B、Fortune 500 の 85%+ 顧客基盤）に対して<strong>Forward PER 20.78x</strong>という歴史的低位の評価まで来ているため、52週安値割れの押し目を分散買い場と捉える戦略は妥当。アナリスト 32名のコンセンサス目標株価は <strong>$185.45</strong>（現在比 +106%）と強気維持。</div>
     </div>
     <div class="chart-box" style="padding:16px;margin-top:16px">
       <div class="tradingview-widget-container">
@@ -1600,7 +1436,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           "autosize": false,
           "width": 1100,
           "height": 680,
-          "symbol": "NASDAQ:LRCX",
+          "symbol": "NYSE:NOW",
           "interval": "D",
           "timezone": "Asia/Tokyo",
           "theme": "dark",
@@ -1637,19 +1473,24 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-title">Management <span class="jp">· 経営陣コメント</span></div>
   <div class="sec3-body">
     <div class="pullq">
-      <div class="pullq-body">「AI コンピューティング需要の高まりが要求する半導体技術の転換点が、<strong>成膜・エッチングの集約度をさらに高めている</strong>。Lam にとって、AI 牽引の需要環境は継続的なアウトパフォーマンスに向けた理想的な状況を作り出している。」</div>
-      <div class="pullq-attr">Tim Archer<span class="role">/ CEO — Q3 FY2026 Earnings Call</span></div>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:6px;font-family:'Noto Serif JP',serif;padding:0 4px">AI 牽引で半導体製造の「process step（工程数）」が増えるという技術的事実を強調。HBM・3D NAND・DRAM 1Cnm のすべてが LRCX の主力工程である成膜・エッチを増やす方向で、AI 時代の構造的恩恵企業の一角であることを示唆。</div>
+      <div class="pullq-body">Q1 の <strong>社内品質エンゲージメント指標は過去最高</strong>に達した。Warner Bros. Discovery は我々の戦略を加速させる手段になり得たが、<strong>正しい価格でなければ意味がない</strong>。複数の成長経路（自社制作・ライセンス・パートナー）を持っており、コア事業への高い確信がある。</div>
+      <div class="pullq-attr">Ted Sarandos<span class="role">/ Co-CEO — WBD買収断念について</span></div>
     </div>
     <div class="pullq">
-      <div class="pullq-body">「業界がさまざまな制約を解消し続けるなか、2026年の WFE（ウェーハ製造装置）は <strong>1,400 億ドルで、かつ上方バイアスがかかる</strong>と現在は見込んでいる。NAND 変換投資は前倒しされ、支出の大部分が <strong>2027 年末までに集中</strong>すると見込む。」</div>
-      <div class="pullq-attr">Tim Archer<span class="role">/ CEO — Q3 FY2026 Earnings Call</span></div>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:6px;font-family:'Noto Serif JP',serif;padding:0 4px">1月時点 $135B から +$5B への上方修正に加え「上方バイアス」を明言。3D NAND（HDD→NAND 変換）の前倒しもセット発表で、2026〜2027 にかけて Lam 主力市場の構造拡大を示唆。SEMI 公式予測 ($139B) ともほぼ整合。</div>
+      <div class="pullq-body">Q1 の視聴時間は 2025年後半と同程度の成長率で推移した。ウィンターオリンピック（ライバルコンテンツ）があったにもかかわらず。<strong>広告ビジネスは順調で、2026年の広告収入は前年比2倍の約 $3B</strong>を見込む。生成AI広告を2026年全AVOD市場に展開する。</div>
+      <div class="pullq-attr">Greg Peters<span class="role">/ Co-CEO — 広告事業について</span></div>
     </div>
     <div class="pullq">
-      <div class="pullq-body">「DRAM は記録的な売上を達成し、システム売上の <strong>27% を占めた</strong>（12月期の23% から上昇）。我々は <strong>FCF の少なくとも 85% を中長期で還元する</strong>計画を維持する。2027 年は好調な年になりそうな感触だ。」</div>
-      <div class="pullq-attr">Doug Bettinger<span class="role">/ CFO — Q3 FY2026 Earnings Call</span></div>
-      <div style="font-size:.82rem;color:var(--t2);margin-top:6px;font-family:'Noto Serif JP',serif;padding:0 4px">DRAM record と還元方針 (FCF85%) を同時に提示。年後半に中長期財務フレームワーク更新を予告しており、新たな還元目標 / 配当方針が示される可能性。Q4 China 売上の低下も改めて示唆（Q3 34% → Q4 さらに低下）。</div>
+      <div class="pullq-body">Q1 の営業CF は <strong>$5.3B</strong> で、前年Q1の $2.8B から大幅増加。この増加は <strong>$2.8B の違約金現金受領が主因</strong>。これを受け <strong>2026通年FCFガイダンスを $11B → $12.5B に引き上げた</strong>。資本配分方針に変更はなく、違約金受領後ただちに自社株買いを再開した。</div>
+      <div class="pullq-attr">Spencer Neumann<span class="role">/ CFO — キャッシュフロー・ガイダンスについて</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">Q2 は 2026年内でコンテンツ償却の YoY 増加率が最も高い四半期となる見込み。H2（Q3 / Q4）では営業利益率の YoY 改善を見込み、<strong>通年 31.5% 目標は維持</strong>する。H1 の営業利益率プレッシャーは構造的なコンテンツ投資タイミングの問題であり、事業の収益性そのものの悪化ではない。</div>
+      <div class="pullq-attr">Spencer Neumann<span class="role">/ CFO — Q2/H2 見通し</span></div>
+    </div>
+    <div class="pullq">
+      <div class="pullq-body">リードは<strong>エコノミストでエンジニアでもあるが、心の中では教師</strong>だ。1999年に出会って以来、彼は私の最も大きな励みの源だった。リードはネットフリックスの創業者であり、最大の応援者として常に我々のDNAの一部だ。「Netflix は十分に強くなり、独立して舵取りできる段階に到達した」と彼自身が語った。</div>
+      <div class="pullq-attr">Co-CEO共同声明<span class="role">/ Reed Hastings 会長退任に寄せて</span></div>
     </div>
   </div>
 </section>
@@ -1662,32 +1503,32 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="risk-card">
         <h4>Positive Catalysts</h4>
         <ul class="risk-top">
-          <li>2026 WFE 上方修正 <strong>$140B + 上振れバイアス</strong>（1月 $135B から）— SEMI 予測 $123B + バックエンド $16B = $139B と整合、AI 牽引の業界全体 CAPEX 拡大が継続</li>
-          <li>SK Hynix と <strong>$2.3B 多年契約</strong>（HBM3E/HBM4 etch）— HBM 市場シェア 62% 首位顧客との戦略連携。Advanced Packaging 売上 2026 年 +50% 成長目標</li>
-          <li>DRAM 売上構成 <strong>27% record</strong>（前 Q 23%）— HBM + 1Cnm ノード移行で dielectric deposition SAM が +20% 拡大見込み</li>
+          <li>広告事業の倍増（2026年 ~$3B）— AVOD MAV 190M・広告主4,000社超</li>
+          <li>FCF ガイダンス上方修正（$11B → $12.5B）+ 自社株買い継続（残り$6.8B）</li>
+          <li>4地域すべてで YoY 二桁成長、APAC +19.9% / LATAM +18.6% が牽引</li>
         </ul>
         <ul class="risk-more">
-          <li>3D NAND 変換投資 <strong>2027年末までに前倒し</strong> — Cryo Etch 3.0（省エネ40%・排出90%減）が 200層超 QLC NAND の本命</li>
-          <li>CSBG 初の四半期 $2B 突破（YoY +25%）— リカーリング型収益が安定基盤として拡大、装置サイクルへの耐性向上</li>
-          <li>株主還元 FCF85% 以上方針継続 — 残自社株買い授権 $4.3B、年後半に中長期フレームワーク更新予告</li>
-          <li>TSMC capex <strong>$52-56B</strong>（2026 上方）+ Intel Foundry 装置発注 +50% — Foundry/Logic（Q3 構成 54%）の継続需要</li>
-          <li>Aether Dry Resist が HBM 主要顧客で <strong>量産採用（production tool of record）</strong>選定済み — 将来的な市場獲得の重要足掛かり</li>
+          <li>スポーツ拡大 — NFL クリスマス、WWE Raw ($5B/10年)、ボクシング、FIFA女子W杯 2027/2031 独占</li>
+          <li>価格改定余力 — 米・スペイン値上げを「好調」と経営陣評価</li>
+          <li>2030年長期ビジョン — 時価総額 $1T / 売上 $80B / 営業益 $30B</li>
+          <li>生成AI広告を2026年全AVOD市場で展開 — 広告単価向上</li>
+          <li>通年売上・営業利益率ガイダンスを変更せず維持（H2 で利益率改善見込み）</li>
         </ul>
         <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
       </div>
       <div class="risk-card">
         <h4>Risk Factors</h4>
         <ul class="risk-top">
-          <li>China 売上 Q1 43% → Q2 35% → <strong>Q3 34%</strong>、Q4 さらに低下予定 — BIS 規制（HBM 帯域密度・50% アフィリエイトルール）の年間ドラッグ <strong>~$600M</strong></li>
-          <li>中国国産装置の台頭 — NAURA 世界5位、中国国産化率 25%→<strong>35%</strong>、etch 国産化 <strong>40% 超</strong>。SMIC 28nm ラインで NAURA 装置が60%超を占有</li>
-          <li>Fwd PER 35.96× は<strong>過去5年レンジ上限</strong> — 現値 $267.78 がアナリスト平均目標 $260.79 を +2.6% 超過、バリュエーション余地は限定的</li>
+          <li>Q2 ガイダンス未達 — 営業利益率 -1.5pt 見通し、H1 コンテンツ償却増が重石</li>
+          <li>Reed Hastings 取締役退任 — ガバナンス移行への心理的影響（売り増幅）</li>
+          <li>EPS ビートの質 — $1.23 は一時違約金 $2.8B 依存、コアは $0.75 でインライン</li>
         </ul>
         <ul class="risk-more">
-          <li>Q3 単体 FCF $810M（FCFマージン13.9%）— 売上急成長で運転資本拡大、CFO -12.8% YoY と一見悪化。市場が「質的悪化」と読むリスク</li>
-          <li>装置サイクルの周期性 — カスタマーダウンペイメントが「4年ぶり最低水準」（CFO 言及）、需要急変のシグナル</li>
-          <li>顧客集中リスク — Top 5顧客で売上65%超（Samsung/SK Hynix/TSMC/Micron/Intel）、単一顧客の投資判断変更が直撃</li>
-          <li>米中貿易摩擦エスカレーション — BIS Entity List 拡大継続（2025年に65社超追加）、新規 50% アフィリエイト規制</li>
-          <li>ASML China 36%→19% 急落の波及 — WFE 業界全体の中国依存剥落が予想より早く進む可能性</li>
+          <li>UCAN QoQ -1.8% — 価格改定効果の一巡、米国消費鈍化リスク</li>
+          <li>競合激化 — Paramount-WBD合併後の Max 再編、Disney+ 値上げ、YouTube 台頭</li>
+          <li>EU DSA / AVMS / 各国コンテンツ投資義務 — 規制・運営コスト上昇</li>
+          <li>為替ボラティリティ — 国際売上比率 57% が USD 換算値を振らす</li>
+          <li>会員数非開示継続 — 市場はエンゲージメント指標に依存、情報非対称性</li>
         </ul>
         <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
       </div>
@@ -1697,28 +1538,25 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
 <!-- Compare -->
 <section class="sec3" data-accordion id="sec-compare">
-  <div class="sec3-title">QoQ Compare <span class="jp">· 前回決算（FY2026 Q2）との比較</span></div>
+  <div class="sec3-title">QoQ Compare <span class="jp">· 前回決算（Q4 2025）との比較</span></div>
   <div class="sec3-body">
     <table class="cmp-tbl">
-      <thead><tr><th>指標</th><th>FY2026 Q2 (Dec'25)</th><th>FY2026 Q3 (Mar'26)</th><th>変化</th></tr></thead>
+      <thead><tr><th>指標</th><th>Q4 2025</th><th>Q1 2026</th><th>変化</th></tr></thead>
       <tbody>
-        <tr><td>売上高（USD）</td><td>$5,344.8M</td><td>$5,841.5M</td><td class="pos">+9.3% QoQ / YoY +23.8%</td></tr>
-        <tr><td>Non-GAAP EPS</td><td>~$1.32 推定</td><td>$1.47</td><td class="pos">+11% QoQ（記録水準）</td></tr>
-        <tr><td>粗利益率（Non-GAAP）</td><td>~49.5% 推定</td><td>49.9%</td><td class="pos">+40bp（ガイダンス上限到達）</td></tr>
-        <tr><td>営業利益率（Non-GAAP）</td><td>34.3%</td><td>35.0%</td><td class="pos">+70bp</td></tr>
-        <tr><td>Systems Revenue 構成 — DRAM</td><td>23%</td><td><strong>27% record</strong></td><td class="pos">+4pt 過去最高</td></tr>
-        <tr><td>Systems Revenue 構成 — Foundry</td><td>59%</td><td>54%</td><td class="neu">-5pt（DRAM へシフト）</td></tr>
-        <tr><td>CSBG（カスタマーサポート）</td><td>$1,989M 推定</td><td><strong>$2,111M record</strong></td><td class="pos">初の四半期 $2B 突破</td></tr>
-        <tr><td>China 売上比率</td><td>35%</td><td>34%</td><td class="neu">-1pt（規制影響継続）</td></tr>
-        <tr><td>営業 CF</td><td>$1,480M</td><td>$1,141M</td><td class="neg">-22.9% QoQ（運転資本拡大）</td></tr>
-        <tr><td>FCF</td><td>$1,219M</td><td>$810M</td><td class="neg">-33.5% QoQ（社債償還準備）</td></tr>
-        <tr><td>自社株買い + 配当</td><td>$1,794M</td><td>$1,489M</td><td class="neu">高水準維持（+$750M 社債償還）</td></tr>
-        <tr><td>2026 WFE 見通し</td><td>$135B</td><td><strong>$140B + 上振れバイアス</strong></td><td class="pos">+$5B 上方修正</td></tr>
-        <tr><td>次Q ガイダンス vs コンセンサス</td><td>+5% 程度</td><td>売上 +8.6% / EPS +14.6%</td><td class="pos">大幅改善</td></tr>
+        <tr><td>売上高</td><td>$12.05B</td><td>$12.25B</td><td class="pos">+1.7% QoQ</td></tr>
+        <tr><td>EPS（Diluted, GAAP）</td><td>$0.56</td><td>$1.23</td><td class="pos">+119.6% QoQ ※違約金寄与</td></tr>
+        <tr><td>コアEPS（一時要因除く）</td><td>$0.56</td><td>~$0.75</td><td class="pos">+34% QoQ</td></tr>
+        <tr><td>営業利益率</td><td>24.5%</td><td>32.3%</td><td class="pos">+7.8pt Q4季節正常化</td></tr>
+        <tr><td>FCF</td><td>$1.87B</td><td>$5.09B</td><td class="pos">+$3.22B 違約金寄与大</td></tr>
+        <tr><td>自社株買い</td><td>$2.08B</td><td>$1.27B</td><td class="neu">継続</td></tr>
+        <tr><td>Q2 売上ガイダンス</td><td>—</td><td>$12.57B (-$70M vs コンセ)</td><td class="neg">ミス</td></tr>
+        <tr><td>通年 FCF ガイダンス</td><td>$11B</td><td>$12.5B</td><td class="pos">+$1.5B 上方修正</td></tr>
+        <tr><td>株価（発表翌日 / AH）</td><td>変動小</td><td>$107.79 → $98.17</td><td class="neg">-8.9%</td></tr>
+        <tr><td>総合評価スコア</td><td>—</td><td>3</td><td class="neu">一時要因除くとインライン</td></tr>
       </tbody>
     </table>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body"><strong>トレンド方向: 質的・量的に加速 ↑↑</strong> — 売上は <strong>3期連続記録</strong>更新（$5.17B → $5.32B → $5.34B → $5.84B）、EPS / GM / OpM すべて Q2 から上昇。注目は Systems Revenue Mix の構造変化（Foundry 59→54%、DRAM 23→27%）で、HBM / 1Cnm 投資の本格化を映す。CSBG が初の四半期 $2B を突破し、リカーリング型基盤の拡大も確認。CF は売上急成長に伴う運転資本と社債償還準備で一時低下したが、TTM ベースでは FCF $6.005B（+52.7% YoY）と力強い。Q4 ガイダンスが大幅超過 + WFE 上方の組み合わせで、市場期待値が「2027 年加速シナリオ」へと一段ステップアップした四半期。</div>
+      <div class="insight-body"><strong>トレンド方向: 横ばい → 一時要因で表面改善</strong> — 表面の売上・EPS・営業利益率は全て Q4 2025 より改善しましたが、これは<strong>Q4 が季節要因で低迷していた反動</strong>（コンテンツマーケ費用集中）と、<strong>WBD違約金 $2.8B の一時計上</strong>による嵩上げが主因。コア指標（一時要因除く）ベースでは前年比緩やかな成長の延長線上にあり、<strong>構造的なブレイクアウトとは言えません</strong>。また Q2 ガイダンスがコンセンサスを下回ったことで、前年 Q1→Q2 で伸びた営業利益率の軌道が今年は踏襲できない見通し。通年ガイダンス維持・FCF 上方修正は強みですが、市場は「ビートの質」を見抜き翌 AH で <strong>-8.9%</strong> と反応しました。</div>
     </div>
   </div>
 </section>
@@ -1730,28 +1568,27 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="val-grid no-currency">
       <div class="val-card">
         <div class="val-scn">LOW — 保守的</div>
-        <div class="val-price">$177</div>
-        <div class="val-detail">NTM EPS $7.09（FY27 コンセンサス）<br>× PER 25x（メモリ装置サイクル底想定）</div>
-        <div class="val-gap neg">現在株価比 -34.0%</div>
+        <div class="val-price">$75</div>
+        <div class="val-detail">Forward EPS $3.00（コアベース下限）<br>× PER 25x（過去レンジ下限）</div>
+        <div class="val-gap neg">現在株価比 -23.6%</div>
       </div>
       <div class="val-card">
         <div class="val-scn">MID — 基本</div>
-        <div class="val-price">$255</div>
-        <div class="val-detail">NTM EPS $7.09（FY27 コンセンサス）<br>× PER 35.96x（現在 Fwd PER / stockanalysis.com 実測値）</div>
-        <div class="val-gap neg">現在株価比 -4.8%（フェアバリュー圏上限）</div>
+        <div class="val-price">$96</div>
+        <div class="val-detail">Forward EPS $3.20（コンセ水準）<br>× PER 30x（過去3年平均）</div>
+        <div class="val-gap neu">現在株価比 -2.2%</div>
       </div>
       <div class="val-card">
         <div class="val-scn">HIGH — 楽観的</div>
-        <div class="val-price">$319</div>
-        <div class="val-detail">NTM EPS $7.09（FY27 コンセンサス）<br>× PER 45x（AI 牽引プレミアム拡張）</div>
-        <div class="val-gap pos">現在株価比 +19.1%</div>
+        <div class="val-price">$119</div>
+        <div class="val-detail">Forward EPS $3.40（楽観）<br>× PER 35x（過去レンジ上限）</div>
+        <div class="val-gap pos">現在株価比 +21.2%</div>
       </div>
     </div>
 
-    <!-- 補助メトリクス (Forward PER) -->
-    <div class="cardx-grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-      <div class="cardx"><div class="cardx-lbl">現在 Forward PER（NTM）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Forward PER</span><span class="tip-body">株価を次期EPS予想で割った値。低いほど割安、高いほど割高の目安。成長企業は高めになりやすい。</span></span></div><div class="cardx-val neu">35.96×</div><div class="cardx-sub">出典: stockanalysis.com（2026/4/27 実測値）/ 過去5年レンジ 12.4 - 35.96×（現在は上限）</div></div>
-      <div class="cardx no-currency"><div class="cardx-lbl">アナリスト平均目標</div><div class="cardx-val neu">$260.79</div><div class="cardx-sub">現株価 $267.78 は目標を <strong>-2.6% 超過</strong>。決算後 14社 が目標引上げ（Susquehanna $385 が最高）</div></div>
+    <!-- 補助メトリクス (Forward PER のみ) -->
+    <div class="cardx-grid" style="margin-top:18px;grid-template-columns:minmax(220px,340px)">
+      <div class="cardx"><div class="cardx-lbl">Forward PER（FY26E）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Forward PER</span><span class="tip-body">株価を次期EPS予想で割った値。低いほど割安、高いほど割高の目安。成長企業は高めになりやすい。</span></span></div><div class="cardx-val neu">~31x</div><div class="cardx-sub">FY26E EPS $3.20（コアベース）</div></div>
     </div>
 
     <!-- 価格ポジション + 読み解き + 注意喚起 を一体化 -->
@@ -1760,19 +1597,19 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="val-gauge">
         <div class="val-gauge-title">Price Position · 現在株価の位置</div>
         <div class="val-gauge-track">
-          <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$177</div></div>
-          <div class="val-gauge-mark" style="left:54.9%"><div class="lbl">MID</div><div class="amt">$255</div></div>
-          <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$319</div></div>
-          <div class="val-gauge-current" style="left:63.9%"><div class="cur-label">現在 $267.78</div></div>
+          <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$75</div></div>
+          <div class="val-gauge-mark" style="left:47.7%"><div class="lbl">MID</div><div class="amt">$96</div></div>
+          <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$119</div></div>
+          <div class="val-gauge-current" style="left:52.7%"><div class="cur-label">現在 $98.17</div></div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body"><strong>読み解き:</strong> MID 想定株価 $255（NTM EPS $7.09 × Fwd PER 35.96× 実測値）に対し、現在株価 $267.78 は <strong>+5.0% のわずかなプレミアム</strong>でフェアバリュー圏上限。High シナリオ $319 の範囲内であり、AI / HBM / WFE 拡大シナリオが順調に進めばさらなる上値余地はあるが、Fwd PER が<strong>過去5年レンジ上限</strong>に到達している点は留意が必要。<br><br>アナリスト平均目標 <strong>$260.79</strong> を現値が +2.6% 超過。決算後 <strong>14社が目標引上げ</strong>（JPM $315→/BofA $330→/B.Riley $350→/Susquehanna $385→）と構造強気。<strong>NTM Fair Value $216</strong>（NTM EPS $7.09 × 過去3年 Fwd PER 平均 30.4×）は現値を -19% 下回る水準で、長期平均マルチプルから見れば「やや割高」だが、AI 構造シフトを反映した「ニューノーマル PER」の議論余地もある。</div>
+        <div class="insight-body"><strong>読み解き:</strong> MID 想定株価 $96 vs 現在株価 $98.17（乖離率 +2.2%）で、±10% レンジ内の<strong>「適正」</strong>ゾーン。決算後の急落で、市場はちょうど過去3年平均 Forward PER ~30x × コアEPS $3.20 の水準に収束しました。ここから上昇するには ①Q3/Q4 の営業利益率リバウンド確認（31.5% 通年目標の説得力）、②広告収入 $3B 目標達成、③価格改定の追加余地証明、④新興市場（APAC/LATAM）成長の加速、が必要になります。<br><br>アナリスト平均目標株価 <strong>~$115-120</strong>（レンジ $96-$130）で、現在株価から +17〜+22% の上振れ余地。Strong Buy 44% + Buy 41%（計85%）の強気優勢は維持。下方リスクは Q2 ガイダンス未達の継続・Reed Hastings 退任後のガバナンス不安・コンテンツ投資拡大のマージン圧迫。上方リスクは 違約金効果除外後のコアFCF改善・広告事業の上振れ・生成AI広告展開による広告単価上昇。</div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="val-reminder">
-        <strong>これは判断の道具です、判断そのものではありません。</strong>3シナリオの想定株価は、NTM EPS（FY27 コンセンサス $7.09）と PER から機械的に導出された<strong>考えるための座標</strong>であり、買い推奨・売り推奨ではありません。PER シナリオ（25x / 35.96x / 45x）は MID のみ一次ソース実測値（stockanalysis.com）、LOW / HIGH は半導体装置サイクル経験則からの想定値。読者自身が前提（EPS・PER・シナリオ確率）を吟味した上で、ご自身の判断の一助としてお使いください。
+        <strong>これは判断の道具です、判断そのものではありません。</strong>3シナリオの想定株価は、FY26 EPS予想と過去PERレンジから機械的に導出された<strong>考えるための座標</strong>であり、買い推奨・売り推奨ではありません。読者自身が前提（EPS・PER・シナリオ確率）を吟味した上で、ご自身の判断の一助としてお使いください。
       </div>
     </div>
 
@@ -1790,35 +1627,35 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="ntm-calc no-currency">
       <div class="ntm-row">
         <div class="ntm-cell">
-          <div class="ntm-lbl">NTM EPS</div>
-          <div class="ntm-val">$7.09</div>
-          <div class="ntm-sub">FY2027E コンセンサス（YoY +30.7%）</div>
+          <div class="ntm-lbl">NTM EPS（コア）</div>
+          <div class="ntm-val">$3.20</div>
+          <div class="ntm-sub">2026通期（一時要因除く）</div>
         </div>
         <div class="ntm-op">×</div>
         <div class="ntm-cell">
           <div class="ntm-lbl">過去3年平均 Forward PER</div>
-          <div class="ntm-val">30.4×</div>
-          <div class="ntm-sub">FY24 31.65× / FY25 23.70× / 現在 35.96× の平均</div>
+          <div class="ntm-val">30x</div>
+          <div class="ntm-sub">2023-2025 平均</div>
         </div>
         <div class="ntm-op">=</div>
         <div class="ntm-cell">
           <div class="ntm-lbl">想定株価</div>
-          <div class="ntm-val goal">$216</div>
+          <div class="ntm-val goal">$96</div>
           <div class="ntm-sub">NTM Fair Value</div>
         </div>
       </div>
       <div class="ntm-foot">
         <div class="ntm-foot-cell">
           <div class="lbl">現株価</div>
-          <div class="val">$267.78</div>
+          <div class="val">$98.17</div>
         </div>
         <div class="ntm-foot-cell">
           <div class="lbl">乖離率</div>
-          <div class="val neg">+24.0%（割高）</div>
+          <div class="val neu">+2.2%</div>
         </div>
         <div class="ntm-foot-cell">
           <div class="lbl">判定</div>
-          <div class="val neg">過去平均から見ればやや割高</div>
+          <div class="val neu">適正</div>
         </div>
       </div>
     </div>
@@ -1831,28 +1668,28 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-body">
     <div class="cardx-grid">
       <div class="cardx">
-        <div class="cardx-lbl">コンセンサス</div>
-        <div class="cardx-val pos">Strong Buy</div>
-        <div class="cardx-sub">25名 / Strong Buy 11・Buy 10・Hold 4・Sell 0</div>
+        <div class="cardx-lbl">コンセンサス（34アナリスト）</div>
+        <div class="cardx-val pos">Buy</div>
+        <div class="cardx-sub">Strong Buy 44% + Buy 41% + Hold 15% / Sell 0%</div>
       </div>
       <div class="cardx no-currency">
         <div class="cardx-lbl">平均目標株価</div>
-        <div class="cardx-val neu">$260.79</div>
-        <div class="cardx-sub">現株価 $267.78 は目標を <strong>-2.6% 超過</strong></div>
+        <div class="cardx-val pos">~$117</div>
+        <div class="cardx-sub">現在株価 $98.17 から <strong>+19%</strong> 上振れ余地</div>
       </div>
       <div class="cardx no-currency">
-        <div class="cardx-lbl">最高目標 / 最低目標</div>
-        <div class="cardx-val pos">$385 / $115</div>
-        <div class="cardx-sub">Susquehanna $385 / B.Riley $350 が積極派</div>
+        <div class="cardx-lbl">目標株価レンジ</div>
+        <div class="cardx-val neu">$96 – $130</div>
+        <div class="cardx-sub">Rosenblatt 慎重派〜Guggenheim 強気派</div>
       </div>
       <div class="cardx">
-        <div class="cardx-lbl">決算後アナリスト動向</div>
-        <div class="cardx-val pos">14社 目標引上げ</div>
-        <div class="cardx-sub">JPM $300→$315 / BofA $285→$330 / TD Cowen $290→$340</div>
+        <div class="cardx-lbl">直近格上げ</div>
+        <div class="cardx-val gold">GS Buy昇格</div>
+        <div class="cardx-sub">4/6 Neutral→Buy / PT $100→$120（広告事業評価）</div>
       </div>
     </div>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body"><strong>4/22 決算後 24時間以内のアクション総括:</strong> 確認できた 14社すべてが目標株価を引き上げ。最大の引上げは TD Cowen（$290 → $340、+17%）と BofA（$285 → $330、+16%）。Susquehanna $385 が最高、B.Riley $350、Oppenheimer $330 と続く。Hold 系の Barclays も $255 → $275 に引上げ。<strong>明確な格下げや Sell 論調は確認されず</strong>、Wall Street コンセンサスは「2027 年加速シナリオ」を支持する方向に一段ステップアップした模様。</div>
+      <div class="insight-body"><strong>Q1決算後の主要アナリスト論調:</strong> 決算直前（4/6〜4/14）に <strong>Goldman Sachs が Buy 格上げ</strong>、Morgan Stanley・KeyBanc・Wedbush・Guggenheim が目標株価引き上げと、強気ムードの中で迎えた決算。決算後のPT修正は収集時点では限定的ですが、<strong>Bernstein が「Solid quarter overshadowed by disappointing margin guide」</strong>と評価、<strong>Rosenblatt が Neutral 維持で目標 $96</strong>（最保守）。ポジティブ派は「広告事業 $3B 倍増」「現株価は魅力的エントリー」（Morgan Stanley）、ネガティブ派は「マージンガイドの失望」「違約金による EPS 嵩上げの質」を懸念。<strong>強気優勢は変わらず</strong>、Q2〜Q3 の実績が次の方向性を決めるでしょう。</div>
     </div>
   </div>
 </section>
@@ -1860,8 +1697,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 <!-- Footer -->
 <footer class="footer">
   <img src="https://atlas-financials.jp/reports/logos/atlas-quarterly-type-gold-transparent-300w.png" alt="Atlas Quarterly" style="height:22px;width:auto;max-width:200px;opacity:.9;display:block;margin:0 auto 18px">
-  <p>本レポートは <strong>Atlas編集部</strong> が公開情報（Lam Research Corporation IR、プレスリリース、Q3 FY2026 決算カンファレンスコール、SEC 10-Q、SEMI 公式予測、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。数値・見通しは発表当時の情報に基づいており、将来の結果を保証するものではありません。</p>
-  <div class="footer-id">LRCX / FY26 Q3 · 発行 2026-04-27 · Atlas Quarterly — U.S. Market Intelligence</div>
+  <p>本レポートは <strong>Atlas編集部</strong> が公開情報（Netflix IR、プレスリリース、決算カンファレンスコール、各種金融メディア）に基づき作成した情報提供資料です。特定の有価証券の売買を推奨・勧誘するものではありません。投資判断は必ずご自身の責任で行ってください。数値・見通しは発表当時の情報に基づいており、将来の結果を保証するものではありません。</p>
+  <div class="footer-id">NFLX / FY26 Q1 · 発行 2026-04-16 · Atlas Quarterly — U.S. Market Intelligence</div>
 </footer>
 
 <!-- Atlas Floating Tools (Currency + Theme) -->
@@ -1883,9 +1720,9 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <li><a href="#sec-margin" onclick="tocJump('sec-margin')"><span>利益率トレンド</span></a></li>
       <li><a href="#sec-insight" onclick="tocJump('sec-insight')"><span>今回のポイント</span></a></li>
       <li><a href="#sec-guidance" onclick="tocJump('sec-guidance')"><span>ガイダンス・見通し</span></a></li>
-      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span>プラットフォーム別売上</span></a></li>
+      <li><a href="#sec-segment" onclick="tocJump('sec-segment')"><span>成長ドライバー</span></a></li>
       <li><a href="#sec-geo" onclick="tocJump('sec-geo')"><span>地域別売上構成</span></a></li>
-      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span>キャッシュフロー・CapEx</span></a></li>
+      <li><a href="#sec-cashflow" onclick="tocJump('sec-cashflow')"><span>キャッシュフロー・コンテンツ投資</span></a></li>
       <li><a href="#sec-technical" onclick="tocJump('sec-technical')"><span>テクニカル分析</span></a></li>
       <li><a href="#sec-mgmt" onclick="tocJump('sec-mgmt')"><span>経営陣コメント</span></a></li>
       <li><a href="#sec-risk" onclick="tocJump('sec-risk')"><span>リスク・カタリスト</span></a></li>
@@ -1963,26 +1800,6 @@ function toggleOverview() {
     btn.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
-
-// ── Past Quarters Dropdown ──
-function togglePastQuarters() {
-  var drop = document.getElementById('pqDrop');
-  var btn = document.getElementById('pqBtn');
-  if (!drop || !btn) return;
-  var isOpen = drop.classList.toggle('open');
-  btn.classList.toggle('open', isOpen);
-  btn.setAttribute('aria-expanded', isOpen);
-}
-document.addEventListener('click', function(e){
-  var btn = document.getElementById('pqBtn');
-  var drop = document.getElementById('pqDrop');
-  if (!btn || !drop) return;
-  if (!btn.contains(e.target) && !drop.contains(e.target)) {
-    drop.classList.remove('open');
-    btn.classList.remove('open');
-    btn.setAttribute('aria-expanded', 'false');
-  }
-});
 
 // ── Insight expand/collapse (Layer 2 今回のポイント only) ──
 document.querySelectorAll('.insight-wrap .insight').forEach(function(el){
@@ -2194,14 +2011,14 @@ Chart.defaults.color='#A8B0BC';
 Chart.defaults.font=chartFont;
 const gridOpt={color:'rgba(184,145,42,0.08)'};
 
-// Revenue 7Q ($B) — LRCX
+// Revenue 7Q (USD $M)
 new Chart(document.getElementById('revChart'),{
   type:'bar',
   data:{
-    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[{
-      label:'Revenue ($B)',
-      data:[4.168,4.376,4.720,5.171,5.324,5.345,5.842],
+      label:'Revenue ($M)',
+      data:[9825,10247,10543,11079,11510,12051,12250],
       backgroundColor:['rgba(184,145,42,0.35)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.5)','rgba(184,145,42,0.55)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
       borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
       borderWidth:1,borderRadius:6
@@ -2211,34 +2028,35 @@ new Chart(document.getElementById('revChart'),{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       legend:{display:false},
-      title:{display:true,text:'Revenue（直近7四半期, $B / 3期連続記録更新）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
-      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(3)+'B'}}
+      title:{display:true,text:'Revenue（直近7四半期, $B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+(ctx.parsed.y/1000).toFixed(2)+'B'}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(1)+'B'},min:3.8},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'B'},min:9000},x:{grid:{display:false}}}
   }
 });
 
-// EPS 7Q — LRCX GAAP Diluted EPS (出典: stockanalysis.com)
+// EPS 7Q (USD, split-adjusted)
+// Q3/Q4 2024 は10:1株式分割前 → 分割調整済み数値で表示
 new Chart(document.getElementById('epsChart'),{
   type:'bar',
   data:{
-    labels:['Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26','Q2 FY26','Q3 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[{
-      label:'GAAP Diluted EPS ($)',
-      data:[0.67,0.72,1.03,1.35,1.24,1.26,1.45],
-      backgroundColor:['rgba(36,49,88,0.6)','rgba(36,49,88,0.7)','rgba(36,49,88,0.75)','rgba(36,49,88,0.8)','rgba(184,145,42,0.55)','rgba(184,145,42,0.65)','rgba(212,168,67,0.85)'],
-      borderColor:['#243158','#243158','#243158','#243158','#B8912A','#B8912A','#D4A843'],
+      label:'EPS (Diluted, $)',
+      data:[0.54,0.43,0.66,0.72,0.59,0.56,1.23],
+      backgroundColor:['rgba(36,49,88,0.6)','rgba(36,49,88,0.7)','rgba(184,145,42,0.55)','rgba(184,145,42,0.6)','rgba(184,145,42,0.55)','rgba(184,145,42,0.55)','rgba(212,168,67,0.85)'],
+      borderColor:['#243158','#243158','#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
       borderWidth:1,borderRadius:6
     }]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      legend:{display:true,labels:{color:'#A8B0BC',font:{size:10,family:'Inter, sans-serif'},boxWidth:10}},
-      title:{display:true,text:'GAAP Diluted EPS（直近7四半期 / Q3 FY26 GAAP $1.45・Non-GAAP $1.47）',color:'#F5F2EC',font:{size:12,weight:'700',family:'Shippori Mincho B1, serif'}},
-      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)}}
+      legend:{display:false},
+      title:{display:true,text:'EPS（直近7四半期, 10:1分割調整後, $）Q1 26 は WBD違約金 $2.8B で+$0.47押し上げ',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)+(ctx.dataIndex===6?' (コア~$0.75)':'')}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(2)},min:0.5},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v.toFixed(2)},min:0},x:{grid:{display:false}}}
   }
 });
 
@@ -2246,53 +2064,32 @@ new Chart(document.getElementById('epsChart'),{
 new Chart(document.getElementById('marginChart'),{
   type:'line',
   data:{
-    labels:['Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[
-      {label:'粗利益率 (%)',data:[59.8,60.0,57.0,57.4,57.6,58.2,58.0],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
-      {label:'営業利益率 (%)',data:[40.4,40.7,32.4,37.0,37.4,38.6,37.5],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'}
+      {label:'粗利益率 (%)',data:[46.7,43.5,50.1,47.3,44.9,45.9,51.9],borderColor:'#D4A843',backgroundColor:'rgba(212,168,67,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#D4A843'},
+      {label:'営業利益率 (%)',data:[29.6,22.2,31.7,34.1,28.2,24.5,32.3],borderColor:'#B8912A',backgroundColor:'rgba(184,145,42,0.08)',fill:false,tension:.3,pointRadius:4,pointBackgroundColor:'#B8912A'},
+      {label:'純利益率 (%)',data:[24.1,18.2,27.4,28.2,22.1,20.1,43.1],borderColor:'#F0E6C8',fill:false,tension:.3,pointRadius:4,borderDash:[5,3],pointBackgroundColor:'#F0E6C8',borderWidth:2}
     ]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y.toFixed(1)+'%'}},
-      title:{display:true,text:'粗利益率 / 営業利益率 推移（GAAP）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      title:{display:true,text:'粗利益率 / 営業利益率 / 純利益率 推移 — Q1 26純利益率は違約金で膨張',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'}},
       legend:{labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'}}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:28,max:65},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>v+'%'},min:15,max:55},x:{grid:{display:false}}}
   }
 });
 
-// ── D. Segment Donut (TXN) ──
-new Chart(document.getElementById('platformChart'),{
-  type:'doughnut',
-  data:{
-    labels:['Analog','Embedded Processing','Other'],
-    datasets:[{
-      data:[81.3,15.0,3.7],
-      backgroundColor:['#D4A843','#5C7395','#8B7A3F'],
-      borderColor:'#0F1829',
-      borderWidth:2,
-      hoverOffset:8
-    }]
-  },
-  options:{
-    responsive:true,maintainAspectRatio:false,cutout:'62%',
-    plugins:{
-      legend:{display:false},
-      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}
-    }
-  }
-});
-
-// ── F. Geography Donut (TXN FY2025通年参考) ──
+// ── Geography Donut (4地域) ──
 new Chart(document.getElementById('geoChart'),{
   type:'doughnut',
   data:{
-    labels:['US','China','EMEA','Asia ex-JP','Japan','Other'],
+    labels:['UCAN','EMEA','APAC','LATAM'],
     datasets:[{
-      data:[38.3,21.4,21.2,10.7,6.6,1.9],
-      backgroundColor:['#D4A843','#B8912A','#5C7395','#F0E6C8','#718096','#8B7A3F'],
+      data:[42.8,32.6,12.3,12.2],
+      backgroundColor:['#D4A843','#5C7395','#B8912A','#F0E6C8'],
       borderColor:'#0F1829',
       borderWidth:2,
       hoverOffset:8
@@ -2302,49 +2099,60 @@ new Chart(document.getElementById('geoChart'),{
     responsive:true,maintainAspectRatio:false,cutout:'62%',
     plugins:{
       legend:{display:false},
-      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}}
+      tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed+'%'}}
     }
   }
 });
 
-// ── C. FCF / Capex Bar (TXN) ──
+// ── Cash Content Spend History Bar (2022→2026E) ──
 new Chart(document.getElementById('capexChart'),{
   type:'bar',
   data:{
-    labels:['FY2022','FY2023','FY2024','FY2025','FY2026E'],
-    datasets:[
-      {label:'FCF ($B)',data:[6.5,1.9,1.5,1.7,4.35],backgroundColor:['rgba(184,145,42,0.45)','rgba(184,145,42,0.45)','rgba(184,145,42,0.45)','rgba(184,145,42,0.55)','rgba(212,168,67,0.85)'],borderColor:'#D4A843',borderWidth:1,borderRadius:4},
-      {label:'Capex ($B)',data:[3.7,5.1,5.2,4.7,2.5],backgroundColor:'rgba(92,115,149,0.55)',borderColor:'#5C7395',borderWidth:1,borderRadius:4}
-    ]
+    labels:['2022','2023','2024','2025','2026E'],
+    datasets:[{
+      label:'Cash Content Spend ($B)',
+      data:[16.7,12.6,16.2,17.5,18.0],
+      backgroundColor:['rgba(184,145,42,0.35)','rgba(184,145,42,0.4)','rgba(184,145,42,0.45)','rgba(184,145,42,0.6)','rgba(212,168,67,0.9)'],
+      borderColor:['#B8912A','#B8912A','#B8912A','#B8912A','#D4A843'],
+      borderWidth:1,borderRadius:6
+    }]
   },
   options:{
     responsive:true,maintainAspectRatio:false,
     plugins:{
-      legend:{display:true,position:'top',align:'end',labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'},boxWidth:12,boxHeight:12,padding:14}},
-      title:{display:true,text:'TXN FCF / Capex 推移（$B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
-      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toFixed(2)+'B'+(ctx.dataIndex===4?' (概算/ガイダンス)':'')}}
+      legend:{display:false},
+      title:{display:true,text:'Netflix Cash Content Spend 推移（2022 → 2026E, $B）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'}},
+      tooltip:{callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(1)+'B'+(ctx.dataIndex===4?' (通年推定)':'')}}
     },
-    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'},min:0},x:{grid:{display:false}}}
+    scales:{y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'B'}},x:{grid:{display:false}}}
   }
 });
 
-// ── Cash Flow 7Q (Q1単体は営業CFのみ、投資CF/財務CFは10-Q待ち) ──
+// ── Cash Flow 7Q (営業CF / 投資CF / FCF) — Netflix 数値 ($M) ──
 new Chart(document.getElementById('cashflowChart'),{
   type:'bar',
   data:{
-    labels:['Q3 FY24','Q4 FY24','Q1 FY25','Q2 FY25','Q3 FY25','Q4 FY25','Q1 FY26'],
+    labels:['Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25','Q1 26'],
     datasets:[
       {
-        label:'営業CF ($M)',
-        data:[1900,1950,1680,1750,1900,2000,1520],
+        label:'営業CF',
+        data:[2315,1535,2789,2400,2100,2112,5290],
         backgroundColor:'#D4A843',
         borderColor:'#D4A843',
         borderWidth:1,
         borderRadius:4
       },
       {
-        label:'FCF ($M)',
-        data:[850,900,750,800,900,950,1399],
+        label:'投資CF',
+        data:[-201,-158,486,-180,-190,-257,-782],
+        backgroundColor:'#5C7395',
+        borderColor:'#5C7395',
+        borderWidth:1,
+        borderRadius:4
+      },
+      {
+        label:'FCF',
+        data:[2194,1377,2661,2273,1971,1872,5094],
         backgroundColor:'#B8912A',
         borderColor:'#B8912A',
         borderWidth:1,
@@ -2356,11 +2164,11 @@ new Chart(document.getElementById('cashflowChart'),{
     responsive:true,maintainAspectRatio:false,
     plugins:{
       legend:{display:true,position:'top',align:'end',labels:{color:'#A8B0BC',font:{size:11,family:'Inter, sans-serif'},boxWidth:12,boxHeight:12,padding:14}},
-      title:{display:true,text:'キャッシュフロー 直近7四半期推移（$M）',color:'#F5F2EC',font:{size:13,weight:'700',family:'Shippori Mincho B1, serif'},align:'start',padding:{bottom:14}},
-      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+ctx.parsed.y.toFixed(0)+'M'}}
+      title:{display:true,text:'キャッシュフロー 直近7四半期推移（$M）— Q1 26 は WBD違約金 $2.8B 現金寄与',color:'#F5F2EC',font:{size:11,weight:'700',family:'Shippori Mincho B1, serif'},align:'start',padding:{bottom:14}},
+      tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': $'+(ctx.parsed.y/1000).toFixed(2)+'B'}}
     },
     scales:{
-      y:{grid:gridOpt,ticks:{callback:v=>'$'+v+'M'},min:0},
+      y:{grid:gridOpt,ticks:{callback:v=>'$'+(v/1000).toFixed(1)+'B'}},
       x:{grid:{display:false}}
     }
   }
