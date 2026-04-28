@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" href="./favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 159.0, date: '2026/4/24', fmt:'cjk-ja' };</script>
+<script>window.ATLAS_FX = { code:'JPY', symbol:'¥', rate: 159.0, date: '2026/4/27', fmt:'cjk-ja' };</script>
 <style>
 /* ══════════════════════════════════════════════════
    ATLAS QUARTERLY — Report Design System v2
@@ -628,11 +628,51 @@ html[data-theme="light"] .atlas-floating-tools{background:rgba(253,252,250,.92);
 html[data-theme="light"] .atlas-floating-tools .currency-toggle,html[data-theme="light"] .atlas-floating-tools .theme-toggle-btn{color:rgba(26,37,64,0.78);border-color:rgba(26,37,64,0.2)}
 html[data-theme="light"] .l1{background:linear-gradient(180deg,rgba(184,145,42,.05) 0%,rgba(245,242,236,.8) 100%)}
 html[data-theme="light"] .metric-card,html[data-theme="light"] .cardx,html[data-theme="light"] .insight,html[data-theme="light"] .chart-box,html[data-theme="light"] .consensus,html[data-theme="light"] .risk-card,html[data-theme="light"] .mgmt,html[data-theme="light"] .val-card,html[data-theme="light"] .ntm-calc,html[data-theme="light"] .ov-drop{background:#FDFCFA!important;color:#1A2540!important;box-shadow:0 1px 4px rgba(26,37,64,.06)}
+
+/* ── Radio Player — Apple Music inspired (Atlas Quarterly) ── */
+.radio-player{--rp-bg:rgba(26,37,64,0.92);--rp-border:rgba(255,255,255,0.08);--rp-text:#F5F2EC;--rp-sub:rgba(245,242,236,0.55);--rp-accent:#D4A843;--rp-track:rgba(245,242,236,0.18);--rp-thumb:#F5F2EC;margin:22px auto 0;width:420px;max-width:92vw;padding:22px 22px 18px;background:linear-gradient(160deg,rgba(40,54,88,0.95) 0%,rgba(20,28,48,0.95) 100%);border:1px solid var(--rp-border);border-radius:18px;box-shadow:0 20px 50px -20px rgba(0,0,0,.6),0 0 0 1px rgba(184,145,42,0.08) inset;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);text-align:left;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Noto Sans JP',sans-serif}
+.radio-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.radio-artwork{width:64px;height:64px;flex-shrink:0;border-radius:10px;background:linear-gradient(135deg,#1A2540 0%,#3a4a7a 50%,#D4A843 100%);position:relative;overflow:hidden;box-shadow:0 8px 20px -6px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
+.radio-artwork::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(245,242,236,0.15) 0%,transparent 60%)}
+.radio-artwork-logo{font-family:'Shippori Mincho B1',serif;font-size:22px;font-weight:800;color:#F5F2EC;letter-spacing:-0.02em;position:relative;z-index:1;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.radio-meta{flex:1;min-width:0}
+.radio-title-main{font-size:15px;font-weight:700;color:var(--rp-text);line-height:1.3;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.radio-subtitle{font-size:12px;color:var(--rp-sub);font-weight:500;letter-spacing:.01em}
+.radio-chapter-now{font-size:11px;color:var(--rp-accent);font-weight:600;letter-spacing:.02em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.radio-scrubber{margin:4px 0 8px}
+.radio-range{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--rp-track);border-radius:2px;cursor:pointer;outline:none;margin:0;transition:height .15s}
+.radio-range:hover{height:5px}
+.radio-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;background:var(--rp-thumb);box-shadow:0 1px 3px rgba(0,0,0,.4);cursor:pointer}
+.radio-range::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--rp-thumb);border:none;box-shadow:0 1px 3px rgba(0,0,0,.4);cursor:pointer}
+.radio-time-row{display:flex;justify-content:space-between;font-size:10.5px;font-weight:500;color:var(--rp-sub);letter-spacing:.02em;font-variant-numeric:tabular-nums;margin-top:4px}
+.radio-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin:10px 0 8px}
+.radio-ctl{background:transparent;border:none;cursor:pointer;color:var(--rp-text);padding:6px;display:inline-flex;align-items:center;justify-content:center;transition:opacity .15s,transform .1s}
+.radio-ctl:hover{opacity:.75}
+.radio-ctl:active{transform:scale(0.92)}
+.radio-ctl svg{display:block}
+.radio-ctl-skip{position:relative}
+.radio-ctl-skip span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;font-weight:700;color:var(--rp-text);pointer-events:none}
+.radio-ctl-play{width:52px;height:52px;border-radius:50%;background:var(--rp-text);color:#1A2540;box-shadow:0 4px 14px -4px rgba(245,242,236,.4)}
+.radio-ctl-play:hover{opacity:1;transform:scale(1.04)}
+.radio-bottom{display:flex;align-items:center;justify-content:center;margin-top:8px;padding-top:10px;border-top:1px solid var(--rp-border);position:relative}
+.radio-bottom .label{position:absolute;right:calc(50% + 134px + 10px);top:calc(50% + 5px);transform:translateY(-50%);font-size:10px;color:var(--rp-sub);font-weight:600;letter-spacing:.08em;white-space:nowrap;pointer-events:none}
+.radio-speed-row{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:268px;margin:0 auto}
+.radio-speed-btn{font-family:inherit;font-size:11px;font-weight:600;padding:3px 9px;border-radius:14px;border:none;background:transparent;color:var(--rp-sub);cursor:pointer;transition:all .15s;font-variant-numeric:tabular-nums}
+.radio-speed-btn:hover{color:var(--rp-text)}
+.radio-speed-btn.active{background:rgba(245,242,236,0.15);color:var(--rp-text)}
+@media(max-width:480px){.radio-player{width:100%;padding:18px 16px 14px;border-radius:14px}.radio-artwork{width:56px;height:56px}.radio-artwork-logo{font-size:18px}.radio-title-main{font-size:14px}.radio-controls{gap:14px}.radio-ctl-play{width:48px;height:48px}.radio-speed-row{max-width:248px}.radio-bottom .label{right:calc(50% + 124px + 8px);font-size:9px}}
+[data-theme="light"] .radio-player{background:linear-gradient(160deg,#F5F2EC 0%,#EAE6DA 100%);border-color:rgba(26,37,64,0.1);--rp-text:#1A2540;--rp-sub:rgba(26,37,64,0.55);--rp-track:rgba(26,37,64,0.15);--rp-thumb:#1A2540}
+[data-theme="light"] .radio-ctl-play{background:#1A2540;color:#F5F2EC}
+[data-theme="light"] .radio-speed-btn.active{background:rgba(26,37,64,0.12)}
+
 /* Atlas Quarterly: snippet 由来ロゴを仕様（morning-news.md §491）と同期して上書き */
 /* 1) ヘッダー左上 atlas-nav-logo: 仕様 1200w + 68px / mobile 48px */
 .atlas-nav .atlas-nav-logo{height:68px!important;filter:brightness(1.1)!important}
 @media(max-width:767px){.atlas-nav .atlas-nav-logo{height:48px!important}}
+/* 1b) スマホでラジオプレーヤーを report header の最後に配置（重なり防止） */
+@media(max-width:768px){.rh .radio-player{order:3!important;margin-top:18px!important}}
 /* 2) ATLAS-QUARTERLY-BAND ロゴ: フッターと同サイズ（height:176px / max-width:1600px） */
+.atlas-quarterly-band{padding:5px 16px!important}
 .atlas-quarterly-band img{height:176px!important;max-width:1600px!important;width:auto!important;vertical-align:middle!important}
 @media(max-width:740px){.atlas-quarterly-band img{height:88px!important;max-width:800px!important}}
 </style>
@@ -949,7 +989,72 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
     <div class="rh-sub">Q1 2026 決算分析（2026年1-3月期）</div>
     <div class="rh-date">発表日 2026.04.22 ｜ Atlas Quarterly</div>
   </div>
+
+  <div class="radio-player" id="radioPlayer" data-chapters="FY2026Q1-radio-chapters.json">
+    <audio preload="metadata" id="radioAudio">
+      <source src="FY2026Q1-radio.mp3" type="audio/mpeg">
+    </audio>
+    <div class="radio-top">
+      <div class="radio-artwork"><span class="radio-artwork-logo">NOW</span></div>
+      <div class="radio-meta">
+        <div class="radio-title-main">Atlas Quarterly · ServiceNow</div>
+        <div class="radio-subtitle">Q1 2026 決算分析</div>
+        <div class="radio-chapter-now" id="radioChapterNow">読み込み中…</div>
+      </div>
+    </div>
+    <div class="radio-scrubber">
+      <input type="range" class="radio-range" id="radioSeek" min="0" max="100" step="0.1" value="0" aria-label="シーク">
+      <div class="radio-time-row"><span id="radioTimeCur">0:00</span><span id="radioTimeRem">-8:38</span></div>
+    </div>
+    <div class="radio-controls">
+      <button class="radio-ctl" id="radioPrev" aria-label="前のチャプター"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+      <button class="radio-ctl radio-ctl-skip" id="radioBack" aria-label="10秒戻る"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><span>10</span></button>
+      <button class="radio-ctl radio-ctl-play" id="radioPlay" aria-label="再生／一時停止"><svg id="radioPlayIcon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+      <button class="radio-ctl radio-ctl-skip" id="radioFwd" aria-label="10秒進む"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span>10</span></button>
+      <button class="radio-ctl" id="radioNext" aria-label="次のチャプター"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+    </div>
+    <div class="radio-bottom">
+      <span class="label">SPEED</span>
+      <div class="radio-speed-row">
+        <button class="radio-speed-btn" data-rate="0.9">0.9x</button>
+        <button class="radio-speed-btn active" data-rate="1">1x</button>
+        <button class="radio-speed-btn" data-rate="1.2">1.2x</button>
+        <button class="radio-speed-btn" data-rate="1.5">1.5x</button>
+        <button class="radio-speed-btn" data-rate="2">2x</button>
+      </div>
+    </div>
+  </div>
 </header>
+<script>window.ATLAS_CHAPTERS_DATA = {"ticker":"NOW","period":"FY2026Q1","total_ms":518765,"total_label":"8:38","chapters":[{"id":"intro","title":"ジングル＋タイトルコール","start_ms":0,"end_ms":6027,"start_label":"0:00"},{"id":"opening","title":"オープニング","start_ms":6027,"end_ms":42411,"start_label":"0:06"},{"id":"highlights","title":"決算ハイライト","start_ms":42411,"end_ms":118683,"start_label":"0:42"},{"id":"gross_margin","title":"注目論点：粗利率の構造的低下","start_ms":118683,"end_ms":227979,"start_label":"1:58"},{"id":"guidance","title":"ガイダンス・市場反応","start_ms":227979,"end_ms":317283,"start_label":"3:47"},{"id":"valuation","title":"投資判断：バリュエーション","start_ms":317283,"end_ms":393699,"start_label":"5:17"},{"id":"risk","title":"リスク・カタリスト","start_ms":393699,"end_ms":463275,"start_label":"6:33"},{"id":"closing","title":"クロージング","start_ms":463275,"end_ms":518765,"start_label":"7:43"}]};</script>
+<script>
+(function(){
+  var audio=document.getElementById('radioAudio'),now=document.getElementById('radioChapterNow'),player=document.getElementById('radioPlayer'),playBtn=document.getElementById('radioPlay'),playIcon=document.getElementById('radioPlayIcon'),prevBtn=document.getElementById('radioPrev'),nextBtn=document.getElementById('radioNext'),backBtn=document.getElementById('radioBack'),fwdBtn=document.getElementById('radioFwd'),seek=document.getElementById('radioSeek'),timeCur=document.getElementById('radioTimeCur'),timeRem=document.getElementById('radioTimeRem');
+  if(!audio||!player)return;
+  var chapters=[],seeking=false;
+  var PLAY_ICON='<path d="M8 5v14l11-7z"/>',PAUSE_ICON='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+  function fmt(s){if(!isFinite(s)||s<0)s=0;var m=Math.floor(s/60),r=Math.floor(s%60);return m+':'+(r<10?'0':'')+r}
+  function fillTrack(){if(!audio.duration)return;var pct=(audio.currentTime/audio.duration)*100;seek.style.background='linear-gradient(to right,var(--rp-accent) 0%,var(--rp-accent) '+pct+'%,var(--rp-track) '+pct+'%,var(--rp-track) 100%)'}
+  function updateTimes(){timeCur.textContent=fmt(audio.currentTime);timeRem.textContent='-'+fmt((audio.duration||0)-audio.currentTime);if(!seeking&&audio.duration)seek.value=(audio.currentTime/audio.duration)*100;fillTrack()}
+  function currentIndex(){var t=audio.currentTime*1000;for(var i=chapters.length-1;i>=0;i--)if(t>=chapters[i].start_ms)return i;return 0}
+  function updateNow(){if(!chapters.length)return;var ch=chapters[currentIndex()];if(ch)now.textContent=ch.title}
+  function initChapters(d){chapters=(d&&d.chapters)||[];updateNow()}
+  if(window.ATLAS_CHAPTERS_DATA){initChapters(window.ATLAS_CHAPTERS_DATA)}
+  else{fetch(player.dataset.chapters).then(function(r){return r.json()}).then(initChapters).catch(function(){if(window.ATLAS_CHAPTERS_DATA)initChapters(window.ATLAS_CHAPTERS_DATA);else now.textContent=''})}
+  audio.addEventListener('loadedmetadata',function(){updateTimes();updateNow()});
+  audio.addEventListener('timeupdate',function(){updateTimes();updateNow()});
+  audio.addEventListener('play',function(){playIcon.innerHTML=PAUSE_ICON});
+  audio.addEventListener('pause',function(){playIcon.innerHTML=PLAY_ICON});
+  audio.addEventListener('ended',function(){playIcon.innerHTML=PLAY_ICON});
+  playBtn.addEventListener('click',function(){if(audio.paused)audio.play();else audio.pause()});
+  seek.addEventListener('input',function(){seeking=true;if(audio.duration){audio.currentTime=(this.value/100)*audio.duration;timeCur.textContent=fmt(audio.currentTime);timeRem.textContent='-'+fmt(audio.duration-audio.currentTime);fillTrack()}});
+  seek.addEventListener('change',function(){seeking=false});
+  prevBtn.addEventListener('click',function(){if(!chapters.length)return;var t=audio.currentTime*1000,idx=currentIndex();if(t-chapters[idx].start_ms<3000&&idx>0)idx--;audio.currentTime=chapters[idx].start_ms/1000;updateNow()});
+  nextBtn.addEventListener('click',function(){if(!chapters.length)return;var idx=Math.min(chapters.length-1,currentIndex()+1);audio.currentTime=chapters[idx].start_ms/1000;updateNow()});
+  backBtn.addEventListener('click',function(){audio.currentTime=Math.max(0,audio.currentTime-10)});
+  fwdBtn.addEventListener('click',function(){audio.currentTime=Math.min(audio.duration||9999,audio.currentTime+10)});
+  document.querySelectorAll('.radio-speed-btn').forEach(function(b){b.addEventListener('click',function(){audio.playbackRate=parseFloat(this.dataset.rate);document.querySelectorAll('.radio-speed-btn').forEach(function(x){x.classList.remove('active')});this.classList.add('active')})});
+})();
+</script>
 
 <!-- 企業概要（折りたたみ） -->
 <div class="ov-drop" id="ovDrop">
@@ -1099,8 +1204,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <!-- 株価 -->
   <div class="l1-price no-currency">
     <div class="l1-price-cell">
-      <div class="lbl">現在株価（4/24終値）</div>
-      <div class="val">$90.17</div>
+      <div class="lbl">現在株価（4/27終値）</div>
+      <div class="val">$90.45</div>
     </div>
     <div class="l1-price-cell">
       <div class="lbl">52週レンジ</div>
@@ -1425,8 +1530,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
   <div class="sec3-body">
     <div class="cardx-grid">
       <div class="cardx no-currency">
-        <div class="cardx-lbl">現在株価（4/24終値）</div>
-        <div class="cardx-val neg">$90.17</div>
+        <div class="cardx-lbl">現在株価（4/27終値）</div>
+        <div class="cardx-val neg">$90.45</div>
         <div class="cardx-sub">決算翌日 -15.2% 急落 → 翌日 +6.36% リバウンド</div>
       </div>
       <div class="cardx no-currency">
@@ -1436,8 +1541,8 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
       <div class="cardx">
         <div class="cardx-lbl">時価総額</div>
-        <div class="cardx-val neu"><span class="no-currency">$92.99B</span></div>
-        <div class="cardx-sub">1.03B株（分割後）× $90.17 / YoY <strong>-45.3%</strong></div>
+        <div class="cardx-val neu"><span class="no-currency">$93.28B</span></div>
+        <div class="cardx-sub">1.03B株（分割後）× $90.45 / YoY <strong>-45.3%</strong></div>
       </div>
       <div class="cardx">
         <div class="cardx-lbl">RSI（14日）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">RSI（Relative Strength Index）</span><span class="tip-body">買われ過ぎ・売られ過ぎを示す指標。70超で「過熱」、30以下で「売られ過ぎ」の目安。NOW は決算前 50 台中立 → -15% 急落で 30 台売られ過ぎ圏へ → 翌日リバウンドで 40 台。</span></span></div>
@@ -1471,7 +1576,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
     </div>
     <div class="insight no-currency" style="margin-top:14px">
-      <div class="insight-body"><strong>チャートパターン:</strong> ServiceNow は 2025年12月17日の <strong>5-for-1 株式分割</strong>後、分割換算で 2026年1月に <strong>$211 の 52週高値</strong>を付けた後、SaaS全般の調整（DOGE懸念・AIコモディティ化議論）に巻き込まれて<strong>5ヶ月で半減</strong>。Q1 決算で -15.2% を加えた現在の株価 <strong>$90.17</strong> は、52週安値 <strong>$81.24</strong> から +11% 程度の位置にあり、底入れ判定にはまだ早い水準です。<br><br><strong>総合判定: 弱気（Bearish）但し売られ過ぎ反発局面</strong> — ①50日SMA・200日SMA 双方を大きく下抜けた長期弱気トレンド、②YTD -44% という大幅下落、③決算後の-15.2% ギャップダウン、④Q2 cRPO 17.3% ガイダンスへの市場の織り込み完了が必要、⑤ Armis 統合に伴う通年マージン圧迫 — の5点が重石。一方、<strong>翌日 +6.36%</strong> のリバウンドが入っており、$81 の 52週安値が直接的サポートとして機能するか試される局面。<br><br><strong>短期トレーダー</strong>は $81-$85 ゾーンでの底値確認後の反発狙い、<strong>中長期投資家</strong>はファンダメンタルズ（cRPO $12.64B、AI ACV $1.5B、Fortune 500 の 85%+ 顧客基盤）に対して<strong>Forward PER 20.78x</strong>という歴史的低位の評価まで来ているため、52週安値割れの押し目を分散買い場と捉える戦略は妥当。アナリスト 32名のコンセンサス目標株価は <strong>$185.45</strong>（現在比 +106%）と強気維持。</div>
+      <div class="insight-body"><strong>チャートパターン:</strong> ServiceNow は 2025年12月17日の <strong>5-for-1 株式分割</strong>後、分割換算で 2026年1月に <strong>$211 の 52週高値</strong>を付けた後、SaaS全般の調整（DOGE懸念・AIコモディティ化議論）に巻き込まれて<strong>5ヶ月で半減</strong>。Q1 決算で -15.2% を加えた現在の株価 <strong>$90.45</strong> は、52週安値 <strong>$81.24</strong> から +11% 程度の位置にあり、底入れ判定にはまだ早い水準です。<br><br><strong>総合判定: 弱気（Bearish）但し売られ過ぎ反発局面</strong> — ①50日SMA・200日SMA 双方を大きく下抜けた長期弱気トレンド、②YTD -44% という大幅下落、③決算後の-15.2% ギャップダウン、④Q2 cRPO 17.3% ガイダンスへの市場の織り込み完了が必要、⑤ Armis 統合に伴う通年マージン圧迫 — の5点が重石。一方、<strong>翌日 +6.36%</strong> のリバウンドが入っており、$81 の 52週安値が直接的サポートとして機能するか試される局面。<br><br><strong>短期トレーダー</strong>は $81-$85 ゾーンでの底値確認後の反発狙い、<strong>中長期投資家</strong>はファンダメンタルズ（cRPO $12.64B、AI ACV $1.5B、Fortune 500 の 85%+ 顧客基盤）に対して<strong>Forward PER 20.85x</strong>という歴史的低位の評価まで来ているため、52週安値割れの押し目を分散買い場と捉える戦略は妥当。アナリスト 32名のコンセンサス目標株価は <strong>$185.45</strong>（現在比 +106%）と強気維持。</div>
     </div>
     <div class="chart-box" style="padding:16px;margin-top:16px">
       <div class="tradingview-widget-container">
@@ -1556,7 +1661,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           <li>更新率 <strong>97%</strong>・cRPO $12.64B（cc +21%）／ RPO $27.7B（cc +23.5%）の予測可能性</li>
           <li>Fortune 500 の <strong>85%以上</strong>を顧客に持つ調達優位／$5M+ ACV 顧客 630社（YoY +22%）</li>
           <li>DOGE のコスト削減推進が逆に <strong>ServiceNow の効率化提案を後押し</strong>（CFO 発言）</li>
-          <li>Forward PER <strong>20.78x</strong> という歴史的低位／アナリスト目標株価 $185.45（+106% 上昇余地）</li>
+          <li>Forward PER <strong>20.85x</strong> という歴史的低位／アナリスト目標株価 $185.45（+106% 上昇余地）</li>
           <li>自社株買い継続（残り授権 $4.2B）／現金・有価証券 $11B+ の堅固な財務体質</li>
         </ul>
         <button class="risk-toggle" onclick="toggleRisk(this)"><span class="lbl">さらに5件を表示</span><span class="chev">▾</span></button>
@@ -1605,7 +1710,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </tbody>
     </table>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body"><strong>トレンド方向: 本決算は強気・先行指標は鈍化</strong> — Q1 2026 の本決算項目は<strong>すべての主要指標がガイダンスを上回る</strong>強い結果でした：サブスク売上 ガイ超過、cRPO ガイ +50bps 超過、Non-GAAP OPM ガイ +50bps 超過、Non-GAAP EPS YoY +20%、$5M+ NNACV 取引 +約80% 等。さらに通年サブスク売上ガイダンスを <strong>+$205M 上方修正</strong>、AI 関連 ACV 目標を <strong>$1B → $1.5B</strong> へ +50% 上方修正。<br><br>しかし市場は<strong>「先行指標の鈍化」を一切容赦しない</strong>姿勢を示し、Q2 cRPO 成長率 cc +17.3% ガイダンス（直前トレンド +19% から低下）を主因に翌日 -15.2% 急落。これは「成長率20%維持」という心理的な聖域を破ることへの拒絶反応であり、Armis 買収によるマージン下方修正が同時発表されたことで、市場心理に「<strong>20%成長と高利益率の両立崩壊シナリオ</strong>」が刻まれました。中長期視点では、Forward PER 20.78x（過去最低水準）と顧客基盤の堅固さがバリュエーションのフロアを形成しています。</div>
+      <div class="insight-body"><strong>トレンド方向: 本決算は強気・先行指標は鈍化</strong> — Q1 2026 の本決算項目は<strong>すべての主要指標がガイダンスを上回る</strong>強い結果でした：サブスク売上 ガイ超過、cRPO ガイ +50bps 超過、Non-GAAP OPM ガイ +50bps 超過、Non-GAAP EPS YoY +20%、$5M+ NNACV 取引 +約80% 等。さらに通年サブスク売上ガイダンスを <strong>+$205M 上方修正</strong>、AI 関連 ACV 目標を <strong>$1B → $1.5B</strong> へ +50% 上方修正。<br><br>しかし市場は<strong>「先行指標の鈍化」を一切容赦しない</strong>姿勢を示し、Q2 cRPO 成長率 cc +17.3% ガイダンス（直前トレンド +19% から低下）を主因に翌日 -15.2% 急落。これは「成長率20%維持」という心理的な聖域を破ることへの拒絶反応であり、Armis 買収によるマージン下方修正が同時発表されたことで、市場心理に「<strong>20%成長と高利益率の両立崩壊シナリオ</strong>」が刻まれました。中長期視点では、Forward PER 20.85x（過去最低水準）と顧客基盤の堅固さがバリュエーションのフロアを形成しています。</div>
     </div>
   </div>
 </section>
@@ -1637,7 +1742,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
 
     <!-- 補助メトリクス (Forward PER のみ) -->
     <div class="cardx-grid" style="margin-top:18px;grid-template-columns:minmax(220px,340px)">
-      <div class="cardx"><div class="cardx-lbl">Forward PER（FY26E）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Forward PER</span><span class="tip-body">株価を次期EPS予想で割った値。低いほど割安、高いほど割高の目安。SaaS高成長銘柄は通常 30x 以上で取引されるが、ServiceNow は決算後ショックで歴史的低位の 20.78x に。</span></span></div><div class="cardx-val neu">~20.78x</div><div class="cardx-sub">FY26E EPS ~$4.34（コンセ水準）／<strong>過去5年で最低水準</strong></div></div>
+      <div class="cardx"><div class="cardx-lbl">Forward PER（FY26E）<span class="info" tabindex="0" onclick="tipToggle(this)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="7.5" x2="8" y2="11.5"/><circle cx="8" cy="4.8" r=".65" fill="currentColor" stroke="none"/></svg></span><span class="tip-pop"><span class="tip-title">Forward PER</span><span class="tip-body">株価を次期EPS予想で割った値。低いほど割安、高いほど割高の目安。SaaS高成長銘柄は通常 30x 以上で取引されるが、ServiceNow は決算後ショックで歴史的低位の 20.85x に。</span></span></div><div class="cardx-val neu">~20.85x</div><div class="cardx-sub">FY26E EPS ~$4.34（コンセ水準）／<strong>過去5年で最低水準</strong></div></div>
     </div>
 
     <!-- 価格ポジション + 読み解き + 注意喚起 を一体化 -->
@@ -1649,12 +1754,12 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
           <div class="val-gauge-mark" style="left:0%"><div class="lbl">LOW</div><div class="amt">$78</div></div>
           <div class="val-gauge-mark" style="left:39.0%"><div class="lbl">MID</div><div class="amt">$110</div></div>
           <div class="val-gauge-mark" style="left:100%"><div class="lbl">HIGH</div><div class="amt">$160</div></div>
-          <div class="val-gauge-current" style="left:14.8%"><div class="cur-label">現在 $90.17</div></div>
+          <div class="val-gauge-current" style="left:14.8%"><div class="cur-label">現在 $90.45</div></div>
         </div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="insight">
-        <div class="insight-body"><strong>読み解き:</strong> 現在株価 $90.17 は、LOW シナリオ $78（-13.5%）と MID シナリオ $110（+22%）の間で、<strong>LOW 寄りの「悲観織り込み」ゾーン</strong>に位置。Forward PER <strong>20.78x</strong> という水準は、ServiceNow が過去5年で経験したことのない歴史的低位で、業界平均の SaaS 大型成長株（一般に PER 30-40x）から見ても明らかにディスカウント評価です。<br><br>ここから上昇するには ①Q2 cRPO 実績が <strong>cc +20% 台</strong>に回帰する確認（ガイ +17.3% のビート幅が鍵）、②Armis 統合の進捗とマージン正常化（2027年見通し）の信頼性、③AI 関連 ACV $1.5B 目標達成の四半期トラッキング、④米連邦政府部門の DOGE 影響の織り込み完了、⑤大型案件パイプライン（$5M+ NNACV）の継続成長、が必要。<br><br>アナリスト 32名のコンセンサス目標株価 <strong>$185.45</strong>（現在比 +106%）はマルチプル回帰前提の楽観値ですが、Strong Buy/Buy が大半を占める強気優勢は維持されています。<strong>下方リスク</strong>は Q2 cRPO 実績の追加悪化・Salesforce/Microsoft によるエージェント侵食加速・米連邦政府削減拡大。<strong>上方リスク</strong>は AI ACV $1.5B 達成・Armis 統合早期正常化・SaaS 全般のマルチプル回復。</div>
+        <div class="insight-body"><strong>読み解き:</strong> 現在株価 $90.45 は、LOW シナリオ $78（-13.5%）と MID シナリオ $110（+22%）の間で、<strong>LOW 寄りの「悲観織り込み」ゾーン</strong>に位置。Forward PER <strong>20.85x</strong> という水準は、ServiceNow が過去5年で経験したことのない歴史的低位で、業界平均の SaaS 大型成長株（一般に PER 30-40x）から見ても明らかにディスカウント評価です。<br><br>ここから上昇するには ①Q2 cRPO 実績が <strong>cc +20% 台</strong>に回帰する確認（ガイ +17.3% のビート幅が鍵）、②Armis 統合の進捗とマージン正常化（2027年見通し）の信頼性、③AI 関連 ACV $1.5B 目標達成の四半期トラッキング、④米連邦政府部門の DOGE 影響の織り込み完了、⑤大型案件パイプライン（$5M+ NNACV）の継続成長、が必要。<br><br>アナリスト 32名のコンセンサス目標株価 <strong>$185.45</strong>（現在比 +106%）はマルチプル回帰前提の楽観値ですが、Strong Buy/Buy が大半を占める強気優勢は維持されています。<strong>下方リスク</strong>は Q2 cRPO 実績の追加悪化・Salesforce/Microsoft によるエージェント侵食加速・米連邦政府削減拡大。<strong>上方リスク</strong>は AI ACV $1.5B 達成・Armis 統合早期正常化・SaaS 全般のマルチプル回復。</div>
       </div>
       <div class="panel-merge-divider"></div>
       <div class="val-reminder">
@@ -1696,7 +1801,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="ntm-foot">
         <div class="ntm-foot-cell">
           <div class="lbl">現株価</div>
-          <div class="val">$90.17</div>
+          <div class="val">$90.45</div>
         </div>
         <div class="ntm-foot-cell">
           <div class="lbl">乖離率</div>
@@ -1724,7 +1829,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       <div class="cardx no-currency">
         <div class="cardx-lbl">平均目標株価</div>
         <div class="cardx-val pos">$185.45</div>
-        <div class="cardx-sub">現在株価 $90.17 から <strong>+106%</strong> 上振れ余地</div>
+        <div class="cardx-sub">現在株価 $90.45 から <strong>+106%</strong> 上振れ余地</div>
       </div>
       <div class="cardx no-currency">
         <div class="cardx-lbl">目標株価レンジ</div>
@@ -1738,7 +1843,7 @@ html[data-theme="light"] .atlas-nav-username{color:#1A2540}
       </div>
     </div>
     <div class="insight" style="margin-top:14px">
-      <div class="insight-body"><strong>Q1決算後の主要アナリスト論調:</strong> アナリスト 32名のコンセンサスは引き続き <strong>Strong Buy 優勢</strong>で、平均目標株価 $185.45 は現在株価から +106% という大きな上振れ余地を示します。決算後の論調は二極化：<strong>強気派（JPMorgan・Morgan Stanley・Wedbush 等）</strong>は「Forward PER 20.78x という歴史的低位は買い場」「AI ACV $1.5B 上方修正は構造的強気要因」「$15M+ 純新規ロゴ案件は成長余力の証左」と評価。<strong>慎重派（Stifel・Bernstein 等）</strong>は「米連邦政府ソフトウェア支出が DOGE で meaningfully weaker」「Armis 統合に伴うマージン圧迫が市場の許容水準を超える」「Q2 cRPO 17.3% は cc 20% 維持の連続性を断つ」として PT を引き下げ。<br><br>共通する判断軸は、<strong>「Q2 の cRPO 実績が再び 20%台に戻れるか」</strong>です。これが達成されれば「ガイダンスの保守性」として正常化シナリオが復活、未達ならマルチプル圧迫が継続。次の決算（7月予定）が中期的な株価方向性の最大の変曲点になります。</div>
+      <div class="insight-body"><strong>Q1決算後の主要アナリスト論調:</strong> アナリスト 32名のコンセンサスは引き続き <strong>Strong Buy 優勢</strong>で、平均目標株価 $185.45 は現在株価から +106% という大きな上振れ余地を示します。決算後の論調は二極化：<strong>強気派（JPMorgan・Morgan Stanley・Wedbush 等）</strong>は「Forward PER 20.85x という歴史的低位は買い場」「AI ACV $1.5B 上方修正は構造的強気要因」「$15M+ 純新規ロゴ案件は成長余力の証左」と評価。<strong>慎重派（Stifel・Bernstein 等）</strong>は「米連邦政府ソフトウェア支出が DOGE で meaningfully weaker」「Armis 統合に伴うマージン圧迫が市場の許容水準を超える」「Q2 cRPO 17.3% は cc 20% 維持の連続性を断つ」として PT を引き下げ。<br><br>共通する判断軸は、<strong>「Q2 の cRPO 実績が再び 20%台に戻れるか」</strong>です。これが達成されれば「ガイダンスの保守性」として正常化シナリオが復活、未達ならマルチプル圧迫が継続。次の決算（7月予定）が中期的な株価方向性の最大の変曲点になります。</div>
     </div>
   </div>
 </section>
